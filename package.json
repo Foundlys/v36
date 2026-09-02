@@ -1,0 +1,13 @@
+{
+  "name": "foundly-os",
+  "version": "4.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --check server.js && node --check index-script.js && node --check smoke-test.js && node --check production-audit.js && node smoke-test.js && node production-audit.js",
+    "audit": "node production-audit.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

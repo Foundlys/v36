@@ -1,0 +1,22 @@
+
+> foundly-os@4.1.0 test
+> node --check server.js && node --check index-script.js && node --check smoke-test.js && node --check production-audit.js && node smoke-test.js && node production-audit.js
+
+{
+  "ok": true,
+  "version": "4.1.0",
+  "oauth_state": "pass",
+  "persistence": "pass",
+  "orchestration": "pass",
+  "runtime_connectors": "pass",
+  "ui_actions": "pass",
+  "base_connectors": 93
+}
+{
+  "ok": true,
+  "version": "4.1.0",
+  "connectors_audited": 93,
+  "status_contract": "pass",
+  "dedicated_routes": "pass",
+  "ui_contract": "pass"
+}

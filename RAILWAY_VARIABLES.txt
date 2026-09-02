@@ -1,0 +1,67 @@
+# FOUNDLY OS v4.1.0 — Railway RAW Editor template
+# Replace <...> values. Never commit real secrets to GitHub.
+
+NODE_ENV=production
+PORT=8080
+FOUNDLY_DATA_DIR=/data
+FOUNDLY_WORKER_INTERVAL_MS=300000
+
+# Core security — REQUIRED for OAuth/token storage
+FOUNDLY_ENCRYPTION_KEY=<GENERATE_A_LONG_RANDOM_SECRET>
+GOOGLE_TOKEN_ENCRYPTION_KEY=<GENERATE_A_LONG_RANDOM_SECRET>
+GOOGLE_OAUTH_STATE_SECRET=<GENERATE_A_LONG_RANDOM_SECRET>
+CONNECTOR_OAUTH_STATE_SECRET=<GENERATE_A_LONG_RANDOM_SECRET>
+
+# OpenAI
+OPENAI_API_KEY=<OPENAI_API_KEY>
+FOUNDLY_AI_MODEL=gpt-5.6
+FOUNDLY_SEARCH_MODEL=gpt-5.6
+FOUNDLY_AI_BASE_URL=https://api.openai.com/v1
+
+# Google
+GOOGLE_CLIENT_ID=<GOOGLE_CLIENT_ID>
+GOOGLE_CLIENT_SECRET=<GOOGLE_CLIENT_SECRET>
+GOOGLE_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/google/oauth/callback
+GOOGLE_ADS_DEVELOPER_TOKEN=<GOOGLE_ADS_DEVELOPER_TOKEN>
+GOOGLE_ADS_LOGIN_CUSTOMER_ID=<GOOGLE_ADS_MANAGER_CUSTOMER_ID>
+GA4_PROPERTY_ID=<GA4_PROPERTY_ID>
+
+# Meta / Facebook / Instagram / Meta Ads
+META_APP_ID=<META_APP_ID>
+META_APP_SECRET=<META_APP_SECRET>
+META_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/connect/meta/callback
+META_GRAPH_VERSION=v23.0
+META_SCOPES=public_profile,ads_read,ads_management,business_management,pages_show_list,pages_read_engagement
+META_EXTRA_SCOPES=
+META_ALLOW_UNREVIEWED_SCOPES=false
+META_WEBHOOK_VERIFY_TOKEN=<RANDOM_VERIFY_TOKEN>
+
+# WhatsApp — leave empty until a WhatsApp Business account/number exists
+WHATSAPP_ACCESS_TOKEN=
+WHATSAPP_PHONE_NUMBER_ID=
+WHATSAPP_VERIFY_TOKEN=
+
+# LinkedIn
+LINKEDIN_CLIENT_ID=
+LINKEDIN_CLIENT_SECRET=
+LINKEDIN_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/connect/linkedin/callback
+LINKEDIN_SCOPES=openid profile email
+
+# TikTok
+TIKTOK_CLIENT_KEY=
+TIKTOK_CLIENT_SECRET=
+TIKTOK_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/connect/tiktok/callback
+TIKTOK_SCOPES=user.info.basic
+
+# E-mail
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASSWORD=
+
+# DMS
+DMS_API_URL=
+DMS_HEALTH_URL=
+DMS_API_KEY=
+
+# Optional provider credentials are listed in .env.example.
