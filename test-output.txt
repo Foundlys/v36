@@ -1,22 +1,8 @@
+Foundly OS v4.2.0
+npm test: PASS
 
-> foundly-os@4.1.0 test
-> node --check server.js && node --check index-script.js && node --check smoke-test.js && node --check production-audit.js && node smoke-test.js && node production-audit.js
+Smoke: OAuth state, persistence/restart, orchestration, runtime sync ingestion, workers, UI contracts — PASS
+Audit: 93 profile/status contracts and dedicated routes — PASS
+Security: authentication, secret exposure, tenant header isolation, SSRF guard, readiness, worker retry — PASS
 
-{
-  "ok": true,
-  "version": "4.1.0",
-  "oauth_state": "pass",
-  "persistence": "pass",
-  "orchestration": "pass",
-  "runtime_connectors": "pass",
-  "ui_actions": "pass",
-  "base_connectors": 93
-}
-{
-  "ok": true,
-  "version": "4.1.0",
-  "connectors_audited": 93,
-  "status_contract": "pass",
-  "dedicated_routes": "pass",
-  "ui_contract": "pass"
-}
+External provider credentials and approvals are not simulated and are not marked connected by this suite.

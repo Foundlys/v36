@@ -1,10 +1,20 @@
-# FOUNDLY OS v4.1.0 — Railway RAW Editor template
+# FOUNDLY OS v4.2.0 — Railway RAW Editor template
 # Replace <...> values. Never commit real secrets to GitHub.
 
 NODE_ENV=production
 PORT=8080
 FOUNDLY_DATA_DIR=/data
 FOUNDLY_WORKER_INTERVAL_MS=300000
+FOUNDLY_PUBLIC_BASE_URL=https://v36-production.up.railway.app
+FOUNDLY_ADMIN_USERNAME=foundly
+FOUNDLY_ADMIN_PASSWORD=<GENERATE_A_LONG_RANDOM_PASSWORD>
+FOUNDLY_TENANT_ID=default
+FOUNDLY_DEALER_ID=default
+FOUNDLY_REQUEST_TIMEOUT_MS=12000
+FOUNDLY_RATE_LIMIT_PER_MINUTE=240
+FOUNDLY_MAX_RECORDS_PER_SCOPE=5000
+FOUNDLY_MAX_TASKS_PER_SCOPE=2000
+FOUNDLY_CONNECTOR_ALLOWED_HOSTS=graph.facebook.com,accounts.google.com,oauth2.googleapis.com,openidconnect.googleapis.com,www.googleapis.com,analyticsadmin.googleapis.com,analyticsdata.googleapis.com,googleads.googleapis.com,www.linkedin.com,api.linkedin.com,www.tiktok.com,open.tiktokapis.com,opendata.rdw.nl,www.ecb.europa.eu,api.openai.com,api.marktplaats.nl,auth.marktplaats.nl,services.mobile.de
 
 # Core security — REQUIRED for OAuth/token storage
 FOUNDLY_ENCRYPTION_KEY=<GENERATE_A_LONG_RANDOM_SECRET>
@@ -21,7 +31,7 @@ FOUNDLY_AI_BASE_URL=https://api.openai.com/v1
 # Google
 GOOGLE_CLIENT_ID=<GOOGLE_CLIENT_ID>
 GOOGLE_CLIENT_SECRET=<GOOGLE_CLIENT_SECRET>
-GOOGLE_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/google/oauth/callback
+GOOGLE_REDIRECT_URI=https://v36-production.up.railway.app/api/google/oauth/callback
 GOOGLE_ADS_DEVELOPER_TOKEN=<GOOGLE_ADS_DEVELOPER_TOKEN>
 GOOGLE_ADS_LOGIN_CUSTOMER_ID=<GOOGLE_ADS_MANAGER_CUSTOMER_ID>
 GA4_PROPERTY_ID=<GA4_PROPERTY_ID>
@@ -29,7 +39,7 @@ GA4_PROPERTY_ID=<GA4_PROPERTY_ID>
 # Meta / Facebook / Instagram / Meta Ads
 META_APP_ID=<META_APP_ID>
 META_APP_SECRET=<META_APP_SECRET>
-META_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/connect/meta/callback
+META_REDIRECT_URI=https://v36-production.up.railway.app/api/connect/meta/callback
 META_GRAPH_VERSION=v23.0
 META_SCOPES=public_profile,ads_read,ads_management,business_management,pages_show_list,pages_read_engagement
 META_EXTRA_SCOPES=
@@ -44,13 +54,13 @@ WHATSAPP_VERIFY_TOKEN=
 # LinkedIn
 LINKEDIN_CLIENT_ID=
 LINKEDIN_CLIENT_SECRET=
-LINKEDIN_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/connect/linkedin/callback
+LINKEDIN_REDIRECT_URI=https://v36-production.up.railway.app/api/connect/linkedin/callback
 LINKEDIN_SCOPES=openid profile email
 
 # TikTok
 TIKTOK_CLIENT_KEY=
 TIKTOK_CLIENT_SECRET=
-TIKTOK_REDIRECT_URI=https://foundly-pro-v4-production.up.railway.app/api/connect/tiktok/callback
+TIKTOK_REDIRECT_URI=https://v36-production.up.railway.app/api/connect/tiktok/callback
 TIKTOK_SCOPES=user.info.basic
 
 # E-mail

@@ -15,8 +15,8 @@ async function req(url,opts={}){const r=await fetch(base+url,opts);const text=aw
 async function main(){
   await start();
   let x=await req('/');assert.equal(x.r.status,200);assert(String(x.text).includes('Foundly OS v4.1'));
-  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.1.0');assert.equal(x.data.total_connectors,93);assert.equal(x.data.persistent_state,true);assert.equal(x.data.worker_enabled,true);
-  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.1.0');assert.equal(x.data.oauth_state.mode,'opaque_persistent');assert.equal(x.data.encryption.configured,true);
+  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.2.0');assert(!('data_dir'in x.data));
+  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.2.0');assert.equal(x.data.oauth_state.mode,'opaque_persistent_one_time');assert.equal(x.data.encryption.configured,true);assert(!JSON.stringify(x.data).includes('test-secret'));assert(!JSON.stringify(x.data).includes('secret_fingerprint'));
 
   // Durable OAuth state: start returns opaque state, callback consumes it once, replay is rejected.
   x=await req('/api/connect/meta?return_to=/?open=integraties',{redirect:'manual'});assert.equal(x.r.status,302);const loc=x.r.headers.get('location');assert(loc&&loc.includes('facebook.com'));const state=new URL(loc).searchParams.get('state');assert(state&&state.length>20&&!state.includes('.'));
@@ -33,7 +33,7 @@ async function main(){
   // Commands execute internal actions and expose execution metadata.
   x=await req('/api/core/command',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({message:'maak follow-up taak voor klant Jan'})});assert.equal(x.r.status,200);assert.equal(x.data.ok,true);assert(x.data.actions.some(a=>a.type==='create_task'&&a.status==='executed'));assert(!x.data.actions.some(a=>a.type==='create_lead'));
   x=await req('/api/core/command',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({message:'registreer nieuwe lead Jan, jan@example.com'})});assert.equal(x.r.status,200);assert(x.data.actions.some(a=>a.type==='create_lead'&&a.status==='executed'));
-  x=await req('/api/workers/tick',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});assert.equal(x.r.status,200);assert.equal(x.data.ok,true);assert(x.data.processed.some(t=>t.type==='follow_up'&&t.status==='completed'));
+  x=await req('/api/workers/tick',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});assert.equal(x.r.status,200);assert.equal(x.data.ok,true);assert(x.data.processed.some(t=>t.type==='follow_up'&&t.status==='SUCCEEDED'));
   x=await req('/api/events');assert.equal(x.r.status,200);assert(x.data.events.some(e=>e.type==='command'));assert(x.data.events.some(e=>e.type==='sync'));
 
   // Persist core state, restart, and verify data survives.
@@ -52,6 +52,6 @@ async function main(){
   assert(html.includes("BACKEND_MODULE={social:'social_media',google:'google_ads'}"));
   assert(html.includes('/api/core/command'));assert(html.includes('/api/integration-sync/'));assert(html.includes('/api/events'));
   assert(!html.includes('EU listings scanner verwerkt nieuwe voertuigen'),'fake event stream still present');
-  console.log(JSON.stringify({ok:true,version:'4.1.0',oauth_state:'pass',persistence:'pass',orchestration:'pass',runtime_connectors:'pass',ui_actions:'pass',base_connectors:93},null,2));
+  console.log(JSON.stringify({ok:true,version:'4.2.0',oauth_state:'pass',persistence:'pass',orchestration:'pass',runtime_connectors:'pass',ui_actions:'pass',base_connectors:93},null,2));
 }
 main().catch(e=>{console.error(logs);console.error(e);process.exitCode=1}).finally(async()=>{await stop()});
