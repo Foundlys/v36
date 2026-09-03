@@ -1,4 +1,4 @@
-# Foundly OS v4.2.0 — Production Hardening Release
+# Foundly OS v4.2.1 — OAuth Callback Transaction Fix
 
 ## Mandatory production gates
 
@@ -14,7 +14,9 @@ Production now fails `/api/ready` until all core controls are proven:
 
 Runtime connector URLs are HTTPS-only in production, protected against private/link-local targets and optionally restricted by `FOUNDLY_CONNECTOR_ALLOWED_HOSTS`. Add an official provider hostname to that allowlist before enabling a new runtime connector.
 
-Foundly OS v4.2.0 is a production-hardening build. It keeps the 12-engine interface and the 93-provider base registry, but replaces the remaining demo-like behavior with persistent state, post-connect bootstrapping, real sync ingestion, a command orchestrator and actual worker execution.
+Foundly OS v4.2.1 is a production-hardening build. It keeps the 12-engine interface and the 93-provider base registry, but replaces the remaining demo-like behavior with persistent state, post-connect bootstrapping, real sync ingestion, a command orchestrator and actual worker execution.
+
+OAuth callbacks for Meta, Google, LinkedIn and TikTok are explicitly routed before the Basic Auth middleware. State tokens are stored only as SHA-256 hashes, HMAC-bound to provider, tenant, dealer, return path and TTL, and move transactionally through `PENDING`, `PROCESSING` and `USED`. A transient exchange failure releases the processing lease for a safe retry; successful or definitive exchanges are replay-proof. On Railway, OAuth start is refused when the state datastore is not a proven writable persistent volume.
 
 ## What is fixed in this build
 
@@ -49,7 +51,7 @@ Foundly distinguishes between work it actually executed and advice. It does not 
 
 ### Persistence
 
-Previously the main engine records, memory and decisions lived in process memory. v4.2.0 persists:
+Previously the main engine records, memory and decisions lived in process memory. v4.2.1 persists:
 
 - module records;
 - AI memory;
@@ -88,7 +90,7 @@ Without a persistent Railway Volume, any disk-based application can still lose r
 3. Use `RAILWAY_VARIABLES.txt` as the Raw Editor template and insert the real credentials directly in Railway.
 4. Make sure the OAuth redirect URIs in Google/Meta/LinkedIn/TikTok exactly match the Railway URLs.
 5. Deploy.
-6. Railway should log: `Foundly OS v4.2.0 ONLINE op poort 8080`.
+6. Railway should log: `Foundly OS v4.2.1 ONLINE op poort 8080`.
 7. Open `/api/health` for the local health check.
 8. Open `/api/diagnostics/config` for configuration diagnostics.
 9. Open Foundly → Integraties → CONTROLEER ALLES.

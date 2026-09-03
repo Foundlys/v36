@@ -1,8 +1,9 @@
-Foundly OS v4.2.0
+Foundly OS v4.2.1
 npm test: PASS
 
 Smoke: OAuth state, persistence/restart, orchestration, runtime sync ingestion, workers, UI contracts — PASS
 Audit: 93 profile/status contracts and dedicated routes — PASS
 Security: authentication, secret exposure, tenant header isolation, SSRF guard, readiness, worker retry — PASS
+OAuth production regression: Basic Auth start, public callbacks, restart persistence, tenant binding, integrity, replay rejection, transient retry, encrypted tokens and bootstrap — PASS
 
 External provider credentials and approvals are not simulated and are not marked connected by this suite.

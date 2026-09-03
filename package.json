@@ -1,10 +1,10 @@
 {
   "name": "foundly-os",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "test": "node --check server.js && node --check index-script.js && node --check smoke-test.js && node --check production-audit.js && node --check production-security-test.js && node smoke-test.js && node production-audit.js && node production-security-test.js",
+    "test": "node --check server.js && node --check index-script.js && node --check smoke-test.js && node --check production-audit.js && node --check production-security-test.js && node --check oauth-production-regression-test.js && node --check test-oauth-fetch-mock.js && node smoke-test.js && node production-audit.js && node production-security-test.js && node oauth-production-regression-test.js",
     "audit": "node production-audit.js"
   },
   "engines": {

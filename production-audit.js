@@ -20,5 +20,5 @@ async function get(path,opts){const r=await fetch(base+path,opts);const text=awa
   const requiredApi=['/api/core/command','/api/integration-sync/','/api/google/connect','/api/connect/${dedicated}','/api/connector-runtime/test/','/api/connector-runtime/config/','/api/events','/api/workers/tick'];for(const token of requiredApi)assert(html.includes(token),`UI missing ${token}`);
   assert(!/OPENAI_API_KEY[^\n]{0,120}prompt/i.test(html),'OpenAI key still collected in browser');
   assert(!html.includes('setInterval(()=>addEvent(events['),'simulated event loop still exists');
-  console.log(JSON.stringify({ok:true,version:'4.2.0',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass'},null,2));
+  console.log(JSON.stringify({ok:true,version:'4.2.1',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass'},null,2));
 }catch(e){console.error(logs);console.error(e);process.exitCode=1}finally{child.kill('SIGTERM')}})();

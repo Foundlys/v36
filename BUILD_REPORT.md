@@ -1,6 +1,6 @@
-# Foundly OS v4.2.0 verification report
+# Foundly OS v4.2.1 verification report
 
-Date: 2026-09-02
+Date: 2026-09-03
 
 ## Locally proven
 
@@ -16,6 +16,10 @@ Date: 2026-09-02
 - SSRF host/scheme/private-network guard
 - secret-free diagnostics and liveness
 - Railway readiness fails when a separate persistent mount cannot be proven
+- production Basic Auth start plus public Meta/Google/LinkedIn/TikTok callbacks
+- restart survival between OAuth start and callback
+- hashed, HMAC-bound, tenant-bound state transactions and safe transient retries
+- encrypted token persistence, live-probe contract and bootstrap ingestion
 
 Run `npm test` for the full deterministic suite.
 

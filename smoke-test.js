@@ -14,14 +14,14 @@ async function stop(){if(!child)return;child.kill('SIGTERM');for(let i=0;i<30&&c
 async function req(url,opts={}){const r=await fetch(base+url,opts);const text=await r.text();let data;try{data=JSON.parse(text)}catch{data=text}return {r,data,text}}
 async function main(){
   await start();
-  let x=await req('/');assert.equal(x.r.status,200);assert(String(x.text).includes('Foundly OS v4.1'));
-  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.2.0');assert(!('data_dir'in x.data));
-  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.2.0');assert.equal(x.data.oauth_state.mode,'opaque_persistent_one_time');assert.equal(x.data.encryption.configured,true);assert(!JSON.stringify(x.data).includes('test-secret'));assert(!JSON.stringify(x.data).includes('secret_fingerprint'));
+  let x=await req('/');assert.equal(x.r.status,200);assert(String(x.text).includes('Foundly OS v4.2.1'));
+  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.2.1');assert(!('data_dir'in x.data));
+  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.2.1');assert.equal(x.data.oauth_state.mode,'hashed_hmac_bound_persistent_transaction');assert.equal(x.data.encryption.configured,true);assert(!JSON.stringify(x.data).includes('test-secret'));assert(!JSON.stringify(x.data).includes('secret_fingerprint'));
 
-  // Durable OAuth state: start returns opaque state, callback consumes it once, replay is rejected.
+  // Durable OAuth state: start returns only the opaque state; a callback without a code may not consume it.
   x=await req('/api/connect/meta?return_to=/?open=integraties',{redirect:'manual'});assert.equal(x.r.status,302);const loc=x.r.headers.get('location');assert(loc&&loc.includes('facebook.com'));const state=new URL(loc).searchParams.get('state');assert(state&&state.length>20&&!state.includes('.'));
-  x=await req(`/api/connect/meta/callback?state=${encodeURIComponent(state)}`,{redirect:'manual'});assert.equal(x.r.status,302);assert((x.r.headers.get('location')||'').includes('meta=error'));assert((x.r.headers.get('location')||'').includes('Authorization%20code'));
-  x=await req(`/api/connect/meta/callback?state=${encodeURIComponent(state)}`,{redirect:'manual'});assert.equal(x.r.status,302);assert((x.r.headers.get('location')||'').includes('OAuth%20state'));
+  const stateFile=path.join(tmp,'oauth-states-v2.json'),stateRaw=fs.readFileSync(stateFile,'utf8');assert(!stateRaw.includes(state));
+  x=await req(`/api/connect/meta/callback?state=${encodeURIComponent(state)}`,{redirect:'manual'});assert.equal(x.r.status,302);assert((x.r.headers.get('location')||'').includes('meta=error'));assert((x.r.headers.get('location')||'').includes('error_code=oauth_authorization_incomplete'));assert.equal(Object.values(JSON.parse(fs.readFileSync(stateFile,'utf8')))[0].status,'PENDING');
 
   // Runtime connector full lifecycle and ingest-through-sync.
   const profile={id:'self_test',naam:'Self Test',categorie:'test',auth_strategy:'public',connection_mode:'direct',base_url:base,health:{path:'/api/ping',method:'GET'},sync:{path:'/api/ping',method:'GET'},credential_fields:[],modules:['data'],capabilities:['connect','test','sync','data_ingest']};
@@ -52,6 +52,6 @@ async function main(){
   assert(html.includes("BACKEND_MODULE={social:'social_media',google:'google_ads'}"));
   assert(html.includes('/api/core/command'));assert(html.includes('/api/integration-sync/'));assert(html.includes('/api/events'));
   assert(!html.includes('EU listings scanner verwerkt nieuwe voertuigen'),'fake event stream still present');
-  console.log(JSON.stringify({ok:true,version:'4.2.0',oauth_state:'pass',persistence:'pass',orchestration:'pass',runtime_connectors:'pass',ui_actions:'pass',base_connectors:93},null,2));
+  console.log(JSON.stringify({ok:true,version:'4.2.1',oauth_state:'pass',persistence:'pass',orchestration:'pass',runtime_connectors:'pass',ui_actions:'pass',base_connectors:93},null,2));
 }
 main().catch(e=>{console.error(logs);console.error(e);process.exitCode=1}).finally(async()=>{await stop()});
