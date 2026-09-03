@@ -1,4 +1,4 @@
-# Foundly OS v4.3.0 — Source Truth & Provenance
+# Foundly OS v4.4.0 — Native Wix + Source Truth
 
 ## Mandatory production gates
 
@@ -14,15 +14,16 @@ Production now fails `/api/ready` until all core controls are proven:
 
 Runtime connector URLs are HTTPS-only in production, protected against private/link-local targets and optionally restricted by `FOUNDLY_CONNECTOR_ALLOWED_HOSTS`. Add an official provider hostname to that allowlist before enabling a new runtime connector.
 
-Foundly OS v4.3.0 keeps the production OAuth hardening and adds truthful per-engine datasource contracts plus record-level provenance. The Foundly Data Layer is identified as normalized cache/persistence, not as an independent external market source. An engine reports an external source as live only after a successful provider probe applicable to that engine.
+Foundly OS v4.4.0 keeps the production OAuth hardening and truthful datasource contracts, and makes Wix a native external app-install connector. Wix tokens and installation IDs are stored encrypted; connected status requires Wix token-info and app-instance probes.
 
-OAuth callbacks for Meta, Google, LinkedIn and TikTok are explicitly routed before the Basic Auth middleware. State tokens are stored only as SHA-256 hashes, HMAC-bound to provider, tenant, dealer, return path and TTL, and move transactionally through `PENDING`, `PROCESSING` and `USED`. A transient exchange failure releases the processing lease for a safe retry; successful or definitive exchanges are replay-proof. On Railway, OAuth start is refused when the state datastore is not a proven writable persistent volume.
+OAuth callbacks for Meta, Google, LinkedIn, TikTok and Wix are explicitly routed before the Basic Auth middleware. State tokens are stored only as SHA-256 hashes, HMAC-bound to provider, tenant, dealer, return path and TTL, and move transactionally through `PENDING`, `PROCESSING` and `USED`. A transient exchange failure releases the processing lease for a safe retry; successful or definitive exchanges are replay-proof. On Railway, OAuth start is refused when the state datastore is not a proven writable persistent volume.
 
 ## What is fixed in this build
 
 ### OAuth and integrations
 
-- Google, Meta, LinkedIn and TikTok use durable opaque OAuth states stored on disk. OAuth state is one-time, expires after 15 minutes and no longer depends on a signing secret remaining identical between the start and callback request.
+- Google, Meta, LinkedIn, TikTok and Wix use durable opaque OAuth states stored on disk. OAuth state is one-time and expires after 15 minutes.
+- Wix uses the native external app-install flow. Foundly verifies `signedInstance`, exchanges the installation `instanceId` server-side, probes token info and app instance data, and never asks for OAuth endpoints or credentials in the browser.
 - Meta uses `/api/connect/meta/callback`; Google uses `/api/google/oauth/callback`.
 - OAuth token storage is refused if no Foundly/Google encryption key is configured. Production credentials are not intentionally written unencrypted.
 - After a successful OAuth callback Foundly immediately performs a provider bootstrap instead of only displaying “connected”.
@@ -51,7 +52,7 @@ Foundly distinguishes between work it actually executed and advice. It does not 
 
 ### Persistence
 
-Previously the main engine records, memory and decisions lived in process memory. v4.3.0 persists:
+Previously the main engine records, memory and decisions lived in process memory. v4.4.0 persists:
 
 - module records;
 - AI memory;
@@ -88,9 +89,9 @@ Without a persistent Railway Volume, any disk-based application can still lose r
 1. Replace the old project files with this package.
 2. Attach a Railway Volume mounted at `/data`.
 3. Use `RAILWAY_VARIABLES.txt` as the Raw Editor template and insert the real credentials directly in Railway.
-4. Make sure the OAuth redirect URIs in Google/Meta/LinkedIn/TikTok exactly match the Railway URLs.
+4. Make sure the callback URLs for Google/Meta/LinkedIn/TikTok/Wix exactly match the Railway URLs.
 5. Deploy.
-6. Railway should log: `Foundly OS v4.3.0 ONLINE op poort 8080`.
+6. Railway should log: `Foundly OS v4.4.0 ONLINE op poort 8080`.
 7. Open `/api/health` for the local health check.
 8. Open `/api/diagnostics/config` for configuration diagnostics.
 9. Open Foundly → Integraties → CONTROLEER ALLES.

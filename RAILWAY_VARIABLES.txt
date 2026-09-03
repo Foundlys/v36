@@ -63,6 +63,13 @@ TIKTOK_CLIENT_SECRET=
 TIKTOK_REDIRECT_URI=https://v36-production.up.railway.app/api/connect/tiktok/callback
 TIKTOK_SCOPES=user.info.basic
 
+# Wix native external app-install flow
+WIX_APP_ID=
+WIX_APP_SECRET=
+# Required for an unlisted Wix app; GUID from the resolved share install link.
+WIX_SHARE_URL_ID=
+WIX_REDIRECT_URI=https://v36-production.up.railway.app/api/connect/wix/callback
+
 # E-mail
 SMTP_HOST=
 SMTP_PORT=587

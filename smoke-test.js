@@ -14,9 +14,9 @@ async function stop(){if(!child)return;child.kill('SIGTERM');for(let i=0;i<30&&c
 async function req(url,opts={}){const r=await fetch(base+url,opts);const text=await r.text();let data;try{data=JSON.parse(text)}catch{data=text}return {r,data,text}}
 async function main(){
   await start();
-  let x=await req('/');assert.equal(x.r.status,200);assert(String(x.text).includes('Foundly OS v4.3.0'));
-  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.3.0');assert(!('data_dir'in x.data));
-  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.3.0');assert.equal(x.data.oauth_state.mode,'hashed_hmac_bound_persistent_transaction');assert.equal(x.data.encryption.configured,true);assert(!JSON.stringify(x.data).includes('test-secret'));assert(!JSON.stringify(x.data).includes('secret_fingerprint'));
+  let x=await req('/');assert.equal(x.r.status,200);assert(String(x.text).includes('Foundly OS v4.4.0'));
+  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.4.0');assert(!('data_dir'in x.data));
+  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'4.4.0');assert.equal(x.data.oauth_state.mode,'hashed_hmac_bound_persistent_transaction');assert.equal(x.data.encryption.configured,true);assert(!JSON.stringify(x.data).includes('test-secret'));assert(!JSON.stringify(x.data).includes('secret_fingerprint'));
 
   // Durable OAuth state: start returns only the opaque state; a callback without a code may not consume it.
   x=await req('/api/connect/meta?return_to=/?open=integraties',{redirect:'manual'});assert.equal(x.r.status,302);const loc=x.r.headers.get('location');assert(loc&&loc.includes('facebook.com'));const state=new URL(loc).searchParams.get('state');assert(state&&state.length>20&&!state.includes('.'));
@@ -56,6 +56,6 @@ async function main(){
   assert(html.includes("BACKEND_MODULE={social:'social_media',google:'google_ads'}"));
   assert(html.includes('/api/core/command'));assert(html.includes('/api/integration-sync/'));assert(html.includes('/api/events'));
   assert(!html.includes('EU listings scanner verwerkt nieuwe voertuigen'),'fake event stream still present');assert(!html.includes('eigen datastroom'));assert(!html.includes('EIGEN DATABASE'));assert(html.includes('FOUNDLY DATA LAYER'));assert(html.includes('Live providerprobes'));
-  console.log(JSON.stringify({ok:true,version:'4.3.0',oauth_state:'pass',persistence:'pass',orchestration:'pass',runtime_connectors:'pass',source_contracts:'pass',provenance:'pass',ui_actions:'pass',base_connectors:93},null,2));
+  console.log(JSON.stringify({ok:true,version:'4.4.0',oauth_state:'pass',persistence:'pass',orchestration:'pass',runtime_connectors:'pass',source_contracts:'pass',provenance:'pass',ui_actions:'pass',base_connectors:93},null,2));
 }
 main().catch(e=>{console.error(logs);console.error(e);process.exitCode=1}).finally(async()=>{await stop()});

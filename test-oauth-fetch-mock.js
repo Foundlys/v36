@@ -34,5 +34,9 @@ globalThis.fetch=async(input,init={})=>{
   if(url.includes('googleapis.com/calendar/'))return json({items:[]});
   if(url.includes('googleads.googleapis.com/'))return json({resourceNames:[]});
 
+  if(url==='https://www.wixapis.com/oauth2/token')return json({access_token:'mock-wix-access-token',expires_in:3600,token_type:'Bearer'});
+  if(url==='https://www.wixapis.com/oauth2/token-info')return json({active:true,subjectType:'APP',clientId:'wix-app',siteId:'wix-site-1',instanceId:'wix-instance-1'});
+  if(url==='https://www.wixapis.com/apps/v1/instance')return json({instance:{instanceId:'wix-instance-1',site:{siteId:'wix-site-1',siteDisplayName:'Wix Test Site'}}});
+
   return nativeFetch(input,init);
 };
