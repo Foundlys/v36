@@ -1,4 +1,4 @@
-# Foundly OS v5.0.0 — Jarvis Autonomous Intelligence Core
+# Foundly OS v5.0.1 — Jarvis Autonomous Intelligence Core
 
 Foundly v5 maakt Jarvis de centrale, tenantgebonden commandolaag voor tekst en voice. Jarvis gebruikt één server-side planner en toolregistry voor interne Foundly-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's.
 
@@ -8,8 +8,8 @@ De productregel is strikt: geen provider, record, status, zoekresultaat of actie
 
 `GET /api/health` is publieke liveness. `GET /api/ready` is publieke, secret-vrije readiness en geeft pas `PASS` wanneer minimaal het volgende klopt:
 
-- productie-authenticatie is ingesteld;
-- token/state-encryptie is ingesteld;
+- productie-authenticatie gebruikt een niet-placeholder adminwachtwoord van minimaal 16 tekens of bearer-token van minimaal 32 tekens;
+- token/state-encryptie gebruikt een niet-placeholder secret van minimaal 32 tekens;
 - `FOUNDLY_PUBLIC_BASE_URL` is een geldige HTTPS-origin;
 - Meta, Google, LinkedIn, TikTok en Wix callback-URL's zijn exact aan die origin gebonden;
 - `OPENAI_API_KEY` is ingesteld voor Jarvis Realtime en actuele webresearch;

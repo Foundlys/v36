@@ -4,7 +4,7 @@ const fs=require('fs');
 const assert=require('assert');
 const PORT=19820+Math.floor(Math.random()*100);
 const data=fs.mkdtempSync('/tmp/foundly-audit-');
-const env={...process.env,PORT:String(PORT),FOUNDLY_DATA_DIR:data,FOUNDLY_ENCRYPTION_KEY:'audit-key',OPENAI_API_KEY:'',META_APP_ID:'',META_APP_SECRET:'',GOOGLE_CLIENT_ID:'',GOOGLE_CLIENT_SECRET:'',FOUNDLY_WORKER_INTERVAL_MS:'99999999'};
+const env={...process.env,NODE_ENV:'test',PORT:String(PORT),FOUNDLY_DATA_DIR:data,FOUNDLY_ENCRYPTION_KEY:'audit-key',OPENAI_API_KEY:'',META_APP_ID:'',META_APP_SECRET:'',GOOGLE_CLIENT_ID:'',GOOGLE_CLIENT_SECRET:'',FOUNDLY_WORKER_INTERVAL_MS:'99999999'};
 const child=spawn(process.execPath,['server.js'],{cwd:__dirname,env,stdio:['ignore','pipe','pipe']});
 let logs='';child.stdout.on('data',d=>logs+=d);child.stderr.on('data',d=>logs+=d);
 const base=`http://127.0.0.1:${PORT}`;const wait=ms=>new Promise(r=>setTimeout(r,ms));
@@ -22,5 +22,5 @@ async function get(path,opts){const r=await fetch(base+path,opts);const text=awa
   assert(!/OPENAI_API_KEY[^\n]{0,120}prompt/i.test(ui),'OpenAI key still collected in browser');
   assert(js.includes("['linkedin','tiktok','wix']"),'Wix must route through the native connector before the generic OAuth prompt');
   assert(!ui.includes('setInterval(()=>addEvent(events['),'simulated event loop still exists');assert(!/Yoo bro/i.test(ui));assert(html.includes('<script src="/index-script.js" defer></script>'));
-  console.log(JSON.stringify({ok:true,version:'5.0.0',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass',jarvis_pipeline:'pass'},null,2));
+  console.log(JSON.stringify({ok:true,version:'5.0.1',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass',jarvis_pipeline:'pass'},null,2));
 }catch(e){console.error(logs);console.error(e);process.exitCode=1}finally{child.kill('SIGTERM')}})();

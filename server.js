@@ -9,12 +9,26 @@ const dns = require('dns').promises;
 const os = require('os');
 const { URL } = require('url');
 const REQUEST_TIMEOUT_MS=Math.max(2000,Number(process.env.FOUNDLY_REQUEST_TIMEOUT_MS||12000));
-const VERSION='5.0.0';
+const VERSION='5.0.1';
 const MAX_RECORDS_PER_SCOPE=Math.max(100,Number(process.env.FOUNDLY_MAX_RECORDS_PER_SCOPE||5000));
 const MAX_TASKS_PER_SCOPE=Math.max(100,Number(process.env.FOUNDLY_MAX_TASKS_PER_SCOPE||2000));
 const MAX_JARVIS_CONVERSATIONS=Math.max(10,Number(process.env.FOUNDLY_MAX_JARVIS_CONVERSATIONS||100));
 const MAX_JARVIS_TURNS=Math.max(10,Number(process.env.FOUNDLY_MAX_JARVIS_TURNS||80));
 function env(name,fallback=''){const raw=process.env[name];if(raw===undefined||raw===null)return fallback;let v=String(raw).trim();if((v.startsWith('"')&&v.endsWith('"'))||(v.startsWith("'")&&v.endsWith("'")))v=v.slice(1,-1).trim();return v}
+function validSecretValue(value,minLength=32){
+  const v=String(value||'').trim();
+  if(!v)return false;
+  if(env('NODE_ENV')!=='production')return true;
+  if(Buffer.byteLength(v,'utf8')<minLength)return false;
+  const lower=v.toLowerCase();
+  if(/^<[^>]+>$/.test(v))return false;
+  if(/^(?:change|replace)[-_ ]?me(?:[-_ ].*)?$/.test(lower))return false;
+  if(/^(?:your|example|default|test)[-_ ]?(?:secret|password|token|key)(?:[-_ ].*)?$/.test(lower))return false;
+  if(/^(?:changeme|password|secret|default|example|test)$/.test(lower))return false;
+  return true;
+}
+function validSecretFrom(names,minLength=32){for(const name of names){const value=env(name);if(validSecretValue(value,minLength))return value}return ''}
+function publicOriginHostnameAllowed(hostname){const host=String(hostname||'').toLowerCase().replace(/^\[|\]$/g,'').replace(/\.$/,'');if(!host||host==='localhost'||host.endsWith('.localhost')||host.endsWith('.local')||host.endsWith('.internal'))return false;if(net.isIP(host)&&isPrivateIp(host))return false;return net.isIP(host)>0||host.includes('.')}
 function timeoutSignal(ms=REQUEST_TIMEOUT_MS){return AbortSignal.timeout(ms)}
 function timingEqual(a,b){const aa=Buffer.from(String(a||'')),bb=Buffer.from(String(b||''));return aa.length===bb.length&&crypto.timingSafeEqual(aa,bb)}
 const fileLockWaitArray=new Int32Array(new SharedArrayBuffer(4));
@@ -113,7 +127,7 @@ function makeRuntime({root,registry}){
   function profiles(){const custom=loadOverrides();const out={};for(const [id,s] of Object.entries(registry||{}))out[id]={...infer(id,s),...s,...(overrides[id]||{}),...(custom[id]||{})};for(const [id,p] of Object.entries(custom))if(!out[id])out[id]={...p,id};return out}
   function tenantKey(c){return crypto.createHash('sha256').update(`${c.tenant_id}:${c.dealer_id}`).digest('hex').slice(0,40)}
   function secretFile(c,id){return path.join(dataDir,`connector-${tenantKey(c)}-${String(id).replace(/[^a-z0-9_-]/gi,'_')}.json`)}
-  function encKey(){const raw=env('FOUNDLY_ENCRYPTION_KEY')||env('GOOGLE_TOKEN_ENCRYPTION_KEY');return raw?crypto.createHash('sha256').update(raw).digest():null}
+  function encKey(){const raw=validSecretFrom(['FOUNDLY_ENCRYPTION_KEY','GOOGLE_TOKEN_ENCRYPTION_KEY']);return raw?crypto.createHash('sha256').update(raw).digest():null}
   function seal(v){const k=encKey();if(!k)throw new Error('FOUNDLY_ENCRYPTION_KEY ontbreekt; secrets worden niet opgeslagen');const iv=crypto.randomBytes(12),cipher=crypto.createCipheriv('aes-256-gcm',k,iv);const b=Buffer.concat([cipher.update(JSON.stringify(v),'utf8'),cipher.final()]);return {encrypted:true,iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),data:b.toString('base64')}}
   function unseal(x){if(!x)return {};if(x.encrypted===false)return x.data||{};const k=encKey();if(!k)throw new Error('FOUNDLY_ENCRYPTION_KEY ontbreekt');const d=crypto.createDecipheriv('aes-256-gcm',k,Buffer.from(x.iv,'base64'));d.setAuthTag(Buffer.from(x.tag,'base64'));return JSON.parse(Buffer.concat([d.update(Buffer.from(x.data,'base64')),d.final()]).toString('utf8'))}
   function readConfig(c,id){try{return unseal(JSON.parse(fs.readFileSync(secretFile(c,id),'utf8')))}catch{return {}}}
@@ -126,7 +140,7 @@ function makeRuntime({root,registry}){
   const oauthStateFile=path.join(dataDir,'connector-oauth-states.json');
   function readOauthStates(){try{return JSON.parse(fs.readFileSync(oauthStateFile,'utf8'))||{}}catch{return {}}}
   function writeOauthStates(v){atomicJsonWrite(oauthStateFile,v)}
-  function oauthStateSecret(){const raw=env('CONNECTOR_OAUTH_STATE_SECRET')||env('FOUNDLY_OAUTH_STATE_SECRET')||env('FOUNDLY_ENCRYPTION_KEY');if(!raw)throw new Error('CONNECTOR_OAUTH_STATE_SECRET, FOUNDLY_OAUTH_STATE_SECRET of FOUNDLY_ENCRYPTION_KEY ontbreekt');return crypto.createHash('sha256').update(raw).digest()}
+  function oauthStateSecret(){const raw=validSecretFrom(['CONNECTOR_OAUTH_STATE_SECRET','FOUNDLY_OAUTH_STATE_SECRET','FOUNDLY_ENCRYPTION_KEY','GOOGLE_TOKEN_ENCRYPTION_KEY']);if(!raw)throw new Error('Geldige OAuth state-signing key ontbreekt');return crypto.createHash('sha256').update(raw).digest()}
   function oauthStateKey(token){return crypto.createHash('sha256').update(String(token||'')).digest('hex')}
   function oauthStateSignature(st){return crypto.createHmac('sha256',oauthStateSecret()).update([st.id,st.tenant_id,st.dealer_id,st.return_to,st.issued_at,st.expires_at].join('\u001f')).digest('hex')}
   function issueState(o){return withFileLock(oauthStateFile+'.lock',()=>{const states=readOauthStates(),now=Date.now();for(const [k,v] of Object.entries(states))if(!v||Number(v.expires_at||0)<now)delete states[k];const token=crypto.randomBytes(32).toString('base64url'),st={...o,return_to:safeReturnTo(o.return_to),issued_at:now,expires_at:now+15*60*1000,status:'PENDING',attempts:0};st.signature=oauthStateSignature(st);states[oauthStateKey(token)]=st;writeOauthStates(states);return token})}
@@ -228,20 +242,20 @@ const GOOGLE_SCOPES = [
 ];
 function tenantHash(c){ return crypto.createHash('sha256').update(`${c.tenant_id}:${c.dealer_id}`).digest('hex').slice(0,32); }
 function googleFile(c){ return path.join(DATA, `google-${tenantHash(c)}.json`); }
-function encKey(){ const v=env('GOOGLE_TOKEN_ENCRYPTION_KEY')||env('FOUNDLY_ENCRYPTION_KEY'); return v?crypto.createHash('sha256').update(v).digest():null; }
+function encKey(){ const v=validSecretFrom(['GOOGLE_TOKEN_ENCRYPTION_KEY','FOUNDLY_ENCRYPTION_KEY']); return v?crypto.createHash('sha256').update(v).digest():null; }
 function seal(value){ const k=encKey(); if(!k)throw new Error('FOUNDLY_ENCRYPTION_KEY ontbreekt; secrets worden niet opgeslagen'); const iv=crypto.randomBytes(12), cipher=crypto.createCipheriv('aes-256-gcm',k,iv); const out=Buffer.concat([cipher.update(JSON.stringify(value),'utf8'),cipher.final()]); return {encrypted:true,iv:iv.toString('base64'),tag:cipher.getAuthTag().toString('base64'),data:out.toString('base64')}; }
 function unseal(blob){ if(!blob) return null; if(blob.encrypted===false) return blob.data; const k=encKey(); if(!k) throw new Error('FOUNDLY_ENCRYPTION_KEY of GOOGLE_TOKEN_ENCRYPTION_KEY ontbreekt'); const d=crypto.createDecipheriv('aes-256-gcm',k,Buffer.from(blob.iv,'base64')); d.setAuthTag(Buffer.from(blob.tag,'base64')); return JSON.parse(Buffer.concat([d.update(Buffer.from(blob.data,'base64')),d.final()]).toString('utf8')); }
 function loadGoogle(c){ try{return unseal(JSON.parse(fs.readFileSync(googleFile(c),'utf8')))}catch{return null} }
 function saveGoogle(c,v){ atomicJsonWrite(googleFile(c),seal(v)); googleCache.delete(key(c,'google-status')); }
 function removeGoogle(c){ try{fs.unlinkSync(googleFile(c))}catch{} googleCache.delete(key(c,'google-status')); }
-function configuredPublicOrigin(){const raw=env('FOUNDLY_PUBLIC_BASE_URL');if(!raw)return null;try{const u=new URL(raw);if(u.protocol!=='https:'||u.username||u.password||u.search||u.hash||(u.pathname&&u.pathname!=='/'))return null;return u.origin}catch{return null}}
+function configuredPublicOrigin(){const raw=env('FOUNDLY_PUBLIC_BASE_URL');if(!raw)return null;try{const u=new URL(raw);if(u.protocol!=='https:'||u.username||u.password||u.search||u.hash||(u.pathname&&u.pathname!=='/')||!publicOriginHostnameAllowed(u.hostname))return null;return u.origin}catch{return null}}
 function origin(req){ const pinned=configuredPublicOrigin();if(pinned)return pinned;const proto=String(req.headers['x-forwarded-proto']||'https').split(',')[0].trim(); return `${proto}://${req.headers.host}`; }
 function googleConfig(){ return {client_id:cleanEnv('GOOGLE_CLIENT_ID'),client_secret:cleanEnv('GOOGLE_CLIENT_SECRET'),developer_token:cleanEnv('GOOGLE_ADS_DEVELOPER_TOKEN'),login_customer_id:cleanEnv('GOOGLE_ADS_LOGIN_CUSTOMER_ID').replace(/-/g,''),redirect_uri:cleanEnv('GOOGLE_REDIRECT_URI')}; }
 const OAUTH_STATE_FILE=path.join(DATA,'oauth-states-v2.json');
 const OAUTH_STATE_TTL_MS=15*60*1000;
 const OAUTH_PROCESSING_LEASE_MS=2*60*1000;
 function oauthStateKey(token){return crypto.createHash('sha256').update(String(token||'')).digest('hex')}
-function oauthStateSigningKey(){const raw=env('FOUNDLY_OAUTH_STATE_SECRET')||env('GOOGLE_OAUTH_STATE_SECRET')||env('CONNECTOR_OAUTH_STATE_SECRET')||env('FOUNDLY_ENCRYPTION_KEY')||env('GOOGLE_TOKEN_ENCRYPTION_KEY');if(!raw)throw new Error('OAuth state-signing key ontbreekt');return crypto.createHash('sha256').update(raw).digest()}
+function oauthStateSigningKey(){const raw=validSecretFrom(['FOUNDLY_OAUTH_STATE_SECRET','GOOGLE_OAUTH_STATE_SECRET','CONNECTOR_OAUTH_STATE_SECRET','FOUNDLY_ENCRYPTION_KEY','GOOGLE_TOKEN_ENCRYPTION_KEY']);if(!raw)throw new Error('Geldige OAuth state-signing key ontbreekt');return crypto.createHash('sha256').update(raw).digest()}
 function oauthStateSignature(st){const fields=[st.provider,st.tenant_id,st.dealer_id,st.return_to,st.issued_at,st.expires_at].map(x=>String(x??'')).join('\n');return crypto.createHmac('sha256',oauthStateSigningKey()).update(fields).digest('base64url')}
 function readOauthStateStore(){try{const parsed=JSON.parse(fs.readFileSync(OAUTH_STATE_FILE,'utf8'));if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error('ongeldig formaat');return parsed}catch(e){if(e.code==='ENOENT')return {};throw new Error(`OAuth state datastore onleesbaar: ${redactJarvisText(e.message||e,160)}`)}}
 function saveOauthStateStore(v){atomicJsonWrite(OAUTH_STATE_FILE,v)}
@@ -852,8 +866,10 @@ async function api(req,res,u){
   return false;
 }
 
-function authConfigured(){return Boolean(env('FOUNDLY_ADMIN_PASSWORD')||env('FOUNDLY_ADMIN_TOKEN'))}
-function authorized(req){if(env('NODE_ENV')!=='production'&&!authConfigured())return true;const bearer=String(req.headers.authorization||'');if(env('FOUNDLY_ADMIN_TOKEN')&&bearer.startsWith('Bearer ')&&timingEqual(bearer.slice(7),env('FOUNDLY_ADMIN_TOKEN')))return true;if(env('FOUNDLY_ADMIN_PASSWORD')&&bearer.startsWith('Basic ')){try{const [user,...rest]=Buffer.from(bearer.slice(6),'base64').toString('utf8').split(':');return timingEqual(user,env('FOUNDLY_ADMIN_USERNAME','foundly'))&&timingEqual(rest.join(':'),env('FOUNDLY_ADMIN_PASSWORD'))}catch{return false}}return false}
+function adminPassword(){return validSecretFrom(['FOUNDLY_ADMIN_PASSWORD'],16)}
+function adminToken(){return validSecretFrom(['FOUNDLY_ADMIN_TOKEN'],32)}
+function authConfigured(){return Boolean(adminPassword()||adminToken())}
+function authorized(req){if(env('NODE_ENV')!=='production'&&!authConfigured())return true;const bearer=String(req.headers.authorization||''),token=adminToken(),password=adminPassword();if(token&&bearer.startsWith('Bearer ')&&timingEqual(bearer.slice(7),token))return true;if(password&&bearer.startsWith('Basic ')){try{const [user,...rest]=Buffer.from(bearer.slice(6),'base64').toString('utf8').split(':');return timingEqual(user,env('FOUNDLY_ADMIN_USERNAME','foundly'))&&timingEqual(rest.join(':'),password)}catch{return false}}return false}
 function isOAuthCallbackRoute(pathname){return /^\/api\/(?:connect\/(?:meta|linkedin|tiktok|wix)\/callback|google\/oauth\/callback|connector-runtime\/oauth\/[^/]+\/callback)$/.test(pathname)}
 function isPublicRoute(pathname){return pathname==='/api/health'||pathname==='/api/ready'||isOAuthCallbackRoute(pathname)||/^\/api\/webhook\/(?:meta|whatsapp)$/.test(pathname)}
 const rateBuckets=new Map();

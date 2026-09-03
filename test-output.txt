@@ -1,4 +1,4 @@
-Foundly OS v5.0.0
+Foundly OS v5.0.1
 Verified: 2026-09-03
 
 LOCAL PASS
@@ -6,6 +6,7 @@ LOCAL PASS
 - smoke/persistence/restart and interrupted-worker recovery
 - connector/status/source contracts (93)
 - production auth, SSRF, readiness/OAuth-start gate and worker retry
+- weak/default secret rejection, public-origin validation and callback exactness
 - native OAuth production regression (Meta, Google, LinkedIn, TikTok, Wix)
 - persisted, hashed, tenant-bound OAuth state across restart
 - concurrent callback/replay protection, transient retry and reconnect rollback
