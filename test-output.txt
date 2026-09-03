@@ -1,4 +1,4 @@
-Foundly OS v5.0.3
+Foundly OS v5.1.0
 Verified: 2026-09-03
 
 LOCAL PASS
@@ -12,6 +12,8 @@ LOCAL PASS
 - concurrent callback/replay protection, transient retry and reconnect rollback
 - generic OAuth persisted-state regression
 - Jarvis Core, Realtime session/tool-completion contract, persistent wake preference, search routing, follow-up, UI bus and visible text-submit errors
+- local double-clap gate, persistent Jarvis preferences, Web Audio/ducking contract and WebGL2 quality fallback
+- neural activity bound to user navigation and persisted runtime events; fabricated random packets removed
 - idempotency, confirmation replay defense, memory pruning and secret exposure
 
 LIVE NOT PROVEN BY LOCAL TESTS

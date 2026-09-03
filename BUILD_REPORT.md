@@ -1,4 +1,4 @@
-# Foundly OS v5.0.3 verification report
+# Foundly OS v5.1.0 verification report
 
 Date: 2026-09-03
 
@@ -28,6 +28,11 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - bounded/persisted/deletable conversation memory: PASS
 - semantic UI command bus and external JavaScript CSP: PASS
 - persisted wake preference, browser-speech fallback, Realtime `response.done` function-call completion and visible text-submit errors: contract PASS
+- local adaptive double-clap gate, single Realtime client path and standby privacy contract: PASS
+- persistent tenant-bound Jarvis preferences and restart recovery: PASS
+- Web Audio initialization, response ducking/processing and audio-reactive visual contract: PASS
+- WebGL2 adaptive quality runtime with 2D fallback: syntax/contract PASS
+- random/fabricated neural activity packets removed; visual route pulses are bound to user navigation or new persisted events: PASS
 
 ## Not proven by this report
 
@@ -36,7 +41,7 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - live OpenAI Realtime WebRTC audio, microphone permission, local wake capability and playback in the target browser;
 - live OAuth consent/token exchange for real Meta, Google, LinkedIn, TikTok or Wix accounts;
 - provider permissions, app review, partner access and production data availability;
-- actual Railway deployment of v5.0.3;
+- actual Railway deployment of v5.1.0;
 - the existing real admin credential match after deployment.
 
 Do not label those items `LIVE PASS` until the deployed endpoints and real browser/provider flows have been observed.

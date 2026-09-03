@@ -1,4 +1,4 @@
-# Foundly OS v5.0.3 — Jarvis Autonomous Intelligence Core
+# Foundly OS v5.1.0 — Jarvis Neural Command Center
 
 Foundly v5 maakt Jarvis de centrale, tenantgebonden commandolaag voor tekst en voice. Jarvis gebruikt één server-side planner en toolregistry voor interne Foundly-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's.
 
@@ -22,7 +22,9 @@ Alle UI-, data-, Jarvis-, connector-, worker- en diagnoseroutes zijn in producti
 
 - Browser voice via OpenAI Realtime WebRTC en een server-uitgegeven ephemeral client secret van 60 seconden. De normale OpenAI API-key verlaat de server niet.
 - Realtime gebruikt semantic VAD en interruptie/barge-in. Iedere gebruikersopdracht moet via de `foundly_core`-functie naar de autoritatieve serverroute.
-- Na de eenmalige microfoontoestemming bewaart de browser de expliciete wake-wordvoorkeur. Jarvis herstart de wake-listener automatisch bij een volgend bezoek wanneer die toestemming nog geldig is. On-device herkenning heeft voorkeur; wanneer de browser dat niet ondersteunt gebruikt Foundly de ingebouwde browser-speechservice en vermeldt de UI dit expliciet. Realtime-opdrachten gaan daarna via de server-side Foundly Core.
+- Na één expliciete browserinitialisatie gebruikt standby een lokale dubbele-klapdetector naast het wake word “Jarvis”. De lokale detector analyseert alleen transient/energiewaarden; ruwe standby-audio wordt niet geüpload. On-device herkenning heeft voorkeur; de browser-speechservice blijft een expliciete compatibiliteitsfallback. Zodra conversation mode start, gaat audio via de beveiligde Realtime WebRTC-sessie en iedere opdracht via Foundly Core.
+- Een ontgrendelde Web Audio-laag verzorgt originele procedurele ambience, state-cues, stemprocessing, ducking en een audio-reactieve Core. Volume-, wake-, klap-, aanspreek- en renderinstellingen zijn tenantgebonden en persistent.
+- De visuele runtime gebruikt WebGL2 met automatische kwaliteitsregeling en valt veilig terug op de bestaande 2D-enginekaart. Routes pulseren uitsluitend door gebruikersnavigatie of nieuwe persisted runtime-events; er wordt geen live activiteit verzonnen.
 - De centrale retrieval planner kiest interne data, echte providerprobes/sync en/of OpenAI Web Search. Tijdgevoelige vragen worden niet uit statische modelkennis beantwoord.
 - Eenvoudige tijd/datumvragen gebruiken de lokale serverklok zonder modelcall. Weer zonder bekende plaats vraagt om locatie.
 - De server-side toolregistry bevat schema, rechten, risico, read/write-mode, provider, timeout, retries, confirmation, verificatie en auditbeleid. Handlers worden niet aan de browser blootgesteld.
@@ -35,6 +37,8 @@ Belangrijke routes:
 
 - `GET /api/diagnostics/runtime-auth` (publiek, uitsluitend booleans/status; nooit waarden, lengtes of secret-fingerprints)
 - `GET /api/jarvis/status`
+- `GET|PUT /api/jarvis/preferences`
+- `POST /api/jarvis/client-event` (allowlisted, secret-geredigeerde browser acceptance-telemetrie; nooit audio of transcript)
 - `GET /api/jarvis/tools`
 - `POST /api/jarvis/realtime/client-secret`
 - `POST /api/jarvis/turn`
