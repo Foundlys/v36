@@ -1,6 +1,7 @@
 'use strict';
 const {spawn}=require('child_process');
 const fs=require('fs');
+const crypto=require('crypto');
 const assert=require('assert');
 const PORT=19940+Math.floor(Math.random()*40),tmp=fs.mkdtempSync('/tmp/foundly-security-'),base=`http://127.0.0.1:${PORT}`;
 const password='security-regression-admin-password-2026',auth='Basic '+Buffer.from(`foundly:${password}`).toString('base64');
@@ -10,7 +11,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function call(path,opts={}){const r=await fetch(base+path,opts),text=await r.text();let data;try{data=JSON.parse(text)}catch{data=text}return {r,data}}
 (async()=>{try{for(let i=0;i<60;i++){try{if((await fetch(base+'/api/health')).ok)break}catch{}await wait(100)}
   let x=await call('/api/connectors');assert.equal(x.r.status,401);
-  x=await call('/api/diagnostics/runtime-auth');assert.equal(x.r.status,200);assert.equal(x.data.authentication.basic_enabled,true);assert.equal(x.data.authentication.request_authorization_present,false);assert.equal(x.data.authentication.request_credentials_match,null);let diagnosticRaw=JSON.stringify(x.data);assert(!diagnosticRaw.includes(password));assert(!diagnosticRaw.includes('security-regression-encryption-key-2026'));assert(!diagnosticRaw.includes('secret_fingerprint'));
+  x=await call('/api/diagnostics/runtime-auth');assert.equal(x.r.status,200);assert.equal(x.data.authentication.basic_enabled,true);assert.equal(x.data.authentication.request_authorization_present,false);assert.equal(x.data.authentication.request_credentials_match,null);assert.equal(x.data.runtime.railway_service_fingerprint,crypto.createHash('sha256').update('security-test-service').digest('hex').slice(0,12));let diagnosticRaw=JSON.stringify(x.data);assert(!diagnosticRaw.includes(password));assert(!diagnosticRaw.includes('security-regression-encryption-key-2026'));assert(!diagnosticRaw.includes('security-test-service'));assert(!diagnosticRaw.includes('secret_fingerprint'));
   const invalidAuth='Basic '+Buffer.from('foundly:syntactically-valid-but-wrong').toString('base64');x=await call('/api/diagnostics/runtime-auth',{headers:{authorization:invalidAuth}});assert.equal(x.r.status,200);assert.equal(x.data.authentication.request_authorization_present,true);assert.equal(x.data.authentication.request_authorization_scheme,'basic');assert.equal(x.data.authentication.request_basic_payload_syntax,true);assert.equal(x.data.authentication.request_credentials_match,false);
   x=await call('/api/diagnostics/runtime-auth',{headers:{authorization:auth}});assert.equal(x.r.status,200);assert.equal(x.data.authentication.request_credentials_match,true);
   x=await call('/api/diagnostics/config',{headers:{authorization:auth}});assert.equal(x.r.status,200);const raw=JSON.stringify(x.data);assert(!raw.includes(password));assert(!raw.includes('security-regression-encryption-key-2026'));assert(!raw.includes('secret_fingerprint'));

@@ -22,5 +22,5 @@ async function get(path,opts){const r=await fetch(base+path,opts);const text=awa
   assert(!/OPENAI_API_KEY[^\n]{0,120}prompt/i.test(ui),'OpenAI key still collected in browser');
   assert(js.includes("['linkedin','tiktok','wix']"),'Wix must route through the native connector before the generic OAuth prompt');
   assert(!ui.includes('setInterval(()=>addEvent(events['),'simulated event loop still exists');assert(!/Yoo bro/i.test(ui));assert(html.includes('<script src="/index-script.js" defer></script>'));
-  console.log(JSON.stringify({ok:true,version:'5.0.2',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass',jarvis_pipeline:'pass'},null,2));
+  console.log(JSON.stringify({ok:true,version:'5.0.3',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass',jarvis_pipeline:'pass'},null,2));
 }catch(e){console.error(logs);console.error(e);process.exitCode=1}finally{child.kill('SIGTERM')}})();

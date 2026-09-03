@@ -1,4 +1,4 @@
-# Foundly OS v5.0.2 — Jarvis Autonomous Intelligence Core
+# Foundly OS v5.0.3 — Jarvis Autonomous Intelligence Core
 
 Foundly v5 maakt Jarvis de centrale, tenantgebonden commandolaag voor tekst en voice. Jarvis gebruikt één server-side planner en toolregistry voor interne Foundly-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's.
 
