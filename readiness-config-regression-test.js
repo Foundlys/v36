@@ -54,12 +54,12 @@ async function getReady(base){const response=await fetch(base+'/api/ready');retu
 
   await withServer({
     FOUNDLY_PUBLIC_BASE_URL:productionOrigin,
-    FOUNDLY_ADMIN_PASSWORD:'change-me-admin-password-production',
+    FOUNDLY_ADMIN_PASSWORD:'Existing#7',
     FOUNDLY_ENCRYPTION_KEY:'change-me-production-secret'
   },async base=>{
-    const {body}=await getReady(base);assert.equal(body.checks.authentication,false);assert.equal(body.checks.encryption,false);assert.equal(body.checks.public_base_url,true);assert.equal(body.checks.oauth_callbacks,true);
-    const weakAuth='Basic '+Buffer.from('foundly:change-me-admin-password-production').toString('base64');
-    const protectedResponse=await fetch(base+'/api/connectors',{headers:{authorization:weakAuth}});assert.equal(protectedResponse.status,401);
+    const {body}=await getReady(base);assert.equal(body.checks.authentication,true);assert.equal(body.checks.encryption,false);assert.equal(body.checks.public_base_url,true);assert.equal(body.checks.oauth_callbacks,true);
+    const existingAuth='Basic '+Buffer.from('foundly:Existing#7').toString('base64');
+    const protectedResponse=await fetch(base+'/api/connectors',{headers:{authorization:existingAuth}});assert.equal(protectedResponse.status,200);
   });
 
   await withServer({
@@ -86,8 +86,8 @@ async function getReady(base){const response=await fetch(base+'/api/ready');retu
     FOUNDLY_ADMIN_TOKEN:strongToken,
     FOUNDLY_ENCRYPTION_KEY:strongEncryption
   },async base=>{
-    const {response,body}=await getReady(base);assert.equal(response.status,503);assert.equal(body.version,'5.0.1');assert.equal(body.checks.authentication,true);assert.equal(body.checks.encryption,true);assert.equal(body.checks.public_base_url,true);assert.equal(body.checks.oauth_callbacks,true);assert.deepEqual(body.failed,['storage_path','persistent_mount']);
+    const {response,body}=await getReady(base);assert.equal(response.status,503);assert.equal(body.version,'5.0.2');assert.equal(body.checks.authentication,true);assert.equal(body.checks.encryption,true);assert.equal(body.checks.public_base_url,true);assert.equal(body.checks.oauth_callbacks,true);assert.deepEqual(body.failed,['storage_path','persistent_mount']);
   });
 
-  console.log(JSON.stringify({ok:true,version:'5.0.1',weak_admin_secret_rejected:'pass',placeholder_encryption_rejected:'pass',localhost_origin_rejected:'pass',callback_exactness:'pass',derived_callbacks:'pass'},null,2));
+  console.log(JSON.stringify({ok:true,version:'5.0.2',configured_admin_secret_accepted:'pass',placeholder_encryption_rejected:'pass',localhost_origin_rejected:'pass',callback_exactness:'pass',derived_callbacks:'pass'},null,2));
 }catch(error){console.error(error);process.exitCode=1}})();

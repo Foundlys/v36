@@ -1,4 +1,4 @@
-# Foundly OS v5.0.1 — Jarvis Autonomous Intelligence Core
+# Foundly OS v5.0.2 — Jarvis Autonomous Intelligence Core
 
 Foundly v5 maakt Jarvis de centrale, tenantgebonden commandolaag voor tekst en voice. Jarvis gebruikt één server-side planner en toolregistry voor interne Foundly-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's.
 
@@ -8,7 +8,7 @@ De productregel is strikt: geen provider, record, status, zoekresultaat of actie
 
 `GET /api/health` is publieke liveness. `GET /api/ready` is publieke, secret-vrije readiness en geeft pas `PASS` wanneer minimaal het volgende klopt:
 
-- productie-authenticatie gebruikt een niet-placeholder adminwachtwoord van minimaal 16 tekens of bearer-token van minimaal 32 tekens;
+- productie-authenticatie heeft een niet-lege adminpassword- of bearer-tokenconfiguratie die na dezelfde gedocumenteerde normalisatie exact en timing-safe wordt vergeleken;
 - token/state-encryptie gebruikt een niet-placeholder secret van minimaal 32 tekens;
 - `FOUNDLY_PUBLIC_BASE_URL` is een geldige HTTPS-origin;
 - Meta, Google, LinkedIn, TikTok en Wix callback-URL's zijn exact aan die origin gebonden;
@@ -22,7 +22,7 @@ Alle UI-, data-, Jarvis-, connector-, worker- en diagnoseroutes zijn in producti
 
 - Browser voice via OpenAI Realtime WebRTC en een server-uitgegeven ephemeral client secret van 60 seconden. De normale OpenAI API-key verlaat de server niet.
 - Realtime gebruikt semantic VAD en interruptie/barge-in. Iedere gebruikersopdracht moet via de `foundly_core`-functie naar de autoritatieve serverroute.
-- Standby wake-word gebruikt uitsluitend lokale browserherkenning wanneer `processLocally` werkelijk beschikbaar is. Anders wordt geen continue omgevingsaudio verwerkt en toont de UI de veilige klik/tekstfallback.
+- Na de eenmalige microfoontoestemming bewaart de browser de expliciete wake-wordvoorkeur. Jarvis herstart de wake-listener automatisch bij een volgend bezoek wanneer die toestemming nog geldig is. On-device herkenning heeft voorkeur; wanneer de browser dat niet ondersteunt gebruikt Foundly de ingebouwde browser-speechservice en vermeldt de UI dit expliciet. Realtime-opdrachten gaan daarna via de server-side Foundly Core.
 - De centrale retrieval planner kiest interne data, echte providerprobes/sync en/of OpenAI Web Search. Tijdgevoelige vragen worden niet uit statische modelkennis beantwoord.
 - Eenvoudige tijd/datumvragen gebruiken de lokale serverklok zonder modelcall. Weer zonder bekende plaats vraagt om locatie.
 - De server-side toolregistry bevat schema, rechten, risico, read/write-mode, provider, timeout, retries, confirmation, verificatie en auditbeleid. Handlers worden niet aan de browser blootgesteld.
@@ -33,6 +33,7 @@ Alle UI-, data-, Jarvis-, connector-, worker- en diagnoseroutes zijn in producti
 
 Belangrijke routes:
 
+- `GET /api/diagnostics/runtime-auth` (publiek, uitsluitend booleans/status; nooit waarden, lengtes of secret-fingerprints)
 - `GET /api/jarvis/status`
 - `GET /api/jarvis/tools`
 - `POST /api/jarvis/realtime/client-secret`

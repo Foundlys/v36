@@ -1,4 +1,4 @@
-Foundly OS v5.0.1
+Foundly OS v5.0.2
 Verified: 2026-09-03
 
 LOCAL PASS
@@ -6,15 +6,15 @@ LOCAL PASS
 - smoke/persistence/restart and interrupted-worker recovery
 - connector/status/source contracts (93)
 - production auth, SSRF, readiness/OAuth-start gate and worker retry
-- weak/default secret rejection, public-origin validation and callback exactness
+- exact configured auth acceptance, value-free runtime-auth diagnostics, encryption-placeholder rejection, public-origin validation and callback exactness
 - native OAuth production regression (Meta, Google, LinkedIn, TikTok, Wix)
 - persisted, hashed, tenant-bound OAuth state across restart
 - concurrent callback/replay protection, transient retry and reconnect rollback
 - generic OAuth persisted-state regression
-- Jarvis Core, Realtime session contract, search routing, follow-up, UI bus
+- Jarvis Core, Realtime session/tool-completion contract, persistent wake preference, search routing, follow-up, UI bus and visible text-submit errors
 - idempotency, confirmation replay defense, memory pruning and secret exposure
 
 LIVE NOT PROVEN BY LOCAL TESTS
 - Railway configuration and Volume
 - external provider credentials/consent/probes
-- browser microphone/local wake/WebRTC/playback
+- browser microphone/wake/WebRTC/playback and actual audio hardware

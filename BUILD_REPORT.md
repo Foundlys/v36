@@ -1,4 +1,4 @@
-# Foundly OS v5.0.1 verification report
+# Foundly OS v5.0.2 verification report
 
 Date: 2026-09-03
 
@@ -13,8 +13,8 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - 93 connector schema/status contracts: PASS
 - source/provenance contracts: PASS
 - worker execution and retry persistence: PASS
-- production auth, tenant-header isolation and SSRF guard: PASS
-- weak/default admin and encryption secrets rejected in production: PASS
+- exact configured production auth, safe value-free runtime diagnostics, tenant-header isolation and SSRF guard: PASS
+- known/default encryption secrets rejected in production: PASS
 - localhost/private production origins rejected; callback exactness retained: PASS
 - Meta/Google/LinkedIn/TikTok/Wix OAuth callback bypass of Basic Auth: PASS
 - hashed/HMAC-bound persisted state, TTL, lease, one-time replay and transient retry: PASS
@@ -27,6 +27,7 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - prompt-injection action defense and secret scan: PASS
 - bounded/persisted/deletable conversation memory: PASS
 - semantic UI command bus and external JavaScript CSP: PASS
+- persisted wake preference, browser-speech fallback, Realtime `response.done` function-call completion and visible text-submit errors: contract PASS
 
 ## Not proven by this report
 
@@ -35,6 +36,7 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - live OpenAI Realtime WebRTC audio, microphone permission, local wake capability and playback in the target browser;
 - live OAuth consent/token exchange for real Meta, Google, LinkedIn, TikTok or Wix accounts;
 - provider permissions, app review, partner access and production data availability;
-- actual Railway deployment of v5.0.1.
+- actual Railway deployment of v5.0.2;
+- the existing real admin credential match after deployment.
 
 Do not label those items `LIVE PASS` until the deployed endpoints and real browser/provider flows have been observed.
