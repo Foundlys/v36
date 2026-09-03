@@ -1,4 +1,12 @@
-# Foundly OS v4.2.1 verification report
+# Foundly OS v4.3.0 verification report
+
+## Source truth and provenance
+
+- Engine status exposes only sources applicable to that engine and counts a source as connected only when its real provider probe succeeded.
+- Configured-but-unverified connectors are listed separately and never contribute to the live-source count.
+- The Foundly Data Layer is described as normalized cache/persistence, separate from external providers, historical internal data and derived intelligence.
+- Ingested records carry structured provenance (`source_id`, `source_name`, `source_kind`, `method`, `provider_verified`, timestamps). Generic API ingest is explicitly unverified until a provider-backed sync/probe establishes it.
+- UI subagents display their currently verified source names or state that no verified external source exists; they no longer claim an independent datasource.
 
 Date: 2026-09-03
 
