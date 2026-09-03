@@ -86,8 +86,8 @@ async function getReady(base){const response=await fetch(base+'/api/ready');retu
     FOUNDLY_ADMIN_TOKEN:strongToken,
     FOUNDLY_ENCRYPTION_KEY:strongEncryption
   },async base=>{
-    const {response,body}=await getReady(base);assert.equal(response.status,503);assert.equal(body.version,'5.1.0');assert.equal(body.checks.authentication,true);assert.equal(body.checks.encryption,true);assert.equal(body.checks.public_base_url,true);assert.equal(body.checks.oauth_callbacks,true);assert.deepEqual(body.failed,['storage_path','persistent_mount']);
+    const {response,body}=await getReady(base);assert.equal(response.status,503);assert.equal(body.version,'5.2.0');assert.equal(body.checks.authentication,true);assert.equal(body.checks.encryption,true);assert.equal(body.checks.public_base_url,true);assert.equal(body.checks.oauth_callbacks,true);assert.deepEqual(body.failed,['storage_path','persistent_mount']);
   });
 
-  console.log(JSON.stringify({ok:true,version:'5.1.0',configured_admin_secret_accepted:'pass',placeholder_encryption_rejected:'pass',localhost_origin_rejected:'pass',callback_exactness:'pass',derived_callbacks:'pass'},null,2));
+  console.log(JSON.stringify({ok:true,version:'5.2.0',configured_admin_secret_accepted:'pass',placeholder_encryption_rejected:'pass',localhost_origin_rejected:'pass',callback_exactness:'pass',derived_callbacks:'pass'},null,2));
 }catch(error){console.error(error);process.exitCode=1}})();

@@ -1,4 +1,4 @@
-# Foundly OS v5.1.0 — Jarvis Neural Command Center
+# Foundly OS v5.2.0 — Jarvis Neural Command Center
 
 Foundly v5 maakt Jarvis de centrale, tenantgebonden commandolaag voor tekst en voice. Jarvis gebruikt één server-side planner en toolregistry voor interne Foundly-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's.
 
@@ -24,7 +24,10 @@ Alle UI-, data-, Jarvis-, connector-, worker- en diagnoseroutes zijn in producti
 - Realtime gebruikt semantic VAD en interruptie/barge-in. Iedere gebruikersopdracht moet via de `foundly_core`-functie naar de autoritatieve serverroute.
 - Na één expliciete browserinitialisatie gebruikt standby een lokale dubbele-klapdetector naast het wake word “Jarvis”. De lokale detector analyseert alleen transient/energiewaarden; ruwe standby-audio wordt niet geüpload. On-device herkenning heeft voorkeur; de browser-speechservice blijft een expliciete compatibiliteitsfallback. Zodra conversation mode start, gaat audio via de beveiligde Realtime WebRTC-sessie en iedere opdracht via Foundly Core.
 - Een ontgrendelde Web Audio-laag verzorgt originele procedurele ambience, state-cues, stemprocessing, ducking en een audio-reactieve Core. Volume-, wake-, klap-, aanspreek- en renderinstellingen zijn tenantgebonden en persistent.
-- De visuele runtime gebruikt WebGL2 met automatische kwaliteitsregeling en valt veilig terug op de bestaande 2D-enginekaart. Routes pulseren uitsluitend door gebruikersnavigatie of nieuwe persisted runtime-events; er wordt geen live activiteit verzonnen.
+- Displaytekst en spreektekst zijn gescheiden. Alle browser-TTS en Realtime-uitvoer gebruikt centraal gesaniteerde `spoken_text`, met Nederlandse normalisatie voor onder meer bedragen, percentages, tijden, afstanden en voertuignamen; Markdown, HTML, URLs en JSON worden niet als presentatiecode uitgesproken.
+- De visuele runtime gebruikt een fullscreen WebGL2 Core met volumetrische shaderlagen, 620–2700 adaptieve particles en 40–144 gebatchte cubic-Bézier-filamenten. Engines verschijnen als gekleurde neural regions binnen één organisme; compacte labels en sublabels zijn contextafhankelijk. De runtime valt veilig terug op de bestaande 2D-enginekaart.
+- Floating businesspanelen halen hun waarden uit `/api/dashboard/summary`: uitsluitend persisted records, taken en events plus providerbronnen waarvan de echte probe groen is. Routes pulseren uitsluitend door gebruikersnavigatie of nieuwe persisted runtime-events; er wordt geen live activiteit verzonnen.
+- De centrale Audio & Privacy-laag heeft afzonderlijke master-, voice-, music- en SFX-bussen, directe sliders/toggles, persistente voorkeuren, state-aware procedurele soundscape, smooth ducking en output-aware wake/clap-gating.
 - De centrale retrieval planner kiest interne data, echte providerprobes/sync en/of OpenAI Web Search. Tijdgevoelige vragen worden niet uit statische modelkennis beantwoord.
 - Eenvoudige tijd/datumvragen gebruiken de lokale serverklok zonder modelcall. Weer zonder bekende plaats vraagt om locatie.
 - De server-side toolregistry bevat schema, rechten, risico, read/write-mode, provider, timeout, retries, confirmation, verificatie en auditbeleid. Handlers worden niet aan de browser blootgesteld.
@@ -37,6 +40,7 @@ Belangrijke routes:
 
 - `GET /api/diagnostics/runtime-auth` (publiek, uitsluitend booleans/status; nooit waarden, lengtes of secret-fingerprints)
 - `GET /api/jarvis/status`
+- `GET /api/dashboard/summary`
 - `GET|PUT /api/jarvis/preferences`
 - `POST /api/jarvis/client-event` (allowlisted, secret-geredigeerde browser acceptance-telemetrie; nooit audio of transcript)
 - `GET /api/jarvis/tools`
@@ -98,6 +102,6 @@ Voer lokaal uit:
 npm test
 ```
 
-De suite test syntax, auth/secrets, SSRF-beveiliging, 93 connectorcontracten, alle vijf native OAuth-flows inclusief Basic Auth + publieke callback + containerrestart, encrypted tokens, state-replay/retry, providerbootstrap, sync ingest, workerretry, 12 engines, provenance, Jarvis ephemeral sessions, originvalidatie, actuele searchrouting, weather/time/news-intents, follow-ups, tool-idempotency, confirmations, prompt-injectiondefensie, memory pruning, restart persistence, history deletion en de UI/voice-contracten.
+De suite test syntax, auth/secrets, SSRF-beveiliging, 93 connectorcontracten, alle vijf native OAuth-flows inclusief Basic Auth + publieke callback + containerrestart, encrypted tokens, state-replay/retry, providerbootstrap, sync ingest, workerretry, 12 engines, provenance, Jarvis ephemeral sessions, originvalidatie, actuele searchrouting, weather/time/news-intents, follow-ups, tool-idempotency, confirmations, prompt-injectiondefensie, memory pruning, restart persistence, history deletion, display-/spraaktekstscheiding, Nederlandse spraaknormalisatie, audio-bussen/ducking, output-aware clap-gating, deterministische GPU-dichtheid en echte dashboardaggregatie.
 
 Browserhardware en echte externe providers worden bewust niet door mocks tot `LIVE PASS` verklaard. Na iedere deploy blijven echte microfoon/playback/WebRTC-, providercredential-, consent/review- en Railway Volume-tests afzonderlijke live acceptance gates.

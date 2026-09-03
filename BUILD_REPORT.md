@@ -1,6 +1,6 @@
-# Foundly OS v5.1.0 verification report
+# Foundly OS v5.2.0 verification report
 
-Date: 2026-09-03
+Date: 2026-09-04
 
 This report is secondary evidence. The repository code, automated tests, deployed version and live external-provider responses remain the source of truth.
 
@@ -33,6 +33,12 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - Web Audio initialization, response ducking/processing and audio-reactive visual contract: PASS
 - WebGL2 adaptive quality runtime with 2D fallback: syntax/contract PASS
 - random/fabricated neural activity packets removed; visual route pulses are bound to user navigation or new persisted events: PASS
+- reference-locked fullscreen Core composition, neural regions, contextual labels and real-data panels: source/contract PASS
+- 620–2700 adaptive GPU particles and 40–144 batched cubic-Bézier filaments with deterministic topology: PASS
+- centralized display/spoken response split and Markdown/HTML/URL-safe speech sanitization: PASS
+- Dutch currency, percentage, time, year, distance and vehicle-name speech normalization: PASS
+- master/voice/music/SFX buses, procedural state-aware soundscape, smooth ducking and output-aware wake suppression: PASS
+- `/api/dashboard/summary` exposes only persisted aggregates and provider-probe-green sources: PASS
 
 ## Not proven by this report
 
@@ -41,7 +47,8 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - live OpenAI Realtime WebRTC audio, microphone permission, local wake capability and playback in the target browser;
 - live OAuth consent/token exchange for real Meta, Google, LinkedIn, TikTok or Wix accounts;
 - provider permissions, app review, partner access and production data availability;
-- actual Railway deployment of v5.1.0;
+- measured browser FPS/frame-time at 1080p, 1440p, ultrawide and 4K on the target hardware;
+- actual Railway deployment of v5.2.0;
 - the existing real admin credential match after deployment.
 
 Do not label those items `LIVE PASS` until the deployed endpoints and real browser/provider flows have been observed.

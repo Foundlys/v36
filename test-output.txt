@@ -1,5 +1,5 @@
-Foundly OS v5.1.0
-Verified: 2026-09-03
+Foundly OS v5.2.0
+Verified: 2026-09-04
 
 LOCAL PASS
 - syntax
@@ -14,9 +14,13 @@ LOCAL PASS
 - Jarvis Core, Realtime session/tool-completion contract, persistent wake preference, search routing, follow-up, UI bus and visible text-submit errors
 - local double-clap gate, persistent Jarvis preferences, Web Audio/ducking contract and WebGL2 quality fallback
 - neural activity bound to user navigation and persisted runtime events; fabricated random packets removed
+- centralized display/spoken separation, Markdown-safe speech and Dutch speech normalization
+- master/voice/music/SFX buses, state-aware procedural soundscape and output-aware wake suppression
+- deterministic 620–2700 particle / 40–144 filament GPU topology and real dashboard aggregates
 - idempotency, confirmation replay defense, memory pruning and secret exposure
 
 LIVE NOT PROVEN BY LOCAL TESTS
 - Railway configuration and Volume
 - external provider credentials/consent/probes
 - browser microphone/wake/WebRTC/playback and actual audio hardware
+- measured FPS/frame-time at 1080p, 1440p, ultrawide and 4K on target hardware
