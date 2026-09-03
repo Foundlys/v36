@@ -1,4 +1,4 @@
-# FOUNDLY OS v4.4.0 — Railway RAW Editor template
+# FOUNDLY OS v5.0.0 — Railway RAW Editor template
 # Replace <...> values. Never commit real secrets to GitHub.
 
 NODE_ENV=production
@@ -14,10 +14,16 @@ FOUNDLY_REQUEST_TIMEOUT_MS=12000
 FOUNDLY_RATE_LIMIT_PER_MINUTE=240
 FOUNDLY_MAX_RECORDS_PER_SCOPE=5000
 FOUNDLY_MAX_TASKS_PER_SCOPE=2000
-FOUNDLY_CONNECTOR_ALLOWED_HOSTS=graph.facebook.com,accounts.google.com,oauth2.googleapis.com,openidconnect.googleapis.com,www.googleapis.com,analyticsadmin.googleapis.com,analyticsdata.googleapis.com,googleads.googleapis.com,www.linkedin.com,api.linkedin.com,www.tiktok.com,open.tiktokapis.com,opendata.rdw.nl,www.ecb.europa.eu,api.openai.com,api.marktplaats.nl,auth.marktplaats.nl,services.mobile.de
+FOUNDLY_MAX_JARVIS_CONVERSATIONS=100
+FOUNDLY_MAX_JARVIS_TURNS=80
+FOUNDLY_TIMEZONE=Europe/Amsterdam
+# Optional non-sensitive city/region fallback for live weather.
+FOUNDLY_TENANT_LOCATION=
+FOUNDLY_CONNECTOR_ALLOWED_HOSTS=graph.facebook.com,accounts.google.com,oauth2.googleapis.com,openidconnect.googleapis.com,www.googleapis.com,analyticsadmin.googleapis.com,analyticsdata.googleapis.com,googleads.googleapis.com,www.linkedin.com,api.linkedin.com,www.tiktok.com,open.tiktokapis.com,www.wix.com,www.wixapis.com,opendata.rdw.nl,www.ecb.europa.eu,api.openai.com,api.marktplaats.nl,auth.marktplaats.nl,services.mobile.de
 
 # Core security — REQUIRED for OAuth/token storage
 FOUNDLY_ENCRYPTION_KEY=<GENERATE_A_LONG_RANDOM_SECRET>
+FOUNDLY_OAUTH_STATE_SECRET=<GENERATE_A_DIFFERENT_LONG_RANDOM_SECRET>
 GOOGLE_TOKEN_ENCRYPTION_KEY=<GENERATE_A_LONG_RANDOM_SECRET>
 GOOGLE_OAUTH_STATE_SECRET=<GENERATE_A_LONG_RANDOM_SECRET>
 CONNECTOR_OAUTH_STATE_SECRET=<GENERATE_A_LONG_RANDOM_SECRET>
@@ -26,6 +32,10 @@ CONNECTOR_OAUTH_STATE_SECRET=<GENERATE_A_LONG_RANDOM_SECRET>
 OPENAI_API_KEY=<OPENAI_API_KEY>
 FOUNDLY_AI_MODEL=gpt-5.6
 FOUNDLY_SEARCH_MODEL=gpt-5.6
+FOUNDLY_REALTIME_MODEL=gpt-realtime
+FOUNDLY_REALTIME_TRANSCRIPTION_MODEL=gpt-4o-mini-transcribe
+FOUNDLY_JARVIS_VOICE=cedar
+FOUNDLY_JARVIS_CONVERSATION_TIMEOUT_MS=90000
 FOUNDLY_AI_BASE_URL=https://api.openai.com/v1
 
 # Google

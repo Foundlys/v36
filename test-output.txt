@@ -1,9 +1,19 @@
-Foundly OS v4.2.1
-npm test: PASS
+Foundly OS v5.0.0
+Verified: 2026-09-03
 
-Smoke: OAuth state, persistence/restart, orchestration, runtime sync ingestion, workers, UI contracts — PASS
-Audit: 93 profile/status contracts and dedicated routes — PASS
-Security: authentication, secret exposure, tenant header isolation, SSRF guard, readiness, worker retry — PASS
-OAuth production regression: Basic Auth start, public callbacks, restart persistence, tenant binding, integrity, replay rejection, transient retry, encrypted tokens and bootstrap — PASS
+LOCAL PASS
+- syntax
+- smoke/persistence/restart and interrupted-worker recovery
+- connector/status/source contracts (93)
+- production auth, SSRF, readiness/OAuth-start gate and worker retry
+- native OAuth production regression (Meta, Google, LinkedIn, TikTok, Wix)
+- persisted, hashed, tenant-bound OAuth state across restart
+- concurrent callback/replay protection, transient retry and reconnect rollback
+- generic OAuth persisted-state regression
+- Jarvis Core, Realtime session contract, search routing, follow-up, UI bus
+- idempotency, confirmation replay defense, memory pruning and secret exposure
 
-External provider credentials and approvals are not simulated and are not marked connected by this suite.
+LIVE NOT PROVEN BY LOCAL TESTS
+- Railway configuration and Volume
+- external provider credentials/consent/probes
+- browser microphone/local wake/WebRTC/playback

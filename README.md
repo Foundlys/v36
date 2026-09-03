@@ -1,125 +1,98 @@
-# Foundly OS v4.4.0 — Native Wix + Source Truth
+# Foundly OS v5.0.0 — Jarvis Autonomous Intelligence Core
 
-## Mandatory production gates
+Foundly v5 maakt Jarvis de centrale, tenantgebonden commandolaag voor tekst en voice. Jarvis gebruikt één server-side planner en toolregistry voor interne Foundly-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's.
 
-Production now fails `/api/ready` until all core controls are proven:
+De productregel is strikt: geen provider, record, status, zoekresultaat of actie wordt als echt gepresenteerd zonder een echte response, persistente write of expliciete verificatie.
 
-- `FOUNDLY_PUBLIC_BASE_URL=https://v36-production.up.railway.app`
-- a Railway Volume is mounted at `/data` and `FOUNDLY_DATA_DIR=/data`
-- `FOUNDLY_ENCRYPTION_KEY` is configured
-- `FOUNDLY_ADMIN_USERNAME` and `FOUNDLY_ADMIN_PASSWORD` are configured
-- OAuth callback variables exactly match the v36 production URLs
+## Productiepoorten
 
-`/api/health` is intentionally a minimal public liveness route. `/api/ready` is a secret-free readiness route. All UI, data, connector, worker and diagnostic routes require authentication in production. Tenant/dealer identity is taken only from trusted server configuration, never from request headers or bodies.
+`GET /api/health` is publieke liveness. `GET /api/ready` is publieke, secret-vrije readiness en geeft pas `PASS` wanneer minimaal het volgende klopt:
 
-Runtime connector URLs are HTTPS-only in production, protected against private/link-local targets and optionally restricted by `FOUNDLY_CONNECTOR_ALLOWED_HOSTS`. Add an official provider hostname to that allowlist before enabling a new runtime connector.
+- productie-authenticatie is ingesteld;
+- token/state-encryptie is ingesteld;
+- `FOUNDLY_PUBLIC_BASE_URL` is een geldige HTTPS-origin;
+- Meta, Google, LinkedIn, TikTok en Wix callback-URL's zijn exact aan die origin gebonden;
+- `OPENAI_API_KEY` is ingesteld voor Jarvis Realtime en actuele webresearch;
+- `FOUNDLY_DATA_DIR=/data` is schrijfbaar;
+- `/data` is in productie aantoonbaar een afzonderlijke Railway Volume.
 
-Foundly OS v4.4.0 keeps the production OAuth hardening and truthful datasource contracts, and makes Wix a native external app-install connector. Wix tokens and installation IDs are stored encrypted; connected status requires Wix token-info and app-instance probes.
+Alle UI-, data-, Jarvis-, connector-, worker- en diagnoseroutes zijn in productie beveiligd. Alleen health/readiness, gesigneerde webhooks en de OAuth-callbacks zijn publiek. Callbackroutes worden vóór Basic Auth afgehandeld en geven nooit een browserchallenge.
 
-OAuth callbacks for Meta, Google, LinkedIn, TikTok and Wix are explicitly routed before the Basic Auth middleware. State tokens are stored only as SHA-256 hashes, HMAC-bound to provider, tenant, dealer, return path and TTL, and move transactionally through `PENDING`, `PROCESSING` and `USED`. A transient exchange failure releases the processing lease for a safe retry; successful or definitive exchanges are replay-proof. On Railway, OAuth start is refused when the state datastore is not a proven writable persistent volume.
+## Jarvis-architectuur
 
-## What is fixed in this build
+- Browser voice via OpenAI Realtime WebRTC en een server-uitgegeven ephemeral client secret van 60 seconden. De normale OpenAI API-key verlaat de server niet.
+- Realtime gebruikt semantic VAD en interruptie/barge-in. Iedere gebruikersopdracht moet via de `foundly_core`-functie naar de autoritatieve serverroute.
+- Standby wake-word gebruikt uitsluitend lokale browserherkenning wanneer `processLocally` werkelijk beschikbaar is. Anders wordt geen continue omgevingsaudio verwerkt en toont de UI de veilige klik/tekstfallback.
+- De centrale retrieval planner kiest interne data, echte providerprobes/sync en/of OpenAI Web Search. Tijdgevoelige vragen worden niet uit statische modelkennis beantwoord.
+- Eenvoudige tijd/datumvragen gebruiken de lokale serverklok zonder modelcall. Weer zonder bekende plaats vraagt om locatie.
+- De server-side toolregistry bevat schema, rechten, risico, read/write-mode, provider, timeout, retries, confirmation, verificatie en auditbeleid. Handlers worden niet aan de browser blootgesteld.
+- High-risk opdrachten krijgen een cryptografische, tenant-, dealer-, conversation- en turn-bound bevestiging met TTL. Tokens en originele opdrachten worden encrypted opgeslagen; gebruik is eenmalig en replay-safe.
+- Ieder resultaat bewaart een geredigeerde audittrail met intent, plan, tools, acties, providerresultaten, verificatie, latency en fouten.
+- Conversation history is begrensd, persistent en beheersbaar via `GET`/`DELETE /api/jarvis/conversation/:id`.
+- De UI Command Bus accepteert uitsluitend geregistreerde semantische commando's zoals `OPEN_ENGINE`, `OPEN_CONNECTOR`, `SHOW_RESULTS` en `CENTER_GRAPH`.
 
-### OAuth and integrations
+Belangrijke routes:
 
-- Google, Meta, LinkedIn, TikTok and Wix use durable opaque OAuth states stored on disk. OAuth state is one-time and expires after 15 minutes.
-- Wix uses the native external app-install flow. Foundly verifies `signedInstance`, exchanges the installation `instanceId` server-side, probes token info and app instance data, and never asks for OAuth endpoints or credentials in the browser.
-- Meta uses `/api/connect/meta/callback`; Google uses `/api/google/oauth/callback`.
-- OAuth token storage is refused if no Foundly/Google encryption key is configured. Production credentials are not intentionally written unencrypted.
-- After a successful OAuth callback Foundly immediately performs a provider bootstrap instead of only displaying “connected”.
-- Meta bootstrap loads ad accounts, Facebook Pages, campaign metadata and last-30-day account insights where the granted permissions allow it.
-- Google bootstrap loads accessible Ads customers, campaign performance where accessible, GA4 summary data when `GA4_PROPERTY_ID` exists, Search Console properties/performance and upcoming Calendar events when those services/scopes are available.
-- LinkedIn/TikTok account data is ingested after a successful connection.
-- Integration status has one runtime source of truth. Runtime-added custom connectors are included in `/api/connectors` as well as the fixed 93-provider base registry.
-- SYNC now ingests returned connector data into Foundly instead of only saying that a request succeeded.
-- Google/Meta/LinkedIn/TikTok SYNC uses the dedicated provider integration layer. Generic connectors use their configured runtime sync endpoint.
-- Google service cards can TEST, SYNC and disconnect the central Google connection correctly. Meta/Facebook/Instagram share one Meta connection as intended.
+- `GET /api/jarvis/status`
+- `GET /api/jarvis/tools`
+- `POST /api/jarvis/realtime/client-secret`
+- `POST /api/jarvis/turn`
+- `GET /api/jarvis/self-check`
+- `GET|DELETE /api/jarvis/conversation/:id`
 
-### Autonomous command execution
+## Data en provenance
 
-`POST /api/core/command` is now the main command path.
+De Foundly Data Layer is een normalized cache/persistence layer, niet een externe databron. Iedere genormaliseerde record houdt minimaal bij:
 
-A command can:
+- `source_id`
+- `source_name`
+- `source_kind`
+- `method`
+- `provider_verified`
+- `observed_at`
+- `ingested_at`
+- `confidence`
 
-1. determine the relevant Foundly engine(s);
-2. execute supported internal actions (CRM lead creation, follow-up tasks, appointment requests);
-3. synchronize relevant connected providers for analysis/search commands;
-4. use live OpenAI web search when the request clearly needs current external information and an OpenAI key exists;
-5. merge live connector results, persistent Foundly data and web research;
-6. return an answer plus explicit `actions`, `syncs`, sources and execution metadata.
+Bronsoorten onderscheiden `external_provider`, `web_research`, `historical_internal`, `user_input` en `derived_intelligence`. Een engine toont alleen een externe bron als de providerprobe voor die bron werkelijk groen is.
 
-Foundly distinguishes between work it actually executed and advice. It does not claim that an external write happened when the provider write endpoint is not implemented/configured.
+## OAuth en connectoren
 
-### Persistence
+Meta, Google, LinkedIn, TikTok en Wix gebruiken persistente, gehashte en HMAC-gebonden state met een TTL van 15 minuten en transactiestatus `PENDING → PROCESSING → USED`. Een tijdelijke exchangefout geeft de lease veilig vrij voor retry; een definitieve of succesvolle callback is replay-proof.
 
-Previously the main engine records, memory and decisions lived in process memory. v4.4.0 persists:
+Na callback volgt exact deze server-side keten:
 
-- module records;
-- AI memory;
-- decisions/executions;
-- task queue;
-- real system events;
-- worker state;
-- OAuth tokens;
-- connector credentials;
-- runtime connector profiles;
-- OAuth state.
+1. state en tenant/dealerbinding valideren;
+2. authorization code/installation payload valideren;
+3. token server-side uitwisselen;
+4. token encrypted persistent opslaan;
+5. echte providerprobe;
+6. bootstrap en ingest met provenance;
+7. pas daarna `connected` en redirect naar de beveiligde UI.
 
-For Railway, attach a persistent Volume at `/data` and set:
+Wix is native geïmplementeerd via `https://www.wix.com/app-installer`; de vaste callback is `/api/connect/wix/callback` en de token exchange gebruikt `https://www.wixapis.com/oauth2/token`. Er is geen browserprompt voor authorization/token endpoints of Wix-secrets.
 
-`FOUNDLY_DATA_DIR=/data`
+De overige connectorprofielen zijn capabilities, geen meegeleverde providercontracten of credentials. Een connector blijft `NOT_CONFIGURED`, `CONFIGURED`, `ERROR` of `CONNECTED` op basis van echte configuratie en probes; Foundly simuleert geen live status.
 
-Without a persistent Railway Volume, any disk-based application can still lose runtime files during container replacement.
+## Workers en persistence
 
-### Worker
+Core records, provenance, memory, decisions, Jarvis-audit, jobs, events en workerstatus worden in `FOUNDLY_DATA_DIR` opgeslagen. De worker verwerkt echte queued jobs, gebruikt persisted attempts/status, exponential backoff en dead-letterstatus na het maximale aantal pogingen.
 
-`POST /api/workers/tick` now performs actual work. It processes queued internal tasks and automatically synchronizes eligible connected providers that have not recently been synchronized. A background worker also runs on `FOUNDLY_WORKER_INTERVAL_MS` (default 300000 ms / 5 minutes).
+Voor Railway:
 
-### Interface
-
-- The old simulated “background activity” feed is removed. The event panel displays real server events from `/api/events`.
-- SOCIAL maps correctly to the backend `social_media` engine and GOOGLE maps correctly to `google_ads`.
-- Module questions and the global command bar both use `/api/core/command`.
-- OAuth returns to the Integration Control Center, refreshes status and shows how many records were bootstrapped.
-- VERBIND, TEST, SYNC, PROFIEL, ONTKOPPEL, CONTROLEER ALLES and SELF CHECK all have explicit handlers.
-- Unsupported actions are disabled rather than pretending to work.
-
-## Railway deployment
-
-1. Replace the old project files with this package.
-2. Attach a Railway Volume mounted at `/data`.
-3. Use `RAILWAY_VARIABLES.txt` as the Raw Editor template and insert the real credentials directly in Railway.
-4. Make sure the callback URLs for Google/Meta/LinkedIn/TikTok/Wix exactly match the Railway URLs.
-5. Deploy.
-6. Railway should log: `Foundly OS v4.4.0 ONLINE op poort 8080`.
-7. Open `/api/health` for the local health check.
-8. Open `/api/diagnostics/config` for configuration diagnostics.
-9. Open Foundly → Integraties → CONTROLEER ALLES.
-
-## Important provider reality
-
-The 93 base connectors are integration profiles, not 93 credentials magically included with Foundly. A provider that requires partner/API access still requires the actual provider credentials and, where relevant, the official endpoint contract. Foundly now handles that state honestly: configured, connected, unavailable, missing endpoint, or failed health check.
-
-This build deliberately avoids scraping or pretending that a partner API exists where no authorized API access is configured.
+1. koppel aan de service achter het publieke domein een Volume op `/data`;
+2. zet `FOUNDLY_DATA_DIR=/data`;
+3. vul `RAILWAY_VARIABLES.txt` op exact die service in;
+4. registreer de callback-URL's bij de providers;
+5. deploy en controleer `/api/health`, `/api/ready` en `/api/jarvis/status`.
 
 ## Tests
 
-Run:
+Voer lokaal uit:
 
 ```bash
 npm test
 ```
 
-The smoke suite verifies:
+De suite test syntax, auth/secrets, SSRF-beveiliging, 93 connectorcontracten, alle vijf native OAuth-flows inclusief Basic Auth + publieke callback + containerrestart, encrypted tokens, state-replay/retry, providerbootstrap, sync ingest, workerretry, 12 engines, provenance, Jarvis ephemeral sessions, originvalidatie, actuele searchrouting, weather/time/news-intents, follow-ups, tool-idempotency, confirmations, prompt-injectiondefensie, memory pruning, restart persistence, history deletion en de UI/voice-contracten.
 
-- server and UI JavaScript syntax;
-- v4.2 local health;
-- 93 base connectors;
-- durable one-time OAuth state and replay rejection;
-- custom runtime connector create/test/sync/ingest;
-- command execution and internal actions;
-- worker task execution;
-- persistent state across a full server restart;
-- all 12 engine status routes;
-- primary UI button/action wiring;
-- removal of the old fake activity stream.
+Browserhardware en echte externe providers worden bewust niet door mocks tot `LIVE PASS` verklaard. Na iedere deploy blijven echte microfoon/playback/WebRTC-, providercredential-, consent/review- en Railway Volume-tests afzonderlijke live acceptance gates.

@@ -1,36 +1,38 @@
-# Foundly OS v4.3.0 verification report
-
-## Source truth and provenance
-
-- Engine status exposes only sources applicable to that engine and counts a source as connected only when its real provider probe succeeded.
-- Configured-but-unverified connectors are listed separately and never contribute to the live-source count.
-- The Foundly Data Layer is described as normalized cache/persistence, separate from external providers, historical internal data and derived intelligence.
-- Ingested records carry structured provenance (`source_id`, `source_name`, `source_kind`, `method`, `provider_verified`, timestamps). Generic API ingest is explicitly unverified until a provider-backed sync/probe establishes it.
-- UI subagents display their currently verified source names or state that no verified external source exists; they no longer claim an independent datasource.
+# Foundly OS v5.0.0 verification report
 
 Date: 2026-09-03
 
-## Locally proven
+This report is secondary evidence. The repository code, automated tests, deployed version and live external-provider responses remain the source of truth.
 
-- syntax and startup
-- persistent OAuth state and replay rejection
-- encrypted persistence and restart recovery
-- runtime connector probe/sync/ingestion contract
-- core actions and persisted worker execution
-- retry scheduling and dead-letter-compatible job model
-- UI/backend route contract
-- production authentication enforcement
-- trusted tenant context (client tenant headers ignored)
-- SSRF host/scheme/private-network guard
-- secret-free diagnostics and liveness
-- Railway readiness fails when a separate persistent mount cannot be proven
-- production Basic Auth start plus public Meta/Google/LinkedIn/TikTok callbacks
-- restart survival between OAuth start and callback
-- hashed, HMAC-bound, tenant-bound state transactions and safe transient retries
-- encrypted token persistence, live-probe contract and bootstrap ingestion
+## Local result
 
-Run `npm test` for the full deterministic suite.
+`npm test`: PASS
 
-## Not claimed by local tests
+- server/UI/test JavaScript syntax: PASS
+- core persistence and full restart: PASS
+- 93 connector schema/status contracts: PASS
+- source/provenance contracts: PASS
+- worker execution and retry persistence: PASS
+- production auth, tenant-header isolation and SSRF guard: PASS
+- Meta/Google/LinkedIn/TikTok/Wix OAuth callback bypass of Basic Auth: PASS
+- hashed/HMAC-bound persisted state, TTL, lease, one-time replay and transient retry: PASS
+- native provider token encryption, probe, bootstrap and restart: PASS (mocked provider responses)
+- generic runtime OAuth state hardening and restart: PASS
+- Jarvis authoritative tool registry and safe public schema: PASS
+- Realtime ephemeral credential/origin/session contract: PASS (mocked OpenAI response)
+- current search, weather/news routing, deterministic time and follow-up context: PASS
+- idempotent tool execution, encrypted confirmation and replay defense: PASS
+- prompt-injection action defense and secret scan: PASS
+- bounded/persisted/deletable conversation memory: PASS
+- semantic UI command bus and external JavaScript CSP: PASS
 
-Real provider connectivity is never inferred from environment variables. Meta, Google, LinkedIn, TikTok and automotive providers remain external blockers until their production credentials, callback registrations, permissions/partner access and live probes succeed. `/api/ready`, `/api/integrations/status` and the Integration Control Center are authoritative after deployment.
+## Not proven by this report
+
+- Railway `/data` Volume attachment on the public v36 service;
+- live Railway variables and Basic Auth credentials;
+- live OpenAI Realtime WebRTC audio, microphone permission, local wake capability and playback in the target browser;
+- live OAuth consent/token exchange for real Meta, Google, LinkedIn, TikTok or Wix accounts;
+- provider permissions, app review, partner access and production data availability;
+- actual Railway deployment of v5.0.0.
+
+Do not label those items `LIVE PASS` until the deployed endpoints and real browser/provider flows have been observed.

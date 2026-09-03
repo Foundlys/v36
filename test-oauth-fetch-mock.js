@@ -10,16 +10,18 @@ globalThis.fetch=async(input,init={})=>{
   if(url.startsWith('http://127.0.0.1:')||url.startsWith('http://localhost:'))return nativeFetch(input,init);
 
   if(url.includes('graph.facebook.com')&&url.includes('/oauth/access_token')){
-    const code=formValue(init,'code');
+    const code=formValue(init,'code'),exchangedToken=formValue(init,'fb_exchange_token');
     if(code==='retry-once'){
       const n=(attempts.get(code)||0)+1;attempts.set(code,n);
       if(n===1)return json({error:{message:'temporary provider failure'}},503);
     }
+    if(code==='concurrent-code')await new Promise(resolve=>setTimeout(resolve,100));
+    if(code==='probe-fails'||exchangedToken==='mock-meta-probe-fails')return json({access_token:'mock-meta-probe-fails',expires_in:3600,token_type:'bearer'});
     return json({access_token:'mock-meta-access-token',expires_in:3600,token_type:'bearer'});
   }
   if(url.includes('graph.facebook.com')&&url.includes('/me/adaccounts'))return json({data:[]});
   if(url.includes('graph.facebook.com')&&url.includes('/me/accounts'))return json({data:[]});
-  if(url.includes('graph.facebook.com')&&url.includes('/me?'))return json({id:'meta-user-1',name:'Meta Test'});
+  if(url.includes('graph.facebook.com')&&url.includes('/me?')){if(String(init?.headers?.authorization||'').includes('mock-meta-probe-fails'))return json({error:{message:'test probe rejected'}},401);return json({id:'meta-user-1',name:'Meta Test'});}
 
   if(url==='https://www.linkedin.com/oauth/v2/accessToken')return json({access_token:'mock-linkedin-access-token',expires_in:3600});
   if(url==='https://api.linkedin.com/v2/userinfo')return json({sub:'linkedin-user-1',name:'LinkedIn Test'});

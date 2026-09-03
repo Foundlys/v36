@@ -17,10 +17,10 @@ async function get(path,opts){const r=await fetch(base+path,opts);const text=awa
   // Dedicated routes must exist even without credentials.
   for(const path of ['/api/google/status','/api/connect/meta/status','/api/connect/linkedin/status','/api/connect/tiktok/status','/api/connect/wix/status','/api/whatsapp/status']){const x=await get(path);assert.notEqual(x.r.status,404,`${path} missing`)}
   const wix=profiles.get('wix');assert.equal(wix.auth_strategy,'wix_app_install');assert.equal(wix.connection_mode,'native_oauth');assert.deepEqual(wix.credential_fields,[]);
-  const html=fs.readFileSync(__dirname+'/index.html','utf8');
-  const requiredApi=['/api/core/command','/api/integration-sync/','/api/google/connect','/api/connect/${dedicated}','/api/connector-runtime/test/','/api/connector-runtime/config/','/api/events','/api/workers/tick'];for(const token of requiredApi)assert(html.includes(token),`UI missing ${token}`);
-  assert(!/OPENAI_API_KEY[^\n]{0,120}prompt/i.test(html),'OpenAI key still collected in browser');
-  assert(html.includes("['linkedin','tiktok','wix']"),'Wix must route through the native connector before the generic OAuth prompt');
-  assert(!html.includes('setInterval(()=>addEvent(events['),'simulated event loop still exists');
-  console.log(JSON.stringify({ok:true,version:'4.4.0',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass'},null,2));
+  const html=fs.readFileSync(__dirname+'/index.html','utf8'),js=fs.readFileSync(__dirname+'/index-script.js','utf8'),ui=html+'\n'+js;
+  const requiredApi=['/api/jarvis/turn','/api/integration-sync/','/api/google/connect','/api/connect/${dedicated}','/api/connector-runtime/test/','/api/connector-runtime/config/','/api/events','/api/workers/tick'];for(const token of requiredApi)assert(js.includes(token),`UI missing ${token}`);
+  assert(!/OPENAI_API_KEY[^\n]{0,120}prompt/i.test(ui),'OpenAI key still collected in browser');
+  assert(js.includes("['linkedin','tiktok','wix']"),'Wix must route through the native connector before the generic OAuth prompt');
+  assert(!ui.includes('setInterval(()=>addEvent(events['),'simulated event loop still exists');assert(!/Yoo bro/i.test(ui));assert(html.includes('<script src="/index-script.js" defer></script>'));
+  console.log(JSON.stringify({ok:true,version:'5.0.0',connectors_audited:93,status_contract:'pass',dedicated_routes:'pass',ui_contract:'pass',jarvis_pipeline:'pass'},null,2));
 }catch(e){console.error(logs);console.error(e);process.exitCode=1}finally{child.kill('SIGTERM')}})();
