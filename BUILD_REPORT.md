@@ -11,6 +11,8 @@ This report is secondary evidence. Repository code, immutable git objects, autom
 - completed v6 implementation commit: `1181861e47388b3955ca1e1252e3825d6731d7a1`
 - completed v6 implementation tree: `64e172fecd6a271d849801a19caea365bd825a92`
 - published v6 main/release merge: `40b9ed700a3a93e1c4af3c66037a8ffc1116dd50`
+- neural visual correction commit: `eab6b0faebcf886f59ce79d76d413241827c6b89`
+- neural visual correction merge on `main`: `ee429a9104b54a879365c69c965ec42308c333ba`
 - release branch: `release/foundly-v6.0.0`
 - repository: `Foundlys/v36`
 
@@ -32,13 +34,13 @@ The phase status below is derived from the committed implementation, public cont
 | 7 | ZERO cross-platform orchestration | PASS | authoritative server-side tools for Analysis, Finance, Knowledge and Automation; idempotency, confirmation, verification, audit and legacy `/api/jarvis/*` aliases retained |
 | 8 | Business workspaces | CONTRACT PASS | responsive `/analysis` and `/finance` workspaces, strict CSP assets, accessible empty states, persisted-record-only displays, exports and ZERO entry points |
 | 9 | Integrated platform journey | PASS | deterministic end-to-end lead → CRM → won deal → invoice → payment → reconciliation → attribution → knowledge → learning → ZERO answer; encrypted restart persistence passes |
-| 10 | GitHub release and Railway runtime | DEPLOYED / READY BLOCKED | `main` and `release/foundly-v6.0.0` contain the same release tree; GitHub Actions passes; Railway redeployed and live `/api/health` reports v6.0.0; public `/api/ready` remains blocked only by the external configuration listed below |
+| 10 | GitHub release and Railway runtime | DEPLOYED / READY BLOCKED | `release/foundly-v6.0.0` preserves the v6 release baseline and `main` contains the bounded neural visual follow-up; GitHub Actions passes; Railway redeployed and live `/api/health` reports v6.0.0; public `/api/ready` remains blocked only by the external configuration listed below |
 
 ## Local and CI result
 
 `npm test`: PASS (`exit 0`)
 
-GitHub Actions `Production architecture tests`: PASS for implementation commit `1181861e47388b3955ca1e1252e3825d6731d7a1` (run `33876702491`) and final published main commit `40b9ed700a3a93e1c4af3c66037a8ffc1116dd50` (run `33878418584`).
+GitHub Actions `Production architecture tests`: PASS for implementation commit `1181861e47388b3955ca1e1252e3825d6731d7a1` (run `33876702491`), published release commit `40b9ed700a3a93e1c4af3c66037a8ffc1116dd50` (run `33878418584`), and neural visual correction commit `eab6b0faebcf886f59ce79d76d413241827c6b89` (run `33899565892`).
 
 ### Preserved platform gates
 
@@ -91,6 +93,18 @@ GitHub Actions `Production architecture tests`: PASS for implementation commit `
 - Analysis and Finance responsive/CSP/accessibility/empty-state contracts: PASS
 - full-platform end-to-end deterministic journey and encrypted restart: PASS
 
+## Neural command center visual correction
+
+The old dashboard video was used only as the primary motion and composition reference. It is not copied, embedded, replayed, or shipped by the application.
+
+- restored composition: one Foundly core, 12 module hubs and all 154 existing capability labels;
+- deterministic topology: 166 explicit core/module/capability connections inside the existing 420-ribbon and 6,200-particle renderer budget;
+- autonomous motion: a 46-second non-uniform 3D trajectory combining yaw, pitch, subtle roll, camera precession and depth change instead of a continuous simple orbit;
+- orientation coverage: numerical regression proves front/rear, above/below, left/right, bidirectional roll, two-axis precession and non-monotonic yaw;
+- background: near-black/deep-space black with only restrained blue atmosphere; neural filaments, particles and energy remain the primary color source;
+- integration boundary: renderer/style files plus one constructor-data hook in `index-script.js`; no CRM, Analysis, Finance, Tax, Data, Connector, Automation, ZERO, auth, security or persistence implementation changed;
+- regression result: the full `npm test` matrix remains PASS.
+
 ## Official fiscal-source verification
 
 The committed fiscal metadata was rechecked on 2026-09-04 against the official Belastingdienst pages referenced by the code:
@@ -110,8 +124,12 @@ Observed at `https://v36-production.up.railway.app` on 2026-09-04:
 - `GET /api/diagnostics/runtime-auth`: HTTP 200, production/Railway runtime detected, OpenAI configured, no secret values exposed
 - `GET /api/ready`: HTTP 503, `verdict: FAIL`
 - post-publication uptime observation: reset to 54 seconds after the final main push, consistent with a fresh Railway deployment
+- target service reconfirmed as project `dazzling-solace`, environment `production`, service `v36`, domain `v36-production.up.railway.app`
+- neural visual merge `ee429a9104b54a879365c69c965ec42308c333ba`: Railway deployment `939ee0ad-8734-45fb-af1b-aa8dfda92a15` reported `Deployment successful`
+- deploy log after the visual merge: `Foundly OS v6.0.0 ONLINE op poort 8080`
+- Railway Network Logs after that start: `GET /api/health`, HTTP 200
 
-The public health endpoint and uptime reset prove that a fresh v6.0.0 container built and started after publication. Because the endpoint does not expose a commit SHA, the exact source-SHA association remains an inference from deployment timing rather than direct runtime evidence.
+The public health endpoint, GitHub deployment status and Railway deployment record prove that a fresh v6.0.0 container built and started from the neural visual merge. The endpoint itself does not expose a commit SHA; commit binding is provided by the GitHub-attached Railway status and matching Railway deployment record.
 
 ## Remaining external live gates
 
