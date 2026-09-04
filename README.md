@@ -1,8 +1,19 @@
-# Foundly OS v5.4.0 — ZERO Neural Command Center + Foundly CRM
+# Foundly OS v6.0.0 — Neural Business Operating System
 
-Foundly v5.4 maakt ZERO de centrale, tenantgebonden commandolaag voor tekst en voice en voegt een zelfstandig inzetbare enterprise-CRM toe. ZERO gebruikt één server-side planner en toolregistry voor interne Foundly- en CRM-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's. `/api/jarvis/*` blijft uitsluitend als backward-compatible alias bestaan.
+Foundly v6 bouwt voort op de exact behouden v5.4 Neural-, ZERO- en CRM-release en voegt één tenantgebonden platform toe voor canonical events, realtime analyse, KPI's, attributie, finance, Nederlandse fiscale regels, data/knowledge, learning, connectoren, automation en configuratiegestuurde capability packs. ZERO gebruikt één server-side planner en typed toolregistry over die domeinen. `/api/jarvis/*` blijft uitsluitend als backward-compatible alias bestaan.
 
 De productregel is strikt: geen provider, record, status, zoekresultaat of actie wordt als echt gepresenteerd zonder een echte response, persistente write of expliciete verificatie.
+
+## Platformwerkruimtes en domeinen
+
+- `/crm` levert de geïntegreerde CRM-workspace met Customer 360, pipelines, taken, communicatiearchitectuur, echte recordanalytics, dashboardpresets en de dashboard builder; dezelfde Core kan via `crm-standalone.js` zelfstandig draaien.
+- `/analysis` levert realtime canonical events, server-side gepagineerde historische rollups, een versiegebonden KPI Registry, freshness, multi-touchattributie, de commerciële funnel en herleidbare campagne-uitkomsten. KPI's delen een incrementeel bijgewerkte tenant-/filtergebonden fact-cache; de browser ontvangt geen volledige dataset.
+- `/finance` levert double-entry accounting met balanscontrole, facturen en creditnota's, debiteuren/crediteuren, betalingen, bankregels en reconciliatie, BTW, vaste activa, rapportage, budget/forecast, periodeafsluiting, reversals en geautoriseerde geaudite exports.
+- De Data Platform-laag bevat canonical records, append-only events, content-addressed objectmanifests, provenance, retention, encrypted persistence en een duurzame offline outbox met conflictbeleid.
+- Knowledge onderscheidt bronmateriaal, observaties, feiten, inzichten, voorkeuren en hypotheses met bewijs, confidence, geldigheid, supersession en rechten. Learning registreert versiegebonden afleidingen en echte outcomes, maar claimt geen automatische retraining.
+- De gedeelde connectorruntime bewaakt contract, lifecycle, probe, sync, checkpoints, retries, webhooks en idempotency. `CONNECTED` vereist authenticatie, een geslaagde probe en initiële sync; ontbrekende provideraccess blijft zichtbaar als niet geverifieerd.
+- Automation is versiegebonden, replay-safe en geaudit; high-risk externe communicatie, betaling, filing en kritieke instellingen vereisen expliciete approval. Auto-Provisioner stelt per tenant passende modules, pipelines, KPI's, dashboards, connectorplannen, workflows, rollen en ZERO-tools samen zonder codefork.
+- Alleen de BTW-regellaag is als geverifieerd uitvoerbaar gemarkeerd. Overige Nederlandse fiscale domeinen blijven expliciet architectuur-only totdat actuele officiële regels en operationele filingkoppelingen per use-case zijn geverifieerd.
 
 ## Productiepoorten
 
