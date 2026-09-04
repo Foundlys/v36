@@ -10,6 +10,7 @@ This report is secondary evidence. Repository code, immutable git objects, autom
 - baseline merge commit on `main`: `205427e42d0cc617cd06abf94062ead7f65e796e`
 - completed v6 implementation commit: `1181861e47388b3955ca1e1252e3825d6731d7a1`
 - completed v6 implementation tree: `64e172fecd6a271d849801a19caea365bd825a92`
+- published v6 main/release merge: `40b9ed700a3a93e1c4af3c66037a8ffc1116dd50`
 - release branch: `release/foundly-v6.0.0`
 - repository: `Foundlys/v36`
 
@@ -31,13 +32,13 @@ The phase status below is derived from the committed implementation, public cont
 | 7 | ZERO cross-platform orchestration | PASS | authoritative server-side tools for Analysis, Finance, Knowledge and Automation; idempotency, confirmation, verification, audit and legacy `/api/jarvis/*` aliases retained |
 | 8 | Business workspaces | CONTRACT PASS | responsive `/analysis` and `/finance` workspaces, strict CSP assets, accessible empty states, persisted-record-only displays, exports and ZERO entry points |
 | 9 | Integrated platform journey | PASS | deterministic end-to-end lead → CRM → won deal → invoice → payment → reconciliation → attribution → knowledge → learning → ZERO answer; encrypted restart persistence passes |
-| 10 | GitHub release and Railway runtime | PARTIAL | release branch is committed/pushed; GitHub Actions passes; live `/api/health` reports v6.0.0, but public `/api/ready` remains FAIL on external Railway configuration listed below |
+| 10 | GitHub release and Railway runtime | DEPLOYED / READY BLOCKED | `main` and `release/foundly-v6.0.0` contain the same release tree; GitHub Actions passes; Railway redeployed and live `/api/health` reports v6.0.0; public `/api/ready` remains blocked only by the external configuration listed below |
 
 ## Local and CI result
 
 `npm test`: PASS (`exit 0`)
 
-GitHub Actions `Production architecture tests`: PASS for implementation commit `1181861e47388b3955ca1e1252e3825d6731d7a1` (run `33876702491`).
+GitHub Actions `Production architecture tests`: PASS for implementation commit `1181861e47388b3955ca1e1252e3825d6731d7a1` (run `33876702491`) and final published main commit `40b9ed700a3a93e1c4af3c66037a8ffc1116dd50` (run `33878418584`).
 
 ### Preserved platform gates
 
@@ -101,15 +102,16 @@ The committed fiscal metadata was rechecked on 2026-09-04 against the official B
 
 Only the versioned BTW rules are marked executable. Corporate tax and every other non-BTW fiscal domain remain architecture-only and review-gated.
 
-## Live Railway evidence before final main publication
+## Live Railway evidence after final main publication
 
 Observed at `https://v36-production.up.railway.app` on 2026-09-04:
 
 - `GET /api/health`: HTTP 200, `version: 6.0.0`
 - `GET /api/diagnostics/runtime-auth`: HTTP 200, production/Railway runtime detected, OpenAI configured, no secret values exposed
 - `GET /api/ready`: HTTP 503, `verdict: FAIL`
+- post-publication uptime observation: reset to 54 seconds after the final main push, consistent with a fresh Railway deployment
 
-The public health endpoint proves that a v6.0.0 container built and started. It does not expose a commit SHA, so it does not by itself prove which immutable git commit produced the running container.
+The public health endpoint and uptime reset prove that a fresh v6.0.0 container built and started after publication. Because the endpoint does not expose a commit SHA, the exact source-SHA association remains an inference from deployment timing rather than direct runtime evidence.
 
 ## Remaining external live gates
 
