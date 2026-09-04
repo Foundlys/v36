@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Foundly Automotive Intelligence</title>
+  <link rel="stylesheet" href="/automotive.css">
+  <script src="/automotive-script.js" defer></script>
+</head>
+<body class="automotive-shell">
+  <a class="skip-link" href="#workspace">Naar hoofdinhoud</a>
+  <aside class="rail" aria-label="Foundly navigatie">
+    <a class="brand" href="/" aria-label="Foundly Command Center">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>FOUNDLY</span>
+    </a>
+    <nav class="primary-nav">
+      <a href="/" title="Neural Command Center"><span aria-hidden="true">◈</span><em>Core</em></a>
+      <a href="/crm" title="CRM"><span aria-hidden="true">◎</span><em>CRM</em></a>
+      <a href="/analysis" title="Analysis"><span aria-hidden="true">⌁</span><em>Analysis</em></a>
+      <a href="/finance" title="Finance"><span aria-hidden="true">◇</span><em>Finance</em></a>
+      <a class="active" href="/automotive" aria-current="page" title="Automotive"><span aria-hidden="true">A</span><em>Automotive</em></a>
+    </nav>
+    <div class="rail-status">
+      <span class="status-light" id="railStatusLight" aria-hidden="true"></span>
+      <span id="railStatusText">Controleren</span>
+    </div>
+  </aside>
+
+  <main class="workspace" id="workspace">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">FOUNDLY / CAPABILITY PACK</p>
+        <h1>Automotive Intelligence</h1>
+      </div>
+      <div class="partner-badge">
+        <span>Development Partner Preview</span>
+        <strong id="partnerName">House of Cars</strong>
+      </div>
+    </header>
+
+    <section class="command-deck" aria-labelledby="searchTitle">
+      <div class="command-copy">
+        <p class="section-kicker">ZERO PROCUREMENT COMMAND</p>
+        <h2 id="searchTitle">Zoek de sterkste inkoopkans.</h2>
+        <p>ZERO vertaalt je opdracht naar filters, vraagt echte providers parallel uit en houdt live, cached en unavailable strikt uit elkaar.</p>
+      </div>
+      <form id="automotiveSearchForm" class="search-form">
+        <label for="automotiveQuery">Automotive zoekopdracht</label>
+        <div class="search-control">
+          <input id="automotiveQuery" name="query" type="search" maxlength="4000" autocomplete="off" value="Zoek een BMW X5 45e M Sport vanaf 2022, maximaal 70.000 kilometer en €50.000 inkoop." required>
+          <button id="searchButton" type="submit"><span>Analyseer markt</span><b aria-hidden="true">→</b></button>
+        </div>
+        <div class="search-meta">
+          <span id="searchState">Gereed voor een provider-query</span>
+          <span id="correlationState">Geen actieve trace</span>
+        </div>
+      </form>
+    </section>
+
+    <section class="provider-strip" aria-labelledby="providerTitle">
+      <div class="section-heading compact">
+        <div>
+          <p class="section-kicker">SOURCE FABRIC</p>
+          <h2 id="providerTitle">Providerstatus</h2>
+        </div>
+        <button class="ghost-button" id="refreshStatus" type="button">Vernieuwen</button>
+      </div>
+      <div class="provider-grid" id="providerGrid" aria-live="polite">
+        <div class="skeleton provider-skeleton"></div>
+        <div class="skeleton provider-skeleton"></div>
+        <div class="skeleton provider-skeleton"></div>
+        <div class="skeleton provider-skeleton"></div>
+      </div>
+    </section>
+
+    <div class="workspace-grid">
+      <section class="results-panel" aria-labelledby="resultsTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">PROCUREMENT</p>
+            <h2 id="resultsTitle">Zoekresultaten</h2>
+          </div>
+          <div class="result-count" id="resultCount">—</div>
+        </div>
+        <div class="criteria-panel" id="criteriaPanel" hidden></div>
+        <div class="vehicle-grid" id="vehicleGrid" aria-live="polite">
+          <div class="empty-state">
+            <span class="empty-orbit" aria-hidden="true"></span>
+            <h3>Nog geen marktquery uitgevoerd</h3>
+            <p>Start een zoekopdracht. Er verschijnen alleen provider-verified listings; nooit demo-inventaris.</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="today-panel" aria-labelledby="todayTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">DAILY SIGNAL</p>
+            <h2 id="todayTitle">Vandaag inkopen</h2>
+          </div>
+          <button class="icon-button" id="refreshToday" type="button" aria-label="Kansen van vandaag vernieuwen">↻</button>
+        </div>
+        <div id="todayList" class="today-list" aria-live="polite">
+          <div class="empty-state small">
+            <h3>Brondata wordt gecontroleerd</h3>
+            <p>Geen score zonder echte marketplace-listings.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="detail-panel" id="vehicleDetail" aria-labelledby="detailTitle" hidden>
+      <div class="detail-hero">
+        <div class="detail-image" id="detailImage" aria-hidden="true"></div>
+        <div class="detail-heading">
+          <p class="section-kicker" id="detailProvider">PROVIDER</p>
+          <h2 id="detailTitle">Voertuig</h2>
+          <p id="detailSubtitle"></p>
+          <div class="detail-actions">
+            <a class="primary-link" id="sourceLink" href="#" target="_blank" rel="noopener noreferrer">Open bronlisting</a>
+            <button class="ghost-button" id="closeDetail" type="button">Sluiten</button>
+          </div>
+        </div>
+        <div class="score-orb" id="detailScore">
+          <strong>—</strong>
+          <span>BUY SCORE</span>
+        </div>
+      </div>
+      <div class="detail-tabs" role="tablist" aria-label="Voertuiganalyse">
+        <button role="tab" aria-selected="true" data-tab="why">Why buy</button>
+        <button role="tab" aria-selected="false" data-tab="market">Market</button>
+        <button role="tab" aria-selected="false" data-tab="economics">Economics</button>
+        <button role="tab" aria-selected="false" data-tab="comparables">Comparables</button>
+        <button role="tab" aria-selected="false" data-tab="risks">Risks</button>
+        <button role="tab" aria-selected="false" data-tab="source">Source & provenance</button>
+      </div>
+      <div class="detail-content" id="detailContent"></div>
+    </section>
+
+    <section class="zero-dock" aria-labelledby="zeroTitle">
+      <div class="zero-identity" aria-hidden="true"><span></span><span></span><i></i></div>
+      <div class="zero-copy">
+        <p class="section-kicker">CONVERSATIONAL LAYER</p>
+        <h2 id="zeroTitle">Vraag ZERO door.</h2>
+        <p id="zeroAnswer">Na een zoekopdracht kun je vragen: “Waarom nummer één?”, “Vergelijk hem met Nederland” of “Wat hou ik ongeveer over?”</p>
+      </div>
+      <form id="zeroForm" class="zero-form">
+        <label for="zeroQuery">Vraag aan ZERO</label>
+        <input id="zeroQuery" name="message" type="text" maxlength="4000" placeholder="Waarom is nummer één interessant?" required>
+        <button type="submit" aria-label="Vraag versturen">↑</button>
+      </form>
+    </section>
+
+    <footer class="workspace-footer">
+      <span>Real-data contract actief</span>
+      <span id="footerVersion">Foundly</span>
+      <span>Geen synthetische runtime-records</span>
+    </footer>
+  </main>
+
+  <div class="toast-region" id="toastRegion" aria-live="assertive" aria-atomic="true"></div>
+</body>
+</html>

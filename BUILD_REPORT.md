@@ -4,6 +4,44 @@ Date: 2026-09-04
 
 This report is secondary evidence. Repository code, immutable git objects, automated tests, the deployed runtime, and real external-provider responses remain the sources of truth.
 
+## Automotive / House of Cars pilot release candidate
+
+The Automotive pilot was resumed from the clean `main` recovery baseline `cf5e54aacc2e598c59a8dbe0866c9164f46f857a` on branch `feature/automotive-house-of-cars-pilot`. The bounded implementation checkpoints are:
+
+- `2dc3d93`: canonical Automotive data, provider adapters, real-data search, deduplication, comparables, economics, dealer fit and explainable Buy Score;
+- `efbc341`: authenticated Automotive APIs, existing ZERO integration and Auto-Provisioner capability-pack wiring;
+- `3c75367`: dedicated Automotive workspace, safe provider-image proxy, official live-provider test and provider timeout hardening.
+
+This is a reusable `AUTOMOTIVE` capability pack on the existing Foundly platform. It does not create a second application, database, CRM, event bus, persistence layer or ZERO instance. House of Cars is represented only as a development-partner preview and optional tenant dealer profile; no private dealer facts, preferences, inventory history or target margins are invented.
+
+Implemented release-candidate scope:
+
+- natural-language criteria parsing with multi-turn retention;
+- parallel RDW, mobile.de and Marktplaats orchestration with truthful `LIVE`, `CACHED`, `STALE` and `UNAVAILABLE` states;
+- canonical listing and vehicle-truth records, source manifests, transformation version, timestamps and provider provenance;
+- conservative exact/high-confidence deduplication and persisted listing history;
+- real-active-NL-listing comparables, versioned 2026 BPM estimation, acquisition economics, listing-scarcity signals, configurable dealer fit and explainable Buy Score;
+- five Automotive tools in the existing ZERO registry, including the guarded “wat moet House of Cars vandaag inkopen?” flow;
+- authenticated `/api/automotive/*` routes and responsive `/automotive` workspace with evidence, risk, economics, comparable and source drill-down;
+- no synthetic runtime inventory and no fallback to fabricated provider results.
+
+Official live provider observation on 2026-09-04 at `21:47:55Z`:
+
+| Provider | Configured | Authenticated | Probe | Real records | Runtime classification | Blocker |
+| --- | --- | --- | --- | ---: | --- | --- |
+| RDW Open Data | yes | public | PASS, HTTP 200 | 50 received / 50 normalized vehicle-truth records | LIVE | none |
+| mobile.de Search API | no | no | NOT RUN | 0 | BLOCKED | `MOBILE_DE_USERNAME` and `MOBILE_DE_PASSWORD` are absent |
+| Marktplaats v2 Search | no | no | NOT RUN | 0 | BLOCKED | `MARKTPLAATS_ACCESS_TOKEN` is absent |
+| AutoScout24 | no | no | NOT RUN | 0 | BLOCKED / P1 | official access and adapter contract are not yet verified |
+
+RDW is authoritative vehicle truth, not a marketplace. The Tuesday real-marketplace acceptance gate therefore remains `BLOCKED` until mobile.de or Marktplaats is legitimately configured and returns at least one real matching listing end to end.
+
+Release-candidate verification completed with exit code 0 for `npm run test:automotive`, `npm run test:automotive:live`, `npm run test:crm`, `npm run test:platform`, `npm run test:e2e`, `node jarvis-production-regression-test.js`, `node jarvis-client-regression-test.js` and `node speech-audio-visual-regression-test.js`. Earlier security, readiness and OAuth commands in the same full-suite run also passed. The final aggregate `npm test` wrapper was not assigned a PASS because the execution environment stopped the wrapper before a final exit code; its constituent suites were run and verified separately. The Automotive fixtures explicitly identify themselves as synthetic contract fixtures and are not provider proof.
+
+The Neural command center, renderer, autonomous motion, audio and speech assets remain byte-for-byte identical to baseline `cf5e54a`; no Automotive change touches their source files.
+
+Production publication and live Automotive browser/API evidence are pending the protected-branch merge. Until that succeeds, production remains the previously verified v6.0.0 baseline described below, including the four external Railway readiness blockers.
+
 ## Preserved release lineage
 
 - preserved production baseline: `v5.4.0`
