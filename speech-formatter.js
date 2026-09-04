@@ -9,7 +9,9 @@
   const TENS=['','','twintig','dertig','veertig','vijftig','zestig','zeventig','tachtig','negentig'];
   const UNIT_JOIN=['','eenen','tweeën','drieën','vieren','vijfen','zesen','zevenen','achten','negenen'];
   const LETTERS={A:'aa',B:'bee',C:'see',D:'dee',E:'ee',F:'ef',G:'gee',H:'haa',I:'ie',J:'jee',K:'kaa',L:'el',M:'em',N:'en',O:'oo',P:'pee',Q:'kuu',R:'er',S:'es',T:'tee',U:'uu',V:'vee',W:'wee',X:'iks',Y:'ij',Z:'zet'};
+  const MONTHS=['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
   const clampText=(value,limit=12000)=>String(value??'').slice(0,Math.max(0,limit));
+  function decodePresentationEntities(value){const named={amp:'en',lt:' ',gt:' ',quot:'',apos:'',nbsp:' '};return String(value).replace(/&(#x?[0-9a-f]+|amp|lt|gt|quot|apos|nbsp);/gi,(_,entity)=>{if(entity[0]==='#'){const hex=entity[1]?.toLowerCase()==='x',code=parseInt(entity.slice(hex?2:1),hex?16:10);return Number.isFinite(code)?String.fromCodePoint(Math.min(code,0x10ffff)):' '}return named[entity.toLowerCase()]??' '})}
 
   function integerToDutch(value){
     let n=Math.trunc(Math.abs(Number(value)||0));
@@ -31,29 +33,31 @@
   }
 
   function sanitizeForSpeech(value,{locale='nl-NL',limit=12000}={}){
-    let text=clampText(value,limit)
-      .normalize('NFKC')
+    let text=decodePresentationEntities(clampText(value,limit).normalize('NFKC'))
       .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,' ')
       .replace(/```[\s\S]*?```/g,block=>block.replace(/```[^\n]*\n?/g,'').replace(/```/g,''))
       .replace(/!\[([^\]]*)\]\([^)]*\)/g,'$1')
-      .replace(/\[([^\]]+)\]\((?:https?:\/\/|mailto:)[^)]+\)/gi,'$1')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g,'$1')
+      .replace(/\\([#*_`~>\-|\[\]{}])/g,'$1')
       .replace(/<br\s*\/?>/gi,'. ')
       .replace(/<[^>]+>/g,' ')
       .replace(/^\s{0,3}#{1,6}\s*/gm,'')
+      .replace(/^\s{0,3}>\s?/gm,'')
       .replace(/^\s{0,3}(?:[-+*•]|\d+[.)])\s+/gm,'')
       .replace(/^\s*\|?(?:\s*:?-{3,}:?\s*\|)+\s*$/gm,'')
       .replace(/\|/g,', ')
       .replace(/~~([^~]+)~~/g,'$1')
       .replace(/[*_`]+/g,'')
-      .replace(/\\([#*_`~>\-])/g,'$1')
-      .replace(/\bhttps?:\/\/[^\s)]+/gi,'een webadres')
+      .replace(/\b[a-z][a-z0-9+.-]*:\/\/[^\s)]+/gi,'een webadres')
       .replace(/\bwww\.[^\s)]+/gi,'een webadres')
+      .replace(/\bmailto:[^\s)]+/gi,'een e-mailadres')
       .replace(/\b([A-Z0-9._%+-]+)@([A-Z0-9.-]+)\.([A-Z]{2,})\b/gi,(_,user,host,tld)=>`${user.replace(/[._-]+/g,' ')} apenstaartje ${host.replace(/[.-]+/g,' punt ')} punt ${tld}`);
 
     if(/^nl(?:-|$)/i.test(locale)){
       text=text
         .replace(/€\s*(-?\d{1,3}(?:[.\s]\d{3})*(?:,\d+)?|-?\d+(?:,\d+)?)/g,(_,n)=>`${numberToDutch(n)} euro`)
         .replace(/\b(-?\d+(?:,\d+)?)\s*%/g,(_,n)=>`${numberToDutch(n)} procent`)
+        .replace(/\b(0?[1-9]|[12]\d|3[01])[-/.](0?[1-9]|1[0-2])[-/.](19\d{2}|20\d{2}|21\d{2})\b/g,(_,day,month,year)=>`${integerToDutch(Number(day))} ${MONTHS[Number(month)-1]} ${integerToDutch(Number(year))}`)
         .replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b/g,(_,h,m)=>`${integerToDutch(Number(h))} uur${Number(m)?' '+integerToDutch(Number(m)):''}`)
         .replace(/\b(19\d{2}|20\d{2}|21\d{2})\b/g,(_,year)=>integerToDutch(Number(year)))
         .replace(/\b(\d+(?:,\d+)?)\s*km\/u\b/gi,(_,n)=>`${numberToDutch(n)} kilometer per uur`)
@@ -63,7 +67,8 @@
     }
 
     return text
-      .replace(/[{}\[\]<>]/g,' ')
+      .replace(/[{}\[\]<>*_`#~\\^]/g,' ')
+      .replace(/(^|\s)>+(?=\s|$)/g,'$1')
       .replace(/\s+([,.;:!?])/g,'$1')
       .replace(/([,.;:!?]){2,}/g,'$1')
       .replace(/[ \t]+/g,' ')

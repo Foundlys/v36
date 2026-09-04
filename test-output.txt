@@ -1,4 +1,4 @@
-Foundly OS v5.2.0
+Foundly OS v5.3.0
 Verified: 2026-09-04
 
 LOCAL PASS
@@ -12,11 +12,13 @@ LOCAL PASS
 - concurrent callback/replay protection, transient retry and reconnect rollback
 - generic OAuth persisted-state regression
 - Jarvis Core, Realtime session/tool-completion contract, persistent wake preference, search routing, follow-up, UI bus and visible text-submit errors
-- local double-clap gate, persistent Jarvis preferences, Web Audio/ducking contract and WebGL2 quality fallback
+- local double-clap gate, persistent Jarvis preferences, Web Audio/ducking contract and WebGL2 HDR quality profiles
 - neural activity bound to user navigation and persisted runtime events; fabricated random packets removed
 - centralized display/spoken separation, Markdown-safe speech and Dutch speech normalization
 - master/voice/music/SFX buses, state-aware procedural soundscape and output-aware wake suppression
-- deterministic 620–2700 particle / 40–144 filament GPU topology and real dashboard aggregates
+- deterministic 1.600–6.200 particle / 150–420 instanced ribbon / 36–96 spline-packet GPU topology and real dashboard aggregates
+- bilobate SDF/metaball raymarch Core, gl_FragDepth occlusion, 3-level threshold bloom and tone mapping contracts
+- continuous 3,15-second energy cycle, 6,3-second energy-sheet rotation and state-driven motion/audio contracts
 - idempotency, confirmation replay defense, memory pruning and secret exposure
 
 LIVE NOT PROVEN BY LOCAL TESTS

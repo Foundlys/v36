@@ -1,4 +1,4 @@
-# Foundly OS v5.2.0 verification report
+# Foundly OS v5.3.0 verification report
 
 Date: 2026-09-04
 
@@ -31,13 +31,19 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - local adaptive double-clap gate, single Realtime client path and standby privacy contract: PASS
 - persistent tenant-bound Jarvis preferences and restart recovery: PASS
 - Web Audio initialization, response ducking/processing and audio-reactive visual contract: PASS
-- WebGL2 adaptive quality runtime with 2D fallback: syntax/contract PASS
+- WebGL2 RGBA16F adaptive quality runtime: syntax/contract PASS; no legacy radial/network fallback
 - random/fabricated neural activity packets removed; visual route pulses are bound to user navigation or new persisted events: PASS
-- reference-locked fullscreen Core composition, neural regions, contextual labels and real-data panels: source/contract PASS
-- 620–2700 adaptive GPU particles and 40–144 batched cubic-Bézier filaments with deterministic topology: PASS
+- reference-locked fullscreen 3D bilobate SDF/metaball Core, rotating energy sheet, asymmetric neural regions, contextual labels and real-data panels: source/contract PASS
+- 1.600–6.200 adaptive deterministic GPU particles, 150–420 instanced cubic-Bézier ribbons and 36–96 spline packet heads/trails: PASS
+- deterministic 3,15-second energy cycle, 6,3-second rotation, continuous deformation/flex/drift/twinkle and subtle camera motion: source/contract PASS
+- `gl_FragDepth` Core occlusion, depth-buffered foreground/background geometry, three-level threshold bloom and tone mapping: source/contract PASS
+- adaptive DPR, render scale, particle/ribbon/packet count, raymarch steps and bloom resolution based on measured frame time: PASS
+- runtime-supplied, validated neural-region profile without fixed dealer-specific renderer topology: PASS
 - centralized display/spoken response split and Markdown/HTML/URL-safe speech sanitization: PASS
 - Dutch currency, percentage, time, year, distance and vehicle-name speech normalization: PASS
-- master/voice/music/SFX buses, procedural state-aware soundscape, smooth ducking and output-aware wake suppression: PASS
+- master/voice/music/SFX buses, deterministic original 3,15-second state-aware soundscape, smooth ducking and output-aware wake suppression: PASS
+- measured Web Audio frequency bands drive speaking animation on the OpenAI Realtime audio path; random speaking animation is absent: PASS
+- all 15 required Jarvis visual/audio states map to the same living Core: PASS
 - `/api/dashboard/summary` exposes only persisted aggregates and provider-probe-green sources: PASS
 
 ## Not proven by this report
@@ -48,7 +54,9 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - live OAuth consent/token exchange for real Meta, Google, LinkedIn, TikTok or Wix accounts;
 - provider permissions, app review, partner access and production data availability;
 - measured browser FPS/frame-time at 1080p, 1440p, ultrawide and 4K on the target hardware;
-- actual Railway deployment of v5.2.0;
+- actual Railway deployment of v5.3.0;
+- live WebGL2 shader compilation, pixel parity, motion parity and target-hardware FPS (the isolated validation browser has no WebGL2 context);
+- live acoustic comparison of the selected licensed voice and original Foundly soundscape on target audio hardware;
 - the existing real admin credential match after deployment.
 
 Do not label those items `LIVE PASS` until the deployed endpoints and real browser/provider flows have been observed.

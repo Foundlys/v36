@@ -13,6 +13,8 @@ globalThis.fetch=async(input,init={})=>{
     if(!/^[a-f0-9]{64}$/.test(safety))return json({error:{message:'privacy-safe identifier missing'}},400);
     const body=JSON.parse(String(init.body||'{}')),session=body.session||{},tool=session.tools?.find(x=>x.name==='foundly_core');
     if(session.tool_choice!=='required'||session.audio?.input?.turn_detection?.type!=='semantic_vad'||session.audio?.input?.turn_detection?.interrupt_response!==true)return json({error:{message:'unsafe realtime session contract'}},422);
+    if(session.audio?.output?.voice!=='cedar'||session.audio?.output?.speed!==.93||!/volwassen, beheerste.*lage tot middenlage spreekstijl/i.test(session.instructions||''))return json({error:{message:'Foundly voice profile missing'}},422);
+    if(!/uitsluitend het veld spoken_text/.test(session.instructions||'')||!/Spreek nooit Markdown/.test(session.instructions||''))return json({error:{message:'plain speech policy missing'}},422);
     if(JSON.stringify(tool?.parameters?.required)!==JSON.stringify(['message'])||tool?.parameters?.properties?.conversation_id||tool?.parameters?.properties?.turn_id)return json({error:{message:'client controls authoritative ids'}},422);
     return json({value:'ek_mock_ephemeral_only',expires_at:Math.floor(Date.now()/1000)+60,session});
   }

@@ -30,10 +30,12 @@ const server=fs.readFileSync(__dirname+'/server.js','utf8');
 const ui=html+'\n'+js+'\n'+neural+'\n'+audio+'\n'+server;
 
 for(const token of ['/speech-formatter.js','/neural-runtime.js','/jarvis-audio.js','initializeFoundly','FoundlyClapDetector','DoubleClapGate','FoundlyAudioScene','attachRemote','local_double_clap_plus_web_speech_wake_word','/api/jarvis/preferences','/api/jarvis/client-event','/api/dashboard/summary','requestFullscreen','setAutoQuality','REALTIME · CONVERSATION','spoken_text'])assert(ui.includes(token),`missing client contract: ${token}`);
+for(const state of ['STANDBY','ACTIVATING','LISTENING','THINKING','SEARCHING','PLANNING','WAITING_TOOL','EXECUTING','WAITING_CONFIRMATION','VERIFYING','SPEAKING','SUCCESS','WARNING','ERROR','RECOVERING'])assert(ui.includes(state),`missing Jarvis state contract: ${state}`);
 for(const id of ['initializeFoundly','settingsToggle','settingsClose','saveSettings','fullscreen','mic','send','microphoneEnabled','voiceEnabled','musicEnabled','sfxEnabled']){assert(html.includes(`id="${id}"`),`missing UI control ${id}`);assert(js.includes(`$('#${id}')`),`missing UI handler ${id}`)}
 assert.equal((js.match(/async function connectRealtime\(/g)||[]).length,1,'there must be one authoritative Realtime client path');
+assert(js.includes('preserve_state:true'));assert(js.includes('lastVoiceOutcome'));assert(js.includes('initialCommandState'));assert(js.includes("regions:globalThis.FOUNDLY_RUNTIME_PROFILE?.neural_regions"),'renderer must accept future auto-provisioned regional profiles without a rewrite');
 assert(!js.includes('if(Math.random()<.06&&links.length)'), 'visual activity may not be randomly fabricated');
 assert(!/Yoo bro/i.test(ui));
 assert(!/sk-[A-Za-z0-9_-]{12,}/.test(ui),'server credentials may not appear in client assets');
 
-console.log(JSON.stringify({ok:true,version:'5.2.0',double_clap_gate:'pass',standby_privacy:'contract_pass',single_realtime_pipeline:'pass',audio_unlock_and_ducking:'contract_pass',runtime_bound_visuals:'pass',fake_activity_removed:'pass'},null,2));
+console.log(JSON.stringify({ok:true,version:'5.3.0',double_clap_gate:'pass',standby_privacy:'contract_pass',single_realtime_pipeline:'pass',audio_unlock_and_ducking:'contract_pass',runtime_bound_visuals:'pass',fake_activity_removed:'pass'},null,2));
