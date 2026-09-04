@@ -140,7 +140,7 @@ These items cannot be truthfully converted into code-level PASS results or fixed
 3. `oauth_callbacks`: Meta, Google, LinkedIn, TikTok and Wix callback variables must exactly match the public origin and documented paths on that same service.
 4. `persistent_mount`: the active service needs a Railway Volume mounted at `/data`, with `FOUNDLY_DATA_DIR=/data`.
 
-No credential was changed, regenerated, copied into source control, or bypassed during this run. Railway dashboard inspection could not proceed because the selected GitHub login was rejected; the login method was not retried or silently changed.
+No credential was changed, regenerated, copied into source control, or bypassed during this run. The existing GitHub login opened Railway successfully for read-only verification; no Railway variable, volume, secret, service topology or staged change was modified. Railway showed one pre-existing staged destructive change labelled `Service will be deleted` for `v36`; it was deliberately not applied and requires explicit human review before anyone uses `Deploy changes`.
 
 ## Still requiring real target-system observation
 
