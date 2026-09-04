@@ -4,13 +4,15 @@ Date: 2026-09-04
 
 This report is secondary evidence. Repository code, immutable git objects, automated tests, the deployed runtime, and real external-provider responses remain the sources of truth.
 
-## Automotive / House of Cars pilot release candidate
+## Automotive / House of Cars pilot — deployed evidence
 
 The Automotive pilot was resumed from the clean `main` recovery baseline `cf5e54aacc2e598c59a8dbe0866c9164f46f857a` on branch `feature/automotive-house-of-cars-pilot`. The bounded implementation checkpoints are:
 
 - `2dc3d93`: canonical Automotive data, provider adapters, real-data search, deduplication, comparables, economics, dealer fit and explainable Buy Score;
 - `efbc341`: authenticated Automotive APIs, existing ZERO integration and Auto-Provisioner capability-pack wiring;
 - `3c75367`: dedicated Automotive workspace, safe provider-image proxy, official live-provider test and provider timeout hardening.
+
+The exact resulting tree `2a72f95a16f7a47bf541c2903fa4f70f374981cd` was published as GitHub feature commit `618242dd8617c70afaa68ab67cfa00e9c2f03598` and merged through PR `#6` into `main` as `463128b9ad0826397d498a8bfc34f7ea59dee2c4`.
 
 This is a reusable `AUTOMOTIVE` capability pack on the existing Foundly platform. It does not create a second application, database, CRM, event bus, persistence layer or ZERO instance. House of Cars is represented only as a development-partner preview and optional tenant dealer profile; no private dealer facts, preferences, inventory history or target margins are invented.
 
@@ -36,11 +38,25 @@ Official live provider observation on 2026-09-04 at `21:47:55Z`:
 
 RDW is authoritative vehicle truth, not a marketplace. The Tuesday real-marketplace acceptance gate therefore remains `BLOCKED` until mobile.de or Marktplaats is legitimately configured and returns at least one real matching listing end to end.
 
-Release-candidate verification completed with exit code 0 for `npm run test:automotive`, `npm run test:automotive:live`, `npm run test:crm`, `npm run test:platform`, `npm run test:e2e`, `node jarvis-production-regression-test.js`, `node jarvis-client-regression-test.js` and `node speech-audio-visual-regression-test.js`. Earlier security, readiness and OAuth commands in the same full-suite run also passed. The final aggregate `npm test` wrapper was not assigned a PASS because the execution environment stopped the wrapper before a final exit code; its constituent suites were run and verified separately. The Automotive fixtures explicitly identify themselves as synthetic contract fixtures and are not provider proof.
+Release-candidate verification completed with exit code 0 for `npm run test:automotive`, `npm run test:automotive:live`, `npm run test:crm`, `npm run test:platform`, `npm run test:e2e`, `node jarvis-production-regression-test.js`, `node jarvis-client-regression-test.js` and `node speech-audio-visual-regression-test.js`. GitHub Actions `Production architecture tests` run `#26` (`33923115299`) subsequently completed successfully for feature SHA `618242dd`; its `Run npm test` step and every setup/cleanup step passed. The Automotive fixtures explicitly identify themselves as synthetic contract fixtures and are not provider proof.
 
 The Neural command center, renderer, autonomous motion, audio and speech assets remain byte-for-byte identical to baseline `cf5e54a`; no Automotive change touches their source files.
 
-Production publication and live Automotive browser/API evidence are pending the protected-branch merge. Until that succeeds, production remains the previously verified v6.0.0 baseline described below, including the four external Railway readiness blockers.
+Railway production evidence after PR `#6` publication:
+
+- correct target reconfirmed: project `dazzling-solace`, environment `production`, service `v36`, domain `v36-production.up.railway.app`;
+- deployment `0cef9021-01c6-4bc9-971f-1660d239319a`: `Active` and `Deployment successful`, deployed via GitHub from `Foundlys/v36` `main` SHA `463128b9`;
+- deploy log: `Foundly OS v6.0.0 ONLINE op poort 8080`;
+- `GET /api/health`: HTTP 200, version `6.0.0`;
+- `GET /api/ready`: HTTP 503, `FAIL`, with exactly `authentication`, `public_base_url`, `oauth_callbacks` and `persistent_mount` false;
+- `/automotive`, `/api/automotive/status`, `/api/zero/status`, `/api/crm/status`, `/api/analysis/status` and `/api/finance/status`: HTTP 401 `auth_not_configured`; this proves the existing security gate is still enforced but blocks authenticated production route and rendered-workspace acceptance;
+- invalid-state Meta, Google, LinkedIn, TikTok and Wix callbacks: controlled HTTP 302 `oauth_state_invalid`, no `WWW-Authenticate` response header and no state/code reflection in the redirect;
+- Railway showed 19 configured service variables without revealing values. No Foundly admin-auth variable, public-base variable, mobile.de Search credential or Marktplaats access token is attached to the service;
+- `FOUNDLY_DATA_DIR` is present, but the deploy log reports `/data` is not proven as a separate writable volume; no durable production marker/restart test is therefore claimed;
+- direct cloud-browser rendering of the application host was blocked by that browser with `ERR_BLOCKED_BY_CLIENT`; no screenshot or pixel/interaction PASS is claimed. The public HTTP checks above did complete;
+- the pre-existing staged destructive Railway change still says `Service will be deleted` for `v36`. It was not deployed, discarded or modified. No Railway variable, secret, volume, domain, topology or staging service was changed.
+
+The code release is deployed, but the production Automotive acceptance gate remains blocked by missing runtime authentication, durable storage and legitimate marketplace-provider credentials. Readiness and live protected-route evidence must not be labeled PASS until those external conditions are corrected safely.
 
 ## Preserved release lineage
 
