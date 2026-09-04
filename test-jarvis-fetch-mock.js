@@ -22,6 +22,10 @@ globalThis.fetch=async(input,init={})=>{
   if(url==='https://api.openai.com/v1/responses'){
     const body=JSON.parse(String(init.body||'{}'));
     if((body.tools||[]).some(x=>x.type==='web_search'))return json({output_text:'Live bronresultaat met actuele timestamp; verdere details blijven brongebonden.',output:[{type:'web_search_call',action:{sources:[{type:'url',title:'Officiële testbron',url:'https://example.com/live-source'},{type:'url',title:'Onveilige bron',url:'javascript:alert(1)'}]}}]});
+    const prompt=String(body.input||'');
+    if(/Opdracht: Hoe gaat het\?/i.test(prompt))return json({output_text:'Goed, Big Boss. Rustig scherp en klaar om mee te denken. Hoe gaat het met jou?'});
+    if(/Opdracht: Met mij gaat het goed, wel moe\./i.test(prompt)){if(!/Hoe gaat het\?/i.test(prompt))return json({error:{message:'conversation history missing'}},422);return json({output_text:'Goed om te horen. Dat je moe bent neem ik serieus; we kunnen het tempo vandaag beheerst houden.'})}
+    if(/Opdracht: Hoe staat Foundly ervoor\?/i.test(prompt)){if(!/wel moe/i.test(prompt))return json({error:{message:'social-to-business context missing'}},422);return json({output_text:'Foundly draait als één beveiligde Core. Ik kan de actuele tenantdata analyseren en benoem ontbrekende live configuratie expliciet.'})}
     return json({output_text:'Gecontroleerd Foundly-antwoord op basis van de aangeleverde context.'});
   }
   return upstreamFetch(input,init);

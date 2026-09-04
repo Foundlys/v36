@@ -79,10 +79,12 @@
       .trim();
   }
 
-  function formatJarvisResponse(value,options={}){
+  function formatZeroResponse(value,options={}){
     const display_text=clampText(value,options.limit||20000);
     return {display_text,spoken_text:sanitizeForSpeech(display_text,{locale:options.locale||'nl-NL',limit:options.spokenLimit||12000})};
   }
 
-  return {sanitizeForSpeech,formatJarvisResponse,numberToDutch,integerToDutch};
+  // Compatibility export for server extensions compiled against Foundly <=5.3.
+  const formatJarvisResponse=formatZeroResponse;
+  return {sanitizeForSpeech,formatZeroResponse,formatJarvisResponse,numberToDutch,integerToDutch};
 });

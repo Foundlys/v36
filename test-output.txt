@@ -1,4 +1,4 @@
-Foundly OS v5.3.1
+Foundly OS v5.4.0
 Verified: 2026-09-04
 
 LOCAL PASS
@@ -11,9 +11,9 @@ LOCAL PASS
 - persisted, hashed, tenant-bound OAuth state across restart
 - concurrent callback/replay protection, transient retry and reconnect rollback
 - generic OAuth persisted-state regression
-- Jarvis Core, Realtime session/tool-completion contract, persistent wake preference, search routing, follow-up, UI bus and visible text-submit errors
-- local double-clap gate, persistent Jarvis preferences, Web Audio/ducking contract and WebGL2 HDR quality profiles
-- fault-injected renderer/audio failure isolation with required Jarvis handlers preserved after optional HUD changes
+- ZERO Core, Realtime session/tool-completion contract, persistent wake preference, search routing, follow-up, UI bus and visible text-submit errors
+- local double-clap gate, persistent ZERO preferences, Web Audio/ducking contract and WebGL2 HDR quality profiles
+- fault-injected renderer/audio failure isolation with required ZERO handlers preserved after optional HUD changes
 - neural activity bound to user navigation and persisted runtime events; fabricated random packets removed
 - centralized display/spoken separation, Markdown-safe speech and Dutch speech normalization
 - master/voice/music/SFX buses, state-aware procedural soundscape and output-aware wake suppression
@@ -21,10 +21,18 @@ LOCAL PASS
 - organic primary/secondary/tertiary hierarchy, 500+ knots, foreground retention and minimum filament visibility contracts
 - bilobate SDF/metaball raymarch Core, gl_FragDepth occlusion, 3-level threshold bloom and tone mapping contracts
 - continuous 3,15-second energy cycle, 6,3-second energy-sheet rotation and state-driven motion/audio contracts
+- exact t0/t+1/t+3.15/t+6.3/t+10 Core, lobe, sheet, filament, packet, particle and regional-transform samples
+- autonomous/manual 360° override, no-freeze, no-snap and smooth automatic resume contracts
 - idempotency, confirmation replay defense, memory pruning and secret exposure
+- 38-domain CRM Core, RBAC/tenant isolation, Customer 360, pipelines, analytics, dashboard persistence and safe automation
+- nine dashboard widget types, six editable presets, filters/date/compare/save/share/live change-token contracts and complete responsive stylesheet
+- ZERO CRM tools, encrypted integrated state, signed webhooks and external-write gate
+- standalone CRM health/readiness/auth, encrypted restart persistence, optional ZERO and no Neural dependency
 
 LIVE NOT PROVEN BY LOCAL TESTS
 - Railway configuration and Volume
 - external provider credentials/consent/probes
 - browser microphone/wake/WebRTC/playback and actual audio hardware
 - measured FPS/frame-time at 1080p, 1440p, ultrawide and 4K on target hardware
+- rendered CRM pixel/layout acceptance in the isolated browser (local preview blocked)
+- standalone CRM production deployment URL/readiness

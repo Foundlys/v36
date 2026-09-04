@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Foundly CRM</title>
+  <link rel="stylesheet" href="/crm.css">
+  <script src="/crm-script.js" defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <aside class="rail" aria-label="CRM-navigatie">
+    <a class="brand" href="/crm" aria-label="Foundly CRM home"><span class="brand-mark">F</span><span>FOUNDLY<br><small>CRM</small></span></a>
+    <nav id="crmNav">
+      <button class="active" data-view="dashboard"><span>◫</span>Dashboard</button>
+      <button data-view="pipeline"><span>⌁</span>Pipeline</button>
+      <button data-view="records" data-entity="leads"><span>◇</span>Leads</button>
+      <button data-view="records" data-entity="contacts"><span>◉</span>Contacten</button>
+      <button data-view="records" data-entity="companies"><span>▱</span>Bedrijven</button>
+      <button data-view="records" data-entity="tasks"><span>✓</span>Taken</button>
+      <button data-view="records" data-entity="activities"><span>↗</span>Activiteit</button>
+      <button data-view="automation"><span>⌘</span>Automations</button>
+      <button data-view="settings"><span>⚙</span>Configuratie</button>
+    </nav>
+    <a class="os-link" href="/">Neural Command Center</a>
+  </aside>
+
+  <main class="workspace">
+    <header class="topbar">
+      <div><p class="eyebrow">CUSTOMER INTELLIGENCE</p><h1 id="viewTitle">Dashboard</h1></div>
+      <div class="top-actions"><span class="live-dot" id="crmConnection">CONTROLEREN</span><button id="commandButton" class="ghost">⌘ K</button><button id="newRecord" class="primary">+ NIEUW</button></div>
+    </header>
+
+    <section class="view active" id="view-dashboard" aria-labelledby="viewTitle">
+      <div class="toolbar">
+        <label>Preset<select id="dashboardPreset"><option>EXECUTIVE</option><option selected>SALES</option><option>MARKETING</option><option>OPERATIONS</option><option value="CRM_MANAGER">CRM MANAGER</option><option>PERSONAL</option></select></label>
+        <label>Vanaf<input id="dateFrom" type="date"></label><label>Tot<input id="dateTo" type="date"></label>
+        <label class="check-control"><input id="comparePeriod" type="checkbox"> Vergelijk vorige periode</label>
+        <label>Status<input id="dashboardStatusFilter" placeholder="bijv. OPEN"></label>
+        <label>Eigenaar<input id="dashboardOwnerFilter" placeholder="owner-id"></label>
+        <label>Bron<input id="dashboardSourceFilter" placeholder="source-id"></label>
+        <label>Delen<select id="dashboardShare"><option value="PRIVATE">Privé</option><option value="TEAM">Team</option></select></label>
+        <label id="dashboardTeamWrap" class="hidden">Team-id<input id="dashboardTeam" placeholder="team-id"></label>
+        <button id="refreshDashboard" class="ghost">VERVERS</button><button id="editDashboard" class="ghost">BEWERK</button><button id="addWidget" class="ghost">+ WIDGET</button><button id="saveDashboard" class="primary">OPSLAAN</button>
+      </div>
+      <div id="dashboardNotice" class="notice">CRM-data laden…</div><p id="dashboardFreshness" class="freshness" aria-live="polite"></p>
+      <div id="widgetGrid" class="widget-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="view" id="view-pipeline">
+      <div class="toolbar"><label>Pipeline<select id="pipelineSelect"></select></label><button id="refreshPipeline" class="ghost">VERVERS</button><button id="createPipeline" class="primary">+ PIPELINE</button></div>
+      <div id="pipelineBoard" class="pipeline-board" aria-live="polite"></div>
+    </section>
+
+    <section class="view" id="view-records">
+      <div class="toolbar"><label class="search">Zoeken<input id="recordSearch" type="search" placeholder="Naam, e-mail, status…"></label><select id="recordEntity"><option value="leads">Leads</option><option value="contacts">Contacten</option><option value="companies">Bedrijven</option><option value="deals">Deals</option><option value="opportunities">Opportunities</option><option value="tasks">Taken</option><option value="appointments">Afspraken</option><option value="activities">Activiteiten</option><option value="notes">Notities</option><option value="calls">Calls</option><option value="emails">E-mails</option><option value="messages">Berichten</option><option value="products">Producten</option><option value="vehicles">Voertuigen</option><option value="quotes">Offertes</option><option value="orders">Orders</option><option value="campaigns">Campagnes</option></select><button id="refreshRecords" class="ghost">VERVERS</button><button id="createRecord" class="primary">+ RECORD</button></div>
+      <div class="table-shell"><table><thead><tr><th>Naam / titel</th><th>Status</th><th>Eigenaar</th><th>Bijgewerkt</th><th></th></tr></thead><tbody id="recordRows"></tbody></table><div id="recordEmpty" class="empty hidden"></div></div>
+    </section>
+
+    <section class="view" id="view-automation">
+      <div class="split">
+        <article class="panel"><p class="eyebrow">RULE ENGINE</p><h2>Veilige automation</h2><p>Interne taken mogen automatisch worden uitgevoerd. E-mail, bericht en webhook blijven geblokkeerd tot expliciete autorisatie en een geverifieerde connector.</p><form id="automationForm"><label>Naam<input name="name" required maxlength="160"></label><label>Trigger<select name="trigger"><option>new_lead</option><option>stage_change</option><option>no_contact</option><option>appointment</option><option>quote</option><option>deal_won</option><option>deal_lost</option><option>product_interest</option><option>campaign_source</option><option>score_threshold</option><option>webhook</option></select></label><label>Actie<select name="action"><option>task</option><option>notify</option><option>assign</option><option>follow_up</option><option>field_update</option><option>stage_change</option><option>zero_task</option><option>email</option><option>message</option><option>webhook</option></select></label><button class="primary" type="submit">AUTOMATION OPSLAAN</button></form></article>
+        <article class="panel"><p class="eyebrow">LIVE DEFINITIONS</p><h2>Automations</h2><div id="automationList" class="stack"></div></article>
+      </div>
+    </section>
+
+    <section class="view" id="view-settings">
+      <div class="split">
+        <article class="panel"><p class="eyebrow">BUSINESS PROFILE</p><h2>Auto-Provisioner contract</h2><p>Richt één configureerbare CRM-codebase in op markt, branche en segment. Dit maakt geen demo- of businessdata aan.</p><form id="provisionForm"><label>Bedrijfsnaam<input name="business_name" required></label><label>Land / markt<input name="country" required placeholder="NL"></label><label>Branche<input name="industry" required></label><label>Segment<input name="segment" required></label><button class="primary" type="submit">CONFIGURATIE INRICHTEN</button></form></article>
+        <article class="panel"><p class="eyebrow">API-FIRST</p><h2>Platformcontract</h2><div id="schemaSummary" class="stack">Schema laden…</div></article>
+      </div>
+    </section>
+  </main>
+
+  <section class="zero-dock" aria-label="ZERO CRM assistent"><span class="zero-orb" aria-hidden="true"></span><form id="zeroForm"><label for="zeroInput">ZERO</label><input id="zeroInput" autocomplete="off" placeholder="Vraag naar leads, pipeline of klantcontext…"><button type="submit">UITVOEREN</button></form><output id="zeroOutput">ZERO gebruikt dezelfde beveiligde CRM-services.</output></section>
+
+  <dialog id="recordDialog"><form method="dialog" class="dialog-head"><h2 id="dialogTitle">Record</h2><button value="cancel" aria-label="Sluiten">×</button></form><form id="recordForm" class="form-grid"><input name="id" type="hidden"><input name="revision" type="hidden"><label>Naam / titel<input name="name" required></label><label>Status<input name="status"></label><label>E-mail<input name="email" type="email"></label><label>Telefoon<input name="phone"></label><label>Waarde<input name="value" type="number" min="0" step="0.01"></label><label>Kans %<input name="probability" type="number" min="0" max="100" step="1"></label><label>Eigenaar<input name="owner_id"></label><label>Team<input name="team_id"></label><label>Bron<input name="source_id"></label><label>Kanaal<input name="channel"></label><label>Richting<select name="direction"><option value="">—</option><option value="INBOUND">Inbound</option><option value="OUTBOUND">Outbound</option></select></label><label>Volgende actie<input name="next_action_at" type="datetime-local"></label><label class="wide">Notitie<textarea name="note" rows="4"></textarea></label><button class="primary wide" type="submit">OPSLAAN</button></form></dialog>
+  <dialog id="customerDialog"><form method="dialog" class="dialog-head"><h2>Customer 360</h2><button value="cancel" aria-label="Sluiten">×</button></form><div id="customer360"></div></dialog>
+  <dialog id="pipelineDialog"><form method="dialog" class="dialog-head"><h2>Nieuwe pipeline</h2><button value="cancel" aria-label="Sluiten">×</button></form><form id="pipelineForm" class="form-grid"><label class="wide">Naam<input name="name" required maxlength="160" placeholder="Bijv. New business"></label><label class="wide">Fasen<textarea name="stages" rows="4" required>Nieuw, Gekwalificeerd, Voorstel, Onderhandeling, Gewonnen, Verloren</textarea></label><p class="wide unavailable">Scheid fasen met komma’s. Kans en open/gewonnen/verloren-status worden deterministisch ingericht en zijn daarna via de API aanpasbaar.</p><button class="primary wide" type="submit">PIPELINE MAKEN</button></form></dialog>
+  <dialog id="widgetDialog"><form method="dialog" class="dialog-head"><h2>Widget toevoegen</h2><button value="cancel" aria-label="Sluiten">×</button></form><form id="widgetForm" class="form-grid"><label>Type<select name="type"><option>KPI</option><option>LINE</option><option>BAR</option><option>FUNNEL</option><option>PIPELINE</option><option>TABLE</option><option>LEADERBOARD</option><option>FORECAST</option><option>ACTIVITY_FEED</option></select></label><label>Metric<input name="metric" required placeholder="pipeline_value"></label><button class="primary wide" type="submit">TOEVOEGEN</button></form></dialog>
+  <dialog id="commandDialog"><form method="dialog" class="dialog-head"><h2>Command palette</h2><button value="cancel" aria-label="Sluiten">×</button></form><label class="command-search">Ga naar of vraag ZERO<input id="commandSearch" autocomplete="off" placeholder="Dashboard, pipeline, leads, ZERO…"></label><div id="commandList" class="command-list"><button data-command-view="dashboard">Dashboard</button><button data-command-view="pipeline">Pipeline</button><button data-command-view="records" data-command-entity="leads">Leads</button><button data-command-view="records" data-command-entity="contacts">Contacten</button><button data-command-view="automation">Automations</button><button data-command-view="settings">Configuratie</button><button data-command-zero>Vraag ZERO</button></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
