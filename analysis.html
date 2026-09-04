@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Foundly Analysis</title>
+  <link rel="stylesheet" href="/business-workspaces.css">
+  <script src="/analysis-script.js" defer></script>
+</head>
+<body class="analysis">
+  <div class="ambient" aria-hidden="true"></div>
+  <aside class="rail" aria-label="Analysis-navigatie">
+    <a class="brand" href="/analysis"><span class="brand-mark">F</span><span>FOUNDLY<br><small>ANALYSIS</small></span></a>
+    <p class="rail-label">Intelligence</p>
+    <nav>
+      <a href="#overview" aria-current="page">Command dashboard</a>
+      <a href="#funnel">Commerciële funnel</a>
+      <a href="#events">Realtime events</a>
+      <a href="#history">Historische rollups</a>
+      <a href="#sources">Bronnen &amp; freshness</a>
+    </nav>
+    <div class="rail-links"><a href="/">Neural home</a><a href="/crm">CRM</a><a href="/finance">Finance</a></div>
+  </aside>
+
+  <main class="workspace">
+    <header class="topbar" id="overview">
+      <div><p class="eyebrow">CANONICAL BUSINESS INTELLIGENCE</p><h1>Analysis Command Dashboard</h1></div>
+      <div class="top-actions"><span class="status-pill" id="analysisConnection">CONTROLEREN</span><button class="ghost" id="exportEvents">Export events</button></div>
+    </header>
+
+    <section class="toolbar" aria-label="Analysisfilters">
+      <label>Vanaf<input id="analysisFrom" type="date"></label>
+      <label>Tot<input id="analysisTo" type="date"></label>
+      <label>Realtimevenster<select id="analysisWindow"><option value="900">15 minuten</option><option value="3600">1 uur</option><option value="86400">24 uur</option></select></label>
+      <label>Campagne<input id="analysisCampaign" placeholder="Optioneel campagne-ID"></label>
+      <button class="primary" id="refreshAnalysis">Ververs</button>
+    </section>
+    <div class="notice" id="analysisNotice" role="status">Canonical analytics laden…</div>
+    <section class="kpi-grid" id="analysisKpis" aria-label="Analysis KPI's"></section>
+
+    <section class="dashboard-grid">
+      <article class="panel" id="funnel"><header class="panel-head"><div><p class="eyebrow">FULL JOURNEY</p><h2>Commerciële funnel</h2><p class="panel-subtitle">Van advertentie tot betaalde omzet, uitsluitend canonical events.</p></div><span class="panel-badge" id="funnelSource">CANONICAL</span></header><div class="funnel" id="analysisFunnel"></div></article>
+      <article class="panel" id="events"><header class="panel-head"><div><p class="eyebrow">EVENT BUS</p><h2>Realtime eventfeed</h2><p class="panel-subtitle" id="eventFreshness">Freshness onbekend</p></div><span class="panel-badge">SSE</span></header><div class="stack" id="analysisEvents"></div></article>
+      <article class="panel wide" id="history"><header class="panel-head"><div><p class="eyebrow">INCREMENTAL ROLLUPS</p><h2>Historische aggregatie</h2><p class="panel-subtitle">Materiële dagsamenvattingen; geen volledige eventscan in de browser.</p></div><span class="panel-badge" id="rollupCount">0 BUCKETS</span></header><div class="table-shell"><table><thead><tr><th>Dag</th><th>Event</th><th>Bron</th><th>Aantal</th><th>Laatst ontvangen</th></tr></thead><tbody id="analysisHistory"></tbody></table><div class="empty hidden" id="analysisHistoryEmpty"></div></div></article>
+      <article class="panel" id="sources"><header class="panel-head"><div><p class="eyebrow">PROVENANCE</p><h2>Bronnen &amp; connectors</h2></div><span class="panel-badge">TRUTHFUL STATUS</span></header><div class="source-grid" id="analysisSources"></div></article>
+      <article class="panel"><header class="panel-head"><div><p class="eyebrow">AUTOMATION</p><h2>Uitvoeringsstatus</h2></div><span class="panel-badge">AUDITED</span></header><div class="stack" id="analysisAutomation"></div></article>
+    </section>
+  </main>
+
+  <section class="zero-dock" aria-label="ZERO Analysis assistent"><form id="analysisZeroForm"><label for="analysisZeroInput">ZERO</label><input id="analysisZeroInput" autocomplete="off" placeholder="Vraag waarom een KPI deze waarde heeft…"><button class="primary" type="submit">Vraag</button></form><output id="analysisZeroOutput">ZERO leest dezelfde canonical events en KPI-definities.</output></section>
+</body>
+</html>
