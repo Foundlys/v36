@@ -1,4 +1,4 @@
-# Foundly OS v5.3.0 verification report
+# Foundly OS v5.3.1 verification report
 
 Date: 2026-09-04
 
@@ -29,15 +29,17 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - semantic UI command bus and external JavaScript CSP: PASS
 - persisted wake preference, browser-speech fallback, Realtime `response.done` function-call completion and visible text-submit errors: contract PASS
 - local adaptive double-clap gate, single Realtime client path and standby privacy contract: PASS
+- renderer, shader, audio and optional-HUD startup failures are isolated from authoritative Jarvis initialization and required handlers: PASS (fault-injected)
 - persistent tenant-bound Jarvis preferences and restart recovery: PASS
 - Web Audio initialization, response ducking/processing and audio-reactive visual contract: PASS
 - WebGL2 RGBA16F adaptive quality runtime: syntax/contract PASS; no legacy radial/network fallback
 - random/fabricated neural activity packets removed; visual route pulses are bound to user navigation or new persisted events: PASS
 - reference-locked fullscreen 3D bilobate SDF/metaball Core, rotating energy sheet, asymmetric neural regions, contextual labels and real-data panels: source/contract PASS
-- 1.600–6.200 adaptive deterministic GPU particles, 150–420 instanced cubic-Bézier ribbons and 36–96 spline packet heads/trails: PASS
+- 1.100–6.200 adaptive deterministic GPU particles, 210–420 instanced cubic-Bézier ribbons and 40–96 spline packet heads with eight-point trails: PASS
+- organic root/primary/secondary/tertiary hierarchy, 500+ deterministic knots, foreground-biased low-quality retention and minimum emissive/opacity/width contracts: PASS
 - deterministic 3,15-second energy cycle, 6,3-second rotation, continuous deformation/flex/drift/twinkle and subtle camera motion: source/contract PASS
 - `gl_FragDepth` Core occlusion, depth-buffered foreground/background geometry, three-level threshold bloom and tone mapping: source/contract PASS
-- adaptive DPR, render scale, particle/ribbon/packet count, raymarch steps and bloom resolution based on measured frame time: PASS
+- adaptive DPR, render scale, particle/ribbon/packet count, bounded raymarch steps and bloom resolution based on measured frame time with hysteresis: PASS
 - runtime-supplied, validated neural-region profile without fixed dealer-specific renderer topology: PASS
 - centralized display/spoken response split and Markdown/HTML/URL-safe speech sanitization: PASS
 - Dutch currency, percentage, time, year, distance and vehicle-name speech normalization: PASS
@@ -54,7 +56,7 @@ This report is secondary evidence. The repository code, automated tests, deploye
 - live OAuth consent/token exchange for real Meta, Google, LinkedIn, TikTok or Wix accounts;
 - provider permissions, app review, partner access and production data availability;
 - measured browser FPS/frame-time at 1080p, 1440p, ultrawide and 4K on the target hardware;
-- actual Railway deployment of v5.3.0;
+- actual Railway deployment of v5.3.1;
 - live WebGL2 shader compilation, pixel parity, motion parity and target-hardware FPS (the isolated validation browser has no WebGL2 context);
 - live acoustic comparison of the selected licensed voice and original Foundly soundscape on target audio hardware;
 - the existing real admin credential match after deployment.
