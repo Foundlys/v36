@@ -45,7 +45,7 @@ The Neural command center, renderer, autonomous motion, audio and speech assets 
 Railway production evidence after PR `#6` publication:
 
 - correct target reconfirmed: project `dazzling-solace`, environment `production`, service `v36`, domain `v36-production.up.railway.app`;
-- deployment `0cef9021-01c6-4bc9-971f-1660d239319a`: `Active` and `Deployment successful`, deployed via GitHub from `Foundlys/v36` `main` SHA `463128b9`;
+- Automotive code deployment `0cef9021-01c6-4bc9-971f-1660d239319a` reached `Active` and `Deployment successful`, deployed via GitHub from `Foundlys/v36` `main` SHA `463128b9`; later docs-only evidence deployments supersede that deployment record without changing the application code tree;
 - deploy log: `Foundly OS v6.0.0 ONLINE op poort 8080`;
 - `GET /api/health`: HTTP 200, version `6.0.0`;
 - `GET /api/ready`: HTTP 503, `FAIL`, with exactly `authentication`, `public_base_url`, `oauth_callbacks` and `persistent_mount` false;
