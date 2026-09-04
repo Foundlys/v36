@@ -12,11 +12,11 @@ const {formatZeroResponse}=require('./speech-formatter');
 const {FoundlyCrmCore,ENTITY_DEFINITIONS}=require('./crm-core');
 const {VOICE_REFERENCE_PROFILE}=require('./zero-audio');
 const REQUEST_TIMEOUT_MS=Math.max(2000,Number(process.env.FOUNDLY_REQUEST_TIMEOUT_MS||12000));
-const VERSION='5.3.1';
+const VERSION='5.4.0';
 const MAX_RECORDS_PER_SCOPE=Math.max(100,Number(process.env.FOUNDLY_MAX_RECORDS_PER_SCOPE||5000));
 const MAX_TASKS_PER_SCOPE=Math.max(100,Number(process.env.FOUNDLY_MAX_TASKS_PER_SCOPE||2000));
-const MAX_JARVIS_CONVERSATIONS=Math.max(10,Number(process.env.FOUNDLY_MAX_JARVIS_CONVERSATIONS||100));
-const MAX_JARVIS_TURNS=Math.max(10,Number(process.env.FOUNDLY_MAX_JARVIS_TURNS||80));
+const MAX_JARVIS_CONVERSATIONS=Math.max(10,Number(process.env.FOUNDLY_MAX_ZERO_CONVERSATIONS||process.env.FOUNDLY_MAX_JARVIS_CONVERSATIONS||100));
+const MAX_JARVIS_TURNS=Math.max(10,Number(process.env.FOUNDLY_MAX_ZERO_TURNS||process.env.FOUNDLY_MAX_JARVIS_TURNS||80));
 function env(name,fallback=''){const raw=process.env[name];if(raw===undefined||raw===null)return fallback;let v=String(raw).trim();if((v.startsWith('"')&&v.endsWith('"'))||(v.startsWith("'")&&v.endsWith("'")))v=v.slice(1,-1).trim();return v}
 function validSecretValue(value,minLength=32){
   const v=String(value||'').trim();

@@ -14,11 +14,11 @@ async function stop(){if(!child)return;child.kill('SIGTERM');for(let i=0;i<30&&c
 async function req(url,opts={}){const r=await fetch(base+url,opts);const text=await r.text();let data;try{data=JSON.parse(text)}catch{data=text}return {r,data,text}}
 async function main(){
   await start();
-  let x=await req('/');assert.equal(x.r.status,200);assert(String(x.text).includes('Foundly OS v5.3.1'));assert.equal(x.r.headers.get('content-security-policy').includes("script-src 'self'"),true);
+  let x=await req('/');assert.equal(x.r.status,200);assert(String(x.text).includes('Foundly OS v5.4.0'));assert.equal(x.r.headers.get('content-security-policy').includes("script-src 'self'"),true);
   x=await req('/index-script.js');assert.equal(x.r.status,200);assert((x.r.headers.get('content-type')||'').includes('application/javascript'));
   for(const asset of ['/zero-audio.js','/jarvis-audio.js','/neural-runtime.js','/speech-formatter.js']){x=await req(asset);assert.equal(x.r.status,200);assert((x.r.headers.get('content-type')||'').includes('application/javascript'))}
-  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'5.3.1');assert(!('data_dir'in x.data));
-  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'5.3.1');assert.equal(x.data.oauth_state.mode,'hashed_hmac_bound_persistent_transaction');assert.equal(x.data.encryption.configured,true);assert(!JSON.stringify(x.data).includes('test-secret'));assert(!JSON.stringify(x.data).includes('secret_fingerprint'));
+  x=await req('/api/health');assert.equal(x.r.status,200);assert.equal(x.data.version,'5.4.0');assert(!('data_dir'in x.data));
+  x=await req('/api/diagnostics/config');assert.equal(x.r.status,200);assert.equal(x.data.version,'5.4.0');assert.equal(x.data.oauth_state.mode,'hashed_hmac_bound_persistent_transaction');assert.equal(x.data.encryption.configured,true);assert(!JSON.stringify(x.data).includes('test-secret'));assert(!JSON.stringify(x.data).includes('secret_fingerprint'));
 
   // Durable OAuth state: start returns only the opaque state; a callback without a code may not consume it.
   x=await req('/api/connect/meta?return_to=/?open=integraties',{redirect:'manual'});assert.equal(x.r.status,302);const loc=x.r.headers.get('location');assert(loc&&loc.includes('facebook.com'));const state=new URL(loc).searchParams.get('state');assert(state&&state.length>20&&!state.includes('.'));
@@ -61,7 +61,7 @@ async function main(){
   assert(js.includes('/api/zero/turn'));assert(js.includes('/api/integration-sync/'));assert(js.includes('/api/events'));x=await req('/api/jarvis/status');assert.equal(x.r.status,200);assert.equal(x.data.assistant.official_name,'ZERO');
   assert(!ui.includes('EU listings scanner verwerkt nieuwe voertuigen'),'fake event stream still present');assert(!ui.includes('eigen datastroom'));assert(!ui.includes('EIGEN DATABASE'));assert(ui.includes('FOUNDLY DATA LAYER'));assert(ui.includes('Live providerprobes'));
   assert(!/Yoo bro/i.test(ui));assert(html.includes('index-script.js'));assert(!html.includes('<script>'));assert(js.includes('UICommandBus'));assert(js.includes('semantic_vad')||js.includes('input_audio_buffer.speech_started'));
-  x=await req('/api/dashboard/summary');assert.equal(x.r.status,200);assert.equal(x.data.version,'5.3.1');assert.equal(x.data.source.method,'server_aggregate');assert.equal(x.data.sources.connected_providers,x.data.sources.connected.length);assert(Number.isInteger(x.data.data_layer.total_records));
-  console.log(JSON.stringify({ok:true,version:'5.3.1',oauth_state:'pass',persistence:'pass',worker_recovery:'pass',orchestration:'pass',runtime_connectors:'pass',source_contracts:'pass',provenance:'pass',ui_actions:'pass',zero_ui_contract:'pass',legacy_assistant_api:'pass',dashboard_summary:'pass',base_connectors:93},null,2));
+  x=await req('/api/dashboard/summary');assert.equal(x.r.status,200);assert.equal(x.data.version,'5.4.0');assert.equal(x.data.source.method,'server_aggregate');assert.equal(x.data.sources.connected_providers,x.data.sources.connected.length);assert(Number.isInteger(x.data.data_layer.total_records));
+  console.log(JSON.stringify({ok:true,version:'5.4.0',oauth_state:'pass',persistence:'pass',worker_recovery:'pass',orchestration:'pass',runtime_connectors:'pass',source_contracts:'pass',provenance:'pass',ui_actions:'pass',zero_ui_contract:'pass',legacy_assistant_api:'pass',dashboard_summary:'pass',base_connectors:93},null,2));
 }
 main().catch(e=>{console.error(logs);console.error(e);process.exitCode=1}).finally(async()=>{await stop()});

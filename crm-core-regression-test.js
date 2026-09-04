@@ -14,6 +14,7 @@ const admin={id:'admin-1',roles:['ADMIN'],team_ids:['team-1']},sales={id:'sales-
 assert(Object.keys(ENTITY_DEFINITIONS).length>=37,'the enterprise CRM model must expose every requested domain collection');
 assert.equal(core.schema().contracts.external_writes,'never_without_explicit_authorization_and_connector');
 assert(presetDashboard('EXECUTIVE').widgets.length>=6);
+assert.equal(core.schema().dashboard_widget_types.length,9);assert.equal(core.schema().presets.length,6);for(const preset of core.schema().presets){const layout=presetDashboard(preset);assert.equal(layout.preset,preset);assert(layout.widgets.every(widget=>widget.x>=0&&widget.w>=1&&widget.x+widget.w<=12),`${preset} widgets must stay inside the 12-column dashboard grid`)}const normalizedLayout=core.validate('dashboard_views',{name:'Boundary layout',widgets:[{id:'wide',type:'TABLE',metric:'priority_leads',x:11,y:0,w:8,h:4}]});assert.equal(normalizedLayout.widgets[0].x,4);assert.equal(normalizedLayout.widgets[0].w,8);
 
 const empty=core.analytics(otherTenant,admin,{});
 assert.equal(empty.metrics.pipeline_value.value,0);

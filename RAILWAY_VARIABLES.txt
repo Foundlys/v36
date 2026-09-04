@@ -1,4 +1,4 @@
-# FOUNDLY OS v5.3.1 — Railway RAW Editor template
+# FOUNDLY OS v5.4.0 — Railway RAW Editor template
 # Replace <...> values. Never commit real secrets to GitHub.
 # Do not deploy the literal placeholders: admin password >=16 chars; tokens/encryption/state secrets >=32 chars.
 
@@ -15,8 +15,8 @@ FOUNDLY_REQUEST_TIMEOUT_MS=12000
 FOUNDLY_RATE_LIMIT_PER_MINUTE=240
 FOUNDLY_MAX_RECORDS_PER_SCOPE=5000
 FOUNDLY_MAX_TASKS_PER_SCOPE=2000
-FOUNDLY_MAX_JARVIS_CONVERSATIONS=100
-FOUNDLY_MAX_JARVIS_TURNS=80
+FOUNDLY_MAX_ZERO_CONVERSATIONS=100
+FOUNDLY_MAX_ZERO_TURNS=80
 FOUNDLY_TIMEZONE=Europe/Amsterdam
 # Optional non-sensitive city/region fallback for live weather.
 FOUNDLY_TENANT_LOCATION=
@@ -35,8 +35,8 @@ FOUNDLY_AI_MODEL=gpt-5.6
 FOUNDLY_SEARCH_MODEL=gpt-5.6
 FOUNDLY_REALTIME_MODEL=gpt-realtime
 FOUNDLY_REALTIME_TRANSCRIPTION_MODEL=gpt-4o-mini-transcribe
-FOUNDLY_JARVIS_VOICE=cedar
-FOUNDLY_JARVIS_CONVERSATION_TIMEOUT_MS=90000
+FOUNDLY_ZERO_VOICE=cedar
+FOUNDLY_ZERO_CONVERSATION_TIMEOUT_MS=90000
 FOUNDLY_AI_BASE_URL=https://api.openai.com/v1
 
 # Google

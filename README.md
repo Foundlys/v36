@@ -1,6 +1,6 @@
-# Foundly OS v5.3.1 — Jarvis Neural Command Center
+# Foundly OS v5.4.0 — ZERO Neural Command Center + Foundly CRM
 
-Foundly v5 maakt Jarvis de centrale, tenantgebonden commandolaag voor tekst en voice. Jarvis gebruikt één server-side planner en toolregistry voor interne Foundly-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's.
+Foundly v5.4 maakt ZERO de centrale, tenantgebonden commandolaag voor tekst en voice en voegt een zelfstandig inzetbare enterprise-CRM toe. ZERO gebruikt één server-side planner en toolregistry voor interne Foundly- en CRM-data, werkelijk verbonden providerdata, actuele webresearch, uitvoerbare acties, verificatie, geheugen en semantische UI-commando's. `/api/jarvis/*` blijft uitsluitend als backward-compatible alias bestaan.
 
 De productregel is strikt: geen provider, record, status, zoekresultaat of actie wordt als echt gepresenteerd zonder een echte response, persistente write of expliciete verificatie.
 
@@ -12,21 +12,21 @@ De productregel is strikt: geen provider, record, status, zoekresultaat of actie
 - token/state-encryptie gebruikt een niet-placeholder secret van minimaal 32 tekens;
 - `FOUNDLY_PUBLIC_BASE_URL` is een geldige HTTPS-origin;
 - Meta, Google, LinkedIn, TikTok en Wix callback-URL's zijn exact aan die origin gebonden;
-- `OPENAI_API_KEY` is ingesteld voor Jarvis Realtime en actuele webresearch;
+- `OPENAI_API_KEY` is ingesteld voor ZERO Realtime en actuele webresearch;
 - `FOUNDLY_DATA_DIR=/data` is schrijfbaar;
 - `/data` is in productie aantoonbaar een afzonderlijke Railway Volume.
 
-Alle UI-, data-, Jarvis-, connector-, worker- en diagnoseroutes zijn in productie beveiligd. Alleen health/readiness, gesigneerde webhooks en de OAuth-callbacks zijn publiek. Callbackroutes worden vóór Basic Auth afgehandeld en geven nooit een browserchallenge.
+Alle UI-, data-, ZERO-, CRM-, connector-, worker- en diagnoseroutes zijn in productie beveiligd. Alleen health/readiness, gesigneerde webhooks en de OAuth-callbacks zijn publiek. Callbackroutes worden vóór Basic Auth afgehandeld en geven nooit een browserchallenge.
 
-## Jarvis-architectuur
+## ZERO-architectuur
 
 - Browser voice via OpenAI Realtime WebRTC en een server-uitgegeven ephemeral client secret van 60 seconden. De normale OpenAI API-key verlaat de server niet.
 - Realtime gebruikt semantic VAD en interruptie/barge-in. Iedere gebruikersopdracht moet via de `foundly_core`-functie naar de autoritatieve serverroute.
-- Na één expliciete browserinitialisatie gebruikt standby een lokale dubbele-klapdetector naast het wake word “Jarvis”. De lokale detector analyseert alleen transient/energiewaarden; ruwe standby-audio wordt niet geüpload. On-device herkenning heeft voorkeur; de browser-speechservice blijft een expliciete compatibiliteitsfallback. Zodra conversation mode start, gaat audio via de beveiligde Realtime WebRTC-sessie en iedere opdracht via Foundly Core.
+- Na één expliciete browserinitialisatie gebruikt standby een lokale dubbele-klapdetector naast het wake word “Zero”. De lokale detector analyseert alleen transient/energiewaarden; ruwe standby-audio wordt niet geüpload. On-device herkenning heeft voorkeur; de browser-speechservice blijft een expliciete compatibiliteitsfallback. Zodra conversation mode start, gaat audio via de beveiligde Realtime WebRTC-sessie en iedere opdracht via Foundly Core.
 - Een ontgrendelde Web Audio-laag verzorgt originele procedurele ambience, state-cues, stemprocessing, ducking en een audio-reactieve Core. Volume-, wake-, klap-, aanspreek- en renderinstellingen zijn tenantgebonden en persistent.
 - Displaytekst en spreektekst zijn gescheiden. Alle browser-TTS en Realtime-uitvoer gebruikt centraal gesaniteerde `spoken_text`, met Nederlandse normalisatie voor onder meer bedragen, percentages, tijden, afstanden en voertuignamen; Markdown, HTML, URLs en JSON worden niet als presentatiecode uitgesproken.
 - De visuele runtime gebruikt één fullscreen WebGL2/HDR-organisme: een bilobate metaball/SDF-Core met bounded raymarching en `gl_FragDepth`, GPU-instanced cubic-Bézier-ribbons, spline-packets, echte Z-diepte, drie bloomniveaus en tone mapping. De deterministische quality-profielen schalen tussen 1.100–6.200 particles, 210–420 filaments, 40–96 packets, DPR, raymarchstappen en bloomresolutie. De fundamentele Core, heldere organische filamenthiërarchie en voorgronddiepte blijven in elk profiel behouden; de oude 2D/radial/network-graph renderer wordt niet gebruikt.
-- Renderer- en AudioContext-startup zijn failure-isolated van Jarvis. Een context-, framebuffer-, shader-, audio- of optionele HUD-fout kan de autoritatieve mic/wake/send/command-handlers niet meer verhinderen.
+- Renderer- en AudioContext-startup zijn failure-isolated van ZERO. Een context-, framebuffer-, shader-, audio- of optionele HUD-fout kan de autoritatieve mic/wake/send/command-handlers niet meer verhinderen.
 - De basismotion blijft altijd actief: een energiecyclus van 3,15 seconden, een sheetrotatie van 6,3 seconden, Core-deformatie, filament-flex, particle drift/twinkle, spline-packets en subtiele cameramotion. Alleen business-routing en provider/tool-activiteit worden door echte runtime-events geactiveerd.
 - De 12 huidige automotive neural regions zijn een asymmetrisch defaultprofiel, geen vaste rendererarchitectuur. Een provisioner kan gevalideerde region-profielen dynamisch aanbieden zonder dealerfork of rendererrewrite.
 - Floating businesspanelen halen hun waarden uit `/api/dashboard/summary`: uitsluitend persisted records, taken en events plus providerbronnen waarvan de echte probe groen is. Routes pulseren uitsluitend door gebruikersnavigatie of nieuwe persisted runtime-events; er wordt geen live activiteit verzonnen.
@@ -36,21 +36,34 @@ Alle UI-, data-, Jarvis-, connector-, worker- en diagnoseroutes zijn in producti
 - De server-side toolregistry bevat schema, rechten, risico, read/write-mode, provider, timeout, retries, confirmation, verificatie en auditbeleid. Handlers worden niet aan de browser blootgesteld.
 - High-risk opdrachten krijgen een cryptografische, tenant-, dealer-, conversation- en turn-bound bevestiging met TTL. Tokens en originele opdrachten worden encrypted opgeslagen; gebruik is eenmalig en replay-safe.
 - Ieder resultaat bewaart een geredigeerde audittrail met intent, plan, tools, acties, providerresultaten, verificatie, latency en fouten.
-- Conversation history is begrensd, persistent en beheersbaar via `GET`/`DELETE /api/jarvis/conversation/:id`.
+- Conversation history is begrensd, persistent en beheersbaar via `GET`/`DELETE /api/zero/conversation/:id`.
 - De UI Command Bus accepteert uitsluitend geregistreerde semantische commando's zoals `OPEN_ENGINE`, `OPEN_CONNECTOR`, `SHOW_RESULTS` en `CENTER_GRAPH`.
 
 Belangrijke routes:
 
 - `GET /api/diagnostics/runtime-auth` (publiek, uitsluitend booleans/status; nooit waarden, lengtes of secret-fingerprints)
-- `GET /api/jarvis/status`
+- `GET /api/zero/status`
 - `GET /api/dashboard/summary`
-- `GET|PUT /api/jarvis/preferences`
-- `POST /api/jarvis/client-event` (allowlisted, secret-geredigeerde browser acceptance-telemetrie; nooit audio of transcript)
-- `GET /api/jarvis/tools`
-- `POST /api/jarvis/realtime/client-secret`
-- `POST /api/jarvis/turn`
-- `GET /api/jarvis/self-check`
-- `GET|DELETE /api/jarvis/conversation/:id`
+- `GET|PUT /api/zero/preferences`
+- `POST /api/zero/client-event` (allowlisted, secret-geredigeerde browser acceptance-telemetrie; nooit audio of transcript)
+- `GET /api/zero/tools`
+- `POST /api/zero/realtime/client-secret`
+- `POST /api/zero/turn`
+- `GET /api/zero/self-check`
+- `GET|DELETE /api/zero/conversation/:id`
+
+Dezelfde routes onder `/api/jarvis/*` zijn compatibiliteitsaliassen; responses identificeren de officiële assistent altijd als `ZERO`.
+
+## Foundly CRM
+
+- De CRM Core exposeert 38 tenantgebonden domeincollecties met RBAC, team- en recordautorisatie, optimistic revisions, idempotency, audit en soft-delete.
+- Customer 360 combineert uitsluitend vastgelegde identiteit, bedrijf, deals, communicatie, taken, afspraken, documenten, producten, attributie, toestemming, tijdlijn en historie.
+- Pipelines ondersteunen configureerbare fasen, kans, waarde, marge, expected close, eigenaar/team, next action, stalled-detectie, score en forecast; de frontend ondersteunt drag-and-drop.
+- Automations ondersteunen de vastgelegde triggers en interne acties. E-mail, berichten en webhooks blijven `AWAITING_EXPLICIT_AUTHORIZATION` tot expliciete toestemming en een geverifieerde connector aanwezig zijn.
+- Analytics worden uitsluitend uit persistente CRM-records berekend. Een metric zonder bronrecords is expliciet niet beschikbaar; er wordt geen nul als echte bedrijfsmeting verzonnen.
+- Het configureerbare dashboard bevat negen widgettypen, zes bewerkbare presets, filters, datumbereik, periodevergelijking, toevoegen/verwijderen, vergroten/verkleinen, drag-and-drop, persoonlijke/teamweergaven en geaudite live change-token polling.
+- ZERO gebruikt dezelfde formele CRM-services voor prioriteitsleads, pipeline-overzichten, Customer 360 en expliciet vastgelegde inventory-customer-relaties.
+- `crm-standalone.js`, `Dockerfile.crm` en `railway.crm.json` vormen een onafhankelijk deploybare CRM-service met optionele ZERO-integratie en zonder afhankelijkheid van de Neural renderer.
 
 ## Data en provenance
 
@@ -87,7 +100,7 @@ De overige connectorprofielen zijn capabilities, geen meegeleverde providercontr
 
 ## Workers en persistence
 
-Core records, provenance, memory, decisions, Jarvis-audit, jobs, events en workerstatus worden in `FOUNDLY_DATA_DIR` opgeslagen. De worker verwerkt echte queued jobs, gebruikt persisted attempts/status, exponential backoff en dead-letterstatus na het maximale aantal pogingen.
+Core records, provenance, memory, decisions, ZERO-audit, CRM-records, jobs, events en workerstatus worden in `FOUNDLY_DATA_DIR` opgeslagen. De worker verwerkt echte queued jobs, gebruikt persisted attempts/status, exponential backoff en dead-letterstatus na het maximale aantal pogingen.
 
 Voor Railway:
 
@@ -95,7 +108,7 @@ Voor Railway:
 2. zet `FOUNDLY_DATA_DIR=/data`;
 3. vul `RAILWAY_VARIABLES.txt` op exact die service in;
 4. registreer de callback-URL's bij de providers;
-5. deploy en controleer `/api/health`, `/api/ready` en `/api/jarvis/status`.
+5. deploy en controleer `/api/health`, `/api/ready`, `/api/zero/status` en `/api/crm/status`.
 
 ## Tests
 
@@ -105,6 +118,6 @@ Voer lokaal uit:
 npm test
 ```
 
-De suite test syntax, auth/secrets, SSRF-beveiliging, 93 connectorcontracten, alle vijf native OAuth-flows inclusief Basic Auth + publieke callback + containerrestart, encrypted tokens, state-replay/retry, providerbootstrap, sync ingest, workerretry, 12 engines, provenance, Jarvis ephemeral sessions, originvalidatie, actuele searchrouting, weather/time/news-intents, follow-ups, tool-idempotency, confirmations, prompt-injectiondefensie, memory pruning, restart persistence, history deletion, display-/spraaktekstscheiding, Nederlandse spraaknormalisatie, audio-bussen/ducking, output-aware clap-gating, deterministische GPU-dichtheid en echte dashboardaggregatie.
+De suite test syntax, auth/secrets, SSRF-beveiliging, 93 connectorcontracten, alle vijf native OAuth-flows inclusief Basic Auth + publieke callback + containerrestart, encrypted tokens, state-replay/retry, providerbootstrap, sync ingest, workerretry, 12 engines, provenance, ZERO ephemeral sessions, originvalidatie, actuele searchrouting, weather/time/news-intents, follow-ups, tool-idempotency, confirmations, prompt-injectiondefensie, memory pruning, restart persistence, history deletion, display-/spraaktekstscheiding, Nederlandse spraaknormalisatie, audio-bussen/ducking, output-aware clap-gating, deterministische GPU-dichtheid, werkelijke dashboardaggregatie, CRM-tenantisolatie/RBAC/Customer 360/pipelines/analytics/dashboard/automations, ZERO-CRM-tools, gesigneerde webhooks, encrypted CRM-persistence en standalone restart.
 
 Browserhardware en echte externe providers worden bewust niet door mocks tot `LIVE PASS` verklaard. Na iedere deploy blijven echte microfoon/playback/WebRTC-, providercredential-, consent/review- en Railway Volume-tests afzonderlijke live acceptance gates.
