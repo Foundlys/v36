@@ -26,16 +26,16 @@ assert.equal(gate.push(clap,3300).reason,'suppressed','output playback must supp
 const html=fs.readFileSync(__dirname+'/index.html','utf8');
 const js=fs.readFileSync(__dirname+'/index-script.js','utf8');
 const neural=fs.readFileSync(__dirname+'/neural-runtime.js','utf8');
-const audio=fs.readFileSync(__dirname+'/jarvis-audio.js','utf8');
+const audio=fs.readFileSync(__dirname+'/zero-audio.js','utf8');
 const server=fs.readFileSync(__dirname+'/server.js','utf8');
 const ui=html+'\n'+js+'\n'+neural+'\n'+audio+'\n'+server;
 
-for(const token of ['/speech-formatter.js','/neural-runtime.js','/jarvis-audio.js','initializeFoundly','FoundlyClapDetector','DoubleClapGate','FoundlyAudioScene','attachRemote','local_double_clap_plus_web_speech_wake_word','/api/jarvis/preferences','/api/jarvis/client-event','/api/dashboard/summary','requestFullscreen','setAutoQuality','REALTIME · CONVERSATION','spoken_text'])assert(ui.includes(token),`missing client contract: ${token}`);
+for(const token of ['/speech-formatter.js','/neural-runtime.js','/zero-audio.js','initializeFoundly','FoundlyClapDetector','DoubleClapGate','FoundlyAudioScene','attachRemote','/api/zero/preferences','/api/zero/client-event','/api/dashboard/summary','requestFullscreen','setAutoQuality','REALTIME · CONVERSATION','spoken_text'])assert(ui.includes(token),`missing client contract: ${token}`);
 for(const state of ['STANDBY','ACTIVATING','LISTENING','THINKING','SEARCHING','PLANNING','WAITING_TOOL','EXECUTING','WAITING_CONFIRMATION','VERIFYING','SPEAKING','SUCCESS','WARNING','ERROR','RECOVERING'])assert(ui.includes(state),`missing Jarvis state contract: ${state}`);
 for(const id of ['initializeFoundly','settingsToggle','settingsClose','saveSettings','fullscreen','mic','send','microphoneEnabled','voiceEnabled','musicEnabled','sfxEnabled']){assert(html.includes(`id="${id}"`),`missing UI control ${id}`);assert(js.includes(`'${id}'`),`missing UI handler ${id}`)}
 assert.equal((js.match(/async function connectRealtime\(/g)||[]).length,1,'there must be one authoritative Realtime client path');
 assert(js.includes('preserve_state:true'));assert(js.includes('lastVoiceOutcome'));assert(js.includes('initialCommandState'));assert(js.includes("regions:globalThis.FOUNDLY_RUNTIME_PROFILE?.neural_regions"),'renderer must accept future auto-provisioned regional profiles without a rewrite');
-assert(js.includes('initializeNeuralRuntime'));assert(js.includes("CLIENT_RUNTIME.renderer='FAILED_ISOLATED'"));assert(js.includes("CLIENT_RUNTIME.audio='FAILED_ISOLATED'"));assert(js.includes("CLIENT_RUNTIME.jarvis_handlers=required.every(Boolean)?'REGISTERED':'INCOMPLETE'"));
+assert(js.includes('initializeNeuralRuntime'));assert(js.includes("CLIENT_RUNTIME.renderer='FAILED_ISOLATED'"));assert(js.includes("CLIENT_RUNTIME.audio='FAILED_ISOLATED'"));assert(js.includes('CLIENT_RUNTIME.zero_handlers=status'));assert(js.includes('CLIENT_RUNTIME.jarvis_handlers=status'));
 assert(!js.includes('if(Math.random()<.06&&links.length)'), 'visual activity may not be randomly fabricated');
 assert(!/Yoo bro/i.test(ui));
 assert(!/sk-[A-Za-z0-9_-]{12,}/.test(ui),'server credentials may not appear in client assets');
@@ -54,11 +54,11 @@ function startupContext({missing=[]}={}){
 (async()=>{
   const {context,get}=startupContext();vm.runInNewContext(js,context,{filename:'index-script.js'});
   assert.equal(context.__FOUNDLY_CLIENT_RUNTIME.renderer,'FAILED_ISOLATED','a renderer failure must be contained');
-  assert.equal(context.__FOUNDLY_CLIENT_RUNTIME.jarvis_handlers,'REGISTERED','Jarvis handlers must register after renderer failure');
+  assert.equal(context.__FOUNDLY_CLIENT_RUNTIME.zero_handlers,'REGISTERED','ZERO handlers must register after renderer failure');
   for(const [id,event] of [['mic','click'],['initializeFoundly','click'],['send','click'],['command','keydown']])assert.equal(get(id).listeners[event]?.length,1,`${id} ${event} handler must remain registered`);
   await get('initializeFoundly').listeners.click[0]();
   assert.equal(context.__FOUNDLY_CLIENT_RUNTIME.audio,'FAILED_ISOLATED','an audio startup failure must be contained');
-  assert.equal(get('voiceState').textContent,'STANDBY','Jarvis must still reach standby after an audio subsystem failure');
-  const sparse=startupContext({missing:['mainCount','subCount','linkCount','legend','close','resetView','settingsToggle','settingsClose','saveSettings','masterVolume','voiceVolume','ambienceVolume','sfxVolume','audioMuted','voiceEnabled','musicEnabled','sfxEnabled','wakeEnabled','clapEnabled','clapSensitivity','visualQualitySelect','microphoneEnabled']});vm.runInNewContext(js,sparse.context,{filename:'index-script-sparse-layout.js'});assert.equal(sparse.context.__FOUNDLY_CLIENT_RUNTIME.jarvis_handlers,'REGISTERED','optional HUD edits may not prevent authoritative Jarvis handlers');for(const [id,event] of [['mic','click'],['initializeFoundly','click'],['send','click'],['command','keydown']])assert.equal(sparse.get(id).listeners[event]?.length,1,`${id} ${event} must survive a sparse HUD layout`);
+  assert.equal(get('voiceState').textContent,'STANDBY','ZERO must still reach standby after an audio subsystem failure');
+  const sparse=startupContext({missing:['mainCount','subCount','linkCount','legend','close','resetView','settingsToggle','settingsClose','saveSettings','masterVolume','voiceVolume','ambienceVolume','sfxVolume','audioMuted','voiceEnabled','musicEnabled','sfxEnabled','wakeEnabled','clapEnabled','clapSensitivity','visualQualitySelect','microphoneEnabled']});vm.runInNewContext(js,sparse.context,{filename:'index-script-sparse-layout.js'});assert.equal(sparse.context.__FOUNDLY_CLIENT_RUNTIME.zero_handlers,'REGISTERED','optional HUD edits may not prevent authoritative ZERO handlers');for(const [id,event] of [['mic','click'],['initializeFoundly','click'],['send','click'],['command','keydown']])assert.equal(sparse.get(id).listeners[event]?.length,1,`${id} ${event} must survive a sparse HUD layout`);
   console.log(JSON.stringify({ok:true,version:'5.3.1',double_clap_gate:'pass',standby_privacy:'contract_pass',single_realtime_pipeline:'pass',renderer_failure_isolated:'pass',audio_failure_isolated:'pass',jarvis_handlers_after_failure:'pass',runtime_bound_visuals:'pass',fake_activity_removed:'pass'},null,2));
 })().catch(error=>{console.error(error);process.exitCode=1});

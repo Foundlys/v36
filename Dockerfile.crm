@@ -1,0 +1,8 @@
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json crm-core.js crm-standalone.js crm.html crm.css crm-script.js ./
+ENV NODE_ENV=production PORT=3300 FOUNDLY_CRM_DATA_DIR=/data
+RUN mkdir -p /data && chown -R node:node /app /data
+USER node
+EXPOSE 3300
+CMD ["node", "crm-standalone.js"]
