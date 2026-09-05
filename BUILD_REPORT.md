@@ -327,3 +327,85 @@ The existing `/automotive` workspace and tenant-configurable dealer-fit design a
 ### 15. NEXT RUN
 
 Critical path only: the authorized mobile.de account owner must obtain and enter the official Search API username/password in Foundly's existing secure mobile.de connector configuration. Do not send credentials through chat or commit them. Then rerun, in order: authentication probe → real marketplace search → normalization/provenance → persistent cache → comparables/economics/Buy Score → ZERO multi-turn and flagship query → five non-hardcoded searches → production workspace verification.
+
+## Run 3 — Railway production readiness configuration
+
+### 1. Scope and preserved release
+
+- Correct target reconfirmed in the authenticated Railway session: project `dazzling-solace`, environment `production`, service `v36`, public domain `v36-production.up.railway.app`.
+- The active deployment remains Foundly `6.0.0` from repository `Foundlys/v36`, branch `main`, commit `8004558ec4d9e5153cb3efe5d7df1e5f7ea44ea8`.
+- No application, business-module, Neural, ZERO, authentication, security or persistence source file was changed in Run 3. The only repository change in this run is this evidence section.
+- The supplied untracked `upload/` directory was preserved and was not staged or modified.
+
+### 2. Destructive staged change isolated
+
+- Railway initially showed exactly one pre-existing staged change: `v36 will be deleted`.
+- `Keep Service` was used to discard only that staged deletion. The live `v36` service, domain, deployment history and Production environment remained intact.
+- No generic deploy was performed while the deletion was staged. Subsequent deployment details contained only the explicit public-base variable update and the required redeploy.
+
+### 3. Production variable audit
+
+- Before the change, Railway showed 19 service-variable names and zero shared variables. `FOUNDLY_DATA_DIR`, `META_REDIRECT_URI` and `GOOGLE_REDIRECT_URI` were present.
+- `FOUNDLY_ADMIN_USERNAME`, `FOUNDLY_ADMIN_PASSWORD`, `FOUNDLY_ADMIN_TOKEN` and `FOUNDLY_PUBLIC_BASE_URL` were absent. Runtime diagnostics independently confirmed that Basic and Bearer authentication were both unconfigured.
+- A redacted runtime comparison proved the existing Meta and Google redirect variables already matched the exact production callback paths. LinkedIn, TikTok and Wix had no explicit callback variables and correctly use the application's supported derivation from the public base URL.
+- No credential, provider client ID, provider secret, token or encryption key was displayed, changed, rotated, copied or reused.
+
+### 4. Implemented Railway configuration
+
+- Added exactly `FOUNDLY_PUBLIC_BASE_URL=https://v36-production.up.railway.app` to the active Production service.
+- Railway applied the one-variable batch and generated deployment `7a720fa8-9301-4697-9e8a-1c4913adb89e` from the unchanged `main` commit `8004558ec4d9e5153cb3efe5d7df1e5f7ea44ea8`.
+- The deployment reached `Active` / `Deployment successful`; the deploy log reported `Foundly OS v6.0.0 ONLINE op poort 8080`.
+- No duplicate service, alternate hostname, staging change or new code release was created.
+
+### 5. Live health and readiness
+
+Observed on 2026-09-05 between `07:47Z` and `07:56Z`:
+
+| Check | Result |
+| --- | --- |
+| `GET /api/health` | HTTP 200, `ok: true`, version `6.0.0` |
+| `GET /api/ready` | HTTP 503, `FAIL` |
+| `authentication` | false |
+| `encryption` | true |
+| `public_base_url` | true |
+| `oauth_callbacks` | true |
+| `jarvis_openai` | true |
+| `storage_path` | true |
+| `storage_writable` | true |
+| `persistent_mount` | false |
+
+The public-base and OAuth-callback readiness gates are fixed. The exact remaining readiness failures are `authentication` and `persistent_mount`.
+
+### 6. OAuth callback safety
+
+Invalid, unusable test state was sent to the public callback routes only. All five returned controlled HTTP 302 redirects to the same production origin with `error_code=oauth_state_invalid`, no `WWW-Authenticate` header and no credential or secret exposure:
+
+- Meta: `/api/connect/meta/callback`;
+- Google: `/api/google/oauth/callback`;
+- LinkedIn: `/api/connect/linkedin/callback`;
+- TikTok: `/api/connect/tiktok/callback`;
+- Wix: `/api/connect/wix/callback`.
+
+No real provider authorization or token exchange was attempted.
+
+### 7. Protected live routes
+
+The safe read-only checks for `/api/crm/status`, `/api/analysis/status`, `/api/finance/status`, `/api/zero/status`, `/api/workers` and `/api/diagnostics/config` each returned HTTP 401 `auth_not_configured` with the existing Basic challenge. This proves the security boundary remains enforced, but means CRM, Analysis, Finance, ZERO, worker and protected persistence diagnostics cannot yet receive a live functional PASS.
+
+### 8. Persistence evidence and destructive-risk stop
+
+- Before the required public-base redeploy, `/data` was on the same filesystem device as `/` and contained one recognized `foundly-core-state.json` file of 717,621 bytes. Only filename, byte count, top-level schema keys and collection counts were inspected; file contents were not printed or exported.
+- After Railway replaced the unmounted container during that redeploy, `/data` was still on the root device and the new runtime's state file was 4,894 bytes. The prior ephemeral state did not survive the container replacement. The old deployment is now `REMOVED`; no recoverable Railway volume or backup existed.
+- This directly proves why `persistent_mount` remains false and why another redeploy must not occur before the current state is migrated to a real volume.
+- A fresh state snapshot was encrypted and hash-verified in the running container to validate a non-destructive migration procedure. It was not transmitted, staged or deployed, and the temporary encrypted files and in-memory key material were immediately removed after verification. No secret or state content was exposed.
+- Railway's volume action was opened only to the final mount-path step. No volume was created or attached because Railway volumes are billed by storage use and the required action-time confirmation returned no selection.
+
+### 9. Exact blockers and required human actions
+
+1. **Authentication:** the account owner must securely configure an intended existing `FOUNDLY_ADMIN_PASSWORD` (with `FOUNDLY_ADMIN_USERNAME` if required by the chosen Basic-auth identity) or an intended existing `FOUNDLY_ADMIN_TOKEN` on Production service `v36`. Do not send the value through chat. No authorized existing Railway/shared secret was available to attach.
+2. **Persistent volume:** explicitly approve creation of one billed Railway volume on Production service `v36`, mounted exactly at `/data`. Before deploying it, take a fresh encrypted snapshot of the current state; after attach, restore it onto the volume, force an ungraceful process restart so the restored file is loaded without an empty-state shutdown overwrite, remove the temporary migration material, redeploy once, and prove durability with a non-sensitive marker/restart test.
+3. **Prior ephemeral state:** if recovery of the pre-Run-3 717,621-byte file is required, the account owner must contact Railway support immediately and ask whether the removed deployment's ephemeral filesystem can be recovered. No in-product recovery path or backup was present.
+
+### 10. Run 3 readiness verdict
+
+`BLOCKED` — code release `6.0.0`, health, public origin and all callback bindings are live and verified, but `/api/ready` remains HTTP 503 until an authorized admin credential and a genuine `/data` Railway volume are present. No security bypass, credential change, provider-secret change, duplicate service or business-code modification was used.
