@@ -6,19 +6,31 @@
   <meta name="color-scheme" content="dark">
   <title>Foundly Analysis</title>
   <link rel="stylesheet" href="/business-workspaces.css">
+  <link rel="stylesheet" href="/foundly-shell.css">
   <script src="/analysis-script.js" defer></script>
+  <script src="/foundly-shell.js" defer></script>
 </head>
 <body class="analysis">
   <div class="ambient" aria-hidden="true"></div>
   <aside class="rail" aria-label="Analysis-navigatie">
     <a class="brand" href="/analysis"><span class="brand-mark">F</span><span>FOUNDLY<br><small>ANALYSIS</small></span></a>
     <p class="rail-label">Intelligence</p>
-    <nav>
-      <a href="#overview" aria-current="page">Command dashboard</a>
-      <a href="#funnel">Commerciële funnel</a>
-      <a href="#events">Realtime events</a>
-      <a href="#history">Historische rollups</a>
-      <a href="#sources">Bronnen &amp; freshness</a>
+    <nav class="workspace-map">
+      <a href="#overview" aria-current="page">Overview</a>
+      <a href="#events">Realtime</a>
+      <a href="#history">Historical</a>
+      <a href="#analysisKpis">KPIs</a>
+      <a href="#funnel">Funnels</a>
+      <a href="#sources">Attribution</a>
+      <a href="#sources">Campaigns</a>
+      <a href="#history">Sales</a>
+      <a href="#funnel">Leads</a>
+      <a href="#history">Customers</a>
+      <a href="#sources">Sources</a>
+      <a href="#history">Cohorts</a>
+      <a href="#sources">Data Quality</a>
+      <a href="#analysisAutomation">Alerts</a>
+      <a href="#overview">Dashboards</a>
     </nav>
     <div class="rail-links"><a href="/">Neural home</a><a href="/crm">CRM</a><a href="/finance">Finance</a></div>
   </aside>
@@ -44,7 +56,7 @@
       <article class="panel" id="events"><header class="panel-head"><div><p class="eyebrow">EVENT BUS</p><h2>Realtime eventfeed</h2><p class="panel-subtitle" id="eventFreshness">Freshness onbekend</p></div><span class="panel-badge">SSE</span></header><div class="stack" id="analysisEvents"></div></article>
       <article class="panel wide" id="history"><header class="panel-head"><div><p class="eyebrow">INCREMENTAL ROLLUPS</p><h2>Historische aggregatie</h2><p class="panel-subtitle">Materiële dagsamenvattingen; geen volledige eventscan in de browser.</p></div><span class="panel-badge" id="rollupCount">0 BUCKETS</span></header><div class="table-shell"><table><thead><tr><th>Dag</th><th>Event</th><th>Bron</th><th>Aantal</th><th>Laatst ontvangen</th></tr></thead><tbody id="analysisHistory"></tbody></table><div class="empty hidden" id="analysisHistoryEmpty"></div></div></article>
       <article class="panel" id="sources"><header class="panel-head"><div><p class="eyebrow">PROVENANCE</p><h2>Bronnen &amp; connectors</h2></div><span class="panel-badge">TRUTHFUL STATUS</span></header><div class="source-grid" id="analysisSources"></div></article>
-      <article class="panel"><header class="panel-head"><div><p class="eyebrow">AUTOMATION</p><h2>Uitvoeringsstatus</h2></div><span class="panel-badge">AUDITED</span></header><div class="stack" id="analysisAutomation"></div></article>
+      <article class="panel" id="analysisAutomation"><header class="panel-head"><div><p class="eyebrow">AUTOMATION</p><h2>Uitvoeringsstatus</h2></div><span class="panel-badge">AUDITED</span></header><div class="stack" id="analysisAutomationContent"></div></article>
     </section>
   </main>
 

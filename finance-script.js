@@ -85,7 +85,7 @@ function renderCompliance() {
     ['Postingcontract', status?.schema?.posting_contract || 'UNKNOWN'],
     ['Inkoopgoedkeuring', status?.schema?.purchase_posting_gate || 'UNKNOWN']
   ];
-  $('#financeCompliance').innerHTML = rows.map(([label, value]) => `<div class="stack-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join('');
+  $('#financeComplianceContent').innerHTML = rows.map(([label, value]) => `<div class="stack-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join('');
 }
 
 function renderJournal() {

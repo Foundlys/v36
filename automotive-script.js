@@ -2,6 +2,7 @@
 
 const app = {
   status: null,
+  overview: null,
   search: null,
   results: [],
   analyses: new Map(),
@@ -60,6 +61,7 @@ async function api(path, options = {}) {
 }
 
 function providerState(provider) {
+  if (provider.connection_state) return provider.connection_state;
   if (provider.state) return provider.state;
   if (provider.probe === 'PASS') return 'LIVE';
   if (provider.authenticated) return 'CONFIGURED';
@@ -68,6 +70,12 @@ function providerState(provider) {
 }
 
 function providerExplanation(provider) {
+  if (provider.connection_state === 'CONNECTED') return `${formatNumber(provider.records || 0)} records · probe ${provider.probe_state || 'PASS'}`;
+  if (provider.connection_state === 'AWAITING_ACCESS') return 'Adapter beschikbaar · legitieme provider- of partnertoegang vereist';
+  if (provider.connection_state === 'AUTHENTICATED') return 'Authenticatie aanwezig · vereiste probe of initiële sync nog niet bewezen';
+  if (provider.connection_state === 'CONFIGURED') return 'Configuratie aanwezig · providerautorisatie nog niet bewezen';
+  if (provider.connection_state === 'UNCONFIGURED') return 'Connectorcontract beschikbaar · configuratie ontbreekt';
+  if (provider.safe_error) return provider.safe_error;
   if (provider.state === 'LIVE' || provider.probe === 'PASS') return `${formatNumber(provider.records_normalized || 0)} records genormaliseerd · ${formatNumber(provider.latency_ms, ' ms')}`;
   if (provider.state === 'CACHED' || provider.state === 'STALE') return `${formatNumber(provider.records_from_cache || 0)} echte cache-records · live refresh faalde`;
   if (provider.error?.code) return provider.error.code;
@@ -78,13 +86,42 @@ function providerExplanation(provider) {
 }
 
 function renderProviders(providers = []) {
-  $('#providerGrid').innerHTML = providers.map(provider => {
+  const required = ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc', 'ecb_fx', 'openai'];
+  const ordered = required.map(id => providers.find(provider => (provider.connector_id || provider.provider) === id)).filter(Boolean);
+  $('#providerGrid').innerHTML = ordered.map(provider => {
     const state = providerState(provider);
     return `<article class="provider-card">
-      <div class="provider-head"><strong>${escapeHtml(provider.provider)}</strong><span class="state-pill ${escapeHtml(state.toLowerCase())}">${escapeHtml(state)}</span></div>
+      <div class="provider-head"><strong>${escapeHtml(provider.name || provider.provider || provider.connector_id)}</strong><span class="state-pill ${escapeHtml(state.toLowerCase())}">${escapeHtml(state)}</span></div>
       <p>${escapeHtml(providerExplanation(provider))}</p>
     </article>`;
   }).join('') || '<div class="empty-state small"><p>Providerstatus is niet beschikbaar.</p></div>';
+}
+
+function overviewValue(value, available = true) {
+  return available ? String(value) : 'Geen data';
+}
+
+function renderOverview() {
+  const data = app.overview;
+  if (!data) return;
+  const connected = (data.provider_health || []).filter(row => row.connection_state === 'CONNECTED').length;
+  const topScore = (data.top_buy_scores || []).map(row => Number(row.score)).filter(Number.isFinite).sort((a, b) => b - a)[0];
+  const metrics = [
+    ['Provider health', `${connected} / ${(data.provider_health || []).length}`, true, 'Connector Registry'],
+    ["Today's opportunities", (data.today_opportunities || []).length, true, 'Echte marketplace-data'],
+    ['Top Buy Scores', topScore, Number.isFinite(topScore), 'Evidence-backed scoring'],
+    ['Recent searches', (data.recent_searches || []).length, true, 'Tenant history'],
+    ['Market movement', null, Boolean(data.market_movement?.available), data.market_movement?.reason || 'Geen schijntrend'],
+    ['Inventory risk', data.inventory_risk?.at_risk, Boolean(data.inventory_risk?.available), 'Persistente voorraad'],
+    ['Stale stock', data.stale_stock?.records, Boolean(data.stale_stock?.available), 'Ouder dan 90 dagen'],
+    ['Recent ZERO recommendations', (data.recent_zero_recommendations || []).length, true, 'Persisted only'],
+    ['Data freshness', (data.data_freshness || []).filter(row => ['AVAILABLE', 'LIVE_REFERENCE'].includes(row.status)).length, true, 'Source Registry'],
+    ['Source coverage', (data.source_coverage || []).length, true, 'Bronnen met records']
+  ];
+  $('#automotiveOverviewGrid').innerHTML = metrics.map(([name, value, available, note]) => `<article><span>${escapeHtml(name)}</span><strong class="${available ? '' : 'unavailable'}">${escapeHtml(overviewValue(value, available))}</strong><small>${escapeHtml(note)}</small></article>`).join('');
+  $('#automotiveObserved').textContent = data.observed_at ? new Intl.DateTimeFormat('nl-NL', { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(data.observed_at)) : 'Observatietijd onbekend';
+  $('#inventoryOperationState').textContent = data.inventory_risk?.available ? `${data.inventory_risk.records} persistente voorraadrecords · ${data.inventory_risk.at_risk} met expliciet hoog risico.` : 'Geen werkelijke voorraadrecords beschikbaar; Foundly toont geen demo-inventaris.';
+  renderProviders(data.provider_health || []);
 }
 
 function renderSystemStatus() {
@@ -97,13 +134,14 @@ function renderSystemStatus() {
   const marketplaceReady = (status.providers || []).some(provider => provider.category === 'MARKETPLACE' && provider.authenticated);
   $('#railStatusLight').className = `status-light ${marketplaceReady ? 'ok' : readyProviders ? 'partial' : 'error'}`;
   $('#railStatusText').textContent = marketplaceReady ? 'Market ready' : 'Data limited';
-  renderProviders(status.providers || []);
+  if (!app.overview) renderProviders(status.providers || []);
 }
 
 async function loadStatus() {
   try {
-    app.status = await api('/api/automotive/status');
+    [app.status, app.overview] = await Promise.all([api('/api/automotive/status'), api('/api/automotive/overview')]);
     renderSystemStatus();
+    renderOverview();
   } catch (error) {
     $('#railStatusLight').className = 'status-light error';
     $('#railStatusText').textContent = 'Unavailable';
@@ -202,7 +240,6 @@ async function runSearch(query) {
     app.results = search.results || [];
     app.analyses.clear();
     renderCriteria(search);
-    renderProviders(search.provider_executions || []);
     $('#correlationState').textContent = search.correlation_id ? `Trace ${search.correlation_id.slice(0, 12)}` : 'Trace voltooid';
     $('#searchState').textContent = `${label(search.status)} · ${app.results.length} listings`;
     renderResults();
