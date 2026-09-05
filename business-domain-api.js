@@ -2,7 +2,7 @@
 const { DEFINITIONS }=require('./business-domains');
 function createBusinessDomainApi({domains,context,principal,readBody,sendJson}){
   return async(req,res,url)=>{
-    const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication)(?:\/(.*))?$/);
+    const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing)(?:\/(.*))?$/);
     if(!match)return false;
     const id=match[1],core=domains[id],parts=(match[2]||'status').split('/'),ctx=context(),actor=principal();
     try{
@@ -10,9 +10,9 @@ function createBusinessDomainApi({domains,context,principal,readBody,sendJson}){
       if(['status','summary'].includes(parts[0])&&req.method==='GET')return sendJson(res,200,{ok:true,...core.summary(ctx,actor)});
       if(parts[0]==='export'&&req.method==='GET')return sendJson(res,200,{ok:true,...core.export(ctx,actor)});
       if(id==='calendar'&&parts[0]==='conflicts'&&req.method==='POST'){const data=await readBody(req);return sendJson(res,200,{ok:true,...core.conflicts(ctx,actor,data,data.exclude_id)});}
-      if(!DEFINITIONS[id].entities.includes(parts[0]))return sendJson(res,404,{ok:false,code:'entity_unknown'});
+      if(parts.length>3||!DEFINITIONS[id].entities.includes(parts[0]))return sendJson(res,404,{ok:false,code:'entity_unknown'});
       const [entity,recordId,action]=parts;
-      if(req.method==='GET')return sendJson(res,200,recordId?{ok:true,record:core.get(ctx,actor,entity,recordId)}:{ok:true,...core.list(ctx,actor,entity,Object.fromEntries(url.searchParams))});
+      if(req.method==='GET'&&!action)return sendJson(res,200,recordId?{ok:true,record:core.get(ctx,actor,entity,recordId)}:{ok:true,...core.list(ctx,actor,entity,Object.fromEntries(url.searchParams))});
       if(req.method==='POST'&&action==='approve'){return sendJson(res,200,{ok:true,...core.approve(ctx,actor,entity,recordId,await readBody(req))});}
       if(req.method==='POST'&&!recordId||req.method==='PUT'&&recordId&&!action){
         const data=await readBody(req),{expected_revision,...input}=data;

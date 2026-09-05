@@ -7,7 +7,7 @@ local module-contract/resolver files. This is implementation evidence, not relea
 No Windows-specific process adapter or further business-domain implementation was
 found in the available filesystem, branches, stashes or remote run branch.
 
-## Existing ownership and dependencies
+## Ownership and gaps as recovered (baseline, before new implementation)
 
 | Surface | Existing foundation | Ownership / retained contract | Integration gap |
 |---|---|---|---|
@@ -44,13 +44,32 @@ Archive and destructive retention remain explicit domain operations, never a
 side effect of entitlement changes. Existing tenant behavior is preserved until
 an authorized explicit composition is configured.
 
-## Recovery acceptance
+## Implemented after recovery
 
-The new resolver unit test passes nine module selections, selected combinations,
-role denial, tenant mismatch rejection, revision conflict, serialized restart,
-retention and test-only second-industry resolution. It does not prove nine fully
-standalone products. There are no new migrations or production changes.
+- One nine-module manifest and tenant composition resolver, with founder-only configuration, preview, revision conflicts and retained exports.
+- Server/API/engine aliases, workspace navigation, ZERO tool execution and workflow targets enforce composed access. Fine-grained method/route coverage is still being audited.
+- Independent Procurement, Sales, Calendar, Communication and Marketing records use retained historical buckets. No CRM deals or financial records were copied.
+- Sales stages and full-scope currency aggregates; Calendar recurrence, conflicts and reminders; internal Procurement/Sales approval; communication drafts and campaign plans never claim external delivery.
+- Automation owns its tasks/documents, records sequential outcomes durably, binds approval to exact inputs, refuses indeterminate crash replay, supports conditions/delays and explicitly opted-in scheduled/event workflows.
+- Canonical event versions, permissions, outbox notifications and permission-preserving projections/SSE; subscriber failure does not undo business records.
+- The shared workspace contains real domain forms, a package composer and distinct section projections. Unsupported sections are explicitly marked unavailable rather than showing repeated overview KPIs.
+- Test-only second-industry manifest extends actual Procurement/Sales fixtures without production registration or universal-engine branches.
 
-Next gate: runtime enforcement, including manual URLs, ZERO, workflow targets,
-legacy transport aliases, disabled-data access and founder-only entitlement writes.
-Do not release a client-only navigation filter as module isolation.
+## Verification and remaining boundary
+
+See COMPOSABLE_ACCEPTANCE.md and COMPOSABLE_TEST_EVIDENCE.json for exact test scope.
+Nine standalone configurations and twelve combinations exercise real authenticated
+HTTP operations and encrypted restart. This does not establish nine complete,
+competitive, sellable products. All unclosed critical gaps are listed in the
+versioned competitive-ledgers directory.
+
+The production identity is still a service principal selected from existing
+server environment settings. Do not claim end-user identity provisioning or
+multiple signed-in tenant memberships from this adapter. No authentication
+provider, account or credential was invented. A verified production identity
+contract is required before such claims can be made.
+
+No destructive migrations, Railway configuration edits, credential changes or
+production deployments were performed during this continuation. The Neural
+renderer, audio/speech formatters and CRM/Finance/Automotive domain engines remain
+unchanged. The shared platform engine has bounded workflow/event authorization fixes.

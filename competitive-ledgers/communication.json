@@ -1,0 +1,103 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "communication",
+  "assessed_at": "2026-09-05",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "communication",
+      "capability_id": "communication:workspace",
+      "capability_name": "Communication operations",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Front"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Front",
+          "url": "https://help.front.com/en/articles/2216",
+          "observed": "Shared drafts follow inbox access and support collaborative editing.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Owned drafts, templates, threads and preferences with permissions and safe empty inbox.",
+      "gap": "Collaborative editing, attachments, reply/forward and complete inbox workflows remain incomplete.",
+      "required_change": "Complete message/thread contracts and safe attachment/reference handling.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "communication",
+      "capability_id": "communication:delivery",
+      "capability_name": "Verified message delivery",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Front"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Front",
+          "url": "https://help.front.com/en/articles/2216",
+          "observed": "Shared drafts follow inbox access and support collaborative editing.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Drafts cannot claim sent status; provider records cannot be fabricated through the user CRUD API.",
+      "gap": "No authenticated mail account and verified delivery/receipt chain is available in this run.",
+      "required_change": "Attach authorized mail access through the supported secure channel and verify delivery states without test emails to real people.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BLOCKED_EXTERNAL"
+    },
+    {
+      "module": "communication",
+      "capability_id": "communication:intelligence",
+      "capability_name": "Communication policy",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Front"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Front",
+          "url": "https://help.front.com/en/articles/2216",
+          "observed": "Shared drafts follow inbox access and support collaborative editing.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO draft summaries and existing safe drafting paths exist.",
+      "gap": "Consent-aware approved execution and reply/forward verification need complete integration.",
+      "required_change": "Build input-bound send approval, provider transport and durable receipt processing.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

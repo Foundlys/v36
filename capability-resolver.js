@@ -11,10 +11,11 @@ function identity(ctx) {
 function permissions(actor = {}) {
   const roles = (actor.roles || []).map(x => String(x).toUpperCase());
   return new Set([...(actor.permissions || []), ...(roles.some(r => ['ADMIN', 'FOUNDER', 'SUPER_ADMIN'].includes(r)) ? ['*'] : []),
-    ...roles.flatMap(role => role === 'MANAGER' ? Object.keys(MODULES).flatMap(id => [`${id}:read`, `${id}:write`, `${id}:export`]) : role === 'VIEWER' ? Object.keys(MODULES).map(id => `${id}:read`) : role === 'SALES' ? ['crm:read','crm:write','sales:read','sales:write','calendar:read','calendar:write','communication:read','communication:write'] : role === 'ACCOUNTANT' ? ['finance:read','finance:write','finance:export'] : role === 'MARKETING' ? ['crm:read','crm:write','marketing:read','marketing:write','analysis:read'] : [])]);
+    ...roles.flatMap(role => role === 'MANAGER' ? Object.keys(MODULES).flatMap(id => [`${id}:read`, `${id}:write`, `${id}:export`]) : role === 'ANALYST' ? ['analysis:read'] : role === 'VIEWER' ? Object.keys(MODULES).map(id => `${id}:read`) : role === 'SALES' ? ['crm:read','crm:write','sales:read','sales:write','calendar:read','calendar:write','communication:read','communication:write'] : role === 'ACCOUNTANT' ? ['finance:read','finance:write','finance:export'] : role === 'MARKETING' ? ['crm:read','crm:write','marketing:read','marketing:write','analysis:read'] : [])]);
 }
 function allowed(actor, permission) { const p = permissions(actor); return p.has('*') || p.has(permission); }
 function requirePermission(actor, permission) { if (!allowed(actor, permission)) fail('composition_forbidden', 'Deze capability is niet toegestaan'); }
+function canManage(actor={}) { return (actor.roles||[]).some(role=>['FOUNDER','SUPER_ADMIN'].includes(String(role).toUpperCase()))||(actor.permissions||[]).includes('composition:manage'); }
 
 function resolve(ctx, actor, profile = null, options = {}) {
   identity(ctx);
@@ -46,8 +47,7 @@ class CapabilityResolver {
   resolve(ctx, actor) { return resolve(ctx, actor, this.profile(ctx)); }
   configure(ctx, actor, input) {
     identity(ctx);
-    const roles = (actor.roles || []).map(role => String(role).toUpperCase());
-    if (!roles.some(role => ['FOUNDER', 'SUPER_ADMIN'].includes(role)) && !(actor.permissions || []).includes('composition:manage')) fail('composition_forbidden', 'Alleen de bevoegde platformbeheerder mag pakketrechten wijzigen');
+    if (!canManage(actor)) fail('composition_forbidden', 'Alleen de bevoegde platformbeheerder mag pakketrechten wijzigen');
     if (input.tenant_id && input.tenant_id !== ctx.tenant_id || input.dealer_id && input.dealer_id !== ctx.dealer_id) fail('composition_tenant_mismatch', 'Cross-tenant configuratie geweigerd');
     const bundle = input.bundle ? BUNDLES[input.bundle] : null;
     if (input.bundle && !bundle) fail('bundle_invalid', 'Onbekend pakket', 422);
@@ -86,11 +86,23 @@ class CapabilityResolver {
     if (!state.legacy_compatibility || operation === 'export') requirePermission(actor, `${id}:${operation}`);
     return state;
   }
+  preview(ctx,actor,input) {
+    const current=this.resolve(ctx,actor),snapshots=clone(this.adapter.bucket(ctx,'composition:profiles'));
+    const isolated=new CapabilityResolver({bucket:()=>snapshots,audit:()=>{},persist:()=>{}});
+    const result=isolated.configure(ctx,actor,input),next=isolated.resolve(ctx,actor);
+    return {ok:true,profile:result.profile,resolution:next,diff:{enabled:next.enabled_modules.filter(id=>!current.enabled_modules.includes(id)),disabled:current.enabled_modules.filter(id=>!next.enabled_modules.includes(id)),industry_changed:next.industry_id!==current.industry_id},persistent_changes:false,data_deleted:false,expected_revision:current.revision};
+  }
   assertTool(ctx, actor, tool) {
     const id = TOOL_MODULES[tool];
     if (id) this.assertModule(ctx, actor, id, ['create_lead','create_task','create_appointment','create_report','draft_message','automation_run'].includes(tool) ? 'write' : 'read');
     if (this.profile(ctx)?.capability_flags?.[TOOL_CAPABILITIES[tool]] === false) fail('capability_disabled', 'Deze capability is niet actief');
     if (tool.startsWith('automotive_') && this.resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') fail('industry_tool_disabled', 'Automotive is niet actief');
   }
+  assertCapability(ctx, actor, capability, operation='read') {
+    const id=String(capability).split(':')[0];
+    this.assertModule(ctx,actor,id,operation);
+    if(!MODULES[id].provided_capabilities.includes(capability))fail('capability_unknown','Onbekende capability',404);
+    if(this.profile(ctx)?.capability_flags?.[capability]===false)fail('capability_disabled','Deze capability is niet actief');
+  }
 }
-module.exports = { CapabilityResolver, resolve, permissions, allowed, requirePermission };
+module.exports = { CapabilityResolver, resolve, permissions, allowed, requirePermission, canManage };

@@ -1,0 +1,127 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "finance",
+  "assessed_at": "2026-09-05",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "finance",
+      "capability_id": "finance:accounting",
+      "capability_name": "Immutable accounting",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Xero",
+        "Moneybird"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Xero",
+          "url": "https://www.xero.com/id/accounting-software/reconcile-bank-transactions/",
+          "observed": "Connected-bank reconciliation with rules, matching and review of uncertain matches.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Moneybird",
+          "url": "https://www.moneybird.com/features/bookkeeping/",
+          "observed": "Invoice categories, financial reports, imports and supported tax-return submission.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Preserved double-entry engine, invoice approval/posting, reconciliation proposals, tax rules, exports and restart persistence pass existing tests.",
+      "gap": "Complete period-close, jurisdiction-specific accounting and competitive UX acceptance remain open.",
+      "required_change": "Close explicit accounting/UX gaps without replacing the ledger.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "platform-core-regression-test.js",
+        "platform-api-regression-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "finance",
+      "capability_id": "finance:providers",
+      "capability_name": "Financial integrations",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Xero",
+        "Moneybird"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Xero",
+          "url": "https://www.xero.com/id/accounting-software/reconcile-bank-transactions/",
+          "observed": "Connected-bank reconciliation with rules, matching and review of uncertain matches.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Moneybird",
+          "url": "https://www.moneybird.com/features/bookkeeping/",
+          "observed": "Invoice categories, financial reports, imports and supported tax-return submission.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Provider slots and safe internal accounting operations exist.",
+      "gap": "Bank/accounting-provider access and actual external submission are not proven.",
+      "required_change": "Obtain existing authorized bank/accounting credentials; verify provider contracts without automatic financial action.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "platform-core-regression-test.js",
+        "platform-api-regression-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BLOCKED_EXTERNAL"
+    },
+    {
+      "module": "finance",
+      "capability_id": "finance:intelligence",
+      "capability_name": "Accounting intelligence",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Xero",
+        "Moneybird"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Xero",
+          "url": "https://www.xero.com/id/accounting-software/reconcile-bank-transactions/",
+          "observed": "Connected-bank reconciliation with rules, matching and review of uncertain matches.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Moneybird",
+          "url": "https://www.moneybird.com/features/bookkeeping/",
+          "observed": "Invoice categories, financial reports, imports and supported tax-return submission.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO reads posted financial reports without optional CRM.",
+      "gap": "Forecast scenarios and outcome-based recommendations need further workflow evidence.",
+      "required_change": "Evaluate bounded financial scenarios and preserve human approval for postings, payments and filings.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "platform-core-regression-test.js",
+        "platform-api-regression-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

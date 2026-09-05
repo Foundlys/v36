@@ -15,6 +15,7 @@ const DEFINITIONS = {
 };
 const CORE_SERVICES = Object.freeze(['identity', 'authorization', 'persistence', 'audit', 'events', 'connectors', 'sources', 'knowledge', 'learning', 'zero', 'data']);
 const TOOL_MODULES = Object.freeze({
+  procurement_summary:'procurement',sales_pipeline:'sales',calendar_agenda:'calendar',communication_drafts:'communication',marketing_campaigns:'marketing',
   create_lead: 'crm', create_task: 'automation', create_appointment: 'calendar',
   draft_message: 'communication', create_report: 'analysis',
   crm_priority_leads: 'crm', crm_pipeline_summary: 'crm', crm_customer_360: 'crm',
@@ -25,6 +26,7 @@ const TOOL_MODULES = Object.freeze({
   automotive_economics: 'procurement', automotive_candidate_analysis: 'procurement', automotive_today: 'procurement'
 });
 const TOOL_CAPABILITIES = Object.freeze({
+  procurement_summary:'procurement:opportunities',sales_pipeline:'sales:pipeline',calendar_agenda:'calendar:events',communication_drafts:'communication:drafts',marketing_campaigns:'marketing:campaigns',
   create_lead:'crm:leads',crm_priority_leads:'crm:leads',crm_pipeline_summary:'crm:relationships',crm_customer_360:'crm:relationships',crm_inventory_customer_matches:'crm:relationships',
   create_task:'automation:workflows',create_appointment:'calendar:events',draft_message:'communication:drafts',create_report:'analysis:reports',
   analysis_kpi:'analysis:kpis',analysis_funnel:'analysis:funnel',analysis_campaign_outcome:'analysis:reports',finance_report:'finance:reports',
@@ -40,7 +42,7 @@ const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, 
   status: 'ACCEPTANCE_PENDING', standalone: 'UNVERIFIED', sellable: false,
   core_required: true, required_core_services: ['identity', 'authorization', 'persistence', 'audit', 'events'],
   optional_dependencies: [], provided_capabilities: capabilities.map(c => `${id}:${c}`), consumed_capabilities: [],
-  published_events: [`${id}.record.created.v1`, `${id}.record.updated.v1`], subscribed_events: [],
+  published_events: [`${id}.record.created.v1`, `${id}.record.updated.v1`,...(['procurement','sales'].includes(id)?[`${id}.record.approved.v1`]:[])], subscribed_events: [],
   api_contracts: [{ version: 1, prefix: `/api/${id}` }], route: `/${id}`, legacy_engine: engine,
   zero_tools: Object.keys(TOOL_MODULES).filter(tool => TOOL_MODULES[tool] === id),
   source_categories: categories, connector_categories: categories,
@@ -52,14 +54,14 @@ const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, 
   migration_version: 1, feature_flags: [], entitlement_key: `module:${id}`,
   audit_categories: [`${id}:read`, `${id}:write`, `${id}:export`],
   industry_extension_points: ['fields', 'objects', 'workflows', 'dashboards', 'kpis', 'tools', 'connectors'],
-  competitive_status: 'UNASSESSED'
+  competitive_status: 'BELOW_PARITY', competitive_ledger_version:'1.0.0', competitive_ledger:`competitive-ledgers/${id}.json`
 }])));
-const ALIASES = freeze(Object.fromEntries(Object.entries(MODULES).flatMap(([id, m]) => [[id, id], [m.legacy_engine, id]])));
+const ALIASES = freeze({...Object.fromEntries(Object.entries(MODULES).flatMap(([id, m]) => [[id, id], [m.legacy_engine, id]])),rapportages:'analysis',google_ads:'marketing',social:'marketing',google:'marketing'});
 const BUNDLES = freeze({ COMPLETE: Object.keys(MODULES), OPERATIONS: ['crm', 'calendar', 'communication', 'automation'], ...Object.fromEntries(Object.keys(MODULES).map(id => [id.toUpperCase(), [id]])) });
 const INDUSTRIES = freeze({
   GENERAL: { industry_id: 'GENERAL', production: true, extensions: {} },
   AUTOMOTIVE: { industry_id: 'AUTOMOTIVE', production: true, route: '/automotive', extensions: {
-    procurement: { objects: ['vehicle', 'listing'], tools: Object.keys(TOOL_MODULES).filter(t => t.startsWith('automotive_')), connectors: ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc'], fields: ['vin', 'registration', 'mileage'], kpis: ['buy_score', 'acquisition_economics'] },
+    procurement: { objects: ['vehicle', 'listing'], tools: Object.keys(TOOL_MODULES).filter(t => t.startsWith('automotive_')), connectors: ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc'], fields: ['vin', 'registration', 'mileage'], field_schema:{vin:{type:'string'},registration:{type:'string'},mileage:{type:'number'}}, kpis: ['buy_score', 'acquisition_economics'] },
     crm: { fields: ['vehicle_interest'], objects: ['vehicle_customer_relationship'] },
     sales: { fields: ['vehicle_id'], kpis: ['days_in_stock'] },
     analysis: { kpis: ['inventory_velocity', 'vehicle_margin'] }
@@ -68,7 +70,10 @@ const INDUSTRIES = freeze({
 function moduleId(value) { return ALIASES[String(value || '').toLowerCase()] || null; }
 function routeModule(pathname) {
   const pieces = pathname.split('/').filter(Boolean);
-  const part = pieces[0] === 'api' ? (['workspaces', 'module'].includes(pieces[1]) ? pieces[2] : pieces[1]) : pieces[0];
+  if(pieces[0]==='api'&&pieces[1]==='google')return pieces[2]==='calendar'?'calendar':['ga4'].includes(pieces[2])?'analysis':['ads','search-console'].includes(pieces[2])?'marketing':null;
+  if(pieces[0]==='api'&&['meta','measurement'].includes(pieces[1]))return 'marketing';
+  if(pieces[0]==='api'&&['email','whatsapp'].includes(pieces[1]))return 'communication';
+  const part = pieces[0] === 'api' ? (['workspaces', 'module', 'engine'].includes(pieces[1]) ? pieces[2] : pieces[1]) : pieces[0];
   return moduleId(part);
 }
 module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };

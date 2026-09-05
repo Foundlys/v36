@@ -1,0 +1,223 @@
+{
+  "schema_version": "foundly-checkpoint-test-evidence/1.0.0",
+  "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
+  "command": "npm test",
+  "exit_code": 0,
+  "source_sha256": {
+    "analysis-script.js": "684d45906099af4da1cfc4b1ccf6dcfca4785d1b8977ba627c7e1b21c23c1c4c",
+    "automotive-api-regression-test.js": "b70c4e1b67f6664aabd253982af95e0535fdd4f97f8d70cd82be78a496a152ae",
+    "automotive-api.js": "04d10bb0c3bc0a074d70e0c459a8c80b297593b14dc97a5f2c8265702fea2c4c",
+    "automotive-core-regression-test.js": "78dc0805bdb1c8f2f40fd1eba78ed14912441d85b6e93f6e96f3a6ee11f642df",
+    "automotive-core.js": "97b337b53cf0e8cbc6b18bf31cfc0899247d95a516c4c742d02f645a502b2921",
+    "automotive-live-provider-test.js": "de812375fb45073e437e27f896e97dd522f65d240faaf1fa81e96e57d137cc26",
+    "automotive-provider-contract-test.js": "329970409b47230409a31ce4625304c30eab555a9fc9dfeef7e9721abb848571",
+    "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
+    "business-domain-api.js": "af1403379329899b35228e7bdac9e66235c982985fd5e5befaa5bc76cf6a9da9",
+    "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
+    "business-domains.js": "6053a676436e398ec68853686e25905f42c04e9526ed6de171e8774bd8542759",
+    "business-workspaces-regression-test.js": "cd2d0eff658c502aa216491f17957cd6d3925b5ddb7bb72d8c3e5b1afbf89db6",
+    "capability-resolver-test.js": "3de7025cf2fde865b45490045f9511fc00e919b7b44b96201ec90ecec0c6e67c",
+    "capability-resolver.js": "f4eb6d295e0fe9cc8be458d0405c1a7fc2f1c59cd6b315b0e630feae9b3a89af",
+    "composition-api-test.js": "17e0591e940afec868589e01f596fa68e3d3d30a786eee52ea54a397e7afe806",
+    "composition-matrix-test.js": "0e2bc61792eb1b071a7b5f03e23d0edc1aa9881a492b100756a81f15c56476cd",
+    "composition-runtime.js": "cd1219de8ea8071f1e41fc8464306984b6f32d2e2f195e5d8367a61ba10bc39d",
+    "crm-api-regression-test.js": "1946f90be8d4345ba06ad7c75c68b51a908969d15610c9e8fb5280ae38dedbbd",
+    "crm-core-regression-test.js": "a867a43dc85e96889dde5b7ea7608dfcb44faae2821f7e4491c5cfe92196319d",
+    "crm-core.js": "951a72d4d3c94e4d7579cc6299dbf54195141c271828cfe72ffb1c5e8c2ae774",
+    "crm-script.js": "7c91b75bfead8143ae20c29b03c4513e72dd9883139903fa55cd3d164c97dcef",
+    "crm-standalone-regression-test.js": "d68e493afc85ea22f4a478cc35044762bb454199a07a0d0816de83990934f154",
+    "crm-standalone.js": "6ba1ae10db4a7bee666a07f8af8249a9861563f4e69f5374614cc300dd339139",
+    "finance-core.js": "321c10d6eee403ff331fe44004e938fcfac4a32ead9c025f750c6b9843342222",
+    "finance-script.js": "203bde465086de70ee1e80706da2655a8b1224d6973a7f5b9ec5017350c1a085",
+    "foundly-masterbuild-regression-test.js": "2f8da2ed741507d57559dda3894c1cd5f6bb2f31388343f02ad794c6606df884",
+    "foundly-registry.js": "98055c90eddc39aa7932db307bc12c7c19e233f04d9050e627fcb4b6c754ba93",
+    "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
+    "foundly-workspace.css": "44636e84cfaf143dc7b81825f6e609ef5917d344430cfbcf01f5d2338e30987d",
+    "foundly-workspace.js": "edecd715f5fc436352f93c9720abc851f5de70fa6d3efa13328e7b4f1a01cc0c",
+    "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
+    "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
+    "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
+    "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
+    "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
+    "module-catalog.js": "fdf992bad51674cf15833593c0e0e25e717a8a59e43b9aa02763bbfe8c09311c",
+    "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
+    "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
+    "package.json": "9c6423ef5db78c2bcf2e6342eac79173a7ae8e5d7e4ddb8da0cdaf4442ae9424",
+    "platform-api-regression-test.js": "0b2063b2c955883a4845ef8ddd364fd46a19dfd70e7376d4998f6d0999d67ab5",
+    "platform-api.js": "22b8b748d1014c0b1569e08b22198dcdad7bbb1fb9ac73de2365d5ca9f150576",
+    "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
+    "platform-core.js": "8cbee45ca74cdd5648c5e36c49673f74e290dc0bc00482f605a1f8593451d99f",
+    "production-audit.js": "5eb2897e9b682dfbc71ef209fecd60c9ac395e2b9290d33737bdc1ebfd2111e6",
+    "production-security-test.js": "124b25c9c3207ebdc73dd9e9a59c85c20ef8a005c25a0d8a6b6c6b90d4d46fdc",
+    "readiness-config-regression-test.js": "ced21de1c051fa28588e92e4e3841300430b0a0c15a04467814d9053c2f73b22",
+    "second-industry-proof-test.js": "9b0073375c95166f8c04ea8b3c9a0733aaf33aaa4402c72e1078fcd213bcdba2",
+    "server.js": "b1ff96d4fd6fa9018125e55a8bbdca1b952514844a97a48711ca29e30ab6a482",
+    "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
+    "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
+    "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
+    "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
+    "test-jarvis-fetch-mock.js": "af79a374e59631e604c66dd1ad434093d8963488d17a7e1e36bb89af48f1fa51",
+    "test-masterbuild-fetch-mock.js": "006626a31f610f73ef4a642643f2a7d4d996ee1ab9e18fea099fd53c9cd94378",
+    "test-oauth-fetch-mock.js": "ba0dfede11e61b3bc59119c7132e8b414a8a49f45be000a8f6e00c944c042130",
+    "workflow-execution-test.js": "f94278b9df31137d4a0a1e53555526f6af10f21203ffa7b661dd6fe34d2d214d",
+    "workflow-execution.js": "46fff62cf3baee10ce321133fe5f0f4279786a61475fdb458e39079b7acffe68",
+    "workspace-section-model.js": "4d3f61ff7389a0114690519514212b25cedf468383d6e8059eb976c4a3ca46b1",
+    "workspace-system.js": "f8c98eb812ddec0ebb710f8f99f6a0e8c4866d673fbc18c2f458b363418858dd",
+    "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
+  },
+  "output_sha256": "0d68e880273ac30f0f86cd3b4dba2c41fb064a9e14f9048e7d013446677f1b90",
+  "configuration_matrix": {
+    "ok": true,
+    "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
+    "profiles": [
+      {
+        "configuration": "PROCUREMENT ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "SALES ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "CRM ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "MARKETING ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "FINANCE ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "ANALYSIS ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "CALENDAR ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "COMMUNICATION ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "AUTOMATION ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + analysis",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + automation",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + finance",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + communication + calendar",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "sales + crm",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "marketing + crm + analysis",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "procurement + analysis",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "AUTOMOTIVE + PROCUREMENT + CRM + ANALYTICS",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "FINANCE + DATA + KNOWLEDGE",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "automation + communication",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "procurement + sales + crm + marketing + finance + analysis + calendar + communication + automation",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "FOUNDLY COMPLETE",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      }
+    ]
+  },
+  "frozen_files": [
+    "neural-runtime.js",
+    "zero-audio.js",
+    "jarvis-audio.js",
+    "speech-formatter.js",
+    "crm-core.js",
+    "finance-core.js",
+    "automotive-core.js"
+  ],
+  "frozen_diff_from_baseline": "EMPTY",
+  "new_browser_acceptance": "BLOCKED_CLOUD_BROWSER_URL_POLICY",
+  "production_deployed": false,
+  "masterbuild_complete": false
+}

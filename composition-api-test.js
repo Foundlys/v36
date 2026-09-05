@@ -53,6 +53,26 @@ async function request(route, method = 'GET', body) {
     assert.equal((await request('/api/composition', 'PUT', { bundle: 'COMPLETE', expected_revision: 0 })).status, 409);
     assert.equal((await request('/api/composition', 'PUT', { entitlements: ['crm', 'finance'], expected_revision: 1 })).status, 200);
     assert.equal((await request('/api/finance/status')).status, 200);
+    assert.equal((await request('/api/composition','PUT',{entitlements:['automation'],expected_revision:2})).status,200);
+    const wf=(await request('/api/automation/workflows','POST',{name:'Standalone automation',trigger:'custom_event',actions:[{type:'create_task',title:'First independent task'},{type:'create_task',title:'Second independent task'},{type:'create_document',title:'Internal draft'}]})).body;
+    const executed=await request(`/api/automation/workflows/${wf.id}/runs`,'POST',{event:{event_id:'standalone-fixture-event'}});
+    assert.equal(executed.body.status,'SUCCEEDED',JSON.stringify(executed.body));
+    assert.equal((await request('/api/automation/tasks')).body.total,2);
+    assert.equal((await request('/api/automation/documents')).body.total,1);
+    assert.equal((await request('/api/crm/tasks')).status,403);
+    for(const route of ['/api/engine/finance/status','/api/engine/rapportages/status','/api/google/calendar/events','/api/google/ads/customers','/api/meta/pages'])assert.equal((await request(route)).status,403,route);
+    const invalid=await fetch(base+'/api/google/oauth/callback?state=invalid',{redirect:'manual'});assert.equal(invalid.status,302,'OAuth state boundary remains intact');
+    await stop();await start();assert.equal((await request('/api/automation/tasks')).body.total,2);
+    assert.equal((await request('/api/composition','PUT',{entitlements:['crm'],capability_flags:{'crm:leads':false},expected_revision:3})).status,200);
+    assert.equal((await request('/api/crm/leads')).status,403);
+    assert.equal((await request('/api/crm/contacts')).status,200);
+    assert.ok(!(await request('/api/zero/tools')).body.tools.some(t=>t.tool_id==='create_lead'));
+    assert.equal((await request('/api/zero/turn','POST',{message:'Welke leads hebben prioriteit?',conversation_id:'flagged-crm-conversation',turn_id:'flagged-crm-turn'})).status,403,'ZERO must enforce disabled lead capability at execution');
+    await stop();env.FOUNDLY_PLATFORM_ROLES='VIEWER';await start();
+    assert.ok((await request('/api/workspaces')).body.workspaces.some(w=>w.id==='crm'));
+    assert.equal((await request('/api/crm/contacts','POST',{name:'Forbidden write'})).status,403,'Canonical role cannot inherit separate CRM ADMIN for writes');
+    assert.equal((await request('/api/composition/preview','POST',{bundle:'COMPLETE',expected_revision:4})).status,403);
+    assert.equal((await request('/api/composition','PUT',{bundle:'COMPLETE',expected_revision:4})).status,403);
     console.log('PASS authenticated composition API, route aliases, ZERO tools, revocation, encrypted restart and reenablement');
   } finally { await stop(); fs.rmSync(dir, { recursive: true, force: true }); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

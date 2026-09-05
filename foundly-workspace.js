@@ -616,17 +616,108 @@
     byId('contextTitle').textContent = title;
     byId('contextDescription').textContent = description;
     const content = byId('contextContent'), items = [];
+    if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
+    if(state.workspaceId==='automation'){renderAutomationSection(section,content);return;}
     if ((state.workspace?.domain_entities || []).includes(section.toLowerCase())) {
       renderDomainSection(section.toLowerCase(), content);
       return;
     }
-    const metrics = Object.values(state.snapshot?.metrics || {}).slice(0, 6);
-    for (const metric of metrics) {
-      const definition = state.workspace?.default_widgets?.find(item => item.metric === metric.id);
-      const item = node('div', 'context-item'); item.append(node('strong', '', definition?.label || metric.id.replaceAll('_', ' ')), node('span', '', `${formatMetric(metric)} · ${metric.source || 'SOURCE UNKNOWN'}`)); items.push(item);
-    }
-    if (!items.length) items.push(node('div', 'EmptyState NoDataState', 'Geen werkelijke records of metrics voor dit onderdeel beschikbaar.'));
-    replaceChildren(content, items);
+    renderEvidenceSection(section,content);
+  }
+
+  async function renderEvidenceSection(section,content){
+    replaceChildren(content,[node('p','LoadingState','Gegevens voor dit onderdeel laden…')]);
+    try{
+      const result=await request(`/api/workspaces/${state.workspaceId}/sections/${encodeURIComponent(section)}`);if(state.activeSection!==section)return;
+      const items=[];
+      if(result.status==='NOT_IMPLEMENTED')items.push(node('p','EmptyState',result.reason));
+      else if(result.status==='MODULE_UNAVAILABLE')items.push(node('p','EmptyState','Deze aanvullende module is niet actief.'));
+      else if(result.status==='USE_WORKSPACE_EXPORT')items.push(node('p','','Gebruik de exportknop om de toegankelijke workspacegegevens te downloaden.'));
+      else if(result.status==='OPEN_MODULE'){
+        const target=state.navigation.find(item=>item.route===result.route);if(target){const link=node('a','primary-button',`Open ${target.label}`);link.href=target.route;items.push(link);}else items.push(node('p','EmptyState','Deze aanvullende module is niet actief.'));
+      }
+      for(const row of result.items||[]){
+        const card=node('article','context-item'),heading=row.title||row.name||row.event_name||row.subject||row.source_name||row.connector_id||row.internal_id||row.id||section;
+        card.append(node('h3','',typeof heading==='string'?heading:section));const list=node('dl');
+        for(const [key,value] of Object.entries(row).filter(([,value])=>value!==undefined&&value!==null).slice(0,18)){
+          const label=node('dt','',key.replaceAll('_',' ')),detail=node('dd','',typeof value==='object'?JSON.stringify(value):String(value));list.append(label,detail);
+        }
+        card.append(list);items.push(card);
+      }
+      if(!items.length)items.push(node('p','EmptyState','Geen toegankelijke gegevens voor dit onderdeel.'));
+      replaceChildren(content,items);
+    }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
+  }
+
+  async function renderComposer(content) {
+    replaceChildren(content,[node('p','LoadingState','Pakketconfiguratie laden…')]);
+    try {
+      const [catalog,current]=await Promise.all([request('/api/composition/catalog'),request('/api/composition')]);
+      if(state.activeSection!=='CAPABILITIES')return;
+      const form=node('form','domain-record-form'),industryLabel=node('label','','Branche'),industry=node('select'),bundleLabel=node('label','','Pakket'),bundle=node('select'),groups=node('div','composition-modules');
+      for(const pack of Object.values(catalog.industries))if(pack.production){const option=node('option','',pack.industry_id==='GENERAL'?'Algemeen':pack.industry_id);option.value=pack.industry_id;industry.append(option);}
+      industry.value=current.resolution.industry_id;industryLabel.append(industry);
+      const custom=node('option','','Eigen samenstelling');custom.value='';bundle.append(custom);
+      for(const name of Object.keys(catalog.bundles)){const option=node('option','',name);option.value=name;bundle.append(option);}bundleLabel.append(bundle);
+      const choices=[];
+      for(const module of catalog.modules){
+        const group=node('fieldset'),legend=node('legend','',module.display_name),entitled=node('input'),enabled=node('input');
+        entitled.type=enabled.type='checkbox';entitled.checked=current.resolution.entitlements.includes(module.module_id);enabled.checked=current.resolution.enabled_modules.includes(module.module_id);
+        const accessLabel=node('label','','Pakketrecht'),activeLabel=node('label','','Actief');accessLabel.prepend(entitled);activeLabel.prepend(enabled);group.append(legend,accessLabel,activeLabel);
+        const flags=[];for(const capability of module.provided_capabilities){const label=node('label','',capability.split(':')[1].replaceAll('_',' ')),input=node('input');input.type='checkbox';input.checked=current.profile?.capability_flags?.[capability]!==false;label.prepend(input);group.append(label);flags.push({capability,input});}
+        entitled.addEventListener('change',()=>{if(!entitled.checked)enabled.checked=false;});enabled.addEventListener('change',()=>{if(enabled.checked)entitled.checked=true;});
+        groups.append(group);choices.push({id:module.module_id,entitled,enabled,flags});
+      }
+      bundle.addEventListener('change',()=>{if(!bundle.value)return;for(const choice of choices)choice.entitled.checked=choice.enabled.checked=catalog.bundles[bundle.value].includes(choice.id);});
+      const notice=node('p','','Uitgeschakelde modules verdwijnen uit navigatie en uitvoering. Bestaande gegevens blijven bewaard.'),preview=node('button','primary-button','Wijzigingen bekijken'),apply=node('button','','Samenstelling toepassen'),output=node('output','workspace-notice');
+      output.setAttribute('aria-live','polite');preview.type='submit';apply.type='button';apply.hidden=true;
+      form.append(industryLabel,bundleLabel,groups,notice,preview,apply,output);
+      if(!current.can_manage){for(const input of form.querySelectorAll('input,select,button'))input.disabled=true;notice.textContent='Alleen de bevoegde platformbeheerder kan pakketrechten aanpassen.';}
+      let prepared=null;
+      form.addEventListener('change',()=>{prepared=null;apply.hidden=true;});
+      form.addEventListener('submit',async event=>{event.preventDefault();preview.disabled=true;try{
+        const payload={industry_id:industry.value,entitlements:choices.filter(c=>c.entitled.checked).map(c=>c.id),enabled_modules:choices.filter(c=>c.enabled.checked).map(c=>c.id),capability_flags:Object.fromEntries(choices.flatMap(c=>c.flags.map(f=>[f.capability,f.input.checked]))),expected_revision:current.resolution.revision};
+        const result=await request('/api/composition/preview',{method:'POST',body:JSON.stringify(payload)});prepared=payload;apply.hidden=false;
+        output.textContent=`Activeren: ${result.diff.enabled.join(', ')||'geen'}. Uitschakelen: ${result.diff.disabled.join(', ')||'geen'}. ${result.diff.industry_changed?'Branche wordt gewijzigd. ':''}Gegevens worden niet verwijderd.`;
+      }catch(error){output.textContent=friendlyError(error);}finally{preview.disabled=false;}});
+      apply.addEventListener('click',async()=>{if(!prepared)return;apply.disabled=true;try{await request('/api/composition',{method:'PUT',body:JSON.stringify(prepared)});const nav=await request('/api/workspaces');state.navigation=nav.workspaces;renderNavigation();await renderComposer(content);toast('Samenstelling opgeslagen.');}catch(error){output.textContent=friendlyError(error);apply.disabled=false;}});
+      replaceChildren(content,[form]);
+    }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
+  }
+
+  async function renderAutomationSection(section,content) {
+    replaceChildren(content,[node('p','LoadingState','Workflowgegevens laden…')]);
+    try {
+      const data=await request('/api/automation/status');if(state.activeSection!==section)return;
+      const result=[];
+      if(section==='WORKFLOWS'){
+        const form=node('form','domain-record-form'),titleLabel=node('label','','Workflownaam'),title=node('input'),triggerLabel=node('label','','Trigger'),trigger=node('select'),typeLabel=node('label','','Interne actie'),type=node('select'),messageLabel=node('label','','Taaktitel of melding'),message=node('input'),save=node('button','primary-button','Workflow opslaan'),notice=node('output');
+        title.required=message.required=true;title.maxLength=message.maxLength=200;titleLabel.append(title);messageLabel.append(message);
+        for(const value of ['custom_event','new_lead','appointment','invoice_overdue','connector_state']){const option=node('option','',value.replaceAll('_',' '));option.value=value;trigger.append(option);}triggerLabel.append(trigger);
+        for(const [value,label] of [['create_task','Taak maken'],['create_document','Conceptdocument maken'],['notify','Interne melding']]){const option=node('option','',label);option.value=value;type.append(option);}typeLabel.append(type);
+        save.type='submit';notice.setAttribute('aria-live','polite');form.append(titleLabel,triggerLabel,typeLabel,messageLabel,save,notice);
+        form.addEventListener('submit',async event=>{event.preventDefault();save.disabled=true;try{await request('/api/automation/workflows',{method:'POST',body:JSON.stringify({name:title.value.trim(),trigger:{type:trigger.value},actions:[{type:type.value,title:message.value.trim(),message:message.value.trim()}]})});await renderAutomationSection(section,content);}catch(error){notice.textContent=friendlyError(error);}finally{save.disabled=false;}});result.push(form);
+      }
+      const workflowSections=['WORKFLOWS','TRIGGERS','ACTIONS','DEPENDENCIES'],rows=workflowSections.includes(section)?data.workflows:section==='APPROVALS'?data.runs.filter(r=>r.status==='AWAITING_APPROVAL'):section==='FAILURES'?data.runs.filter(r=>['ERROR','BLOCKED'].includes(r.status)):section==='RETRIES'?data.runs.filter(r=>r.steps?.some(s=>Number(s.attempts)>1)):section==='AUDIT'?data.runs:data.runs;
+      for(const row of rows||[]){
+        const card=node('article','context-item');card.append(node('h3','',row.name||row.run_id),node('p','',workflowSections.includes(section)?`Versie ${row.version} · ${row.enabled?'Actief':'Uitgeschakeld'}`:row.status));
+        if(['TRIGGERS','WORKFLOWS'].includes(section))card.append(node('p','',`Trigger: ${row.trigger?.type||'—'}`));
+        if(['ACTIONS','WORKFLOWS'].includes(section))for(const action of row.actions||[])card.append(node('p','',`${action.type} · ${action.title||action.message||''}`));
+        if(section==='DEPENDENCIES')card.append(node('p','',`Acties: ${(row.actions||[]).map(a=>a.type).join(', ')}. Rechten worden opnieuw gecontroleerd bij uitvoering.`));
+        if(row.steps)for(const step of row.steps)card.append(node('p','',`${step.index+1}. ${step.type}: ${step.status}${step.error?` (${step.error})`:''}`));
+        if(section==='WORKFLOWS'){
+          const form=node('form'),label=node('label','','Bestaande eventreferentie'),input=node('input'),button=node('button','','Workflow uitvoeren'),notice=node('output');input.required=true;input.maxLength=200;label.append(input);button.type='submit';form.append(label,button,notice);form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{const run=await request(`/api/automation/workflows/${row.id}/runs`,{method:'POST',body:JSON.stringify({event:{event_id:input.value.trim(),type:row.trigger?.type,source:'authorized_manual_run'}})});notice.textContent=`Uitkomst: ${run.status}`;}catch(error){notice.textContent=friendlyError(error);}finally{button.disabled=false;}});card.append(form);
+        }
+        if(section==='APPROVALS'){
+          const form=node('form'),label=node('label','','Reden voor goedkeuring van deze run'),input=node('input'),button=node('button','','Exacte run goedkeuren'),notice=node('output');input.required=true;input.maxLength=500;label.append(input);button.type='submit';form.append(label,button,notice);
+          form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{await request(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs,approval:{run_id:row.run_id,request_signature:row.request_signature,reference:crypto.randomUUID(),reason:input.value.trim()}}})});await renderAutomationSection(section,content);}catch(error){notice.textContent=friendlyError(error);button.disabled=false;}});card.append(form);
+        }
+        result.push(card);
+      }
+      if(!rows?.length)result.push(node('p','EmptyState','Geen workflows of runs voor dit onderdeel.'));
+      if(section==='RETRIES')result.push(node('p','','Een onzekere of mislukte side-effectstap wordt niet automatisch opnieuw uitgevoerd. Bekijk eerst de vastgelegde uitkomst.'));
+      replaceChildren(content,result);
+    }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
   }
 
   async function renderDomainSection(entity, content) {
@@ -636,10 +727,11 @@
       if (state.activeSection.toLowerCase() !== entity) return;
       const required = state.workspace.domain_required_fields?.[entity] || [];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
-      const fieldNames = [...new Set([...required, 'description', ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
-      const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag (€)', currency:'Valuta', probability:'Kans (0–1)', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
+      const fieldNames = [...new Set([...required, 'description','status', ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
+      const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag', currency:'Valuta', probability:'Kans (0–1)', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
       for (const name of fieldNames) {
-        const label=node('label','',labels[name] || name), input=node(['content','description'].includes(name)?'textarea':'input');
+        const label=node('label','',labels[name] || name), input=node(name==='status'?'select':['content','description'].includes(name)?'textarea':'input');
+        if(name==='status'){for(const status of (entity==='preferences'?['GRANTED','DENIED','REVOKED']:['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','COMPLETED'])){const option=node('option','',status);option.value=status;input.append(option);}}
         input.name=name;input.required=required.includes(name);input.maxLength=name==='content'?12000:1000;
         if(['value_cents','probability'].includes(name)){input.type='number';input.min='0';input.step='0.01';if(name==='probability')input.max='1';}
         if(name==='timezone')input.placeholder='Europe/Amsterdam';

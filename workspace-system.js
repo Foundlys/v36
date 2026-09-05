@@ -90,7 +90,8 @@ const WORKSPACE_DEFINITIONS = Object.freeze({
   marketing: {
     id: 'marketing', route: '/marketing', label: 'Marketing', short_label: 'Marketing', capability: 'marketing', module_id: 'social_media',
     eyebrow: 'ACQUISITION INTELLIGENCE', description: 'Meta, Google and canonical measurement performance without synthetic metrics.',
-    sections: ['OVERVIEW', 'CAMPAIGNS', 'META', 'GOOGLE ADS', 'SOCIAL', 'LEADS', 'ATTRIBUTION', 'CONVERSIONS', 'AUDIENCES', 'CREATIVES', 'MEASUREMENT', 'CONNECTORS'],
+    sections: ['OVERVIEW', 'CAMPAIGNS', 'META', 'GOOGLE ADS', 'SOCIAL', 'LEADS', 'ATTRIBUTION', 'CONVERSIONS', 'AUDIENCES', 'CREATIVES', 'EXPERIMENTS', 'MEASUREMENT', 'CONNECTORS'],
+    domain_entities: BUSINESS_DOMAINS.marketing.entities, domain_required_fields: BUSINESS_DOMAINS.marketing.required,
     default_widgets: [widget('spend', 'Spend'), widget('impressions', 'Impressions'), widget('clicks', 'Clicks'), widget('ctr', 'CTR'), widget('cpc', 'CPC'), widget('leads', 'Leads'), widget('cpl', 'CPL'), widget('conversions', 'Conversions'), widget('cpa', 'CPA'), widget('revenue', 'Revenue'), widget('roas', 'ROAS'), widget('attribution', 'Attribution', 'CHART', 6), widget('source_freshness', 'Source freshness', 'SOURCE', 6)]
   },
   settings: {

@@ -1,0 +1,130 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "crm",
+  "assessed_at": "2026-09-05",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "crm",
+      "capability_id": "crm:relationships",
+      "capability_name": "Customer system",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot CRM",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot CRM",
+          "url": "https://www.hubspot.com/products/custom-objects?aid=1280",
+          "observed": "Custom objects extend the standard customer data model.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Existing customer, lead, deal, pipeline, timeline, relationship, search and consent engines are preserved and regressions pass.",
+      "gap": "Full competitive workflow review, custom-object UI and all required field/security workflows are not evidenced.",
+      "required_change": "Complete capability-by-capability acceptance using existing CRM services.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "crm-core-regression-test.js",
+        "crm-api-regression-test.js",
+        "crm-standalone-regression-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "crm",
+      "capability_id": "crm:composition",
+      "capability_name": "Independent customer operations",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot CRM",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot CRM",
+          "url": "https://www.hubspot.com/products/custom-objects?aid=1280",
+          "observed": "Custom objects extend the standard customer data model.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "CRM runs with all optional modules disabled; route and role denials are tested.",
+      "gap": "Per-user production login and tenant-membership provisioning are not established by the environment principal.",
+      "required_change": "Bind existing authorization to a verified production user/tenant identity contract; do not infer identity from browser input.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "crm-core-regression-test.js",
+        "crm-api-regression-test.js",
+        "crm-standalone-regression-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "crm",
+      "capability_id": "crm:intelligence",
+      "capability_name": "CRM intelligence",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot CRM",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot CRM",
+          "url": "https://www.hubspot.com/products/custom-objects?aid=1280",
+          "observed": "Custom objects extend the standard customer data model.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Existing Customer 360, lead prioritization and explicit relationship tools remain available.",
+      "gap": "Measured superiority over benchmark task completion is not demonstrated.",
+      "required_change": "Evaluate representative workflows with equivalent data and publish traceable results.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "crm-core-regression-test.js",
+        "crm-api-regression-test.js",
+        "crm-standalone-regression-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

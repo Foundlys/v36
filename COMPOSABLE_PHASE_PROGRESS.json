@@ -1,0 +1,201 @@
+{
+  "schema_version": "foundly-phase-progress/1.0.0",
+  "masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
+  "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
+  "last_contiguous_complete_phase": 1,
+  "release_complete": false,
+  "phases": [
+    {
+      "phase": 0,
+      "name": "Repository/runtime/checkpoint",
+      "status": "COMPLETE",
+      "evidence_or_gap": "Local/remote refs and worktrees recovered; functional work preserved; live public baseline observed"
+    },
+    {
+      "phase": 1,
+      "name": "Architecture inventory",
+      "status": "COMPLETE",
+      "evidence_or_gap": "Ownership, retained buckets, Core services and dependency boundaries in inventory"
+    },
+    {
+      "phase": 2,
+      "name": "Module contracts",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Nine manifests; full operational readiness and capability coverage need closure"
+    },
+    {
+      "phase": 3,
+      "name": "Capability resolver",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Runtime/role/tool guards implemented; complete mixed legacy entry-point review and production user binding remain"
+    },
+    {
+      "phase": 4,
+      "name": "Industry abstraction",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Validated pack fields and test injection; complete UI/KPI/workflow extension registry remains"
+    },
+    {
+      "phase": 5,
+      "name": "Automotive pack",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Existing engine preserved; integration and non-regression checked; complete composed browser/provider acceptance remains"
+    },
+    {
+      "phase": 6,
+      "name": "Procurement",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Owned workflows/API/UI; RFQs, comparisons and approval policy depth remain"
+    },
+    {
+      "phase": 7,
+      "name": "Sales",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Owned pipeline and forecast aggregates; complete forecasting/sequences/UI remain"
+    },
+    {
+      "phase": 8,
+      "name": "CRM",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Existing engine and isolated configuration pass; competitive and full identity/UI acceptance remain"
+    },
+    {
+      "phase": 9,
+      "name": "Marketing",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Owned plans and existing measurement adapters; journey activation and real provider proof remain"
+    },
+    {
+      "phase": 10,
+      "name": "Finance",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Accounting preserved and tested; complete competitive/accounting and provider acceptance remain"
+    },
+    {
+      "phase": 11,
+      "name": "Analytics",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Permission-preserving canonical projections; remaining cohort/model/section contracts remain"
+    },
+    {
+      "phase": 12,
+      "name": "Calendar",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Own scheduling records and timezone tests; reminder execution and routing/UI remain"
+    },
+    {
+      "phase": 13,
+      "name": "Communication",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Own drafts/templates/preferences; mail authorization, delivery, attachments and collaboration remain"
+    },
+    {
+      "phase": 14,
+      "name": "Automation",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Durable execution and bounded scheduling; complete editor/retry/recovery workflows remain"
+    },
+    {
+      "phase": 15,
+      "name": "Workspace composition",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Shared forms, composer and distinct projections; explicitly missing sections and browser acceptance remain"
+    },
+    {
+      "phase": 16,
+      "name": "ZERO orchestration",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Dynamic availability and real read tools; complete structured prepare/execute/verify coverage remains"
+    },
+    {
+      "phase": 17,
+      "name": "Registries",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Canonical catalogs retained and filtered; full source/connector capability mapping remains"
+    },
+    {
+      "phase": 18,
+      "name": "Policy/risk",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Authorization and input-bound approvals; all external-action policies not yet accepted"
+    },
+    {
+      "phase": 19,
+      "name": "Provisioner/composer",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Package preview/apply and founder guard; real user/tenant provisioning and all configuration dimensions remain"
+    },
+    {
+      "phase": 20,
+      "name": "Second industry proof",
+      "status": "COMPLETE",
+      "evidence_or_gap": "Test-only manifest extends owned business records; unavailable in production"
+    },
+    {
+      "phase": 21,
+      "name": "Standalone matrix",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Nine configuration/workflow/restart profiles pass; full product acceptance remains pending"
+    },
+    {
+      "phase": 22,
+      "name": "Composition matrix",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Twelve configuration/restart combinations pass; exhaustive choreography remains"
+    },
+    {
+      "phase": 23,
+      "name": "Adversarial testing",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Tenant, role, ACL, replay, crash and subscriber tests; full remaining mixed-path audit remains"
+    },
+    {
+      "phase": 24,
+      "name": "Competitive ledgers",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Nine versioned ledgers; critical BELOW_PARITY gaps explicitly open"
+    },
+    {
+      "phase": 25,
+      "name": "Performance/accessibility",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Existing regressions and form hardening; actual new viewport/keyboard/load acceptance remains"
+    },
+    {
+      "phase": 26,
+      "name": "Full regression",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Full checkpoint regression recorded; final completed-product gate cannot be inferred"
+    },
+    {
+      "phase": 27,
+      "name": "GitHub/CI",
+      "status": "PARTIAL",
+      "evidence_or_gap": "Draft checkpoint published; final release PR/CI/merge gates remain"
+    },
+    {
+      "phase": 28,
+      "name": "Production deployment",
+      "status": "NOT_STARTED",
+      "evidence_or_gap": "No release until genuine architecture/acceptance defects are closed"
+    },
+    {
+      "phase": 29,
+      "name": "Post-deploy checks",
+      "status": "NOT_STARTED",
+      "evidence_or_gap": "No new production deployment to validate"
+    },
+    {
+      "phase": 30,
+      "name": "Browser acceptance",
+      "status": "BLOCKED_EXTERNAL",
+      "evidence_or_gap": "Cloud browser explicitly rejects local URLs; no bypass attempted"
+    },
+    {
+      "phase": 31,
+      "name": "Final evidence",
+      "status": "PARTIAL",
+      "evidence_or_gap": "This checkpoint and ledgers preserve truth; no completion verdict issued"
+    }
+  ]
+}

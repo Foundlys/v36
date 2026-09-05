@@ -1,0 +1,124 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "sales",
+  "assessed_at": "2026-09-05",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "sales",
+      "capability_id": "sales:pipeline",
+      "capability_name": "Configurable pipeline and forecasting",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Sales Hub",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Sales Hub",
+          "url": "https://knowledge.hubspot.com/forecast/use-the-forecast-tool",
+          "observed": "Forecast workbench grounded in pipeline and forecast categories.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Owned sales opportunities, validated stages and complete permission-filtered currency aggregates.",
+      "gap": "Forecast hierarchy, quotas, calendar periods, adjustments and scenario comparison are incomplete.",
+      "required_change": "Add tenant-scoped forecast configurations and explainable period-based projections.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "sales",
+      "capability_id": "sales:execution",
+      "capability_name": "Sales work and collaboration",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Sales Hub",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Sales Hub",
+          "url": "https://knowledge.hubspot.com/forecast/use-the-forecast-tool",
+          "observed": "Forecast workbench grounded in pipeline and forecast categories.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Activities, tasks, quotes, orders and independently stored opportunities.",
+      "gap": "Sequence execution, communication handoff and pipeline board editing need further integration.",
+      "required_change": "Build typed sequence/communication handoffs and complete interactive sales workflows.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "sales",
+      "capability_id": "sales:intelligence",
+      "capability_name": "Sales orchestration",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Sales Hub",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Sales Hub",
+          "url": "https://knowledge.hubspot.com/forecast/use-the-forecast-tool",
+          "observed": "Forecast workbench grounded in pipeline and forecast categories.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO pipeline summary works without CRM.",
+      "gap": "Full prepare/execute/verify orchestration and outcome feedback are incomplete.",
+      "required_change": "Add policy-gated structured sales tools with result verification.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

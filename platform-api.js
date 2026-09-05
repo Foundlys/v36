@@ -68,12 +68,14 @@ function createPlatformApi(options = {}) {
     const payload = JSON.stringify({ ...event, tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id });
     for (const subscription of subscribers) {
       if (subscription.tenant_id !== ctx.tenant_id || subscription.dealer_id !== ctx.dealer_id) continue;
+      if(!platform.canReadEvent(ctx,subscription.actor,event))continue;
       try { subscription.response.write(`event: foundly\ndata: ${payload}\n\n`); }
       catch { subscribers.delete(subscription); }
     }
   }
 
   function openStream(req, res, ctx) {
+    const actor=principal(req);platform.canReadEvent(ctx,actor,{});
     res.writeHead(200, responseHeaders({
       'content-type': 'text/event-stream; charset=utf-8',
       'cache-control': 'no-cache, no-transform',
@@ -81,7 +83,7 @@ function createPlatformApi(options = {}) {
       'x-accel-buffering': 'no'
     }));
     res.write(`event: ready\ndata: ${JSON.stringify({ ok: true, subscription: 'SSE', observed_at: new Date().toISOString() })}\n\n`);
-    const subscription = { tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, response: res };
+    const subscription = { tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, actor, response: res };
     subscribers.add(subscription);
     const heartbeat = setInterval(() => {
       try { res.write(': heartbeat\n\n'); }
@@ -270,6 +272,11 @@ function createPlatformApi(options = {}) {
       const applyOutbox = url.pathname.match(/^\/api\/data-platform\/outbox\/([A-Za-z0-9_.:-]{1,200})\/apply$/);
       if (applyOutbox && req.method === 'POST') return sendJson(res, 200, platform.applyOutbox(ctx, actor, applyOutbox[1], await readBody(req)));
 
+      const automationEntity = url.pathname.match(/^\/api\/automation\/(tasks|documents)$/);
+      if(url.pathname==='/api/automation/export'&&req.method==='GET')return sendJson(res,200,platform.exportAutomation(ctx,actor));
+      if(url.pathname==='/api/analysis/export'&&req.method==='GET')return sendJson(res,200,platform.export(ctx,actor,'events','JSON'));
+      if (automationEntity && req.method === 'GET') return sendJson(res, 200, platform.automationRecords(ctx, actor, automationEntity[1], Object.fromEntries(url.searchParams)));
+      if (automationEntity && req.method === 'POST') return sendJson(res, 201, platform.createAutomationRecord(ctx, actor, automationEntity[1], await readBody(req), {idempotencyKey:req.headers['idempotency-key']}));
       if (url.pathname === '/api/automation/status' && req.method === 'GET') return sendJson(res, 200, platform.automationStatus(ctx, actor));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
       const run = url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/runs$/);
