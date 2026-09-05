@@ -1,6 +1,6 @@
 # Foundly OS v6.0.0 verification and release report
 
-Date: 2026-09-04
+Date: 2026-09-05
 
 This report is secondary evidence. Repository code, immutable git objects, automated tests, the deployed runtime, and real external-provider responses remain the sources of truth.
 
@@ -209,3 +209,121 @@ No credential was changed, regenerated, copied into source control, or bypassed 
 - standalone CRM deployment URL and live standalone-service readiness.
 
 Do not label any item in the two sections above `LIVE PASS` until the required Railway, browser or provider evidence has been observed.
+
+## Run 2 — real marketplace data and provider-access evidence
+
+### 1. RUN 2 BASELINE
+
+- Branch: `feature/automotive-live-marketplaces`.
+- Starting remote `main`: `79165d3403d89fbb5e5ffc71e1353a5f5d65bd0f`.
+- Version: `6.0.0`; no package or product-version bump was made.
+- Checkpoint: local tag `run2-checkpoint-0-20260904` at `79165d3`.
+- The starting worktree was clean apart from the supplied, untracked `upload/` directory. That directory was neither staged nor changed.
+- The accepted Neural command-center files remained byte-for-byte identical to the Run-2 baseline and were absent from every Run-2 feature diff.
+
+### 2. PROVIDER STATUS
+
+| Provider | Implemented | Config | Auth | Probe | Real Search | Real Records | Normalized | Cached | ZERO | Workspace | Status | Blocker |
+| --- | --- | --- | --- | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
+| RDW Open Data | yes | public endpoint | public | PASS, HTTP 200 | PASS, official vehicle-truth query | 50 | 50 | isolated test cache only | no real marketplace result | no real marketplace result | `LIVE` vehicle truth | none; RDW is not marketplace inventory |
+| mobile.de Search API | yes | absent in Production | no | NOT RUN | no | 0 | 0 | no | no real provider data | no real provider data | `BLOCKED` | `MOBILE_DE_USERNAME` and `MOBILE_DE_PASSWORD` absent |
+| Marktplaats v2 Search | yes | absent in Production | no | NOT RUN | no | 0 | 0 | no | no real provider data | no real provider data | `BLOCKED` | client/token configuration absent; OAuth account-owner consent not completed |
+| AutoScout24 | no verified official adapter contract | absent in Production | no | NOT RUN | no | 0 | 0 | no | no | no | `BLOCKED / P1` | no legitimate existing API access was found |
+
+Railway was audited in the authenticated account before any release action. The correct target is project `dazzling-solace`, environment `production`, service `v36`, domain `v36-production.up.railway.app`. Exactly 19 service-variable names were visible; no `MOBILE_DE*`, `MARKTPLAATS*`, `AUTOSCOUT24*`, tenant/dealer marketplace variable or shared marketplace variable was configured. No value was displayed or copied. No encrypted connector-config data was present at `/data` or `/app/data-runtime`.
+
+### 3. REAL DATA EVIDENCE
+
+The only successful real external-provider observation in Run 2 was RDW:
+
+- Query type: BMW X5, year from 2022, at most 100,000 km, purchase-price ceiling EUR 80,000.
+- Provider result: HTTP 200 from the official RDW Open Data endpoint.
+- Records: 50 received, 50 normalized as vehicle truth.
+- Observed at: `2026-09-04T22:36:36.616Z`.
+- Freshness: `LIVE` under the RDW-specific freshness policy.
+- Secret values reported: none.
+
+RDW is open vehicle truth, not a marketplace listing source. Therefore this observation does not satisfy the real-marketplace gate. No mobile.de, Marktplaats or AutoScout24 record is claimed as live, real, cached or provider-verified.
+
+### 4. MARKETPLACE INGESTION
+
+- mobile.de mapping now accepts the provider's documented New JSON fields, including `mobileAdId`, `mobileSellerId`, flat vehicle fields, gross consumer price, seller data, direct image representations and detail URL.
+- mobile.de query mapping uses only verified official fuel, gearbox and feature enum values. Pagination is bounded to 20 requests and 2,000 records.
+- Marktplaats mapping now accepts documented v2 HAL search/detail shapes, `_embedded["mp:search-result"]`, `itemId`, seller fields, HAL links and cent-denominated `priceModel.askingPrice`. Pagination follows a same-origin HAL `next` link or bounded offset progression, up to 25 requests and 1,000 records.
+- Relative templated Marktplaats image links are not presented as usable images; the record remains in an honest no-image state unless a safe direct URL exists.
+- Canonical provenance, provider/listing identity, transformation version `foundly-automotive-normalizer/1.1.0`, bounded normalization and provider timing/pagination telemetry are present.
+- Existing entity resolution and cache/persistence paths were reused. No second ingestion system or datastore was introduced.
+- Real marketplace persistence was not executed because no marketplace provider was authenticated. Production durability is also not claimed while `/data` is not proven as a separate Railway volume.
+
+### 5. INTELLIGENCE PROOF
+
+The existing comparables, Dutch economics, BPM estimate, explainable Buy Score, confidence and risk stages still pass deterministic regressions. The new official-documentation-shape contract test proves that provider records can traverse normalization and bounded persistence/search plumbing without leaking test credentials. It is explicitly labelled `OFFICIAL_DOCUMENTATION_SHAPE_CONTRACT_FIXTURE_NOT_LIVE_PROVIDER_DATA`.
+
+No real marketplace comparables, economics, Buy Score, confidence or risk conclusion was produced in Run 2. RDW rows were not misrepresented as available marketplace stock. The real-intelligence acceptance gate therefore remains blocked upstream by provider access.
+
+### 6. ZERO PROOF
+
+Existing Automotive ZERO tool registration, multi-turn criteria retention, context modification, evidence explanation and flagship House of Cars guardrails remain regression-PASS. No live production ZERO marketplace answer, budget follow-up or “Welke zou jij inkopen?” recommendation is claimed: the marketplace providers have no runtime authentication and production's existing authentication-readiness gate prevents access to the protected route.
+
+### 7. HOUSE OF CARS EXPERIENCE
+
+The existing `/automotive` workspace and tenant-configurable dealer-fit design are preserved. No private House of Cars inventory, preferences, target margin or historical performance data was available or invented. There are no real marketplace records to render. On production, `/automotive` currently returns HTTP 401 `auth_not_configured`, so no authenticated rendered-workspace acceptance is claimed.
+
+### 8. FAILURE / RESILIENCE
+
+- Provider timeout and isolated-provider failure handling: regression PASS.
+- Real-cache fallback and stale/unavailable semantics: regression PASS; no fabricated fallback inventory.
+- Freshness is now provider-specific: mobile.de 15 minutes live / 6 hours cached; Marktplaats 10 minutes live / 4 hours cached; AutoScout24 15 minutes live / 6 hours cached; RDW 24 hours live / 7 days cached.
+- Bounded pagination, record/image limits and same-origin Marktplaats next-link enforcement are contract-test PASS.
+- Missing provider configuration produces `BLOCKED`/`NOT_RUN`, zero records and no fake `LIVE` state.
+
+### 9. TEST RESULTS
+
+- `npm run test:automotive`: PASS, exit 0, including the new mobile.de New JSON and Marktplaats v2 HAL contract regression.
+- `npm run test:automotive:live`: PASS, exit 0 at `2026-09-04T22:36:36.616Z`; RDW HTTP 200 with 50 received / 50 normalized, mobile.de and Marktplaats honestly `NOT_RUN`, marketplace gate `BLOCKED`.
+- `npm test`: PASS, exit 0 after all final feature changes; legacy smoke, security, readiness, OAuth, Jarvis, audio/speech, Neural renderer, CRM, Platform, Finance, Analysis, Automotive and full-platform end-to-end suites all passed.
+- `git diff --check`: PASS.
+- Protected Neural asset hashes matched `origin/main`; no Neural asset appears in the feature commit or PR.
+- Published GitHub tree `47c49af067a41672b05ac040c7539e53f56cd1eb` exactly matched the locally tested feature tree.
+
+### 10. GITHUB
+
+- Local implementation commit: `e51b807`.
+- Published feature SHA: `10403793cde68945c691992dd3ee71db884b6a04`.
+- Pull request: `#9`, `Harden official automotive marketplace contracts`.
+- GitHub Actions: `Production architecture tests` run `#32` (`33950952089`), completed `SUCCESS` for feature SHA `10403793`.
+- Merge SHA on `main`: `521ff16a76b3e7a9b6d1f18688eb9073ae92535a`.
+- Scope: five files, 424 additions and 63 deletions; no Neural or unrelated business-module file.
+
+### 11. PRODUCTION
+
+- Railway project/environment/service: `dazzling-solace` / `production` / `v36`.
+- Domain: `https://v36-production.up.railway.app`.
+- Code deployment: `e3865cbc-50df-40a3-9208-8ee2f8520deb`, `Active`, `Deployment successful`.
+- Railway deployment Details binds that deployment to GitHub `Foundlys/v36`, branch `main`, SHA `521ff16a76b3e7a9b6d1f18688eb9073ae92535a`.
+- Deploy log: `Foundly OS v6.0.0 ONLINE op poort 8080` and the existing warning that `/data` is not proven as a separate writable volume.
+- `GET /api/health` at `2026-09-05T06:54:30Z`: HTTP 200, `ok: true`, version `6.0.0`.
+- `GET /api/ready`: HTTP 503, `FAIL`; `authentication`, `public_base_url`, `oauth_callbacks` and `persistent_mount` are false, while encryption, OpenAI, storage path and storage writability remain true.
+- `/automotive`, `/api/automotive/status` and `/api/zero/status`: HTTP 401 `auth_not_configured`; the security boundary is active, but authenticated production Automotive/provider acceptance is blocked.
+- mobile.de, Marktplaats and AutoScout24 remain unconfigured in the active Production service. No real marketplace search was executed on production.
+- No Railway variable, secret, volume, domain, service or topology was changed. The pre-existing staged `Removed / Service will be deleted` change remains untouched and was not deployed.
+
+### 12. BLOCKERS
+
+1. mobile.de production Search API credentials do not exist in the active Railway service or encrypted connector store.
+2. Marktplaats production Search API client/token access and account-owner OAuth consent do not exist in the active service or encrypted connector store.
+3. AutoScout24 has no verified existing official access and remains P1.
+4. Production readiness independently remains blocked by missing authentication injection, exact public base/callback configuration and a genuine persistent Railway volume mounted at `/data`.
+5. The protected Automotive, ZERO and workspace routes cannot be accepted live until the production authentication gate is configured. No security bypass was used.
+
+### 13. RUN 2 LEVEL
+
+`LEVEL 0` for marketplace acceptance. The provider-contract implementation and all independent regression work are complete, and RDW real vehicle truth is live, but zero real marketplace records were returned. No higher level is claimed.
+
+### 14. TUESDAY READINESS
+
+`NOT DEMO READY` for the requested real-marketplace demonstration. The application code is deployed and healthy, but no legitimate marketplace provider has been authenticated and `/api/ready` is still HTTP 503.
+
+### 15. NEXT RUN
+
+Critical path only: the authorized mobile.de account owner must obtain and enter the official Search API username/password in Foundly's existing secure mobile.de connector configuration. Do not send credentials through chat or commit them. Then rerun, in order: authentication probe → real marketplace search → normalization/provenance → persistent cache → comparables/economics/Buy Score → ZERO multi-turn and flagship query → five non-hardcoded searches → production workspace verification.
