@@ -70,15 +70,15 @@ function makeRuntime({root,registry}){
       id:'marktplaats',naam:'Marktplaats',categorie:'automotive_marktplaats',connection_mode:'oauth2',
       auth_strategy:'oauth2_authorization_code',base_url:'https://api.marktplaats.nl',
       oauth:{authorization_url:'https://auth.marktplaats.nl/accounts/oauth/authorize',token_url:'https://auth.marktplaats.nl/accounts/oauth/token',scope:'',client_id_field:'client_id',client_secret_field:'client_secret'},
-      health:{path:'/categories',method:'GET',accept:'application/json'},
-      sync:{path:'/search',method:'GET'},
+      health:{path:'/v2/categories',method:'GET',accept:'application/json'},
+      sync:{path:'/v2/search?query=auto&offset=0&limit=1',method:'GET'},
       credential_fields:[{key:'client_id',label:'Client ID',secret:false},{key:'client_secret',label:'Client secret',secret:true}],
       capabilities:['connect','oauth','test','sync','search','data_ingest','tenant_credentials']
     },
     mobile_de:{
       id:'mobile_de',naam:'mobile.de',categorie:'automotive_marktplaats',connection_mode:'credentials',auth_strategy:'basic',
-      base_url:'https://services.mobile.de',health:{path:'/search-api/search?ps=1',method:'GET',accept:'application/vnd.de.mobile.api+json'},
-      sync:{path:'/search-api/search',method:'GET'},
+      base_url:'https://services.mobile.de',health:{path:'/search-api/search?classification=refdata/classes/Car&page.number=1&page.size=1',method:'GET',accept:'application/vnd.de.mobile.api+json'},
+      sync:{path:'/search-api/search?classification=refdata/classes/Car&page.number=1&page.size=20',method:'GET'},
       credential_fields:[{key:'username',label:'API username',secret:false},{key:'password',label:'API password',secret:true}],
       headers:{accept:'application/vnd.de.mobile.api+json'},
       capabilities:['connect','test','sync','search','seller_api','lead_api','insights_api','ad_stream','data_ingest','tenant_credentials']

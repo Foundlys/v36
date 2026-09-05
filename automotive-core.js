@@ -3,14 +3,30 @@
 const crypto = require('crypto');
 
 const AUTOMOTIVE_SCHEMA_VERSION = '1.0.0';
-const AUTOMOTIVE_TRANSFORMATION_VERSION = 'foundly-automotive-normalizer/1.0.0';
-const AUTOMOTIVE_SEARCH_VERSION = 'foundly-automotive-search/1.0.0';
+const AUTOMOTIVE_TRANSFORMATION_VERSION = 'foundly-automotive-normalizer/1.1.0';
+const AUTOMOTIVE_SEARCH_VERSION = 'foundly-automotive-search/1.1.0';
 const AUTOMOTIVE_COMPARABLE_VERSION = 'foundly-automotive-comparables/1.0.0';
 const AUTOMOTIVE_BUY_SCORE_VERSION = 'foundly-buy-score/1.0.0';
 const BPM_RULE_VERSION = 'NL_BPM_2026_PASSENGER_CAR_FORFAIT_ESTIMATE/1.0.0';
 const FRESHNESS_VALUES = Object.freeze(['LIVE', 'CACHED', 'STALE', 'UNAVAILABLE']);
 const MARKETPLACE_PROVIDERS = Object.freeze(['mobile_de', 'marktplaats', 'autoscout24']);
 const SUPPORTED_PROVIDERS = Object.freeze(['rdw', ...MARKETPLACE_PROVIDERS]);
+const PROVIDER_FRESHNESS_POLICIES = Object.freeze({
+  default: Object.freeze({ live_seconds: 15 * 60, cached_seconds: 6 * 60 * 60 }),
+  mobile_de: Object.freeze({ live_seconds: 15 * 60, cached_seconds: 6 * 60 * 60 }),
+  marktplaats: Object.freeze({ live_seconds: 10 * 60, cached_seconds: 4 * 60 * 60 }),
+  autoscout24: Object.freeze({ live_seconds: 15 * 60, cached_seconds: 6 * 60 * 60 }),
+  rdw: Object.freeze({ live_seconds: 24 * 60 * 60, cached_seconds: 7 * 24 * 60 * 60 })
+});
+
+// Only enum values verified against mobile.de's official reference-data API
+// belong here. Unmapped user options are retained for conservative post-filtering.
+const MOBILE_DE_FEATURE_FILTERS = Object.freeze({
+  panoramadak: 'PANORAMIC_GLASS_ROOF',
+  luchtvering: 'AIR_SUSPENSION',
+  'head up display': 'HEAD_UP_DISPLAY',
+  stoelventilatie: 'VENTILATED_SEATS'
+});
 
 const MAKE_ALIASES = Object.freeze([
   ['mercedes-benz', 'Mercedes-Benz'], ['mercedes benz', 'Mercedes-Benz'], ['mercedes', 'Mercedes-Benz'],
@@ -210,23 +226,42 @@ function stringList(value) {
 }
 
 function normalizeImages(value) {
-  const source = Array.isArray(value) ? value : value ? [value] : [];
-  return [...new Set(source.map(item => safeUrl(typeof item === 'string' ? item : pick(item, 'url', 'uri', 'href', 'src', 'large', 'XXL'))).filter(Boolean))].slice(0, 30);
+  const queue = Array.isArray(value) ? [...value] : value ? [value] : [];
+  const output = [];
+  let inspected = 0;
+  while (queue.length && output.length < 30 && inspected++ < 500) {
+    const item = queue.shift();
+    if (!item) continue;
+    if (Array.isArray(item)) { queue.push(...item); continue; }
+    if (typeof item === 'string') {
+      const url = safeUrl(item);
+      if (url && !output.includes(url)) output.push(url);
+      continue;
+    }
+    if (typeof item !== 'object') continue;
+    const direct = safeUrl(pick(item, 'xxxl', 'XXXL', 'xxl', 'XXL', 'xl', 'XL', 'large', 'l', 'url', 'uri', 'href', 'src', 'm', 's', 'icon'));
+    if (direct && !output.includes(direct)) output.push(direct);
+    for (const nested of [item.images, item.image, item.items, item.representations, item._embedded]) if (nested) queue.push(nested);
+    if (item._embedded && typeof item._embedded === 'object') queue.push(...Object.values(item._embedded));
+  }
+  return output;
 }
 
 function normalizeStatus(value) {
   const raw = text(value, 80).toUpperCase();
   if (/DELETED|REMOVED|SOLD|INACTIVE|EXPIRED/.test(raw)) return raw.includes('SOLD') ? 'SOLD' : 'INACTIVE';
+  if (/^(?:ONLINE|PUBLISHED|AVAILABLE)$/.test(raw)) return 'ACTIVE';
   return raw || 'ACTIVE';
 }
 
-function classifyFreshness(timestamp, now = new Date(), mode = 'cache') {
+function classifyFreshness(timestamp, now = new Date(), mode = 'cache', provider = 'default') {
   const parsed = Date.parse(timestamp || '');
   if (!Number.isFinite(parsed)) return { classification: 'UNAVAILABLE', observed_at: null, age_seconds: null };
   const ageSeconds = Math.max(0, Math.floor((new Date(now).getTime() - parsed) / 1000));
+  const policy = PROVIDER_FRESHNESS_POLICIES[provider] || PROVIDER_FRESHNESS_POLICIES.default;
   let classification = 'STALE';
-  if (mode === 'live' && ageSeconds <= 15 * 60) classification = 'LIVE';
-  else if (ageSeconds <= 6 * 60 * 60) classification = 'CACHED';
+  if (mode === 'live' && ageSeconds <= policy.live_seconds) classification = 'LIVE';
+  else if (ageSeconds <= policy.cached_seconds) classification = 'CACHED';
   return { classification, observed_at: new Date(parsed).toISOString(), age_seconds: ageSeconds };
 }
 
@@ -379,7 +414,7 @@ function baseListing(provider, providerListingId, raw, fetchedAt, fields) {
       modified_at: normalizedDate(fields.modified_at),
       fetched_at: fetchedAt,
       last_verified_at: fetchedAt,
-      freshness: classifyFreshness(fetchedAt, new Date(fetchedAt), 'live')
+      freshness: classifyFreshness(fetchedAt, new Date(fetchedAt), 'live', provider)
     },
     seller: {
       type: fields.seller_type ? text(fields.seller_type, 80).toUpperCase() : null,
@@ -425,15 +460,25 @@ function mobilePrice(raw) {
   return { gross, net, currency };
 }
 
+function mobilePhone(value) {
+  const phones = Array.isArray(value) ? value : value ? [value] : [];
+  const phone = phones[0];
+  if (!phone) return null;
+  if (typeof phone === 'string') return text(phone, 80) || null;
+  return firstText(phone.phone, phone.value, [phone.internationalPrefix, phone.nationalPrefix, phone.number].filter(Boolean).join(''));
+}
+
 function normalizeMobileDeRecord(raw, options = {}) {
   const fetchedAt = new Date(options.fetchedAt || Date.now()).toISOString();
-  const providerListingId = firstText(raw.id, raw.key, raw.adKey, pick(raw, 'ad.id', 'vehicle.id'));
+  const providerListingId = firstText(raw.mobileAdId, raw.id, raw.key, raw.adKey, pick(raw, 'ad.id', 'vehicle.id'));
   if (!providerListingId) return null;
   const price = mobilePrice(raw);
   const vehicleSource = raw.vehicle || raw;
   const make = firstText(pick(vehicleSource, 'make.localDescription', 'make.name', 'make.id'), vehicleSource.makeName, raw.make);
-  const model = firstText(pick(vehicleSource, 'model.localDescription', 'model.name', 'model.id'), vehicleSource.modelDescription, raw.model);
+  const model = firstText(pick(vehicleSource, 'model.localDescription', 'model.name', 'model.id'), typeof vehicleSource.model === 'string' ? vehicleSource.model : null, vehicleSource.modelDescription, raw.model);
   const sourceUrl = firstText(raw.url, raw.webUrl, raw.detailPageUrl, raw.mobileAdUrl, pick(raw, '_links.self.href'));
+  const features = vehicleSource.features || raw.features || [];
+  const plugInHybrid = stringList(features).some(feature => /HYBRID_PLUGIN|PLUG.?IN/i.test(feature));
   const vatExplicit = pick(raw, 'price.vatReclaimable', 'vatReclaimable', 'price.vatRate', 'vatRate');
   const vat = vatExplicit === null ? { status: 'UNKNOWN', evidence: null } : {
     status: /true|yes|ja|reclaim/i.test(String(vatExplicit)) ? 'VAT_RECLAIMABLE' : (/false|no|nee/i.test(String(vatExplicit)) ? 'VAT_NOT_RECLAIMABLE' : 'EXPLICIT_PROVIDER_VALUE'),
@@ -442,22 +487,22 @@ function normalizeMobileDeRecord(raw, options = {}) {
   return baseListing('mobile_de', providerListingId, raw, fetchedAt, {
     source_url: sourceUrl, status: firstText(raw.status, raw.adStatus), created_at: firstText(raw.creationDate, raw.createdAt),
     modified_at: firstText(raw.modificationDate, raw.modifiedAt, raw.lastModified), seller_type: firstText(pick(raw, 'seller.type'), raw.sellerType),
-    seller_name: firstText(pick(raw, 'seller.companyName', 'seller.name'), raw.sellerName), seller_id: firstText(pick(raw, 'seller.id', 'seller.key')),
+    seller_name: firstText(pick(raw, 'seller.companyName', 'seller.name'), raw.sellerName), seller_id: firstText(pick(raw, 'seller.mobileSellerId', 'seller.id', 'seller.key'), raw.mobileSellerId),
     country: firstText(pick(raw, 'seller.address.country', 'seller.country'), raw.country), city: firstText(pick(raw, 'seller.address.city'), raw.city),
-    contact: { phone: firstText(pick(raw, 'seller.phone'), raw.phone), email: firstText(pick(raw, 'seller.email'), raw.email) },
+    contact: { phone: mobilePhone(pick(raw, 'seller.phones', 'seller.phone') || raw.phone), email: firstText(pick(raw, 'seller.email'), raw.email) },
     currency: price.currency, gross_price_eur: price.currency === 'EUR' ? price.gross : null, net_price_eur: price.currency === 'EUR' ? price.net : null,
     vat, negotiable: typeof raw.negotiable === 'boolean' ? raw.negotiable : null,
     vehicle: {
       make, model, variant: firstText(vehicleSource.modelDescription, vehicleSource.variant, raw.variant), trim: firstText(vehicleSource.trimLine, vehicleSource.trim, raw.trim),
-      generation: firstText(vehicleSource.generation), body_type: firstText(pick(vehicleSource, 'category.localDescription', 'category.name'), vehicleSource.bodyType),
+      generation: firstText(vehicleSource.generation), body_type: firstText(pick(vehicleSource, 'category.localDescription', 'category.name'), vehicleSource.category, vehicleSource.bodyType),
       build_year: firstNumber(vehicleSource.buildYear, vehicleSource.year), first_registration: firstText(vehicleSource.firstRegistration, raw.firstRegistration),
-      mileage_km: firstNumber(pick(vehicleSource, 'mileage.value'), vehicleSource.mileage, raw.mileage), fuel: firstText(pick(vehicleSource, 'fuel.localDescription', 'fuel.name'), vehicleSource.fuel),
+      mileage_km: firstNumber(pick(vehicleSource, 'mileage.value'), vehicleSource.mileage, raw.mileage), fuel: plugInHybrid ? 'PLUGIN_HYBRID' : firstText(pick(vehicleSource, 'fuel.localDescription', 'fuel.name'), vehicleSource.fuel),
       hybrid_ev: { electric_range_km: firstNumber(vehicleSource.electricRange, pick(vehicleSource, 'electricRange.value')), battery_kwh: firstNumber(vehicleSource.batteryCapacity) },
-      transmission: firstText(pick(vehicleSource, 'gearbox.localDescription', 'gearbox.name'), vehicleSource.transmission), drivetrain: firstText(vehicleSource.drivingMode, vehicleSource.drivetrain),
-      power_kw: firstNumber(pick(vehicleSource, 'power.value'), vehicleSource.powerKw), power_hp: firstNumber(vehicleSource.powerHp),
-      engine_displacement_cc: firstNumber(pick(vehicleSource, 'cubicCapacity.value'), vehicleSource.cubicCapacity), doors: firstNumber(vehicleSource.doors), seats: firstNumber(vehicleSource.seats),
+      transmission: firstText(pick(vehicleSource, 'gearbox.localDescription', 'gearbox.name'), vehicleSource.gearbox, vehicleSource.transmission), drivetrain: firstText(vehicleSource.drivingMode, vehicleSource.drivetrain),
+      power_kw: firstNumber(pick(vehicleSource, 'power.value'), vehicleSource.power, vehicleSource.powerKw), power_hp: firstNumber(vehicleSource.powerHp),
+      engine_displacement_cc: firstNumber(pick(vehicleSource, 'cubicCapacity.value'), vehicleSource.cubicCapacity), doors: firstNumber(vehicleSource.doors, vehicleSource.numDoors), seats: firstNumber(vehicleSource.seats, vehicleSource.numSeats),
       exterior_color: firstText(pick(vehicleSource, 'exteriorColor.localDescription'), vehicleSource.exteriorColor), interior_color: firstText(vehicleSource.interiorColor),
-      features: vehicleSource.features || raw.features, images: raw.images || vehicleSource.images, vin: firstText(vehicleSource.vin, raw.vin),
+      features, images: raw.images || vehicleSource.images, vin: firstText(vehicleSource.vin, raw.vin),
       registration: firstText(vehicleSource.licensePlate, raw.licensePlate), co2_g_km: firstNumber(pick(vehicleSource, 'emissionFuelConsumption.co2Emission.combined'), vehicleSource.co2Emission),
       environmental: { emission_class: firstText(vehicleSource.emissionClass), consumption: sanitize(vehicleSource.emissionFuelConsumption || {}) }
     }
@@ -474,40 +519,57 @@ function marktplaatsAttributes(raw) {
   return output;
 }
 
+function marktplaatsTranslation(raw) {
+  const translations = Array.isArray(raw.translations) ? raw.translations : [];
+  return translations.find(row => /^nl(?:-|$)/i.test(String(row?.locale || ''))) || translations[0] || {};
+}
+
+function yearFromProviderText(value) {
+  const match = text(value, 4000).match(/\b((?:19|20)\d{2})\b/);
+  return match ? Number(match[1]) : null;
+}
+
+function mileageFromProviderText(value) {
+  const match = text(value, 4000).match(/\b([\d.,]+\s*k?)\s*(?:km|kilometer)\b/i);
+  return match ? Math.round(parseHumanNumber(match[1])) : null;
+}
+
 function normalizeMarktplaatsRecord(source, options = {}) {
   const raw = source.advertisement || source.ad || source;
   const fetchedAt = new Date(options.fetchedAt || Date.now()).toISOString();
   const providerListingId = firstText(raw.id, raw.itemId, raw.advertisementId, raw.adId, raw.key);
   if (!providerListingId) return null;
-  const attrs = marktplaatsAttributes(raw);
-  const title = firstText(raw.title, raw.subject, raw.description) || '';
+  const attrs = marktplaatsAttributes(raw), translation = marktplaatsTranslation(raw);
+  const title = firstText(raw.title, translation.title, raw.subject, raw.description, translation.description) || '';
+  const providerText = [title, firstText(raw.description, translation.description)].filter(Boolean).join(' ');
   const detectedMake = MAKE_ALIASES.find(([alias]) => title.toLowerCase().includes(alias));
-  const amountRaw = firstNumber(pick(raw, 'price.amount', 'price.value', 'price.currencyAmount', 'price.amountInCents'), raw.priceCents, typeof raw.price === 'number' ? raw.price : null);
+  const amountRaw = firstNumber(pick(raw, 'priceModel.askingPrice', 'price.amount', 'price.value', 'price.currencyAmount', 'price.amountInCents'), raw.priceCents, typeof raw.price === 'number' ? raw.price : null);
   // Marktplaats v2 defines monetary values in euro cents. Do not reinterpret a
   // provider amount as whole euros unless an explicit future contract says so.
   const centsSemantics = amountRaw !== null;
   const amount = amountRaw === null ? null : (centsSemantics ? amountRaw / 100 : amountRaw);
-  const currency = firstText(pick(raw, 'price.currency'), raw.currency, 'EUR');
+  const currency = firstText(pick(raw, 'priceModel.currency', 'price.currency'), raw.currency, 'EUR');
   const vatRaw = firstText(attrs.btw, attrs.vat, raw.vatType, raw.taxType);
   return baseListing('marktplaats', providerListingId, raw, fetchedAt, {
-    source_url: firstText(raw.url, raw.vipUrl, raw.webUrl, pick(raw, '_links.self.href')), status: firstText(raw.status, raw.state),
-    created_at: firstText(raw.dateCreated, raw.createdAt, raw.creationDate), modified_at: firstText(raw.dateModified, raw.updatedAt, raw.modificationDate),
-    seller_type: firstText(pick(raw, 'seller.type'), raw.sellerType), seller_name: firstText(pick(raw, 'seller.name', 'seller.companyName'), raw.sellerName),
-    seller_id: firstText(pick(raw, 'seller.id'), raw.sellerId), country: firstText(pick(raw, 'location.countryCode', 'seller.country'), raw.country),
-    city: firstText(pick(raw, 'location.cityName', 'location.city'), raw.city), contact: {}, currency, gross_price_eur: currency === 'EUR' ? amount : null,
+    source_url: firstText(raw.url, raw.vipUrl, raw.webUrl, pick(raw, '_links.mp:advertisement-website-link.href', '_links.self.href')), status: firstText(raw.status, raw.state),
+    created_at: firstText(raw.startDate, raw.dateCreated, raw.createdAt, raw.creationDate), modified_at: firstText(raw.dateModified, raw.updatedAt, raw.modificationDate),
+    seller_type: firstText(pick(raw, 'seller.type'), raw.sellerType), seller_name: firstText(pick(raw, 'seller.sellerName', 'seller.name', 'seller.companyName'), raw.sellerName),
+    seller_id: firstText(pick(raw, 'seller.sellerId', 'seller.id'), raw.sellerId), country: firstText(pick(raw, 'location.countryCode', 'seller.country'), raw.country),
+    city: firstText(pick(raw, 'location.cityName', 'location.city'), raw.city), contact: { phone: firstText(pick(raw, 'seller.phoneNumber')) }, currency, gross_price_eur: currency === 'EUR' ? amount : null,
     net_price_eur: null, vat: vatRaw ? { status: 'EXPLICIT_PROVIDER_VALUE', evidence: vatRaw } : { status: 'UNKNOWN', evidence: null },
     negotiable: typeof raw.negotiable === 'boolean' ? raw.negotiable : null,
     vehicle: {
-      make: firstText(attrs.merk, attrs.make, raw.make, detectedMake?.[1]), model: firstText(attrs.model, raw.model),
-      variant: firstText(attrs.variant, attrs.type, raw.variant, title), trim: firstText(attrs.uitvoering, attrs.trim, raw.trim), generation: firstText(attrs.generatie, raw.generation),
-      body_type: firstText(attrs.carrosserie, attrs.body, raw.bodyType), build_year: firstNumber(attrs.bouwjaar, attrs.year, raw.year),
-      first_registration: firstText(attrs.eerste_toelating, attrs.first_registration, raw.firstRegistration), mileage_km: firstNumber(attrs.kilometerstand, attrs.mileage, raw.mileage),
-      fuel: firstText(attrs.brandstof, attrs.fuel, raw.fuel), transmission: firstText(attrs.transmissie, attrs.gearbox, raw.transmission),
+      make: firstText(attrs.merk, attrs.make, raw.makeDescription, raw.make, detectedMake?.[1]), model: firstText(attrs.model, raw.model, raw.modelDescription),
+      variant: firstText(attrs.variant, attrs.type, raw.variant, raw.modelDescription, title), trim: firstText(attrs.uitvoering, attrs.trim, raw.trim), generation: firstText(attrs.generatie, raw.generation),
+      body_type: firstText(attrs.carrosserie, attrs.body, raw.bodyType, raw.body), build_year: firstNumber(attrs.bouwjaar, attrs.year, raw.buildYear, raw.constructionYear, raw.year, yearFromProviderText(providerText)),
+      first_registration: firstText(attrs.eerste_toelating, attrs.first_registration, raw.firstRegistration), mileage_km: firstNumber(attrs.kilometerstand, attrs.mileage, raw.mileageKm, raw.mileage, mileageFromProviderText(providerText)),
+      fuel: firstText(attrs.brandstof, attrs.fuel, raw.fuelType, raw.fuel, /plug.?in|phev|hybride?|electric|elektr|diesel|benzine|petrol|lpg|waterstof|hydrogen/i.test(providerText) ? providerText : null),
+      transmission: firstText(attrs.transmissie, attrs.gearbox, raw.gearbox, raw.transmission, /automaat|automatic|handgeschakeld|manual|schaltgetriebe|cvt/i.test(providerText) ? providerText : null),
       drivetrain: firstText(attrs.aandrijving, attrs.drivetrain, raw.drivetrain), power_kw: firstNumber(attrs.vermogen_kw, attrs.power_kw, raw.powerKw),
       power_hp: firstNumber(attrs.vermogen_pk, attrs.power_hp, raw.powerHp), engine_displacement_cc: firstNumber(attrs.cilinderinhoud, raw.engineDisplacement),
       doors: firstNumber(attrs.deuren, raw.doors), seats: firstNumber(attrs.zitplaatsen, raw.seats), exterior_color: firstText(attrs.kleur, raw.color),
-      interior_color: firstText(attrs.interieurkleur, raw.interiorColor), features: raw.features || attrs.opties || attrs.accessoires,
-      images: raw.images || raw.pictures || pick(raw, 'media.images'), vin: firstText(attrs.vin, raw.vin), registration: firstText(attrs.kenteken, raw.licensePlate),
+      interior_color: firstText(attrs.interieurkleur, raw.interiorColor), features: raw.features || raw.options || attrs.opties || attrs.accessoires,
+      images: raw.images || raw.pictures || pick(raw, 'media.images', '_embedded.mp:advertisement-images', '_embedded.mp:advertisement-image'), vin: firstText(attrs.vin, raw.vin), registration: firstText(attrs.kenteken, raw.licensePlate),
       co2_g_km: firstNumber(attrs.co2, attrs.co2_emissie, raw.co2Emission), environmental: { emission_class: firstText(attrs.emissieklasse, raw.emissionClass) }
     }
   });
@@ -550,6 +612,19 @@ function normalizedToken(value) {
   return text(value, 240).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+function canonicalOption(value) {
+  const option = normalizedToken(value);
+  if (/panorama(?:dak|roof)|panoramic (?:glass )?roof/.test(option)) return 'PANORAMIC_ROOF';
+  if (/trekhaak|tow ?bar|trailer coupling/.test(option)) return 'TRAILER_COUPLING';
+  if (/luchtvering|air suspension/.test(option)) return 'AIR_SUSPENSION';
+  if (/adapt(?:ieve|ive) cruise|adaptive cruise|\bacc\b/.test(option)) return 'ADAPTIVE_CRUISE_CONTROL';
+  if (/head up display|\bhud\b/.test(option)) return 'HEAD_UP_DISPLAY';
+  if (/360 (?:degree )?camera|surround view/.test(option)) return 'CAMERA_360';
+  if (/stoelventilatie|seat ventilation|ventilated seats/.test(option)) return 'VENTILATED_SEATS';
+  if (/laserlicht|laser light/.test(option)) return 'LASER_LIGHT';
+  return option;
+}
+
 function matchesCriteria(record, criteria = {}) {
   const vehicle = record.vehicle || {};
   const commercial = record.commercial || {};
@@ -571,7 +646,7 @@ function matchesCriteria(record, criteria = {}) {
   if (criteria.drivetrain && vehicle.drivetrain !== normalizeDrivetrain(criteria.drivetrain)) return false;
   if (criteria.power_min_kw && (vehicle.power_kw === null || vehicle.power_kw < criteria.power_min_kw)) return false;
   if (criteria.seller_type && seller.type !== String(criteria.seller_type).toUpperCase()) return false;
-  if ((criteria.options || []).some(option => !(vehicle.features || []).some(feature => includes(feature, option)))) return false;
+  if ((criteria.options || []).some(option => !(vehicle.features || []).some(feature => includes(feature, option) || canonicalOption(feature) === canonicalOption(option)))) return false;
   return true;
 }
 
@@ -738,6 +813,32 @@ function mobileRefId(value) {
   return String(value || '').toUpperCase().replace(/[^A-Z0-9_-]+/g, '_').replace(/^_+|_+$/g, '');
 }
 
+function mobileFuelFilter(value) {
+  return ({ PETROL: 'PETROL', DIESEL: 'DIESEL', ELECTRIC: 'ELECTRICITY', HYBRID: 'HYBRID', PLUGIN_HYBRID: 'HYBRID', LPG: 'LPG', HYDROGEN: 'HYDROGENIUM' })[normalizeFuel(value)] || null;
+}
+
+function mobileGearboxFilter(value) {
+  return ({ AUTOMATIC: 'AUTOMATIC_GEAR', MANUAL: 'MANUAL_GEAR' })[normalizeTransmission(value)] || null;
+}
+
+function providerPageBatch(records, pagination = {}, timing = {}) {
+  return { records: Array.isArray(records) ? records : [], pagination: sanitize(pagination), timing: sanitize(timing) };
+}
+
+function unpackProviderPageBatch(value) {
+  return Array.isArray(value) ? { records: value, pagination: {}, timing: {} } : providerPageBatch(value?.records, value?.pagination, value?.timing);
+}
+
+function safeProviderPageUrl(value, baseUrl) {
+  if (!value) return null;
+  try {
+    const base = new URL(baseUrl), next = new URL(String(value), base);
+    return next.protocol === 'https:' && next.origin === base.origin && !next.username && !next.password ? next.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 class FoundlyAutomotiveCore {
   constructor(adapter = {}) {
     if (typeof adapter.bucket !== 'function' || typeof adapter.persist !== 'function' || typeof adapter.fetch !== 'function') throw new TypeError('Automotive Core requires existing bucket, persistence and fetch adapters');
@@ -801,8 +902,12 @@ class FoundlyAutomotiveCore {
   async searchMobileDe(criteria, ctx) {
     const config = this.providerConfiguration('mobile_de', ctx);
     if (!config.configured) throw automotiveError(503, 'PROVIDER_NOT_CONFIGURED', 'mobile.de is niet geconfigureerd');
-    const params = new URLSearchParams({ 'page.number': '1', 'page.size': String(Math.min(100, Number(criteria.limit) || 50)) });
+    const totalLimit = Math.max(1, Math.min(2000, Number(criteria.limit) || 50));
+    const pageSize = Math.max(1, Math.min(100, Number(criteria.page_size) || Math.min(100, totalLimit)));
+    const maxPageRequests = Math.max(1, Math.min(20, Number(criteria.max_pages) || Math.ceil(totalLimit / pageSize)));
+    const params = new URLSearchParams({ 'page.number': '1', 'page.size': String(pageSize) });
     if (criteria.make) params.append('classification', `refdata/classes/Car/makes/${mobileRefId(criteria.make)}`);
+    else params.append('classification', 'refdata/classes/Car');
     if (criteria.model || criteria.variant) params.set('modelDescription', [criteria.model, criteria.variant].filter(Boolean).join(' '));
     if (criteria.year_min) params.set('firstRegistrationDate.min', `${Math.round(criteria.year_min)}-01`);
     if (criteria.year_max) params.set('firstRegistrationDate.max', `${Math.round(criteria.year_max)}-12`);
@@ -811,21 +916,63 @@ class FoundlyAutomotiveCore {
     if (criteria.purchase_price_min_eur) params.set('price.min', String(Math.round(criteria.purchase_price_min_eur)));
     if (criteria.purchase_price_max_eur) params.set('price.max', String(Math.round(criteria.purchase_price_max_eur)));
     if (criteria.country) params.append('country', criteria.country);
-    if (criteria.fuel) params.append('fuel', criteria.fuel);
-    for (const feature of criteria.options || []) params.append('feature', feature);
+    const fuel = mobileFuelFilter(criteria.fuel);
+    if (fuel) params.append('fuel', fuel);
+    const gearbox = mobileGearboxFilter(criteria.transmission);
+    if (gearbox) params.append('gearbox', gearbox);
+    if (criteria.power_min_kw) params.set('power.min', String(Math.round(criteria.power_min_kw)));
+    const featureFilters = (criteria.options || []).map(option => MOBILE_DE_FEATURE_FILTERS[normalizedToken(option)]).filter(Boolean);
+    if (normalizeFuel(criteria.fuel) === 'PLUGIN_HYBRID') featureFilters.push('HYBRID_PLUGIN');
+    for (const feature of [...new Set(featureFilters)]) params.append('feature', feature);
     const authorization = `Basic ${Buffer.from(`${config.username}:${config.password}`).toString('base64')}`;
-    const data = await this.request(`${config.base_url.replace(/\/$/, '')}/search-api/search?${params}`, { method: 'GET', headers: { accept: 'application/vnd.de.mobile.api+json', authorization } }, 'mobile_de');
-    return mobileRecords(data);
+    const records = [], requestStarted = Date.now();
+    let pagesReceived = 0, providerTotal = null, providerMaxPages = null;
+    for (let page = 1; page <= maxPageRequests && records.length < totalLimit; page++) {
+      params.set('page.number', String(page));
+      const data = await this.request(`${config.base_url.replace(/\/$/, '')}/search-api/search?${params}`, { method: 'GET', headers: { accept: 'application/vnd.de.mobile.api+json', authorization } }, 'mobile_de');
+      const rows = mobileRecords(data), remaining = totalLimit - records.length;
+      records.push(...rows.slice(0, remaining));
+      pagesReceived++;
+      if (providerTotal === null) providerTotal = integer(data?.total);
+      if (providerMaxPages === null) providerMaxPages = integer(data?.maxPages);
+      const currentPage = integer(data?.currentPage) || page;
+      if (!rows.length || rows.length < pageSize || (providerMaxPages !== null && currentPage >= providerMaxPages)) break;
+    }
+    return providerPageBatch(records, { strategy: 'PAGE_NUMBER', page_size: pageSize, pages_received: pagesReceived, provider_total: providerTotal, provider_max_pages: providerMaxPages, result_limit: totalLimit, bounded: true }, { provider_latency_ms: Date.now() - requestStarted });
   }
 
   async searchMarktplaats(criteria, ctx) {
     const config = this.providerConfiguration('marktplaats', ctx);
     if (!config.configured) throw automotiveError(503, 'PROVIDER_NOT_CONFIGURED', 'Marktplaats is niet geconfigureerd');
     if (!config.authenticated) throw automotiveError(503, 'PROVIDER_AUTH_REQUIRED', 'Marktplaats OAuth-token ontbreekt');
-    const query = [criteria.make, criteria.model, criteria.variant, criteria.trim, ...(criteria.options || [])].filter(Boolean).join(' ');
-    const params = new URLSearchParams({ query, offset: '0', limit: String(Math.min(200, Number(criteria.limit) || 100)), withImages: 'true' });
-    const data = await this.request(`${config.base_url.replace(/\/$/, '')}/v2/search?${params}`, { method: 'GET', headers: { accept: 'application/json', authorization: `Bearer ${config.access_token}` } }, 'marktplaats');
-    return marktplaatsRecords(data);
+    const query = [criteria.make, criteria.model, criteria.variant, criteria.trim, ...(criteria.options || [])].filter(Boolean).join(' ') || 'auto';
+    const totalLimit = Math.max(1, Math.min(1000, Number(criteria.limit) || 100));
+    const pageSize = Math.max(1, Math.min(200, Number(criteria.page_size) || Math.min(200, totalLimit)));
+    const maxPageRequests = Math.max(1, Math.min(25, Number(criteria.max_pages) || Math.ceil(totalLimit / pageSize)));
+    const baseUrl = config.base_url.replace(/\/$/, '');
+    const params = new URLSearchParams({ query, offset: '0', limit: String(pageSize), withImages: 'true' });
+    let nextUrl = `${baseUrl}/v2/search?${params}`;
+    const records = [], requestStarted = Date.now();
+    let pagesReceived = 0, providerTotal = null, followedNextLinks = 0;
+    for (let page = 0; page < maxPageRequests && records.length < totalLimit; page++) {
+      const data = await this.request(nextUrl, { method: 'GET', headers: { accept: 'application/json', authorization: `Bearer ${config.access_token}` } }, 'marktplaats');
+      const rows = marktplaatsRecords(data), remaining = totalLimit - records.length;
+      records.push(...rows.slice(0, remaining));
+      pagesReceived++;
+      if (providerTotal === null) providerTotal = integer(data?.totalCount);
+      if (!rows.length || rows.length < pageSize || records.length >= totalLimit) break;
+      const advertisedNext = pick(data, '_links.next.href');
+      if (advertisedNext) {
+        const safeNext = safeProviderPageUrl(advertisedNext, baseUrl);
+        if (!safeNext) throw automotiveError(502, 'PROVIDER_PAGINATION_URL_REJECTED', 'Marktplaats pagination link wees buiten de geconfigureerde provider-origin');
+        nextUrl = safeNext;
+        followedNextLinks++;
+      } else {
+        params.set('offset', String((page + 1) * pageSize));
+        nextUrl = `${baseUrl}/v2/search?${params}`;
+      }
+    }
+    return providerPageBatch(records, { strategy: followedNextLinks ? 'HAL_NEXT_LINK' : 'OFFSET', page_size: pageSize, pages_received: pagesReceived, provider_total: providerTotal, next_links_followed: followedNextLinks, result_limit: totalLimit, bounded: true }, { provider_latency_ms: Date.now() - requestStarted });
   }
 
   normalize(provider, raw, fetchedAt) {
@@ -872,14 +1019,14 @@ class FoundlyAutomotiveCore {
   cachedListings(ctx, provider, criteria) {
     return this.bucket(ctx, 'listings').filter(record => record.provenance?.provider_verified && record.identity?.provider === provider && record.listing?.status === 'ACTIVE' && matchesCriteria(record, criteria)).map(record => {
       const copy = clone(record);
-      copy.listing.freshness = classifyFreshness(copy.listing.last_verified_at, this.adapter.now(), 'cache');
+      copy.listing.freshness = classifyFreshness(copy.listing.last_verified_at, this.adapter.now(), 'cache', copy.identity?.provider);
       return copy;
     });
   }
 
   refreshListingFreshness(record, mode = 'live') {
     const copy = clone(record);
-    if (copy?.listing) copy.listing.freshness = classifyFreshness(copy.listing.last_verified_at, this.adapter.now(), mode);
+    if (copy?.listing) copy.listing.freshness = classifyFreshness(copy.listing.last_verified_at, this.adapter.now(), mode, copy.identity?.provider);
     return copy;
   }
 
@@ -892,20 +1039,22 @@ class FoundlyAutomotiveCore {
     const runs = await Promise.all(providers.map(async provider => {
       const providerStarted = Date.now(), fetchedAt = this.now();
       try {
-        let raw;
-        if (provider === 'rdw') raw = await this.searchRdw(parsed.criteria, ctx);
-        else if (provider === 'mobile_de') raw = await this.searchMobileDe(parsed.criteria, ctx);
-        else if (provider === 'marktplaats') raw = await this.searchMarktplaats(parsed.criteria, ctx);
+        let providerOutput;
+        if (provider === 'rdw') providerOutput = await this.searchRdw(parsed.criteria, ctx);
+        else if (provider === 'mobile_de') providerOutput = await this.searchMobileDe(parsed.criteria, ctx);
+        else if (provider === 'marktplaats') providerOutput = await this.searchMarktplaats(parsed.criteria, ctx);
         else throw automotiveError(503, 'PROVIDER_ADAPTER_UNAVAILABLE', 'AutoScout24 adapter is niet actief zonder geverifieerde toegang');
-        const normalized = raw.map(item => this.normalize(provider, item, fetchedAt)).filter(Boolean), rejected = raw.length - normalized.length;
+        const batch = unpackProviderPageBatch(providerOutput), raw = batch.records, normalizationStarted = Date.now();
+        const normalized = raw.map(item => this.normalize(provider, item, fetchedAt)).filter(Boolean), rejected = raw.length - normalized.length, normalizationMs = Date.now() - normalizationStarted;
+        const persistenceStarted = Date.now();
         const stored = normalized.map(record => this.upsertRecord(ctx, record));
-        const execution = { provider, category: provider === 'rdw' ? 'VEHICLE_TRUTH' : 'MARKETPLACE', state: 'LIVE', success: true, called: true, latency_ms: Date.now() - providerStarted, records_received: raw.length, records_normalized: normalized.length, records_rejected: rejected, cache: 'MISS', completed_at: this.now(), error: null };
+        const execution = { provider, category: provider === 'rdw' ? 'VEHICLE_TRUTH' : 'MARKETPLACE', state: 'LIVE', success: true, called: true, latency_ms: Date.now() - providerStarted, provider_latency_ms: number(batch.timing.provider_latency_ms) ?? Math.max(0, normalizationStarted - providerStarted), normalization_ms: normalizationMs, persistence_ms: Date.now() - persistenceStarted, cache_lookup_ms: 0, records_received: raw.length, records_normalized: normalized.length, records_rejected: rejected, pagination: batch.pagination, cache: 'MISS', completed_at: this.now(), error: null };
         this.recordTelemetry(ctx, { ...execution, operation: 'SEARCH', correlation_id: correlationId });
         return { execution, records: stored };
       } catch (error) {
-        const safe = providerSafeError(error), cached = provider === 'rdw' ? [] : this.cachedListings(ctx, provider, parsed.criteria);
+        const safe = providerSafeError(error), cacheStarted = Date.now(), cached = provider === 'rdw' ? [] : this.cachedListings(ctx, provider, parsed.criteria), cacheLookupMs = Date.now() - cacheStarted;
         const state = cached.length ? (cached.some(record => record.listing.freshness.classification === 'CACHED') ? 'CACHED' : 'STALE') : 'UNAVAILABLE';
-        const execution = { provider, category: provider === 'rdw' ? 'VEHICLE_TRUTH' : 'MARKETPLACE', state, success: false, called: true, latency_ms: Date.now() - providerStarted, records_received: 0, records_normalized: 0, records_rejected: 0, records_from_cache: cached.length, cache: cached.length ? 'HIT' : 'MISS', completed_at: this.now(), error: safe };
+        const execution = { provider, category: provider === 'rdw' ? 'VEHICLE_TRUTH' : 'MARKETPLACE', state, success: false, called: true, latency_ms: Date.now() - providerStarted, provider_latency_ms: Date.now() - providerStarted - cacheLookupMs, normalization_ms: 0, persistence_ms: 0, cache_lookup_ms: cacheLookupMs, records_received: 0, records_normalized: 0, records_rejected: 0, records_from_cache: cached.length, pagination: {}, cache: cached.length ? 'HIT' : 'MISS', completed_at: this.now(), error: safe };
         this.recordTelemetry(ctx, { ...execution, operation: 'SEARCH', correlation_id: correlationId });
         return { execution, records: cached };
       }
@@ -958,7 +1107,7 @@ class FoundlyAutomotiveCore {
     const matches = rows.map(record => ({ record, ...comparableSimilarity(candidate, record) })).filter(item => item.score >= 58).sort((a, b) => b.score - a.score).slice(0, Math.min(100, Number(options.limit) || 30));
     const prices = matches.map(item => item.record.commercial.gross_price_eur), mileages = matches.map(item => number(item.record.vehicle?.mileage_km)).filter(value => value !== null), years = matches.map(item => number(item.record.vehicle?.build_year)).filter(value => value !== null), sourceMix = {};
     for (const item of matches) sourceMix[item.record.identity.provider] = (sourceMix[item.record.identity.provider] || 0) + 1;
-    const freshness = matches.map(item => classifyFreshness(item.record.listing?.last_verified_at, this.adapter.now(), 'cache').classification), stale = freshness.filter(value => value === 'STALE').length;
+    const freshness = matches.map(item => classifyFreshness(item.record.listing?.last_verified_at, this.adapter.now(), 'cache', item.record.identity?.provider).classification), stale = freshness.filter(value => value === 'STALE').length;
     const confidence = matches.length >= 8 && stale <= Math.floor(matches.length / 4) ? 'HIGH' : matches.length >= 4 ? 'MEDIUM' : matches.length ? 'LOW' : 'UNAVAILABLE';
     return {
       ok: true, available: matches.length > 0, candidate_id: candidate.canonical_listing_id, country: options.country || 'NL', comparable_count: matches.length,
@@ -967,7 +1116,7 @@ class FoundlyAutomotiveCore {
       year_distribution: { min: percentile(years, 0), median: percentile(years, 0.5), max: percentile(years, 1) },
       source_mix: sourceMix, freshness: { classifications: freshness, stale_count: stale }, confidence,
       version: AUTOMOTIVE_COMPARABLE_VERSION, observed_at: this.now(),
-      listings: matches.map(item => ({ canonical_listing_id: item.record.canonical_listing_id, provider: item.record.identity.provider, provider_listing_id: item.record.identity.provider_listing_id, source_url: item.record.identity.source_url, price_eur: item.record.commercial.gross_price_eur, mileage_km: item.record.vehicle.mileage_km, build_year: item.record.vehicle.build_year, similarity_score: item.score, evidence: item.evidence, freshness: classifyFreshness(item.record.listing.last_verified_at, this.adapter.now(), 'cache') }))
+      listings: matches.map(item => ({ canonical_listing_id: item.record.canonical_listing_id, provider: item.record.identity.provider, provider_listing_id: item.record.identity.provider_listing_id, source_url: item.record.identity.source_url, price_eur: item.record.commercial.gross_price_eur, mileage_km: item.record.vehicle.mileage_km, build_year: item.record.vehicle.build_year, similarity_score: item.score, evidence: item.evidence, freshness: classifyFreshness(item.record.listing.last_verified_at, this.adapter.now(), 'cache', item.record.identity?.provider) }))
     };
   }
 
@@ -1112,7 +1261,7 @@ class FoundlyAutomotiveCore {
   todayOpportunities(context, principal, input = {}) {
     const { ctx } = this.scope(context, principal), profile = this.dealerProfile(context, principal), all = this.bucket(ctx, 'listings').filter(row => row.provenance?.provider_verified && row.listing?.status === 'ACTIVE' && MARKETPLACE_PROVIDERS.includes(row.identity?.provider));
     if (!all.length) return { ok: false, status: 'unavailable', reason: 'NO_REAL_MARKETPLACE_DATA', opportunities: [], profile, explanation: 'Er zijn geen echte provider-verified marketplace listings in de tenantcache; Foundly verzint geen Top 3.' };
-    const fresh = all.map(row => { const copy = clone(row); copy.listing.freshness = classifyFreshness(copy.listing.last_verified_at, this.adapter.now(), 'cache'); return copy; }).filter(row => row.listing.freshness.classification !== 'UNAVAILABLE');
+    const fresh = all.map(row => { const copy = clone(row); copy.listing.freshness = classifyFreshness(copy.listing.last_verified_at, this.adapter.now(), 'cache', copy.identity?.provider); return copy; }).filter(row => row.listing.freshness.classification !== 'UNAVAILABLE');
     const eligible = profile.configuration_status === 'CONFIGURED' ? fresh.filter(row => {
       const p = profile.preferences || {};
       if (p.preferred_makes?.length && !p.preferred_makes.some(make => normalizedToken(make) === normalizedToken(row.vehicle.make))) return false;
@@ -1151,7 +1300,7 @@ class FoundlyAutomotiveCore {
 
 module.exports = {
   FoundlyAutomotiveCore, AUTOMOTIVE_SCHEMA_VERSION, AUTOMOTIVE_TRANSFORMATION_VERSION, AUTOMOTIVE_SEARCH_VERSION,
-  AUTOMOTIVE_COMPARABLE_VERSION, AUTOMOTIVE_BUY_SCORE_VERSION, BPM_RULE_VERSION, FRESHNESS_VALUES, MARKETPLACE_PROVIDERS,
+  AUTOMOTIVE_COMPARABLE_VERSION, AUTOMOTIVE_BUY_SCORE_VERSION, BPM_RULE_VERSION, FRESHNESS_VALUES, PROVIDER_FRESHNESS_POLICIES, MARKETPLACE_PROVIDERS,
   parseSearchCriteria, classifyFreshness, normalizeMobileDeRecord, normalizeMarktplaatsRecord, normalizeRdwRecord,
   matchesCriteria, duplicateEvidence, deduplicateListings, comparableSimilarity, bpmDepreciationPercent, calculateBpm2026, automotiveError
 };
