@@ -208,6 +208,12 @@ async function runtimeContracts() {
   assert.equal(result.body.top_buy_scores.length, 0);
   assert.deepEqual(new Set(result.body.provider_health.map(row => row.connector_id)), new Set(['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc', 'ecb_fx', 'openai']));
 
+  result = await call('/api/analysis/status');
+  assert.equal(result.response.status, 200);
+  assert.equal(result.body.product, 'Foundly Analysis');
+  assert.equal(result.body.version, '6.0.0');
+  assert.equal(result.body.no_fake_data, true);
+
   for (const workspaceId of Object.keys(WORKSPACE_DEFINITIONS)) {
     result = await call(`/api/workspaces/${workspaceId}/snapshot`);
     assert.equal(result.response.status, 200, `${workspaceId} snapshot faalt`);
