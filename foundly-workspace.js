@@ -616,6 +616,10 @@
     byId('contextTitle').textContent = title;
     byId('contextDescription').textContent = description;
     const content = byId('contextContent'), items = [];
+    if ((state.workspace?.domain_entities || []).includes(section.toLowerCase())) {
+      renderDomainSection(section.toLowerCase(), content);
+      return;
+    }
     const metrics = Object.values(state.snapshot?.metrics || {}).slice(0, 6);
     for (const metric of metrics) {
       const definition = state.workspace?.default_widgets?.find(item => item.metric === metric.id);
@@ -623,6 +627,51 @@
     }
     if (!items.length) items.push(node('div', 'EmptyState NoDataState', 'Geen werkelijke records of metrics voor dit onderdeel beschikbaar.'));
     replaceChildren(content, items);
+  }
+
+  async function renderDomainSection(entity, content) {
+    replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
+    try {
+      const result = await request(`/api/${state.workspaceId}/${entity}?limit=100`);
+      if (state.activeSection.toLowerCase() !== entity) return;
+      const required = state.workspace.domain_required_fields?.[entity] || [];
+      const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
+      const fieldNames = [...new Set([...required, 'description', ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
+      const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag (€)', currency:'Valuta', probability:'Kans (0–1)', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
+      for (const name of fieldNames) {
+        const label=node('label','',labels[name] || name), input=node(['content','description'].includes(name)?'textarea':'input');
+        input.name=name;input.required=required.includes(name);input.maxLength=name==='content'?12000:1000;
+        if(['value_cents','probability'].includes(name)){input.type='number';input.min='0';input.step='0.01';if(name==='probability')input.max='1';}
+        if(name==='timezone')input.placeholder='Europe/Amsterdam';
+        if(name==='currency')input.placeholder='EUR';
+        if(['start_at','end_at'].includes(name))input.placeholder='2026-09-06T10:00:00+02:00';
+        label.append(input);form.append(label);fields.set(name,input);
+      }
+      let editing=null;
+      const save=node('button','primary-button','Opslaan');save.type='submit';form.append(save,notice);
+      notice.setAttribute('role','status');
+      form.addEventListener('submit',async event=>{
+        event.preventDefault();save.disabled=true;
+        try {
+          const payload={};for(const [name,input] of fields){if(!input.value.trim())continue;payload[name]=name==='value_cents'?Math.round(Number(input.value)*100):name==='probability'?Number(input.value):input.value.trim();}
+          if(editing)payload.expected_revision=editing.revision;
+          await request(`/api/${state.workspaceId}/${entity}${editing?`/${encodeURIComponent(editing.id)}`:''}`,{method:editing?'PUT':'POST',headers:{'idempotency-key':crypto.randomUUID()},body:JSON.stringify(payload)});
+          await renderDomainSection(entity,content);toast('Record opgeslagen.');
+        } catch(error){notice.textContent=friendlyError(error);} finally {save.disabled=false;}
+      });
+      const rows=result.items||[],table=node('table'),head=node('thead'),body=node('tbody'),headRow=node('tr');
+      for(const title of ['Record','Status','Bijgewerkt','Actie'])headRow.append(node('th','',title));head.append(headRow);table.append(head,body);
+      for(const record of rows){
+        const tr=node('tr');tr.append(node('td','',record.title||record.name||record.id),node('td','',record.status||record.delivery_state||'—'),node('td','',record.updated_at?new Date(record.updated_at).toLocaleString('nl-NL'):'—'));
+        const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
+        edit.addEventListener('click',()=>{editing=record;for(const [name,input] of fields)input.value=record[name]===undefined?'':name==='value_cents'?String(record[name]/100):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
+        if(entity!=='messages'&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
+      }
+      const summary=node('p','',`${result.total} records${result.next_offset!==null?' · eerste 100 getoond':''}`);
+      const children=[summary];if(entity!=='messages')children.push(form);
+      children.push(rows.length?table:node('div','EmptyState','Nog geen records in dit onderdeel.'));
+      replaceChildren(content,children);
+    } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}
   }
 
   function updateNotice() {

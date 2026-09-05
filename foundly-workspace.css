@@ -268,3 +268,7 @@ tbody tr:hover td { background: rgba(54, 169, 211, .03); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
 }
+.domain-record-form { display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-block:16px;padding:16px;border:1px solid rgba(82,204,255,.2);border-radius:12px; }
+.domain-record-form label { display:flex;flex-direction:column;gap:6px;color:#bcd3df; }
+.domain-record-form input,.domain-record-form textarea { width:100%;box-sizing:border-box;padding:10px;border:1px solid #38505e;border-radius:6px;background:#08111c;color:#e8f5ff; }
+.domain-record-form :focus-visible { outline:2px solid #59d5ff;outline-offset:3px; }

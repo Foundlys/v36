@@ -1,0 +1,74 @@
+'use strict';
+
+// Commercial identity is independent of historical storage/engine aliases.
+const VERSION = 'foundly-module-contract/1.0.0';
+const DEFINITIONS = {
+  procurement: ['Inkoop', 'inkoop', ['sourcing', 'suppliers', 'opportunities', 'approvals'], ['AUTOMOTIVE_MARKETPLACE']],
+  sales: ['Verkoop', 'verkoop', ['opportunities', 'pipeline', 'forecast', 'quotes'], ['INTERNAL']],
+  crm: ['CRM', 'crm', ['contacts', 'companies', 'leads', 'relationships'], ['INTERNAL']],
+  marketing: ['Marketing', 'social_media', ['campaigns', 'audiences', 'attribution'], ['MARKETING', 'MEASUREMENT']],
+  finance: ['Finance', 'finance', ['ledger', 'invoices', 'payments', 'reports'], ['FINANCE']],
+  analysis: ['Analytics', 'analysis', ['kpis', 'events', 'funnel', 'reports'], ['MEASUREMENT', 'INTERNAL']],
+  calendar: ['Agenda', 'agenda', ['events', 'availability', 'conflicts'], ['CALENDAR']],
+  communication: ['Communicatie', 'communicatie', ['inbox', 'drafts', 'threads'], ['COMMUNICATION']],
+  automation: ['Automation', 'automatisering', ['workflows', 'runs', 'approvals'], ['INTERNAL']]
+};
+const CORE_SERVICES = Object.freeze(['identity', 'authorization', 'persistence', 'audit', 'events', 'connectors', 'sources', 'knowledge', 'learning', 'zero', 'data']);
+const TOOL_MODULES = Object.freeze({
+  create_lead: 'crm', create_task: 'automation', create_appointment: 'calendar',
+  draft_message: 'communication', create_report: 'analysis',
+  crm_priority_leads: 'crm', crm_pipeline_summary: 'crm', crm_customer_360: 'crm',
+  crm_inventory_customer_matches: 'crm', analysis_kpi: 'analysis', analysis_funnel: 'analysis',
+  analysis_campaign_outcome: 'analysis', finance_report: 'finance',
+  automation_status: 'automation', automation_run: 'automation',
+  automotive_search: 'procurement', automotive_comparables: 'procurement',
+  automotive_economics: 'procurement', automotive_candidate_analysis: 'procurement', automotive_today: 'procurement'
+});
+const TOOL_CAPABILITIES = Object.freeze({
+  create_lead:'crm:leads',crm_priority_leads:'crm:leads',crm_pipeline_summary:'crm:relationships',crm_customer_360:'crm:relationships',crm_inventory_customer_matches:'crm:relationships',
+  create_task:'automation:workflows',create_appointment:'calendar:events',draft_message:'communication:drafts',create_report:'analysis:reports',
+  analysis_kpi:'analysis:kpis',analysis_funnel:'analysis:funnel',analysis_campaign_outcome:'analysis:reports',finance_report:'finance:reports',
+  automation_status:'automation:runs',automation_run:'automation:workflows',
+  automotive_search:'procurement:sourcing',automotive_comparables:'procurement:sourcing',automotive_economics:'procurement:opportunities',automotive_candidate_analysis:'procurement:opportunities',automotive_today:'procurement:opportunities'
+});
+function freeze(value) {
+  if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); }
+  return value;
+}
+const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, [label, engine, capabilities, categories]]) => [id, {
+  module_id: id, display_name: label, version: '1.0.0', schema_version: VERSION,
+  status: 'ACCEPTANCE_PENDING', standalone: 'UNVERIFIED', sellable: false,
+  core_required: true, required_core_services: ['identity', 'authorization', 'persistence', 'audit', 'events'],
+  optional_dependencies: [], provided_capabilities: capabilities.map(c => `${id}:${c}`), consumed_capabilities: [],
+  published_events: [`${id}.record.created.v1`, `${id}.record.updated.v1`], subscribed_events: [],
+  api_contracts: [{ version: 1, prefix: `/api/${id}` }], route: `/${id}`, legacy_engine: engine,
+  zero_tools: Object.keys(TOOL_MODULES).filter(tool => TOOL_MODULES[tool] === id),
+  source_categories: categories, connector_categories: categories,
+  dashboard_presets: [`${id}:default`], widgets: capabilities,
+  permissions: ['read', 'write', 'export', 'manage'].map(p => `${id}:${p}`), roles: ['ADMIN', 'MANAGER', 'VIEWER'],
+  data_domains: [id], retention_policy: 'RETAIN_UNTIL_EXPLICIT_AUTHORIZED_POLICY',
+  disable_policy: 'HIDDEN_RETAINED_EXPORTABLE', reactivation_policy: 'RESTORE_WITH_CURRENT_PERMISSIONS',
+  health_endpoint: `/api/composition/modules/${id}/health`, ready_endpoint: `/api/composition/modules/${id}/ready`,
+  migration_version: 1, feature_flags: [], entitlement_key: `module:${id}`,
+  audit_categories: [`${id}:read`, `${id}:write`, `${id}:export`],
+  industry_extension_points: ['fields', 'objects', 'workflows', 'dashboards', 'kpis', 'tools', 'connectors'],
+  competitive_status: 'UNASSESSED'
+}])));
+const ALIASES = freeze(Object.fromEntries(Object.entries(MODULES).flatMap(([id, m]) => [[id, id], [m.legacy_engine, id]])));
+const BUNDLES = freeze({ COMPLETE: Object.keys(MODULES), OPERATIONS: ['crm', 'calendar', 'communication', 'automation'], ...Object.fromEntries(Object.keys(MODULES).map(id => [id.toUpperCase(), [id]])) });
+const INDUSTRIES = freeze({
+  GENERAL: { industry_id: 'GENERAL', production: true, extensions: {} },
+  AUTOMOTIVE: { industry_id: 'AUTOMOTIVE', production: true, route: '/automotive', extensions: {
+    procurement: { objects: ['vehicle', 'listing'], tools: Object.keys(TOOL_MODULES).filter(t => t.startsWith('automotive_')), connectors: ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc'], fields: ['vin', 'registration', 'mileage'], kpis: ['buy_score', 'acquisition_economics'] },
+    crm: { fields: ['vehicle_interest'], objects: ['vehicle_customer_relationship'] },
+    sales: { fields: ['vehicle_id'], kpis: ['days_in_stock'] },
+    analysis: { kpis: ['inventory_velocity', 'vehicle_margin'] }
+  } }
+});
+function moduleId(value) { return ALIASES[String(value || '').toLowerCase()] || null; }
+function routeModule(pathname) {
+  const pieces = pathname.split('/').filter(Boolean);
+  const part = pieces[0] === 'api' ? (['workspaces', 'module'].includes(pieces[1]) ? pieces[2] : pieces[1]) : pieces[0];
+  return moduleId(part);
+}
+module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };

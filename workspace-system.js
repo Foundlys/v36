@@ -1,4 +1,6 @@
 'use strict';
+const { MODULES: COMMERCIAL_MODULES } = require('./module-catalog');
+const { DEFINITIONS: BUSINESS_DOMAINS } = require('./business-domains');
 
 const DASHBOARD_SCHEMA_VERSION = 'foundly-workspace-dashboard/1.0.0';
 const WIDGET_TYPES = Object.freeze(['KPI', 'METRIC', 'TREND', 'CHART', 'TABLE', 'FUNNEL', 'ACTIVITY', 'STATUS', 'SOURCE', 'CONNECTOR']);
@@ -9,6 +11,14 @@ function widget(id, label, type = 'KPI', width = 4, height = 3, description = ''
 }
 
 const WORKSPACE_DEFINITIONS = Object.freeze({
+  ...Object.fromEntries(['procurement','sales','calendar'].map(id => [id, {
+    id, route: COMMERCIAL_MODULES[id].route, label: COMMERCIAL_MODULES[id].display_name,
+    short_label: COMMERCIAL_MODULES[id].display_name, capability: id, module_id: COMMERCIAL_MODULES[id].legacy_engine,
+    eyebrow: 'FOUNDLY BUSINESS OPERATIONS', description: `${COMMERCIAL_MODULES[id].display_name}: eigen werkstromen, brongegevens en audit.`,
+    sections: ['OVERVIEW',...BUSINESS_DOMAINS[id].entities.map(entity=>entity.toUpperCase())],
+    domain_entities: BUSINESS_DOMAINS[id].entities, domain_required_fields: BUSINESS_DOMAINS[id].required,
+    default_widgets: BUSINESS_DOMAINS[id].entities.map(entity=>widget(entity,entity.replaceAll('_',' ')))
+  }])),
   home: {
     id: 'home', route: '/', label: 'Neural Command Center', short_label: 'Home', capability: 'core', module_id: 'data',
     eyebrow: 'FOUNDLY CORE', description: 'De centrale Neural-interface voor alle Foundly-capabilities.',
@@ -73,7 +83,8 @@ const WORKSPACE_DEFINITIONS = Object.freeze({
   communication: {
     id: 'communication', route: '/communication', label: 'Communication', short_label: 'Communication', capability: 'communication', module_id: 'communicatie',
     eyebrow: 'OMNICHANNEL OPERATIONS', description: 'Audited inbox, calendar, voice and notification surfaces.',
-    sections: ['OVERVIEW', 'INBOX', 'EMAIL', 'WHATSAPP', 'CALENDAR', 'VOICE', 'NOTIFICATIONS', 'TEMPLATES', 'AUTOMATIONS', 'AUDIT'],
+    sections: ['OVERVIEW', 'DRAFTS', 'MESSAGES', 'THREADS', 'TEMPLATES', 'PREFERENCES', 'INBOX', 'EMAIL', 'WHATSAPP', 'CALENDAR', 'VOICE', 'NOTIFICATIONS', 'AUTOMATIONS', 'AUDIT'],
+    domain_entities: BUSINESS_DOMAINS.communication.entities, domain_required_fields: BUSINESS_DOMAINS.communication.required,
     default_widgets: [widget('messages', 'Messages'), widget('inbound', 'Inbound'), widget('outbound', 'Outbound'), widget('unread', 'Unread'), widget('appointments', 'Calendar events'), widget('communication_channels', 'Channel availability', 'CONNECTOR', 6), widget('recent_communication', 'Recent communication', 'TABLE', 6, 5), widget('voice_status', 'Voice status', 'STATUS')]
   },
   marketing: {
