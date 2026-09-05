@@ -1,329 +1,393 @@
-# Foundly OS v6.0.0 verification and release report
+# Foundly OS v6.0.0 final masterbuild report
 
-Date: 2026-09-05
+Observed: 2026-09-05 UTC
 
-This report is secondary evidence. Repository code, immutable git objects, automated tests, the deployed runtime, and real external-provider responses remain the sources of truth.
+This report contains the current production truth. Superseded Run 1–3 snapshots remain preserved in Git history, but their former readiness and storage blockers are closed and are not repeated as current facts here. Repository code, immutable Git objects, automated tests, Railway runtime evidence, and real provider responses remain the sources of truth.
 
-## Automotive / House of Cars pilot — deployed evidence
+## CURRENT BASELINE
 
-The Automotive pilot was resumed from the clean `main` recovery baseline `cf5e54aacc2e598c59a8dbe0866c9164f46f857a` on branch `feature/automotive-house-of-cars-pilot`. The bounded implementation checkpoints are:
+| Item | Current truth |
+| --- | --- |
+| Product version | 6.0.0 |
+| Canonical repository | Foundlys/v36 |
+| Canonical branch | main |
+| Functional release SHA | b1cf28f3de1ca693c893861fc2ca42f9abc26337 |
+| Functional release tree | 35a5c9f71f1721e2601c902aaa0059d098d79da6 |
+| Frozen release branch | release/foundly-v6.0.0 at 18d496f5432712cebbeb7be8cc1772e55d8e5735 |
+| Railway project | dazzling-solace |
+| Railway environment | production |
+| Railway service | v36 |
+| Production origin | https://v36-production.up.railway.app |
+| Railway deployment | 3f0c5f19-475f-444a-b62e-911728180f5e — Active / Deployment successful |
+| Health | HTTP 200, ok true, version 6.0.0 |
+| Readiness | HTTP 200, verdict PASS |
 
-- `2dc3d93`: canonical Automotive data, provider adapters, real-data search, deduplication, comparables, economics, dealer fit and explainable Buy Score;
-- `efbc341`: authenticated Automotive APIs, existing ZERO integration and Auto-Provisioner capability-pack wiring;
-- `3c75367`: dedicated Automotive workspace, safe provider-image proxy, official live-provider test and provider timeout hardening.
-
-The exact resulting tree `2a72f95a16f7a47bf541c2903fa4f70f374981cd` was published as GitHub feature commit `618242dd8617c70afaa68ab67cfa00e9c2f03598` and merged through PR `#6` into `main` as `463128b9ad0826397d498a8bfc34f7ea59dee2c4`.
-
-This is a reusable `AUTOMOTIVE` capability pack on the existing Foundly platform. It does not create a second application, database, CRM, event bus, persistence layer or ZERO instance. House of Cars is represented only as a development-partner preview and optional tenant dealer profile; no private dealer facts, preferences, inventory history or target margins are invented.
-
-Implemented release-candidate scope:
-
-- natural-language criteria parsing with multi-turn retention;
-- parallel RDW, mobile.de and Marktplaats orchestration with truthful `LIVE`, `CACHED`, `STALE` and `UNAVAILABLE` states;
-- canonical listing and vehicle-truth records, source manifests, transformation version, timestamps and provider provenance;
-- conservative exact/high-confidence deduplication and persisted listing history;
-- real-active-NL-listing comparables, versioned 2026 BPM estimation, acquisition economics, listing-scarcity signals, configurable dealer fit and explainable Buy Score;
-- five Automotive tools in the existing ZERO registry, including the guarded “wat moet House of Cars vandaag inkopen?” flow;
-- authenticated `/api/automotive/*` routes and responsive `/automotive` workspace with evidence, risk, economics, comparable and source drill-down;
-- no synthetic runtime inventory and no fallback to fabricated provider results.
-
-Official live provider observation on 2026-09-04 at `21:47:55Z`:
-
-| Provider | Configured | Authenticated | Probe | Real records | Runtime classification | Blocker |
-| --- | --- | --- | --- | ---: | --- | --- |
-| RDW Open Data | yes | public | PASS, HTTP 200 | 50 received / 50 normalized vehicle-truth records | LIVE | none |
-| mobile.de Search API | no | no | NOT RUN | 0 | BLOCKED | `MOBILE_DE_USERNAME` and `MOBILE_DE_PASSWORD` are absent |
-| Marktplaats v2 Search | no | no | NOT RUN | 0 | BLOCKED | `MARKTPLAATS_ACCESS_TOKEN` is absent |
-| AutoScout24 | no | no | NOT RUN | 0 | BLOCKED / P1 | official access and adapter contract are not yet verified |
-
-RDW is authoritative vehicle truth, not a marketplace. The Tuesday real-marketplace acceptance gate therefore remains `BLOCKED` until mobile.de or Marktplaats is legitimately configured and returns at least one real matching listing end to end.
-
-Release-candidate verification completed with exit code 0 for `npm run test:automotive`, `npm run test:automotive:live`, `npm run test:crm`, `npm run test:platform`, `npm run test:e2e`, `node jarvis-production-regression-test.js`, `node jarvis-client-regression-test.js` and `node speech-audio-visual-regression-test.js`. GitHub Actions `Production architecture tests` run `#26` (`33923115299`) subsequently completed successfully for feature SHA `618242dd`; its `Run npm test` step and every setup/cleanup step passed. The Automotive fixtures explicitly identify themselves as synthetic contract fixtures and are not provider proof.
-
-The Neural command center, renderer, autonomous motion, audio and speech assets remain byte-for-byte identical to baseline `cf5e54a`; no Automotive change touches their source files.
-
-Railway production evidence after PR `#6` publication:
-
-- correct target reconfirmed: project `dazzling-solace`, environment `production`, service `v36`, domain `v36-production.up.railway.app`;
-- Automotive code deployment `0cef9021-01c6-4bc9-971f-1660d239319a` reached `Active` and `Deployment successful`, deployed via GitHub from `Foundlys/v36` `main` SHA `463128b9`; later docs-only evidence deployments supersede that deployment record without changing the application code tree;
-- deploy log: `Foundly OS v6.0.0 ONLINE op poort 8080`;
-- `GET /api/health`: HTTP 200, version `6.0.0`;
-- `GET /api/ready`: HTTP 503, `FAIL`, with exactly `authentication`, `public_base_url`, `oauth_callbacks` and `persistent_mount` false;
-- `/automotive`, `/api/automotive/status`, `/api/zero/status`, `/api/crm/status`, `/api/analysis/status` and `/api/finance/status`: HTTP 401 `auth_not_configured`; this proves the existing security gate is still enforced but blocks authenticated production route and rendered-workspace acceptance;
-- invalid-state Meta, Google, LinkedIn, TikTok and Wix callbacks: controlled HTTP 302 `oauth_state_invalid`, no `WWW-Authenticate` response header and no state/code reflection in the redirect;
-- Railway showed 19 configured service variables without revealing values. No Foundly admin-auth variable, public-base variable, mobile.de Search credential or Marktplaats access token is attached to the service;
-- `FOUNDLY_DATA_DIR` is present, but the deploy log reports `/data` is not proven as a separate writable volume; no durable production marker/restart test is therefore claimed;
-- direct cloud-browser rendering of the application host was blocked by that browser with `ERR_BLOCKED_BY_CLIENT`; no screenshot or pixel/interaction PASS is claimed. The public HTTP checks above did complete;
-- the pre-existing staged destructive Railway change still says `Service will be deleted` for `v36`. It was not deployed, discarded or modified. No Railway variable, secret, volume, domain, topology or staging service was changed.
-
-The code release is deployed, but the production Automotive acceptance gate remains blocked by missing runtime authentication, durable storage and legitimate marketplace-provider credentials. Readiness and live protected-route evidence must not be labeled PASS until those external conditions are corrected safely.
-
-## Preserved release lineage
-
-- preserved production baseline: `v5.4.0`
-- baseline merge commit on `main`: `205427e42d0cc617cd06abf94062ead7f65e796e`
-- completed v6 implementation commit: `1181861e47388b3955ca1e1252e3825d6731d7a1`
-- completed v6 implementation tree: `64e172fecd6a271d849801a19caea365bd825a92`
-- published v6 main/release merge: `40b9ed700a3a93e1c4af3c66037a8ffc1116dd50`
-- neural visual correction commit: `eab6b0faebcf886f59ce79d76d413241827c6b89`
-- neural visual correction merge on `main`: `ee429a9104b54a879365c69c965ec42308c333ba`
-- release branch: `release/foundly-v6.0.0`
-- repository: `Foundlys/v36`
-
-The v6 implementation is a strict descendant of the merged v5.4.0 baseline. No v5.4.0 Neural, ZERO, CRM, OAuth, security, persistence, worker, connector, provenance, speech, audio, or renderer work was rebuilt or discarded.
-
-## Reconstructed master-phase status
-
-The phase status below is derived from the committed implementation, public contracts, regression suites, full-platform end-to-end fixture, and live runtime responses.
-
-| Phase | Scope | Gate | Evidence |
-| --- | --- | --- | --- |
-| 0 | Preserve and release v5.4.0 baseline | PASS | `main` contains merge commit `205427e`; all legacy suites pass unchanged on v6 |
-| 1 | Canonical tenant data foundation | PASS | schema migrations, canonical records, append-only events, deduplication, provenance, encrypted persistence, content-addressed manifests, retention, offline outbox, recovery |
-| 2 | Realtime and historical Analysis | PASS | canonical ingest, shared incremental fact cache, realtime feed, paginated rollups, versioned KPI Registry, drilldown, freshness, attribution, commercial funnel, campaign outcome deduplication |
-| 3 | Measurement architecture and delivery adapters | CODE PASS / LIVE EXTERNAL | Meta CAPI, GA4 Measurement Protocol and Google Ads enhanced-conversion contracts exist; consent and identity gates pass; no real provider delivery is claimed without credentials and provider receipts |
-| 4 | Foundly Finance and Dutch fiscal guardrails | PASS | double-entry posting, invoices, purchase approval, partial payment, credit notes, AP/AR, bank reconciliation, document review, assets, reports, budgets, forecasts, close, reversals and audited export |
-| 5 | Knowledge and Learning | PASS | typed evidence lifecycle, confidence, validity, supersession, permission filtering, feedback and outcome evaluation; no automatic-retraining claim |
-| 6 | Connector lifecycle, Automation and Auto-Provisioner | PASS | truthful connector state machine, checkpoints, attempts, signed webhook records, replay-safe workflows, high-risk approval gates and five configuration-driven capability packs |
-| 7 | ZERO cross-platform orchestration | PASS | authoritative server-side tools for Analysis, Finance, Knowledge and Automation; idempotency, confirmation, verification, audit and legacy `/api/jarvis/*` aliases retained |
-| 8 | Business workspaces | CONTRACT PASS | responsive `/analysis` and `/finance` workspaces, strict CSP assets, accessible empty states, persisted-record-only displays, exports and ZERO entry points |
-| 9 | Integrated platform journey | PASS | deterministic end-to-end lead → CRM → won deal → invoice → payment → reconciliation → attribution → knowledge → learning → ZERO answer; encrypted restart persistence passes |
-| 10 | GitHub release and Railway runtime | DEPLOYED / READY BLOCKED | `release/foundly-v6.0.0` preserves the v6 release baseline and `main` contains the bounded neural visual follow-up; GitHub Actions passes; Railway redeployed and live `/api/health` reports v6.0.0; public `/api/ready` remains blocked only by the external configuration listed below |
-
-## Local and CI result
-
-`npm test`: PASS (`exit 0`)
-
-GitHub Actions `Production architecture tests`: PASS for implementation commit `1181861e47388b3955ca1e1252e3825d6731d7a1` (run `33876702491`), published release commit `40b9ed700a3a93e1c4af3c66037a8ffc1116dd50` (run `33878418584`), and neural visual correction commit `eab6b0faebcf886f59ce79d76d413241827c6b89` (run `33899565892`).
-
-### Preserved platform gates
-
-- server, UI and test JavaScript syntax: PASS
-- core persistence, encryption and full restart: PASS
-- 93 connector schema/status contracts: PASS
-- source/provenance contracts and truthful provider state: PASS
-- worker execution, retry persistence and recovery: PASS
-- exact production authentication normalization and timing-safe comparison: PASS
-- tenant-header isolation, SSRF protection and secret-safe diagnostics: PASS
-- known/default encryption secrets and unsafe production origins rejected: PASS
-- Meta, Google, LinkedIn, TikTok and Wix OAuth callback bypass of Basic Auth: PASS
-- hashed/HMAC-bound persisted OAuth state, TTL, lease, replay defense and transient retry: PASS
-- native provider token encryption, probe, bootstrap and restart: PASS with mocked provider responses
-- ZERO Realtime ephemeral credential/origin/session contract: PASS with mocked OpenAI response
-- current search, weather/news routing, deterministic time and follow-up context: PASS
-- idempotent tool execution, encrypted confirmation, prompt-injection defense and audit: PASS
-- bounded, persisted and deletable conversation memory: PASS
-- hands-free client, local double-clap gate, standby privacy and failure isolation: PASS
-- deterministic WebGL2/HDR renderer, motion samples, adaptive quality, bloom and occlusion source contracts: PASS
-- display/spoken split, Dutch normalization and audio-reactive output contract: PASS
-- 38-collection CRM Core, RBAC, Customer 360, pipelines, analytics, dashboards, automation and standalone runtime: PASS
-
-### New v6 platform gates
-
-- platform schema and non-destructive migrations: PASS
-- tenant isolation across platform and finance domains: PASS
-- immutable canonical events and provider/internal deduplication: PASS
-- realtime aggregation and server-paginated historical rollups: PASS
-- incrementally updated shared fact cache: PASS
-- versioned KPI Registry, empty-state semantics and record drilldown: PASS
-- attribution, commercial funnel and revenue/margin double-count protection: PASS
-- Meta and Google measurement contracts: CONFIGURED/UNVERIFIED until real provider access succeeds
-- Dutch BTW rule, invoice-requirement and retention guardrails: PASS
-- non-BTW Dutch tax domains: ARCHITECTURE-ONLY by design
-- canonical data online/offline, conflict and recovery contracts: PASS
-- Knowledge lifecycle and Learning feedback/outcome evaluation: PASS
-- connector lifecycle, checkpoints, attempts and webhook records: PASS
-- replay-safe Automation execution and explicit high-risk approval: PASS
-- Auto-Provisioner capability packs: PASS
-- double-entry ledger balance and immutable-posting/reversal contract: PASS
-- sales and purchase invoices, partial payments, credit notes and counterparties: PASS
-- bank import, proposals and explicitly confirmed reconciliation: PASS
-- source-document confidence/review gate: PASS
-- fixed assets with separate book/fiscal values: PASS
-- P&L, balance sheet, cash flow, AR/AP aging, VAT, margin, budget and forecast reports: PASS
-- tenant-scoped, permission-gated audited exports: PASS
-- period close and reversal controls: PASS
-- Analysis and Finance API authentication and SSE contract: PASS
-- Analysis and Finance responsive/CSP/accessibility/empty-state contracts: PASS
-- full-platform end-to-end deterministic journey and encrypted restart: PASS
-
-## Neural command center visual correction
-
-The old dashboard video was used only as the primary motion and composition reference. It is not copied, embedded, replayed, or shipped by the application.
-
-- restored composition: one Foundly core, 12 module hubs and all 154 existing capability labels;
-- deterministic topology: 166 explicit core/module/capability connections inside the existing 420-ribbon and 6,200-particle renderer budget;
-- autonomous motion: a 46-second non-uniform 3D trajectory combining yaw, pitch, subtle roll, camera precession and depth change instead of a continuous simple orbit;
-- orientation coverage: numerical regression proves front/rear, above/below, left/right, bidirectional roll, two-axis precession and non-monotonic yaw;
-- background: near-black/deep-space black with only restrained blue atmosphere; neural filaments, particles and energy remain the primary color source;
-- integration boundary: renderer/style files plus one constructor-data hook in `index-script.js`; no CRM, Analysis, Finance, Tax, Data, Connector, Automation, ZERO, auth, security or persistence implementation changed;
-- regression result: the full `npm test` matrix remains PASS.
-
-## Official fiscal-source verification
-
-The committed fiscal metadata was rechecked on 2026-09-04 against the official Belastingdienst pages referenced by the code:
-
-- BTW rates: 21%, 9%, 0% and exemption categories;
-- statutory invoice fields and unique sequential invoice-number requirement;
-- seven-year base administration retention, with ten-year categories for real estate and OSS/IOSS records;
-- 2026 corporate-income-tax rates: 19% through EUR 200,000 and 25.8% above that threshold.
-
-Only the versioned BTW rules are marked executable. Corporate tax and every other non-BTW fiscal domain remain architecture-only and review-gated.
-
-## Live Railway evidence after final main publication
-
-Observed at `https://v36-production.up.railway.app` on 2026-09-04:
-
-- `GET /api/health`: HTTP 200, `version: 6.0.0`
-- `GET /api/diagnostics/runtime-auth`: HTTP 200, production/Railway runtime detected, OpenAI configured, no secret values exposed
-- `GET /api/ready`: HTTP 503, `verdict: FAIL`
-- post-publication uptime observation: reset to 54 seconds after the final main push, consistent with a fresh Railway deployment
-- target service reconfirmed as project `dazzling-solace`, environment `production`, service `v36`, domain `v36-production.up.railway.app`
-- neural visual merge `ee429a9104b54a879365c69c965ec42308c333ba`: Railway deployment `939ee0ad-8734-45fb-af1b-aa8dfda92a15` reported `Deployment successful`
-- deploy log after the visual merge: `Foundly OS v6.0.0 ONLINE op poort 8080`
-- Railway Network Logs after that start: `GET /api/health`, HTTP 200
-
-The public health endpoint, GitHub deployment status and Railway deployment record prove that a fresh v6.0.0 container built and started from the neural visual merge. The endpoint itself does not expose a commit SHA; commit binding is provided by the GitHub-attached Railway status and matching Railway deployment record.
-
-## Remaining external live gates
-
-These items cannot be truthfully converted into code-level PASS results or fixed by inventing/replacing credentials:
-
-1. `authentication`: `FOUNDLY_ADMIN_USERNAME` plus the existing admin password, or an existing bearer token, must be present on the active Railway service.
-2. `public_base_url`: `FOUNDLY_PUBLIC_BASE_URL=https://v36-production.up.railway.app` must be present on that same service.
-3. `oauth_callbacks`: Meta, Google, LinkedIn, TikTok and Wix callback variables must exactly match the public origin and documented paths on that same service.
-4. `persistent_mount`: the active service needs a Railway Volume mounted at `/data`, with `FOUNDLY_DATA_DIR=/data`.
-
-No credential was changed, regenerated, copied into source control, or bypassed during this run. The existing GitHub login opened Railway successfully for read-only verification; no Railway variable, volume, secret, service topology or staged change was modified. Railway showed one pre-existing staged destructive change labelled `Service will be deleted` for `v36`; it was deliberately not applied and requires explicit human review before anyone uses `Deploy changes`.
-
-## Still requiring real target-system observation
-
-- exact deployed commit SHA from the Railway deployment record;
-- live OpenAI Realtime WebRTC audio, microphone permission, local wake capability and playback in the target browser;
-- live OAuth consent/token exchange for real Meta, Google, LinkedIn, TikTok or Wix accounts;
-- provider permissions, app review, partner access and production data availability;
-- real Meta CAPI, GA4 and Google Ads delivery plus provider processing receipts;
-- measured browser FPS/frame time and WebGL2 pixel/motion parity on target hardware;
-- live acoustic comparison on target audio hardware;
-- rendered CRM, Analysis and Finance pixel/layout and interaction acceptance behind valid production authentication;
-- standalone CRM deployment URL and live standalone-service readiness.
-
-Do not label any item in the two sections above `LIVE PASS` until the required Railway, browser or provider evidence has been observed.
-
-## Run 2 — real marketplace data and provider-access evidence
-
-### 1. RUN 2 BASELINE
-
-- Branch: `feature/automotive-live-marketplaces`.
-- Starting remote `main`: `79165d3403d89fbb5e5ffc71e1353a5f5d65bd0f`.
-- Version: `6.0.0`; no package or product-version bump was made.
-- Checkpoint: local tag `run2-checkpoint-0-20260904` at `79165d3`.
-- The starting worktree was clean apart from the supplied, untracked `upload/` directory. That directory was neither staged nor changed.
-- The accepted Neural command-center files remained byte-for-byte identical to the Run-2 baseline and were absent from every Run-2 feature diff.
-
-### 2. PROVIDER STATUS
-
-| Provider | Implemented | Config | Auth | Probe | Real Search | Real Records | Normalized | Cached | ZERO | Workspace | Status | Blocker |
-| --- | --- | --- | --- | --- | --- | ---: | ---: | --- | --- | --- | --- | --- |
-| RDW Open Data | yes | public endpoint | public | PASS, HTTP 200 | PASS, official vehicle-truth query | 50 | 50 | isolated test cache only | no real marketplace result | no real marketplace result | `LIVE` vehicle truth | none; RDW is not marketplace inventory |
-| mobile.de Search API | yes | absent in Production | no | NOT RUN | no | 0 | 0 | no | no real provider data | no real provider data | `BLOCKED` | `MOBILE_DE_USERNAME` and `MOBILE_DE_PASSWORD` absent |
-| Marktplaats v2 Search | yes | absent in Production | no | NOT RUN | no | 0 | 0 | no | no real provider data | no real provider data | `BLOCKED` | client/token configuration absent; OAuth account-owner consent not completed |
-| AutoScout24 | no verified official adapter contract | absent in Production | no | NOT RUN | no | 0 | 0 | no | no | no | `BLOCKED / P1` | no legitimate existing API access was found |
-
-Railway was audited in the authenticated account before any release action. The correct target is project `dazzling-solace`, environment `production`, service `v36`, domain `v36-production.up.railway.app`. Exactly 19 service-variable names were visible; no `MOBILE_DE*`, `MARKTPLAATS*`, `AUTOSCOUT24*`, tenant/dealer marketplace variable or shared marketplace variable was configured. No value was displayed or copied. No encrypted connector-config data was present at `/data` or `/app/data-runtime`.
-
-### 3. REAL DATA EVIDENCE
-
-The only successful real external-provider observation in Run 2 was RDW:
-
-- Query type: BMW X5, year from 2022, at most 100,000 km, purchase-price ceiling EUR 80,000.
-- Provider result: HTTP 200 from the official RDW Open Data endpoint.
-- Records: 50 received, 50 normalized as vehicle truth.
-- Observed at: `2026-09-04T22:36:36.616Z`.
-- Freshness: `LIVE` under the RDW-specific freshness policy.
-- Secret values reported: none.
-
-RDW is open vehicle truth, not a marketplace listing source. Therefore this observation does not satisfy the real-marketplace gate. No mobile.de, Marktplaats or AutoScout24 record is claimed as live, real, cached or provider-verified.
-
-### 4. MARKETPLACE INGESTION
-
-- mobile.de mapping now accepts the provider's documented New JSON fields, including `mobileAdId`, `mobileSellerId`, flat vehicle fields, gross consumer price, seller data, direct image representations and detail URL.
-- mobile.de query mapping uses only verified official fuel, gearbox and feature enum values. Pagination is bounded to 20 requests and 2,000 records.
-- Marktplaats mapping now accepts documented v2 HAL search/detail shapes, `_embedded["mp:search-result"]`, `itemId`, seller fields, HAL links and cent-denominated `priceModel.askingPrice`. Pagination follows a same-origin HAL `next` link or bounded offset progression, up to 25 requests and 1,000 records.
-- Relative templated Marktplaats image links are not presented as usable images; the record remains in an honest no-image state unless a safe direct URL exists.
-- Canonical provenance, provider/listing identity, transformation version `foundly-automotive-normalizer/1.1.0`, bounded normalization and provider timing/pagination telemetry are present.
-- Existing entity resolution and cache/persistence paths were reused. No second ingestion system or datastore was introduced.
-- Real marketplace persistence was not executed because no marketplace provider was authenticated. Production durability is also not claimed while `/data` is not proven as a separate Railway volume.
-
-### 5. INTELLIGENCE PROOF
-
-The existing comparables, Dutch economics, BPM estimate, explainable Buy Score, confidence and risk stages still pass deterministic regressions. The new official-documentation-shape contract test proves that provider records can traverse normalization and bounded persistence/search plumbing without leaking test credentials. It is explicitly labelled `OFFICIAL_DOCUMENTATION_SHAPE_CONTRACT_FIXTURE_NOT_LIVE_PROVIDER_DATA`.
-
-No real marketplace comparables, economics, Buy Score, confidence or risk conclusion was produced in Run 2. RDW rows were not misrepresented as available marketplace stock. The real-intelligence acceptance gate therefore remains blocked upstream by provider access.
-
-### 6. ZERO PROOF
-
-Existing Automotive ZERO tool registration, multi-turn criteria retention, context modification, evidence explanation and flagship House of Cars guardrails remain regression-PASS. No live production ZERO marketplace answer, budget follow-up or “Welke zou jij inkopen?” recommendation is claimed: the marketplace providers have no runtime authentication and production's existing authentication-readiness gate prevents access to the protected route.
-
-### 7. HOUSE OF CARS EXPERIENCE
-
-The existing `/automotive` workspace and tenant-configurable dealer-fit design are preserved. No private House of Cars inventory, preferences, target margin or historical performance data was available or invented. There are no real marketplace records to render. On production, `/automotive` currently returns HTTP 401 `auth_not_configured`, so no authenticated rendered-workspace acceptance is claimed.
-
-### 8. FAILURE / RESILIENCE
-
-- Provider timeout and isolated-provider failure handling: regression PASS.
-- Real-cache fallback and stale/unavailable semantics: regression PASS; no fabricated fallback inventory.
-- Freshness is now provider-specific: mobile.de 15 minutes live / 6 hours cached; Marktplaats 10 minutes live / 4 hours cached; AutoScout24 15 minutes live / 6 hours cached; RDW 24 hours live / 7 days cached.
-- Bounded pagination, record/image limits and same-origin Marktplaats next-link enforcement are contract-test PASS.
-- Missing provider configuration produces `BLOCKED`/`NOT_RUN`, zero records and no fake `LIVE` state.
-
-### 9. TEST RESULTS
-
-- `npm run test:automotive`: PASS, exit 0, including the new mobile.de New JSON and Marktplaats v2 HAL contract regression.
-- `npm run test:automotive:live`: PASS, exit 0 at `2026-09-04T22:36:36.616Z`; RDW HTTP 200 with 50 received / 50 normalized, mobile.de and Marktplaats honestly `NOT_RUN`, marketplace gate `BLOCKED`.
-- `npm test`: PASS, exit 0 after all final feature changes; legacy smoke, security, readiness, OAuth, Jarvis, audio/speech, Neural renderer, CRM, Platform, Finance, Analysis, Automotive and full-platform end-to-end suites all passed.
-- `git diff --check`: PASS.
-- Protected Neural asset hashes matched `origin/main`; no Neural asset appears in the feature commit or PR.
-- Published GitHub tree `47c49af067a41672b05ac040c7539e53f56cd1eb` exactly matched the locally tested feature tree.
-
-### 10. GITHUB
-
-- Local implementation commit: `e51b807`.
-- Published feature SHA: `10403793cde68945c691992dd3ee71db884b6a04`.
-- Pull request: `#9`, `Harden official automotive marketplace contracts`.
-- GitHub Actions: `Production architecture tests` run `#32` (`33950952089`), completed `SUCCESS` for feature SHA `10403793`.
-- Merge SHA on `main`: `521ff16a76b3e7a9b6d1f18688eb9073ae92535a`.
-- Scope: five files, 424 additions and 63 deletions; no Neural or unrelated business-module file.
-
-### 11. PRODUCTION
-
-- Railway project/environment/service: `dazzling-solace` / `production` / `v36`.
-- Domain: `https://v36-production.up.railway.app`.
-- Code deployment: `e3865cbc-50df-40a3-9208-8ee2f8520deb`, `Active`, `Deployment successful`.
-- Railway deployment Details binds that deployment to GitHub `Foundlys/v36`, branch `main`, SHA `521ff16a76b3e7a9b6d1f18688eb9073ae92535a`.
-- Deploy log: `Foundly OS v6.0.0 ONLINE op poort 8080` and the existing warning that `/data` is not proven as a separate writable volume.
-- `GET /api/health` at `2026-09-05T06:54:30Z`: HTTP 200, `ok: true`, version `6.0.0`.
-- `GET /api/ready`: HTTP 503, `FAIL`; `authentication`, `public_base_url`, `oauth_callbacks` and `persistent_mount` are false, while encryption, OpenAI, storage path and storage writability remain true.
-- `/automotive`, `/api/automotive/status` and `/api/zero/status`: HTTP 401 `auth_not_configured`; the security boundary is active, but authenticated production Automotive/provider acceptance is blocked.
-- mobile.de, Marktplaats and AutoScout24 remain unconfigured in the active Production service. No real marketplace search was executed on production.
-- No Railway variable, secret, volume, domain, service or topology was changed. The pre-existing staged `Removed / Service will be deleted` change remains untouched and was not deployed.
-
-### 12. BLOCKERS
-
-1. mobile.de production Search API credentials do not exist in the active Railway service or encrypted connector store.
-2. Marktplaats production Search API client/token access and account-owner OAuth consent do not exist in the active service or encrypted connector store.
-3. AutoScout24 has no verified existing official access and remains P1.
-4. Production readiness independently remains blocked by missing authentication injection, exact public base/callback configuration and a genuine persistent Railway volume mounted at `/data`.
-5. The protected Automotive, ZERO and workspace routes cannot be accepted live until the production authentication gate is configured. No security bypass was used.
-
-### 13. RUN 2 LEVEL
-
-`LEVEL 0` for marketplace acceptance. The provider-contract implementation and all independent regression work are complete, and RDW real vehicle truth is live, but zero real marketplace records were returned. No higher level is claimed.
-
-### 14. TUESDAY READINESS
-
-`NOT DEMO READY` for the requested real-marketplace demonstration. The application code is deployed and healthy, but no legitimate marketplace provider has been authenticated and `/api/ready` is still HTTP 503.
-
-### 15. NEXT RUN
-
-Critical path only: the authorized mobile.de account owner must obtain and enter the official Search API username/password in Foundly's existing secure mobile.de connector configuration. Do not send credentials through chat or commit them. Then rerun, in order: authentication probe → real marketplace search → normalization/provenance → persistent cache → comparables/economics/Buy Score → ZERO multi-turn and flagship query → five non-hardcoded searches → production workspace verification.
+The production baseline and every previously completed domain remain preserved. Project lively-simplicity was not used, modified, deleted, or treated as canonical in this masterbuild run.
+
+## IMPLEMENTED
+
+PR #12, Complete Foundly OS final masterbuild, introduced the bounded presentation and integration layer required for the final operating-system shell:
+
+- one global Foundly shell and navigation system;
+- 13 routable workspaces;
+- one canonical 100-connector control plane;
+- one canonical 104-source registry;
+- premium deep-space workspace styling and coherent default dashboards;
+- dashboard add, remove, move, resize, save, personal/team/role/preset scope, filters, drilldown, export, and ZERO dock;
+- truthful connector setup, authentication, probe, sync, freshness, record, error, and audit surfaces;
+- corrected Automotive navigation and Inkoop source grouping;
+- source provenance, empty-state, tenant, and no-fake-data presentation contracts.
+
+Published feature SHA dbe186e53774cde04730dcedb903026bf74f0421 was merged as cb491ccd8eb9fe4f09d23810e450db07f603d9ee. GitHub Actions run 33964434101 passed.
+
+The first live sweep then proved a single integration defect: GET /api/analysis/status returned HTTP 404. PR #13 added only a read-only alias over the existing Analysis workspace snapshot plus six regression assertions. Published feature SHA cc5f566a8296946768905b39f591cc6f41d9d309 was merged as b1cf28f3de1ca693c893861fc2ca42f9abc26337. GitHub Actions run 33965106312 passed in 51 seconds.
+
+No version bump occurred. The remote Git tree exactly matched the locally tested tree after both browser uploads.
+
+The following protected implementation files have no final-masterbuild functional diff: crm-core.js, finance-core.js, platform-core.js, automotive-core.js, automotive-api.js, platform-api.js, neural-runtime.js, ZERO audio/speech logic, OAuth security logic, and persistence primitives. The accepted Neural renderer remains frozen.
+
+## WORKSPACES
+
+| Workspace | Route | Default purpose |
+| --- | --- | --- |
+| Neural Command Center | / | Foundly Core, signals, command, and ZERO |
+| Automotive OS | /automotive | procurement, providers, vehicles, economics, Buy Score |
+| CRM | /crm | customers, leads, deals, pipelines, tasks, forecasts |
+| Analysis | /analysis | realtime, historical, KPI, funnel, attribution |
+| Finance | /finance | ledger, invoices, cash, VAT, reports, close |
+| Data Platform | /data | datasets, schemas, lineage, quality, retention |
+| Knowledge | /knowledge | evidence, confidence, validity, supersession |
+| Learning | /learning | recommendations, outcomes, feedback, calibration |
+| Automation | /automation | workflows, approvals, retries, audit |
+| Connector Control Center | /connectors | setup, auth, probes, sync, freshness, errors |
+| Communication | /communication | inbox, email, WhatsApp, calendar, voice |
+| Marketing | /marketing | campaigns, Meta, Google, attribution, measurement |
+| Settings | /settings | tenant, roles, capabilities, security, persistence |
+
+GET /api/workspaces returned HTTP 200 with 13 workspaces. Navigation, unique IDs, referenced DOM hooks, responsive CSS, authentication boundaries, dashboard contracts, and intentional empty states pass deterministic regression. Actual production pixel rendering is reported separately under BROWSER ACCEPTANCE.
+
+## SOURCE REGISTRY
+
+GET /api/source-registry returned HTTP 200 with:
+
+- 104 canonical sources;
+- exactly 47 required schema fields;
+- multi-category classification enabled;
+- OpenAI present as an intelligence and knowledge source;
+- six Foundly internal sources;
+- secret_values_exposed false.
+
+Required schema fields:
+
+source_id, provider_id, connector_id, display_name, description, categories, capabilities, industries, regions, source_type, data_type, runtime_role, supports_read, supports_write, supports_search, supports_realtime, supports_webhook, supports_images, supports_vehicle_truth, supports_listings, supports_valuation, supports_fx, supports_reasoning, supports_measurement, supports_communication, requires_credentials, requires_oauth, requires_partner_access, configured, authenticated, probe_status, sync_status, connection_status, freshness_status, last_probe_at, last_probe_latency_ms, last_sync_at, last_success_at, last_failure_at, safe_error_code, records_available, tenant_scope, permission_scope, provenance_supported, retention_policy, configuration_source, runtime_enabled.
+
+The registry never returns credential values. Every source can carry multiple categories and capabilities; sources are not forced into one misleading category.
+
+## CONNECTOR REGISTRY
+
+GET /api/connector-registry returned HTTP 200 with 100 connectors and secret_values_exposed false.
+
+Every connector exposes identifier, provider, name, categories, industries, capabilities, authentication type, credential contract, callback contract, configuration/authentication/probe/sync/connection state, timing, freshness, records, safe error, scopes, tenant permissions, partner approval, setup action, and documentation reference.
+
+The lifecycle is enforced as:
+
+UNCONFIGURED, AWAITING_ACCESS, CONFIGURED, AUTHORIZING, AUTHENTICATED, PROBING, SYNCING, CONNECTED, DEGRADED, ERROR, EXPIRED, DISCONNECTED.
+
+CONNECTED requires valid configuration, valid authorization, a successful provider probe, and any required bootstrap/search/sync evidence.
+
+Live connector credential metadata contained 107 unique environment-variable names: 5 were runtime-visible and 102 were absent. All absent entries remain available as named configuration slots or encrypted tenant credential fields; no placeholder value was created. Variable values are never returned.
+
+Critical runtime variables:
+
+| Variable | Status |
+| --- | --- |
+| FOUNDLY_ADMIN_USERNAME | runtime-visible |
+| FOUNDLY_ADMIN_PASSWORD | runtime-visible |
+| FOUNDLY_ADMIN_TOKEN | absent; optional, username/password auth is active |
+| FOUNDLY_PUBLIC_BASE_URL | runtime-visible |
+| FOUNDLY_DATA_DIR | runtime-visible as /data |
+| FOUNDLY_ENCRYPTION_KEY | runtime-visible |
+| OPENAI_API_KEY | runtime-visible |
+| META_APP_ID | runtime-visible |
+| META_APP_SECRET | runtime-visible |
+| GOOGLE_CLIENT_ID | runtime-visible |
+| GOOGLE_CLIENT_SECRET | runtime-visible |
+| META_REDIRECT_URI | runtime-visible and exact |
+| GOOGLE_REDIRECT_URI | runtime-visible and exact |
+| LINKEDIN_REDIRECT_URI | absent; safely derived from the public base origin |
+| TIKTOK_REDIRECT_URI | absent; safely derived from the public base origin |
+| WIX_REDIRECT_URI | absent; safely derived from the public base origin |
+
+## AUTOMOTIVE
+
+- GET /api/automotive/status: HTTP 200, ok true, version 6.0.0.
+- RDW Open Data: configured, real probe PASS, CONNECTED.
+- ECB reference rates: configured, real probe PASS, CONNECTED.
+- mobile.de, Marktplaats, AutoScout24, VWE, Autotelex, and RDC: legitimate access remains pending; no credential or record is fabricated.
+- Automotive workspace and Inkoop show the correct source families: marketplaces, vehicle truth, enrichment, valuation, financial reference, and Foundly history.
+- Real marketplace rows remain empty until at least one authorized provider returns data.
+- Comparables, valuation, BPM, economics, dealer fit, Buy Score, confidence, risk, cache semantics, and ZERO Automotive orchestration pass deterministic tests without being mislabeled as live provider proof.
+
+## ZERO
+
+- GET /api/zero/status: HTTP 200, ok true, version 6.0.0.
+- Server-side tool registry, source provenance, follow-up context, idempotency, confirmation replay defense, prompt-injection defense, memory pruning, and persistence pass.
+- Display text and spoken text remain separated and Dutch speech normalization passes.
+- The accepted 3D Neural organism preserves autonomous yaw, pitch, subtle roll, precession, and depth variation against a near-black background; neural-runtime.js is unchanged by the final masterbuild.
+- Microphone, wake, playback, follow-up audio, and barge-in could not be observed on target browser hardware and are not claimed as live hardware PASS.
+
+## CRM
+
+GET /api/crm/status returned HTTP 200, ok true, version 6.0.0. The existing 38-collection CRM Core, RBAC, tenant isolation, Customer 360, inventory-customer matching, pipelines, analytics, dashboards, webhooks, automation gates, encrypted persistence, and standalone contracts remain regression-PASS.
+
+## ANALYSIS
+
+GET /api/analysis/status returned HTTP 200, ok true, version 6.0.0 after PR #13. It returned the existing Analysis snapshot and truthful no-fake-data state. No Analysis core, KPI formula, event, attribution, or business logic changed.
+
+Realtime aggregation, historical rollups, shared fact cache, versioned KPI registry, funnel, campaign-outcome deduplication, attribution, freshness, and drilldown remain regression-PASS.
+
+## FINANCE
+
+GET /api/finance/status returned HTTP 200, ok true, version 6.0.0. Double-entry posting, immutable journals, sales and purchase invoices, partial payments, credit notes, reconciliation, document review, fixed assets, Dutch VAT, reports, budgets, forecasts, close, reversals, and audited exports remain regression-PASS.
+
+## DATA
+
+GET /api/data-platform/status and GET /api/module/data/summary both returned HTTP 200. Canonical records, append-only events, provenance, deduplication, schemas, lineage, quality, offline outbox, conflicts, retention, recovery, and encrypted persistence remain active.
+
+## KNOWLEDGE
+
+GET /api/knowledge/records returned HTTP 200. Evidence lifecycle, confidence, validity, supersession, permission filtering, freshness, audit, and source provenance remain regression-PASS. Empty production results are rendered as empty states, not synthetic knowledge.
+
+## LEARNING
+
+GET /api/learning/insights returned HTTP 200. Recommendation, outcome, feedback, lesson, calibration, rule-version, and model-version contracts remain evidence-bound. No automatic-retraining claim is made.
+
+## AUTOMATION
+
+GET /api/automation/status returned HTTP 200. Workflows and runs are tenant-filtered; idempotency, retry isolation, explicit approval for high-risk actions, dependency truth, and audit remain enforced. An empty workflow/run set is not treated as failure or replaced with fake activity.
+
+## COMMUNICATION
+
+GET /api/module/communicatie/summary returned HTTP 200. Email, WhatsApp, calendar, voice, notification, and template surfaces expose truthful connector availability. External sends retain their existing authorization and confirmation boundaries.
+
+## MARKETING
+
+GET /api/module/social_media/summary returned HTTP 200. Meta, Google, campaigns, attribution, conversions, audiences, creatives, and measurement surfaces render only persisted or provider-verified facts. Meta and Google app configuration is preserved; provider-account authorization is not falsely claimed.
+
+## SECURITY
+
+- Production authentication readiness: true.
+- Encryption readiness: true.
+- Public base URL readiness: true.
+- OAuth callback binding readiness: true.
+- Tenant-header isolation, RBAC, timing-safe authentication, SSRF guard, safe origins, secret redaction, and OAuth state persistence/replay protection: PASS.
+- No credential was changed, rotated, copied between projects, committed, displayed, or logged.
+- The configured Basic/Bearer authentication path was used normally; no authentication challenge or other security control was bypassed.
+
+Invalid-state public callback results:
+
+| Provider | HTTP | Safe controlled error | WWW-Authenticate | Redirect |
+| --- | ---: | --- | --- | --- |
+| Meta | 302 | yes | absent | same-origin relative |
+| Google | 302 | yes | absent | same-origin relative |
+| LinkedIn | 302 | yes | absent | same-origin relative |
+| TikTok | 302 | yes | absent | same-origin relative |
+| Wix | 302 | yes | absent | same-origin relative |
+
+## PERFORMANCE
+
+The renderer keeps the accepted deterministic 6,200-particle, 420-ribbon, 166-connection budget and adaptive quality contracts. Motion, failure isolation, renderer/audio independence, and topology tests pass. No target-hardware FPS, frame-time, pixel-parity, or acoustic metric is claimed because the production host could not be rendered in the available cloud browser.
+
+## TESTS
+
+| Gate | Result |
+| --- | --- |
+| npm run test:masterbuild | PASS |
+| npm test | PASS |
+| JavaScript syntax suite | PASS |
+| Smoke and production audit | PASS |
+| Security and readiness regressions | PASS |
+| OAuth production regressions | PASS |
+| ZERO/Jarvis server and client regressions | PASS |
+| Speech, audio, and Neural visual regressions | PASS |
+| CRM core/API/standalone suites | PASS |
+| Platform, Analysis, and Finance suites | PASS |
+| Automotive core/API/provider-contract suites | PASS |
+| Full deterministic platform E2E | PASS |
+| git diff --check | PASS |
+| PR #12 Production architecture tests, run 33964434101 | PASS |
+| PR #13 Production architecture tests, run 33965106312 | PASS |
+
+Provider-shaped fixtures are explicitly labeled as deterministic or synthetic contract fixtures and are never used as live-provider evidence.
+
+## BROWSER ACCEPTANCE
+
+The real production host was opened in the available cloud-browser environment after API readiness passed. The browser returned net::ERR_BLOCKED_BY_CLIENT before the page or an authentication surface could render. The same environment therefore could not truthfully verify authenticated pixels, overflow, responsive breakpoints, interactive navigation, microphone permission, playback, or console-fatal state on the Foundly origin.
+
+No pixel/visual or live-audio PASS is claimed. Browser-side route and dashboard contracts pass deterministic tests, while live API and Railway-console acceptance completed independently. This limitation is specific to the available cloud browser and is not evidence of an application health or readiness defect.
+
+## PRODUCTION
+
+| Check | Live result |
+| --- | --- |
+| Target | dazzling-solace / production / v36 |
+| Domain | https://v36-production.up.railway.app |
+| GitHub binding | Foundlys/v36 / main |
+| SHA | b1cf28f3de1ca693c893861fc2ca42f9abc26337 |
+| Version | 6.0.0 |
+| Deployment | 3f0c5f19-475f-444a-b62e-911728180f5e |
+| Deployment state | Active / Deployment successful |
+| /api/health | HTTP 200, ok true, version 6.0.0 |
+| /api/ready | HTTP 200, ready true, verdict PASS |
+| Automotive / ZERO / CRM / Analysis / Finance status | all HTTP 200 |
+| Platform / Data Platform / Automation / Workers / diagnostics | all HTTP 200 |
+| Workspaces / Source Registry / Connector Registry | HTTP 200; 13 / 104 / 100 |
+
+Readiness components authentication, encryption, public_base_url, oauth_callbacks, jarvis_openai, storage_path, storage_writable, and persistent_mount were individually true.
+
+Before release verification, the complete visible Railway pending state was checked. No Deploy changes, service deletion, volume deletion, domain deletion, credential deletion, or unexpected topology change was present.
+
+PR #11 remains an open superseded historical evidence PR. It was not merged, changed, or treated as current production truth.
+
+## PERSISTENCE
+
+- Railway volume: v36-volume.
+- Mount path: /data.
+- FOUNDLY_DATA_DIR: /data.
+- Runtime device test: /data is on a separate filesystem from container root.
+- Readiness storage_path, storage_writable, and persistent_mount: true.
+- A non-sensitive diagnostic marker was written as /data/.foundly-final-masterbuild-proof with mode 0600.
+- Railway Restart completed successfully without changing the code deployment.
+- After restart, the marker content matched, the separate-mount test remained true, SHA remained b1cf28f3de1ca693c893861fc2ca42f9abc26337, health remained HTTP 200, and readiness remained HTTP 200 PASS.
+- No production business record was created, changed, or deleted for this proof.
+
+## CONNECTOR MATRIX
+
+Canonical live state totals:
+
+| State | Count |
+| --- | ---: |
+| CONNECTED | 5 |
+| AUTHENTICATED | 1 |
+| CONFIGURED | 14 |
+| AWAITING_ACCESS | 28 |
+| UNCONFIGURED | 52 |
+| Total | 100 |
+
+Priority connector truth:
+
+| Connector | Config | Probe | Canonical state | Runtime variable/credential status |
+| --- | --- | --- | --- | --- |
+| RDW | public | PASS | CONNECTED | no key required |
+| ECB FX | public | PASS | CONNECTED | no variable required |
+| OpenAI | present | PASS | CONNECTED | OPENAI_API_KEY runtime-visible |
+| Meta | app config present | not account-authorized | CONFIGURED | META_APP_ID and META_APP_SECRET runtime-visible |
+| Google | app config present | not account-authorized | CONFIGURED | GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET runtime-visible |
+| mobile.de | absent | not run | AWAITING_ACCESS | encrypted username/password fields and provider variable slots available |
+| Marktplaats | absent | not run | AWAITING_ACCESS | client/token fields and provider variable slots available |
+| AutoScout24 | absent | not run | AWAITING_ACCESS | AUTOSCOUT24_API_KEY slot available |
+| VWE | absent | not run | AWAITING_ACCESS | VWE_API_KEY slot available |
+| Autotelex | absent | not run | AWAITING_ACCESS | AUTOTELEX_API_KEY slot available |
+| RDC | absent | not run | AWAITING_ACCESS | RDC_USERNAME and RDC_PASSWORD slots available |
+| LinkedIn | absent | not run | UNCONFIGURED | LINKEDIN_CLIENT_ID and LINKEDIN_CLIENT_SECRET slots available |
+| TikTok | absent | not run | UNCONFIGURED | TIKTOK_CLIENT_KEY and TIKTOK_CLIENT_SECRET slots available |
+| Wix | absent | not run | UNCONFIGURED | WIX_APP_ID, WIX_APP_SECRET, and WIX_SHARE_URL_ID slots available |
+
+The live integrations endpoint reported 100 total, 19 configured, and 5 connected after real probes. Canonical state is the user-facing truth because it also incorporates partner-access requirements and bootstrap rules.
+
+## SOURCE MATRIX
+
+Canonical live state totals:
+
+| State | Count |
+| --- | ---: |
+| CONNECTED | 10 |
+| AUTHENTICATED | 1 |
+| CONFIGURED | 13 |
+| AWAITING_ACCESS | 28 |
+| UNCONFIGURED | 52 |
+| Total | 104 |
+
+Priority source truth:
+
+| Source | Categories | State |
+| --- | --- | --- |
+| Foundly Core | internal operational data | CONNECTED |
+| Canonical Events | internal analytics and measurement | CONNECTED |
+| Foundly Knowledge | permission-filtered knowledge | CONNECTED |
+| Foundly Automotive history | internal Automotive history/cache | CONNECTED |
+| Foundly CRM | internal CRM system of record | CONNECTED |
+| Foundly inventory | internal inventory system of record | CONNECTED |
+| OpenAI | AI intelligence, knowledge synthesis, reasoning, conversation | CONNECTED |
+| OpenAI Realtime | realtime AI, voice, conversation | CONNECTED |
+| RDW | Automotive vehicle truth, public data | CONNECTED |
+| ECB FX | financial reference, FX, public data | CONNECTED |
+| Meta | marketing, social, measurement, leads | CONFIGURED |
+| Google | search, marketing, measurement, analytics | CONFIGURED |
+| mobile.de | Automotive marketplace, procurement | AWAITING_ACCESS |
+| Marktplaats | Automotive marketplace, procurement | AWAITING_ACCESS |
+| AutoScout24 | Automotive marketplace, procurement | AWAITING_ACCESS |
+| VWE | Automotive data, enrichment, dealer services | AWAITING_ACCESS |
+| Autotelex | valuation, vehicle data, BPM, economics | AWAITING_ACCESS |
+| RDC | Automotive vehicle data and enrichment | AWAITING_ACCESS |
+
+Foundly Core reported 1,689 tenant-scoped records at observation time. Zero counts for other domains are preserved as truthful empty states.
+
+## EXTERNAL ACCESS PENDING
+
+The masterbuild and production platform are ready. The remaining items are external authorization/data gates, not a request for another build:
+
+1. mobile.de — provider access requested; no credential supplied.
+2. Marktplaats — provider access requested; no credential supplied.
+3. AutoScout24 — provider access requested; no credential supplied.
+4. VWE — provider access requested; no credential supplied.
+5. Autotelex — provider access requested; no credential supplied.
+6. RDC — provider access requested; no credential supplied.
+7. Meta — app configuration is preserved; real account authorization/bootstrap is pending.
+8. Google — app configuration is preserved; real account authorization/bootstrap is pending.
+9. LinkedIn, TikTok, and Wix — configuration slots and safe callbacks exist; credentials/account authorization are absent.
+10. Target-browser visual/audio hardware acceptance — technically unavailable in the current cloud browser.
+
+No legitimate provider credential was available to add. Empty variables were not created because empty or invented values would not make a real coupling.
+
+## REAL-DATA ACCEPTANCE PLAN
+
+The next run is exactly: FOUNDLY REAL-DATA ACCEPTANCE RUN.
+
+As soon as the first legitimate marketplace provider becomes available:
+
+1. secure credentials;
+2. authenticate;
+3. provider probe;
+4. generic real search;
+5. receive real listings;
+6. normalize;
+7. attach provenance;
+8. deduplicate;
+9. write persistent cache;
+10. enrich vehicle truth;
+11. calculate comparables;
+12. calculate valuation;
+13. calculate BPM;
+14. calculate economics;
+15. calculate dealer fit;
+16. calculate Buy Score;
+17. calculate confidence;
+18. calculate risk;
+19. verify ZERO answer;
+20. verify follow-up conversation;
+21. verify Automotive workspace;
+22. restart;
+23. prove persisted records survive;
+24. run five non-hardcoded searches;
+25. run the House of Cars flagship query;
+26. perform browser verification;
+27. record final real-data acceptance.
+
+No architecture rebuild is required before this run.
+
+## FINAL VERDICT
+
+FOUNDLY OS FINAL MASTERBUILD COMPLETE — EXTERNAL PROVIDER ACCESS PENDING
+
+Platform readiness is PASS. Version 6.0.0 is healthy, authenticated, callback-safe, persistently mounted, restart-proven, CI-green, and deployed from canonical main. The only remaining acceptance work requires legitimate external provider access or target browser/audio hardware.
