@@ -6,22 +6,31 @@
   <meta name="color-scheme" content="dark">
   <title>Foundly CRM</title>
   <link rel="stylesheet" href="/crm.css">
+  <link rel="stylesheet" href="/foundly-shell.css">
   <script src="/crm-script.js" defer></script>
+  <script src="/foundly-shell.js" defer></script>
 </head>
 <body>
   <div class="ambient" aria-hidden="true"></div>
   <aside class="rail" aria-label="CRM-navigatie">
     <a class="brand" href="/crm" aria-label="Foundly CRM home"><span class="brand-mark">F</span><span>FOUNDLY<br><small>CRM</small></span></a>
     <nav id="crmNav">
-      <button class="active" data-view="dashboard"><span>◫</span>Dashboard</button>
-      <button data-view="pipeline"><span>⌁</span>Pipeline</button>
-      <button data-view="records" data-entity="leads"><span>◇</span>Leads</button>
-      <button data-view="records" data-entity="contacts"><span>◉</span>Contacten</button>
-      <button data-view="records" data-entity="companies"><span>▱</span>Bedrijven</button>
-      <button data-view="records" data-entity="tasks"><span>✓</span>Taken</button>
-      <button data-view="records" data-entity="activities"><span>↗</span>Activiteit</button>
-      <button data-view="automation"><span>⌘</span>Automations</button>
-      <button data-view="settings"><span>⚙</span>Configuratie</button>
+      <button class="active" data-view="dashboard" data-section="OVERVIEW"><span>◫</span>Overview</button>
+      <button data-view="records" data-entity="contacts" data-section="CUSTOMERS"><span>◎</span>Customers</button>
+      <button data-view="records" data-entity="companies" data-section="COMPANIES"><span>▱</span>Companies</button>
+      <button data-view="records" data-entity="contacts" data-section="CONTACTS"><span>◉</span>Contacts</button>
+      <button data-view="records" data-entity="leads" data-section="LEADS"><span>◇</span>Leads</button>
+      <button data-view="records" data-entity="deals" data-section="DEALS"><span>◆</span>Deals</button>
+      <button data-view="pipeline" data-section="PIPELINES"><span>⌁</span>Pipelines</button>
+      <button data-view="records" data-entity="tasks" data-section="TASKS"><span>✓</span>Tasks</button>
+      <button data-view="records" data-entity="activities" data-section="ACTIVITY"><span>↗</span>Activity</button>
+      <button data-view="records" data-entity="messages" data-section="COMMUNICATION"><span>◌</span>Communication</button>
+      <button data-view="records" data-entity="segments" data-section="SEGMENTS"><span>◫</span>Segments</button>
+      <button data-view="dashboard" data-section="FORECAST"><span>⌁</span>Forecast</button>
+      <button data-view="automation" data-section="AUTOMATIONS"><span>⌘</span>Automations</button>
+      <button data-view="dashboard" data-section="ANALYTICS"><span>◈</span>Analytics</button>
+      <button data-view="dashboard" data-section="DASHBOARDS"><span>▦</span>Dashboards</button>
+      <button data-view="settings" data-section="SETTINGS"><span>⚙</span>Settings</button>
     </nav>
     <a class="os-link" href="/">Neural Command Center</a>
   </aside>
@@ -54,7 +63,7 @@
     </section>
 
     <section class="view" id="view-records">
-      <div class="toolbar"><label class="search">Zoeken<input id="recordSearch" type="search" placeholder="Naam, e-mail, status…"></label><select id="recordEntity"><option value="leads">Leads</option><option value="contacts">Contacten</option><option value="companies">Bedrijven</option><option value="deals">Deals</option><option value="opportunities">Opportunities</option><option value="tasks">Taken</option><option value="appointments">Afspraken</option><option value="activities">Activiteiten</option><option value="notes">Notities</option><option value="calls">Calls</option><option value="emails">E-mails</option><option value="messages">Berichten</option><option value="products">Producten</option><option value="vehicles">Voertuigen</option><option value="quotes">Offertes</option><option value="orders">Orders</option><option value="campaigns">Campagnes</option></select><button id="refreshRecords" class="ghost">VERVERS</button><button id="createRecord" class="primary">+ RECORD</button></div>
+      <div class="toolbar"><label class="search">Zoeken<input id="recordSearch" type="search" placeholder="Naam, e-mail, status…"></label><select id="recordEntity"><option value="leads">Leads</option><option value="contacts">Contacten</option><option value="companies">Bedrijven</option><option value="deals">Deals</option><option value="opportunities">Opportunities</option><option value="tasks">Taken</option><option value="appointments">Afspraken</option><option value="activities">Activiteiten</option><option value="notes">Notities</option><option value="calls">Calls</option><option value="emails">E-mails</option><option value="messages">Berichten</option><option value="segments">Segmenten</option><option value="products">Producten</option><option value="vehicles">Voertuigen</option><option value="quotes">Offertes</option><option value="orders">Orders</option><option value="campaigns">Campagnes</option></select><button id="refreshRecords" class="ghost">VERVERS</button><button id="createRecord" class="primary">+ RECORD</button></div>
       <div class="table-shell"><table><thead><tr><th>Naam / titel</th><th>Status</th><th>Eigenaar</th><th>Bijgewerkt</th><th></th></tr></thead><tbody id="recordRows"></tbody></table><div id="recordEmpty" class="empty hidden"></div></div>
     </section>
 

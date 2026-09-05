@@ -34,7 +34,7 @@ async function main(){
   x=await req('/api/connector-runtime/profiles',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(profile)});assert.equal(x.r.status,201);
   x=await req('/api/connector-runtime/test/self_test',{method:'POST'});assert.equal(x.r.status,200);assert.equal(x.data.connector.connected,true);
   x=await req('/api/integration-sync/self_test',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});assert.equal(x.r.status,200);assert.equal(x.data.ok,true);assert(x.data.ingested>=1);
-  x=await req('/api/connectors');assert.equal(x.r.status,200);assert.equal(x.data.total,94);assert(x.data.connectors.some(c=>c.id==='self_test'));
+  x=await req('/api/connectors');assert.equal(x.r.status,200);assert.equal(x.data.total,101);assert(x.data.connectors.some(c=>c.id==='self_test'));
 
   // Commands execute internal actions and expose execution metadata.
   x=await req('/api/core/command',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({message:'maak follow-up taak voor klant Jan'})});assert.equal(x.r.status,200);assert.equal(x.data.ok,true);assert(x.data.actions.some(a=>a.type==='create_task'&&a.status==='executed'));assert(!x.data.actions.some(a=>a.type==='create_lead'));
@@ -66,6 +66,6 @@ async function main(){
   assert(!ui.includes('EU listings scanner verwerkt nieuwe voertuigen'),'fake event stream still present');assert(!ui.includes('eigen datastroom'));assert(!ui.includes('EIGEN DATABASE'));assert(ui.includes('FOUNDLY DATA LAYER'));assert(ui.includes('Live providerprobes'));
   assert(!/Yoo bro/i.test(ui));assert(html.includes('index-script.js'));assert(!html.includes('<script>'));assert(js.includes('UICommandBus'));assert(js.includes('semantic_vad')||js.includes('input_audio_buffer.speech_started'));
   x=await req('/api/dashboard/summary');assert.equal(x.r.status,200);assert.equal(x.data.version,'6.0.0');assert.equal(x.data.source.method,'server_aggregate');assert.equal(x.data.sources.connected_providers,x.data.sources.connected.length);assert(Number.isInteger(x.data.data_layer.total_records));
-  console.log(JSON.stringify({ok:true,version:'6.0.0',oauth_state:'pass',persistence:'pass',worker_recovery:'pass',orchestration:'pass',runtime_connectors:'pass',source_contracts:'pass',provenance:'pass',ui_actions:'pass',zero_ui_contract:'pass',legacy_assistant_api:'pass',dashboard_summary:'pass',base_connectors:93},null,2));
+  console.log(JSON.stringify({ok:true,version:'6.0.0',oauth_state:'pass',persistence:'pass',worker_recovery:'pass',orchestration:'pass',runtime_connectors:'pass',source_contracts:'pass',provenance:'pass',ui_actions:'pass',zero_ui_contract:'pass',legacy_assistant_api:'pass',dashboard_summary:'pass',base_connectors:100},null,2));
 }
 main().catch(e=>{console.error(logs);console.error(e);process.exitCode=1}).finally(async()=>{await stop()});

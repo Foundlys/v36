@@ -163,6 +163,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 }
 
 .rail nav { display: grid; gap: 5px; }
+.rail nav.workspace-map { min-height: 0; overflow-y: auto; gap: 3px; scrollbar-width: thin; }
+.rail nav.workspace-map a { min-height: 31px; padding: 7px 9px; font-size: 0.6rem; }
 .rail nav a {
   min-height: 41px;
   padding: 12px 11px;

@@ -6,7 +6,9 @@
   <meta name="color-scheme" content="dark">
   <title>Foundly Automotive Intelligence</title>
   <link rel="stylesheet" href="/automotive.css">
+  <link rel="stylesheet" href="/foundly-shell.css">
   <script src="/automotive-script.js" defer></script>
+  <script src="/foundly-shell.js" defer></script>
 </head>
 <body class="automotive-shell">
   <a class="skip-link" href="#workspace">Naar hoofdinhoud</a>
@@ -40,6 +42,46 @@
       </div>
     </header>
 
+    <nav class="automotive-section-nav" aria-label="Automotive workspace-onderdelen">
+      <a href="#automotiveOverview">Overview</a>
+      <a href="#todayTitle">Today</a>
+      <a href="#searchTitle">Search</a>
+      <a href="#resultsTitle">Procurement</a>
+      <a href="#vehicleGrid">Vehicles</a>
+      <a href="#vehicleDetail">Market</a>
+      <a href="#vehicleDetail">Comparables</a>
+      <a href="#vehicleDetail">Valuation</a>
+      <a href="#vehicleDetail">Economics</a>
+      <a href="#vehicleDetail">BPM</a>
+      <a href="#vehicleDetail">Buy Score</a>
+      <a href="#automotiveOperations">Inventory</a>
+      <a href="#automotiveOperations">Sales</a>
+      <a href="#automotiveOperations">Customer Matching</a>
+      <a href="#automotiveOperations">Analytics</a>
+      <a href="#providerTitle">Sources</a>
+      <a href="/connectors">Connectors</a>
+      <a href="#zeroTitle">ZERO</a>
+    </nav>
+
+    <section class="automotive-overview" id="automotiveOverview" aria-labelledby="automotiveOverviewTitle">
+      <div class="section-heading compact">
+        <div><p class="section-kicker">REAL-DATA COMMAND DASHBOARD</p><h2 id="automotiveOverviewTitle">Automotive Overview</h2></div>
+        <span class="overview-observed" id="automotiveObserved">Controleren</span>
+      </div>
+      <div class="overview-grid" id="automotiveOverviewGrid">
+        <article><span>Provider health</span><strong>Controleren</strong><small>Connector Registry</small></article>
+        <article><span>Today's opportunities</span><strong>Controleren</strong><small>Echte marketplace-data</small></article>
+        <article><span>Top Buy Scores</span><strong>Controleren</strong><small>Evidence-backed scoring</small></article>
+        <article><span>Recent searches</span><strong>Controleren</strong><small>Tenant history</small></article>
+        <article><span>Market movement</span><strong>Controleren</strong><small>Geen schijntrend</small></article>
+        <article><span>Inventory risk</span><strong>Controleren</strong><small>Persistente voorraad</small></article>
+        <article><span>Stale stock</span><strong>Controleren</strong><small>Ouder dan 90 dagen</small></article>
+        <article><span>Recent ZERO recommendations</span><strong>Controleren</strong><small>Persisted only</small></article>
+        <article><span>Data freshness</span><strong>Controleren</strong><small>Source Registry</small></article>
+        <article><span>Source coverage</span><strong>Controleren</strong><small>Bronnen met records</small></article>
+      </div>
+    </section>
+
     <section class="command-deck" aria-labelledby="searchTitle">
       <div class="command-copy">
         <p class="section-kicker">ZERO PROCUREMENT COMMAND</p>
@@ -72,6 +114,16 @@
         <div class="skeleton provider-skeleton"></div>
         <div class="skeleton provider-skeleton"></div>
         <div class="skeleton provider-skeleton"></div>
+      </div>
+    </section>
+
+    <section class="automotive-operations" id="automotiveOperations" aria-labelledby="automotiveOperationsTitle">
+      <div class="section-heading compact"><div><p class="section-kicker">OPERATIONAL MODULES</p><h2 id="automotiveOperationsTitle">Inventory, Sales &amp; Matching</h2></div><span class="state-pill configured">PERSISTED ONLY</span></div>
+      <div class="operations-grid">
+        <article><strong>Inventory</strong><p id="inventoryOperationState">Werkelijke voorraadstatus laden…</p></article>
+        <article><strong>Sales</strong><p>Verkoopgegevens verschijnen alleen wanneer ze in de gedeelde tenantdatalaag bestaan.</p></article>
+        <article><strong>Customer Matching</strong><p>Matches gebruiken uitsluitend expliciet opgeslagen CRM-relaties; er worden geen klantvoorkeuren afgeleid zonder bewijs.</p></article>
+        <article><strong>Analytics</strong><p>Canonical events en providerprovenance blijven de enige bron voor trends en prestaties.</p></article>
       </div>
     </section>
 

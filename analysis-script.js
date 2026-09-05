@@ -104,7 +104,7 @@ function renderAutomation() {
     ['Fouten', data.failed ?? 0],
     ['Execution adapter', data.execution_adapter || 'UNKNOWN']
   ];
-  $('#analysisAutomation').innerHTML = rows.map(([label, value]) => `<div class="stack-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join('');
+  $('#analysisAutomationContent').innerHTML = rows.map(([label, value]) => `<div class="stack-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join('');
 }
 
 async function load() {

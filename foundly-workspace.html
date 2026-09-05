@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Foundly OS Workspace</title>
+  <link rel="stylesheet" href="/foundly-workspace.css">
+  <link rel="stylesheet" href="/foundly-shell.css">
+  <script src="/foundly-shell.js" defer></script>
+  <script src="/foundly-workspace.js" defer></script>
+</head>
+<body class="FoundlyAppShell" data-foundly-workspace>
+  <a class="skip-link" href="#workspaceMain">Naar hoofdinhoud</a>
+  <div class="space-atmosphere" aria-hidden="true"></div>
+
+  <aside class="WorkspaceSidebar" aria-label="Foundly OS hoofdnavigatie">
+    <a class="foundly-brand" href="/" aria-label="Foundly Neural Command Center">
+      <span class="foundly-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>FOUNDLY<small>OPERATING SYSTEM</small></span>
+    </a>
+    <button class="GlobalSearch" id="globalSearchButton" type="button" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K"><span>⌕</span> Zoek in Foundly <kbd>⌘ K</kbd></button>
+    <nav id="globalNav" class="global-nav" aria-label="Foundly workspaces"><span class="LoadingState">Navigatie laden…</span></nav>
+    <div class="sidebar-runtime"><span id="sidebarStatusLight"></span><strong id="sidebarStatus">CONTROLEREN</strong><small>v6.0.0 · één Core</small></div>
+  </aside>
+
+  <main class="FoundlyWorkspaceShell" id="workspaceMain">
+    <header class="WorkspaceHeader">
+      <div>
+        <p class="eyebrow" id="workspaceEyebrow">FOUNDLY WORKSPACE</p>
+        <h1 id="workspaceTitle">Workspace laden</h1>
+        <p id="workspaceDescription">Tenant-scoped Foundly-capabilities worden gecontroleerd.</p>
+      </div>
+      <div class="header-actions">
+        <span class="ConnectionBadge" id="workspaceRuntime">CONTROLEREN</span>
+        <button class="secondary-button" id="refreshWorkspace" type="button">Vernieuwen</button>
+      </div>
+    </header>
+
+    <nav class="WorkspaceTabs" id="workspaceTabs" role="tablist" aria-label="Workspace-onderdelen"></nav>
+
+    <section class="WorkspaceCommandBar" aria-label="Dashboardcommando's">
+      <div class="FilterBar">
+        <label class="DateRangeSelector">Vanaf<input id="dateFrom" type="date"></label>
+        <label class="DateRangeSelector">Tot<input id="dateTo" type="date"></label>
+        <label class="ComparisonSelector"><input id="comparePeriod" type="checkbox"> Vergelijk periode</label>
+        <label>Bron<select id="sourceFilter"><option value="">Alle bronnen</option></select></label>
+        <label>Status<select id="statusFilter"><option value="">Alle statussen</option></select></label>
+      </div>
+      <div class="command-actions">
+        <button class="secondary-button" id="editDashboard" type="button">Dashboard aanpassen</button>
+        <button class="secondary-button" id="addWidget" type="button" disabled>+ Widget</button>
+        <button class="primary-button" id="saveDashboard" type="button" disabled>Opslaan</button>
+        <button class="secondary-button" id="exportWorkspace" type="button">Export</button>
+      </div>
+    </section>
+
+    <div class="workspace-notice LoadingState" id="workspaceNotice" role="status" aria-live="polite">Werkelijke tenantdata laden…</div>
+
+    <section class="workspace-section active" id="sectionOverview" aria-labelledby="sectionTitle">
+      <div class="section-heading">
+        <div><p class="eyebrow" id="sectionEyebrow">OVERVIEW</p><h2 id="sectionTitle">Command dashboard</h2></div>
+        <div class="dashboard-scope">
+          <label>Weergave<select id="dashboardScope"><option value="PERSONAL">Persoonlijk</option><option value="TEAM">Team</option><option value="ROLE">Rol</option><option value="PRESET">Preset</option></select></label>
+          <label id="dashboardQualifierWrap" hidden>Naam<input id="dashboardQualifier" maxlength="160"></label>
+        </div>
+      </div>
+      <div class="KPIGrid" id="dashboardGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="workspace-section operational-grid" id="sectionOperations">
+      <article class="ChartPanel data-panel">
+        <header class="panel-header"><div><p class="eyebrow">OPERATIONAL TRUTH</p><h2 id="recordsTitle">Records</h2></div><span class="FreshnessBadge" id="recordCount">0 RECORDS</span></header>
+        <label class="table-search">Filter zichtbare records<input id="recordSearch" type="search" autocomplete="off" placeholder="Zoek in veilige velden…"></label>
+        <div class="DataGrid VirtualizedDataGrid table-shell" tabindex="0" aria-label="Workspace records">
+          <table><thead id="recordHead"></thead><tbody id="recordRows"></tbody></table>
+          <div class="EmptyState NoDataState" id="recordEmpty">Geen echte records beschikbaar voor deze selectie.</div>
+        </div>
+      </article>
+
+      <article class="ChartPanel source-panel">
+        <header class="panel-header"><div><p class="eyebrow">PROVENANCE</p><h2>Bronnen &amp; freshness</h2></div><span class="SourceBadge">SOURCE REGISTRY</span></header>
+        <div class="source-matrix" id="sourceMatrix"></div>
+      </article>
+    </section>
+
+    <section class="workspace-section" id="sectionConnectors" hidden>
+      <div class="section-heading"><div><p class="eyebrow">CONTROL PLANE</p><h2>Connectorcatalogus</h2></div><span class="ConnectionBadge" id="connectorCount">0 CONNECTORS</span></div>
+      <div class="connector-filters AdvancedFilterDrawer" id="connectorFilters">
+        <label>Categorie<select id="connectorCategory"><option value="">Alle categorieën</option></select></label>
+        <label>Industrie<select id="connectorIndustry"><option value="">Alle industrieën</option></select></label>
+        <label>Capability<select id="connectorCapability"><option value="">Alle capabilities</option></select></label>
+        <label>Auth<select id="connectorAuth"><option value="">Alle auth-typen</option></select></label>
+        <label>Tenant<select id="connectorTenant"><option value="">Alle tenantscopes</option></select></label>
+        <label>Status<select id="connectorState"><option value="">Alle statussen</option></select></label>
+      </div>
+      <div class="connector-grid" id="connectorGrid"></div>
+      <article class="ChartPanel source-registry-panel" aria-labelledby="sourceRegistryTitle">
+        <header class="panel-header"><div><p class="eyebrow">ONE AUTHORITATIVE CATALOG</p><h2 id="sourceRegistryTitle">Foundly Source Registry</h2></div><span class="SourceBadge" id="sourceRegistryCount">0 SOURCES</span></header>
+        <div class="connector-filters AdvancedFilterDrawer" id="sourceRegistryFilters">
+          <label>Zoeken<input id="sourceRegistrySearch" type="search" autocomplete="off" placeholder="Bron of provider"></label>
+          <label>Categorie<select id="sourceRegistryCategory"><option value="">Alle categorieën</option></select></label>
+          <label>Capability<select id="sourceRegistryCapability"><option value="">Alle capabilities</option></select></label>
+          <label>Type<select id="sourceRegistryType"><option value="">Alle brontypen</option></select></label>
+          <label>Status<select id="sourceRegistryStatus"><option value="">Alle statussen</option></select></label>
+        </div>
+        <div class="source-registry-grid" id="sourceRegistryGrid"></div>
+      </article>
+    </section>
+
+    <section class="workspace-section" id="sectionContext" hidden>
+      <article class="ChartPanel section-context-panel">
+        <p class="eyebrow" id="contextEyebrow">WORKSPACE SECTION</p>
+        <h2 id="contextTitle">Onderdeel</h2>
+        <p id="contextDescription"></p>
+        <div id="contextContent" class="context-content"></div>
+      </article>
+    </section>
+
+    <section class="workspace-section" id="settingsProvisioner" hidden>
+      <article class="ChartPanel">
+        <header class="panel-header"><div><p class="eyebrow">AUTO-PROVISIONER</p><h2>Configureer één Foundly tenant</h2></div><span class="ConnectionBadge">NO CUSTOMER FORKS</span></header>
+        <p class="panel-copy">Deze actie richt alleen configuratie in. Er worden geen demo- of businessrecords aangemaakt.</p>
+        <form id="provisionerForm" class="provisioner-form">
+          <label>Bedrijfsnaam<input name="business_name" required maxlength="200"></label>
+          <label>Land<input name="country" required maxlength="80" value="NL"></label>
+          <label>Markt<input name="market" required maxlength="120" value="NL"></label>
+          <label>Branche<input name="industry" required maxlength="120"></label>
+          <label>Segment<input name="segment" required maxlength="120"></label>
+          <label>Businessmodel<input name="business_model" required maxlength="120"></label>
+          <label>Kanalen<input name="channels" maxlength="500" placeholder="Komma-gescheiden"></label>
+          <label>Bestaande software<input name="existing_software" maxlength="500" placeholder="Komma-gescheiden"></label>
+          <button class="primary-button" type="submit">Configuratie valideren en opslaan</button>
+        </form>
+        <output id="provisionerOutput" class="workspace-notice">Nog geen configuratie ingediend.</output>
+      </article>
+    </section>
+
+    <section class="ZEROCommandDock" aria-labelledby="zeroDockTitle">
+      <span class="zero-orb" aria-hidden="true"><i></i><i></i></span>
+      <div><p class="eyebrow">SINGLE INTELLIGENCE LAYER</p><h2 id="zeroDockTitle">Vraag ZERO in deze context.</h2><output id="zeroOutput">ZERO gebruikt dezelfde tenant, bronnen, rechten en provenance.</output></div>
+      <form id="zeroForm"><label for="zeroInput">Opdracht aan ZERO</label><input id="zeroInput" maxlength="4000" autocomplete="off" placeholder="Vraag naar deze workspace…" required><button class="primary-button" type="submit">Uitvoeren</button></form>
+    </section>
+
+    <footer class="workspace-footer"><span>Real-data contract actief</span><span>Tenant &amp; RBAC enforced</span><span>Geen synthetische runtimewaarden</span></footer>
+  </main>
+
+  <dialog id="searchDialog" class="workspace-dialog">
+    <form method="dialog" class="dialog-header"><div><p class="eyebrow">GLOBAL SEARCH</p><h2>Ga naar Foundly</h2></div><button value="cancel" aria-label="Sluiten">×</button></form>
+    <label class="dialog-search">Zoeken<input id="globalSearchInput" autocomplete="off" placeholder="Workspace, bron of connector…"></label>
+    <div id="globalSearchResults" class="search-results"></div>
+  </dialog>
+
+  <dialog id="widgetDialog" class="workspace-dialog">
+    <form method="dialog" class="dialog-header"><div><p class="eyebrow">DASHBOARD</p><h2>Widget toevoegen</h2></div><button value="cancel" aria-label="Sluiten">×</button></form>
+    <form id="widgetForm" class="dialog-form"><label>Beschikbare metric<select name="metric" id="widgetMetric"></select></label><button class="primary-button" type="submit">Toevoegen</button></form>
+  </dialog>
+
+  <dialog id="connectorDialog" class="workspace-dialog connector-dialog">
+    <form method="dialog" class="dialog-header"><div><p class="eyebrow">CONNECTOR DETAIL</p><h2 id="connectorDialogTitle">Connector</h2></div><button value="cancel" aria-label="Sluiten">×</button></form>
+    <div class="ConnectorDetail" id="connectorDetail"></div>
+  </dialog>
+
+  <dialog id="metricDialog" class="workspace-dialog">
+    <form method="dialog" class="dialog-header"><div><p class="eyebrow">DASHBOARD DRILLDOWN</p><h2 id="metricDialogTitle">Metric</h2></div><button value="cancel" aria-label="Sluiten">×</button></form>
+    <div class="MetricDrilldown" id="metricDialogContent"></div>
+  </dialog>
+
+  <div class="toast-region" id="toastRegion" role="status" aria-live="polite"></div>
+</body>
+</html>

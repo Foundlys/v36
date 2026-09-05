@@ -200,20 +200,23 @@ a {
 
 #crmNav {
   display: grid;
+  min-height: 0;
   gap: 4px;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 #crmNav button {
   display: grid;
-  min-height: 42px;
-  padding: 0 11px;
+  min-height: 34px;
+  padding: 0 9px;
   border-color: transparent;
   grid-template-columns: 25px 1fr;
   align-items: center;
   color: #819ba8;
   background: transparent;
   text-align: left;
-  font-size: 0.69rem;
+  font-size: 0.62rem;
 }
 
 #crmNav button span {

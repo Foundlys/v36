@@ -6,19 +6,34 @@
   <meta name="color-scheme" content="dark">
   <title>Foundly Finance</title>
   <link rel="stylesheet" href="/business-workspaces.css">
+  <link rel="stylesheet" href="/foundly-shell.css">
   <script src="/finance-script.js" defer></script>
+  <script src="/foundly-shell.js" defer></script>
 </head>
 <body class="finance">
   <div class="ambient" aria-hidden="true"></div>
   <aside class="rail" aria-label="Finance-navigatie">
     <a class="brand" href="/finance"><span class="brand-mark">F</span><span>FOUNDLY<br><small>FINANCE</small></span></a>
     <p class="rail-label">Accounting</p>
-    <nav>
-      <a href="#overview" aria-current="page">Command dashboard</a>
-      <a href="#result">Resultaat &amp; balans</a>
-      <a href="#receivables">AR / AP</a>
-      <a href="#forecast">Budget &amp; forecast</a>
-      <a href="#ledger">Grootboek</a>
+    <nav class="workspace-map">
+      <a href="#overview" aria-current="page">Overview</a>
+      <a href="#ledger">Ledger</a>
+      <a href="#ledger">Sales Invoices</a>
+      <a href="#ledger">Purchase Invoices</a>
+      <a href="#ledger">Payments</a>
+      <a href="#ledger">Bank</a>
+      <a href="#receivables">Reconciliation</a>
+      <a href="#receivables">Receivables</a>
+      <a href="#receivables">Payables</a>
+      <a href="#financeCompliance">VAT</a>
+      <a href="#ledger">Assets</a>
+      <a href="#result">Margins</a>
+      <a href="#forecast">Budgets</a>
+      <a href="#forecast">Forecasts</a>
+      <a href="#result">Reports</a>
+      <a href="#financeCompliance">Close</a>
+      <a href="#overview">Exports</a>
+      <a href="#ledger">Audit</a>
     </nav>
     <div class="rail-links"><a href="/">Neural home</a><a href="/crm">CRM</a><a href="/analysis">Analysis</a></div>
   </aside>
@@ -41,7 +56,7 @@
       <article class="panel" id="result"><header class="panel-head"><div><p class="eyebrow">PERFORMANCE</p><h2>Winst &amp; verlies</h2><p class="panel-subtitle">Drilldown naar geboekte grootboekregels.</p></div><span class="panel-badge">DOUBLE ENTRY</span></header><div class="table-shell"><table><thead><tr><th>Rekening</th><th>Type</th><th>Debet</th><th>Credit</th><th>Saldo</th></tr></thead><tbody id="financePnl"></tbody></table><div class="empty hidden" id="financePnlEmpty"></div></div></article>
       <article class="panel" id="receivables"><header class="panel-head"><div><p class="eyebrow">WORKING CAPITAL</p><h2>Debiteuren &amp; crediteuren</h2></div><span class="panel-badge" id="financeAgingBadge">CURRENT</span></header><div class="stack" id="financeAging"></div></article>
       <article class="panel" id="forecast"><header class="panel-head"><div><p class="eyebrow">FORWARD VIEW</p><h2>Budget &amp; cashforecast</h2><p class="panel-subtitle">Alleen geladen en goedgekeurde plannen worden getoond.</p></div><span class="panel-badge">NO SYNTHETIC DATA</span></header><div class="stack" id="financeForecast"></div></article>
-      <article class="panel"><header class="panel-head"><div><p class="eyebrow">COMPLIANCE</p><h2>BTW &amp; periodecontrole</h2></div><span class="panel-badge">OFFICIAL RULES</span></header><div class="stack" id="financeCompliance"></div></article>
+      <article class="panel" id="financeCompliance"><header class="panel-head"><div><p class="eyebrow">COMPLIANCE</p><h2>BTW &amp; periodecontrole</h2></div><span class="panel-badge">OFFICIAL RULES</span></header><div class="stack" id="financeComplianceContent"></div></article>
       <article class="panel wide" id="ledger"><header class="panel-head"><div><p class="eyebrow">AUDITABLE LEDGER</p><h2>Journaal</h2><p class="panel-subtitle">POSTED, REVERSAL en CORRECTION blijven append-only.</p></div><span class="panel-badge" id="journalCount">0 ENTRIES</span></header><div class="table-shell"><table><thead><tr><th>Nummer</th><th>Datum</th><th>Type</th><th>Omschrijving</th><th>Status</th><th>Bron</th></tr></thead><tbody id="financeJournal"></tbody></table><div class="empty hidden" id="financeJournalEmpty"></div></div></article>
     </section>
   </main>
