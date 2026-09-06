@@ -37,3 +37,33 @@ assert.throws(()=>assertRoute('/api/finance/invoices',resolver,ctx,approver,'POS
 resolver.configure(ctx,admin,{entitlements:['crm'],expected_revision:resolver.profile(ctx).revision});
 assert.throws(()=>assertRoute('/api/tax/capabilities',resolver,ctx,admin),{code:'module_disabled'});
 console.log('PASS all owned entities and declared engine operations enforce capability revocation, including read-only and approval roles');
+
+resolver.configure(ctx,admin,{entitlements:['crm','finance','analysis'],expected_revision:resolver.profile(ctx).revision});
+const manager={id:'manager',roles:['MANAGER']};
+assert.ok(!resolver.resolve(ctx,manager).visible_modules.includes('finance'),'Unassigned finance authority must not appear in navigation');
+assert.throws(()=>finance.list(ctx,manager,'invoices'),{code:'composition_forbidden'});
+const assignedManager={...manager,permissions:['finance:read']};
+assert.ok(resolver.resolve(ctx,assignedManager).visible_modules.includes('finance'));
+assert.doesNotThrow(()=>finance.list(ctx,assignedManager,'invoices'));
+for(const role of ['FOUNDER','SUPER_ADMIN']){
+ const founder={id:'founder',roles:[role]};
+ assert.doesNotThrow(()=>finance.list(ctx,founder,'invoices'));
+ assert.doesNotThrow(()=>crm.analyticsWithComparison(ctx,founder));
+ resolver.configure(ctx,admin,{entitlements:['crm','finance','analysis'],capability_flags:{'finance:invoices':false},expected_revision:resolver.profile(ctx).revision});
+ assert.throws(()=>finance.list(ctx,founder,'invoices'),{code:'capability_disabled'});
+ resolver.configure(ctx,admin,{entitlements:['crm','finance','analysis'],expected_revision:resolver.profile(ctx).revision});
+}
+console.log('PASS composition roles preserve existing Finance authority and adapt trusted platform administrators after capability checks');
+
+const {scopeVisible}=require('./composition-runtime');
+resolver.configure(ctx,admin,{entitlements:['crm','finance','analysis','automation'],capability_flags:{'finance:invoices':false,'crm:leads':false},expected_revision:resolver.profile(ctx).revision});
+assert.equal(scopeVisible('finance:invoices',resolver,ctx,admin),false);
+assert.equal(scopeVisible('finance:accounts',resolver,ctx,admin),true);
+assert.equal(scopeVisible('crm:leads',resolver,ctx,admin),false);
+assert.equal(scopeVisible('crm:contacts',resolver,ctx,admin),true);
+assert.equal(scopeVisible('platform:automation_runs',resolver,ctx,viewer),false);
+assert.equal(scopeVisible('platform:module_event_outbox',resolver,ctx,admin),false);
+assert.equal(scopeVisible('automation:idempotency',resolver,ctx,admin),false);
+assert.equal(scopeVisible('platform:canonical_records',resolver,ctx,viewer),true);
+assert.equal(scopeVisible('platform:raw_events',resolver,ctx,viewer),true);
+console.log('PASS shared Data projections respect capabilities and exclude operational buckets');

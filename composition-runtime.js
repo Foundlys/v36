@@ -30,6 +30,12 @@ function guardDomain(service, owner, resolverProvider) {
             throw Object.assign(new Error('Automotive is niet actief voor deze tenant'), { statusCode: 403, code: 'industry_disabled' });
           }
         }
+        // The resolver already defines these trusted platform roles as administrators.
+        // Adapt their existing authority to legacy engine vocabulary only after
+        // entitlement/capability checks; ordinary roles are never promoted.
+        if (ctx?.tenant_id && ctx?.dealer_id && actor && resolverProvider().profile(ctx) && (actor.roles||[]).some(role=>['FOUNDER','SUPER_ADMIN'].includes(String(role).toUpperCase()))) {
+          args[1]={...actor,roles:[...new Set([...actor.roles,'ADMIN'])]};
+        }
         return Reflect.apply(value, target, args);
       });
       return methods.get(property);
@@ -70,8 +76,18 @@ function moduleVisible(value, resolver, ctx, actor) {
 }
 function scopeVisible(scope,resolver,ctx,actor) {
   if(!resolver.profile(ctx))return true;
-  const prefix=scope.split(':')[0],owner=prefix==='automotive'||prefix==='voorraad'?'procurement':moduleId(prefix);
+  const [prefix,entity]=scope.split(':'),owner=prefix==='automotive'||prefix==='voorraad'?'procurement':moduleId(prefix);
+  // Operational Core buckets are not datasets. Their own APIs enforce their
+  // permissions; shared Data projections expose only the canonical contracts.
+  if(prefix==='platform'&&!['raw_events','canonical_records'].includes(entity))return false;
   if(owner&&!moduleVisible(owner,resolver,ctx,actor))return false;
+  if(owner){
+    const primary={inkoop:'opportunities',verkoop:'opportunities',agenda:'events',communicatie:'drafts',social_media:'campaigns',rapportages:'reports'}[prefix];
+    const capability=ENTITY_CAPABILITIES[owner]?.[entity||primary];
+    if(entity&&!capability&&prefix!=='automotive')return false;
+    const required=capability?[capability]:MODULES[owner].provided_capabilities;
+    try{for(const cap of required)resolver.assertCapability(ctx,actor,cap);}catch(error){if(error.statusCode===403)return false;throw error;}
+  }
   return prefix!=='automotive'||resolver.resolve(ctx,actor).industry_id==='AUTOMOTIVE';
 }
 function connectorVisible(spec,resolver,ctx,actor) {

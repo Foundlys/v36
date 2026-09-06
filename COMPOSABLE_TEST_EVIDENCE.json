@@ -21,11 +21,11 @@
     "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
     "calendar-scheduling-test.js": "6d6e3ab8155062093dbe9ca2afd0f1802ab5bd723de4e448c918411951002fdb",
     "capability-resolver-test.js": "3de7025cf2fde865b45490045f9511fc00e919b7b44b96201ec90ecec0c6e67c",
-    "capability-resolver.js": "f751173c3e439b4521d1e3ea15a3c587ae6f1b817abeb354984e4f300fc226c9",
+    "capability-resolver.js": "5fba69c6d2af4a4000afc2dfb03820dd597c55d00aa0796c4d2dfffbd23f1b0a",
     "composition-api-test.js": "ab7b6c9018e93ab9aa8543be2c5d6e37eb351e4422602c4d03403b5b9f9c2d28",
     "composition-matrix-test.js": "1d63d2a65a30035933490df16ba761cb8e842f0bc6da4ea5b74476785c05fdcb",
     "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
-    "composition-runtime.js": "c05ecef8bbefab7b10011b822083bf25c1f9cfdcdd01335bc1940eb1eb273d8b",
+    "composition-runtime.js": "2d6ac16f3ef04f16b2f9ba37ddbf287b58295d1369a7bf6a75df27e7c85ce136",
     "crm-api-regression-test.js": "1946f90be8d4345ba06ad7c75c68b51a908969d15610c9e8fb5280ae38dedbbd",
     "crm-core-regression-test.js": "a867a43dc85e96889dde5b7ea7608dfcb44faae2821f7e4491c5cfe92196319d",
     "crm-core.js": "951a72d4d3c94e4d7579cc6299dbf54195141c271828cfe72ffb1c5e8c2ae774",
@@ -46,7 +46,7 @@
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
-    "module-access-contracts-test.js": "6ab64805204cf9cb65f8c9c711aa0fee472bd7fd5099178a23a2270c2cea2168",
+    "module-access-contracts-test.js": "76bbbb239e1d6fcab065cd8d334291d43df547e42c504b0f4cfc5eca032c4962",
     "module-access-contracts.js": "e7c8b11a8e41b52c27dfcd43e733335e5c977239a7a498e4763548471a399807",
     "module-catalog.js": "e374cd243e8626852468c85ae3dc08968a98055f3cbf6dd954f86adf232c3024",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
@@ -62,7 +62,7 @@
     "readiness-config-regression-test.js": "ced21de1c051fa28588e92e4e3841300430b0a0c15a04467814d9053c2f73b22",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-proof-test.js": "9b0073375c95166f8c04ea8b3c9a0733aaf33aaa4402c72e1078fcd213bcdba2",
-    "server.js": "c263b83820bdb2034cd08007b842aa4f5938ffa05885198cefe0b670883a7e5b",
+    "server.js": "57c56c840c8b10f2c32c39d885c1057551b0cd0105cfda9ed3cfdc9c9b77a72f",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -80,7 +80,7 @@
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6"
   },
-  "output_sha256": "839e63f9559118e51bcc8d245b0600ff4c6373aa117a7fe94078c2ed1998ad1d",
+  "output_sha256": "eae73d79775e871c15ba104a60472c53eb2eae1e3cc362de782484e801e4af25",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -250,7 +250,10 @@
     "Owned Analytics reports and retained export after disable",
     "Durable Automation events survive canonical persistence outage and restart",
     "Private event identifiers remain permission-scoped",
-    "Workflow policies immutable; legacy replay signatures preserved; uppercase delay bounds enforced"
+    "Workflow policies immutable; legacy replay signatures preserved; uppercase delay bounds enforced",
+    "Manager does not inherit Finance rights absent explicit assignment",
+    "Trusted founder authority adapted after entitlement and capability checks",
+    "Shared Data scopes exclude operational buckets and disabled entity capabilities"
   ],
   "production_observation": {
     "observed_at": "2026-09-06",

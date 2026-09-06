@@ -698,7 +698,7 @@ function crmCollectionCount(c,entity){return crmOwnedRows(c,entity).length}
 function crmTotalCount(c){return Object.keys(ENTITY_DEFINITIONS).filter(entity=>!['audit_events','automation_executions'].includes(entity)).reduce((total,entity)=>total+crmCollectionCount(c,entity),0)}
 function moduleId(id){return ({social:'social_media',google:'google_ads'})[id]||id}
 function sourceContract(c,mod,statuses){
-  const rows=arr(records,key(c,mod)),profiles=CONNECTOR_RUNTIME.profiles();
+  const rows=scopedRecordRows(c,mod),profiles=CONNECTOR_RUNTIME.profiles();
   const applies=x=>{const spec=CONNECTOR_REGISTRY[x.id]||profiles[x.id]||{};return (spec.modules||[]).map(moduleId).includes(mod)};
   const shape=x=>({id:x.id,name:x.name||x.id,category:x.category||'overig',configured:Boolean(x.configured),connected:Boolean(x.connected),probe_ok:Boolean(x.probe_ok),last_probe_at:x.last_probe_at||null,status:x.status||x.state||null,error:x.error||null});
   const external_sources=statuses.list.filter(applies),connected=external_sources.filter(x=>x.connected&&x.probe_ok).map(shape),configured=external_sources.filter(x=>x.configured&&!x.connected).map(shape);
