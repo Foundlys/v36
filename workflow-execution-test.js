@@ -103,3 +103,40 @@ timed.defineAutomation(upperCtx,scheduler,{name:'Case-insensitive schedule',trig
 assert.equal(timed.tickAutomations(upperCtx,scheduler).runs[0].status,'SUCCEEDED');
 assert.equal(effects.at(-1).type,'notify');
 console.log('PASS validated case-insensitive schedules and action types execute consistently');
+
+const aclCtx={tenant_id:'bridge-acl-fixture',dealer_id:'default'},aclViewer={id:'viewer',roles:['VIEWER'],team_ids:['shared-team']};
+const teamEvent={event_id:crypto.randomUUID(),event_name:'contact_created',source:'foundly_crm',permissions:{user_ids:['someone-else'],team_ids:['shared-team'],roles:['MANAGER','MARKETING'],permission_keys:['crm:read_all']},consent_context:{purpose:'operations',legal_basis:'contract'}};
+timed.ingestEvent(aclCtx,admin,teamEvent);
+assert.equal(timed.events(aclCtx,aclViewer).total,1);
+assert.equal(timed.events(aclCtx,{...aclViewer,team_ids:[]}).total,0);
+timed.ingestEvent(aclCtx,admin,{...teamEvent,event_id:crypto.randomUUID(),permissions:{}});
+assert.equal(timed.events(aclCtx,aclViewer).total,1,'Legacy unscoped CRM envelope is not implicitly public');
+assert.equal(timed.events(aclCtx,{id:'manager',roles:['MANAGER']}).total,2);
+assert.equal(timed.events(aclCtx,{id:'explicit-reader',roles:[],permissions:['events:read','crm:read_all']}).total,2);
+console.log('PASS CRM owner/team permissions and conservative legacy bridge event access');
+
+assert.equal(timed.commercialFunnel(aclCtx,aclViewer).events,1,'Team rights remain in the cached fact principal');
+assert.equal(timed.commercialFunnel(aclCtx,{...aclViewer,team_ids:[]}).events,0,'Changed team membership must not reuse a broader cache');
+assert.equal(timed.commercialFunnel(aclCtx,{id:'explicit-reader',roles:[],permissions:['analysis:read','crm:read_all']}).events,2);
+const legacyEvent={event_id:crypto.randomUUID(),event_name:'lead_created',source:'foundly_crm',utm_source:'fixture_campaign_provider',campaign_id:'legacy-private-campaign',lead_id:'legacy-private-lead',permissions:{},consent_context:{purpose:'operations',legal_basis:'contract'}};
+timed.ingestEvent(aclCtx,admin,legacyEvent);
+assert.equal(timed.historical(aclCtx,{...aclViewer,team_ids:[]},{campaign_id:'legacy-private-campaign'}).total,0,'Derived source label must not bypass original legacy event ACL');
+assert.equal(timed.attribution(aclCtx,aclViewer,'legacy-private-lead').available,false);
+assert.equal(timed.campaignOutcome(aclCtx,aclViewer,'legacy-private-campaign').attribution.touch_count,0);
+console.log('PASS team/permission cache separation and legacy attribution/rollup source authorization');
+
+const stageCtx={tenant_id:'stage-trigger-fixture',dealer_id:'default'};
+timed.defineAutomation(stageCtx,scheduler,{name:'Actual stage change only',trigger:{type:'stage_changed',automatic:true},actions:[{type:'notify'}]});
+const stageEvent={source:'foundly_crm',source_module:'crm',event_name:'deal_changed',consent_context:{purpose:'operations',legal_basis:'contract'}};
+timed.ingestEvent(stageCtx,scheduler,{...stageEvent,event_id:crypto.randomUUID(),properties:{changed_fields:['title']}});
+assert.equal(timed.tickAutomations(stageCtx,scheduler).processed,0,'Unrelated CRM edits must not trigger stage workflows');
+timed.ingestEvent(stageCtx,scheduler,{...stageEvent,event_id:crypto.randomUUID(),event_name:'deal_won',properties:{changed_fields:['stage_id','status']}});
+assert.equal(timed.tickAutomations(stageCtx,scheduler).processed,1,'Terminal stage changes remain eligible');
+console.log('PASS stage subscriptions require actual canonical stage-change evidence');
+
+const outboxCtx={tenant_id:'outbox-owner-fixture',dealer_id:'default'},outboxOwner={id:'outbox-owner',roles:['SALES']},otherWriter={id:'different-writer',roles:['SALES']};
+const ownedOutbox=timed.enqueueOutbox(outboxCtx,outboxOwner,{idempotency_key:'owned-offline-change',entity_type:'note',payload:{content:'Private pending fixture'}});
+assert.throws(()=>timed.applyOutbox(outboxCtx,otherWriter,ownedOutbox.id),{code:'outbox_missing'});
+assert.equal(timed.applyOutbox(outboxCtx,outboxOwner,ownedOutbox.id).record.provider_verified,false);
+assert.throws(()=>timed.applyOutbox(outboxCtx,otherWriter,ownedOutbox.id),{code:'outbox_missing'},'Replay cannot reveal another writer’s applied payload');
+console.log('PASS offline outbox ownership applies before execution and replay');

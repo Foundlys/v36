@@ -27,7 +27,7 @@
       "phase": 3,
       "name": "Capability resolver",
       "status": "PARTIAL",
-      "evidence_or_gap": "Runtime/role/tool guards implemented; complete mixed legacy entry-point review and production user binding remain"
+      "evidence_or_gap": "Module, role, tool, shared projection, owner/team event and legacy-feed guards implemented; complete remaining legacy access audit and real end-user identity binding remain"
     },
     {
       "phase": 4,
@@ -111,7 +111,7 @@
       "phase": 17,
       "name": "Registries",
       "status": "PARTIAL",
-      "evidence_or_gap": "Canonical catalogs retained and filtered; full source/connector capability mapping remains"
+      "evidence_or_gap": "Canonical registries retained; public positive-state/receipt forgery blocked; remaining runtime-to-registry integration and complete capability mapping remain"
     },
     {
       "phase": 18,

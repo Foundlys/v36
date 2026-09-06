@@ -231,9 +231,11 @@ function canonicalEvent(overrides = {}) {
     assert.equal(result.body.status, 'LOGICALLY_ARCHIVED');
     assert.equal(result.body.physical_delete_performed, false);
 
-    result = await call('/api/data-platform/records', { method: 'POST', body: JSON.stringify({ record_type: 'lead', internal_id: leadId, source: 'user_input', source_kind: 'USER_INPUT', sync_state: 'LOCAL', data: { status: 'qualified' } }) });
+    result = await call('/api/data-platform/records', { method: 'POST', body: JSON.stringify({ record_type: 'lead', internal_id: leadId, source: 'user_input', source_kind: 'PROVIDER_API', provider_verified:true, sync_state: 'LOCAL', data: { status: 'qualified' } }) });
     assert.equal(result.response.status, 201);
     assert.equal(result.body.version, 1);
+    assert.equal(result.body.provider_verified,false);
+    assert.equal(result.body.source_kind,'USER_INPUT','Public record input cannot fabricate a provider receipt');
     result = await call('/api/data-platform/records?q=qualified&record_type=lead');
     assert.equal(result.body.total, 1);
     assert.equal(result.body.permission_filtered, true);
@@ -278,15 +280,19 @@ function canonicalEvent(overrides = {}) {
     assert.equal(result.response.status, 422);
     assert.equal(result.body.code, 'connector_connected_unproven');
     result = await call('/api/platform/connectors/api-test-provider/state', { method: 'POST', body: JSON.stringify({ state: 'CONNECTED', evidence: { authenticated: true, probe_ok: true, initial_sync_ok: true, last_probe_at: '2026-06-01', last_sync_at: '2026-06-01' } }) });
-    assert.equal(result.body.state, 'CONNECTED');
+    assert.equal(result.response.status,422);
+    assert.equal(result.body.code,'connector_connected_unproven','Even complete caller-supplied booleans cannot establish a provider connection');
     result = await call('/api/platform/connectors/checkpoints', { method: 'POST', body: JSON.stringify({ provider: 'api-test-provider', direction: 'INBOUND', mode: 'FULL_INITIAL', cursor: 'opaque-cursor', watermark: '2026-06-01', records_applied: 1 }) });
-    assert.equal(result.body.records_applied, 1);
+    assert.equal(result.response.status,422);
+    assert.equal(result.body.code,'connector_runtime_receipt_required');
     result = await call('/api/platform/connectors/attempts', { method: 'POST', body: JSON.stringify({ provider: 'api-test-provider', operation: 'SYNC', idempotency_key: 'connector-api-attempt-0001', success: false, max_attempts: 2, error: 'fixture failure' }) });
     assert.equal(result.body.status, 'RETRY_SCHEDULED');
     result = await call('/api/platform/connectors/webhooks', { method: 'POST', body: JSON.stringify({ provider: 'api-test-provider', provider_event_id: 'connector-api-event-0001', signature_verified: true, payload: { id: 'connector-api-event-0001' } }) });
-    assert.equal(result.body.raw_payload_stored, false);
+    assert.equal(result.response.status,422);
+    assert.equal(result.body.code,'connector_webhook_verifier_required','Signature claims require a real verifier');
     result = await call('/api/platform/connectors?provider=api-test-provider');
-    assert.equal(result.body.items[0].connected, true);
+    assert.equal(result.body.items[0].connected, false);
+    assert.notEqual(result.body.items[0].state,'CONNECTED');
 
     result = await call('/api/automation/workflows', { method: 'POST', body: JSON.stringify({ name: 'Payment gate', trigger: { type: 'invoice_overdue' }, actions: [{ type: 'payment' }] }) });
     const workflowId = result.body.id;

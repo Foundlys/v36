@@ -33,6 +33,9 @@ async function request(route, method = 'GET', body, extraHeaders={}) {
     await start();
     assert.equal((await fetch(base + '/api/composition')).status, 401);
     assert.equal((await request('/api/composition')).body.resolution.legacy_compatibility, true);
+    const manualEvent=await request('/api/platform/events/ingest','POST',{event_id:'manual-provenance-fixture',event_name:'manual_record',source:'fixture_provider',source_module:'crm',actor_id:'forged-actor',provider_verified:true,consent_context:{purpose:'operations',legal_basis:'contract'}});
+    assert.equal(manualEvent.status,202);assert.equal(manualEvent.body.event.provider_verified,false);assert.equal(manualEvent.body.event.source_module,'user_input');assert.notEqual(manualEvent.body.event.actor_id,'forged-actor');
+    assert.equal((await request('/api/platform/connectors/webhooks','POST',{provider:'fixture',provider_event_id:'forged-verification',signature_verified:true})).status,422,'Caller-supplied booleans do not verify provider signatures');
     const config = await request('/api/composition', 'PUT', { entitlements: ['crm'], enabled_modules: ['crm'], industry_id: 'GENERAL', expected_revision: 0 });
     assert.equal(config.status, 200, JSON.stringify(config.body));
     const nav = (await request('/api/workspaces')).body.workspaces.map(w => w.id);
@@ -79,6 +82,10 @@ async function request(route, method = 'GET', body, extraHeaders={}) {
     await stop();env.FOUNDLY_CONTEXT_ACL_TEST='1';env.OPENAI_API_KEY=crypto.randomBytes(32).toString('hex');env.FOUNDLY_PLATFORM_ROLES='VIEWER';env.FOUNDLY_PLATFORM_USER_ID='viewer-fixture';await start();
     assert.equal((await request('/api/crm/contacts')).body.total,1,'Canonical viewer sees only the assigned contact');
     assert.equal((await request(`/api/crm/contacts/${privateContact.body.record.id}`)).status,404);
+    assert.equal((await request(`/api/platform/events?entity_id=${privateContact.body.record.id}`)).body.total,0,'Private CRM event identifiers must not leak through Core');
+    assert.ok(!JSON.stringify((await request('/api/events')).body).includes(privateContact.body.record.id),'Legacy activities must not reveal private CRM record IDs');
+    assert.ok(!JSON.stringify((await request('/api/workspaces/home/snapshot')).body.rows).includes(privateContact.body.record.id),'Home activity projection must use the same event boundary');
+    const assignedEvents=await request('/api/platform/events?event_name=contact_created');assert.equal(assignedEvents.body.total,1,'Assigned CRM contact event remains visible');
     const modelResponse=await request('/api/zero/turn','POST',{message:'Geef een inhoudelijke beschouwing van de beschikbare context',preferred_module:'crm',turn_id:'context-acl-fixture',conversation_id:'context-acl-fixture'});assert.equal(modelResponse.status,200,JSON.stringify(modelResponse.body));assert.ok(JSON.stringify(modelResponse.body).includes('context_acl_ok'),'The model must receive the assigned contact and no private contact');
     assert.ok(!(await request('/api/module/crm/data')).body.records.some(row=>row.id===privateContact.body.record.id),'Legacy module query must use the CRM public read contract');
     assert.ok((await request('/api/workspaces')).body.workspaces.some(w=>w.id==='crm'));

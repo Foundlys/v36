@@ -158,7 +158,8 @@ function createPlatformApi(options = {}) {
       if (url.pathname === '/api/platform/events/ingest' && req.method === 'POST') {
         const payload = await readBody(req);
         const idempotencyKey = req.headers['idempotency-key'] || payload.idempotency_key;
-        const result = platform.ingestEvent(ctx, actor, payload.event || payload, { idempotencyKey });
+        const supplied=payload.event||payload,event={...supplied,actor_id:actor.id,source_module:'user_input',source_kind:'user_input',provider_verified:false,provenance:{...(supplied.provenance||{}),source_kind:'user_input'}};
+        const result = platform.ingestEvent(ctx, actor, event, { idempotencyKey });
         return sendJson(res, result.deduplicated ? 200 : 202, { ok: true, ...result });
       }
 
@@ -238,7 +239,7 @@ function createPlatformApi(options = {}) {
       }
       if (url.pathname === '/api/data-platform/records' && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 201, platform.upsertCanonicalRecord(ctx, actor, payload, { expected_version: payload.expected_version }));
+        return sendJson(res, 201, platform.upsertCanonicalRecord(ctx, actor, {...payload,source_kind:'USER_INPUT',provider_verified:false,provenance:{...(payload.provenance||{}),source_kind:'USER_INPUT',provider_verified:false,actor_id:actor.id}}, { expected_version: payload.expected_version }));
       }
       if (url.pathname === '/api/data-platform/objects' && req.method === 'POST') return sendJson(res, 201, platform.registerObject(ctx, actor, await readBody(req)));
 
@@ -263,11 +264,13 @@ function createPlatformApi(options = {}) {
       const transition = url.pathname.match(/^\/api\/platform\/connectors\/([A-Za-z0-9_.:-]{1,80})\/state$/);
       if (transition && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 200, platform.connectorTransition(ctx, actor, transition[1], payload.state, payload.evidence || {}));
+        const state=String(payload.state||'').toUpperCase();
+        if(!['UNCONFIGURED','DISCONNECTED','DEGRADED','ERROR','EXPIRED'].includes(state))return sendJson(res,422,{ok:false,code:state==='CONNECTED'?'connector_connected_unproven':'connector_runtime_evidence_required',error:'Een caller-aangeleverde status of boolean is geen geverifieerd runtimebewijs.'});
+        return sendJson(res, 200, platform.connectorTransition(ctx, actor, transition[1], state, {authenticated:false,probe_ok:false,initial_sync_ok:false,source:'AUTHORIZED_MANUAL_STATE_CHANGE'}));
       }
-      if (url.pathname === '/api/platform/connectors/checkpoints' && req.method === 'POST') return sendJson(res, 201, platform.connectorCheckpoint(ctx, actor, await readBody(req)));
-      if (url.pathname === '/api/platform/connectors/attempts' && req.method === 'POST') return sendJson(res, 201, platform.recordConnectorAttempt(ctx, actor, await readBody(req)));
-      if (url.pathname === '/api/platform/connectors/webhooks' && req.method === 'POST') return sendJson(res, 202, platform.recordConnectorWebhook(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/platform/connectors/checkpoints' && req.method === 'POST') return sendJson(res, 422, {ok:false,code:'connector_runtime_receipt_required',error:'Syncresultaten vereisen een geverifieerde runtime-adapter.'});
+      if (url.pathname === '/api/platform/connectors/attempts' && req.method === 'POST') {const payload=await readBody(req);if(payload.success)return sendJson(res,422,{ok:false,code:'connector_runtime_receipt_required',error:'Een succesvolle uitvoering vereist runtimebewijs.'});return sendJson(res,201,platform.recordConnectorAttempt(ctx,actor,{...payload,success:false}));}
+      if (url.pathname === '/api/platform/connectors/webhooks' && req.method === 'POST') return sendJson(res, 422, {ok:false,code:'connector_webhook_verifier_required',error:'Deze route heeft nog geen geverifieerde providersignatuur-adapter.'});
       if (url.pathname === '/api/data-platform/outbox' && req.method === 'POST') return sendJson(res, 202, platform.enqueueOutbox(ctx, actor, await readBody(req)));
       const applyOutbox = url.pathname.match(/^\/api\/data-platform\/outbox\/([A-Za-z0-9_.:-]{1,200})\/apply$/);
       if (applyOutbox && req.method === 'POST') return sendJson(res, 200, platform.applyOutbox(ctx, actor, applyOutbox[1], await readBody(req)));
