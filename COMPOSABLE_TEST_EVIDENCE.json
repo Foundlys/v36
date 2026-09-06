@@ -1,7 +1,7 @@
 {
   "schema_version": "foundly-checkpoint-test-evidence/1.0.0",
   "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
-  "command": "npm test",
+  "command": "npm test; subsequent ZERO context change: node composition-api-test.js and node jarvis-production-regression-test.js",
   "exit_code": 0,
   "source_sha256": {
     "analysis-script.js": "684d45906099af4da1cfc4b1ccf6dcfca4785d1b8977ba627c7e1b21c23c1c4c",
@@ -21,10 +21,11 @@
     "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
     "calendar-scheduling-test.js": "6d6e3ab8155062093dbe9ca2afd0f1802ab5bd723de4e448c918411951002fdb",
     "capability-resolver-test.js": "3de7025cf2fde865b45490045f9511fc00e919b7b44b96201ec90ecec0c6e67c",
-    "capability-resolver.js": "862a3624a9108f074af71ba007a92506dcaeb34c5fa878216af786af53c0596f",
-    "composition-api-test.js": "4c7cb5a52528d59ffb21bb5c2a95e3d6a31b773272612c12ddc4b244cea58d80",
+    "capability-resolver.js": "f751173c3e439b4521d1e3ea15a3c587ae6f1b817abeb354984e4f300fc226c9",
+    "composition-api-test.js": "ab7b6c9018e93ab9aa8543be2c5d6e37eb351e4422602c4d03403b5b9f9c2d28",
     "composition-matrix-test.js": "75714ebce760a0538d87cb103ab1d42fe33911a494ba91e9765ce511a7250e84",
-    "composition-runtime.js": "4a2b1f537e8d78f8f67236a88546da164b42496db652f62a70a489b7f611d6ab",
+    "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
+    "composition-runtime.js": "33886c28cefca0d0f98bcafb2dd493d5208d67d9080a68c1134689e21c778f2f",
     "crm-api-regression-test.js": "1946f90be8d4345ba06ad7c75c68b51a908969d15610c9e8fb5280ae38dedbbd",
     "crm-core-regression-test.js": "a867a43dc85e96889dde5b7ea7608dfcb44faae2821f7e4491c5cfe92196319d",
     "crm-core.js": "951a72d4d3c94e4d7579cc6299dbf54195141c271828cfe72ffb1c5e8c2ae774",
@@ -45,25 +46,28 @@
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
-    "module-catalog.js": "b7e5d0794f2dee9721bbe78d26aac48742c85025fd60cb7ac1d532b441d7e068",
+    "module-access-contracts-test.js": "6ab64805204cf9cb65f8c9c711aa0fee472bd7fd5099178a23a2270c2cea2168",
+    "module-access-contracts.js": "e7c8b11a8e41b52c27dfcd43e733335e5c977239a7a498e4763548471a399807",
+    "module-catalog.js": "47fa4ffcd8cd20729b74f67145dc1121e549fe129de21df9a026f9899dea208b",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "f12869cf820ad89d71c8b3d55d71e1d04f6606355c0232167592d10bc1ecde22",
+    "package.json": "0ddf490a0fbc441d76a48ef67f2c4cb95599abdbc01eac837f7297b8c4c5acab",
     "platform-api-regression-test.js": "0b2063b2c955883a4845ef8ddd364fd46a19dfd70e7376d4998f6d0999d67ab5",
     "platform-api.js": "22b8b748d1014c0b1569e08b22198dcdad7bbb1fb9ac73de2365d5ca9f150576",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
-    "platform-core.js": "4f2a151017158af9f8ea441a8b7e79d5aa589849f7bb810e8956e4255057d9cf",
+    "platform-core.js": "7c5bd259dc0e6c39f3a7b2da18f644a0ccf0f3d6c3797df3be77d6800f4152b3",
     "production-audit.js": "5eb2897e9b682dfbc71ef209fecd60c9ac395e2b9290d33737bdc1ebfd2111e6",
     "production-security-test.js": "124b25c9c3207ebdc73dd9e9a59c85c20ef8a005c25a0d8a6b6c6b90d4d46fdc",
     "readiness-config-regression-test.js": "ced21de1c051fa28588e92e4e3841300430b0a0c15a04467814d9053c2f73b22",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-proof-test.js": "9b0073375c95166f8c04ea8b3c9a0733aaf33aaa4402c72e1078fcd213bcdba2",
-    "server.js": "65982defa5904dbb100abead93051f7214f1893340e055b92dfb695406437de0",
+    "server.js": "da356688ed4e8f7b98339d473b80261ebf5eb935e7b111b7845c611d87e8deef",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
     "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
+    "test-composition-context-mock.js": "7ae21e829929286bf40027c410a84cff00d806bbb2bed8f5e0c9c71ac21f1133",
     "test-jarvis-fetch-mock.js": "af79a374e59631e604c66dd1ad434093d8963488d17a7e1e36bb89af48f1fa51",
     "test-masterbuild-fetch-mock.js": "006626a31f610f73ef4a642643f2a7d4d996ee1ab9e18fea099fd53c9cd94378",
     "test-oauth-fetch-mock.js": "ba0dfede11e61b3bc59119c7132e8b414a8a49f45be000a8f6e00c944c042130",
@@ -74,7 +78,7 @@
     "workspace-system.js": "86206e9ce40cfef61f16f7ecd3f788de2b385078919fff1f038a7c463690ca04",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "fc90708f10be0d9f4345c8921e19d0430e034969571eb37349b2a0f13150b06d",
+  "output_sha256": "42f79c9937bff69d1d2b6b92c344790240dfe1b14813b8572c1e971e4594a346",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -236,7 +240,11 @@
     "failed atomic persistence restores touched buckets",
     "canonical CRM principal and legacy permission filtering",
     "team/role dashboard read and delete denial",
-    "isolated module runtime readiness distinct from commercial acceptance"
+    "isolated module runtime readiness distinct from commercial acceptance",
+    "all owned entities and declared public engine operations mapped to capabilities",
+    "read-only roles cannot advertise write tools",
+    "partial CRM workspace remains usable with leads disabled",
+    "model input includes assigned CRM record and excludes private CRM record"
   ],
   "production_observation": {
     "observed_at": "2026-09-06",
@@ -247,5 +255,18 @@
     "verdict": "PASS",
     "all_eight_checks": true,
     "writes": false
+  },
+  "post_full_regression_changes": {
+    "paths": [
+      "server.js",
+      "composition-api-test.js",
+      "test-composition-context-mock.js"
+    ],
+    "scope": "Model context switched from direct CRM collection reads to existing permission-filtered queries; isolated model-input regression fixture added",
+    "focused_tests": {
+      "composition_api": "PASS",
+      "existing_zero_production_regression": "PASS"
+    },
+    "exact_final_tree_full_ci": "REQUIRED"
   }
 }

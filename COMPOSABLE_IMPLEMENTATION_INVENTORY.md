@@ -53,6 +53,8 @@ an authorized explicit composition is configured.
 - Automation owns its tasks/documents, records sequential outcomes durably, binds approval to exact inputs, refuses indeterminate crash replay, supports conditions/delays and explicitly opted-in scheduled/event workflows.
 - Canonical event versions, permissions, outbox notifications and permission-preserving projections/SSE; subscriber failure does not undo business records.
 - The shared workspace contains real domain forms, a package composer and distinct section projections. Unsupported sections are explicitly marked unavailable rather than showing repeated overview KPIs.
+- One module-access contract now maps every owned CRM/Finance/native entity and declared public engine operation. READ and APPROVE remain distinct from WRITE; read-only roles are not offered mutation tools.
+- Partial composition hides disabled workspace sections while retaining permitted CRM data. Model context uses scoped record queries and the CRM public read contract, verified with a model-transport fixture.
 - Runtime module probes test each module’s own read contract and storage/encryption/mount gates without optional-module or provider calls. Commercial acceptance remains separately pending.
 - Explicitly composed CRM uses the same principal as the platform. Legacy CRM data queries use public permission-filtered reads; canonical/knowledge queries and dashboard team/role scopes enforce record access.
 - Calendar slots derive from recorded availability and busy periods, with stale-selection rejection, idempotent booking, period-based distribution and private durable in-app reminders. External calendar coverage is not fabricated.

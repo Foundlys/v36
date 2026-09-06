@@ -22,7 +22,11 @@ not evidence for a later tree.
 Remote checkpoint `89b6b29166ce4aadb8c3bd3f73b7695814aaef1c` exactly matches
 local `0af997c`, tree `6ab1bd4674d38344bc84f7bce20198e2a6758555`.
 [CI run 45](https://github.com/Foundlys/v36/actions/runs/33996640469) passed.
-Changes resumed on 2026-09-06 require a new checkpoint and CI.
+The next preserved checkpoint is local `fa56e20`, tree
+`bad9018e7c01208beeb51987d263b08bd4877c22`, published as
+`cb65663efc27cb2dde97514603b84ce2e256453d`.
+[CI run 46](https://github.com/Foundlys/v36/actions/runs/34037115825) passed on that
+exact tree. Subsequent access-contract changes require their own CI.
 
 The reported Windows-specific WIP/adapter was not found in the available files,
 refs, stashes or retrieved history. This is a limit of available evidence, not
@@ -45,6 +49,8 @@ credentials. No fixtures are inserted into production.
 | Event security | Supported event versions, tenant mismatch, role-filtered events, realtime/historical projections, cached facts, campaign outcomes, attribution and SSE |
 | Industry extension | Test-only property fields accepted by the existing universal engines; wrong-pack fields and production demo activation rejected |
 | New scheduling and persistence | Real authenticated slot/booking routes; stale confirmation and replay tests; durable private reminders; failed-persist rollback |
+| Capability operations | Every owned CRM/Finance/native entity has a declared capability; revocation blocks public routes, record aliases and declared engine methods; read-only tools and Finance approval roles tested |
+| Model input boundary | Real server route with an isolated model transport: assigned CRM contact reaches model context; private CRM contact is excluded |
 | Additional authorization | CRM principal alignment, legacy read filtering, private canonical/knowledge access and shared-dashboard scope checks |
 | UI | Syntax and existing structural/responsive regression checks; new browser interaction is not proven |
 
@@ -92,7 +98,7 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 | 31 Final evidence | PARTIAL | This checkpoint and ledgers preserve truth; no completion verdict issued |
 
 Last contiguous fully completed phase: **1**. Earliest incomplete requirement:
-complete module contract/readiness and operation-level capability coverage.
+close remaining module event contracts and complete mixed Core/legacy capability coverage. Runtime probes and owned-entity/method mappings are now tested; these are not evidence of complete product acceptance.
 Current work spans those boundaries and their dependent workspaces/tests.
 
 ## Production and preservation

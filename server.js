@@ -17,6 +17,7 @@ const {sectionModel}=require('./workspace-section-model');
 const {moduleReadiness}=require('./module-readiness');
 const {calendarOperations}=require('./calendar-operations');
 const {authorizeDashboard}=require('./workspace-authorization');
+const {projectedWorkspace,hasPartialComposition,partialSnapshot}=require('./composition-projections');
 const {MODULES:COMMERCIAL_MODULES,BUNDLES:COMMERCIAL_BUNDLES,INDUSTRIES,moduleId:commercialModuleId}=require('./module-catalog');
 const {guardDomain,filterTools,filterWorkspaces,assertRoute:assertCompositionRoute,moduleVisible,scopeVisible,connectorVisible}=require('./composition-runtime');
 const {FoundlyPlatformCore}=require('./platform-core');
@@ -600,7 +601,7 @@ function crmCanonicalEvent(c,event){
   return {event_id:id(),event_name:eventName,source:'foundly_crm',source_kind:'internal_service',entity_type:entity||'crm_record',entity_id:recordId||null,lead_id:entity==='leads'?recordId:record?.lead_id||null,customer_id:record?.contact_id||record?.person_id||null,campaign_id:record?.campaign_id||null,properties:{crm_event_type:type,status:record?.status||null,stage_id:record?.stage_id||null,owner_id:record?.owner_id||null,value_cents:currencyValue(record?.value),open_value_cents:!record||/won|lost|gewonnen|verloren/i.test(String(record.status||''))?0:currencyValue(record.value),weighted_value_cents:currencyValue(Number(record?.value||0)*Number(record?.probability||0)/100),gross_margin_cents:currencyValue(record?.margin)},consent_context:{purpose:'business_operations',legal_basis:'legitimate_interest'},privacy_classification:['leads','contacts','people'].includes(entity)?'PERSONAL':'INTERNAL',provenance:{source_kind:'internal_service',evidence:recordId?[recordId]:[]}};
 }
 function ingestInternalPlatformEvent(c,event,source){
-  try{return PLATFORM_CORE.ingestEvent(c,platformPrincipal(),event,{idempotencyKey:`${source}:${event.event_id}`})}
+  try{return PLATFORM_CORE.ingestEvent(c,{...platformPrincipal(),permissions:['events:write']},event,{idempotencyKey:`${source}:${event.event_id}`})}
   catch(error){console.error('[PLATFORM EVENT BRIDGE ERROR]',redactJarvisText(error.message,240));return null}
 }
 const CRM_CORE=guardDomain(new FoundlyCrmCore({
@@ -729,6 +730,11 @@ function safeTimestamp(value){const parsed=Date.parse(value||'');return Number.i
 async function workspaceSnapshot(workspaceId,c){
   const actor=platformPrincipal(),observedAt=new Date().toISOString(),definition=WORKSPACE_DEFINITIONS[workspaceId];if(!definition)throw Object.assign(new Error('Onbekende workspace'),{statusCode:404,code:'workspace_not_found'});
   const result={ok:true,workspace_id:workspaceId,observed_at:observedAt,tenant:{tenant_id:c.tenant_id,dealer_id:c.dealer_id},metrics:{},rows:[],sources:[],connectors:[],details:{},no_fake_data:true};
+  const resolution=COMPOSITION.resolve(c,actor);
+  if(['crm','finance','analysis','automation'].includes(workspaceId)&&hasPartialComposition(workspaceId,resolution)){
+    const partial=partialSnapshot(workspaceId,resolution,{list:entity=>workspaceId==='crm'?CRM_CORE.list(c,crmPrincipal(),entity,{limit:100}):FINANCE_CORE.list(c,actor,entity,{limit:100}),events:()=>PLATFORM_CORE.events(c,actor,{limit:100}),kpis:()=>Object.fromEntries(Object.keys(PLATFORM_CORE.schema().kpis).map(id=>[id,PLATFORM_CORE.calculateKpi(c,actor,id)])),runs:()=>PLATFORM_CORE.automationStatus(c,actor).runs});
+    return {...result,...partial};
+  }
   if(['procurement','sales','calendar'].includes(workspaceId)){
     const domain=BUSINESS_DOMAINS[workspaceId],summary=domain.summary(c,actor),primary=domain.definition.primary;
     result.rows=summary.by_entity[primary].items;result.details={...summary,domain_schema:domain.definition};
@@ -857,8 +863,8 @@ function contextFor(c,mods,limit=60){
   const rows=[];
   for(const mod of mods){
     if(!moduleVisible(mod,COMPOSITION,c,platformPrincipal()))continue;
-    for(const x of arr(records,key(c,mod)).slice(-limit))rows.push({module:mod,...x});
-    if(mod==='crm')for(const entity of ['leads','contacts','companies','deals','opportunities','tasks','appointments','activities'])for(const x of arr(records,key(c,`crm:${entity}`)).filter(row=>!row.deleted_at).slice(-limit))rows.push({module:'crm',crm_entity:entity,...x});
+    for(const x of scopedRecordRows(c,mod).slice(-limit))rows.push({module:mod,...x});
+    if(mod==='crm')for(const entity of ['leads','contacts','companies','deals','opportunities','tasks','appointments','activities'])for(const x of crmOwnedRows(c,entity).slice(-limit))rows.push({module:'crm',crm_entity:entity,...x});
   }
   return rows.slice(-limit*4);
 }
@@ -1331,7 +1337,7 @@ async function handleCrmApi(req,res,u){
     if(req.method!=='GET'&&env('NODE_ENV')==='production'&&!encKey())throw Object.assign(new Error('CRM-mutaties vereisen versleutelde opslag'),{statusCode:503,code:'crm_encryption_not_configured'});
     const webhook=u.pathname.match(/^\/api\/crm\/webhooks\/([A-Za-z0-9_.:-]{1,80})$/);if(webhook&&req.method==='POST'){const raw=await rawBody(req),deliveryId=verifyCrmWebhook(req,raw);let payload;try{payload=raw.length?JSON.parse(raw.toString('utf8')):{}}catch{throw Object.assign(new Error('Webhook bevat ongeldige JSON'),{statusCode:400,code:'crm_webhook_payload_invalid'})}const event={id:deliveryId,type:String(payload.type||'webhook').toLowerCase(),entity:payload.entity||null,record_id:payload.record_id||null,record:payload.record||null,before:payload.before||null,after:payload.after||null,source:webhook[1],verified_signature:true};const result=CRM_CORE.evaluateAutomations(c,principal,event);json(res,202,{ok:true,verified_signature:true,source:webhook[1],...result});return true}
     if(u.pathname==='/api/crm/schema'&&req.method==='GET'){json(res,200,{ok:true,product:'Foundly CRM',standalone_capable:true,...CRM_CORE.schema()});return true}
-    if(u.pathname==='/api/crm/status'&&req.method==='GET'){const analytics=CRM_CORE.analytics(c,principal,{});json(res,200,{ok:true,product:'Foundly CRM',version:VERSION,tenant_id:c.tenant_id,principal:{id:principal.id,roles:principal.roles},records:crmTotalCount(c),analytics_available:Object.values(analytics.metrics).some(item=>item.available),data_encrypted_at_rest:Boolean(encKey()),standalone_capable:true,zero_optional:true,no_fake_data:true,...CRM_CORE.activityVersion(c,principal),observed_at:new Date().toISOString()});return true}
+    if(u.pathname==='/api/crm/status'&&req.method==='GET'){let analytics={metrics:{}};try{analytics=CRM_CORE.analytics(c,principal,{})}catch(error){if(error.code!=='capability_disabled')throw error}json(res,200,{ok:true,product:'Foundly CRM',version:VERSION,tenant_id:c.tenant_id,principal:{id:principal.id,roles:principal.roles},records:crmTotalCount(c),analytics_available:Object.values(analytics.metrics).some(item=>item.available),data_encrypted_at_rest:Boolean(encKey()),standalone_capable:true,zero_optional:true,no_fake_data:true,...CRM_CORE.activityVersion(c,principal),observed_at:new Date().toISOString()});return true}
     if(u.pathname==='/api/crm/summary'&&req.method==='GET'){const options=crmAnalyticsQuery(u);json(res,200,{ok:true,analytics:CRM_CORE.analyticsWithComparison(c,principal,options),priority_leads:CRM_CORE.priorityLeads(c,principal,{limit:10,filters:options.filters}),counts:Object.fromEntries(Object.keys(ENTITY_DEFINITIONS).map(entity=>[entity,crmCollectionCount(c,entity)])),observed_at:new Date().toISOString()});return true}
     if(u.pathname==='/api/crm/analytics'&&req.method==='GET'){json(res,200,CRM_CORE.analyticsWithComparison(c,principal,crmAnalyticsQuery(u)));return true}
     if(u.pathname==='/api/crm/priority-leads'&&req.method==='GET'){const options=crmAnalyticsQuery(u);json(res,200,CRM_CORE.priorityLeads(c,principal,{limit:u.searchParams.get('limit')||20,filters:options.filters}));return true}
@@ -1366,7 +1372,7 @@ async function handleFoundlyOsApi(req,res,u){
   if(workspaceMatch&&req.method==='GET'){
     const workspace=WORKSPACE_DEFINITIONS[workspaceMatch[1]];
     if(!workspace)return json(res,404,{ok:false,code:'workspace_not_found',error:'Onbekende workspace'});
-    return json(res,200,{ok:true,workspace:publicWorkspace(workspace)});
+    return json(res,200,{ok:true,workspace:projectedWorkspace(publicWorkspace(workspace),COMPOSITION.resolve(c,actor))});
   }
   const sectionMatch=u.pathname.match(/^\/api\/workspaces\/([a-z-]+)\/sections\/([^/]+)$/);
   if(sectionMatch&&req.method==='GET'){

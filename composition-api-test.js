@@ -14,7 +14,7 @@ const token = crypto.randomBytes(32).toString('hex');
 const env = { ...process.env, PORT: String(port), NODE_ENV: 'production', FOUNDLY_ADMIN_TOKEN: token, FOUNDLY_ADMIN_PASSWORD: '', FOUNDLY_ENCRYPTION_KEY: crypto.randomBytes(32).toString('hex'), FOUNDLY_DATA_DIR: dir, FOUNDLY_TENANT_ID: 'fixture-composition', FOUNDLY_DEALER_ID: 'fixture-business', FOUNDLY_PLATFORM_ROLES: 'ADMIN,SUPER_ADMIN', FOUNDLY_CRM_ROLES: 'ADMIN', FOUNDLY_PUBLIC_BASE_URL: 'https://foundly.example.test', OPENAI_API_KEY: '', FOUNDLY_AI_API_KEY: '', FOUNDLY_WORKER_INTERVAL_MS: '99999999' };
 let child, logs = '';
 async function start() {
-  child = spawn(process.execPath, ['server.js'], { cwd: __dirname, env, stdio: ['ignore', 'pipe', 'pipe'] });
+  child = spawn(process.execPath, [...(env.FOUNDLY_CONTEXT_ACL_TEST?['--require','./test-composition-context-mock.js']:[]),'server.js'], { cwd: __dirname, env, stdio: ['ignore', 'pipe', 'pipe'] });
   for (const stream of [child.stdout, child.stderr]) stream.on('data', b => { logs = (logs + b).slice(-16000); });
   for (let attempt = 0; attempt < 80; attempt++) {
     if (child.exitCode !== null) throw new Error(`Server exited: ${logs}`);
@@ -66,13 +66,20 @@ async function request(route, method = 'GET', body, extraHeaders={}) {
     assert.equal((await request('/api/composition','PUT',{entitlements:['crm'],capability_flags:{'crm:leads':false},expected_revision:3})).status,200);
     assert.equal((await request('/api/crm/leads')).status,403);
     assert.equal((await request('/api/crm/contacts')).status,200);
+    const partialCrm=await request('/api/workspaces/crm/snapshot');assert.equal(partialCrm.status,200);assert.ok(partialCrm.body.details.disabled_capabilities.includes('crm:leads'));
+    assert.ok(!(await request('/api/workspaces/crm')).body.workspace.sections.includes('LEADS'));
+    assert.equal((await request('/api/crm/status')).status,200);
     assert.ok(!(await request('/api/zero/tools')).body.tools.some(t=>t.tool_id==='create_lead'));
     assert.equal((await request('/api/zero/turn','POST',{message:'Welke leads hebben prioriteit?',conversation_id:'flagged-crm-conversation',turn_id:'flagged-crm-turn'})).status,403,'ZERO must enforce disabled lead capability at execution');
+    assert.equal((await request('/api/module/crm/data')).status,403,'Broad legacy projection cannot bypass disabled CRM capability');
+    assert.equal((await request('/api/composition','PUT',{entitlements:['crm'],expected_revision:4})).status,200);
     const privateContact=await request('/api/crm/contacts','POST',{name:'Private fixture contact',owner_id:'private-fixture-owner'});assert.equal(privateContact.status,201);
     assert.equal((await request('/api/workspaces/crm/dashboard','PUT',{scope:'TEAM',team_id:'private-team',name:'Private team layout',widgets:[]})).status,201);
-    await stop();env.FOUNDLY_PLATFORM_ROLES='VIEWER';env.FOUNDLY_PLATFORM_USER_ID='viewer-fixture';await start();
-    assert.equal((await request('/api/crm/contacts')).body.total,0,'Canonical viewer cannot inherit CRM ADMIN read-all');
+    assert.equal((await request('/api/crm/contacts','POST',{name:'Public fixture context',owner_id:'viewer-fixture'})).status,201);
+    await stop();env.FOUNDLY_CONTEXT_ACL_TEST='1';env.OPENAI_API_KEY=crypto.randomBytes(32).toString('hex');env.FOUNDLY_PLATFORM_ROLES='VIEWER';env.FOUNDLY_PLATFORM_USER_ID='viewer-fixture';await start();
+    assert.equal((await request('/api/crm/contacts')).body.total,1,'Canonical viewer sees only the assigned contact');
     assert.equal((await request(`/api/crm/contacts/${privateContact.body.record.id}`)).status,404);
+    const modelResponse=await request('/api/zero/turn','POST',{message:'Geef een inhoudelijke beschouwing van de beschikbare context',preferred_module:'crm',turn_id:'context-acl-fixture',conversation_id:'context-acl-fixture'});assert.equal(modelResponse.status,200,JSON.stringify(modelResponse.body));assert.ok(JSON.stringify(modelResponse.body).includes('context_acl_ok'),'The model must receive the assigned contact and no private contact');
     assert.ok(!(await request('/api/module/crm/data')).body.records.some(row=>row.id===privateContact.body.record.id),'Legacy module query must use the CRM public read contract');
     assert.ok((await request('/api/workspaces')).body.workspaces.some(w=>w.id==='crm'));
     for(const method of ['GET','DELETE'])assert.equal((await request('/api/workspaces/crm/dashboard?scope=TEAM&team_id=private-team',method)).status,403);
@@ -81,8 +88,8 @@ async function request(route, method = 'GET', body, extraHeaders={}) {
     assert.equal((await request('/api/crm/contacts','POST',{name:'Forbidden write'})).status,403,'Canonical role cannot inherit separate CRM ADMIN for writes');
     assert.equal((await request('/api/composition/preview','POST',{bundle:'COMPLETE',expected_revision:4})).status,403);
     assert.equal((await request('/api/composition','PUT',{bundle:'COMPLETE',expected_revision:4})).status,403);
-    await stop();env.FOUNDLY_PLATFORM_ROLES='ADMIN,SUPER_ADMIN';await start();
-    assert.equal((await request('/api/composition','PUT',{entitlements:['calendar'],expected_revision:4})).status,200);
+    await stop();delete env.FOUNDLY_CONTEXT_ACL_TEST;env.OPENAI_API_KEY='';env.FOUNDLY_PLATFORM_ROLES='ADMIN,SUPER_ADMIN';await start();
+    assert.equal((await request('/api/composition','PUT',{entitlements:['calendar'],expected_revision:5})).status,200);
     const calendar=(await request('/api/calendar/calendars','POST',{name:'HTTP fixture calendar',timezone:'Europe/Amsterdam'})).body.record;
     assert.equal((await request('/api/calendar/availability','POST',{title:'HTTP fixture availability',calendar_id:calendar.id,start_at:'2026-11-02T09:00:00+01:00',end_at:'2026-11-02T11:00:00+01:00',timezone:'Europe/Amsterdam'})).status,201);
     const query=new URLSearchParams({from:'2026-11-02T09:00:00+01:00',to:'2026-11-02T11:00:00+01:00'}),slot=(await request(`/api/calendar/scheduling/slots?${query}`)).body.items[0],booking={...slot,title:'HTTP fixture booking',confirm:true};

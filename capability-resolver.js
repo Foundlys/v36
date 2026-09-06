@@ -1,6 +1,6 @@
 'use strict';
 
-const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
+const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
 const crypto = require('crypto');
 const {scopedMutation}=require('./scoped-mutation');
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -12,7 +12,7 @@ function identity(ctx) {
 function permissions(actor = {}) {
   const roles = (actor.roles || []).map(x => String(x).toUpperCase());
   return new Set([...(actor.permissions || []), ...(roles.some(r => ['ADMIN', 'FOUNDER', 'SUPER_ADMIN'].includes(r)) ? ['*'] : []),
-    ...roles.flatMap(role => role === 'MANAGER' ? Object.keys(MODULES).flatMap(id => [`${id}:read`, `${id}:write`, `${id}:export`]) : role === 'ANALYST' ? ['analysis:read'] : role === 'VIEWER' ? Object.keys(MODULES).map(id => `${id}:read`) : role === 'SALES' ? ['crm:read','crm:write','sales:read','sales:write','calendar:read','calendar:write','communication:read','communication:write'] : role === 'ACCOUNTANT' ? ['finance:read','finance:write','finance:export'] : role === 'MARKETING' ? ['crm:read','crm:write','marketing:read','marketing:write','analysis:read'] : [])]);
+    ...roles.flatMap(role => role === 'MANAGER' ? Object.keys(MODULES).flatMap(id => [`${id}:read`, `${id}:write`, `${id}:export`]) : role === 'FINANCE_ADMIN' ? ['finance:read','finance:write','finance:approve','finance:export'] : role === 'APPROVER' ? ['finance:read','finance:approve'] : role === 'ANALYST' ? ['analysis:read','finance:read'] : role === 'VIEWER' ? Object.keys(MODULES).map(id => `${id}:read`) : role === 'SALES' ? ['crm:read','crm:write','sales:read','sales:write','calendar:read','calendar:write','communication:read','communication:write'] : role === 'ACCOUNTANT' ? ['finance:read','finance:write','finance:export'] : role === 'MARKETING' ? ['crm:read','crm:write','marketing:read','marketing:write','analysis:read'] : [])]);
 }
 function allowed(actor, permission) { const p = permissions(actor); return p.has('*') || p.has(permission); }
 function requirePermission(actor, permission) { if (!allowed(actor, permission)) fail('composition_forbidden', 'Deze capability is niet toegestaan'); }
@@ -36,7 +36,7 @@ function resolve(ctx, actor, profile = null, options = {}) {
     core_services: [...CORE_SERVICES], entitlements: [...entitled], enabled_modules: enabled, visible_modules: visible,
     capabilities: visible.flatMap(id => MODULES[id].provided_capabilities.filter(cap => profile?.capability_flags?.[cap] !== false)),
     routes: visible.map(id => MODULES[id].route),
-    tools: Object.entries(TOOL_MODULES).filter(([tool, id]) => visible.includes(id) && profile?.capability_flags?.[TOOL_CAPABILITIES[tool]] !== false && (!tool.startsWith('automotive_') || industry === 'AUTOMOTIVE')).map(([tool]) => tool),
+    tools: Object.entries(TOOL_MODULES).filter(([tool, id]) => visible.includes(id) && allowed(actor,`${id}:${WRITE_TOOLS.includes(tool)?'write':'read'}`) && profile?.capability_flags?.[TOOL_CAPABILITIES[tool]] !== false && (!tool.startsWith('automotive_') || industry === 'AUTOMOTIVE')).map(([tool]) => tool),
     industry_extensions: Object.fromEntries(Object.entries(pack.extensions).filter(([id]) => visible.includes(id))),
     data_policy: 'HIDDEN_RETAINED_EXPORTABLE', no_customer_fork: true
   };
@@ -96,7 +96,7 @@ class CapabilityResolver {
   }
   assertTool(ctx, actor, tool) {
     const id = TOOL_MODULES[tool];
-    if (id) this.assertModule(ctx, actor, id, ['create_lead','create_task','create_appointment','create_report','draft_message','automation_run'].includes(tool) ? 'write' : 'read');
+    if (id) this.assertModule(ctx, actor, id, WRITE_TOOLS.includes(tool) ? 'write' : 'read');
     if (this.profile(ctx)?.capability_flags?.[TOOL_CAPABILITIES[tool]] === false) fail('capability_disabled', 'Deze capability is niet actief');
     if (tool.startsWith('automotive_') && this.resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') fail('industry_tool_disabled', 'Automotive is niet actief');
   }
