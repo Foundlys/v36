@@ -617,6 +617,7 @@
     byId('contextDescription').textContent = description;
     const content = byId('contextContent'), items = [];
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
+    if(state.workspaceId==='calendar'&&section==='SCHEDULING'){renderScheduling(content);return;}
     if(state.workspaceId==='automation'){renderAutomationSection(section,content);return;}
     if ((state.workspace?.domain_entities || []).includes(section.toLowerCase())) {
       renderDomainSection(section.toLowerCase(), content);
@@ -720,6 +721,24 @@
     }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
   }
 
+  async function renderScheduling(content){
+    const form=node('form','domain-record-form'),notice=node('output'),results=node('div','scheduling-slots'),fields={};
+    for(const [name,label,value] of [['from','Vanaf (datum met UTC-offset)',''],['to','Tot (datum met UTC-offset)',''],['duration_minutes','Duur in minuten','30'],['title','Titel voor de afspraak','']]){
+      const holder=node('label','',label),input=node('input');input.name=name;input.required=true;input.value=value;if(name==='duration_minutes'){input.type='number';input.min='5';input.max='480';}if(['from','to'].includes(name))input.placeholder='2026-10-01T09:00:00+02:00';holder.append(input);form.append(holder);fields[name]=input;
+    }
+    const distribution=node('select'),label=node('label','','Verdeling');for(const [value,title] of [['AVAILABILITY','Eerst beschikbaar'],['ROUND_ROBIN','Minste afspraken in deze periode']]){const option=node('option','',title);option.value=value;distribution.append(option);}label.append(distribution);form.append(label);
+    const search=node('button','primary-button','Zoek beschikbare tijdsloten');search.type='submit';notice.setAttribute('aria-live','polite');form.append(search,notice);
+    form.addEventListener('submit',async event=>{event.preventDefault();search.disabled=true;replaceChildren(results,[]);try{
+      const query=new URLSearchParams({from:fields.from.value,to:fields.to.value,duration_minutes:fields.duration_minutes.value,distribution:distribution.value});
+      const slots=await request(`/api/calendar/scheduling/slots?${query}`);notice.textContent=slots.items.length?`${slots.items.length} beschikbare tijdsloten. Bevestig één tijdslot om te boeken.`:'Geen beschikbaarheid geregistreerd binnen deze periode.';
+      for(const slot of slots.items.slice(0,50)){
+        const card=node('article','context-item'),at=new Intl.DateTimeFormat('nl-NL',{timeZone:slot.timezone,dateStyle:'medium',timeStyle:'short'}).format(new Date(slot.start_at)),button=node('button','secondary-button',`Bevestig ${at}`);button.type='button';card.append(node('p','',`${at} · ${slot.timezone}`),button);
+        const key=crypto.randomUUID();button.addEventListener('click',async()=>{button.disabled=true;try{await request('/api/calendar/scheduling/book',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({...slot,title:fields.title.value.trim(),confirm:true})});notice.textContent='Afspraak opgeslagen in de interne agenda.';replaceChildren(results,[]);}catch(error){notice.textContent=friendlyError(error);button.disabled=false;}});results.append(card);
+      }
+    }catch(error){notice.textContent=friendlyError(error);}finally{search.disabled=false;}});
+    replaceChildren(content,[node('p','panel-copy','Tijdsloten volgen de geregistreerde beschikbaarheid en afspraken. Externe agenda’s tellen alleen mee na een geverifieerde import.'),form,results]);
+  }
+
   async function renderDomainSection(entity, content) {
     replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
     try {
@@ -727,10 +746,13 @@
       if (state.activeSection.toLowerCase() !== entity) return;
       const required = state.workspace.domain_required_fields?.[entity] || [];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
-      const fieldNames = [...new Set([...required, 'description','status', ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
+      const fieldNames = [...new Set([...required, 'description','status', ...(state.workspaceId==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants','recurrence']:[]), ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
       const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag', currency:'Valuta', probability:'Kans (0–1)', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
       for (const name of fieldNames) {
-        const label=node('label','',labels[name] || name), input=node(name==='status'?'select':['content','description'].includes(name)?'textarea':'input');
+        const label=node('label','',labels[name] || name), input=node(['status','calendar_id'].includes(name)?'select':['content','description'].includes(name)?'textarea':'input');
+        if(name==='calendar_id'){const calendars=await request('/api/calendar/calendars?limit=250');input.append(node('option','','Kies een agenda'));input.firstChild.value='';for(const calendar of calendars.items){const option=node('option','',calendar.name);option.value=calendar.id;input.append(option);}}
+        if(name==='recurrence')input.placeholder='DAILY of WEEKLY, aantal (bijv. WEEKLY,8)';
+        if(name==='participants')input.placeholder='Deelnemers, gescheiden door komma’s';
         if(name==='status'){for(const status of (entity==='preferences'?['GRANTED','DENIED','REVOKED']:['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','COMPLETED'])){const option=node('option','',status);option.value=status;input.append(option);}}
         input.name=name;input.required=required.includes(name);input.maxLength=name==='content'?12000:1000;
         if(['value_cents','probability'].includes(name)){input.type='number';input.min='0';input.step='0.01';if(name==='probability')input.max='1';}
@@ -746,21 +768,23 @@
         event.preventDefault();save.disabled=true;
         try {
           const payload={};for(const [name,input] of fields){if(!input.value.trim())continue;payload[name]=name==='value_cents'?Math.round(Number(input.value)*100):name==='probability'?Number(input.value):input.value.trim();}
+          if(payload.participants)payload.participants=payload.participants.split(',').map(value=>value.trim()).filter(Boolean);if(payload.recurrence){const [frequency,count]=payload.recurrence.split(',');payload.recurrence={frequency:frequency.trim().toUpperCase(),count:Number(count),interval:1};}
           if(editing)payload.expected_revision=editing.revision;
           await request(`/api/${state.workspaceId}/${entity}${editing?`/${encodeURIComponent(editing.id)}`:''}`,{method:editing?'PUT':'POST',headers:{'idempotency-key':crypto.randomUUID()},body:JSON.stringify(payload)});
           await renderDomainSection(entity,content);toast('Record opgeslagen.');
         } catch(error){notice.textContent=friendlyError(error);} finally {save.disabled=false;}
       });
       const rows=result.items||[],table=node('table'),head=node('thead'),body=node('tbody'),headRow=node('tr');
-      for(const title of ['Record','Status','Bijgewerkt','Actie'])headRow.append(node('th','',title));head.append(headRow);table.append(head,body);
+      for(const title of ['Record','Status',...(state.workspaceId==='calendar'?['Tijdstip']:[]),'Bijgewerkt','Actie'])headRow.append(node('th','',title));head.append(headRow);table.append(head,body);
       for(const record of rows){
         const tr=node('tr');tr.append(node('td','',record.title||record.name||record.id),node('td','',record.status||record.delivery_state||'—'),node('td','',record.updated_at?new Date(record.updated_at).toLocaleString('nl-NL'):'—'));
+        if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
-        edit.addEventListener('click',()=>{editing=record;for(const [name,input] of fields)input.value=record[name]===undefined?'':name==='value_cents'?String(record[name]/100):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
-        if(entity!=='messages'&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
+        edit.addEventListener('click',()=>{editing=record;for(const [name,input] of fields)input.value=record[name]===undefined?'':name==='value_cents'?String(record[name]/100):name==='recurrence'?`${record[name].frequency},${record[name].count}`:Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
+        if(!['messages','notifications'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
       }
       const summary=node('p','',`${result.total} records${result.next_offset!==null?' · eerste 100 getoond':''}`);
-      const children=[summary];if(entity!=='messages')children.push(form);
+      const children=[summary];if(!['messages','notifications'].includes(entity))children.push(form);
       children.push(rows.length?table:node('div','EmptyState','Nog geen records in dit onderdeel.'));
       replaceChildren(content,children);
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}

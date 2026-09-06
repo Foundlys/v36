@@ -10,7 +10,7 @@ The initially available branch was `feature/automotive-live-marketplaces` at
 `e51b807`, whose tree matches the published functional work. It was preserved as
 `checkpoint/pre-composable-20260905`. No tracked edits or stashes were discarded.
 `feature/composable-os-execution` starts from the actual published main and contains
-the local checkpoints `0de6655` and `e1496c0`. Uploads remain outside Git.
+the local checkpoints `0de6655`, `e1496c0` and `0af997c`. Uploads remain outside Git.
 
 Remote checkpoint `48ff996af19b5fde67ec42d99559fe34d8d11c05` has exactly the same
 tree as tested local `e1496c0`: `ffdf7ca242fe52a1619f329439d15e762674a2b6`.
@@ -18,6 +18,11 @@ tree as tested local `e1496c0`: `ffdf7ca242fe52a1619f329439d15e762674a2b6`.
 [CI run 44](https://github.com/Foundlys/v36/actions/runs/33994444039) passed on that
 checkpoint. Subsequent changes require their own CI result; that earlier run is
 not evidence for a later tree.
+
+Remote checkpoint `89b6b29166ce4aadb8c3bd3f73b7695814aaef1c` exactly matches
+local `0af997c`, tree `6ab1bd4674d38344bc84f7bce20198e2a6758555`.
+[CI run 45](https://github.com/Foundlys/v36/actions/runs/33996640469) passed.
+Changes resumed on 2026-09-06 require a new checkpoint and CI.
 
 The reported Windows-specific WIP/adapter was not found in the available files,
 refs, stashes or retrieved history. This is a limit of available evidence, not
@@ -39,10 +44,13 @@ credentials. No fixtures are inserted into production.
 | Workflow safety | Sequential outcomes, input-bound approval, no duplicate successful steps, explicit BLOCKED state, crash uncertainty, conditions, delays, opt-in schedule |
 | Event security | Supported event versions, tenant mismatch, role-filtered events, realtime/historical projections, cached facts, campaign outcomes, attribution and SSE |
 | Industry extension | Test-only property fields accepted by the existing universal engines; wrong-pack fields and production demo activation rejected |
+| New scheduling and persistence | Real authenticated slot/booking routes; stale confirmation and replay tests; durable private reminders; failed-persist rollback |
+| Additional authorization | CRM principal alignment, legacy read filtering, private canonical/knowledge access and shared-dashboard scope checks |
 | UI | Syntax and existing structural/responsive regression checks; new browser interaction is not proven |
 
 `full_product_acceptance: PENDING` in the configuration matrix is intentional.
 Health/readiness endpoints do not substitute for full commercial acceptance.
+Module runtime readiness reports its declared operational scope, current access, storage, encryption and genuine production mount separately from commercial acceptance. Optional providers are not contacted by these probes.
 Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 `ACCEPTANCE_PENDING`; unimplemented responsibilities are not marked READY by fiat.
 
@@ -52,7 +60,7 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 |---|---|---|
 | 0 Repository/runtime/checkpoint | COMPLETE | Local/remote refs and worktrees recovered; functional work preserved; live public baseline observed |
 | 1 Architecture inventory | COMPLETE | Ownership, retained buckets, Core services and dependency boundaries in inventory |
-| 2 Module contracts | PARTIAL | Nine manifests; full operational readiness and capability coverage need closure |
+| 2 Module contracts | PARTIAL | Nine versioned manifests and isolated runtime probes; full operation-level capability coverage still needs closure |
 | 3 Capability resolver | PARTIAL | Runtime/role/tool guards implemented; complete mixed legacy entry-point review and production user binding remain |
 | 4 Industry abstraction | PARTIAL | Validated pack fields and test injection; complete UI/KPI/workflow extension registry remains |
 | 5 Automotive pack | PARTIAL | Existing engine preserved; integration and non-regression checked; complete composed browser/provider acceptance remains |
@@ -62,7 +70,7 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 | 9 Marketing | PARTIAL | Owned plans and existing measurement adapters; journey activation and real provider proof remain |
 | 10 Finance | PARTIAL | Accounting preserved and tested; complete competitive/accounting and provider acceptance remain |
 | 11 Analytics | PARTIAL | Permission-preserving canonical projections; remaining cohort/model/section contracts remain |
-| 12 Calendar | PARTIAL | Own scheduling records and timezone tests; reminder execution and routing/UI remain |
+| 12 Calendar | PARTIAL | Availability-driven booking, distribution, internal reminders and restart tests; external calendar reconciliation and browser acceptance remain |
 | 13 Communication | PARTIAL | Own drafts/templates/preferences; mail authorization, delivery, attachments and collaboration remain |
 | 14 Automation | PARTIAL | Durable execution and bounded scheduling; complete editor/retry/recovery workflows remain |
 | 15 Workspace composition | PARTIAL | Shared forms, composer and distinct projections; explicitly missing sections and browser acceptance remain |
@@ -91,7 +99,8 @@ Current work spans those boundaries and their dependent workspaces/tests.
 
 Authorized target remains `dazzling-solace / production / v36` at
 `https://v36-production.up.railway.app`. Public health/readiness were observed
-green during recovery, version 6.0.0. No configuration, volume, credential,
+green during recovery and rechecked on 2026-09-06: both HTTP 200, version 6.0.0,
+readiness PASS with all eight checks true. No configuration, volume, credential,
 deployment or production-data mutation was made in this continuation.
 An authenticated Railway session and protected-route authentication are not
 available in the newly connected browser. No value was recovered from another

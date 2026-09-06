@@ -24,8 +24,8 @@ async function start() {
   throw new Error('Server start timeout');
 }
 async function stop() { if (child?.exitCode === null) { const closed = once(child, 'exit'); child.kill('SIGTERM'); await closed; } }
-async function request(route, method = 'GET', body) {
-  const response = await fetch(base + route, { method, headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
+async function request(route, method = 'GET', body, extraHeaders={}) {
+  const response = await fetch(base + route, { method, headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json',...extraHeaders }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
   return { status: response.status, body: await response.json() };
 }
 (async () => {
@@ -68,11 +68,28 @@ async function request(route, method = 'GET', body) {
     assert.equal((await request('/api/crm/contacts')).status,200);
     assert.ok(!(await request('/api/zero/tools')).body.tools.some(t=>t.tool_id==='create_lead'));
     assert.equal((await request('/api/zero/turn','POST',{message:'Welke leads hebben prioriteit?',conversation_id:'flagged-crm-conversation',turn_id:'flagged-crm-turn'})).status,403,'ZERO must enforce disabled lead capability at execution');
-    await stop();env.FOUNDLY_PLATFORM_ROLES='VIEWER';await start();
+    const privateContact=await request('/api/crm/contacts','POST',{name:'Private fixture contact',owner_id:'private-fixture-owner'});assert.equal(privateContact.status,201);
+    assert.equal((await request('/api/workspaces/crm/dashboard','PUT',{scope:'TEAM',team_id:'private-team',name:'Private team layout',widgets:[]})).status,201);
+    await stop();env.FOUNDLY_PLATFORM_ROLES='VIEWER';env.FOUNDLY_PLATFORM_USER_ID='viewer-fixture';await start();
+    assert.equal((await request('/api/crm/contacts')).body.total,0,'Canonical viewer cannot inherit CRM ADMIN read-all');
+    assert.equal((await request(`/api/crm/contacts/${privateContact.body.record.id}`)).status,404);
+    assert.ok(!(await request('/api/module/crm/data')).body.records.some(row=>row.id===privateContact.body.record.id),'Legacy module query must use the CRM public read contract');
     assert.ok((await request('/api/workspaces')).body.workspaces.some(w=>w.id==='crm'));
+    for(const method of ['GET','DELETE'])assert.equal((await request('/api/workspaces/crm/dashboard?scope=TEAM&team_id=private-team',method)).status,403);
+    assert.equal((await request('/api/workspaces/crm/dashboard?scope=ROLE&role=ADMIN')).status,403);
+    assert.equal((await request('/api/workspaces/crm/dashboard','PUT',{scope:'ROLE',role:'VIEWER',widgets:[]})).status,403);
     assert.equal((await request('/api/crm/contacts','POST',{name:'Forbidden write'})).status,403,'Canonical role cannot inherit separate CRM ADMIN for writes');
     assert.equal((await request('/api/composition/preview','POST',{bundle:'COMPLETE',expected_revision:4})).status,403);
     assert.equal((await request('/api/composition','PUT',{bundle:'COMPLETE',expected_revision:4})).status,403);
+    await stop();env.FOUNDLY_PLATFORM_ROLES='ADMIN,SUPER_ADMIN';await start();
+    assert.equal((await request('/api/composition','PUT',{entitlements:['calendar'],expected_revision:4})).status,200);
+    const calendar=(await request('/api/calendar/calendars','POST',{name:'HTTP fixture calendar',timezone:'Europe/Amsterdam'})).body.record;
+    assert.equal((await request('/api/calendar/availability','POST',{title:'HTTP fixture availability',calendar_id:calendar.id,start_at:'2026-11-02T09:00:00+01:00',end_at:'2026-11-02T11:00:00+01:00',timezone:'Europe/Amsterdam'})).status,201);
+    const query=new URLSearchParams({from:'2026-11-02T09:00:00+01:00',to:'2026-11-02T11:00:00+01:00'}),slot=(await request(`/api/calendar/scheduling/slots?${query}`)).body.items[0],booking={...slot,title:'HTTP fixture booking',confirm:true};
+    assert.equal((await request('/api/calendar/scheduling/book','POST',booking,{'idempotency-key':'http-booking-fixture'})).status,201);
+    assert.equal((await request('/api/calendar/scheduling/book','POST',booking,{'idempotency-key':'http-booking-fixture'})).body.deduplicated,true);
+    await stop();await start();assert.equal((await request('/api/calendar/events')).body.total,1);
+    for(const callback of ['/api/connect/meta/callback','/api/google/oauth/callback','/api/connect/linkedin/callback','/api/connect/tiktok/callback','/api/connect/wix/callback'])assert.equal((await fetch(base+callback+'?state=invalid',{redirect:'manual'})).status,302,callback);
     console.log('PASS authenticated composition API, route aliases, ZERO tools, revocation, encrypted restart and reenablement');
   } finally { await stop(); fs.rmSync(dir, { recursive: true, force: true }); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -65,3 +65,11 @@ api.handle(req,res,new URL('http://fixture.test/api/platform/events/stream'));
 api.publish(restrictedCtx,{...privateEvent,event_id:'private-stream-event'});assert.ok(!streamWrites.join('').includes('private-stream-event'));
 api.publish(restrictedCtx,{...privateEvent,event_id:'visible-stream-event',permissions:{roles:['ANALYST']}});assert.ok(streamWrites.join('').includes('visible-stream-event'));req.emit('close');
 console.log('PASS sequential workflow outcomes, input-bound approval, replay, crash boundary and canonical event versions');
+
+const privateRecord=timed.upsertCanonicalRecord(restrictedCtx,admin,{record_type:'fixture_private',source:'fixture',source_kind:'USER_INPUT',permissions:{user_ids:['private-owner']},data:{label:'Private record'}});
+assert.equal(timed.searchCanonicalRecords(restrictedCtx,analyst,{record_type:'fixture_private'}).total,0);
+const writer={id:'writer-fixture',roles:['ADMINISTRATOR_WITHOUT_BUILTIN_RIGHTS'],permissions:['events:write']};
+assert.throws(()=>timed.upsertCanonicalRecord(restrictedCtx,writer,{record_type:'fixture_private',internal_id:privateRecord.internal_id,source:'fixture',source_kind:'USER_INPUT',data:{label:'Forbidden overwrite'}}),e=>e.code==='data_record_not_found');
+timed.createKnowledge(restrictedCtx,admin,{type:'MODEL_HYPOTHESIS',subject:'Private fixture hypothesis',predicate:'has_evidence',permissions:{user_ids:['private-owner']}});
+assert.equal(timed.searchKnowledge(restrictedCtx,analyst,{q:'Private fixture hypothesis'}).total,0);
+console.log('PASS private canonical and knowledge records stay permission-filtered, including write lookup');

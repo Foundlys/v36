@@ -2,6 +2,7 @@
 
 const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
 const crypto = require('crypto');
+const {scopedMutation}=require('./scoped-mutation');
 const clone = value => JSON.parse(JSON.stringify(value));
 function fail(code, message, statusCode = 403) { throw Object.assign(new Error(message), { code, statusCode }); }
 function identity(ctx) {
@@ -73,10 +74,11 @@ class CapabilityResolver {
     if (previous?.signature === signature) return { ok: true, created: false, profile: clone(previous) };
     if (input.expected_revision !== (previous?.revision || 0)) fail('composition_revision_conflict', 'Configuratie is intussen gewijzigd', 409);
     const row = { ...body, tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, signature, revision: (previous?.revision || 0) + 1, created_at: new Date().toISOString(), created_by: actor.id };
+    return scopedMutation(this.adapter,ctx,['composition:profiles','platform:audit'],()=>{
     this.adapter.bucket(ctx, 'composition:profiles').push(row);
     this.adapter.audit(ctx, actor, 'COMPOSITION_CHANGED', 'tenant_composition', String(row.revision), { previous_revision: previous?.revision || 0, enabled_modules: enabled, data_deleted: false });
-    this.adapter.persist();
     return { ok: true, created: true, profile: clone(row), data_deleted: false };
+    });
   }
   assertModule(ctx, actor, id, operation = 'read') {
     if (!MODULES[id]) fail('module_unknown', 'Onbekende module', 404);
@@ -88,7 +90,7 @@ class CapabilityResolver {
   }
   preview(ctx,actor,input) {
     const current=this.resolve(ctx,actor),snapshots=clone(this.adapter.bucket(ctx,'composition:profiles'));
-    const isolated=new CapabilityResolver({bucket:()=>snapshots,audit:()=>{},persist:()=>{}});
+    const isolated=new CapabilityResolver({bucket:(ctx,scope)=>scope==='composition:profiles'?snapshots:[],audit:()=>{},persist:()=>{}});
     const result=isolated.configure(ctx,actor,input),next=isolated.resolve(ctx,actor);
     return {ok:true,profile:result.profile,resolution:next,diff:{enabled:next.enabled_modules.filter(id=>!current.enabled_modules.includes(id)),disabled:current.enabled_modules.filter(id=>!next.enabled_modules.includes(id)),industry_changed:next.industry_id!==current.industry_id},persistent_changes:false,data_deleted:false,expected_revision:current.revision};
   }

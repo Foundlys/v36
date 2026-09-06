@@ -14,6 +14,9 @@ const {CapabilityResolver,canManage:canManageComposition}=require('./capability-
 const {BusinessDomain,DEFINITIONS:BUSINESS_DOMAIN_DEFINITIONS}=require('./business-domains');
 const {createBusinessDomainApi}=require('./business-domain-api');
 const {sectionModel}=require('./workspace-section-model');
+const {moduleReadiness}=require('./module-readiness');
+const {calendarOperations}=require('./calendar-operations');
+const {authorizeDashboard}=require('./workspace-authorization');
 const {MODULES:COMMERCIAL_MODULES,BUNDLES:COMMERCIAL_BUNDLES,INDUSTRIES,moduleId:commercialModuleId}=require('./module-catalog');
 const {guardDomain,filterTools,filterWorkspaces,assertRoute:assertCompositionRoute,moduleVisible,scopeVisible,connectorVisible}=require('./composition-runtime');
 const {FoundlyPlatformCore}=require('./platform-core');
@@ -565,7 +568,7 @@ function recordProvenance(record={},now=new Date().toISOString()){
 }
 function normalizeRecord(record={}){const now=new Date().toISOString(),provenance=recordProvenance(record,now),provider=provenance.source_id,entityType=record.entity_type||record._source||record.type||'record',externalId=record.external_id||record.id||record.resource_name||record.resourceName||record.object_id||record.name||crypto.createHash('sha256').update(JSON.stringify(record)).digest('hex');return {...record,tenant_id:record.tenant_id,dealer_id:record.dealer_id,provider,connector_id:provider,entity_type:entityType,external_id:String(externalId),source_timestamp:record.source_timestamp||provenance.observed_at||null,ingested_at:record.ingested_at||record._ingested_at||provenance.ingested_at||now,updated_at:now,provenance}}
 function upsertRecord(c,mod,record){if(COMPOSITION.profile(c)&&commercialModuleId(mod))COMPOSITION.assertModule(c,platformPrincipal(),commercialModuleId(mod),'write');const bucket=arr(records,key(c,mod)),normalized={...normalizeRecord(record),tenant_id:c.tenant_id,dealer_id:c.dealer_id};const i=bucket.findIndex(x=>String(x.connector_id||x.provider||x._source||'')===String(normalized.connector_id)&&String(x.external_id||x.id||x.resource_name||x.resourceName||x.object_id||x.name||'')===normalized.external_id);if(i>=0){bucket[i]={...bucket[i],...normalized};markCoreDirty();return {record:bucket[i],created:false}}bucket.push(normalized);if(bucket.length>MAX_RECORDS_PER_SCOPE)bucket.splice(0,bucket.length-MAX_RECORDS_PER_SCOPE);return {record:normalized,created:true}}
-function crmPrincipal(){return {id:env('FOUNDLY_CRM_USER_ID','foundly-admin'),roles:env('FOUNDLY_CRM_ROLES','ADMIN').split(',').map(value=>value.trim()).filter(Boolean),team_ids:env('FOUNDLY_CRM_TEAM_IDS').split(',').map(value=>value.trim()).filter(Boolean)}}
+function crmPrincipal(){if(COMPOSITION.profile(trustedContext())){const actor=platformPrincipal();return {...actor,roles:actor.roles.map(role=>['FOUNDER','SUPER_ADMIN'].includes(role.toUpperCase())?'ADMIN':role)}}return {id:env('FOUNDLY_CRM_USER_ID','foundly-admin'),roles:env('FOUNDLY_CRM_ROLES','ADMIN').split(',').map(value=>value.trim()).filter(Boolean),team_ids:env('FOUNDLY_CRM_TEAM_IDS').split(',').map(value=>value.trim()).filter(Boolean)}}
 function platformPrincipal(){return {id:env('FOUNDLY_PLATFORM_USER_ID',env('FOUNDLY_CRM_USER_ID','foundly-admin')),roles:env('FOUNDLY_PLATFORM_ROLES','ADMIN').split(',').map(value=>value.trim()).filter(Boolean),team_ids:env('FOUNDLY_CRM_TEAM_IDS').split(',').map(value=>value.trim()).filter(Boolean)}}
 let PLATFORM_API=null;
 const PLATFORM_CORE=guardDomain(new FoundlyPlatformCore({
@@ -684,7 +687,13 @@ async function platformProviderTransport(kind,{ctx:c,actor,payload}){
 PLATFORM_API=createPlatformApi({platform:PLATFORM_CORE,finance:FINANCE_CORE,readBody:body,sendJson:json,context:()=>trustedContext(),principal:()=>platformPrincipal(),responseHeaders:baseHeaders,providerConfig:platformProviderConfig,providerTransport:platformProviderTransport,persistenceStatus:()=>{const storage=storageStatus();return {role:'encrypted_core_adapter',...storage,encrypted_at_rest:Boolean(encKey()),durable:Boolean(storage.configured_path&&storage.writable&&(env('NODE_ENV')!=='production'||storage.separate_mount))}},version:VERSION,redact:redactSecrets});
 const AUTOMOTIVE_API=createAutomotiveApi({automotive:AUTOMOTIVE_CORE,readBody:body,sendJson:json,context:()=>trustedContext(),principal:()=>platformPrincipal(),persistenceStatus:()=>{const storage=storageStatus();return {configured_path:storage.configured_path,writable:storage.writable,separate_mount:storage.separate_mount,durable:Boolean(storage.writable&&(env('NODE_ENV')!=='production'||storage.separate_mount)),encrypted_at_rest:Boolean(encKey())}},version:VERSION,redact:redactSecrets});
 try{PLATFORM_CORE.migrate(trustedContext(),platformPrincipal());FINANCE_CORE.migrate(trustedContext(),platformPrincipal())}catch(error){console.error('[PLATFORM MIGRATION ERROR]',redactJarvisText(error.message,240))}
-function crmCollectionCount(c,entity){return arr(records,key(c,`crm:${entity}`)).filter(row=>!row.deleted_at).length}
+function crmOwnedRows(c,entity){
+  if(!COMPOSITION.profile(c))return arr(records,key(c,`crm:${entity}`)).filter(row=>!row.deleted_at);
+  const output=[];let cursor=0;
+  try{for(;;){const page=CRM_CORE.list(c,crmPrincipal(),entity,{limit:200,cursor});output.push(...page.items);cursor+=page.items.length;if(!page.items.length||cursor>=page.total)break;}}catch(error){if(error.statusCode===403)return [];throw error}
+  return output;
+}
+function crmCollectionCount(c,entity){return crmOwnedRows(c,entity).length}
 function crmTotalCount(c){return Object.keys(ENTITY_DEFINITIONS).filter(entity=>!['audit_events','automation_executions'].includes(entity)).reduce((total,entity)=>total+crmCollectionCount(c,entity),0)}
 function moduleId(id){return ({social:'social_media',google:'google_ads'})[id]||id}
 function sourceContract(c,mod,statuses){
@@ -696,7 +705,16 @@ function sourceContract(c,mod,statuses){
   const memoryRecords=arr(memory,key(c,mod)).length,decisionRecords=arr(decisions,key(c,mod)).length;
   return {engine_id:mod,external_sources:{connected,configured,total_connected:connected.length,total_configured:configured.length,claim_basis:'successful_provider_probe_for_this_engine'},foundly_data_layer:{role:'normalized_cache_and_persistence',records:rows.length,provenance_counts:counts},local_persistence:{path_role:'cache_and_normalized_datastore',...storageStatus()},historical_internal_data:{available:counts.historical_internal+memoryRecords>0,records:counts.historical_internal,memory_records:memoryRecords},derived_intelligence:{available:counts.derived_intelligence+decisionRecords>0,records:counts.derived_intelligence,decision_records:decisionRecords}};
 }
-function tenantRecordCollections(c){const prefix=`${c.tenant_id}:${c.dealer_id}:`,rows=[];for(const [scope,items] of records.entries())if(scope.startsWith(prefix)&&scopeVisible(scope.slice(prefix.length),COMPOSITION,c,platformPrincipal())&&Array.isArray(items))for(const item of items)if(item&&typeof item==='object')rows.push({scope:scope.slice(prefix.length),item});return rows}
+function scopedRecordRows(c,scope){
+  const actor=platformPrincipal(),items=arr(records,key(c,scope));if(!COMPOSITION.profile(c))return items;
+  if(!scopeVisible(scope,COMPOSITION,c,actor))return [];
+  if(scope.startsWith('crm:'))return ENTITY_DEFINITIONS[scope.slice(4)]?crmOwnedRows(c,scope.slice(4)):[];
+  if(scope==='platform:raw_events')return PLATFORM_CORE.eventsForProjection(c,actor);
+  if(scope==='platform:canonical_records')return PLATFORM_CORE.canonicalRecordsForProjection(c,actor);
+  const privileged=actor.roles.some(role=>['ADMIN','FOUNDER','SUPER_ADMIN','MANAGER'].includes(role.toUpperCase()));
+  return items.filter(row=>row&&(!row.owner_id||row.owner_id===actor.id||privileged)&&(!row.permissions?.user_ids?.length||row.permissions.user_ids.includes(actor.id)||privileged)&&(!row.permissions?.roles?.length||row.permissions.roles.some(role=>actor.roles.includes(role))||privileged));
+}
+function tenantRecordCollections(c){const prefix=`${c.tenant_id}:${c.dealer_id}:`,rows=[];for(const scope of records.keys())if(scope.startsWith(prefix)&&scopeVisible(scope.slice(prefix.length),COMPOSITION,c,platformPrincipal()))for(const item of scopedRecordRows(c,scope.slice(prefix.length)))if(item&&typeof item==='object')rows.push({scope:scope.slice(prefix.length),item});return rows}
 function tenantSourceCounts(c){const counts={};for(const {item} of tenantRecordCollections(c)){const provenance=recordProvenance(item),source=String(provenance.source_id||item.provider||item.source||'foundly_core');counts[source]=(counts[source]||0)+1}return counts}
 function registryModuleIds(module){const aliases={automotive:['inkoop','verkoop','voorraad','data'],communication:['communicatie','agenda','crm'],marketing:['social_media','social','google_ads','google','rapportages','crm'],knowledge:['data','crm','rapportages'],learning:['analysis','data'],automation:['automatisering','automation'],connectors:['integraties'],settings:['integraties'],analysis:['analysis','rapportages','data'],finance:['finance','rapportages'],crm:['crm'],data:['data']};return aliases[module]||[module]}
 function sourceAppliesToModule(source,module){if(!module||['all','home','data','connectors','settings'].includes(module))return true;if(!source.connector_id){const internalModules={foundly_core:['automotive','crm','analysis','finance','knowledge','learning','automation','communication','marketing'],canonical_events:['analysis','learning','automation','marketing'],foundly_knowledge:['knowledge','learning','automotive'],foundly_automotive_history:['automotive'],foundly_crm:['crm','automotive','communication','marketing'],foundly_inventory:['automotive','crm','analysis']};return (internalModules[source.source_id]||[]).includes(module)}const spec=CONNECTOR_REGISTRY[source.connector_id]||{},modules=(spec.modules||[]).map(moduleId),accepted=new Set(registryModuleIds(module).map(moduleId));return modules.some(value=>accepted.has(value))}
@@ -706,7 +724,7 @@ function dashboardStorageKey(c,workspaceId,scope='PERSONAL',principal=platformPr
 function storedWorkspaceDashboard(c,workspaceId,scope,principal,qualifier){const rows=memory.get(dashboardStorageKey(c,workspaceId,scope,principal,qualifier))||[];return rows.at(-1)||null}
 function metric(id,value,{unit='COUNT',available=true,source='FOUNDLY_PERSISTED_DATA',freshness='CURRENT',detail=null}={}){return {id,value:available?value:null,unit,available:Boolean(available),source,freshness,detail,synthetic:false}}
 function countWhere(rows,predicate){return rows.reduce((count,row)=>count+(predicate(row)?1:0),0)}
-function workspaceRecordRows(c,module){return arr(records,key(c,module)).filter(row=>row&&!row.deleted_at)}
+function workspaceRecordRows(c,module){return scopedRecordRows(c,module).filter(row=>row&&!row.deleted_at)}
 function safeTimestamp(value){const parsed=Date.parse(value||'');return Number.isFinite(parsed)?new Date(parsed).toISOString():null}
 async function workspaceSnapshot(workspaceId,c){
   const actor=platformPrincipal(),observedAt=new Date().toISOString(),definition=WORKSPACE_DEFINITIONS[workspaceId];if(!definition)throw Object.assign(new Error('Onbekende workspace'),{statusCode:404,code:'workspace_not_found'});
@@ -714,7 +732,7 @@ async function workspaceSnapshot(workspaceId,c){
   if(['procurement','sales','calendar'].includes(workspaceId)){
     const domain=BUSINESS_DOMAINS[workspaceId],summary=domain.summary(c,actor),primary=domain.definition.primary;
     result.rows=summary.by_entity[primary].items;result.details={...summary,domain_schema:domain.definition};
-    for(const [entity,group] of Object.entries(summary.by_entity))result.metrics[entity]=metric(entity,group.total,{source:`FOUNDLY_${workspaceId.toUpperCase()}`});
+    for(const [entity,group] of Object.entries(summary.by_entity))result.metrics[entity]=metric(entity,group.total,{available:group.available,source:`FOUNDLY_${workspaceId.toUpperCase()}`});
     const registry=await canonicalRegistries(c);result.sources=registry.sources.filter(source=>sourceAppliesToModule(source,domain.definition.legacy));result.connectors=registry.connectors.filter(connector=>sourceAppliesToModule({connector_id:connector.connector_id},domain.definition.legacy));
     return result;
   }
@@ -1198,11 +1216,13 @@ async function workerTick(c=trustedContext()){
   workerRunning=true;const started=new Date().toISOString();workerState.set('worker',{status:'RUNNING',started_at:started,pid:process.pid,host:os.hostname()});markCoreDirty();persistCore(true);
   try{
     const q=arr(tasks,key(c,'queue')),now=Date.now(),processed=[];for(const t of q.filter(x=>(['QUEUED','RETRY_SCHEDULED'].includes(x.status)||x.status==='PAUSED_MODULE_DISABLED'&&moduleVisible(x.module,COMPOSITION,c,platformPrincipal()))&&Date.parse(x.next_attempt_at||0)<=now).slice(0,10))processed.push(await processTask(c,t));
-    PLATFORM_CORE.flushEventNotifications(c,platformPrincipal());
-    if(COMPOSITION.profile(c)&&moduleVisible('automation',COMPOSITION,c,platformPrincipal()))PLATFORM_CORE.tickAutomations(c,platformPrincipal());
-    for(const [owner,domain] of Object.entries(BUSINESS_DOMAINS))if(moduleVisible(owner,COMPOSITION,c,platformPrincipal()))domain.flush(c,platformPrincipal());
+    const moduleErrors=[],runModule=(module,operation)=>{try{operation()}catch(error){moduleErrors.push({module,code:String(error.code||'module_worker_failed').slice(0,100)})}};
+    runModule('events',()=>PLATFORM_CORE.flushEventNotifications(c,platformPrincipal()));
+    if(COMPOSITION.profile(c)&&moduleVisible('automation',COMPOSITION,c,platformPrincipal()))runModule('automation',()=>PLATFORM_CORE.tickAutomations(c,platformPrincipal()));
+    if(COMPOSITION.profile(c)&&moduleVisible('calendar',COMPOSITION,c,platformPrincipal()))runModule('calendar',()=>calendarOperations(BUSINESS_DOMAINS.calendar).tickReminders(c,platformPrincipal()));
+    for(const [owner,domain] of Object.entries(BUSINESS_DOMAINS))if(moduleVisible(owner,COMPOSITION,c,platformPrincipal()))runModule(owner,()=>domain.flush(c,platformPrincipal()));
     const status=await universalStatuses(c,false),auto=[];for(const x of status.list.filter(x=>x.connected&&connectorVisible(CONNECTOR_REGISTRY[x.id],COMPOSITION,c,platformPrincipal()))){const last=Number(workerState.get(`${key(c,'lastsync')}:${x.id}`)||0);if(Date.now()-last<15*60*1000)continue;const spec=CONNECTOR_REGISTRY[x.id]||{},profile=CONNECTOR_RUNTIME.profiles()[x.id]||{};if(!(spec.capabilities||[]).includes('sync'))continue;const dedicated=['meta','instagram','facebook_pages','linkedin','tiktok','wix','google_ads','ga4','search_console','google_calendar'].includes(x.id);if(!dedicated&&!profile.sync?.path)continue;if(auto.length>=3)break;try{auto.push(await integratedSync(c,x.id))}catch(e){auto.push({ok:false,id:x.id,error:redactJarvisText(e.message,500)})}}
-    const completed=new Date().toISOString();workerState.set('worker',{status:'IDLE',started_at:started,last_completed_at:completed,processed:processed.length,synced:auto.filter(x=>x.ok).length});markCoreDirty();addEvent(c,'worker','Autonome worker tick voltooid',{processed:processed.length,synced:auto.filter(x=>x.ok).length});persistCore(true);return {ok:true,status:'SUCCEEDED',processed,auto_sync:auto,completed_at:completed};
+    const completed=new Date().toISOString();workerState.set('worker',{status:moduleErrors.length?'DEGRADED':'IDLE',started_at:started,last_completed_at:completed,processed:processed.length,synced:auto.filter(x=>x.ok).length,module_errors:moduleErrors});markCoreDirty();addEvent(c,'worker','Autonome worker tick voltooid',{processed:processed.length,synced:auto.filter(x=>x.ok).length});persistCore(true);return {ok:moduleErrors.length===0,status:moduleErrors.length?'PARTIAL':'SUCCEEDED',processed,auto_sync:auto,module_errors:moduleErrors,completed_at:completed};
   }catch(e){
     const failedAt=new Date().toISOString(),message=redactJarvisText(e.message||e,500);workerState.set('worker',{status:'ERROR',started_at:started,last_failed_at:failedAt,last_error:message,pid:process.pid,host:os.hostname()});markCoreDirty();addEvent(c,'worker','Autonome worker tick mislukt',{error:message});persistCore(true);throw e;
   }finally{workerRunning=false}
@@ -1366,6 +1386,7 @@ async function handleFoundlyOsApi(req,res,u){
   if(dashboardMatch){
     const workspaceId=dashboardMatch[1],workspace=WORKSPACE_DEFINITIONS[workspaceId];if(!workspace)return json(res,404,{ok:false,code:'workspace_not_found',error:'Onbekende workspace'});
     const requestedScope=String(u.searchParams.get('scope')||'PERSONAL').toUpperCase(),qualifier=dashboardQualifier(requestedScope,u);
+    if(['GET','DELETE'].includes(req.method)){try{authorizeDashboard(actor,requestedScope,qualifier,req.method==='GET'?'read':'write')}catch(error){return json(res,403,{ok:false,code:error.code,error:error.message})}}
     if(req.method==='GET'){
       const saved=storedWorkspaceDashboard(c,workspaceId,requestedScope,actor,qualifier),fallback=dashboardTemplate(workspaceId,actor.id);
       return json(res,200,{ok:true,dashboard:saved||fallback,persisted:Boolean(saved),default_dashboard:fallback,allowed_widgets:workspace.default_widgets,schema_version:DASHBOARD_SCHEMA_VERSION,tenant_scoped:true,user_scoped:requestedScope==='PERSONAL'});
@@ -1373,6 +1394,7 @@ async function handleFoundlyOsApi(req,res,u){
     if(req.method==='PUT'||req.method==='POST'){
       try{
         const input=await body(req),normalized=normalizeDashboard(workspaceId,input,actor.id),scope=normalized.scope,scopeQualifier=dashboardQualifier(scope,u,input),admin=actor.roles.some(role=>['ADMIN','SUPER_ADMIN','FOUNDER'].includes(String(role).toUpperCase()));
+        authorizeDashboard(actor,scope,scopeQualifier,'write');
         if(scope==='TEAM'&&!scopeQualifier)return json(res,422,{ok:false,code:'dashboard_team_required',error:'Team-id is verplicht voor een teamdashboard'});
         if(scope==='TEAM'&&!admin&&!actor.team_ids.includes(scopeQualifier))return json(res,403,{ok:false,code:'dashboard_team_forbidden',error:'Dashboard kan alleen met een eigen team worden gedeeld'});
         const current=storedWorkspaceDashboard(c,workspaceId,scope,actor,scopeQualifier),expected=String(req.headers['if-match']||'').replace(/^W\//,'').replaceAll('"','');
@@ -1425,11 +1447,16 @@ async function handleCompositionApi(req,res,u){
     const match=u.pathname.match(/^\/api\/composition\/modules\/([a-z]+)\/(health|ready)$/);
     if(match&&req.method==='GET'){
       const module=COMMERCIAL_MODULES[match[1]];if(!module)return json(res,404,{ok:false,code:'module_unknown'});
-      const state=COMPOSITION.resolve(c,actor),enabled=state.visible_modules.includes(module.module_id),storage=storageStatus();
-      // Module product acceptance is deliberately separate from process liveness.
-      const checks={enabled,persistence:storage.writable,standalone_acceptance:module.standalone===true};
-      const ready=Object.values(checks).every(Boolean);
-      return json(res,match[2]==='health'?200:ready?200:503,{ok:match[2]==='health'||ready,module_id:module.module_id,alive:true,ready,checks,acceptance_status:module.status});
+      const probe=()=>{
+        if(BUSINESS_DOMAINS[module.module_id])return BUSINESS_DOMAINS[module.module_id].runtimeProbe(c,actor);
+        if(module.module_id==='crm'){const entity=['contacts','companies','leads'].find(name=>COMPOSITION.resolve(c,actor).capabilities.includes(`crm:${name}`));if(!entity)return false;return Array.isArray(CRM_CORE.list(c,crmPrincipal(),entity,{limit:1}).items);}
+        if(module.module_id==='finance')return Array.isArray(FINANCE_CORE.list(c,actor,'journal_entries',{limit:1}).items);
+        if(module.module_id==='analysis')return Array.isArray(PLATFORM_CORE.events(c,actor,{limit:1}).items);
+        if(module.module_id==='automation')return Array.isArray(PLATFORM_CORE.automationRecords(c,actor,'tasks',{limit:1}).items);
+        return false;
+      };
+      const report=moduleReadiness({module,resolution:COMPOSITION.resolve(c,actor),storage:storageStatus(),production:env('NODE_ENV')==='production',encrypted:Boolean(encKey()),authenticated:authConfigured()||env('NODE_ENV')!=='production',probe});
+      return json(res,match[2]==='health'?200:report.ready?200:503,{...report,ok:match[2]==='health'?report.alive:report.ready});
     }
     return json(res,404,{ok:false,code:'composition_route_not_found'});
   }catch(error){return json(res,error.statusCode||500,{ok:false,code:error.code||'composition_error',error:error.statusCode?error.message:'Interne configuratiefout'})}
@@ -1566,7 +1593,7 @@ async function api(req,res,u){
   if(u.pathname==='/api/workers'&&req.method==='GET'){const runtime=workerState.get('worker')||{status:'NOT_RUN',last_completed_at:null};return json(res,200,{runtime,workers:Object.keys(MODULES).map(id=>({id:`${id}-worker`,engine:id,status:runtime.status,last_completed_at:runtime.last_completed_at||null}))});}
   if(u.pathname==='/api/workers/tick'&&req.method==='POST'){const b=await body(req).catch(()=>({})),c=ctx(req,b);return json(res,200,await workerTick(c));}
   const e=u.pathname.match(/^\/api\/engine\/([^/]+)\/(ask|execute|status)$/); if(e){const mod=e[1],op=e[2];if(!MODULES[mod])return json(res,404,{error:'Onbekende engine'});if(op==='status'&&req.method==='GET'){const c=ctx(req),ss=await universalStatuses(c);return json(res,200,{id:mod,name:MODULES[mod],status:'available',sources:sourceContract(c,mod,ss)});}const b=await body(req),c=ctx(req,b.context||b);if(op==='ask'&&req.method==='POST')return json(res,200,await orchestrateCommand(String(b.message||''),c,mod));if(op==='execute'&&req.method==='POST'){if(!['sync_connector','follow_up'].includes(b.action))return json(res,400,{error:'Niet-geregistreerde workeractie geweigerd',allowed_actions:['sync_connector','follow_up']});const task=addTask(c,{type:b.action,module:mod,title:b.title||b.action,payload:b.payload||{}});upsertRecord(c,mod,{_type:'task',...task,provenance:{source_id:'foundly_command',source_name:'Foundly interne opdracht',source_kind:'historical_internal',method:'internal_write'}});addEvent(c,'task',`Taak aangemaakt voor ${MODULES[mod]}`,{task_id:task.id,type:task.type});persistCore(true);return json(res,202,{ok:true,task,tenant:c});}}
-  const m=u.pathname.match(/^\/api\/module\/([^/]+)(?:\/(ask|data|summary|memory))?$/); if(m){const mod=m[1],op=m[2];if(!MODULES[mod])return json(res,404,{error:'Onbekend onderdeel'});const c=ctx(req);if(req.method==='GET'){const ss=await universalStatuses(c);if(op==='data'){const normalized=arr(records,key(c,mod)).map(normalizeRecord),formal=mod==='crm'?Object.keys(ENTITY_DEFINITIONS).flatMap(entity=>arr(records,key(c,`crm:${entity}`)).filter(row=>!row.deleted_at).map(row=>({...row,type:row.type||row.entity_type,crm_entity:entity}))):[];return json(res,200,{records:[...normalized,...formal],sources:sourceContract(c,mod,ss)});}if(op==='memory')return json(res,200,{items:arr(memory,key(c,mod)),classification:'historical_internal'});return json(res,200,{id:mod,name:MODULES[mod],records:arr(records,key(c,mod)).length+(mod==='crm'?crmTotalCount(c):0),memory:arr(memory,key(c,mod)).length,status:'available',sources:sourceContract(c,mod,ss)});}if(req.method==='POST'){const b=await body(req),cc=ctx(req,b.context||b);if(op==='ask')return json(res,200,await orchestrateCommand(String(b.message||''),cc,mod));if(op==='data'){const rec=upsertRecord(cc,mod,{id:id(),at:new Date().toISOString(),...(b.record||b),provenance:{source_id:'user_input',source_name:'Handmatige invoer',source_kind:'user_input',method:'manual_input',provider_verified:false}}).record;persistCore(true);return json(res,201,rec);}}}
+  const m=u.pathname.match(/^\/api\/module\/([^/]+)(?:\/(ask|data|summary|memory))?$/); if(m){const mod=m[1],op=m[2];if(!MODULES[mod])return json(res,404,{error:'Onbekend onderdeel'});const c=ctx(req);if(req.method==='GET'){const ss=await universalStatuses(c);if(op==='data'){const normalized=scopedRecordRows(c,mod).map(normalizeRecord),formal=mod==='crm'?Object.keys(ENTITY_DEFINITIONS).flatMap(entity=>crmOwnedRows(c,entity).map(row=>({...row,type:row.type||row.entity_type,crm_entity:entity}))):[];return json(res,200,{records:[...normalized,...formal],sources:sourceContract(c,mod,ss)});}if(op==='memory')return json(res,200,{items:arr(memory,key(c,mod)),classification:'historical_internal'});return json(res,200,{id:mod,name:MODULES[mod],records:arr(records,key(c,mod)).length+(mod==='crm'?crmTotalCount(c):0),memory:arr(memory,key(c,mod)).length,status:'available',sources:sourceContract(c,mod,ss)});}if(req.method==='POST'){const b=await body(req),cc=ctx(req,b.context||b);if(op==='ask')return json(res,200,await orchestrateCommand(String(b.message||''),cc,mod));if(op==='data'){const rec=upsertRecord(cc,mod,{id:id(),at:new Date().toISOString(),...(b.record||b),provenance:{source_id:'user_input',source_name:'Handmatige invoer',source_kind:'user_input',method:'manual_input',provider_verified:false}}).record;persistCore(true);return json(res,201,rec);}}}
   const mm=u.pathname.match(/^\/api\/memory\/([^/]+)(?:\/search)?$/); if(mm){const scope=mm[1],c=ctx(req);if(req.method==='GET'){const items=arr(memory,key(c,scope));const q=(u.searchParams.get('q')||'').toLowerCase();return json(res,200,{items:q?items.filter(x=>String(x.text||'').toLowerCase().includes(q)):items});}if(req.method==='POST'){const b=await body(req),cc=ctx(req,b),rec={id:id(),at:new Date().toISOString(),text:b.text||b.content||'',tags:b.tags||[]};arr(memory,key(cc,scope)).push(rec);persistCore(true);return json(res,201,{memory:rec});}}
   const wh=u.pathname.match(/^\/api\/webhook\/([^/]+)$/); if(wh&&req.method==='POST'){const b=await body(req),c=ctx(req,b),connector=wh[1];if(!CONNECTOR_REGISTRY[connector])return json(res,404,{error:'Onbekende connector'});const rec=upsertRecord(c,'data',{id:id(),_source:connector,_ingested_at:new Date().toISOString(),payload:b,provenance:{source_id:connector,source_name:(CONNECTOR_REGISTRY[connector]||{}).naam||connector,source_kind:'external_provider',method:'authenticated_webhook_ingest',provider_verified:false}}).record;addEvent(c,'webhook','Geauthenticeerde connectorwebhook opgeslagen',{connector,record_id:rec.external_id});persistCore(true);return json(res,202,{ok:true,connector,received:true,persisted:true,provider_verified:false,record_id:rec.external_id,tenant:c});}
   return false;

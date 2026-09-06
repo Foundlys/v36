@@ -51,7 +51,7 @@ function filterWorkspaces(workspaces, resolver, ctx, actor) {
 }
 function routeCapability(pathname, id) {
   const entity=pathname.split('/').filter(Boolean)[2];
-  const groups={crm:{contacts:'contacts',companies:'companies',leads:'leads',deals:'relationships',pipelines:'relationships',customer360:'relationships'},finance:{invoices:'invoices',payments:'payments',ledger:'ledger',journals:'ledger',reports:'reports'},analysis:{kpis:'kpis',events:'events',funnel:'funnel',reports:'reports'},marketing:{campaigns:'campaigns',audiences:'audiences',attribution:'attribution'},procurement:{suppliers:'suppliers',opportunities:'opportunities',quotes:'approvals',orders:'approvals'},sales:{opportunities:'opportunities',pipelines:'pipeline',quotes:'quotes',orders:'quotes'},calendar:{events:'events',availability:'availability',conflicts:'conflicts'},communication:{drafts:'drafts',threads:'threads',messages:'inbox'},automation:{workflows:'workflows',tasks:'workflows',documents:'workflows',runs:'runs'}};
+  const groups={crm:{contacts:'contacts',companies:'companies',leads:'leads',deals:'relationships',pipelines:'relationships',customer360:'relationships'},finance:{invoices:'invoices',payments:'payments',ledger:'ledger',journals:'ledger',reports:'reports'},analysis:{kpis:'kpis',events:'events',funnel:'funnel',reports:'reports'},marketing:{campaigns:'campaigns',audiences:'audiences',attribution:'attribution',creatives:'campaigns',experiments:'campaigns'},procurement:{suppliers:'suppliers',opportunities:'opportunities',quotes:'approvals',orders:'approvals',documents:'approvals',tasks:'opportunities'},sales:{opportunities:'opportunities',pipelines:'pipeline',quotes:'quotes',orders:'quotes',tasks:'opportunities',activities:'pipeline'},calendar:{events:'events',availability:'availability',conflicts:'conflicts',calendars:'availability',reminders:'events',notifications:'events',scheduling:'availability'},communication:{drafts:'drafts',threads:'threads',messages:'inbox',templates:'drafts',preferences:'threads'},automation:{workflows:'workflows',tasks:'workflows',documents:'workflows',runs:'runs'}};
   return groups[id]?.[entity]?`${id}:${groups[id][entity]}`:null;
 }
 function assertRoute(pathname, resolver, ctx, actor, method='GET') {
@@ -60,7 +60,7 @@ function assertRoute(pathname, resolver, ctx, actor, method='GET') {
   const id = routeModule(normalized);
   const operation=/\/exports?(?:\/|$)/.test(normalized)?'export':['GET','HEAD','OPTIONS'].includes(method)||/\/(?:query|insights|report|realtime|keyword-ideas|conflicts)$/.test(normalized)?'read':'write';
   if (id) resolver.assertModule(ctx, actor, id, operation);
-  const cap=routeCapability(normalized,id);if(cap)resolver.assertCapability(ctx,actor,cap);
+  const cap=routeCapability(normalized,id);if(cap&&operation!=='export')resolver.assertCapability(ctx,actor,cap,operation);
   if (/^\/(?:api\/)?automotive(?:\/|$)/.test(normalized)) {
     resolver.assertModule(ctx, actor, 'procurement');
     if (resolver.resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') throw Object.assign(new Error('Automotive is niet actief'), { statusCode: 403, code: 'industry_disabled' });

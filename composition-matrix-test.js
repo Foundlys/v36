@@ -49,7 +49,10 @@ async function structure(ids){
       assert.equal((await request(`/api/workspaces/${id}/dashboard`)).status,200,id);
       assert.equal((await request(`/api/composition/modules/${id}/health`)).body.alive,true);
       // Full product acceptance remains explicit: this test does not fake it.
-      assert.equal((await request(`/api/composition/modules/${id}/ready`)).body.checks.standalone_acceptance,false);
+      const readiness=(await request(`/api/composition/modules/${id}/ready`)).body;
+      assert.equal(readiness.checks.operational_contract,true,id);
+      assert.equal(readiness.product_acceptance.standalone,'UNVERIFIED');
+      assert.equal(readiness.checks.persistent_mount,false,'Isolated production fixture must not claim a real /data volume');
     }
   }
   for(const [tool,id] of Object.entries(TOOL_MODULES))if(!tool.startsWith('automotive_'))assert.equal(tools.some(row=>row.tool_id===tool),ids.includes(id),tool);

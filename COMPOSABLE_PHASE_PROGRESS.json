@@ -21,7 +21,8 @@
       "phase": 2,
       "name": "Module contracts",
       "status": "PARTIAL",
-      "evidence_or_gap": "Nine manifests; full operational readiness and capability coverage need closure"
+      "evidence_or_gap": "Nine manifests; full operational readiness and capability coverage need closure",
+      "evidence": "Nine manifests and isolated runtime probes; complete operation-level capability coverage pending"
     },
     {
       "phase": 3,
@@ -81,7 +82,8 @@
       "phase": 12,
       "name": "Calendar",
       "status": "PARTIAL",
-      "evidence_or_gap": "Own scheduling records and timezone tests; reminder execution and routing/UI remain"
+      "evidence_or_gap": "Own scheduling records and timezone tests; reminder execution and routing/UI remain",
+      "evidence": "Availability-driven slots, distribution, idempotent booking, internal reminders, private ACL and restart; external reconciliation/browser proof pending"
     },
     {
       "phase": 13,

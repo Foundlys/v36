@@ -13,6 +13,19 @@ const DEFINITIONS = {
   communication: ['Communicatie', 'communicatie', ['inbox', 'drafts', 'threads'], ['COMMUNICATION']],
   automation: ['Automation', 'automatisering', ['workflows', 'runs', 'approvals'], ['INTERNAL']]
 };
+const RESPONSIBILITIES = {
+  procurement:['owned opportunity and supplier records','internal quote/order approval','permission-filtered export'],
+  sales:['owned pipeline and opportunity records','currency-separated forecast','internal quote/order approval','permission-filtered export'],
+  crm:['owned customer records and relationships','permission-filtered activity and analytics','audited export'],
+  marketing:['owned campaigns and audience records','unpublished creative preparation','permission-filtered export'],
+  finance:['legal entities and balanced journals','invoice lifecycle and reports','audited export'],
+  analysis:['versioned canonical event queries','permission-filtered KPI and funnel calculations','audited export'],
+  calendar:['owned events and availability','timezone-aware conflict checks','permission-filtered export'],
+  communication:['owned drafts and templates','consent records','permission-filtered export; external delivery requires provider authorization'],
+  automation:['owned tasks and documents','durable workflow runs and approval gates','audited export']
+};
+const API_CONTRACTS={crm:{export:'/api/crm/export/:entity',schema:'/api/crm/schema'},finance:{export:'/api/finance/exports',schema:'/api/finance/schema'},analysis:{export:'/api/analysis/export',schema:'/api/platform/schema'},automation:{export:'/api/automation/export',schema:'/api/platform/schema'}};
+const EVENT_CONTRACTS={crm:['lead_created','deal_created','deal_won','deal_lost','crm_record_changed','crm_record_archived','task_created','task_completed','contact_created','company_created','appointment_scheduled','quote_created'],finance:['invoice_draft_created','invoice_approved','invoice_created','invoice_paid','payment_sent','journal_posted','collection_action_created','bank_transaction_imported','period_closed'],analysis:[],automation:[]};
 const CORE_SERVICES = Object.freeze(['identity', 'authorization', 'persistence', 'audit', 'events', 'connectors', 'sources', 'knowledge', 'learning', 'zero', 'data']);
 const TOOL_MODULES = Object.freeze({
   procurement_summary:'procurement',sales_pipeline:'sales',calendar_agenda:'calendar',communication_drafts:'communication',marketing_campaigns:'marketing',
@@ -40,10 +53,11 @@ function freeze(value) {
 const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, [label, engine, capabilities, categories]]) => [id, {
   module_id: id, display_name: label, version: '1.0.0', schema_version: VERSION,
   status: 'ACCEPTANCE_PENDING', standalone: 'UNVERIFIED', sellable: false,
+  runtime_responsibilities: RESPONSIBILITIES[id],
   core_required: true, required_core_services: ['identity', 'authorization', 'persistence', 'audit', 'events'],
   optional_dependencies: [], provided_capabilities: capabilities.map(c => `${id}:${c}`), consumed_capabilities: [],
-  published_events: [`${id}.record.created.v1`, `${id}.record.updated.v1`,...(['procurement','sales'].includes(id)?[`${id}.record.approved.v1`]:[])], subscribed_events: [],
-  api_contracts: [{ version: 1, prefix: `/api/${id}` }], route: `/${id}`, legacy_engine: engine,
+  published_events: EVENT_CONTRACTS[id] || [`${id}.record.created.v1`, `${id}.record.updated.v1`,...(['procurement','sales'].includes(id)?[`${id}.record.approved.v1`]:[])], subscribed_events: [],
+  api_contracts: [{ version: 1, prefix: `/api/${id}`, export: API_CONTRACTS[id]?.export||`/api/${id}/export`, schema:API_CONTRACTS[id]?.schema||`/api/${id}/schema`,auth:'EXISTING_CORE_AUTHORIZATION',tenant_context:'SERVER_TRUSTED',capability_policy:'CURRENT_PROFILE_ON_EVERY_ENTRYPOINT' }], route: `/${id}`, legacy_engine: engine,
   zero_tools: Object.keys(TOOL_MODULES).filter(tool => TOOL_MODULES[tool] === id),
   source_categories: categories, connector_categories: categories,
   dashboard_presets: [`${id}:default`], widgets: capabilities,

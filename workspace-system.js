@@ -15,7 +15,7 @@ const WORKSPACE_DEFINITIONS = Object.freeze({
     id, route: COMMERCIAL_MODULES[id].route, label: COMMERCIAL_MODULES[id].display_name,
     short_label: COMMERCIAL_MODULES[id].display_name, capability: id, module_id: COMMERCIAL_MODULES[id].legacy_engine,
     eyebrow: 'FOUNDLY BUSINESS OPERATIONS', description: `${COMMERCIAL_MODULES[id].display_name}: eigen werkstromen, brongegevens en audit.`,
-    sections: ['OVERVIEW',...BUSINESS_DOMAINS[id].entities.map(entity=>entity.toUpperCase())],
+    sections: ['OVERVIEW',...BUSINESS_DOMAINS[id].entities.map(entity=>entity.toUpperCase()),...(id==='calendar'?['SCHEDULING']:[])],
     domain_entities: BUSINESS_DOMAINS[id].entities, domain_required_fields: BUSINESS_DOMAINS[id].required,
     default_widgets: BUSINESS_DOMAINS[id].entities.map(entity=>widget(entity,entity.replaceAll('_',' ')))
   }])),

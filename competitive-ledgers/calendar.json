@@ -2,7 +2,7 @@
   "schema_version": "foundly-competitive-ledger/1.0.0",
   "version": "1.0.0",
   "module": "calendar",
-  "assessed_at": "2026-09-05",
+  "assessed_at": "2026-09-06",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -22,13 +22,15 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Calendars, events, availability, participants, reminders and bounded recurring events use the existing encrypted adapter.",
-      "gap": "Round-robin routing, scheduling UI and reminder delivery are not complete.",
-      "required_change": "Implement availability-driven scheduling and durable internal reminder execution.",
+      "foundly_current": "Recorded availability produces bookable slots, distribution favors calendars with fewer recorded appointments in the requested period, stale selections are rejected, and private in-app reminders survive restart. HTTP booking and UI forms are implemented.",
+      "gap": "External-calendar reconciliation and actual browser acceptance remain unproven.",
+      "required_change": "Validate real calendar reconciliation with authorized provider access and complete browser interaction acceptance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "calendar-scheduling-test.js",
+        "composition-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
