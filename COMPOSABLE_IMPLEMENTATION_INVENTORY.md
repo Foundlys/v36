@@ -87,3 +87,7 @@ Analytics owns saved reports in its existing historical bucket. Generated report
 Previous exact-tree CI: run 47 (`34037718901`), commit `b1d0ec93b88a73b3476b9b62fb311e05e0c3e9d5`, completed successfully. This checkpoint is still partial product implementation; production and browser acceptance are not inferred from local or CI tests.
 
 Role/projection follow-up: MANAGER no longer advertises Finance rights absent explicit assignment, matching the preserved Finance engine. Trusted FOUNDER/SUPER_ADMIN authority is translated to the legacy ADMIN vocabulary only after composed module/capability checks. Shared Data excludes operational Core/outbox/idempotency buckets and disabled entity capabilities. The complete npm test matrix passes with these guards; legacy tenants retain their existing behavior.
+
+## Procurement sourcing increment
+
+Owned RFQs and manually recorded supplier bids reuse the procurement adapter, ACL, events, export and revision contracts. Comparisons include only complete bids for the current RFQ revision and currency. Missing delivery times remain unknown; provenance stays user supplied and unverified. The shared workspace provides supplier/RFQ selectors, line entry and a comparison view. No supplier transport or external award was added. Official comparison benchmark: [Zoho Procurement RFQ awards](https://www.zoho.com/qa/procurement/help/request-for-quotes/award-request-for-quotes/), retrieved 2026-09-06. Approval chains, partial awards and browser acceptance remain incomplete.

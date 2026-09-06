@@ -10,14 +10,14 @@ const clone = value => JSON.parse(JSON.stringify(value));
 const fail = (code, message, statusCode = 422) => { throw Object.assign(new Error(message), { code, statusCode }); };
 const DEFINITIONS = Object.freeze({
   analysis:{legacy:'rapportages',primary:'reports',entities:['reports'],required:{reports:['title','content']}},
-  procurement: { legacy: 'inkoop', primary: 'opportunities', entities: ['opportunities','suppliers','quotes','orders','documents','tasks'], required: { suppliers: ['name'], opportunities: ['title'], quotes: ['title'], orders: ['title'], documents: ['name'], tasks: ['title'] } },
+  procurement: { legacy: 'inkoop', primary: 'opportunities', entities: ['opportunities','suppliers','rfqs','bids','quotes','orders','documents','tasks'], required: { rfqs:['title','currency','lines'],bids:['title','rfq_id','rfq_revision','supplier_id','currency','lines','evidence_reference'],suppliers: ['name'], opportunities: ['title'], quotes: ['title'], orders: ['title'], documents: ['name'], tasks: ['title'] } },
   sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','quotes','orders','activities','tasks'], required: { opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
   marketing: { legacy: 'social_media', primary: 'campaigns', entities: ['campaigns','audiences','creatives','experiments'], required: {campaigns:['title'],audiences:['name'],creatives:['title','content'],experiments:['title']} },
   calendar: { legacy: 'agenda', primary: 'events', entities: ['events','calendars','availability','reminders','notifications'], required: { events: ['title','start_at','end_at','timezone'], calendars: ['name','timezone'], availability: ['title','start_at','end_at','timezone'],reminders:['title','due_at'],notifications:['title'] } },
   communication: { legacy: 'communicatie', primary: 'drafts', entities: ['drafts','messages','threads','templates','preferences'], required: { drafts: ['title','content'], messages: ['title','content'], threads: ['title'], templates: ['title','content'], preferences: ['subject_id','purpose','status'] } }
 });
 const INTERNAL_STATUSES = new Set(['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','DECLINED','COMPLETED','APPROVAL_REQUIRED','APPROVED_INTERNAL']);
-const OWNED_FIELDS = new Set(['title','name','content','description','status','value_cents','cost_cents','currency','probability','supplier_id','opportunity_id','pipeline_id','stage_id','stages','owner_id','start_at','end_at','timezone','participants','calendar_id','recurrence','thread_id','to','subject_id','purpose','legal_basis','related_refs','industry_fields','due_at','direction','consent_status','filters','hypothesis','success_metric','budget_cents']);
+const OWNED_FIELDS = new Set(['title','name','content','description','status','value_cents','cost_cents','currency','probability','supplier_id','opportunity_id','pipeline_id','stage_id','stages','owner_id','start_at','end_at','timezone','participants','calendar_id','recurrence','thread_id','to','subject_id','purpose','legal_basis','related_refs','industry_fields','due_at','direction','consent_status','filters','hypothesis','success_metric','budget_cents','rfq_id','rfq_revision','lines','evidence_reference']);
 function timestamp(value) { const n = Date.parse(value); if (!Number.isFinite(n)) fail('date_invalid','Ongeldige datum'); return n; }
 function timezone(value) { try { new Intl.DateTimeFormat('en-US',{timeZone:value}).format(); } catch { fail('timezone_invalid','Ongeldige IANA-tijdzone'); } return value; }
 function wallParts(date, zone) {
@@ -105,6 +105,7 @@ class BusinessDomain {
     if(prior&&options.expected_revision!==prior.revision)fail('record_revision_conflict','Record is intussen gewijzigd',409);
     if(prior?.status==='APPROVED_INTERNAL')fail('approved_record_immutable','Maak een nieuwe revisie buiten het goedgekeurde record');
     const value=this.validate(entity,input,prior||{});
+    if(this.id==='procurement')require('./procurement-sourcing').validateSourcing(this,ctx,actor,entity,value);
     if(input.industry_fields){
       const extension=this.resolver.resolve(ctx,actor).industry_extensions?.[this.id],fields=extension?.fields||[],schema=extension?.field_schema||{};
       if(typeof input.industry_fields!=='object'||Array.isArray(input.industry_fields)||Object.keys(input.industry_fields).some(field=>!fields.includes(field)))fail('industry_field_unavailable','Veld hoort niet bij het actieve branchepakket');

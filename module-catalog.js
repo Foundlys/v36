@@ -70,7 +70,7 @@ const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, 
   migration_version: 1, feature_flags: capabilities.map(cap=>`${id}:${cap}`), entitlement_key: `module:${id}`,
   audit_categories: [`${id}:read`, `${id}:write`, `${id}:export`],
   industry_extension_points: ['fields', 'objects', 'workflows', 'dashboards', 'kpis', 'tools', 'connectors'],
-  competitive_status: 'BELOW_PARITY', competitive_ledger_version:'1.0.0', competitive_ledger:`competitive-ledgers/${id}.json`
+  competitive_status: 'BELOW_PARITY', competitive_ledger_version:require(`./competitive-ledgers/${id}.json`).version, competitive_ledger:`competitive-ledgers/${id}.json`
 }])));
 const ALIASES = freeze({...Object.fromEntries(Object.entries(MODULES).flatMap(([id, m]) => [[id, id], [m.legacy_engine, id]])),rapportages:'analysis',google_ads:'marketing',social:'marketing',google:'marketing'});
 const BUNDLES = freeze({ COMPLETE: Object.keys(MODULES), OPERATIONS: ['crm', 'calendar', 'communication', 'automation'], ...Object.fromEntries(Object.keys(MODULES).map(id => [id.toUpperCase(), [id]])) });

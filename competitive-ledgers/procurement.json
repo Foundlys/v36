@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "module": "procurement",
-  "assessed_at": "2026-09-05",
+  "assessed_at": "2026-09-06",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -27,15 +27,22 @@
           "url": "https://www.sap.com/products/spend-management/procure-to-pay.html",
           "observed": "Guided buying, supplier catalogs, policy controls and procurement/invoice integration.",
           "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Zoho Procurement",
+          "url": "https://www.zoho.com/qa/procurement/help/request-for-quotes/award-request-for-quotes/",
+          "observed": "Compare vendor bids by item, price and delivery, then record an award with separate approval and publication.",
+          "retrieved_at": "2026-09-06"
         }
       ],
-      "foundly_current": "Suppliers, acquisition opportunities, quotes, orders, tasks and internal revision-bound approvals on retained storage.",
-      "gap": "RFQ comparison, supplier collaboration, configurable approval chains and purchasing policies remain incomplete.",
-      "required_change": "Add versioned RFQs, bid comparison and configurable review policies without dependency on Automotive.",
+      "foundly_current": "Owned RFQs and revision-bound manually recorded bids, full-scope currency-safe price comparisons, private record access, existing internal quote/order approval, retained export and restart.",
+      "gap": "Supplier collaboration, partial awards, configurable approval chains and purchasing policies remain incomplete; browser acceptance is pending.",
+      "required_change": "Complete internal award/review policy flows and provider-authorized supplier collaboration.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "procurement-sourcing-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

@@ -70,7 +70,14 @@ async function workflow(id){
     assert.equal((await request(`/api/${id}/export`)).body.collections[entity].length,1);
     const zero=await request('/api/zero/turn','POST',{message:`Toon ${id} overzicht`,preferred_module:id,turn_id:`matrix-turn-${id}`,conversation_id:`matrix-conversation-${id}`});
     assert.equal(zero.status,200,JSON.stringify(zero));assert.ok(zero.body.verification.persisted_records_only);assert.equal(zero.body.actions.length,0);
-    return async()=>assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);
+    let rfqId;
+    if(id==='procurement'){
+      const supplier=(await request('/api/procurement/suppliers','POST',{name:'Matrix RFQ supplier'})).body.record;
+      const rfq=await request('/api/procurement/rfqs','POST',{title:'Matrix RFQ',currency:'EUR',lines:[{item_id:'A',description:'Fixture item',quantity:2}]});assert.equal(rfq.status,201);rfqId=rfq.body.record.id;
+      const bid=await request('/api/procurement/bids','POST',{title:'Matrix bid',rfq_id:rfqId,rfq_revision:1,supplier_id:supplier.id,currency:'EUR',evidence_reference:'Matrix fixture offer',lines:[{item_id:'A',quantity:2,unit_price_cents:1250}]});assert.equal(bid.status,201,JSON.stringify(bid));
+      assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);
+    }
+    return async()=>{assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);if(rfqId)assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);};
   }
   if(id==='crm'){
     const response=await request('/api/crm/contacts','POST',{name:'Matrix fixture contact'});assert.equal(response.status,201,JSON.stringify(response));

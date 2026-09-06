@@ -13,6 +13,7 @@ function createBusinessDomainApi({domains,context,principal,readBody,sendJson}){
       if(['export','owned-export'].includes(parts[0])&&req.method==='GET')return sendJson(res,200,{ok:true,...core.export(ctx,actor)});
       if(id==='calendar'&&parts[0]==='conflicts'&&req.method==='POST'){const data=await readBody(req);return sendJson(res,200,{ok:true,...core.conflicts(ctx,actor,data,data.exclude_id)});}
       if(id==='calendar'&&parts[0]==='scheduling'){const operations=calendarOperations(core);if(parts[1]==='slots'&&parts.length===2&&req.method==='GET')return sendJson(res,200,{ok:true,...operations.slots(ctx,actor,Object.fromEntries(url.searchParams))});if(parts[1]==='book'&&parts.length===2&&req.method==='POST')return sendJson(res,201,{ok:true,...operations.book(ctx,actor,await readBody(req),{idempotency_key:req.headers['idempotency-key']})});}
+      if(id==='procurement'&&parts[0]==='rfqs'&&parts[2]==='comparison'&&parts.length===3&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./procurement-sourcing').compareBids(core,ctx,actor,parts[1])});
       if(parts.length>3||!DEFINITIONS[id].entities.includes(parts[0]))return sendJson(res,404,{ok:false,code:'entity_unknown'});
       const [entity,recordId,action]=parts;
       if(req.method==='GET'&&!action)return sendJson(res,200,recordId?{ok:true,record:core.get(ctx,actor,entity,recordId)}:{ok:true,...core.list(ctx,actor,entity,Object.fromEntries(url.searchParams))});
