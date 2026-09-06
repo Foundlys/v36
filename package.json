@@ -12,7 +12,7 @@
     "test:masterbuild": "node foundly-masterbuild-regression-test.js",
     "test:e2e": "node --check full-platform-e2e-test.js && node full-platform-e2e-test.js",
     "audit": "node production-audit.js",
-    "test:composition": "node capability-resolver-test.js && node composition-api-test.js && node business-domains-test.js && node workflow-execution-test.js && node composition-matrix-test.js && node second-industry-proof-test.js && node calendar-scheduling-test.js && node module-access-contracts-test.js"
+    "test:composition": "node capability-resolver-test.js && node composition-api-test.js && node business-domains-test.js && node workflow-execution-test.js && node composition-matrix-test.js && node second-industry-proof-test.js && node calendar-scheduling-test.js && node module-access-contracts-test.js && node module-event-contracts-test.js"
   },
   "engines": {
     "node": ">=20"

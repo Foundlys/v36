@@ -9,6 +9,7 @@ const { requirePermission } = require('./capability-resolver');
 const clone = value => JSON.parse(JSON.stringify(value));
 const fail = (code, message, statusCode = 422) => { throw Object.assign(new Error(message), { code, statusCode }); };
 const DEFINITIONS = Object.freeze({
+  analysis:{legacy:'rapportages',primary:'reports',entities:['reports'],required:{reports:['title','content']}},
   procurement: { legacy: 'inkoop', primary: 'opportunities', entities: ['opportunities','suppliers','quotes','orders','documents','tasks'], required: { suppliers: ['name'], opportunities: ['title'], quotes: ['title'], orders: ['title'], documents: ['name'], tasks: ['title'] } },
   sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','quotes','orders','activities','tasks'], required: { opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
   marketing: { legacy: 'social_media', primary: 'campaigns', entities: ['campaigns','audiences','creatives','experiments'], required: {campaigns:['title'],audiences:['name'],creatives:['title','content'],experiments:['title']} },
@@ -119,7 +120,7 @@ class BusinessDomain {
     const keys=this.adapter.bucket(ctx,`${this.id}:idempotency`),key=options.idempotency_key;
     if(key){const seen=keys.find(row=>row.key===key&&row.actor_id===actor.id);if(seen){if(seen.fingerprint!==fingerprint)fail('idempotency_conflict','Idempotency key heeft andere inhoud',409);return {record:this.get(ctx,actor,entity,seen.record_id),deduplicated:true};}}
     if(this.id==='calendar'&&entity==='events'&&!['CANCELLED','ARCHIVED'].includes(value.status)){const conflict=this.conflicts(ctx,actor,value,options.id);if(conflict.count)fail('calendar_conflict',`Tijdstip overlapt met ${conflict.count} bestaande afspraak(en)`,409);}
-    const now=new Date().toISOString(),row={...value,id:prior?.id||crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:value.owner_id||prior?.owner_id||actor.id,status:value.status||'DRAFT',created_at:prior?.created_at||now,updated_at:now,revision:(prior?.revision||0)+1,source_module:this.id,schema_version:1,provenance:{source_id:'authorized_user_input',actor_id:actor.id,observed_at:now,classification:'USER_SUPPLIED',provider_verified:false}};
+    const now=new Date().toISOString(),row={...value,id:prior?.id||crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:value.owner_id||prior?.owner_id||actor.id,status:value.status||'DRAFT',created_at:prior?.created_at||now,updated_at:now,revision:(prior?.revision||0)+1,source_module:this.id,schema_version:1,provenance:{source_id:'authorized_user_input',actor_id:actor.id,observed_at:now,classification:options.provenance_classification||'USER_SUPPLIED',provider_verified:false}};
     if(rows.length>=25000&&!prior)fail('domain_capacity','Recordlimiet bereikt',507);
     if(prior)rows[rows.findIndex(r=>r.id===row.id)]=row;else rows.push(row);
     if(key)keys.push({key,actor_id:actor.id,fingerprint,request_fingerprint:options.request_fingerprint||null,record_id:row.id});

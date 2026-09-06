@@ -3,6 +3,7 @@
 // Durable sequential execution on the existing platform adapter. A persisted
 // RUNNING step after a crash is indeterminate and is never blindly repeated.
 const crypto = require('node:crypto');
+const {queueOwnedEvent,flushOwnedEvents}=require('./module-event-outbox');
 const clone = value => JSON.parse(JSON.stringify(value));
 const fail = (code, message, statusCode = 409) => { throw Object.assign(new Error(message), { code, statusCode }); };
 function canonical(value) {
@@ -26,7 +27,7 @@ function matches(condition,event,inputs) {
 }
 function validateWorkflow(actions) {
   if(actions.length>100)fail('automation_action_limit','Maximaal honderd workflowstappen',422);
-  for(const action of actions){validateCondition(action.when);if(action.type==='delay'&&(!Number.isInteger(action.seconds)||action.seconds<1||action.seconds>2592000))fail('automation_delay_invalid','Vertraging moet tussen één seconde en dertig dagen zijn',422);}
+  for(const action of actions){validateCondition(action.when);if(String(action.type).toLowerCase()==='delay'&&(!Number.isInteger(action.seconds)||action.seconds<1||action.seconds>2592000))fail('automation_delay_invalid','Vertraging moet tussen één seconde en dertig dagen zijn',422);}
 }
 
 function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
@@ -102,7 +103,9 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
     : row.steps.length !== workflow.actions.length || row.steps.some(step => step.status === 'PLANNED_INTERNAL') ? 'PLANNED' : 'SUCCEEDED';
   row.completed_at = ['AWAITING_APPROVAL', 'PLANNED','WAITING_TIME'].includes(row.status) ? null : core.now();
   core.audit(ctx, actor, resuming ? 'RESUME' : 'RUN', 'automation', workflow.id, { run_id: row.run_id, status: row.status, step_count: row.steps.length, request_signature: requestSignature });
+  queueOwnedEvent(core,ctx,actor,'automation','run',row,'updated');
   core.commit();
+  flushOwnedEvents(core,ctx,actor);
   return clone(row);
 }
 module.exports = { executeWorkflow,validateWorkflow };

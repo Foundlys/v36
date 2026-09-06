@@ -21,8 +21,7 @@
       "phase": 2,
       "name": "Module contracts",
       "status": "PARTIAL",
-      "evidence_or_gap": "Nine manifests; full operational readiness and capability coverage need closure",
-      "evidence": "Nine manifests and isolated runtime probes; complete operation-level capability coverage pending"
+      "evidence_or_gap": "Nine manifests, isolated runtime probes, owned entity/operation capability mappings and durable Analytics/Automation events; complete legacy entry-point and role-contract closure remains"
     },
     {
       "phase": 3,
@@ -76,14 +75,13 @@
       "phase": 11,
       "name": "Analytics",
       "status": "PARTIAL",
-      "evidence_or_gap": "Permission-preserving canonical projections; remaining cohort/model/section contracts remain"
+      "evidence_or_gap": "Owned reports with explicit inference provenance, retained export and durable events; permission-filtered analytics exist; cohorts/model/section contracts remain"
     },
     {
       "phase": 12,
       "name": "Calendar",
       "status": "PARTIAL",
-      "evidence_or_gap": "Own scheduling records and timezone tests; reminder execution and routing/UI remain",
-      "evidence": "Availability-driven slots, distribution, idempotent booking, internal reminders, private ACL and restart; external reconciliation/browser proof pending"
+      "evidence_or_gap": "Availability-driven slots, distribution, idempotent booking, internal reminders, private ACL and restart; external reconciliation/browser proof pending"
     },
     {
       "phase": 13,
@@ -95,7 +93,7 @@
       "phase": 14,
       "name": "Automation",
       "status": "PARTIAL",
-      "evidence_or_gap": "Durable execution and bounded scheduling; complete editor/retry/recovery workflows remain"
+      "evidence_or_gap": "Durable execution/events and bounded scheduling; immutable approval policy and legacy replay verified; complete editor/retry/recovery workflows remain"
     },
     {
       "phase": 15,

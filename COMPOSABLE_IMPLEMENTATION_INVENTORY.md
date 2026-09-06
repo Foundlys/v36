@@ -79,3 +79,9 @@ No destructive migrations, Railway configuration edits, credential changes or
 production deployments were performed during this continuation. The Neural
 renderer, audio/speech formatters and CRM/Finance/Automotive domain engines remain
 unchanged. The shared platform engine has bounded workflow/event authorization fixes.
+
+## 2026-09-06 event-contract checkpoint
+
+Analytics owns saved reports in its existing historical bucket. Generated report and draft text records its model-assisted provenance; provider verification stays false. Owned reports remain exportable when the module is disabled. Automation workflow/task/document/run events use the same existing persistence adapter and a durable outbox. Tests simulate canonical-event persistence failure, restart, retry, deduplication and private event filtering. Workflow version identity now includes enabled/approval policy, while existing stored signatures remain unchanged for replay compatibility.
+
+Previous exact-tree CI: run 47 (`34037718901`), commit `b1d0ec93b88a73b3476b9b62fb311e05e0c3e9d5`, completed successfully. This checkpoint is still partial product implementation; production and browser acceptance are not inferred from local or CI tests.

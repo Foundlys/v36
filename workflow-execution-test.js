@@ -73,3 +73,15 @@ assert.throws(()=>timed.upsertCanonicalRecord(restrictedCtx,writer,{record_type:
 timed.createKnowledge(restrictedCtx,admin,{type:'MODEL_HYPOTHESIS',subject:'Private fixture hypothesis',predicate:'has_evidence',permissions:{user_ids:['private-owner']}});
 assert.equal(timed.searchKnowledge(restrictedCtx,analyst,{q:'Private fixture hypothesis'}).total,0);
 console.log('PASS private canonical and knowledge records stay permission-filtered, including write lookup');
+
+const immutableInput={name:'Policy immutable fixture',trigger:'custom_event',actions:[{type:'notify'}]};
+const immutable=core.defineAutomation(ctx,admin,immutableInput);
+assert.throws(()=>core.defineAutomation(ctx,admin,{...immutableInput,enabled:false}),{code:'automation_version_immutable'});
+assert.throws(()=>core.defineAutomation(ctx,admin,{...immutableInput,approval_required:true}),{code:'automation_version_immutable'});
+const stored=core.bucket(ctx,'automations').find(row=>row.id===immutable.id);
+stored.signature=crypto.createHash('sha256').update(JSON.stringify({name:stored.name,version:stored.version,trigger:stored.trigger,actions:stored.actions})).digest('hex');
+const legacySignature=stored.signature;
+assert.equal(core.defineAutomation(ctx,admin,immutableInput).signature,legacySignature,'Legacy workflow replay signature remains stable');
+assert.equal(stored.signature,legacySignature,'Reading an existing definition must not rewrite storage');
+assert.throws(()=>core.defineAutomation(ctx,admin,{name:'Invalid uppercase delay',trigger:'custom_event',actions:[{type:'DELAY',seconds:-1}]}),{code:'automation_delay_invalid'});
+console.log('PASS immutable workflow policies, legacy signature retention and case-insensitive delay bounds');

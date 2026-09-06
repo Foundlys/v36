@@ -55,7 +55,7 @@ function assertRoute(pathname, resolver, ctx, actor, method='GET') {
   if (!resolver.profile(ctx)) return;
   const normalized = pathname.replace(/\.html$/, '');
   const id = routeModule(normalized);
-  const operation=/\/approve$/.test(normalized)?'approve':/\/exports?(?:\/|$)/.test(normalized)?'export':['GET','HEAD','OPTIONS'].includes(method)||/\/(?:query|insights|report|realtime|keyword-ideas|conflicts|ask)$/.test(normalized)?'read':'write';
+  const operation=/\/approve$/.test(normalized)?'approve':/\/(?:owned-)?exports?(?:\/|$)/.test(normalized)?'export':['GET','HEAD','OPTIONS'].includes(method)||/\/(?:query|insights|report|realtime|keyword-ideas|conflicts|ask)$/.test(normalized)?'read':'write';
   if (id) resolver.assertModule(ctx, actor, id, operation);
   if(id&&/^\/api\/(?:module|engine)\//.test(normalized)){for(const capability of MODULES[id].provided_capabilities)resolver.assertCapability(ctx,actor,capability,operation);}
   const cap=routeCapability(normalized,id);if(cap&&operation!=='export')resolver.assertCapability(ctx,actor,cap,operation);
