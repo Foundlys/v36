@@ -102,9 +102,9 @@ function unitContracts() {
   assert(filterRegistry(sources, { category: 'AI_INTELLIGENCE' }).some(row => row.source_id === 'openai'));
   assert(filterRegistry(sources, { capability: 'vehicle_truth' }).some(row => row.source_id === 'rdw'));
 
-  const expectedRoutes = ['/', '/automotive', '/crm', '/analysis', '/finance', '/data', '/knowledge', '/learning', '/automation', '/connectors', '/communication', '/marketing', '/settings'];
+  const expectedRoutes = ['/procurement', '/sales', '/calendar', '/', '/automotive', '/crm', '/analysis', '/finance', '/data', '/knowledge', '/learning', '/automation', '/connectors', '/communication', '/marketing', '/settings'];
   assert.deepEqual(Object.values(WORKSPACE_DEFINITIONS).map(row => row.route), expectedRoutes);
-  assert.equal(navigationFor({ roles: ['ADMIN'] }).length, 13);
+  assert.equal(navigationFor({ roles: ['ADMIN'] }).length, 16);
   assert.deepEqual(navigationFor({ roles: ['USER'] }, ['crm']).map(row => row.id), ['home', 'crm']);
   for (const workspaceId of Object.keys(WORKSPACE_DEFINITIONS)) {
     const dashboard = dashboardTemplate(workspaceId, 'test-user');
@@ -145,7 +145,7 @@ async function runtimeContracts() {
   assert.equal(result.response.status, 401);
   assert(result.response.headers.get('www-authenticate'));
 
-  const allRoutes = ['/', '/automotive', '/crm', '/analysis', '/finance', '/data', '/knowledge', '/learning', '/automation', '/connectors', '/communication', '/marketing', '/settings'];
+  const allRoutes = ['/procurement', '/sales', '/calendar', '/', '/automotive', '/crm', '/analysis', '/finance', '/data', '/knowledge', '/learning', '/automation', '/connectors', '/communication', '/marketing', '/settings'];
   for (const route of allRoutes) {
     result = await call(route);
     assert.equal(result.response.status, 200, `${route} niet bereikbaar`);
@@ -159,7 +159,7 @@ async function runtimeContracts() {
 
   result = await call('/api/workspaces');
   assert.equal(result.response.status, 200);
-  assert.equal(result.body.total, 13);
+  assert.equal(result.body.total, 16);
   assert.equal(result.body.capability_aware, true);
   assert.equal(result.body.tenant.tenant_id, serverEnv.FOUNDLY_TENANT_ID);
   result = await call('/api/workspaces', { headers: { 'x-foundly-tenant-id': 'spoofed-tenant', 'x-foundly-dealer-id': 'spoofed-dealer' } });
@@ -256,7 +256,7 @@ async function runtimeContracts() {
     console.log(JSON.stringify({
       ok: true,
       source_registry: 'pass', connector_registry: 'pass', source_filtering: 'pass', openai_source: 'pass',
-      truthful_lifecycle: 'pass', connector_visibility: 'pass', navigation: 'pass', workspace_routes: 13,
+      truthful_lifecycle: 'pass', connector_visibility: 'pass', navigation: 'pass', workspace_routes: 16,
       workspace_auth: 'pass', tenant_header_isolation: 'pass', dashboard_defaults: 'pass',
       dashboard_customization: 'pass', dashboard_restart_persistence: 'pass', automotive_sources: 'pass',
       inkoop_source_display: 'pass', neural_renderer_frozen: 'pass', no_secret_leakage: 'pass',

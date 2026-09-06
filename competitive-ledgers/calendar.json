@@ -1,0 +1,105 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "calendar",
+  "assessed_at": "2026-09-06",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "calendar",
+      "capability_id": "calendar:scheduling",
+      "capability_name": "Independent scheduling",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Calendly"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Calendly",
+          "url": "https://calendly.com/help/round-robin-distribution-overview",
+          "observed": "Scheduling can optimize for availability or equal distribution, respecting connected calendars.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Recorded availability produces bookable slots, distribution favors calendars with fewer recorded appointments in the requested period, stale selections are rejected, and private in-app reminders survive restart. HTTP booking and UI forms are implemented.",
+      "gap": "External-calendar reconciliation and actual browser acceptance remain unproven.",
+      "required_change": "Validate real calendar reconciliation with authorized provider access and complete browser interaction acceptance.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "calendar-scheduling-test.js",
+        "composition-api-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "calendar",
+      "capability_id": "calendar:time",
+      "capability_name": "Time and conflict correctness",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Calendly"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Calendly",
+          "url": "https://calendly.com/help/round-robin-distribution-overview",
+          "observed": "Scheduling can optimize for availability or equal distribution, respecting connected calendars.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Timezone-offset validation, DST wall-time recurrence and private conflict redaction are tested.",
+      "gap": "More timezone and recurrence edge cases and external-calendar reconciliation remain open.",
+      "required_change": "Expand recurrence coverage and validate real calendar adapters with owner authorization.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "calendar",
+      "capability_id": "calendar:intelligence",
+      "capability_name": "Calendar orchestration",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Calendly"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Calendly",
+          "url": "https://calendly.com/help/round-robin-distribution-overview",
+          "observed": "Scheduling can optimize for availability or equal distribution, respecting connected calendars.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO reads independent calendar data; existing appointment request tooling is preserved.",
+      "gap": "Structured creation from natural language and verified provider synchronization need more integration.",
+      "required_change": "Use typed date/participant schemas and explicit confirmation for ambiguous appointments.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

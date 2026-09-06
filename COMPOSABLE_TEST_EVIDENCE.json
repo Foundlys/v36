@@ -1,0 +1,290 @@
+{
+  "schema_version": "foundly-checkpoint-test-evidence/1.0.0",
+  "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
+  "command": "npm test",
+  "exit_code": 0,
+  "source_sha256": {
+    "analysis-script.js": "684d45906099af4da1cfc4b1ccf6dcfca4785d1b8977ba627c7e1b21c23c1c4c",
+    "automotive-api-regression-test.js": "b70c4e1b67f6664aabd253982af95e0535fdd4f97f8d70cd82be78a496a152ae",
+    "automotive-api.js": "04d10bb0c3bc0a074d70e0c459a8c80b297593b14dc97a5f2c8265702fea2c4c",
+    "automotive-core-regression-test.js": "78dc0805bdb1c8f2f40fd1eba78ed14912441d85b6e93f6e96f3a6ee11f642df",
+    "automotive-core.js": "97b337b53cf0e8cbc6b18bf31cfc0899247d95a516c4c742d02f645a502b2921",
+    "automotive-live-provider-test.js": "de812375fb45073e437e27f896e97dd522f65d240faaf1fa81e96e57d137cc26",
+    "automotive-provider-contract-test.js": "329970409b47230409a31ce4625304c30eab555a9fc9dfeef7e9721abb848571",
+    "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
+    "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
+    "business-domain-api.js": "22f5cbc954a31cb741a33565742aefe4c9655414f48a61d58b450727239b0a4b",
+    "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
+    "business-domains.js": "236b83c93bbb8f5ac81f8c3db02007647fee1691916262fd96db5e64b90bfce8",
+    "business-workspaces-regression-test.js": "cd2d0eff658c502aa216491f17957cd6d3925b5ddb7bb72d8c3e5b1afbf89db6",
+    "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
+    "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
+    "calendar-scheduling-test.js": "6d6e3ab8155062093dbe9ca2afd0f1802ab5bd723de4e448c918411951002fdb",
+    "capability-resolver-test.js": "3de7025cf2fde865b45490045f9511fc00e919b7b44b96201ec90ecec0c6e67c",
+    "capability-resolver.js": "5fba69c6d2af4a4000afc2dfb03820dd597c55d00aa0796c4d2dfffbd23f1b0a",
+    "composition-api-test.js": "82c1540d476619d5ef11379945cfd86ef03afcdbdee79a99919f337eba84ac68",
+    "composition-matrix-test.js": "4964adceba1c167a5a54fe4102230c4f45eb9d66812b7a2d4af3cb0d08b96771",
+    "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
+    "composition-runtime.js": "2d6ac16f3ef04f16b2f9ba37ddbf287b58295d1369a7bf6a75df27e7c85ce136",
+    "crm-api-regression-test.js": "1946f90be8d4345ba06ad7c75c68b51a908969d15610c9e8fb5280ae38dedbbd",
+    "crm-core-regression-test.js": "a867a43dc85e96889dde5b7ea7608dfcb44faae2821f7e4491c5cfe92196319d",
+    "crm-core.js": "951a72d4d3c94e4d7579cc6299dbf54195141c271828cfe72ffb1c5e8c2ae774",
+    "crm-script.js": "7c91b75bfead8143ae20c29b03c4513e72dd9883139903fa55cd3d164c97dcef",
+    "crm-standalone-regression-test.js": "d68e493afc85ea22f4a478cc35044762bb454199a07a0d0816de83990934f154",
+    "crm-standalone.js": "6ba1ae10db4a7bee666a07f8af8249a9861563f4e69f5374614cc300dd339139",
+    "crm.css": "a5128eaa17af2cb32476e2dbfb4397f5ec2a5a1d5185ba1fce119f01f8024a84",
+    "finance-core.js": "321c10d6eee403ff331fe44004e938fcfac4a32ead9c025f750c6b9843342222",
+    "finance-script.js": "203bde465086de70ee1e80706da2655a8b1224d6973a7f5b9ec5017350c1a085",
+    "foundly-masterbuild-regression-test.js": "2f8da2ed741507d57559dda3894c1cd5f6bb2f31388343f02ad794c6606df884",
+    "foundly-registry.js": "98055c90eddc39aa7932db307bc12c7c19e233f04d9050e627fcb4b6c754ba93",
+    "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
+    "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
+    "foundly-workspace.css": "44636e84cfaf143dc7b81825f6e609ef5917d344430cfbcf01f5d2338e30987d",
+    "foundly-workspace.js": "509dfc2a70fc7feb9d2de62ccc4a9627b54e07af03ac6b24798173cedc125032",
+    "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
+    "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
+    "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
+    "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
+    "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
+    "module-access-contracts-test.js": "76bbbb239e1d6fcab065cd8d334291d43df547e42c504b0f4cfc5eca032c4962",
+    "module-access-contracts.js": "b4ec12bc918cc2493fe7e4ba9e6e76eb67f13d57b0cf65a3a532a5b98aef1cf7",
+    "module-catalog.js": "845807135bdcb7fd9b25c7d2dff781733d95c686577ac91307761eeeb823d9fb",
+    "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
+    "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
+    "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
+    "package.json": "b03b9509aeb8ad350a74a5798194224f141aa3acf42bbb374f2143fb290bbf91",
+    "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
+    "platform-api.js": "13e3d311675ddebd494e7f9ffdfb84c4c7ef90517a2f8e3cb688bd764e53240f",
+    "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
+    "platform-core.js": "9c87db4d92f24b01997d0fcd2d1c0172a4a8bd6c01e10413ddefadea4a63d8fb",
+    "production-audit.js": "5eb2897e9b682dfbc71ef209fecd60c9ac395e2b9290d33737bdc1ebfd2111e6",
+    "production-security-test.js": "124b25c9c3207ebdc73dd9e9a59c85c20ef8a005c25a0d8a6b6c6b90d4d46fdc",
+    "readiness-config-regression-test.js": "ced21de1c051fa28588e92e4e3841300430b0a0c15a04467814d9053c2f73b22",
+    "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
+    "second-industry-proof-test.js": "9b0073375c95166f8c04ea8b3c9a0733aaf33aaa4402c72e1078fcd213bcdba2",
+    "server.js": "69ecb3990f13927b80a0cc1a2b680399500cbda688eecd5fc8362c4f60df1514",
+    "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
+    "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
+    "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
+    "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
+    "test-composition-context-mock.js": "7ae21e829929286bf40027c410a84cff00d806bbb2bed8f5e0c9c71ac21f1133",
+    "test-jarvis-fetch-mock.js": "af79a374e59631e604c66dd1ad434093d8963488d17a7e1e36bb89af48f1fa51",
+    "test-masterbuild-fetch-mock.js": "006626a31f610f73ef4a642643f2a7d4d996ee1ab9e18fea099fd53c9cd94378",
+    "test-oauth-fetch-mock.js": "ba0dfede11e61b3bc59119c7132e8b414a8a49f45be000a8f6e00c944c042130",
+    "workflow-execution-test.js": "15c1771f7e3944b8fb0a85ff32ca39f08894629c83722e31b7852f439824959d",
+    "workflow-execution.js": "564be49720728a18895439b7b0e0b4d0f613f692a9e068cc8cc1960124bc5b73",
+    "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
+    "workspace-section-model.js": "4d3f61ff7389a0114690519514212b25cedf468383d6e8059eb976c4a3ca46b1",
+    "workspace-system.js": "86206e9ce40cfef61f16f7ecd3f788de2b385078919fff1f038a7c463690ca04",
+    "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
+    "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
+    "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
+    "procurement-sourcing-test.js": "a736cfeac3a4eba2edc11f3215296986fb874bbbd00a86fd332f4c0156111c2a",
+    "procurement-sourcing.js": "c84eda288f0758f6fca2acc5897665992deed6b631cbce2cb29a7d8ee74f0127",
+    "procurement-reviews-test.js": "d9428eb623960fdf54bdbe3c3a91e92dbc93b55a3122c35288aad6baf0b97d3a",
+    "procurement-reviews.js": "5a48a4205d8dfa94a18257cbaa7c422ef3dd7e5fe298dd80e1e0974678eb0ed4"
+  },
+  "output_sha256": "17b06eb3536e7f1cf2d9aab1e8475148574b62f895b2d3e897b9e5883814dee0",
+  "configuration_matrix": {
+    "ok": true,
+    "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
+    "profiles": [
+      {
+        "configuration": "PROCUREMENT ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "SALES ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "CRM ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "MARKETING ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "FINANCE ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "ANALYSIS ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "CALENDAR ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "COMMUNICATION ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "AUTOMATION ONLY",
+        "contract": "PASS",
+        "workflow": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + analysis",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + automation",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + finance",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "crm + communication + calendar",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "sales + crm",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "marketing + crm + analysis",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "procurement + analysis",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "AUTOMOTIVE + PROCUREMENT + CRM + ANALYTICS",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "FINANCE + DATA + KNOWLEDGE",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "automation + communication",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "procurement + sales + crm + marketing + finance + analysis + calendar + communication + automation",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      },
+      {
+        "configuration": "FOUNDLY COMPLETE",
+        "contract": "PASS",
+        "encrypted_restart": "PASS",
+        "full_product_acceptance": "PENDING"
+      }
+    ]
+  },
+  "frozen_files": [
+    "neural-runtime.js",
+    "zero-audio.js",
+    "jarvis-audio.js",
+    "speech-formatter.js",
+    "crm-core.js",
+    "finance-core.js",
+    "automotive-core.js"
+  ],
+  "frozen_diff_from_baseline": "EMPTY",
+  "new_browser_acceptance": "BLOCKED_CLOUD_BROWSER_URL_POLICY",
+  "production_deployed": false,
+  "masterbuild_complete": false,
+  "verified_at": "2026-09-06",
+  "additional_verified": [
+    "calendar scheduling, booking and restart via authenticated HTTP",
+    "private durable in-app reminder delivery",
+    "failed atomic persistence restores touched buckets",
+    "canonical CRM principal and legacy permission filtering",
+    "team/role dashboard read and delete denial",
+    "isolated module runtime readiness distinct from commercial acceptance",
+    "all owned entities and declared public engine operations mapped to capabilities",
+    "read-only roles cannot advertise write tools",
+    "partial CRM workspace remains usable with leads disabled",
+    "model input includes assigned CRM record and excludes private CRM record",
+    "Owned Analytics reports and retained export after disable",
+    "Durable Automation events survive canonical persistence outage and restart",
+    "Private event identifiers remain permission-scoped",
+    "Workflow policies immutable; legacy replay signatures preserved; uppercase delay bounds enforced",
+    "Manager does not inherit Finance rights absent explicit assignment",
+    "Trusted founder authority adapted after entitlement and capability checks",
+    "Shared Data scopes exclude operational buckets and disabled entity capabilities",
+    "Procurement-only authenticated RFQ capture, bid comparison and encrypted restart",
+    "RFQ stale revision, missing coverage, currency mismatch and private-record denial",
+    "Procurement storage rollback on persist failure",
+    "Authenticated procurement proposal/approval API and encrypted restart",
+    "Mandatory amount thresholds and assigned sequential reviewer enforcement",
+    "Policy/source revision changes invalidate pending approval",
+    "Review transaction rollback, idempotency, rejection and withdrawal",
+    "Automatic execution never borrows another scheduler principal identity",
+    "One failed automatic workflow does not abort unrelated scheduled workflows",
+    "Automatic trigger subscription contract and case-insensitive schedule behavior verified",
+    "CRM/Finance bridge ACL and trusted actor/source identity",
+    "Legacy activity/home feed hides private CRM references",
+    "Team and explicit permission changes produce distinct fact-cache scopes",
+    "Legacy rollups and attribution enforce original event access",
+    "Public ingest cannot forge provider verification, internal origin or actor",
+    "Caller-reported connection, sync and signature booleans are rejected",
+    "Offline outbox author required before apply and replay",
+    "Stage workflow requires actual changed-field evidence"
+  ],
+  "production_observation": {
+    "observed_at": "2026-09-06",
+    "origin": "https://v36-production.up.railway.app",
+    "health_http": 200,
+    "version": "6.0.0",
+    "ready_http": 200,
+    "verdict": "PASS",
+    "all_eight_checks": true,
+    "writes": false
+  }
+}

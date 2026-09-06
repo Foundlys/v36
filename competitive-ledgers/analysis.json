@@ -1,0 +1,127 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "analysis",
+  "assessed_at": "2026-09-05",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "analysis",
+      "capability_id": "analysis:projections",
+      "capability_name": "Canonical real-time analytics",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Power BI",
+        "HubSpot Marketing Hub"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Power BI",
+          "url": "https://learn.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming",
+          "observed": "Documented streaming visualization architectures; roadmap and availability must be checked for a selected deployment.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "HubSpot Marketing Hub",
+          "url": "https://www.hubspot.com/products/marketing/advanced-marketing-reporting",
+          "observed": "Marketing reporting connects customer journeys and attributable revenue.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "KPI registry, incremental cache, SSE, permission-partitioned event rollups and bounded historical pagination are tested.",
+      "gap": "Cohorts, configurable analytic models and all distinct analysis drilldowns are incomplete.",
+      "required_change": "Complete real analysis sections and model definitions with provenance.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "platform-core-regression-test.js",
+        "workflow-execution-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "analysis",
+      "capability_id": "analysis:security",
+      "capability_name": "Permission-preserving derivation",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Power BI",
+        "HubSpot Marketing Hub"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Power BI",
+          "url": "https://learn.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming",
+          "observed": "Documented streaming visualization architectures; roadmap and availability must be checked for a selected deployment.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "HubSpot Marketing Hub",
+          "url": "https://www.hubspot.com/products/marketing/advanced-marketing-reporting",
+          "observed": "Marketing reporting connects customer journeys and attributable revenue.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Event ACLs carry into lists, real-time, historical views, funnels, campaign outcomes and cached projections.",
+      "gap": "Production user membership and load behavior under many permission scopes remain unverified.",
+      "required_change": "Validate actual identity bindings and load-test multiple distinct scopes.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "platform-core-regression-test.js",
+        "workflow-execution-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "analysis",
+      "capability_id": "analysis:action",
+      "capability_name": "Analysis to action",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Power BI",
+        "HubSpot Marketing Hub"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Power BI",
+          "url": "https://learn.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming",
+          "observed": "Documented streaming visualization architectures; roadmap and availability must be checked for a selected deployment.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "HubSpot Marketing Hub",
+          "url": "https://www.hubspot.com/products/marketing/advanced-marketing-reporting",
+          "observed": "Marketing reporting connects customer journeys and attributable revenue.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Existing ZERO analysis tools and protected automation targets are preserved.",
+      "gap": "Full analysis-to-approved-action-to-outcome loop lacks end-to-end acceptance.",
+      "required_change": "Implement explicit policy-bound action proposals and outcome correlation.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "platform-core-regression-test.js",
+        "workflow-execution-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

@@ -268,3 +268,14 @@ tbody tr:hover td { background: rgba(54, 169, 211, .03); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
 }
+.domain-record-form { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px;margin-block:16px;padding:16px;border:1px solid rgba(82,204,255,.2);border-radius:12px; }
+.domain-record-form label { display:flex;flex-direction:column;gap:6px;color:#bcd3df; }
+.domain-record-form input,.domain-record-form textarea,.domain-record-form select { width:100%;box-sizing:border-box;padding:10px;border:1px solid #38505e;border-radius:6px;background:#08111c;color:#e8f5ff; }
+.domain-record-form :focus-visible { outline:2px solid #59d5ff;outline-offset:3px; }
+.composition-modules{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.composition-modules fieldset{min-width:0;border:1px solid var(--foundly-line);border-radius:12px;padding:14px}
+.composition-modules legend{font-weight:650;padding:0 6px}
+.composition-modules label{flex-direction:row;align-items:center;gap:8px;margin:8px 0}
+.composition-modules input[type=checkbox]{width:auto;min-width:16px;min-height:16px;accent-color:#59d5ff}
+.context-item dd{margin:3px 0 12px;overflow-wrap:anywhere}
+.context-item dt{font-size:12px;color:var(--foundly-muted)}

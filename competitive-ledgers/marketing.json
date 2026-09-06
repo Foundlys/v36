@@ -1,0 +1,127 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "marketing",
+  "assessed_at": "2026-09-05",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "marketing",
+      "capability_id": "marketing:planning",
+      "capability_name": "Campaign operations",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Marketing Hub",
+        "HubSpot CRM"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Marketing Hub",
+          "url": "https://www.hubspot.com/products/marketing/advanced-marketing-reporting",
+          "observed": "Marketing reporting connects customer journeys and attributable revenue.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "HubSpot CRM",
+          "url": "https://www.hubspot.com/products/custom-objects?aid=1280",
+          "observed": "Custom objects extend the standard customer data model.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Owned campaigns, audiences, creatives and experiment plans remain NOT_PUBLISHED.",
+      "gap": "Journey execution, audience activation, creative review and complete campaign workflows are incomplete.",
+      "required_change": "Complete consent-aware workflow contracts, distinct operational views and provider handoffs.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "platform-api-regression-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "marketing",
+      "capability_id": "marketing:measurement",
+      "capability_name": "Attribution and measurement",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Marketing Hub",
+        "HubSpot CRM"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Marketing Hub",
+          "url": "https://www.hubspot.com/products/marketing/advanced-marketing-reporting",
+          "observed": "Marketing reporting connects customer journeys and attributable revenue.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "HubSpot CRM",
+          "url": "https://www.hubspot.com/products/custom-objects?aid=1280",
+          "observed": "Custom objects extend the standard customer data model.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Existing Meta/Google adapters and canonical measurement architecture remain in place.",
+      "gap": "Real provider authorization, fresh campaign data and end-to-end transport receipts require external access.",
+      "required_change": "Use existing legitimate provider accounts to validate authorization, probes, sync and receipts.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "platform-api-regression-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BLOCKED_EXTERNAL"
+    },
+    {
+      "module": "marketing",
+      "capability_id": "marketing:intelligence",
+      "capability_name": "Marketing outcome analysis",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Marketing Hub",
+        "HubSpot CRM"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Marketing Hub",
+          "url": "https://www.hubspot.com/products/marketing/advanced-marketing-reporting",
+          "observed": "Marketing reporting connects customer journeys and attributable revenue.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "HubSpot CRM",
+          "url": "https://www.hubspot.com/products/custom-objects?aid=1280",
+          "observed": "Custom objects extend the standard customer data model.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO can read internal campaign plans; canonical analysis has event provenance and financial-event deduplication.",
+      "gap": "Workspace summary periods and cross-channel revenue reconciliation need full acceptance.",
+      "required_change": "Finish shared canonical metric projection and period/drilldown controls.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "platform-api-regression-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

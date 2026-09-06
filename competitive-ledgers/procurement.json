@@ -1,0 +1,132 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.2",
+  "module": "procurement",
+  "assessed_at": "2026-09-06",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "procurement",
+      "capability_id": "procurement:sourcing",
+      "capability_name": "Universal sourcing and supplier workflow",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Zoho Procurement",
+        "SAP Ariba Buying and Invoicing"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Zoho Procurement",
+          "url": "https://www.zoho.com/us/procurement/help/purchase-orders/approvals-for-purchase-orders/",
+          "observed": "Configurable simple, multilevel and custom approval flows with rejection and resubmission.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "SAP Ariba Buying and Invoicing",
+          "url": "https://www.sap.com/products/spend-management/procure-to-pay.html",
+          "observed": "Guided buying, supplier catalogs, policy controls and procurement/invoice integration.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Zoho Procurement",
+          "url": "https://www.zoho.com/qa/procurement/help/request-for-quotes/award-request-for-quotes/",
+          "observed": "Compare vendor bids by item, price and delivery, then record an award with separate approval and publication.",
+          "retrieved_at": "2026-09-06"
+        }
+      ],
+      "foundly_current": "Owned RFQs, revision-bound bids, complete-scope price comparison and internal full-bid awards. Active currency/amount thresholds select mandatory sequential approval policies; reviewer assignment, default separation of duties, source/policy revision binding, rejection, withdrawal and restart are tested.",
+      "gap": "Supplier collaboration, partial item awards, policy application to legacy direct orders and browser acceptance remain incomplete.",
+      "required_change": "Complete item-level allocation and broader purchasing-policy coverage, then authorized supplier collaboration and browser acceptance.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "procurement-sourcing-test.js",
+        "procurement-reviews-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "procurement",
+      "capability_id": "procurement:delivery",
+      "capability_name": "Procurement execution",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Zoho Procurement",
+        "SAP Ariba Buying and Invoicing"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Zoho Procurement",
+          "url": "https://www.zoho.com/us/procurement/help/purchase-orders/approvals-for-purchase-orders/",
+          "observed": "Configurable simple, multilevel and custom approval flows with rejection and resubmission.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "SAP Ariba Buying and Invoicing",
+          "url": "https://www.sap.com/products/spend-management/procure-to-pay.html",
+          "observed": "Guided buying, supplier catalogs, policy controls and procurement/invoice integration.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Internal approval explicitly creates no external purchase commitment.",
+      "gap": "Supplier/order transport has no verified account contract.",
+      "required_change": "Attach legitimate supplier access and verify a reversible provider contract before any outbound operation.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BLOCKED_EXTERNAL"
+    },
+    {
+      "module": "procurement",
+      "capability_id": "procurement:intelligence",
+      "capability_name": "Decision support",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Zoho Procurement",
+        "SAP Ariba Buying and Invoicing"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Zoho Procurement",
+          "url": "https://www.zoho.com/us/procurement/help/purchase-orders/approvals-for-purchase-orders/",
+          "observed": "Configurable simple, multilevel and custom approval flows with rejection and resubmission.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "SAP Ariba Buying and Invoicing",
+          "url": "https://www.sap.com/products/spend-management/procure-to-pay.html",
+          "observed": "Guided buying, supplier catalogs, policy controls and procurement/invoice integration.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO reads own persisted procurement summaries; Automotive adds scoring in its pack.",
+      "gap": "Universal economics, outcome-calibrated recommendations and supplier-risk intelligence are below the required depth.",
+      "required_change": "Extend universal evidence-based analysis and recommendation evaluation.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

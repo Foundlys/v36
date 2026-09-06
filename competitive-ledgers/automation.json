@@ -1,0 +1,127 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "automation",
+  "assessed_at": "2026-09-05",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "automation",
+      "capability_id": "automation:execution",
+      "capability_name": "Durable workflow execution",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Zapier",
+        "n8n"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Zapier",
+          "url": "https://zapier.com/blog/human-in-the-loop-guide/",
+          "observed": "Human review can pause automated flows before continuation.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "n8n",
+          "url": "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger",
+          "observed": "Official Error Trigger documentation is indexed. Full content retrieval was unavailable; no detailed parity claim is based on it.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Sequential steps, conditions, branches, delay state, schedules with explicit opt-in, truthful BLOCKED outcomes and input-bound approval are tested.",
+      "gap": "Full visual workflow editing, configurable retry policies and debugging/recovery tooling remain incomplete.",
+      "required_change": "Complete bounded editor and retry/dead-letter recovery while preserving idempotency.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "workflow-execution-test.js",
+        "composition-api-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "automation",
+      "capability_id": "automation:security",
+      "capability_name": "Execution authorization",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Zapier",
+        "n8n"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Zapier",
+          "url": "https://zapier.com/blog/human-in-the-loop-guide/",
+          "observed": "Human review can pause automated flows before continuation.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "n8n",
+          "url": "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger",
+          "observed": "Official Error Trigger documentation is indexed. Full content retrieval was unavailable; no detailed parity claim is based on it.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Target modules and current canonical role are checked; indeterminate crash steps cannot silently replay.",
+      "gap": "Mixed legacy Core entry points and workflow capability coverage need continued adversarial review.",
+      "required_change": "Complete the per-operation capability map and scoped external-action policies.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "workflow-execution-test.js",
+        "composition-api-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "automation",
+      "capability_id": "automation:intelligence",
+      "capability_name": "Workflow intelligence",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Zapier",
+        "n8n"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Zapier",
+          "url": "https://zapier.com/blog/human-in-the-loop-guide/",
+          "observed": "Human review can pause automated flows before continuation.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "n8n",
+          "url": "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger",
+          "observed": "Official Error Trigger documentation is indexed. Full content retrieval was unavailable; no detailed parity claim is based on it.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO status/run integration and audited owned tasks/documents work without CRM.",
+      "gap": "Natural-language workflow creation and measured operational advantage are not fully evidenced.",
+      "required_change": "Expose validated workflow drafts through the existing policy/approval layer.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "workflow-execution-test.js",
+        "composition-api-test.js",
+        "composition-matrix-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}
