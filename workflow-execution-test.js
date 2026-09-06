@@ -85,3 +85,21 @@ assert.equal(core.defineAutomation(ctx,admin,immutableInput).signature,legacySig
 assert.equal(stored.signature,legacySignature,'Reading an existing definition must not rewrite storage');
 assert.throws(()=>core.defineAutomation(ctx,admin,{name:'Invalid uppercase delay',trigger:'custom_event',actions:[{type:'DELAY',seconds:-1}]}),{code:'automation_delay_invalid'});
 console.log('PASS immutable workflow policies, legacy signature retention and case-insensitive delay bounds');
+
+const schedulerCtx={tenant_id:'scheduler-identity-fixture',dealer_id:'default'},flowOwner={id:'flow-owner',roles:['MANAGER']},scheduler={id:'service-admin',roles:['ADMIN']};
+const ownerFlow=timed.defineAutomation(schedulerCtx,flowOwner,{name:'Owner-only automatic fixture',trigger:{type:'schedule',automatic:true,at:'2026-09-05T10:00:00Z'},actions:[{type:'notify'}]});
+let countBefore=effects.length;
+assert.equal(timed.tickAutomations(schedulerCtx,scheduler).processed,0,'Scheduler must not silently lend admin authority to another workflow owner');
+assert.equal(timed.tickAutomations(schedulerCtx,scheduler).owner_principal_required,1);assert.equal(effects.length,countBefore);
+assert.equal(timed.tickAutomations(schedulerCtx,flowOwner).processed,1);
+const badFlow=timed.defineAutomation(schedulerCtx,scheduler,{name:'Broken scheduled fixture',trigger:{type:'schedule',automatic:true,at:'2026-09-05T10:00:00Z'},actions:[{type:'notify'}]});
+timed.defineAutomation(schedulerCtx,scheduler,{name:'Unrelated scheduled fixture',trigger:{type:'schedule',automatic:true,at:'2026-09-05T10:00:00Z'},actions:[{type:'notify'}]});
+const originalRun=timed.runAutomation;timed.runAutomation=function(ctx,actor,id,event,options){if(id===badFlow.id)throw Object.assign(new Error('Fixture indeterminate run'),{code:'automation_outcome_indeterminate'});return originalRun.call(this,ctx,actor,id,event,options);};
+const isolatedTick=timed.tickAutomations(schedulerCtx,scheduler);assert.equal(isolatedTick.processed,2);assert.deepEqual(isolatedTick.runs.map(row=>row.status),['ERROR','SUCCEEDED']);timed.runAutomation=originalRun;
+console.log('PASS automatic workflows retain owner identity and isolate per-workflow failures');
+
+const upperCtx={tenant_id:'uppercase-scheduler-fixture',dealer_id:'default'};
+timed.defineAutomation(upperCtx,scheduler,{name:'Case-insensitive schedule',trigger:{type:'SCHEDULE',automatic:true,at:'2026-09-05T10:00:00Z'},actions:[{type:'NOTIFY'}]});
+assert.equal(timed.tickAutomations(upperCtx,scheduler).runs[0].status,'SUCCEEDED');
+assert.equal(effects.at(-1).type,'notify');
+console.log('PASS validated case-insensitive schedules and action types execute consistently');

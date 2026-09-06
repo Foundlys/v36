@@ -253,21 +253,22 @@ class FoundlyPlatformCore{
     const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');const now=this.adapter.now().getTime(),results=[];
     // Only explicitly opted-in workflow versions subscribe. Historical workflows
     // remain manual until their owner creates a version with automatic=true.
-    const workflows=this.bucket(ctx,'automations').filter(row=>row.enabled&&row.trigger.automatic===true);
-    const aliases={new_lead:'lead_created',stage_changed:'crm_record_updated',appointment:'appointment_scheduled',payment:'invoice_paid',connector_state:'connector_state_changed'};
+    const configured=this.bucket(ctx,'automations').filter(row=>row.enabled&&row.trigger.automatic===true),workflows=configured.filter(row=>row.created_by===principal.id);
+    const attempt=(flow,event,options)=>{try{results.push(this.runAutomation(ctx,principalInput,flow.id,event,options));}catch(error){results.push({run_id:null,workflow_id:flow.id,status:'ERROR',code:error.code||'automation_execution_failed'});}};
+    const aliases={new_lead:'lead_created',stage_changed:'crm_record_changed',appointment:'appointment_scheduled',payment:'invoice_paid',connector_state:'connector_state_changed'};
     for(const flow of workflows){
       if(results.length>=10)break;
       const pending=this.bucket(ctx,'automation_runs').filter(row=>row.automation_id===flow.id&&row.status==='WAITING_TIME'&&Date.parse(row.next_wakeup_at)<=now&&row.actor_id===principal.id);
-      for(const row of pending.slice(0,10-results.length))results.push(this.runAutomation(ctx,principalInput,flow.id,row.trigger,{inputs:row.inputs}));
-      if(flow.trigger.type==='schedule'){
-        const at=Date.parse(flow.trigger.at||'');if(Number.isFinite(at)&&at<=now&&results.length<10){const event={event_id:`schedule:${flow.id}:${at}`,event_version:1,type:'schedule',occurred_at:new Date(at).toISOString(),source:'configured_schedule'};if(!this.bucket(ctx,'automation_runs').some(row=>row.automation_id===flow.id&&row.event_id===event.event_id))results.push(this.runAutomation(ctx,principalInput,flow.id,event));}
+      for(const row of pending.slice(0,10-results.length))attempt(flow,row.trigger,{inputs:row.inputs});
+      if(String(flow.trigger.type).toLowerCase()==='schedule'){
+        const at=Date.parse(flow.trigger.at||'');if(Number.isFinite(at)&&at<=now&&results.length<10){const event={event_id:`schedule:${flow.id}:${at}`,event_version:1,type:'schedule',occurred_at:new Date(at).toISOString(),source:'configured_schedule'};if(!this.bucket(ctx,'automation_runs').some(row=>row.automation_id===flow.id&&row.event_id===event.event_id))attempt(flow,event);}
       }else{
-        const eventName=flow.trigger.event_name||aliases[flow.trigger.type];if(!eventName)continue;
+        const eventName=flow.trigger.event_name||aliases[String(flow.trigger.type).toLowerCase()];if(!eventName)continue;
         const events=this.bucket(ctx,'raw_events').filter(event=>event.event_name===eventName&&Date.parse(event.received_at)>=Date.parse(flow.created_at)&&eventReadable(event,principal)&&!this.bucket(ctx,'automation_runs').some(row=>row.automation_id===flow.id&&row.event_id===event.event_id));
-        for(const event of events.slice(0,10-results.length))results.push(this.runAutomation(ctx,principalInput,flow.id,event));
+        for(const event of events.slice(0,10-results.length))attempt(flow,event);
       }
     }
-    return {processed:results.length,runs:results.map(row=>({run_id:row.run_id,status:row.status})),explicit_opt_in:true};
+    return {processed:results.length,runs:results.map(row=>({run_id:row.run_id,status:row.status,...(row.code?{code:row.code,workflow_id:row.workflow_id}:{})})),explicit_opt_in:true,execution_identity:'CURRENT_WORKFLOW_OWNER',owner_principal_required:configured.length-workflows.length};
   }
   automationStatus(context,principalInput){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'platform:read');const visible=row=>principal.permissions.has('*')||principal.permissions.has('automation:manage')||row.created_by===principal.id||row.actor_id===principal.id,workflows=this.bucket(ctx,'automations').filter(visible),runs=this.bucket(ctx,'automation_runs').filter(visible);return {workflows:clone(workflows),runs:clone(runs.slice(-100).reverse()),workflow_count:workflows.length,run_count:runs.length,awaiting_approval:runs.filter(row=>row.status==='AWAITING_APPROVAL').length,failed:runs.filter(row=>row.status==='ERROR').length,blocked:runs.filter(row=>row.status==='BLOCKED').length,execution_adapter:typeof this.adapter.executeAutomationAction==='function'?'AVAILABLE':'NOT_CONFIGURED',tenant_filtered:true}}
   resolvePack(input){const industry=String(input.industry||'').toLowerCase(),model=String(input.business_model||'').toLowerCase();if(/auto|dealer|mobility|vehicle/.test(industry))return'AUTOMOTIVE';if(/e.?commerce|retail|shop|webwinkel/.test(industry)||/e.?commerce/.test(model))return'ECOMMERCE';if(/consult|service|agency|advies|professional/.test(industry))return'PROFESSIONAL_SERVICES';if(/real.?estate|vastgoed|makelaar/.test(industry))return'REAL_ESTATE';return'GENERAL_B2B'}

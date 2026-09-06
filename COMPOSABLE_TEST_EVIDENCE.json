@@ -1,7 +1,7 @@
 {
   "schema_version": "foundly-checkpoint-test-evidence/1.0.0",
   "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
-  "command": "npm test; subsequent explicit self-approval UI option: node --check foundly-workspace.js, node procurement-reviews-test.js, node module-access-contracts-test.js",
+  "command": "npm test",
   "exit_code": 0,
   "source_sha256": {
     "analysis-script.js": "684d45906099af4da1cfc4b1ccf6dcfca4785d1b8977ba627c7e1b21c23c1c4c",
@@ -48,7 +48,7 @@
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
     "module-access-contracts-test.js": "76bbbb239e1d6fcab065cd8d334291d43df547e42c504b0f4cfc5eca032c4962",
     "module-access-contracts.js": "b4ec12bc918cc2493fe7e4ba9e6e76eb67f13d57b0cf65a3a532a5b98aef1cf7",
-    "module-catalog.js": "dca6ff4e3cd0966226579ae9f4af235ac5e3825534062038a5dc454231143f08",
+    "module-catalog.js": "a24f30d7ad1116f6bb14e1d5b449c61b2ee5b59ee7c4d024285d596bc6fddeac",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
@@ -56,7 +56,7 @@
     "platform-api-regression-test.js": "0b2063b2c955883a4845ef8ddd364fd46a19dfd70e7376d4998f6d0999d67ab5",
     "platform-api.js": "22b8b748d1014c0b1569e08b22198dcdad7bbb1fb9ac73de2365d5ca9f150576",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
-    "platform-core.js": "81cbe23e139503df2db0f4a34de4dfaa65df4455d0f1f29bab2a77a4928f64f4",
+    "platform-core.js": "b1e092fe8c73bc0b0511fd9294253bc4600f62cccd97e377cf8cadb663693a84",
     "production-audit.js": "5eb2897e9b682dfbc71ef209fecd60c9ac395e2b9290d33737bdc1ebfd2111e6",
     "production-security-test.js": "124b25c9c3207ebdc73dd9e9a59c85c20ef8a005c25a0d8a6b6c6b90d4d46fdc",
     "readiness-config-regression-test.js": "ced21de1c051fa28588e92e4e3841300430b0a0c15a04467814d9053c2f73b22",
@@ -71,7 +71,7 @@
     "test-jarvis-fetch-mock.js": "af79a374e59631e604c66dd1ad434093d8963488d17a7e1e36bb89af48f1fa51",
     "test-masterbuild-fetch-mock.js": "006626a31f610f73ef4a642643f2a7d4d996ee1ab9e18fea099fd53c9cd94378",
     "test-oauth-fetch-mock.js": "ba0dfede11e61b3bc59119c7132e8b414a8a49f45be000a8f6e00c944c042130",
-    "workflow-execution-test.js": "e63003a426e66116a63838fdbbedd674504aeb0a945bbd95edd6fef279bffcc7",
+    "workflow-execution-test.js": "a42c946c19d862476f393c2b0fb022a79d8ebdd0c9738fa4403810cf7bb6490d",
     "workflow-execution.js": "564be49720728a18895439b7b0e0b4d0f613f692a9e068cc8cc1960124bc5b73",
     "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
     "workspace-section-model.js": "4d3f61ff7389a0114690519514212b25cedf468383d6e8059eb976c4a3ca46b1",
@@ -84,7 +84,7 @@
     "procurement-reviews-test.js": "d9428eb623960fdf54bdbe3c3a91e92dbc93b55a3122c35288aad6baf0b97d3a",
     "procurement-reviews.js": "5a48a4205d8dfa94a18257cbaa7c422ef3dd7e5fe298dd80e1e0974678eb0ed4"
   },
-  "output_sha256": "5fcd6ef407173cd4bd7ffa8e9908a9e98cfdae00c5c69066512c8bb47b009756",
+  "output_sha256": "3cc1d76008bac5e44f50a4614e260c10adb71c97f78282fb58dff2a80324e4c1",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -264,7 +264,10 @@
     "Authenticated procurement proposal/approval API and encrypted restart",
     "Mandatory amount thresholds and assigned sequential reviewer enforcement",
     "Policy/source revision changes invalidate pending approval",
-    "Review transaction rollback, idempotency, rejection and withdrawal"
+    "Review transaction rollback, idempotency, rejection and withdrawal",
+    "Automatic execution never borrows another scheduler principal identity",
+    "One failed automatic workflow does not abort unrelated scheduled workflows",
+    "Automatic trigger subscription contract and case-insensitive schedule behavior verified"
   ],
   "production_observation": {
     "observed_at": "2026-09-06",
@@ -275,18 +278,5 @@
     "verdict": "PASS",
     "all_eight_checks": true,
     "writes": false
-  },
-  "post_full_regression_changes": {
-    "paths": [
-      "foundly-workspace.js",
-      "competitive-ledgers/procurement.json"
-    ],
-    "scope": "Expose explicit self-approval policy choice; update evidence ledger",
-    "focused_tests": {
-      "workspace_syntax": "PASS",
-      "procurement_reviews": "PASS",
-      "module_access_contracts": "PASS"
-    },
-    "exact_final_tree_full_ci": "REQUIRED"
   }
 }
