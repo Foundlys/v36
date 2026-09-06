@@ -739,6 +739,41 @@
     replaceChildren(content,[node('p','panel-copy','Tijdsloten volgen de geregistreerde beschikbaarheid en afspraken. Externe agenda’s tellen alleen mee na een geverifieerde import.'),form,results]);
   }
 
+  async function renderProcurementComparison(record,content,notice) {
+    try {
+      const comparison=await request(`/api/procurement/rfqs/${encodeURIComponent(record.id)}/comparison`),panel=node('div','bid-comparison');
+      panel.append(node('h3','',`Biedingen: ${comparison.title}`),node('p','',`${comparison.comparable_count} volledige biedingen · revisie ${comparison.rfq_revision}. Vastgelegde prijzen; geen leveranciersverificatie of bestelling.`));
+      for(const bid of comparison.items){
+        const item=node('div');item.append(node('p','',`${bid.title} · ${bid.comparable?new Intl.NumberFormat('nl-NL',{style:'currency',currency:comparison.currency}).format(bid.total_cents/100):'Niet vergelijkbaar: '+bid.reasons.join(', ')} · Levertijd: ${bid.delivery_days===null?'niet vastgelegd':bid.delivery_days+' dagen'} · Herkomst: ${bid.evidence_reference}`));
+        if(bid.comparable){const button=node('button','secondary-button','Voorstel voorbereiden');button.type='button';button.addEventListener('click',()=>prepareProcurementAward(comparison,bid,item));item.append(button);}panel.append(item);
+      }
+      if(!comparison.items.length)panel.append(node('p','','Nog geen biedingen vastgelegd.'));
+      content.querySelector('.bid-comparison')?.remove();content.append(panel);
+    }catch(error){notice.textContent=friendlyError(error);}
+  }
+  async function prepareProcurementAward(comparison,bid,parent) {
+    parent.querySelector('.award-proposal')?.remove();const box=node('div','award-proposal'),notice=node('output');notice.setAttribute('role','status');box.append(notice);parent.append(box);
+    try{
+      const preview=await request(`/api/procurement/rfqs/${encodeURIComponent(comparison.rfq_id)}/award-preview?bid_id=${encodeURIComponent(bid.id)}`),form=node('form'),label=node('label','','Waarom deze bieding?'),reason=node('textarea'),submit=node('button','primary-button','Ter goedkeuring vastleggen');reason.required=true;reason.maxLength=1000;label.append(reason);submit.type='submit';
+      box.prepend(node('p','',`Verplichte beoordelingsvolgorde: ${preview.approval_steps.join(' → ')}. Dit legt een intern voorstel vast.`));form.append(label,submit);box.append(form);const key=crypto.randomUUID();
+      form.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;try{await request(`/api/procurement/rfqs/${encodeURIComponent(comparison.rfq_id)}/awards`,{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({bid_id:bid.id,preview_fingerprint:preview.preview_fingerprint,reason:reason.value,confirm:true})});form.remove();notice.textContent='Voorstel vastgelegd. Open AWARDS voor beoordeling.';}catch(error){notice.textContent=friendlyError(error);submit.disabled=false;}});
+    }catch(error){notice.textContent=friendlyError(error);}
+  }
+  function appendAwardReview(record,cell,content) {
+    const details=node('details'),summary=node('summary','','Voorstel en beoordelingen');details.append(summary,node('p','',`${new Intl.NumberFormat('nl-NL',{style:'currency',currency:record.currency}).format(record.value_cents/100)} · ${record.reason} · Herkomst: ${record.evidence_reference}`));
+    for(const line of record.bid_lines||[])details.append(node('p','',`${line.item_id} · ${line.quantity} × ${(line.unit_price_cents/100).toFixed(2)} ${record.currency}`));
+    for(const review of record.reviews||[])details.append(node('p','',`${review.actor_id}: ${review.decision} · ${review.reason}`));
+    if(record.status==='APPROVAL_REQUIRED'){
+      details.append(node('p','',`Volgende beoordelaar: ${record.approval_steps[(record.reviews||[]).length]}`));
+      const form=node('form'),label=node('label','','Reden beoordeling'),reason=node('textarea'),decisionLabel=node('label','','Beslissing'),decision=node('select'),submit=node('button','primary-button','Beslissing bevestigen'),cancel=node('button','secondary-button','Voorstel intrekken'),notice=node('output');
+      for(const [value,text] of [['APPROVE','Goedkeuren'],['REJECT','Afwijzen']]){const option=node('option','',text);option.value=value;decision.append(option);}reason.required=true;reason.maxLength=1000;label.append(reason);decisionLabel.append(decision);submit.type='submit';cancel.type='button';notice.setAttribute('role','status');form.append(label,decisionLabel,submit,cancel,notice);details.append(form);
+      const reviewKey=crypto.randomUUID(),cancelKey=crypto.randomUUID();
+      form.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;try{await request(`/api/procurement/awards/${encodeURIComponent(record.id)}/approve`,{method:'POST',headers:{'idempotency-key':reviewKey},body:JSON.stringify({expected_revision:record.revision,decision:decision.value,reason:reason.value,confirm:true})});await renderDomainSection('awards',content);}catch(error){notice.textContent=friendlyError(error);submit.disabled=false;}});
+      cancel.addEventListener('click',async()=>{cancel.disabled=true;try{await request(`/api/procurement/awards/${encodeURIComponent(record.id)}/cancel`,{method:'POST',headers:{'idempotency-key':cancelKey},body:JSON.stringify({expected_revision:record.revision,confirm:true})});await renderDomainSection('awards',content);}catch(error){notice.textContent=friendlyError(error);cancel.disabled=false;}});
+    }
+    cell.append(details);
+  }
+
   async function renderDomainSection(entity, content) {
     replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
     try {
@@ -746,19 +781,21 @@
       if (state.activeSection.toLowerCase() !== entity) return;
       const required = state.workspace.domain_required_fields?.[entity] || [];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
-      const fieldNames = [...new Set([...required, 'description','status', ...(state.workspaceId==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants','recurrence']:[]), ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
+      const fieldNames = [...new Set([...required, 'description','status',...(state.workspaceId==='procurement'&&entity==='approval_policies'?['allow_self_approval']:[]), ...(state.workspaceId==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants','recurrence']:[]), ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
       const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag', currency:'Valuta', probability:'Kans (0–1)', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
       for (const name of fieldNames) {
-        const sourcing=state.workspaceId==='procurement'&&['rfqs','bids'].includes(entity);const sourcingLabels={rfq_id:'Offerteaanvraag',rfq_revision:'Revisie aanvraag',supplier_id:'Leverancier',lines:'Artikelen',evidence_reference:'Herkomst bieding (bijv. offertekenmerk en datum)'};const label=node('label','',sourcingLabels[name]||labels[name] || name), input=node((['status','calendar_id'].includes(name)||sourcing&&['rfq_id','supplier_id'].includes(name))?'select':['content','description','lines'].includes(name)?'textarea':'input');
+        const sourcing=state.workspaceId==='procurement'&&['rfqs','bids'].includes(entity);const sourcingLabels={rfq_id:'Offerteaanvraag',rfq_revision:'Revisie aanvraag',supplier_id:'Leverancier',lines:'Artikelen',evidence_reference:'Herkomst bieding (bijv. offertekenmerk en datum)',minimum_value_cents:'Vanaf bedrag',approval_steps:'Beoordelaars (gebruikers-ID’s, in volgorde)',allow_self_approval:'Aanvrager mag ook beoordelen'};const label=node('label','',sourcingLabels[name]||labels[name] || name), input=node((['status','calendar_id','allow_self_approval'].includes(name)||sourcing&&['rfq_id','supplier_id'].includes(name))?'select':['content','description','lines'].includes(name)?'textarea':'input');
+        if(name==='allow_self_approval'){for(const [value,text] of [['false','Nee, afzonderlijke beoordelaar verplicht'],['true','Ja, expliciet toegestaan']]){const option=node('option','',text);option.value=value;input.append(option);}}
         if(name==='calendar_id'){const calendars=await request('/api/calendar/calendars?limit=250');input.append(node('option','','Kies een agenda'));input.firstChild.value='';for(const calendar of calendars.items){const option=node('option','',calendar.name);option.value=calendar.id;input.append(option);}}
         if(sourcing&&['rfq_id','supplier_id'].includes(name)){const choices=await request(`/api/procurement/${name==='rfq_id'?'rfqs':'suppliers'}?limit=250`);input.append(node('option','','Maak een keuze'));input.firstChild.value='';for(const item of choices.items){const option=node('option','',item.title||item.name);option.value=item.id;input.append(option);}if(name==='rfq_id')input.addEventListener('change',()=>{const selected=choices.items.find(item=>item.id===input.value);if(selected){fields.get('rfq_revision').value=String(selected.revision);fields.get('currency').value=selected.currency;}});}
         if(sourcing&&name==='rfq_revision')input.readOnly=true;
         if(sourcing&&name==='lines'){input.placeholder=entity==='rfqs'?'ARTIKEL | Omschrijving | Aantal':'ARTIKEL | Aantal | Stukprijs | Levertijd in dagen (optioneel)';label.append(node('small','',entity==='rfqs'?'Eén artikel per regel: artikelcode | omschrijving | aantal':'Eén artikel per regel: artikelcode | aantal | stukprijs | levertijd. Gebruik de codes en volledige aantallen uit de aanvraag.'));}
         if(name==='recurrence')input.placeholder='DAILY of WEEKLY, aantal (bijv. WEEKLY,8)';
+        if(name==='approval_steps')input.placeholder='Gebruikers-ID’s, gescheiden door komma’s';
         if(name==='participants')input.placeholder='Deelnemers, gescheiden door komma’s';
-        if(name==='status'){for(const status of (sourcing?['DRAFT','OPEN','CANCELLED','ARCHIVED']:entity==='preferences'?['GRANTED','DENIED','REVOKED']:['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','COMPLETED'])){const option=node('option','',status);option.value=status;input.append(option);}}
+        if(name==='status'){for(const status of (entity==='approval_policies'?['DRAFT','OPEN','ARCHIVED']:sourcing?['DRAFT','OPEN','CANCELLED','ARCHIVED']:entity==='preferences'?['GRANTED','DENIED','REVOKED']:['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','COMPLETED'])){const option=node('option','',status);option.value=status;input.append(option);}}
         input.name=name;input.required=required.includes(name);input.maxLength=['content','lines'].includes(name)?12000:1000;
-        if(['value_cents','probability'].includes(name)){input.type='number';input.min='0';input.step='0.01';if(name==='probability')input.max='1';}
+        if(['value_cents','minimum_value_cents','probability'].includes(name)){input.type='number';input.min='0';input.step='0.01';if(name==='probability')input.max='1';}
         if(name==='timezone')input.placeholder='Europe/Amsterdam';
         if(name==='currency')input.placeholder='EUR';
         if(['start_at','end_at'].includes(name))input.placeholder='2026-09-06T10:00:00+02:00';
@@ -770,11 +807,13 @@
       form.addEventListener('submit',async event=>{
         event.preventDefault();save.disabled=true;
         try {
-          const payload={};for(const [name,input] of fields){if(!input.value.trim())continue;payload[name]=name==='value_cents'?Math.round(Number(input.value)*100):name==='probability'?Number(input.value):input.value.trim();}
+          const payload={};for(const [name,input] of fields){if(!input.value.trim())continue;payload[name]=['value_cents','minimum_value_cents'].includes(name)?Math.round(Number(input.value)*100):name==='probability'?Number(input.value):input.value.trim();}
           if(state.workspaceId==='procurement'&&['rfqs','bids'].includes(entity)){
             if(payload.rfq_revision)payload.rfq_revision=Number(payload.rfq_revision);
             if(payload.lines)payload.lines=payload.lines.split('\n').filter(line=>line.trim()).map(line=>{const parts=line.split('|').map(value=>value.trim());if(entity==='rfqs'){if(parts.length!==3)throw new Error('Gebruik artikelcode | omschrijving | aantal');return {item_id:parts[0],description:parts[1],quantity:Number(parts[2])};}if(parts.length<3||parts.length>4||!/^\d+(?:[.,]\d{1,2})?$/.test(parts[2]))throw new Error('Gebruik artikelcode | aantal | stukprijs | levertijd');const [whole,fraction='']=parts[2].replace(',','.').split('.');return {item_id:parts[0],quantity:Number(parts[1]),unit_price_cents:Number(whole)*100+Number(fraction.padEnd(2,'0')),...(parts[3]?{delivery_days:Number(parts[3])}:{})};});
           }
+          if(payload.allow_self_approval!==undefined)payload.allow_self_approval=payload.allow_self_approval==='true';
+          if(payload.approval_steps)payload.approval_steps=payload.approval_steps.split(',').map(value=>value.trim()).filter(Boolean);
           if(payload.participants)payload.participants=payload.participants.split(',').map(value=>value.trim()).filter(Boolean);if(payload.recurrence){const [frequency,count]=payload.recurrence.split(',');payload.recurrence={frequency:frequency.trim().toUpperCase(),count:Number(count),interval:1};}
           if(editing)payload.expected_revision=editing.revision;
           await request(`/api/${state.workspaceId}/${entity}${editing?`/${encodeURIComponent(editing.id)}`:''}`,{method:editing?'PUT':'POST',headers:{'idempotency-key':crypto.randomUUID()},body:JSON.stringify(payload)});
@@ -787,12 +826,13 @@
         const tr=node('tr');tr.append(node('td','',record.title||record.name||record.id),node('td','',record.status||record.delivery_state||'—'),node('td','',record.updated_at?new Date(record.updated_at).toLocaleString('nl-NL'):'—'));
         if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
-        edit.addEventListener('click',()=>{editing=record;for(const [name,input] of fields)input.value=record[name]===undefined?'':name==='value_cents'?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):name==='recurrence'?`${record[name].frequency},${record[name].count}`:Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
-        if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',async()=>{compare.disabled=true;try{const comparison=await request(`/api/procurement/rfqs/${encodeURIComponent(record.id)}/comparison`),panel=node('div','bid-comparison');panel.append(node('h3','',`Biedingen: ${comparison.title}`),node('p','',`${comparison.comparable_count} volledige biedingen · revisie ${comparison.rfq_revision}. Vergelijking van vastgelegde prijzen; geen leveranciersverificatie of bestelling.`));for(const bid of comparison.items){panel.append(node('p','',`${bid.title} · ${bid.comparable?new Intl.NumberFormat('nl-NL',{style:'currency',currency:comparison.currency}).format(bid.total_cents/100):'Niet vergelijkbaar: '+bid.reasons.join(', ')} · Levertijd: ${bid.delivery_days===null?'niet vastgelegd':bid.delivery_days+' dagen'} · Herkomst: ${bid.evidence_reference}`));}if(!comparison.items.length)panel.append(node('p','','Nog geen biedingen vastgelegd.'));content.querySelector('.bid-comparison')?.remove();content.append(panel);}catch(error){notice.textContent=friendlyError(error);}finally{compare.disabled=false;}});cell.append(compare);}
-        if(!['messages','notifications'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
+        edit.addEventListener('click',()=>{editing=record;for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):name==='recurrence'?`${record[name].frequency},${record[name].count}`:Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
+        if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',()=>renderProcurementComparison(record,content,notice));cell.append(compare);}
+        if(state.workspaceId==='procurement'&&entity==='awards')appendAwardReview(record,cell,content);
+        if(!['messages','notifications','awards'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
       }
       const summary=node('p','',`${result.total} records${result.next_offset!==null?' · eerste 100 getoond':''}`);
-      const children=[summary];if(!['messages','notifications'].includes(entity))children.push(form);
+      const children=[summary];if(!['messages','notifications','awards'].includes(entity))children.push(form);
       children.push(rows.length?table:node('div','EmptyState','Nog geen records in dit onderdeel.'));
       replaceChildren(content,children);
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}

@@ -1,7 +1,7 @@
 {
   "schema_version": "foundly-checkpoint-test-evidence/1.0.0",
   "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
-  "command": "npm test; final ledger-version/UI status selection: node capability-resolver-test.js, node procurement-sourcing-test.js, node composition-matrix-test.js, node --check foundly-workspace.js",
+  "command": "npm test; subsequent explicit self-approval UI option: node --check foundly-workspace.js, node procurement-reviews-test.js, node module-access-contracts-test.js",
   "exit_code": 0,
   "source_sha256": {
     "analysis-script.js": "684d45906099af4da1cfc4b1ccf6dcfca4785d1b8977ba627c7e1b21c23c1c4c",
@@ -13,9 +13,9 @@
     "automotive-provider-contract-test.js": "329970409b47230409a31ce4625304c30eab555a9fc9dfeef7e9721abb848571",
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
-    "business-domain-api.js": "240e70a8397e9673bd02c97cd043fabededd49e7b8b2bfe36cb846f3ff6723f4",
+    "business-domain-api.js": "22f5cbc954a31cb741a33565742aefe4c9655414f48a61d58b450727239b0a4b",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "c2f48af9e62f14eed3b0fcfee89d8c44d122ebe63ea191fc0b9657d9485e98a7",
+    "business-domains.js": "236b83c93bbb8f5ac81f8c3db02007647fee1691916262fd96db5e64b90bfce8",
     "business-workspaces-regression-test.js": "cd2d0eff658c502aa216491f17957cd6d3925b5ddb7bb72d8c3e5b1afbf89db6",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
@@ -23,7 +23,7 @@
     "capability-resolver-test.js": "3de7025cf2fde865b45490045f9511fc00e919b7b44b96201ec90ecec0c6e67c",
     "capability-resolver.js": "5fba69c6d2af4a4000afc2dfb03820dd597c55d00aa0796c4d2dfffbd23f1b0a",
     "composition-api-test.js": "ab7b6c9018e93ab9aa8543be2c5d6e37eb351e4422602c4d03403b5b9f9c2d28",
-    "composition-matrix-test.js": "bd600aa499294b7873cf8f0790225c2ff92974b36e8366e567ce62be22207cdb",
+    "composition-matrix-test.js": "4964adceba1c167a5a54fe4102230c4f45eb9d66812b7a2d4af3cb0d08b96771",
     "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
     "composition-runtime.js": "2d6ac16f3ef04f16b2f9ba37ddbf287b58295d1369a7bf6a75df27e7c85ce136",
     "crm-api-regression-test.js": "1946f90be8d4345ba06ad7c75c68b51a908969d15610c9e8fb5280ae38dedbbd",
@@ -40,19 +40,19 @@
     "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "44636e84cfaf143dc7b81825f6e609ef5917d344430cfbcf01f5d2338e30987d",
-    "foundly-workspace.js": "021ef02124b3836ad0648f52f50e0ed8b5998d4fe511636dc069280f2aac252a",
+    "foundly-workspace.js": "509dfc2a70fc7feb9d2de62ccc4a9627b54e07af03ac6b24798173cedc125032",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
     "module-access-contracts-test.js": "76bbbb239e1d6fcab065cd8d334291d43df547e42c504b0f4cfc5eca032c4962",
-    "module-access-contracts.js": "fadcda3e6a92aad815f3a311f8d6d32dadc7d972dbdb2acf98921c4ed108c655",
+    "module-access-contracts.js": "b4ec12bc918cc2493fe7e4ba9e6e76eb67f13d57b0cf65a3a532a5b98aef1cf7",
     "module-catalog.js": "dca6ff4e3cd0966226579ae9f4af235ac5e3825534062038a5dc454231143f08",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "f046292fa3526f51a73be823d7e26e26047a040a713264665fd6542ce430dd35",
+    "package.json": "b03b9509aeb8ad350a74a5798194224f141aa3acf42bbb374f2143fb290bbf91",
     "platform-api-regression-test.js": "0b2063b2c955883a4845ef8ddd364fd46a19dfd70e7376d4998f6d0999d67ab5",
     "platform-api.js": "22b8b748d1014c0b1569e08b22198dcdad7bbb1fb9ac73de2365d5ca9f150576",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -80,9 +80,11 @@
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
     "procurement-sourcing-test.js": "a736cfeac3a4eba2edc11f3215296986fb874bbbd00a86fd332f4c0156111c2a",
-    "procurement-sourcing.js": "c84eda288f0758f6fca2acc5897665992deed6b631cbce2cb29a7d8ee74f0127"
+    "procurement-sourcing.js": "c84eda288f0758f6fca2acc5897665992deed6b631cbce2cb29a7d8ee74f0127",
+    "procurement-reviews-test.js": "d9428eb623960fdf54bdbe3c3a91e92dbc93b55a3122c35288aad6baf0b97d3a",
+    "procurement-reviews.js": "5a48a4205d8dfa94a18257cbaa7c422ef3dd7e5fe298dd80e1e0974678eb0ed4"
   },
-  "output_sha256": "db8f0a942d501fd7920c4df504307644b227992b56360ba495ee6b2c2cd68791",
+  "output_sha256": "5fcd6ef407173cd4bd7ffa8e9908a9e98cfdae00c5c69066512c8bb47b009756",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -258,7 +260,11 @@
     "Shared Data scopes exclude operational buckets and disabled entity capabilities",
     "Procurement-only authenticated RFQ capture, bid comparison and encrypted restart",
     "RFQ stale revision, missing coverage, currency mismatch and private-record denial",
-    "Procurement storage rollback on persist failure"
+    "Procurement storage rollback on persist failure",
+    "Authenticated procurement proposal/approval API and encrypted restart",
+    "Mandatory amount thresholds and assigned sequential reviewer enforcement",
+    "Policy/source revision changes invalidate pending approval",
+    "Review transaction rollback, idempotency, rejection and withdrawal"
   ],
   "production_observation": {
     "observed_at": "2026-09-06",
@@ -272,15 +278,14 @@
   },
   "post_full_regression_changes": {
     "paths": [
-      "module-catalog.js",
-      "foundly-workspace.js"
+      "foundly-workspace.js",
+      "competitive-ledgers/procurement.json"
     ],
-    "scope": "Use actual competitive-ledger version and constrain RFQ/bid status choices to supported values",
+    "scope": "Expose explicit self-approval policy choice; update evidence ledger",
     "focused_tests": {
-      "capability_resolver": "PASS",
-      "procurement_sourcing": "PASS",
-      "composition_matrix": "PASS",
-      "workspace_syntax": "PASS"
+      "workspace_syntax": "PASS",
+      "procurement_reviews": "PASS",
+      "module_access_contracts": "PASS"
     },
     "exact_final_tree_full_ci": "REQUIRED"
   }

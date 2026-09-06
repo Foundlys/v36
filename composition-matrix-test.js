@@ -11,7 +11,7 @@ const port = 25100 + Math.floor(Math.random() * 900);
 const base = `http://127.0.0.1:${port}`;
 // Isolated fixtures only; never production credentials.
 const token = crypto.randomBytes(32).toString('hex');
-const env = { ...process.env, PORT: String(port), NODE_ENV: 'production', FOUNDLY_ADMIN_TOKEN: token, FOUNDLY_ADMIN_PASSWORD: '', FOUNDLY_ENCRYPTION_KEY: crypto.randomBytes(32).toString('hex'), FOUNDLY_DATA_DIR: dir, FOUNDLY_TENANT_ID: 'fixture-composition', FOUNDLY_DEALER_ID: 'fixture-business', FOUNDLY_PLATFORM_ROLES: 'ADMIN,SUPER_ADMIN', FOUNDLY_CRM_ROLES: 'ADMIN', FOUNDLY_PUBLIC_BASE_URL: 'https://foundly.example.test', OPENAI_API_KEY: '', FOUNDLY_AI_API_KEY: '', FOUNDLY_WORKER_INTERVAL_MS: '99999999' };
+const env = { ...process.env, PORT: String(port), NODE_ENV: 'production', FOUNDLY_ADMIN_TOKEN: token, FOUNDLY_ADMIN_PASSWORD: '', FOUNDLY_ENCRYPTION_KEY: crypto.randomBytes(32).toString('hex'), FOUNDLY_DATA_DIR: dir, FOUNDLY_TENANT_ID: 'fixture-composition', FOUNDLY_DEALER_ID: 'fixture-business', FOUNDLY_PLATFORM_ROLES: 'ADMIN,SUPER_ADMIN', FOUNDLY_PLATFORM_USER_ID:'matrix-operator', FOUNDLY_CRM_ROLES: 'ADMIN', FOUNDLY_PUBLIC_BASE_URL: 'https://foundly.example.test', OPENAI_API_KEY: '', FOUNDLY_AI_API_KEY: '', FOUNDLY_WORKER_INTERVAL_MS: '99999999' };
 let child, logs = '';
 async function start() {
   child = spawn(process.execPath, ['server.js'], { cwd: __dirname, env, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -24,8 +24,8 @@ async function start() {
   throw new Error('Server start timeout');
 }
 async function stop() { if (child?.exitCode === null) { const closed = once(child, 'exit'); child.kill('SIGTERM'); await closed; } }
-async function request(route, method = 'GET', body) {
-  const response = await fetch(base + route, { method, headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
+async function request(route, method = 'GET', body, extraHeaders={}) {
+  const response = await fetch(base + route, { method, headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json',...extraHeaders }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
   return { status: response.status, body: await response.json() };
 }
 const {MODULES,TOOL_MODULES}=require('./module-catalog');
@@ -70,14 +70,22 @@ async function workflow(id){
     assert.equal((await request(`/api/${id}/export`)).body.collections[entity].length,1);
     const zero=await request('/api/zero/turn','POST',{message:`Toon ${id} overzicht`,preferred_module:id,turn_id:`matrix-turn-${id}`,conversation_id:`matrix-conversation-${id}`});
     assert.equal(zero.status,200,JSON.stringify(zero));assert.ok(zero.body.verification.persisted_records_only);assert.equal(zero.body.actions.length,0);
-    let rfqId;
+    let rfqId,awardId;
     if(id==='procurement'){
       const supplier=(await request('/api/procurement/suppliers','POST',{name:'Matrix RFQ supplier'})).body.record;
       const rfq=await request('/api/procurement/rfqs','POST',{title:'Matrix RFQ',currency:'EUR',lines:[{item_id:'A',description:'Fixture item',quantity:2}]});assert.equal(rfq.status,201);rfqId=rfq.body.record.id;
       const bid=await request('/api/procurement/bids','POST',{title:'Matrix bid',rfq_id:rfqId,rfq_revision:1,supplier_id:supplier.id,currency:'EUR',evidence_reference:'Matrix fixture offer',lines:[{item_id:'A',quantity:2,unit_price_cents:1250}]});assert.equal(bid.status,201,JSON.stringify(bid));
       assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);
+      // Explicit test-only single-person policy; production defaults prohibit self approval.
+      const policy=await request('/api/procurement/approval_policies','POST',{name:'Matrix internal approval',status:'OPEN',currency:'EUR',minimum_value_cents:0,approval_steps:['matrix-operator'],allow_self_approval:true});assert.equal(policy.status,201,JSON.stringify(policy));
+      const preview=(await request(`/api/procurement/rfqs/${rfqId}/award-preview?bid_id=${bid.body.record.id}`)).body;
+      const proposal={bid_id:bid.body.record.id,preview_fingerprint:preview.preview_fingerprint,reason:'Matrix fixture comparison reviewed',confirm:true};
+      const award=await request(`/api/procurement/rfqs/${rfqId}/awards`,'POST',proposal,{'idempotency-key':'matrix-award'});assert.equal(award.status,201,JSON.stringify(award));awardId=award.body.record.id;
+      assert.equal((await request(`/api/procurement/rfqs/${rfqId}/awards`,'POST',proposal,{'idempotency-key':'matrix-award'})).body.deduplicated,true);
+      const reviewed=await request(`/api/procurement/awards/${awardId}/approve`,'POST',{expected_revision:1,decision:'APPROVE',reason:'Explicit fixture review',confirm:true},{'idempotency-key':'matrix-review'});assert.equal(reviewed.status,200,JSON.stringify(reviewed));assert.equal(reviewed.body.record.status,'APPROVED_INTERNAL');assert.equal(reviewed.body.external_commitment,false);
+
     }
-    return async()=>{assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);if(rfqId)assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);};
+    return async()=>{assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);if(rfqId)assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);if(awardId)assert.equal((await request(`/api/procurement/awards/${awardId}`)).body.record.status,'APPROVED_INTERNAL');};
   }
   if(id==='crm'){
     const response=await request('/api/crm/contacts','POST',{name:'Matrix fixture contact'});assert.equal(response.status,201,JSON.stringify(response));

@@ -1,6 +1,6 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "module": "procurement",
   "assessed_at": "2026-09-06",
   "standalone_acceptance": "PARTIAL",
@@ -35,14 +35,15 @@
           "retrieved_at": "2026-09-06"
         }
       ],
-      "foundly_current": "Owned RFQs and revision-bound manually recorded bids, full-scope currency-safe price comparisons, private record access, existing internal quote/order approval, retained export and restart.",
-      "gap": "Supplier collaboration, partial awards, configurable approval chains and purchasing policies remain incomplete; browser acceptance is pending.",
-      "required_change": "Complete internal award/review policy flows and provider-authorized supplier collaboration.",
+      "foundly_current": "Owned RFQs, revision-bound bids, complete-scope price comparison and internal full-bid awards. Active currency/amount thresholds select mandatory sequential approval policies; reviewer assignment, default separation of duties, source/policy revision binding, rejection, withdrawal and restart are tested.",
+      "gap": "Supplier collaboration, partial item awards, policy application to legacy direct orders and browser acceptance remain incomplete.",
+      "required_change": "Complete item-level allocation and broader purchasing-policy coverage, then authorized supplier collaboration and browser acceptance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
-        "procurement-sourcing-test.js"
+        "procurement-sourcing-test.js",
+        "procurement-reviews-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

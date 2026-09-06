@@ -5,7 +5,7 @@ const ENTITY_GROUPS={
   finance:{invoices:['invoices','invoice_lines','credit_notes','source_documents','attachments','document-proposals','document_proposals'],payments:['payments','bank_accounts','bank_transactions','reconciliations','collection_actions'],reports:['reports','budgets','cash_forecasts','counterparty_balances'],ledger:['legal_entities','fiscal_periods','periods','accounts','journals','journal_entries','journal_lines','debtors','creditors','cost_centers','projects','dimensions','assets','depreciations','asset_disposals','vat_codes','tax_periods','closing_periods','audit_events','ledger']},
   analysis:{kpis:['kpis'],events:['events','realtime','historical'],funnel:['funnel'],reports:['reports','attribution','campaigns']},
   marketing:{campaigns:['campaigns','creatives','experiments'],audiences:['audiences'],attribution:['attribution','measurement']},
-  procurement:{sourcing:['rfqs','bids'],suppliers:['suppliers'],opportunities:['opportunities','tasks'],approvals:['quotes','orders','documents']},
+  procurement:{sourcing:['rfqs','bids'],suppliers:['suppliers'],opportunities:['opportunities','tasks'],approvals:['quotes','orders','documents','approval_policies','awards']},
   sales:{opportunities:['opportunities','tasks'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
   calendar:{events:['events','reminders','notifications'],availability:['availability','calendars','scheduling'],conflicts:['conflicts']},
   communication:{drafts:['drafts','templates'],threads:['threads','preferences'],inbox:['messages','inbox']},
