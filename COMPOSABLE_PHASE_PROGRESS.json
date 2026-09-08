@@ -27,7 +27,7 @@
       "phase": 3,
       "name": "Capability resolver",
       "status": "PARTIAL",
-      "evidence_or_gap": "Module, role, tool, shared projection, owner/team event and legacy-feed guards implemented; complete remaining legacy access audit and real end-user identity binding remain"
+      "evidence_or_gap": "Composed module/role/tool, private event/data/memory/conversation and worker-owner guards; complete remaining mixed-entry audit and real end-user identity provisioning remain"
     },
     {
       "phase": 4,
@@ -117,7 +117,7 @@
       "phase": 18,
       "name": "Policy/risk",
       "status": "PARTIAL",
-      "evidence_or_gap": "Authorization and input-bound approvals; all external-action policies not yet accepted"
+      "evidence_or_gap": "Input-bound approvals and requester identity, connector administration and owner-bound automatic work; complete external-action policy coverage remains"
     },
     {
       "phase": 19,

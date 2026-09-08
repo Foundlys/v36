@@ -66,23 +66,23 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 |---|---|---|
 | 0 Repository/runtime/checkpoint | COMPLETE | Local/remote refs and worktrees recovered; functional work preserved; live public baseline observed |
 | 1 Architecture inventory | COMPLETE | Ownership, retained buckets, Core services and dependency boundaries in inventory |
-| 2 Module contracts | PARTIAL | Nine versioned manifests and isolated runtime probes; full operation-level capability coverage still needs closure |
-| 3 Capability resolver | PARTIAL | Runtime/role/tool guards implemented; complete mixed legacy entry-point review and production user binding remain |
+| 2 Module contracts | PARTIAL | Nine manifests, isolated runtime probes, owned entity/operation capability mappings and durable Analytics/Automation events; complete legacy entry-point and role-contract closure remains |
+| 3 Capability resolver | PARTIAL | Composed module/role/tool, private event/data/memory/conversation and worker-owner guards; complete remaining mixed-entry audit and real end-user identity provisioning remain |
 | 4 Industry abstraction | PARTIAL | Validated pack fields and test injection; complete UI/KPI/workflow extension registry remains |
 | 5 Automotive pack | PARTIAL | Existing engine preserved; integration and non-regression checked; complete composed browser/provider acceptance remains |
-| 6 Procurement | PARTIAL | Owned workflows/API/UI; RFQs, comparisons and approval policy depth remain |
-| 7 Sales | PARTIAL | Owned pipeline and forecast aggregates; complete forecasting/sequences/UI remain |
+| 6 Procurement | PARTIAL | RFQs, scoped bid comparisons and internal full-bid awards with mandatory sequential policies; partial allocations, direct-order policy coverage and browser acceptance remain |
+| 7 Sales | PARTIAL | Owned stages, period-based currency forecasts and immutable revision-bound snapshots; quotas, hierarchies, sequences and browser acceptance remain |
 | 8 CRM | PARTIAL | Existing engine and isolated configuration pass; competitive and full identity/UI acceptance remain |
 | 9 Marketing | PARTIAL | Owned plans and existing measurement adapters; journey activation and real provider proof remain |
 | 10 Finance | PARTIAL | Accounting preserved and tested; complete competitive/accounting and provider acceptance remain |
-| 11 Analytics | PARTIAL | Permission-preserving canonical projections; remaining cohort/model/section contracts remain |
-| 12 Calendar | PARTIAL | Availability-driven booking, distribution, internal reminders and restart tests; external calendar reconciliation and browser acceptance remain |
+| 11 Analytics | PARTIAL | Owned reports with explicit inference provenance, retained export and durable events; permission-filtered analytics exist; cohorts/model/section contracts remain |
+| 12 Calendar | PARTIAL | Availability-driven slots, distribution, idempotent booking, internal reminders, private ACL and restart; external reconciliation/browser proof pending |
 | 13 Communication | PARTIAL | Own drafts/templates/preferences; mail authorization, delivery, attachments and collaboration remain |
-| 14 Automation | PARTIAL | Durable execution and bounded scheduling; complete editor/retry/recovery workflows remain |
+| 14 Automation | PARTIAL | Durable execution/events and bounded scheduling; immutable approval policy and legacy replay verified; complete editor/retry/recovery workflows remain |
 | 15 Workspace composition | PARTIAL | Shared forms, composer and distinct projections; explicitly missing sections and browser acceptance remain |
 | 16 ZERO orchestration | PARTIAL | Dynamic availability and real read tools; complete structured prepare/execute/verify coverage remains |
-| 17 Registries | PARTIAL | Canonical catalogs retained and filtered; full source/connector capability mapping remains |
-| 18 Policy/risk | PARTIAL | Authorization and input-bound approvals; all external-action policies not yet accepted |
+| 17 Registries | PARTIAL | Canonical registries retained; public positive-state/receipt forgery blocked; remaining runtime-to-registry integration and complete capability mapping remain |
+| 18 Policy/risk | PARTIAL | Input-bound approvals and requester identity, connector administration and owner-bound automatic work; complete external-action policy coverage remains |
 | 19 Provisioner/composer | PARTIAL | Package preview/apply and founder guard; real user/tenant provisioning and all configuration dimensions remain |
 | 20 Second industry proof | COMPLETE | Test-only manifest extends owned business records; unavailable in production |
 | 21 Standalone matrix | PARTIAL | Nine configuration/workflow/restart profiles pass; full product acceptance remains pending |
@@ -138,3 +138,9 @@ they do not excuse unfinished internal capabilities.
 ## 2026-09-08 Sales forecast checkpoint
 
 The recovered unpublished forecast implementation is completed as a bounded increment. Targeted domain tests and authenticated Sales-only HTTP/restart tests pass. The complete `npm test` matrix exited 0; source hashes and output hash are in `COMPOSABLE_TEST_EVIDENCE.json`. This adds explicit-period projections and immutable reviewed snapshots, not quotas, forecast hierarchy, sequence execution or browser acceptance. The next incomplete gate is mixed Core/legacy route authorization under phases 2–3. No production changes.
+
+## 2026-09-08 Core access increment
+
+Targeted tests verify private memory/queue access, reserved namespace rejection, connector and worker privileges, current-owner execution, failure isolation, and ZERO conversation/confirmation ownership through authenticated HTTP and encrypted restart. Existing legacy behavior is preserved until explicit composition. Unowned historical tasks are retained, not automatically attributed to a new principal. Final full-regression results for this increment are recorded separately in the checkpoint evidence.
+
+The full `npm test` regression for the Core access increment exited 0. Exact source hashes and output fingerprint are recorded in `COMPOSABLE_TEST_EVIDENCE.json`. This is another development checkpoint; formal deployment remains blocked by the remaining masterbuild acceptance gaps.

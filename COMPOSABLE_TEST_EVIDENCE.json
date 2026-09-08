@@ -26,6 +26,9 @@
     "composition-matrix-test.js": "bb26c8d3489208138e4cf29ebd0b8c25cd2501d467533e1eba97abfcb1a75015",
     "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
     "composition-runtime.js": "2d6ac16f3ef04f16b2f9ba37ddbf287b58295d1369a7bf6a75df27e7c85ce136",
+    "core-access-api-test.js": "365027ed442b86e8fa0ca7b7bdb88e48cfc83fae00318cffdaec4f4ccc3e6c5d",
+    "core-access-contracts-test.js": "c14a093653346a5008ce96edb2f0de69498964be4f60d2f809012d148f0752f1",
+    "core-access-contracts.js": "6facbdeaf52ce39309b55d1d2902fa53d738a1fa5657710d77b2fd06a8da9d0c",
     "crm-api-regression-test.js": "1946f90be8d4345ba06ad7c75c68b51a908969d15610c9e8fb5280ae38dedbbd",
     "crm-core-regression-test.js": "a867a43dc85e96889dde5b7ea7608dfcb44faae2821f7e4491c5cfe92196319d",
     "crm-core.js": "951a72d4d3c94e4d7579cc6299dbf54195141c271828cfe72ffb1c5e8c2ae774",
@@ -54,7 +57,7 @@
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "2cb646e1cae33d0ae5f0397b90f2690befb7bb617203a5f73be3682c3ec62a6e",
+    "package.json": "816daa1dac68387541ea5c470265f6b0f23498e98a8901cd186812be4ebb45ce",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "13e3d311675ddebd494e7f9ffdfb84c4c7ef90517a2f8e3cb688bd764e53240f",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -70,7 +73,7 @@
     "sales-forecast.js": "f12b72d2899456e8946d270a4212d8683a1c57403c327f80c4c6d7a5ff5522b5",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-proof-test.js": "9b0073375c95166f8c04ea8b3c9a0733aaf33aaa4402c72e1078fcd213bcdba2",
-    "server.js": "69ecb3990f13927b80a0cc1a2b680399500cbda688eecd5fc8362c4f60df1514",
+    "server.js": "ddacbfaf7a6582ae2495bb4f9b752864432ac05b02409e99af7fd980a633ff88",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -86,7 +89,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "c803e6ac27cc6834fe5f4b30f5df425d60d072dac51d5e50317a87d92dbbdb54",
+  "output_sha256": "59fa995916ef8ab242467df3c4ca33b67490fba2734739645cab1fec97c17cec",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -280,7 +283,13 @@
     "Stage workflow requires actual changed-field evidence",
     "Sales period forecasts preserve missing values and currency boundaries",
     "Immutable confirmed forecast snapshots bind record revisions, owner ACL and idempotency",
-    "Sales-only forecast HTTP flow survives encrypted restart; failed writes restore touched storage"
+    "Sales-only forecast HTTP flow survives encrypted restart; failed writes restore touched storage",
+    "Generic memory cannot access internal confirmation, conversation or dashboard namespaces",
+    "Owned memory and queue payloads remain private across principal changes and restart",
+    "Core connector/profile mutations and worker/persistence commands require explicit privileges",
+    "Queued work never runs under a different owner; foreign queue prefixes do not starve owned work",
+    "Per-task exceptions are isolated and returned without private error payloads",
+    "ZERO conversation read/delete/replay and confirmation consumption bind the requesting principal"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -292,11 +301,11 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260908-sales-regression.log",
+  "output_file": ".recovery-evidence/20260908-core-access-regression.log",
   "previous_remote_ci": {
-    "commit": "5abb724230f76891f7d5d5ace2a9222043dbe876",
-    "run_id": 34040944711,
-    "run_number": 53,
+    "commit": "42fdbee1bf6ef380e71b93fca75849365b7901d7",
+    "run_id": 34252512453,
+    "run_number": 54,
     "conclusion": "success"
   }
 }

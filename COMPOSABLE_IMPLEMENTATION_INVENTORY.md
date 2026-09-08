@@ -109,3 +109,11 @@ Recovered local `cd02106` and remote `5abb724` have the same tree `38c6a0cd77060
 Sales forecasts use explicit expected/actual closing dates, recorded probabilities, separate currency totals and owner-filtered records. Missing values are listed as exclusions or unknown coverage, not invented zeroes. A user-confirmed immutable snapshot binds the reviewed record revisions and period; replay, stale basis, failed persistence and encrypted HTTP restart are covered. Saved forecasts remain internal calculations, not provider verification or accounting revenue. Hierarchies, quotas, adjustments and sequences remain open.
 
 Public production health/readiness were rechecked read-only on 2026-09-08: HTTP 200, version 6.0.0, PASS with all eight checks true. This does not provide new authenticated Railway or browser acceptance.
+
+## Composed Core access and execution identity
+
+Generic memory access is limited to documented business/Core scopes and current permissions. Reserved conversation, confirmation and dashboard storage keys require their dedicated APIs. New memory/decision rows carry their owner; private rows and task payloads are filtered by current owner, while authorized administrators retain operational inspection. Unowned legacy rows are retained and conservatively hidden from non-administrators.
+
+Connector mutations, authorization starts, global profile changes, worker ticks and forced persistence have explicit Core permissions. Normal module navigation/read rights do not grant these operations. OAuth callbacks keep their existing state/signature boundary.
+
+Automatic legacy queue work is bound to its stored owner, matching the workflow scheduler contract. Tasks without a proven current owner are retained but skipped in composed mode. Other owners do not starve the current queue; task exceptions are isolated with bounded error codes. Composed ZERO conversations, durable result replay and confirmations carry requester identity. Another administrator cannot reuse an owned conversation. No end-user authentication provider or credential was introduced.
