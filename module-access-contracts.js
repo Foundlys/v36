@@ -6,7 +6,7 @@ const ENTITY_GROUPS={
   analysis:{kpis:['kpis'],events:['events','realtime','historical'],funnel:['funnel'],reports:['reports','attribution','campaigns']},
   marketing:{campaigns:['campaigns','creatives','experiments'],audiences:['audiences'],attribution:['attribution','measurement']},
   procurement:{sourcing:['rfqs','bids'],suppliers:['suppliers'],opportunities:['opportunities','tasks'],approvals:['quotes','orders','documents','approval_policies','awards']},
-  sales:{opportunities:['opportunities','tasks'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
+  sales:{forecast:['forecast','forecast_snapshots'],opportunities:['opportunities','tasks'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
   calendar:{events:['events','reminders','notifications'],availability:['availability','calendars','scheduling'],conflicts:['conflicts']},
   communication:{drafts:['drafts','templates'],threads:['threads','preferences'],inbox:['messages','inbox']},
   automation:{workflows:['workflows','tasks','documents'],runs:['runs'],approvals:['approvals']}

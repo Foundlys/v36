@@ -51,7 +51,7 @@
       "phase": 7,
       "name": "Sales",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned pipeline and forecast aggregates; complete forecasting/sequences/UI remain"
+      "evidence_or_gap": "Owned stages, period-based currency forecasts and immutable revision-bound snapshots; quotas, hierarchies, sequences and browser acceptance remain"
     },
     {
       "phase": 8,

@@ -20,6 +20,11 @@ function createBusinessDomainApi({domains,context,principal,readBody,sendJson}){
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='awards'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareAward(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='awards'&&parts.length===3&&['approve','cancel'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews[parts[2]==='approve'?'reviewAward':'cancelAward'](core,ctx,actor,parts[1],await readBody(req),options)});
       }
+      if(id==='sales'&&parts[0]==='forecast'){
+        const service=require('./sales-forecast');
+        if(parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...service.forecast(core,ctx,actor,Object.fromEntries(url.searchParams))});
+        if(parts.length===2&&parts[1]==='snapshots'&&req.method==='POST')return sendJson(res,201,{ok:true,...service.snapshotForecast(core,ctx,actor,await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
+      }
       if(parts.length>3||!DEFINITIONS[id].entities.includes(parts[0]))return sendJson(res,404,{ok:false,code:'entity_unknown'});
       const [entity,recordId,action]=parts;
       if(req.method==='GET'&&!action)return sendJson(res,200,recordId?{ok:true,record:core.get(ctx,actor,entity,recordId)}:{ok:true,...core.list(ctx,actor,entity,Object.fromEntries(url.searchParams))});

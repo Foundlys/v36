@@ -70,7 +70,16 @@ async function workflow(id){
     assert.equal((await request(`/api/${id}/export`)).body.collections[entity].length,1);
     const zero=await request('/api/zero/turn','POST',{message:`Toon ${id} overzicht`,preferred_module:id,turn_id:`matrix-turn-${id}`,conversation_id:`matrix-conversation-${id}`});
     assert.equal(zero.status,200,JSON.stringify(zero));assert.ok(zero.body.verification.persisted_records_only);assert.equal(zero.body.actions.length,0);
-    let rfqId,awardId;
+    let rfqId,awardId,forecastId;
+    if(id==='sales'){
+      assert.equal((await request('/api/sales/forecast?from=2026-02-30&to=2026-09-30')).status,422);
+      const dated=await request(`/api/sales/opportunities/${saved.body.record.id}`,'PUT',{expected_close_date:'2026-09-15',expected_revision:2});assert.equal(dated.status,200);
+      const forecast=await request('/api/sales/forecast?from=2026-09-01&to=2026-09-30');assert.equal(forecast.status,200,JSON.stringify(forecast));assert.equal(forecast.body.groups[0].weighted_cents,6000);assert.equal(forecast.body.accounting_revenue,false);
+      const input={title:'Matrix September forecast',filters:forecast.body.filters,basis_fingerprint:forecast.body.basis_fingerprint,confirm:true};
+      const snapshot=await request('/api/sales/forecast/snapshots','POST',input,{'idempotency-key':'matrix-forecast'});assert.equal(snapshot.status,201,JSON.stringify(snapshot));forecastId=snapshot.body.record.id;
+      assert.equal((await request('/api/sales/forecast/snapshots','POST',input,{'idempotency-key':'matrix-forecast'})).body.deduplicated,true);
+      assert.equal((await request(`/api/sales/forecast_snapshots/${forecastId}`,'PUT',{title:'Overwrite',status:'DRAFT',expected_revision:1})).status,422);
+    }
     if(id==='procurement'){
       const supplier=(await request('/api/procurement/suppliers','POST',{name:'Matrix RFQ supplier'})).body.record;
       const rfq=await request('/api/procurement/rfqs','POST',{title:'Matrix RFQ',currency:'EUR',lines:[{item_id:'A',description:'Fixture item',quantity:2}]});assert.equal(rfq.status,201);rfqId=rfq.body.record.id;
@@ -85,7 +94,7 @@ async function workflow(id){
       const reviewed=await request(`/api/procurement/awards/${awardId}/approve`,'POST',{expected_revision:1,decision:'APPROVE',reason:'Explicit fixture review',confirm:true},{'idempotency-key':'matrix-review'});assert.equal(reviewed.status,200,JSON.stringify(reviewed));assert.equal(reviewed.body.record.status,'APPROVED_INTERNAL');assert.equal(reviewed.body.external_commitment,false);
 
     }
-    return async()=>{assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);if(rfqId)assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);if(awardId)assert.equal((await request(`/api/procurement/awards/${awardId}`)).body.record.status,'APPROVED_INTERNAL');};
+    return async()=>{assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);if(rfqId)assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);if(awardId)assert.equal((await request(`/api/procurement/awards/${awardId}`)).body.record.status,'APPROVED_INTERNAL');if(forecastId){const snapshot=await request(`/api/sales/forecast_snapshots/${forecastId}`);assert.equal(snapshot.status,200);assert.equal(snapshot.body.record.forecast.groups[0].weighted_cents,6000);assert.equal(snapshot.body.record.immutable,true);}};
   }
   if(id==='crm'){
     const response=await request('/api/crm/contacts','POST',{name:'Matrix fixture contact'});assert.equal(response.status,201,JSON.stringify(response));

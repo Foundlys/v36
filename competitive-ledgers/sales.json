@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "module": "sales",
-  "assessed_at": "2026-09-05",
+  "assessed_at": "2026-09-08",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -29,13 +29,14 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Owned sales opportunities, validated stages and complete permission-filtered currency aggregates.",
-      "gap": "Forecast hierarchy, quotas, calendar periods, adjustments and scenario comparison are incomplete.",
-      "required_change": "Add tenant-scoped forecast configurations and explainable period-based projections.",
+      "foundly_current": "Owned stages and opportunities, permission-filtered period forecasts with separate currencies and explicit unknown values, revision-bound immutable snapshots with restart and replay protection.",
+      "gap": "Forecast hierarchy, quotas, adjustments, scenario comparison and browser acceptance remain incomplete.",
+      "required_change": "Complete forecast configuration, hierarchy and quota workflows without inferring missing values.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "sales-forecast-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

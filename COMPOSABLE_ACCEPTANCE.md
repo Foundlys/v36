@@ -134,3 +134,7 @@ and provider authorization block only the relevant external integrations;
 they do not excuse unfinished internal capabilities.
 
 **Verdict: MASTERBUILD INCOMPLETE — preserved development checkpoint.**
+
+## 2026-09-08 Sales forecast checkpoint
+
+The recovered unpublished forecast implementation is completed as a bounded increment. Targeted domain tests and authenticated Sales-only HTTP/restart tests pass. The complete `npm test` matrix exited 0; source hashes and output hash are in `COMPOSABLE_TEST_EVIDENCE.json`. This adds explicit-period projections and immutable reviewed snapshots, not quotas, forecast hierarchy, sequence execution or browser acceptance. The next incomplete gate is mixed Core/legacy route authorization under phases 2–3. No production changes.

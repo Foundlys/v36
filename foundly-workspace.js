@@ -159,7 +159,7 @@
 
   function renderTabs() {
     const tabs = (state.workspace?.sections || []).map((section, index) => {
-      const button = node('button', index === 0 ? 'active' : '', section);
+      const button = node('button', index === 0 ? 'active' : '', section === 'FORECAST_SNAPSHOTS' ? 'Bewaarde prognoses' : section);
       button.type = 'button';
       button.id = `workspace-tab-${index}`;
       button.setAttribute('role', 'tab');
@@ -617,6 +617,7 @@
     byId('contextDescription').textContent = description;
     const content = byId('contextContent'), items = [];
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
+    if(state.workspaceId==='sales'&&section==='FORECAST'){renderSalesForecast(content);return;}
     if(state.workspaceId==='calendar'&&section==='SCHEDULING'){renderScheduling(content);return;}
     if(state.workspaceId==='automation'){renderAutomationSection(section,content);return;}
     if ((state.workspace?.domain_entities || []).includes(section.toLowerCase())) {
@@ -739,6 +740,22 @@
     replaceChildren(content,[node('p','panel-copy','Tijdsloten volgen de geregistreerde beschikbaarheid en afspraken. Externe agenda’s tellen alleen mee na een geverifieerde import.'),form,results]);
   }
 
+  function appendForecastResult(parent,result) {
+    parent.append(node('p','',`${result.filters.from} t/m ${result.filters.to} · vastgelegd ${new Date(result.observed_at).toLocaleString('nl-NL')}. Gewogen kansen zijn geen geboekte omzet.`));
+    if(!result.available)parent.append(node('p','','Geen bruikbare kansen binnen deze periode.'));
+    for(const group of result.groups){const money=value=>value===null?'Niet beschikbaar':new Intl.NumberFormat('nl-NL',{style:'currency',currency:group.currency}).format(value/100);parent.append(node('p','',`${group.currency}: open ${money(group.open_cents)} · gewogen ${money(group.weighted_cents)} · gewonnen ${money(group.won_cents)} · ${group.probability_missing_count} open kansen zonder kanspercentage`));}
+    if(result.excluded.length)parent.append(node('p','',`${result.excluded.length} records missen een geldige sluitdatum, bedrag of valuta en zijn buiten de berekening gehouden.`));
+    const details=node('details');details.append(node('summary','','Berekeningsbasis'));
+    for(const item of result.items)details.append(node('p','',`${item.title} · ${item.date} · ${item.currency} ${(item.value_cents/100).toFixed(2)} · ${item.status} · kans ${item.probability===null?'niet vastgelegd':Math.round(item.probability*100)+'%'} · revisie ${item.revision}`));
+    for(const item of result.excluded)details.append(node('p','',`${item.id}: ${item.reason}`));parent.append(details);
+  }
+  function renderSalesForecast(content) {
+    const form=node('form','domain-record-form'),fields={},resultBox=node('div'),notice=node('output'),now=new Date(),first=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),1)).toISOString().slice(0,10),last=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()+1,0)).toISOString().slice(0,10);
+    for(const [name,text,value] of [['from','Van',first],['to','Tot en met',last],['currency','Valuta (leeg voor alle)','']]){const label=node('label','',text),input=node('input');input.name=name;input.type=name==='currency'?'text':'date';input.value=value;input.required=name!=='currency';if(name==='currency'){input.maxLength=3;input.placeholder='EUR';}label.append(input);form.append(label);fields[name]=input;}
+    const calculate=node('button','primary-button','Prognose berekenen');calculate.type='submit';notice.setAttribute('role','status');form.append(calculate,notice);replaceChildren(content,[form,resultBox]);
+    form.addEventListener('submit',async event=>{event.preventDefault();calculate.disabled=true;try{const filters={from:fields.from.value,to:fields.to.value,...(fields.currency.value.trim()?{currency:fields.currency.value.trim().toUpperCase()}:{})},result=await request(`/api/sales/forecast?${new URLSearchParams(filters)}`);replaceChildren(resultBox,[]);appendForecastResult(resultBox,result);const saveForm=node('form'),label=node('label','','Naam voor bewaarde prognose'),title=node('input'),save=node('button','secondary-button','Berekening bewaren'),saved=node('output');title.required=true;title.maxLength=240;label.append(title);save.type='submit';saved.setAttribute('role','status');saveForm.append(label,save,saved);resultBox.append(saveForm);const key=crypto.randomUUID();saveForm.addEventListener('submit',async event=>{event.preventDefault();save.disabled=true;try{await request('/api/sales/forecast/snapshots',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({title:title.value,filters,basis_fingerprint:result.basis_fingerprint,confirm:true})});saved.textContent='Prognose opgeslagen. Je vindt deze onder Bewaarde prognoses.';}catch(error){saved.textContent=friendlyError(error);save.disabled=false;}});notice.textContent='Prognose berekend uit vastgelegde verkoopkansen.';}catch(error){notice.textContent=friendlyError(error);}finally{calculate.disabled=false;}});
+  }
+
   async function renderProcurementComparison(record,content,notice) {
     try {
       const comparison=await request(`/api/procurement/rfqs/${encodeURIComponent(record.id)}/comparison`),panel=node('div','bid-comparison');
@@ -781,8 +798,8 @@
       if (state.activeSection.toLowerCase() !== entity) return;
       const required = state.workspace.domain_required_fields?.[entity] || [];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
-      const fieldNames = [...new Set([...required, 'description','status',...(state.workspaceId==='procurement'&&entity==='approval_policies'?['allow_self_approval']:[]), ...(state.workspaceId==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants','recurrence']:[]), ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
-      const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag', currency:'Valuta', probability:'Kans (0–1)', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
+      const fieldNames = [...new Set([...required, 'description','status',...(state.workspaceId==='sales'&&entity==='opportunities'?['expected_close_date','closed_date','forecast_category']:[]),...(state.workspaceId==='procurement'&&entity==='approval_policies'?['allow_self_approval']:[]), ...(state.workspaceId==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants','recurrence']:[]), ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
+      const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag', currency:'Valuta', probability:'Kans (0–1)',expected_close_date:'Verwachte sluitdatum',closed_date:'Werkelijke sluitdatum',forecast_category:'Prognosecategorie', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
       for (const name of fieldNames) {
         const sourcing=state.workspaceId==='procurement'&&['rfqs','bids'].includes(entity);const sourcingLabels={rfq_id:'Offerteaanvraag',rfq_revision:'Revisie aanvraag',supplier_id:'Leverancier',lines:'Artikelen',evidence_reference:'Herkomst bieding (bijv. offertekenmerk en datum)',minimum_value_cents:'Vanaf bedrag',approval_steps:'Beoordelaars (gebruikers-ID’s, in volgorde)',allow_self_approval:'Aanvrager mag ook beoordelen'};const label=node('label','',sourcingLabels[name]||labels[name] || name), input=node((['status','calendar_id','allow_self_approval'].includes(name)||sourcing&&['rfq_id','supplier_id'].includes(name))?'select':['content','description','lines'].includes(name)?'textarea':'input');
         if(name==='allow_self_approval'){for(const [value,text] of [['false','Nee, afzonderlijke beoordelaar verplicht'],['true','Ja, expliciet toegestaan']]){const option=node('option','',text);option.value=value;input.append(option);}}
@@ -796,6 +813,7 @@
         if(name==='status'){for(const status of (entity==='approval_policies'?['DRAFT','OPEN','ARCHIVED']:sourcing?['DRAFT','OPEN','CANCELLED','ARCHIVED']:entity==='preferences'?['GRANTED','DENIED','REVOKED']:['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','COMPLETED'])){const option=node('option','',status);option.value=status;input.append(option);}}
         input.name=name;input.required=required.includes(name);input.maxLength=['content','lines'].includes(name)?12000:1000;
         if(['value_cents','minimum_value_cents','probability'].includes(name)){input.type='number';input.min='0';input.step='0.01';if(name==='probability')input.max='1';}
+        if(['expected_close_date','closed_date'].includes(name))input.type='date';
         if(name==='timezone')input.placeholder='Europe/Amsterdam';
         if(name==='currency')input.placeholder='EUR';
         if(['start_at','end_at'].includes(name))input.placeholder='2026-09-06T10:00:00+02:00';
@@ -829,10 +847,11 @@
         edit.addEventListener('click',()=>{editing=record;for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):name==='recurrence'?`${record[name].frequency},${record[name].count}`:Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
         if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',()=>renderProcurementComparison(record,content,notice));cell.append(compare);}
         if(state.workspaceId==='procurement'&&entity==='awards')appendAwardReview(record,cell,content);
-        if(!['messages','notifications','awards'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
+        if(state.workspaceId==='sales'&&entity==='forecast_snapshots'){const detail=node('details');detail.append(node('summary','','Bewaarde prognose'));appendForecastResult(detail,record.forecast);cell.append(detail);}
+        if(!['messages','notifications','awards','forecast_snapshots'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
       }
       const summary=node('p','',`${result.total} records${result.next_offset!==null?' · eerste 100 getoond':''}`);
-      const children=[summary];if(!['messages','notifications','awards'].includes(entity))children.push(form);
+      const children=[summary];if(!['messages','notifications','awards','forecast_snapshots'].includes(entity))children.push(form);
       children.push(rows.length?table:node('div','EmptyState','Nog geen records in dit onderdeel.'));
       replaceChildren(content,children);
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}
