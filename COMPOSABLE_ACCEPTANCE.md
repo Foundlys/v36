@@ -208,3 +208,7 @@ A genuine isolated filesystem failure reproduced a rejected dashboard write rema
 ## Reconnection and cohort checkpoint — 2026-09-09
 
 The restored runtime contained an older snapshot. Its original worktree and pending order-review edits were preserved. The complete GitHub-tested tree was recovered by blob/tree hashes in a separate worktree; all prior source hashes matched. See RECOVERY_20260909_RECONNECTED.md. The interrupted cohort work was reconstructed and completed, including correction of its duplicate invalid-event count and static client route. Unit and authenticated Analysis-only API tests pass, and the full npm test suite exited 0 on this exact source set. No frozen engines changed. Browser and full masterbuild acceptance remain incomplete; production was untouched.
+
+## Static response failure isolation — 2026-09-09
+
+An isolated ReadStream failure reproduced an application-process crash. HTML and asset responses now bind read errors to their own response: an unopened failed file returns 503 without a filesystem path, partial output is closed, and disconnected clients release the stream. Concurrent API reads remain available and retain configuration. The focused fault/cancellation/restart test and complete npm test suite pass. Production was not modified. This does not establish load, viewport or browser acceptance.
