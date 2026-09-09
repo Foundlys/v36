@@ -51,7 +51,7 @@
       "phase": 7,
       "name": "Sales",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned stages, period-based currency forecasts and immutable revision-bound snapshots; quotas, hierarchies, sequences and browser acceptance remain"
+      "evidence_or_gap": "Owned pipelines, forecasts, exact owner/period/currency quotas, revision-bound snapshots and current source permission checks pass; hierarchy, scenario workflows, sequences and browser acceptance remain."
     },
     {
       "phase": 8,

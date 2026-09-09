@@ -11,13 +11,13 @@ const fail = (code, message, statusCode = 422) => { throw Object.assign(new Erro
 const DEFINITIONS = Object.freeze({
   analysis:{legacy:'rapportages',primary:'reports',entities:['reports','provider_reports','provider_events'],required:{reports:['title','content'],provider_reports:['title'],provider_events:['title']}},
   procurement: { legacy: 'inkoop', primary: 'opportunities', entities: ['opportunities','suppliers','rfqs','bids','approval_policies','awards','quotes','orders','documents','tasks'], required: {approval_policies:['name','currency','minimum_value_cents','approval_steps'],awards:['title'], rfqs:['title','currency','lines'],bids:['title','rfq_id','rfq_revision','supplier_id','currency','lines','evidence_reference'],suppliers: ['name'], opportunities: ['title'], quotes: ['title'], orders: ['title'], documents: ['name'], tasks: ['title'] } },
-  sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','forecast_snapshots','quotes','orders','activities','tasks'], required: {forecast_snapshots:['title'], opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
+  sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','quotas','forecast_snapshots','quotes','orders','activities','tasks'], required: {quotas:['name','owner_id','period_start','period_end','currency','target_cents'],forecast_snapshots:['title'], opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
   marketing: { legacy: 'social_media', primary: 'campaigns', entities: ['campaigns','audiences','creatives','experiments'], required: {campaigns:['title'],audiences:['name'],creatives:['title','content'],experiments:['title']} },
   calendar: { legacy: 'agenda', primary: 'events', entities: ['events','calendars','availability','reminders','notifications'], required: { events: ['title','start_at','end_at','timezone'], calendars: ['name','timezone'], availability: ['title','start_at','end_at','timezone'],reminders:['title','due_at'],notifications:['title'] } },
   communication: { legacy: 'communicatie', primary: 'drafts', entities: ['drafts','messages','threads','templates','preferences'], required: { drafts: ['title','content'], messages: ['title','content'], threads: ['title'], templates: ['title','content'], preferences: ['subject_id','purpose','status'] } }
 });
 const INTERNAL_STATUSES = new Set(['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','DECLINED','COMPLETED','APPROVAL_REQUIRED','APPROVED_INTERNAL']);
-const OWNED_FIELDS = new Set(['title','name','content','description','status','value_cents','cost_cents','currency','probability','supplier_id','opportunity_id','pipeline_id','stage_id','stages','owner_id','start_at','end_at','timezone','participants','calendar_id','recurrence','thread_id','to','subject_id','purpose','legal_basis','related_refs','industry_fields','due_at','direction','consent_status','filters','hypothesis','success_metric','budget_cents','rfq_id','rfq_revision','lines','evidence_reference','minimum_value_cents','approval_steps','allow_self_approval','expected_close_date','closed_date','forecast_category']);
+const OWNED_FIELDS = new Set(['title','name','content','description','status','value_cents','cost_cents','currency','probability','supplier_id','opportunity_id','pipeline_id','stage_id','stages','owner_id','start_at','end_at','timezone','participants','calendar_id','recurrence','thread_id','to','subject_id','purpose','legal_basis','related_refs','industry_fields','due_at','direction','consent_status','filters','hypothesis','success_metric','budget_cents','rfq_id','rfq_revision','lines','evidence_reference','minimum_value_cents','approval_steps','allow_self_approval','expected_close_date','closed_date','forecast_category','period_start','period_end','target_cents']);
 function timestamp(value) { const n = Date.parse(value); if (!Number.isFinite(n)) fail('date_invalid','Ongeldige datum'); return n; }
 function timezone(value) { try { new Intl.DateTimeFormat('en-US',{timeZone:value}).format(); } catch { fail('timezone_invalid','Ongeldige IANA-tijdzone'); } return value; }
 function wallParts(date, zone) {
@@ -86,12 +86,14 @@ class BusinessDomain {
     }
     return next;
   }
+  snapshotReadable(ctx,actor,row){return require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row);}
   list(ctx,actor,entity,query={}){
+    if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');
     this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const limit=Math.max(1,Math.min(250,Number(query.limit)||100)),offset=Math.max(0,Number(query.offset)||0),q=String(query.q||'').toLowerCase();
-    const rows=this.bucket(ctx,entity).filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&this.visible(row,actor)&&(!q||[row.title,row.name,row.description].some(v=>String(v||'').toLowerCase().includes(q)))&&(!query.status||row.status===query.status));
+    const rows=this.bucket(ctx,entity).filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row)&&(!q||[row.title,row.name,row.description].some(v=>String(v||'').toLowerCase().includes(q)))&&(!query.status||row.status===query.status));
     return {items:clone(rows.slice(offset,offset+limit)),total:rows.length,limit,offset,next_offset:offset+limit<rows.length?offset+limit:null};
   }
-  get(ctx,actor,entity,id){this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const row=this.bucket(ctx,entity).find(row=>row.id===id&&this.visible(row,actor));if(!row)fail('record_not_found','Record niet gevonden',404);return clone(row);}
+  get(ctx,actor,entity,id){if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const row=this.bucket(ctx,entity).find(row=>row.id===id&&this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row));if(!row)fail('record_not_found','Record niet gevonden',404);return clone(row);}
   conflicts(ctx,actor,input,exclude){
     this.scope(ctx,actor);const times=occurrences(input),people=new Set(input.participants||[]);
     const candidates=this.bucket(ctx,'events').filter(row=>row.id!==exclude&&!['CANCELLED','ARCHIVED'].includes(row.status)&&row.start_at&&row.end_at&&((row.calendar_id||'default')===(input.calendar_id||'default')||(row.participants||[]).some(p=>people.has(p))));
@@ -106,7 +108,7 @@ class BusinessDomain {
     if(prior&&options.expected_revision!==prior.revision)fail('record_revision_conflict','Record is intussen gewijzigd',409);
     if(prior?.status==='APPROVED_INTERNAL')fail('approved_record_immutable','Maak een nieuwe revisie buiten het goedgekeurde record');
     const value=this.validate(entity,input,prior||{});
-    if(this.id==='sales')require('./sales-forecast').validateForecast(entity,value);
+    if(this.id==='sales'){require('./sales-forecast').validateForecast(entity,value);require('./sales-quotas').validateQuota(this,ctx,actor,entity,value,prior);}
     if(this.id==='procurement'){require('./procurement-sourcing').validateSourcing(this,ctx,actor,entity,value);require('./procurement-reviews').validatePolicy(this,ctx,actor,entity,value,prior);}
     if(Object.hasOwn(input,'industry_fields')){
       const {fieldContract,validateFields}=require('./industry-field-contract'),contract=fieldContract(this.resolver,ctx,actor,this.id);
@@ -156,7 +158,7 @@ class BusinessDomain {
     return {record:clone(row),external_commitment:false};
   }
   export(ctx,actor){
-    this.scope(ctx,actor,'export');const collections=Object.fromEntries(this.definition.entities.map(entity=>[entity,clone(this.bucket(ctx,entity).filter(row=>this.visible(row,actor)))]));
+    this.scope(ctx,actor,'export');const collections=Object.fromEntries(this.definition.entities.map(entity=>[entity,clone(this.bucket(ctx,entity).filter(row=>this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row)))]));
     this.adapter.audit(ctx,actor,'EXPORT',this.id,null,{entities:this.definition.entities});this.adapter.persist();
     return {module_id:this.id,schema_version:1,tenant_id:ctx.tenant_id,exported_at:new Date().toISOString(),collections};
   }

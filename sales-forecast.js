@@ -22,10 +22,10 @@ function forecast(domain,ctx,actor,query={}){
   for(const row of all){
     if(['LOST','CANCELLED'].includes(row.status)||query.currency&&row.currency&&row.currency!==query.currency)continue;
     const won=row.status==='WON',date=won?row.closed_date:row.expected_close_date;
-    if(!date){excluded.push({id:row.id,revision:row.revision,reason:won?'MISSING_ACTUAL_CLOSE_DATE':'MISSING_EXPECTED_CLOSE_DATE'});continue;}
-    try{dateOnly(date);}catch{excluded.push({id:row.id,revision:row.revision,reason:'INVALID_CLOSE_DATE'});continue;}
+    if(!date){excluded.push({id:row.id,revision:row.revision,owner_id:row.owner_id,currency:row.currency||null,reason:won?'MISSING_ACTUAL_CLOSE_DATE':'MISSING_EXPECTED_CLOSE_DATE'});continue;}
+    try{dateOnly(date);}catch{excluded.push({id:row.id,revision:row.revision,owner_id:row.owner_id,currency:row.currency||null,reason:'INVALID_CLOSE_DATE'});continue;}
     if(date<from||date>to||query.currency&&row.currency&&row.currency!==query.currency)continue;
-    if(!row.currency||!Number.isSafeInteger(row.value_cents)||row.value_cents<0){excluded.push({id:row.id,revision:row.revision,reason:'MISSING_AMOUNT_OR_CURRENCY'});continue;}
+    if(!row.currency||!Number.isSafeInteger(row.value_cents)||row.value_cents<0){excluded.push({id:row.id,revision:row.revision,owner_id:row.owner_id,currency:row.currency||null,reason:'MISSING_AMOUNT_OR_CURRENCY'});continue;}
     const group=groups[row.currency]||(groups[row.currency]={currency:row.currency,open_count:0,won_count:0,open_cents:0,won_cents:0,weighted_known_cents:0,probability_known_count:0,probability_missing_count:0,categories:Object.create(null)});
     const category=won?'CLOSED_WON':row.forecast_category||'UNCATEGORIZED',bucket=group.categories[category]||(group.categories[category]={count:0,value_cents:0});bucket.count++;add(bucket,'value_cents',row.value_cents);
     const weight=!won&&Number.isFinite(row.probability)&&row.probability>=0&&row.probability<=1?Math.round(row.value_cents*row.probability):null;
@@ -33,8 +33,8 @@ function forecast(domain,ctx,actor,query={}){
     included.push({id:row.id,revision:row.revision,title:row.title,status:row.status,date,currency:row.currency,value_cents:row.value_cents,probability:won?null:row.probability??null,weighted_cents:weight,forecast_category:category,owner_id:row.owner_id,pipeline_id:row.pipeline_id||null,provenance:row.provenance});
   }
   for(const group of Object.values(groups)){group.weighted_cents=group.probability_known_count?group.weighted_known_cents:null;group.probability_coverage=group.open_count?group.probability_known_count/group.open_count:null;group.weighted_scope=group.probability_missing_count?'PARTIAL_KNOWN_PROBABILITIES':'ALL_OPEN_RECORDS_WITH_PROBABILITY';}
-  const filters={from,to,currency:query.currency||null,owner_id:query.owner_id||null,pipeline_id:query.pipeline_id||null},basis={filters,records:included.map(row=>({id:row.id,revision:row.revision,value_cents:row.value_cents,probability:row.probability,date:row.date,status:row.status})),excluded};
-  return {module_id:'sales',available:included.length>0,filters,groups:Object.values(groups),items:included,excluded,source_record_count:all.length,basis_fingerprint:digest(basis),calculation:'SUM_OF_RECORDED_AMOUNT_TIMES_RECORDED_PROBABILITY',won_basis:'USER_RECORDED_CLOSED_DATE_AND_WON_STATUS',accounting_revenue:false,provider_verified:false,observed_at:new Date().toISOString()};
+  const filters={from,to,currency:query.currency||null,owner_id:query.owner_id||null,pipeline_id:query.pipeline_id||null},quotas=require('./sales-quotas').quotaComparison(domain,ctx,actor,filters,included,excluded),basis={filters,quotas,records:included.map(row=>({id:row.id,revision:row.revision,value_cents:row.value_cents,probability:row.probability,date:row.date,status:row.status})),excluded};
+  return {module_id:'sales',available:included.length>0,filters,quotas,groups:Object.values(groups),items:included,excluded,source_record_count:all.length,basis_fingerprint:digest(basis),calculation:'SUM_OF_RECORDED_AMOUNT_TIMES_RECORDED_PROBABILITY',won_basis:'USER_RECORDED_CLOSED_DATE_AND_WON_STATUS',accounting_revenue:false,provider_verified:false,observed_at:new Date().toISOString()};
 }
 function snapshotForecast(domain,ctx,actor,input,options={}){
   domain.scope(ctx,actor,'write');

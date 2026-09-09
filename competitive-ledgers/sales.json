@@ -29,14 +29,16 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Owned stages and opportunities, permission-filtered period forecasts with separate currencies and explicit unknown values, revision-bound immutable snapshots with restart and replay protection.",
-      "gap": "Forecast hierarchy, quotas, adjustments, scenario comparison and browser acceptance remain incomplete.",
-      "required_change": "Complete forecast configuration, hierarchy and quota workflows without inferring missing values.",
+      "foundly_current": "Owned stages and opportunities, permission-filtered period forecasts with separate currencies and explicit unknown values, revision-bound immutable snapshots with restart and replay protection. Managed owner quotas now bind exact periods and currency to persisted forecasts. Overlap denial, missing-data nulls, target revision conflicts, encrypted restart and current source ACL on snapshot read/export are tested.",
+      "gap": "Forecast hierarchy, adjustments, scenario comparison and browser acceptance remain incomplete. Quotas currently use exact owner/period/currency scope without proration or pipeline targets.",
+      "required_change": "Complete hierarchy, adjustments and scenario workflows while retaining explicit target scope and source evidence.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
-        "sales-forecast-test.js"
+        "sales-forecast-test.js",
+        "sales-quotas-test.js",
+        "sales-quotas-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
