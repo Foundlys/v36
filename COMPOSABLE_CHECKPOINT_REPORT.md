@@ -1,14 +1,14 @@
 # Foundly Composable OS — Phase 24 Communication checkpoint
 
-Evidence assembled 2026-09-09T09:31:03.468967+00:00. This is a continuation checkpoint, not a completed masterbuild or release. No restart of earlier phases. The user's current instruction prohibits production changes.
+Evidence assembled 2026-09-09T09:31:03.468967+00:00. This is a continuation checkpoint, not a completed masterbuild or release. No restart of earlier phases. Current authoritative attachment SHA-256: `06ed763665e5ed8479b5aa60116aa6d11c0c776587f07fc9d12883bfd2a653bf`. The user's current instruction prohibits production changes.
 
 ## IMPLEMENTED
 
 Recovered local `5a622839cc83ed38f656be11bb6acd90ef6cb765` and published `afdc6e5ad528a6744af6d8d58b5dac8c987c7ab4` had identical tree `dc4220d359ba5fea36b3bb787ec34ef1341f6d32`. Preserved all newer tracked and untracked Communication files as `e630b67463d8405eeb8f08b49f437b8a5105748b` before further implementation. Older worktrees and unpublished history were retained. Remote main remained `073f03041b72a1c35c7559e116c3e0cd4aa0db02`.
 
-Current code checkpoint: local `e33e6dafbaa576f1b2d9b9e747e4638eb397a128`, published `d515e0ef4edbfbb42436edc8ede6a15a7a1de4a5`, identical tree `5478e0f761468576e41caa236d97c579f2e8c3b7`. [PR #15](https://github.com/Foundlys/v36/pull/15) remains a draft. Later evidence-only commits may follow this source checkpoint.
+Current code checkpoint: local `34891bf196ef09dd19ee12f09aec60457928da19`, published `8af641c487da44a56c5b2f63d277473c8bf74dd3`, identical tree `ceb2f302ba39716e8299cd440e1b1e167c29b5f4`. [PR #15](https://github.com/Foundlys/v36/pull/15) remains a draft. Later evidence-only commits may follow this source checkpoint.
 
-Draft/message counts remain separate. Invalid, explicitly unavailable or incomplete source contracts cannot become trustworthy zeroes. Explicit sharing, bounded member search, immutable history, CAS edits/restores, current source/parent ACL, rollback, idempotency and encrypted restart are tested. Unversioned legacy drafts preserve a labelled baseline. Native and generic SMTP configuration never imply authenticated mail access or delivery. Source-bound reply/forward preparation creates only internal drafts and does not copy original untrusted text into the authored body.
+Draft/message counts remain separate. Invalid, explicitly unavailable or incomplete source contracts cannot become trustworthy zeroes. Explicit sharing, bounded member search, immutable history, CAS edits/restores, current source/parent ACL, rollback, idempotency and encrypted restart are tested. Unversioned legacy drafts preserve a labelled baseline. Native and generic SMTP configuration use identical field/environment resolution; partial credentials never imply configured, authenticated mail access or delivery. Source-bound reply/forward preparation creates only internal drafts and does not copy original untrusted text into the authored body.
 
 ## COMPETITIVE RESEARCH
 
@@ -218,7 +218,7 @@ Focused tests prove owner-only sharing authority; no privilege borrowing by coll
 
 ## TESTS
 
-`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-replies-regression.log`; SHA-256 `e41a62a14d0c1adfac79b93ee1df449f255d883aefaf46a20cd93e10e9ddddfb`.
+`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-final-regression.log`; SHA-256 `e41a62a14d0c1adfac79b93ee1df449f255d883aefaf46a20cd93e10e9ddddfb`.
 
 New focused suites: `communication-drafts-test.js`, `communication-drafts-api-test.js`, `communication-history-bounds-test.js`, `communication-drafts-client-test.js`, `communication-provider-state-test.js`, `communication-replies-test.js`, `communication-replies-api-test.js`. Existing snapshot, Calendar and complete baseline suites pass. The 20,000-row history fixture verifies bounded parent lookups without cross-request ACL caching. The in-memory DOM test does not count as browser acceptance.
 
