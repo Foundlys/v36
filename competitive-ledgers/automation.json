@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "module": "automation",
-  "assessed_at": "2026-09-05",
+  "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -27,16 +27,24 @@
           "url": "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger",
           "observed": "Official Error Trigger documentation is indexed. Full content retrieval was unavailable; no detailed parity claim is based on it.",
           "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "n8n",
+          "url": "https://docs.n8n.io/build/understand-workflows/understand-executions/view-executions-for-a-single-workflow",
+          "observed": "Execution history supports status/start filters and replay using either the original workflow or the currently saved workflow with previous execution data.",
+          "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Sequential steps, conditions, branches, delay state, schedules with explicit opt-in, truthful BLOCKED outcomes and input-bound approval are tested.",
-      "gap": "Full visual workflow editing, configurable retry policies and debugging/recovery tooling remain incomplete.",
-      "required_change": "Complete bounded editor and retry/dead-letter recovery while preserving idempotency.",
+      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history.",
+      "gap": "Full multistep visual editing, arbitrary outcome reconciliation, searchable debugging and deliberate recovery of exhausted runs remain incomplete. Browser acceptance is blocked.",
+      "required_change": "Extend the existing editor and evidence-bound recovery tools without repeating unverified side effects.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "workflow-execution-test.js",
         "composition-api-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "workflow-retry-test.js",
+        "workflow-retry-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
@@ -68,7 +76,7 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Target modules and current canonical role are checked; indeterminate crash steps cannot silently replay.",
+      "foundly_current": "Automatic execution and retries require the current workflow owner, current capability and trusted action idempotency contract. Permission errors are never retried. Indeterminate crash steps remain blocked.",
       "gap": "Mixed legacy Core entry points and workflow capability coverage need continued adversarial review.",
       "required_change": "Complete the per-operation capability map and scoped external-action policies.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",

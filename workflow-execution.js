@@ -28,7 +28,23 @@ function matches(condition,event,inputs) {
 function validateWorkflow(actions) {
   if(!Array.isArray(actions)||!actions.length||actions.some(action=>!action||typeof action!=='object'||Array.isArray(action)))fail('automation_actions_invalid','Workflowstappen moeten geldige actieobjecten zijn',422);
   if(actions.length>100)fail('automation_action_limit','Maximaal honderd workflowstappen',422);
-  for(const action of actions){validateCondition(action.when);if(String(action.type).toLowerCase()==='delay'&&(!Number.isInteger(action.seconds)||action.seconds<1||action.seconds>2592000))fail('automation_delay_invalid','Vertraging moet tussen één seconde en dertig dagen zijn',422);}
+  for(const action of actions){retryPolicy(action);validateCondition(action.when);if(String(action.type).toLowerCase()==='delay'&&(!Number.isInteger(action.seconds)||action.seconds<1||action.seconds>2592000))fail('automation_delay_invalid','Vertraging moet tussen één seconde en dertig dagen zijn',422);}
+}
+
+function retryPolicy(action){
+  if(action.retry===undefined)return {max_attempts:1,initial_delay_seconds:1};
+  const policy=action.retry;
+  if(!policy||typeof policy!=='object'||Array.isArray(policy)||Object.keys(policy).some(key=>!['max_attempts','initial_delay_seconds'].includes(key))||!Number.isInteger(policy.max_attempts)||policy.max_attempts<1||policy.max_attempts>5||!Number.isInteger(policy.initial_delay_seconds)||policy.initial_delay_seconds<1||policy.initial_delay_seconds>3600)fail('automation_retry_invalid','Retries vereisen 1–5 pogingen en 1–3600 seconden wachttijd',422);
+  return policy;
+}
+
+function retryableFailure(core,type,error){
+  if(core.adapter.automationActionContract?.(type)?.idempotent!==true)return false;
+  if(error.statusCode&&error.statusCode<500)return false;
+  return error.retryable===true||['EIO','EBUSY','ETIMEDOUT'].includes(error.code);
+}
+function validateRetryContracts(core,actions){
+  for(const action of actions)if(retryPolicy(action).max_attempts>1&&core.adapter.automationActionContract?.(String(action.type).toLowerCase())?.idempotent!==true)fail('automation_retry_contract_missing','Deze actie heeft geen geverifieerd idempotentiecontract voor retries',422);
 }
 
 function validateTrigger(trigger){
@@ -51,8 +67,9 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   if (row && (row.request_signature || signature({ workflow: workflow.signature, trigger: row.trigger, inputs: row.inputs })) !== requestSignature) fail('automation_replay_conflict', 'Event-ID heeft andere workflow-invoer');
   if (row && row.actor_id !== actor.id && !actor.permissions.has('*')) fail('automation_run_forbidden', 'Run behoort tot een andere gebruiker', 403);
   if (row?.steps.some(step => step.status === 'RUNNING')) fail('automation_outcome_indeterminate', 'Controleer het resultaat van de onderbroken stap vóór hervatten');
-  const resuming = row?.status === 'AWAITING_APPROVAL' && options.approval || row?.status==='WAITING_TIME'&&Date.parse(row.next_wakeup_at)<=core.adapter.now().getTime();
+  const resuming = row?.status === 'AWAITING_APPROVAL' && options.approval || ['WAITING_TIME','WAITING_RETRY'].includes(row?.status)&&Date.parse(row.next_wakeup_at)<=core.adapter.now().getTime();
   if (row && !resuming) return { ...clone(row), replayed: true };
+  if(resuming)for(const step of row.steps)if(step.status==='WAITING_RETRY'&&core.adapter.automationActionContract?.(step.type)?.idempotent!==true)fail('automation_retry_contract_missing','Het retrycontract is niet meer beschikbaar',409);
 
   let approval = null;
   if (options.approval) {
@@ -72,8 +89,9 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   for (let index = 0; index < workflow.actions.length; index++) {
     const action = workflow.actions[index], type = String(action.type).toLowerCase();
     let step = row.steps.find(item => item.index === index);
+    if(step?.status==='WAITING_RETRY'&&core.adapter.automationActionContract?.(type)?.idempotent!==true)fail('automation_retry_contract_missing','Het retrycontract is niet meer beschikbaar',409);
     if (['SUCCEEDED','SKIPPED_CONDITION'].includes(step?.status)) continue;
-    if (step && !['AWAITING_APPROVAL', 'PLANNED_INTERNAL','WAITING_TIME'].includes(step.status)) break;
+    if (step && !['AWAITING_APPROVAL', 'PLANNED_INTERNAL','WAITING_TIME','WAITING_RETRY'].includes(step.status)) break;
     if (!step) {
       step = { index, type, input: sanitize(action), status: 'PLANNED_INTERNAL', external_write: highRisk.has(type), idempotency_key: `workflow:${row.run_id}:${index}` };
       row.steps.push(step);
@@ -86,35 +104,43 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
     }
     if ((highRisk.has(type) || workflow.approval_required && workflow.risk !== 'HIGH') && !row.approval) { step.status = 'AWAITING_APPROVAL'; break; }
     if (typeof core.adapter.executeAutomationAction !== 'function') { step.status = 'PLANNED_INTERNAL'; continue; }
-    step.status = 'RUNNING'; step.started_at = core.now();
+    step.status = 'RUNNING'; step.started_at = core.now();step.attempts=(step.attempts||0)+1;row.next_wakeup_at=null;step.next_retry_at=null;
     core.commit(); // Failure here must prevent the side effect.
     try {
       const output = core.adapter.executeAutomationAction(ctx, actor, { ...clone(action), type }, { event: clone(row.trigger), inputs: clone(row.inputs), approval: clone(row.approval), run_id: row.run_id, step_index: index, idempotency_key: step.idempotency_key });
       if (output && typeof output.then === 'function') fail('automation_async_adapter_invalid', 'Automationadapter moet synchroon uitvoeren', 500);
       if (!output || typeof output.executed !== 'boolean') fail('automation_execution_unproven', 'Adapter gaf geen expliciet uitvoerbewijs', 500);
       step.status = output.executed ? 'SUCCEEDED' : 'BLOCKED';
+      if(output.executed)delete step.error;
       step.output_index = row.outputs.length;
       row.outputs.push(sanitize(output));
     } catch (error) {
-      step.status = 'FAILED';
+      const policy=retryPolicy(action),retryable=retryableFailure(core,type,error);
+      step.status = retryable&&step.attempts<policy.max_attempts?'WAITING_RETRY':retryable&&policy.max_attempts>1?'DEAD_LETTER':'FAILED';
       // Domain errors must not expose payloads or provider credential details.
       step.error = String(error.code || 'automation_action_failed').slice(0, 120);
-      row.errors.push({ step: index, code: step.error });
+      row.errors.push({ step: index, attempt:step.attempts,code: step.error });
+      if(step.status==='WAITING_RETRY'){
+        row.next_wakeup_at=new Date(core.adapter.now().getTime()+Math.min(3600,policy.initial_delay_seconds*2**(step.attempts-1))*1000).toISOString();
+        step.next_retry_at=row.next_wakeup_at;step.retry_basis='DOMAIN_IDEMPOTENCY_CONTRACT';
+      }
     }
     step.completed_at = core.now();
     core.commit();
     if (step.status !== 'SUCCEEDED') break;
   }
-  row.status = row.steps.some(step => step.status === 'FAILED') ? 'ERROR'
+  row.status = row.steps.some(step => step.status === 'DEAD_LETTER') ? 'DEAD_LETTER'
+    : row.steps.some(step => step.status === 'FAILED') ? 'ERROR'
     : row.steps.some(step => step.status === 'BLOCKED') ? 'BLOCKED'
     : row.steps.some(step => step.status === 'AWAITING_APPROVAL') ? 'AWAITING_APPROVAL'
     : row.steps.some(step => step.status === 'WAITING_TIME') ? 'WAITING_TIME'
+    : row.steps.some(step => step.status === 'WAITING_RETRY') ? 'WAITING_RETRY'
     : row.steps.length !== workflow.actions.length || row.steps.some(step => step.status === 'PLANNED_INTERNAL') ? 'PLANNED' : 'SUCCEEDED';
-  row.completed_at = ['AWAITING_APPROVAL', 'PLANNED','WAITING_TIME'].includes(row.status) ? null : core.now();
+  row.completed_at = ['AWAITING_APPROVAL', 'PLANNED','WAITING_TIME','WAITING_RETRY'].includes(row.status) ? null : core.now();
   core.audit(ctx, actor, resuming ? 'RESUME' : 'RUN', 'automation', workflow.id, { run_id: row.run_id, status: row.status, step_count: row.steps.length, request_signature: requestSignature });
   queueOwnedEvent(core,ctx,actor,'automation','run',row,'updated');
   core.commit();
   flushOwnedEvents(core,ctx,actor);
   return clone(row);
 }
-module.exports = { executeWorkflow,validateWorkflow,validateTrigger };
+module.exports = { executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts };

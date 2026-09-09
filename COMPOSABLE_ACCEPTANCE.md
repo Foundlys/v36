@@ -162,3 +162,9 @@ Full `npm test` passed after the existing readiness configuration test was isola
 ## Scheduler malformed-definition isolation
 
 A null trigger previously stopped the complete scheduler tick before any healthy workflow ran. Reproduced and fixed. Tests now cover null records, missing triggers, twelve invalid action definitions before a valid workflow, preservation of malformed history, restart and no repeat of the completed run. New automatic triggers require explicit bounded event selection or an offset-bearing schedule. Full `npm test` passed. A fresh browser attempt on 2026-09-09 still returned `net::ERR_BLOCKED_BY_CLIENT`; no new browser acceptance is claimed.
+
+## Bounded Automation retry checkpoint — 2026-09-09
+
+Full `npm test` exited 0 on the exact source hashes in `COMPOSABLE_TEST_EVIDENCE.json`. Transient failures of supported internal task/document actions use 1–5 configured attempts, exponential backoff capped at one hour, and the original durable idempotency key. A lost-response fixture writes the task before failing, restarts encrypted HTTP storage, rejects execution under a foreign scheduler owner, and resumes without duplicate business records. Permission failures, unproven action contracts and unknown crash outcomes do not automatically retry. Exhaustion is retained as DEAD_LETTER for review.
+
+The existing workspace exposes policy inputs, waiting times and attempt history. New visual acceptance remains blocked by the browser URL policy. Full multistep editing, explicit reconciliation of arbitrary uncertain effects and exhausted-run recovery remain open; the Automation competitive ledger stays BELOW_PARITY. The preceding exact-tree checkpoint passed GitHub Actions run 58. No production mutation or deployment.

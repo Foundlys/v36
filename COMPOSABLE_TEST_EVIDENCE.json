@@ -43,7 +43,7 @@
     "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "44636e84cfaf143dc7b81825f6e609ef5917d344430cfbcf01f5d2338e30987d",
-    "foundly-workspace.js": "00f70c4e7abe693c2576a41d91ee16511fc2fabe64438df59e9ec50e691bb8d2",
+    "foundly-workspace.js": "73f45566358c70a99dd0bddbbbe869ead46386d3c49c2ed622ba42ce4c02334d",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
@@ -58,11 +58,11 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "d52269e6b974ae4a9bfba94849f751a31a83b22c06eede8d89c2d6a6615803b9",
+    "package.json": "d5fb5d7c46531b170fbb0048fc5ad8173779193489d942bf5d238b8f580af04a",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "13e3d311675ddebd494e7f9ffdfb84c4c7ef90517a2f8e3cb688bd764e53240f",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
-    "platform-core.js": "7e8669a6dec9e3af4923da6f0fed3644296804f3944b0ec30638f26cb3bc6258",
+    "platform-core.js": "8f55dc037510e16d785337e81eeab526dc994b1a8f6ad45ba3b9c02408de4844",
     "procurement-order-review-test.js": "46cc8d43d1fe70f8302bb64b0d2ef0f5d2e05a18c7b59bb040c6e99438c84f02",
     "procurement-reviews-test.js": "d9428eb623960fdf54bdbe3c3a91e92dbc93b55a3122c35288aad6baf0b97d3a",
     "procurement-reviews.js": "30b84df3820e6dd202e13d68650201cf5fded4458d615c59b5086f223f072edc",
@@ -78,7 +78,7 @@
     "sales-forecast.js": "f12b72d2899456e8946d270a4212d8683a1c57403c327f80c4c6d7a5ff5522b5",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-proof-test.js": "9b0073375c95166f8c04ea8b3c9a0733aaf33aaa4402c72e1078fcd213bcdba2",
-    "server.js": "ca5c5b0280acd8572b1a51e1def3ac34b44448d17dc0f3bf40eed008cd47edb7",
+    "server.js": "14e85f10454d167738f5130dffe27bb965d18b55af94d08a5a551e4d8cf50670",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -89,14 +89,17 @@
     "test-oauth-fetch-mock.js": "ba0dfede11e61b3bc59119c7132e8b414a8a49f45be000a8f6e00c944c042130",
     "test-provider-report-fetch-mock.js": "ddc1b79869204bfb23d92b10d00ff948de8ea0c5f3e1a7ed4354d8683c3a98d8",
     "test-readiness-fetch-mock.js": "418e1bd9efd1aebbd2b819e8bb1c6a937fc2c8123161625ead5d707d163db92c",
+    "test-workflow-retry-fault.js": "d1837fe7153b1eb146cef0677831cff82296de2f0e2f736ecb2e65c56ff53dc3",
     "workflow-execution-test.js": "2c1ac923751dd212844f0bdf4e28019d4ef86d8b1c36c6e9a1487a3812b2a227",
-    "workflow-execution.js": "a1860505e4c2ffdce712864cdad87dd408666706ab737a6b59bab0578a2171f8",
+    "workflow-execution.js": "7bb5c119036bdb99215adb00dba7f3d10028524234d065cfc63038f361e7d1f8",
+    "workflow-retry-api-test.js": "f0eec87c1d1f8a00f825f1f80dffb302dbd4a3022c1b8265481fa3ff6e2f8aca",
+    "workflow-retry-test.js": "8088b36f556fd41f778c6d59443486700c5ba1b4dfc6cacae95d3f9e848f7247",
     "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
     "workspace-section-model.js": "4d3f61ff7389a0114690519514212b25cedf468383d6e8059eb976c4a3ca46b1",
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "a20ee79f38920f7f787aefff69bcc38aa86e771f79af227dab516362e676bcdc",
+  "output_sha256": "c9f323963ed8aba176c0b31fc958b67b3d92fff76d1a0c2d8d9d7df1385d4937",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -310,7 +313,10 @@
     "Analytics-only GA4 reporting with read-only roles uses a private owned provider cache",
     "Provider cache query identity, rollback, capability revocation, encrypted restart and retained export",
     "Readiness configuration tests block live provider fetches and retain all original assertions",
-    "Malformed persisted workflows cannot stop unrelated automatic workflows; invalid definitions remain retained, bounded and non-starving; restart preserves exactly-once completion"
+    "Malformed persisted workflows cannot stop unrelated automatic workflows; invalid definitions remain retained, bounded and non-starving; restart preserves exactly-once completion",
+    "Bounded retry and DEAD_LETTER history only for current adapter-proven idempotent internal tasks/documents",
+    "Lost response after durable task write returns the same task on owner-bound retry after encrypted HTTP restart",
+    "Retry deadlines, exponential cap, maximum attempts, permission denial and revoked capability/adapter contract verified"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -322,7 +328,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-scheduler-definition-regression.log",
+  "output_file": ".recovery-evidence/20260909-workflow-retry-verified.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -333,5 +339,12 @@
     "output_file": ".recovery-evidence/20260909-provider-boundary-regression.log",
     "result": "AUTO_REVIEW_BLOCKED_EXTERNAL_OPENAI_REQUEST",
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
+  },
+  "previous_published_ci": {
+    "head": "9f1d5179fe8ed43de64a7c6e0f26294e973b2f23",
+    "tree": "acfd96834b2a79650992950304ae34aa63ade763",
+    "run": 58,
+    "run_id": 34308096045,
+    "conclusion": "success"
   }
 }
