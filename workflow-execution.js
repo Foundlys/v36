@@ -26,8 +26,17 @@ function matches(condition,event,inputs) {
   switch(condition.operator){case'exists':return value!==undefined&&value!==null;case'eq':return value===wanted;case'ne':return value!==wanted;case'in':return Array.isArray(wanted)&&wanted.includes(value);case'gt':return typeof value==='number'&&typeof wanted==='number'&&value>wanted;case'gte':return typeof value==='number'&&typeof wanted==='number'&&value>=wanted;case'lt':return typeof value==='number'&&typeof wanted==='number'&&value<wanted;case'lte':return typeof value==='number'&&typeof wanted==='number'&&value<=wanted;default:return false;}
 }
 function validateWorkflow(actions) {
+  if(!Array.isArray(actions)||!actions.length||actions.some(action=>!action||typeof action!=='object'||Array.isArray(action)))fail('automation_actions_invalid','Workflowstappen moeten geldige actieobjecten zijn',422);
   if(actions.length>100)fail('automation_action_limit','Maximaal honderd workflowstappen',422);
   for(const action of actions){validateCondition(action.when);if(String(action.type).toLowerCase()==='delay'&&(!Number.isInteger(action.seconds)||action.seconds<1||action.seconds>2592000))fail('automation_delay_invalid','Vertraging moet tussen één seconde en dertig dagen zijn',422);}
+}
+
+function validateTrigger(trigger){
+  if(!trigger||typeof trigger!=='object'||Array.isArray(trigger)||typeof trigger.type!=='string'||trigger.automatic!==undefined&&typeof trigger.automatic!=='boolean')fail('automation_trigger_invalid','Ongeldige workflowtrigger',422);
+  if(trigger.automatic!==true)return;
+  if(String(trigger.type).toLowerCase()==='schedule'){
+    if(typeof trigger.at!=='string'||!/(?:Z|[+-]\d{2}:\d{2})$/.test(trigger.at)||!Number.isFinite(Date.parse(trigger.at)))fail('automation_schedule_invalid','Automatische planning vereist een geldig tijdstip met UTC-offset',422);
+  }else if(!['new_lead','stage_changed','appointment','payment','connector_state'].includes(trigger.type.toLowerCase())&&!/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(trigger.event_name||''))fail('automation_event_selector_required','Automatische eventtrigger vereist een expliciete eventnaam',422);
 }
 
 function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
@@ -108,4 +117,4 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   flushOwnedEvents(core,ctx,actor);
   return clone(row);
 }
-module.exports = { executeWorkflow,validateWorkflow };
+module.exports = { executeWorkflow,validateWorkflow,validateTrigger };

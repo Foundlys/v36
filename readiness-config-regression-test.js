@@ -32,7 +32,7 @@ async function withServer(overrides,verify){
     FOUNDLY_WORKER_INTERVAL_MS:'99999999',
     ...overrides
   };
-  const child=spawn(process.execPath,['server.js'],{cwd:__dirname,env:runtimeEnv,stdio:['ignore','pipe','pipe']});
+  const child=spawn(process.execPath,['--require','./test-readiness-fetch-mock.js','server.js'],{cwd:__dirname,env:runtimeEnv,stdio:['ignore','pipe','pipe']});
   let logs='';child.stdout.on('data',chunk=>logs+=chunk);child.stderr.on('data',chunk=>logs+=chunk);
   try{
     for(let i=0;i<80;i++){try{if((await fetch(localBase+'/api/health')).ok)break}catch{}await wait(75)}

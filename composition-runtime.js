@@ -1,7 +1,7 @@
 'use strict';
 
 const { MODULES, TOOL_MODULES, moduleId, routeModule } = require('./module-catalog');
-const {ENTITY_CAPABILITIES,METHOD_CAPABILITIES,methodOperation}=require('./module-access-contracts');
+const {ENTITY_CAPABILITIES,METHOD_CAPABILITIES,methodOperation,providerRouteContract}=require('./module-access-contracts');
 const PLATFORM_METHODS = {
   calculateKpi: 'analysis', realtime: 'analysis', historical: 'analysis', attribution: 'analysis', commercialFunnel: 'analysis', campaignOutcome: 'analysis', dashboard: 'analysis',
   defineAutomation: 'automation', runAutomation: 'automation', tickAutomations:'automation', automationStatus: 'automation', automationRecords: 'automation', createAutomationRecord: 'automation', exportAutomation:'automation',
@@ -54,6 +54,7 @@ function filterWorkspaces(workspaces, resolver, ctx, actor) {
   return workspaces.filter(w => w.id === 'automotive' ? state.industry_id === 'AUTOMOTIVE' && state.visible_modules.includes('procurement') : !MODULES[w.id] || state.visible_modules.includes(w.id));
 }
 function routeCapability(pathname, id) {
+  const provider=providerRouteContract(pathname);if(provider)return provider.capability;
   const parts=pathname.split('/').filter(Boolean),entity=(parts[2]==='records'?parts[3]:parts[2])?.replaceAll('-','_');
   return ENTITY_CAPABILITIES[id]?.[entity]||null;
 }
@@ -61,7 +62,7 @@ function assertRoute(pathname, resolver, ctx, actor, method='GET') {
   if (!resolver.profile(ctx)) return;
   const normalized = pathname.replace(/\.html$/, '');
   const id = routeModule(normalized);
-  const operation=/\/approve$/.test(normalized)?'approve':/\/(?:owned-)?exports?(?:\/|$)/.test(normalized)?'export':['GET','HEAD','OPTIONS'].includes(method)||/\/(?:query|insights|report|realtime|keyword-ideas|conflicts|ask)$/.test(normalized)?'read':'write';
+  const operation=providerRouteContract(normalized)?.operation||(/\/approve$/.test(normalized)?'approve':/\/(?:owned-)?exports?(?:\/|$)/.test(normalized)?'export':['GET','HEAD','OPTIONS'].includes(method)||/\/(?:query|insights|report|realtime|keyword-ideas|conflicts|ask)$/.test(normalized)?'read':'write');
   if (id) resolver.assertModule(ctx, actor, id, operation);
   if(id&&/^\/api\/(?:module|engine)\//.test(normalized)){for(const capability of MODULES[id].provided_capabilities)resolver.assertCapability(ctx,actor,capability,operation);}
   const cap=routeCapability(normalized,id);if(cap&&operation!=='export')resolver.assertCapability(ctx,actor,cap,operation);

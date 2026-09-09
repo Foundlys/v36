@@ -104,6 +104,22 @@ assert.equal(timed.tickAutomations(upperCtx,scheduler).runs[0].status,'SUCCEEDED
 assert.equal(effects.at(-1).type,'notify');
 console.log('PASS validated case-insensitive schedules and action types execute consistently');
 
+const malformedCtx={tenant_id:'malformed-scheduler-fixture',dealer_id:'default'};
+const damagedRows=timed.bucket(malformedCtx,'automations');
+damagedRows.push(null,{id:'missing-trigger',enabled:true,created_by:scheduler.id,trigger:null});
+for(let i=0;i<12;i++)damagedRows.push({id:'invalid-actions-'+i,enabled:true,created_by:scheduler.id,trigger:{type:'schedule',automatic:true,at:'2026-09-05T10:00:00Z'},actions:[null]});
+const preservedDamage=JSON.stringify(damagedRows);
+timed.defineAutomation(malformedCtx,scheduler,{name:'Healthy after malformed definitions',trigger:{type:'schedule',automatic:true,at:'2026-09-05T10:00:00Z'},actions:[{type:'notify'}]});
+const recoveredTick=timed.tickAutomations(malformedCtx,scheduler);
+assert.equal(recoveredTick.processed,1);assert.equal(recoveredTick.runs[0].status,'SUCCEEDED');assert.equal(recoveredTick.invalid_definition_records,14);
+assert.equal(recoveredTick.invalid_workflows.length,12);assert.ok(!JSON.stringify(recoveredTick).includes('private fixture payload'));
+assert.equal(JSON.stringify(damagedRows.slice(0,14)),preservedDamage,'Malformed history is retained unchanged for diagnosis');
+store.clear();for(const [key,value] of JSON.parse(disk))store.set(key,value);
+const restarted=new FoundlyPlatformCore({...adapter,now:()=>clock});
+assert.equal(restarted.tickAutomations(malformedCtx,scheduler).processed,0,'Completed good workflow must not repeat after restart');
+for(const trigger of [null,{type:'schedule',automatic:true,at:'2026-09-05T10:00:00'},{type:'schedule',automatic:'true',at:'2026-09-05T10:00:00Z'},{type:'custom_event',automatic:true}])assert.throws(()=>timed.defineAutomation(malformedCtx,scheduler,{name:'Reject malformed trigger',trigger,actions:[{type:'notify'}]}),error=>error.statusCode===422);
+console.log('PASS malformed workflow isolation, non-starvation, retained diagnostic records, restart replay and explicit automatic trigger validation');
+
 const aclCtx={tenant_id:'bridge-acl-fixture',dealer_id:'default'},aclViewer={id:'viewer',roles:['VIEWER'],team_ids:['shared-team']};
 const teamEvent={event_id:crypto.randomUUID(),event_name:'contact_created',source:'foundly_crm',permissions:{user_ids:['someone-else'],team_ids:['shared-team'],roles:['MANAGER','MARKETING'],permission_keys:['crm:read_all']},consent_context:{purpose:'operations',legal_basis:'contract'}};
 timed.ingestEvent(aclCtx,admin,teamEvent);

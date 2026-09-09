@@ -152,3 +152,13 @@ The full `npm test` matrix exited 0 with the direct-order review workflow and au
 ## Shared role and ingress contract checkpoint
 
 Full `npm test` exited 0 on the shared manifest/resolver role table and generic-ingress guards. HTTP tests verify that rejection leaves business collections unchanged. Frozen engines and renderer remain byte-identical. This checkpoint does not supply a production end-user identity provider or close remaining competitive product gaps.
+
+## 2026-09-09 provider capability boundary
+
+Provider aliases now share explicit read/write capability contracts with native modules, including GA4, Google Calendar, Meta, measurement, WhatsApp and existing tax routes. ZERO multi-capability tools are omitted and denied if any consumed capability is revoked. Analytics-only GA4 queries store private, versioned provider reports in owned Analytics buckets, retain existing history, and preserve export after disablement. No provider credentials or production data were changed.
+
+Full `npm test` passed after the existing readiness configuration test was isolated from real provider traffic. Unit and authenticated HTTP fixtures cover denial before transport, read-only reporting, query identity, owner/tenant isolation, persistence rollback and encrypted restart. Provider-shaped fixtures are not live account authorization or competitive acceptance. The recovered role-contract tree was published as `2c23d9b`; GitHub Actions run 57 passed. A separately reproduced malformed-workflow scheduler isolation defect is the next hardening task.
+
+## Scheduler malformed-definition isolation
+
+A null trigger previously stopped the complete scheduler tick before any healthy workflow ran. Reproduced and fixed. Tests now cover null records, missing triggers, twelve invalid action definitions before a valid workflow, preservation of malformed history, restart and no repeat of the completed run. New automatic triggers require explicit bounded event selection or an offset-bearing schedule. Full `npm test` passed. A fresh browser attempt on 2026-09-09 still returned `net::ERR_BLOCKED_BY_CLIENT`; no new browser acceptance is claimed.

@@ -53,6 +53,10 @@ function freeze(value) {
   if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); }
   return value;
 }
+const TOOL_REQUIRED_CAPABILITIES=freeze(Object.fromEntries(Object.entries(TOOL_MODULES).map(([tool,owner])=>{
+  const method={crm_priority_leads:'priorityLeads',crm_pipeline_summary:'analytics',crm_customer_360:'customer360',crm_inventory_customer_matches:'inventoryCustomerMatches',automation_status:'automationStatus'}[tool];
+  return [tool,[...new Set([TOOL_CAPABILITIES[tool],...(METHOD_CAPABILITIES[owner]?.[method]||[])])]];
+})));
 const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, [label, engine, capabilities, categories]]) => [id, {
   module_id: id, display_name: label, version: '1.0.0', schema_version: VERSION,
   status: 'ACCEPTANCE_PENDING', standalone: 'UNVERIFIED', sellable: false,
@@ -94,4 +98,4 @@ function routeModule(pathname) {
   const part = pieces[0] === 'api' ? (['workspaces', 'module', 'engine'].includes(pieces[1]) ? pieces[2] : pieces[1]) : pieces[0];
   return moduleId(part);
 }
-module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };
+module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };

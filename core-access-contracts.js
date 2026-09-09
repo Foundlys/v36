@@ -21,6 +21,7 @@ function assertCoreRoute(pathname,method,resolver,ctx,actor){
   if(memory)assertMemoryScope(memory[1],resolver,ctx,actor,['GET','HEAD'].includes(method)?'read':'write');
   if(pathname==='/api/workers/tick')assertCorePermission(actor,'workers:manage');
   if(pathname==='/api/system/persist')assertCorePermission(actor,'persistence:manage');
+  if(pathname==='/api/meta/credential-test')assertCorePermission(actor,'connectors:manage');
   if(/^\/api\/connector-runtime\/profiles?(?:\/|$)/.test(pathname)&&!['GET','HEAD'].includes(method))assertCorePermission(actor,'connectors:profiles:manage');
   if(pathname==='/api/data/ingest'||/^\/api\/webhook\//.test(pathname)&&!['/api/webhook/meta','/api/webhook/whatsapp'].includes(pathname))assertCorePermission(actor,'events:write');
   // Read-only access to inventories does not confer connector configuration,

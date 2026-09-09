@@ -9,7 +9,7 @@ const { requirePermission } = require('./capability-resolver');
 const clone = value => JSON.parse(JSON.stringify(value));
 const fail = (code, message, statusCode = 422) => { throw Object.assign(new Error(message), { code, statusCode }); };
 const DEFINITIONS = Object.freeze({
-  analysis:{legacy:'rapportages',primary:'reports',entities:['reports'],required:{reports:['title','content']}},
+  analysis:{legacy:'rapportages',primary:'reports',entities:['reports','provider_reports','provider_events'],required:{reports:['title','content'],provider_reports:['title'],provider_events:['title']}},
   procurement: { legacy: 'inkoop', primary: 'opportunities', entities: ['opportunities','suppliers','rfqs','bids','approval_policies','awards','quotes','orders','documents','tasks'], required: {approval_policies:['name','currency','minimum_value_cents','approval_steps'],awards:['title'], rfqs:['title','currency','lines'],bids:['title','rfq_id','rfq_revision','supplier_id','currency','lines','evidence_reference'],suppliers: ['name'], opportunities: ['title'], quotes: ['title'], orders: ['title'], documents: ['name'], tasks: ['title'] } },
   sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','forecast_snapshots','quotes','orders','activities','tasks'], required: {forecast_snapshots:['title'], opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
   marketing: { legacy: 'social_media', primary: 'campaigns', entities: ['campaigns','audiences','creatives','experiments'], required: {campaigns:['title'],audiences:['name'],creatives:['title','content'],experiments:['title']} },
@@ -57,6 +57,7 @@ class BusinessDomain {
   bucket(ctx,entity){if(!this.definition.entities.includes(entity))fail('entity_unknown','Onbekend onderdeel',404);return this.adapter.bucket(ctx,entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`);}
   visible(row,actor){if(this.id==='procurement'&&(row.owned_entity==='approval_policies'||row.owned_entity==='awards'&&row.approval_steps?.includes(actor.id)))return true;return (actor.roles||[]).some(r=>['ADMIN','SUPER_ADMIN','FOUNDER','MANAGER'].includes(String(r).toUpperCase()))||row.owner_id===actor.id;}
   validate(entity,input,previous={}){
+    if(entity.startsWith('provider_'))fail('provider_ingest_required','Providerresultaten worden uitsluitend door de geverifieerde rapportadapter opgeslagen');
     const unknown=Object.keys(input).filter(key=>!OWNED_FIELDS.has(key));if(unknown.length)fail('domain_fields_invalid','Niet-ondersteunde velden');
     const next={...previous,...sanitizeInput(input)};
     for(const field of this.definition.required[entity])if(!String(next[field]??'').trim())fail('domain_required',`${field} is verplicht`);

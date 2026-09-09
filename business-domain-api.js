@@ -6,7 +6,7 @@ function createBusinessDomainApi({domains,context,principal,readBody,sendJson}){
     const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing|analysis)(?:\/(.*))?$/);
     if(!match)return false;
     const id=match[1],core=domains[id],parts=(match[2]||'status').split('/'),ctx=context(),actor=principal();
-    if(id==='analysis'&&!['reports','owned-export'].includes(parts[0]))return false;
+    if(id==='analysis'&&!['reports','provider_reports','provider_events','owned-export'].includes(parts[0]))return false;
     try{
       if(parts[0]==='schema'&&req.method==='GET'){core.scope(ctx,actor);return sendJson(res,200,{ok:true,module_id:id,entities:DEFINITIONS[id].entities,required_fields:DEFINITIONS[id].required});}
       if(['status','summary'].includes(parts[0])&&req.method==='GET')return sendJson(res,200,{ok:true,...core.summary(ctx,actor)});
