@@ -93,7 +93,7 @@
       "phase": 14,
       "name": "Automation",
       "status": "PARTIAL",
-      "evidence_or_gap": "Durable execution, owner-bound scheduling, exact approvals and bounded idempotent task/document retries with retained DEAD_LETTER state; multistep editor, arbitrary outcome reconciliation and browser acceptance remain"
+      "evidence_or_gap": "Durable execution, owner-bound scheduling, exact approvals, bounded idempotent retries and sequential multistep authoring; version activation, arbitrary outcome reconciliation, visual branching and browser acceptance remain"
     },
     {
       "phase": 15,

@@ -1,6 +1,6 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "module": "automation",
   "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
@@ -33,18 +33,32 @@
           "url": "https://docs.n8n.io/build/understand-workflows/understand-executions/view-executions-for-a-single-workflow",
           "observed": "Execution history supports status/start filters and replay using either the original workflow or the currently saved workflow with previous execution data.",
           "retrieved_at": "2026-09-09"
+        },
+        {
+          "product": "n8n",
+          "url": "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait",
+          "observed": "Wait steps support time intervals, specified times and webhook/form resume conditions.",
+          "retrieved_at": "2026-09-09"
+        },
+        {
+          "product": "Zapier",
+          "url": "https://help.zapier.com/hc/en-us/articles/8496288555917-Add-branching-logic-to-Zap-workflows-with-Paths",
+          "observed": "Official documentation describes branching workflows with Paths. Foundly does not claim comparable visual branching coverage.",
+          "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history.",
-      "gap": "Full multistep visual editing, arbitrary outcome reconciliation, searchable debugging and deliberate recovery of exhausted runs remain incomplete. Browser acceptance is blocked.",
-      "required_change": "Extend the existing editor and evidence-bound recovery tools without repeating unverified side effects.",
+      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests.",
+      "gap": "Visual branching/grouped-condition editing, version activation management, arbitrary outcome reconciliation and searchable debugging remain incomplete. Browser acceptance is blocked.",
+      "required_change": "Complete workflow version activation and evidence-bound recovery; verify the actual editor in a browser before product acceptance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "workflow-execution-test.js",
         "composition-api-test.js",
         "composition-matrix-test.js",
         "workflow-retry-test.js",
-        "workflow-retry-api-test.js"
+        "workflow-retry-api-test.js",
+        "workflow-authoring-test.js",
+        "workflow-authoring-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

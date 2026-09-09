@@ -693,15 +693,7 @@
       const data=await request('/api/automation/status');if(state.activeSection!==section)return;
       const result=[];
       if(section==='WORKFLOWS'&&data.can_manage){
-        const form=node('form','domain-record-form'),titleLabel=node('label','','Workflownaam'),title=node('input'),triggerLabel=node('label','','Trigger'),trigger=node('select'),typeLabel=node('label','','Interne actie'),type=node('select'),messageLabel=node('label','','Taaktitel of melding'),message=node('input'),save=node('button','primary-button','Workflow opslaan'),notice=node('output');
-        title.required=message.required=true;title.maxLength=message.maxLength=200;titleLabel.append(title);messageLabel.append(message);
-        for(const value of ['custom_event','new_lead','appointment','invoice_overdue','connector_state']){const option=node('option','',value.replaceAll('_',' '));option.value=value;trigger.append(option);}triggerLabel.append(trigger);
-        for(const [value,label] of [['create_task','Taak maken'],['create_document','Conceptdocument maken'],['notify','Interne melding']]){const option=node('option','',label);option.value=value;type.append(option);}typeLabel.append(type);
-        const retryLabel=node('label','','Maximum aantal pogingen'),retry=node('input'),delayLabel=node('label','','Eerste wachttijd bij tijdelijke fout (seconden)'),delay=node('input');
-        retry.type=delay.type='number';retry.min='1';retry.max='5';retry.value='1';delay.min='1';delay.max='3600';delay.value='10';retryLabel.append(retry);delayLabel.append(delay);
-        const updateRetry=()=>{const supported=(data.retryable_actions||[]).includes(type.value);retry.disabled=delay.disabled=!supported;if(!supported)retry.value='1';};type.addEventListener('change',updateRetry);updateRetry();
-        save.type='submit';notice.setAttribute('aria-live','polite');form.append(titleLabel,triggerLabel,typeLabel,messageLabel,retryLabel,delayLabel,save,notice);
-        form.addEventListener('submit',async event=>{event.preventDefault();save.disabled=true;try{const action={type:type.value,title:message.value.trim(),message:message.value.trim()};if(!retry.disabled&&Number(retry.value)>1)action.retry={max_attempts:Number(retry.value),initial_delay_seconds:Number(delay.value)};await request('/api/automation/workflows',{method:'POST',body:JSON.stringify({name:title.value.trim(),trigger:{type:trigger.value},actions:[action]})});await renderAutomationSection(section,content);}catch(error){notice.textContent=friendlyError(error);}finally{save.disabled=false;}});result.push(form);
+        result.push(window.FoundlyWorkflowEditor.create({document,spec:data.editor_contract,request,onSaved:()=>renderAutomationSection(section,content)}));
       }
       const workflowSections=['WORKFLOWS','TRIGGERS','ACTIONS','DEPENDENCIES'],rows=workflowSections.includes(section)?data.workflows:section==='APPROVALS'?data.runs.filter(r=>r.status==='AWAITING_APPROVAL'):section==='FAILURES'?data.runs.filter(r=>['ERROR','BLOCKED','DEAD_LETTER'].includes(r.status)):section==='RETRIES'?data.runs.filter(r=>r.status==='WAITING_RETRY'||r.steps?.some(s=>Number(s.attempts)>1)):section==='AUDIT'?data.runs:data.runs;
       for(const row of rows||[]){
@@ -710,9 +702,9 @@
         if(['ACTIONS','WORKFLOWS'].includes(section))for(const action of row.actions||[])card.append(node('p','',`${action.type} · ${action.title||action.message||''}`));
         if(section==='DEPENDENCIES')card.append(node('p','',`Acties: ${(row.actions||[]).map(a=>a.type).join(', ')}. Rechten worden opnieuw gecontroleerd bij uitvoering.`));
         if(row.steps)for(const step of row.steps)card.append(node('p','',`${step.index+1}. ${step.type}: ${step.status}${step.attempts?` · ${step.attempts} poging(en)`:''}${step.error?` (${step.error})`:''}`));
-        if(row.status==='WAITING_RETRY'){
+        if(['WAITING_RETRY','WAITING_TIME'].includes(row.status)){
           card.append(node('p','',`Volgende poging vanaf ${new Date(row.next_wakeup_at).toLocaleString('nl-NL')}. Eerdere resultaten blijven behouden.`));
-          if(data.can_manage){const resume=node('button','','Hervatten zodra wachttijd verstreken is'),notice=node('output');resume.type='button';notice.setAttribute('role','status');card.append(resume,notice);resume.addEventListener('click',async()=>{resume.disabled=true;try{const result=await request(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs}})});notice.textContent=result.status==='WAITING_RETRY'?'De wachttijd is nog niet verstreken.':`Uitkomst: ${result.status}`;}catch(error){notice.textContent=friendlyError(error);}finally{resume.disabled=false;}});}
+          if(data.can_manage){const resume=node('button','','Hervatten zodra wachttijd verstreken is'),notice=node('output');resume.type='button';notice.setAttribute('role','status');card.append(resume,notice);resume.addEventListener('click',async()=>{resume.disabled=true;try{const result=await request(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs}})});notice.textContent=['WAITING_RETRY','WAITING_TIME'].includes(result.status)?'De wachttijd is nog niet verstreken.':`Uitkomst: ${result.status}`;}catch(error){notice.textContent=friendlyError(error);}finally{resume.disabled=false;}});}
         }
         if(row.status==='DEAD_LETTER')card.append(node('p','','Het maximumaantal pogingen is bereikt. Deze run blijft bewaard voor beoordeling en wordt niet automatisch herhaald.'));
         if(section==='WORKFLOWS'&&data.can_manage){

@@ -279,3 +279,12 @@ tbody tr:hover td { background: rgba(54, 169, 211, .03); }
 .composition-modules input[type=checkbox]{width:auto;min-width:16px;min-height:16px;accent-color:#59d5ff}
 .context-item dd{margin:3px 0 12px;overflow-wrap:anywhere}
 .context-item dt{font-size:12px;color:var(--foundly-muted)}
+
+.workflow-editor > p, .workflow-editor > .workflow-step-list { grid-column: 1 / -1; }
+.workflow-step-list { display: grid; gap: 1rem; min-width: 0; }
+.workflow-step-list fieldset { min-width: 0; border: 1px solid var(--border, #384452); border-radius: .6rem; padding: 1rem; }
+.workflow-step-list label { display: grid; gap: .35rem; margin-block: .6rem; }
+.workflow-step-list textarea { min-height: 5rem; resize: vertical; }
+.workflow-step-list input, .workflow-step-list select, .workflow-step-list textarea { max-width: 100%; box-sizing: border-box; }
+.workflow-step-list button { margin: .4rem .4rem 0 0; }
+.workflow-editor [hidden] { display: none; }

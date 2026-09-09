@@ -4,6 +4,7 @@
 // RUNNING step after a crash is indeterminate and is never blindly repeated.
 const crypto = require('node:crypto');
 const {queueOwnedEvent,flushOwnedEvents}=require('./module-event-outbox');
+const AUTOMATIC_EVENT_ALIASES=Object.freeze({new_lead:'lead_created',stage_changed:'crm_record_changed',appointment:'appointment_scheduled',payment:'invoice_paid',connector_state:'connector_state_changed'});
 const clone = value => JSON.parse(JSON.stringify(value));
 const fail = (code, message, statusCode = 409) => { throw Object.assign(new Error(message), { code, statusCode }); };
 function canonical(value) {
@@ -52,7 +53,7 @@ function validateTrigger(trigger){
   if(trigger.automatic!==true)return;
   if(String(trigger.type).toLowerCase()==='schedule'){
     if(typeof trigger.at!=='string'||!/(?:Z|[+-]\d{2}:\d{2})$/.test(trigger.at)||!Number.isFinite(Date.parse(trigger.at)))fail('automation_schedule_invalid','Automatische planning vereist een geldig tijdstip met UTC-offset',422);
-  }else if(!['new_lead','stage_changed','appointment','payment','connector_state'].includes(trigger.type.toLowerCase())&&!/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(trigger.event_name||''))fail('automation_event_selector_required','Automatische eventtrigger vereist een expliciete eventnaam',422);
+  }else if(!Object.hasOwn(AUTOMATIC_EVENT_ALIASES,trigger.type.toLowerCase())&&!/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(trigger.event_name||''))fail('automation_event_selector_required','Automatische eventtrigger vereist een expliciete eventnaam',422);
 }
 
 function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
@@ -143,4 +144,4 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   flushOwnedEvents(core,ctx,actor);
   return clone(row);
 }
-module.exports = { executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts };
+module.exports = { AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts };
