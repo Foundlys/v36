@@ -43,7 +43,7 @@ function industryPresets(resolver,ctx,actor,moduleId,editorContract){
           if(needed.some(cap=>!caps.has(cap)))continue;
           prepared={dashboard:normalizeDashboard(moduleId,{name:input.name,scope:'PERSONAL',widgets},actor.id)};
         }
-        items.push({id,version:input.version,name:input.name,industry_id:resolution.industry_id,module_id:moduleId,kind,executable:false,can_prepare:kind==='dashboard'||allowed(actor,'automation:write'),...prepared});
+        items.push({id,version:input.version,name:input.name,industry_id:resolution.industry_id,module_id:moduleId,kind,executable:false,can_prepare:allowed(actor,`${moduleId}:write`),...prepared});
       }catch(error){if(!['industry_preset_invalid','workflow_draft_invalid','dashboard_widget_invalid'].includes(error.code))throw error;unavailable.push({id:typeof id==='string'?id.slice(0,100):null,kind,status:'INVALID_CONFIGURATION'});}
     }
   }

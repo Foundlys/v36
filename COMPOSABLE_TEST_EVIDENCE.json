@@ -66,8 +66,8 @@
     "industry-field-contract.js": "b7f1c9abc73983447921baffeaafdd1a16540b10d17e4093355a3202f0f1e527",
     "industry-kpis.js": "962d6c714c0843945647572541c50d6da966f8385d4c8508aaf2fee01f95c67c",
     "industry-presets-api-test.js": "760c1d902772dbeef0f50cd60de9cf2f376189797b68080eb35888e7b4a4b720",
-    "industry-presets-test.js": "61dfa4ce64ea92e428c25090aeab10e830c4c06533c9e7e8aa29c0ce6e41a578",
-    "industry-presets.js": "a1f87162cfdd7bb52879829b1c551901c96e971b8ec80f3e0e44186606dc21ed",
+    "industry-presets-test.js": "a357a553087cc23489dd75264fef150925667935781d9db22e8d5c50d9de1f0f",
+    "industry-presets.js": "50d69541ae2b912be06ad4c636d0e571331b0abc22866615217f9b0dff9baa66",
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
@@ -80,7 +80,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "5a50173eb7b409dc6dfac1a8e22b565e3163cf0743d20a95185165654ed6231b",
+    "package.json": "214b71bac9e9436e916fc9f3f7d4f0c0416c5288a3fcc682e9fe5927aaed30f1",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -108,7 +108,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "901edf6c0564bf21b5e8a10b10ffa910bd37b6a2227efda26f33828bb59e1098",
+    "server.js": "59a61904eac8540bcd61f072f35f42957da9f71789b6b44557b7c3495c9cb001",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -118,6 +118,7 @@
     "tenant-identity-api.js": "1ed89f5a567dc8de75a6beea36aafa903191f66a6d033df500bd7ee966bac841",
     "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
     "test-composition-context-mock.js": "7ae21e829929286bf40027c410a84cff00d806bbb2bed8f5e0c9c71ac21f1133",
+    "test-dashboard-persist-fault.js": "b45bd1a8db61937cf79687c2740a9d552b3fce5eaf7724c59c4f7a03d014fca1",
     "test-identity-body-barrier.js": "2edd7a9d0aee639d30d1ff8cecfc2b0734eafff7878557832d1a16a068244e45",
     "test-jarvis-fetch-mock.js": "af79a374e59631e604c66dd1ad434093d8963488d17a7e1e36bb89af48f1fa51",
     "test-masterbuild-fetch-mock.js": "006626a31f610f73ef4a642643f2a7d4d996ee1ab9e18fea099fd53c9cd94378",
@@ -147,11 +148,12 @@
     "workflow-run-query-test.js": "dd1dce988d80094fa35a7a84528285189c48a81f865c14ad3684fa54c30d3af7",
     "workflow-run-query.js": "d434a1cde6e43c6465793be75bcca87b26037a3d586ef98ce567720c43ceaa9f",
     "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
+    "workspace-dashboard-persistence-test.js": "ab1954febe8eef77c02d3827d90df6eea9f0eaacc8fc28337a0aa9807fe6d0c7",
     "workspace-section-model.js": "8cca6633495bfd876cd8a09b1cf8de023da95de42917cdde2dd3a013f895951b",
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "1df69a78e00efbbf411714f349b119a69052c359670db665356b60d1ceb6fd28",
+  "output_sha256": "99309ad710330d92812a3b218130205574fe46cc6902667f8f6211347370edcf",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -408,7 +410,9 @@
     "Industry manifests contribute versioned dashboard presets and manual approval-required workflow drafts through existing universal APIs; discovery causes no persistent changes or execution",
     "Current source capabilities are derived for native dashboard metrics even if a manifest omits them; revoked workflow/approval capabilities hide templates and unauthorized publication remains denied",
     "Production Automotive and test-only second-industry presets share the same registry; malformed actions, automatic template subscriptions and invented metrics are rejected independently",
-    "Owned dashboard save, encrypted restart and industry-switch retention pass; a manually published workflow creates one task only after exact approval, with replay retaining its identity"
+    "Owned dashboard save, encrypted restart and industry-switch retention pass; a manually published workflow creates one task only after exact approval, with replay retaining its identity",
+    "Reproduced a failed dashboard save leaving rejected state in memory; scoped layout/audit rollback now prevents later process flush from committing rejected changes",
+    "Authenticated failed dashboard write/reset, successful reset replay, unrelated team layout preservation and encrypted restart pass; preset preparation affordances now match current module write rights"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -420,7 +424,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-industry-presets-regression.log",
+  "output_file": ".recovery-evidence/20260909-dashboard-rollback-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,

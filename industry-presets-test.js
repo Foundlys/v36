@@ -12,7 +12,7 @@ let store=new Map();const adapter={bucket(c,s){const key=JSON.stringify([c,s]);i
 const ctx={tenant_id:'preset-fixture',dealer_id:'default'},admin={id:'owner',roles:['ADMIN','SUPER_ADMIN']},viewer={id:'reader',roles:['VIEWER']},resolver=new CapabilityResolver(adapter),platform=new FoundlyPlatformCore(adapter),spec=contract(platform.schema().automation);
 const configure=(modules,flags={})=>resolver.configure(ctx,admin,{entitlements:modules,industry_id:'AUTOMOTIVE',capability_flags:flags,expected_revision:resolver.profile(ctx)?.revision||0});
 configure(['procurement']);
-const before=JSON.stringify([...store]);let data=industryPresets(resolver,ctx,viewer,'procurement',spec);assert.equal(data.items.length,1);assert.deepEqual(data.items[0].dashboard.widgets.map(w=>w.metric),['rfqs','bids','awards','suppliers']);assert.equal(data.items[0].dashboard.owner_id,viewer.id);assert.equal(JSON.stringify([...store]),before);assert.equal(data.persistent_changes,false);
+const before=JSON.stringify([...store]);let data=industryPresets(resolver,ctx,viewer,'procurement',spec);assert.equal(data.items.length,1);assert.deepEqual(data.items[0].dashboard.widgets.map(w=>w.metric),['rfqs','bids','awards','suppliers']);assert.equal(data.items[0].dashboard.owner_id,viewer.id);assert.equal(data.items[0].can_prepare,false);assert.equal(JSON.stringify([...store]),before);assert.equal(data.persistent_changes,false);
 assert.deepEqual(normalizeDashboard('procurement',data.items[0].dashboard,viewer.id),data.items[0].dashboard);
 assert.throws(()=>industryPresets(resolver,ctx,viewer,'automation',spec),{code:'module_disabled'});
 assert.throws(()=>industryPresets(resolver,ctx,{id:'no-rights'},'procurement',spec),{code:'composition_forbidden'});

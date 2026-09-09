@@ -25,6 +25,7 @@ const {authorizeDashboard}=require('./workspace-authorization');
 const {assertCoreRoute,assertCorePermission,privateRowVisible,processOwnedQueue}=require('./core-access-contracts');
 const {projectedWorkspace,hasPartialComposition,partialSnapshot}=require('./composition-projections');
 const {industryPresets}=require('./industry-presets');
+const {scopedMutation}=require('./scoped-mutation');
 const {MODULES:COMMERCIAL_MODULES,BUNDLES:COMMERCIAL_BUNDLES,INDUSTRIES,moduleId:commercialModuleId}=require('./module-catalog');
 const {guardDomain,filterTools,filterWorkspaces,assertRoute:assertCompositionRoute,moduleVisible,scopeVisible,connectorVisible}=require('./composition-runtime');
 const {FoundlyPlatformCore}=require('./platform-core');
@@ -754,6 +755,7 @@ async function canonicalRegistries(c,statuses=null){const resolved=statuses||awa
 function workspaceCapabilities(c){if(COMPOSITION.profile(c)){const state=COMPOSITION.resolve(c,platformPrincipal());return [...state.visible_modules,'core','data','knowledge','learning','connectors','settings',...(state.industry_id==='AUTOMOTIVE'&&state.visible_modules.includes('procurement')?['automotive']:[])]}const configured=env('FOUNDLY_ENABLED_CAPABILITIES').split(',').map(value=>value.trim()).filter(Boolean),profiles=arr(records,key(c,'platform:tenant_profiles')),latest=profiles.at(-1);return [...new Set([...(latest?.capabilities||[]),...configured])];}
 function dashboardStorageKey(c,workspaceId,scope='PERSONAL',principal=platformPrincipal(),qualifier=''){const normalized=String(scope||'PERSONAL').toUpperCase(),identity=normalized==='TEAM'?qualifier||principal.team_ids?.[0]||'default-team':normalized==='ROLE'?qualifier||principal.roles?.[0]||'USER':principal.id;return key(c,`workspace-dashboard:${workspaceId}:${normalized}:${identity}`)}
 function storedWorkspaceDashboard(c,workspaceId,scope,principal,qualifier){const rows=memory.get(dashboardStorageKey(c,workspaceId,scope,principal,qualifier))||[];return rows.at(-1)||null}
+function mutateWorkspaceDashboard(c,storageKey,mutate){return scopedMutation({bucket:(ctx,scope)=>scope==='layout'?arr(memory,storageKey):arr(records,key(ctx,'platform:audit')),persist:()=>persistCore(true)},c,['layout','audit'],mutate)}
 function metric(id,value,{unit='COUNT',available=true,source='FOUNDLY_PERSISTED_DATA',freshness='CURRENT',detail=null}={}){return {id,value:available?value:null,unit,available:Boolean(available),source,freshness,detail,synthetic:false}}
 function countWhere(rows,predicate){return rows.reduce((count,row)=>count+(predicate(row)?1:0),0)}
 function workspaceRecordRows(c,module){return scopedRecordRows(c,module).filter(row=>row&&!row.deleted_at)}
@@ -1463,13 +1465,14 @@ async function handleFoundlyOsApi(req,res,u){
         const current=storedWorkspaceDashboard(c,workspaceId,scope,actor,scopeQualifier),expected=String(req.headers['if-match']||'').replace(/^W\//,'').replaceAll('"','');
         if(expected&&current&&expected!==String(current.revision))return json(res,409,{ok:false,code:'dashboard_revision_conflict',error:'Dashboard is intussen gewijzigd',current_revision:current.revision});
         const now=new Date().toISOString(),saved={...normalized,id:current?.id||normalized.id,revision:Number(current?.revision||0)+1,created_at:current?.created_at||now,updated_at:now,updated_by:actor.id,persisted:true};
-        const rows=arr(memory,dashboardStorageKey(c,workspaceId,scope,actor,scopeQualifier));rows.push(saved);if(rows.length>50)rows.splice(0,rows.length-50);
-        PLATFORM_CORE.audit(c,actor,current?'UPDATE':'CREATE','workspace_dashboard',saved.id,{workspace_id:workspaceId,scope,revision:saved.revision,widget_count:saved.widgets.length});persistCore(true);
+        const storageKey=dashboardStorageKey(c,workspaceId,scope,actor,scopeQualifier);
+        mutateWorkspaceDashboard(c,storageKey,()=>{const rows=arr(memory,storageKey);rows.push(saved);if(rows.length>50)rows.splice(0,rows.length-50);
+          PLATFORM_CORE.audit(c,actor,current?'UPDATE':'CREATE','workspace_dashboard',saved.id,{workspace_id:workspaceId,scope,revision:saved.revision,widget_count:saved.widgets.length});});
         return json(res,current?200:201,{ok:true,dashboard:saved,persisted:true});
       }catch(error){return json(res,error.statusCode||400,{ok:false,code:error.code||'dashboard_invalid',error:redactJarvisText(error.message,300)})}
     }
     if(req.method==='DELETE'){
-      const removed=memory.delete(dashboardStorageKey(c,workspaceId,requestedScope,actor,qualifier));if(removed){markCoreDirty();PLATFORM_CORE.audit(c,actor,'DELETE','workspace_dashboard',workspaceId,{scope:requestedScope,reset_to_preset:true});persistCore(true)}
+      const storageKey=dashboardStorageKey(c,workspaceId,requestedScope,actor,qualifier),removed=Boolean(memory.get(storageKey)?.length);if(removed)mutateWorkspaceDashboard(c,storageKey,()=>{memory.get(storageKey).length=0;PLATFORM_CORE.audit(c,actor,'DELETE','workspace_dashboard',workspaceId,{scope:requestedScope,reset_to_preset:true});});
       return json(res,200,{ok:true,removed,default_dashboard:dashboardTemplate(workspaceId,actor.id)});
     }
   }
