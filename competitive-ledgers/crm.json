@@ -69,16 +69,18 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "CRM runs with optional modules disabled. Real tenant-member sessions now prove current authority after body waits: revoked create, suspended update and dashboard refusal leave record/audit state unchanged, including encrypted restart. The existing 38-collection engine remains unchanged.",
-      "gap": "Current-source ZERO replay needs correction; browser and full per-user CRM product acceptance remain open.",
-      "required_change": "Revalidate CRM source access on ZERO replay and complete current-user/browser workflows.",
+      "foundly_current": "CRM runs with optional modules disabled. Real tenant-member sessions now prove current authority after body waits: revoked create, suspended update and dashboard refusal leave record/audit state unchanged, including encrypted restart. The existing 38-collection engine remains unchanged. ZERO CRM replay now rechecks current source rights after role downgrade, source reownership and restart, with source-free conversation retention and safe legacy views.",
+      "gap": "Other mixed entry paths, browser and full per-user CRM product acceptance remain open.",
+      "required_change": "Complete current-user CRM workflows, custom-field/object UI and actual browser acceptance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "crm-core-regression-test.js",
         "crm-api-regression-test.js",
         "crm-standalone-regression-test.js",
         "composition-matrix-test.js",
-        "crm-current-principal-api-test.js"
+        "crm-current-principal-api-test.js",
+        "zero-crm-retention-test.js",
+        "crm-zero-replay-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

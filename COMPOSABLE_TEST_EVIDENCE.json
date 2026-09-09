@@ -58,6 +58,7 @@
     "crm-script.js": "7c91b75bfead8143ae20c29b03c4513e72dd9883139903fa55cd3d164c97dcef",
     "crm-standalone-regression-test.js": "d68e493afc85ea22f4a478cc35044762bb454199a07a0d0816de83990934f154",
     "crm-standalone.js": "6ba1ae10db4a7bee666a07f8af8249a9861563f4e69f5374614cc300dd339139",
+    "crm-zero-replay-api-test.js": "63bee4c16e2225164e4cffb6302812c5591fd3831e436f3143291583403e2b03",
     "crm.css": "a5128eaa17af2cb32476e2dbfb4397f5ec2a5a1d5185ba1fce119f01f8024a84",
     "crm.html": "7226e04d5cb6a8c225cd9fbf409c894d9003c837a58a47fbbdfeb3fb31ef7955",
     "event-projection-bounds-test.js": "c012fa1aec92dff049f15e5025860f2a5adc4102b40ea6a6732f4e63ef14a83a",
@@ -101,7 +102,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "3de3748a098c3c05c96bf902f41e36486b142daa46d3ab2b2cc41895d390ffeb",
+    "package.json": "5c37ca76b9ab9e89d95f931981d71a37634ca6db005dd2fca793011c72967d09",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -132,7 +133,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "84fc1d4f2df4325421b54ab7d1aec89417ae93c1574789bab699a902d688d0d0",
+    "server.js": "96a4700a8e36d7e7013f90e4cb19e0ead91399f69abd28654d0ac2eb59aa7f7b",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -182,9 +183,11 @@
     "workspace-dashboard-session.js": "9d08ce29b78320493e64e984f358b535f6de8271073a3f51020d9ccfcaae4e83",
     "workspace-section-model.js": "8cca6633495bfd876cd8a09b1cf8de023da95de42917cdde2dd3a013f895951b",
     "workspace-system.js": "4d0bc422f44842587ce570819195ac2b4e19e5530dccf0427a28703711a0fe33",
-    "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
+    "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
+    "zero-crm-retention-test.js": "c215b2ab36b92c979247ef18a228c8808e3e2a200ff596ed941726d59f655725",
+    "zero-crm-retention.js": "016a3728bd7004dbfb671f2de807cfc3b763a8cd1356788807bd54384f6f3f9f"
   },
-  "output_sha256": "13f1677cbbe5ad42b69218aa82e8b5d824c9c1c2d6a9336dc0d745551e57d2af",
+  "output_sha256": "8e61b51c84c5eeb4af1bebb788da6c066150f6461ec33bf4e7b79dcbc3927f16",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -464,7 +467,8 @@
     "Calendar strict civil timestamps reject rollover and precision loss; actual IANA offsets detect half-hour/full-hour ambiguity, gaps and skipped days. Recurrences retain milliseconds/elapsed duration; authenticated rejected edits preserve source revisions and encrypted restart reproduces conflicts.",
     "Calendar typed recurrence fields preserve explicit interval and remove recurrence through null; strict shared browser/server contract refuses unsupported rules, authenticated API confirms changed conflicts and encrypted restart. Browser interaction remains unproven.",
     "Communication no longer counts unsent drafts as messages. Current private owners and independently revoked draft/inbox capabilities pass HTTP/restart; bounded incomplete or unclassified counts remain unavailable, without inferred external mailbox coverage/delivery.",
-    "CRM principal adapter preserves live member getters across body awaits. Actual revocation/suspension during create, update and dashboard requests now leaves records/audit unchanged before and after encrypted restart; ordinary CRM API regression and full npm test pass."
+    "CRM principal adapter preserves live member getters across body awaits. Actual revocation/suspension during create, update and dashboard requests now leaves records/audit unchanged before and after encrypted restart; ordinary CRM API regression and full npm test pass.",
+    "CRM ZERO reads now retain source-free references and recompute on exact-question replay. Real role downgrade, source reownership, capability revocation, encrypted restart and foreign conversations pass; legacy CRM answer/audit views are sanitized without deleting stored evidence, and non-read action receipts retain existing idempotency."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -476,7 +480,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-crm-current-principal-regression.log",
+  "output_file": ".recovery-evidence/20260909-crm-zero-replay-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -489,10 +493,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "217e95cba8c8b04bdf4c3ce6c188a2d6e226145f",
-    "tree": "100c031178a310b2409362bd2729b04ff12bdb0e",
-    "run": 84,
-    "run_id": 34326460287,
+    "head": "8b9573efb6bcc17459ab7b768849254d888cf4ea",
+    "tree": "9d9af1f14ec96420e1cf89278e16b47d6e25a9dc",
+    "run": 85,
+    "run_id": 34327757619,
     "conclusion": "success"
   }
 }

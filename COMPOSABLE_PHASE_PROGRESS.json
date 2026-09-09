@@ -57,7 +57,7 @@
       "phase": 8,
       "name": "CRM",
       "status": "PARTIAL",
-      "evidence_or_gap": "Preserved CRM engine and standalone configuration pass. Current member authority now survives body-await boundaries: revoked creates, suspended updates and special dashboard requests leave no record/audit mutation through restart. A separate current-source ZERO replay defect was reproduced and is the next security task; custom-object/UI/competitive acceptance remain."
+      "evidence_or_gap": "Current member getters prevent CRM body-await mutations after revocation. ZERO CRM reads recompute current authorized sources on replay and retain source-free history through restart; source reownership and legacy safe views pass. Custom objects/UI, remaining mixed paths and full competitive acceptance remain."
     },
     {
       "phase": 9,
@@ -105,7 +105,7 @@
       "phase": 16,
       "name": "ZERO orchestration",
       "status": "PARTIAL",
-      "evidence_or_gap": "Dynamic availability and real read tools; explicitly selected saved cohorts now use exact revision/current-caller queries, source-free conversation retention and permission-revalidated replay. Full structured prepare/execute/verify coverage across remaining modules/actions remains."
+      "evidence_or_gap": "Current revision-bound cohort reads and current-source CRM replay pass. CRM conversation/audit retention avoids source content, legacy read views preserve underlying evidence, and exact questions bind replay. A parallel Communication/domain read replay defect is reproduced and next; other structured execution/verification remains incomplete."
     },
     {
       "phase": 17,
