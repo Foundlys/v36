@@ -123,7 +123,7 @@ async function load() {
   try {
     const params = query();
     const loaded=await window.FoundlyAnalysisLoading.load(api,params,KPI_ORDER);if(generation!==state.loadGeneration)return;
-    cohortView.setEnabled(loaded.cohorts_enabled);
+    cohortView.setEnabled(loaded.cohorts_enabled,loaded.cohorts_writable);
     state.loading=loaded;Object.assign(state,{dashboard:loaded.dashboard,platform:loaded.platform,connectors:loaded.connectors,automation:loaded.automation});
     renderKpis();
     renderFunnel();

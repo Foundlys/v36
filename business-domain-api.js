@@ -6,8 +6,9 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
     const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing|analysis)(?:\/(.*))?$/);
     if(!match)return false;
     const id=match[1],core=domains[id],parts=(match[2]||'status').split('/'),ctx=context(),actor=principal();
-    if(id==='analysis'&&!['reports','provider_reports','provider_events','owned-export','industry-kpis','cohorts','schema'].includes(parts[0]))return false;
+    if(id==='analysis'&&!['reports','provider_reports','provider_events','owned-export','industry-kpis','cohorts','cohort_definitions','schema'].includes(parts[0]))return false;
     try{
+      if(id==='analysis'&&parts[0]==='cohort_definitions'&&parts[2]==='query'&&parts.length===3&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./analysis-cohorts').querySavedCohort(core,platform,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});
       if(id==='analysis'&&parts[0]==='cohorts'&&parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./analysis-cohorts').queryCohorts(core.resolver,platform,ctx,actor,Object.fromEntries(url.searchParams))});
       if(id==='analysis'&&parts[0]==='industry-kpis'&&parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./industry-kpis').industryKpis(core.resolver,platform,ctx,actor,Object.fromEntries(url.searchParams))});
       if(parts[0]==='schema'&&req.method==='GET'){core.scope(ctx,actor);return sendJson(res,200,{ok:true,module_id:id,entities:DEFINITIONS[id].entities,required_fields:DEFINITIONS[id].required,industry_fields:require('./industry-field-contract').fieldContract(core.resolver,ctx,actor,id)});}

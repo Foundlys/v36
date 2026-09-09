@@ -1,14 +1,16 @@
 'use strict';
 (function(root){
   function mount(document,request){
-    const form=document.getElementById('cohortForm'),output=document.getElementById('cohortOutput'),notice=document.getElementById('cohortNotice'),button=form.querySelector('button');let enabled=false,generation=0;
+    const form=document.getElementById('cohortForm'),output=document.getElementById('cohortOutput'),notice=document.getElementById('cohortNotice'),button=form.querySelector('button');let enabled=false,writable=false,generation=0,definitionsGeneration=0,definitionsOffset=0,selectedDefinition=null,saveAttempt=null;
+    const definitionsForm=document.getElementById('cohortDefinitionsForm'),savedSelect=document.getElementById('cohortSavedDefinition'),savedNotice=document.getElementById('cohortDefinitionsNotice'),saveForm=document.getElementById('cohortSaveDefinitionForm'),previous=document.getElementById('cohortDefinitionsPrevious'),next=document.getElementById('cohortDefinitionsNext');
     const make=(tag,text)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=String(text);return el;};
-    const clear=()=>{generation++;output.replaceChildren();notice.textContent='Kies je instroom, terugkeer en periode en bereken opnieuw.';};form.addEventListener('input',clear);
+    const clear=()=>{generation++;selectedDefinition=null;output.replaceChildren();notice.textContent='Kies je instroom, terugkeer en periode en bereken opnieuw.';};form.addEventListener('input',clear);
     form.addEventListener('submit',async event=>{
       event.preventDefault();if(!enabled)return;const token=++generation;button.disabled=true;output.replaceChildren();notice.textContent='Cohorten berekenen…';
       try{
-        const query=new URLSearchParams(new FormData(form));for(const field of ['from','to'])query.set(field,query.get(field)+'T00:00:00.000Z');
-        const data=await request('/api/analysis/cohorts?'+query);if(token!==generation||!enabled)return;
+        const query=new URLSearchParams(new FormData(form));for(const field of ['from','to'])query.set(field,query.get(field)+'Z');
+        const route=selectedDefinition?'/api/analysis/cohort_definitions/'+encodeURIComponent(selectedDefinition.id)+'/query?'+new URLSearchParams({expected_revision:selectedDefinition.revision}):'/api/analysis/cohorts?'+query;
+        const data=await request(route);if(token!==generation||!enabled)return;
         notice.textContent=data.available?`${data.sample_size} waargenomen leden · brondekking is niet geschat · ${data.data_quality.excluded_visible_records} onbruikbare toegankelijke events`:'Geen toegankelijke instroom gevonden voor deze definitie.';
         if(!data.available)return;
         const table=make('table'),caption=make('caption','Terugkeer per instroomcohort. Een onvolledig venster heeft nog geen definitief percentage.'),head=make('thead'),heading=make('tr'),body=make('tbody');
@@ -19,7 +21,29 @@
       }catch(error){if(token===generation){output.replaceChildren();notice.textContent='Cohortanalyse niet beschikbaar: '+error.message;}}
       finally{button.disabled=!enabled;}
     });
-    return {setEnabled(value){enabled=Boolean(value);form.querySelector('fieldset').disabled=!enabled;button.disabled=!enabled;if(!enabled){generation++;output.replaceChildren();notice.textContent='Cohorten vereisen toegang tot Analytics-rapporten en events.';}}};
+    async function loadDefinitions(offset=0){
+      const token=++definitionsGeneration;savedSelect.replaceChildren();previous.disabled=next.disabled=true;
+      if(!enabled)return;
+      savedNotice.textContent='Opgeslagen definities laden…';
+      try{const data=await request('/api/analysis/cohort_definitions?'+new URLSearchParams({offset,limit:100}));if(token!==definitionsGeneration||!enabled)return;definitionsOffset=offset;for(const row of data.items){const option=make('option',row.title+' · revisie '+row.revision);option.value=row.id;savedSelect.append(option);}previous.disabled=offset===0;next.disabled=data.next_offset===null;savedNotice.textContent=data.total?`${offset+1}–${offset+data.items.length} van ${data.total} toegankelijke definities. Laden berekent nog geen resultaat.`:'Geen opgeslagen definities.';}
+      catch(error){if(token===definitionsGeneration)savedNotice.textContent='Definities niet beschikbaar: '+error.message;}
+    }
+    definitionsForm.addEventListener('submit',async event=>{
+      event.preventDefault();if(!enabled||!savedSelect.value)return;const token=++generation;output.replaceChildren();selectedDefinition=null;
+      try{const data=await request('/api/analysis/cohort_definitions/'+encodeURIComponent(savedSelect.value));if(token!==generation||!enabled)return;const row=data.record;if(row.status==='ARCHIVED')throw Error('Deze definitie is gearchiveerd.');for(const [key,value] of Object.entries(row.cohort_definition)){const field=form.elements.namedItem(key);if(field)field.value=['from','to'].includes(key)?value.slice(0,-1):value;}selectedDefinition={id:row.id,revision:row.revision};notice.textContent=`${row.title} · revisie ${row.revision} geladen. Kies Berekenen voor actuele toegankelijke brondata.`;}
+      catch(error){if(token===generation)notice.textContent='Definitie niet geladen: '+error.message;}
+    });
+    saveForm.addEventListener('submit',async event=>{
+      event.preventDefault();if(!enabled||!writable||!form.reportValidity())return;
+      const query=Object.fromEntries(new FormData(form));for(const key of ['from','to'])query[key]+='Z';
+      const payload=JSON.stringify({title:new FormData(saveForm).get('title'),cohort_definition:query}),token=generation,saveButton=saveForm.querySelector('button');
+      if(!saveAttempt||saveAttempt.payload!==payload)saveAttempt={payload,key:globalThis.crypto.randomUUID()};saveButton.disabled=true;
+      try{const data=await request('/api/analysis/cohort_definitions',{method:'POST',headers:{'idempotency-key':saveAttempt.key},body:payload});if(token!==generation||!enabled)return;saveAttempt=null;notice.textContent=`${data.record.title} opgeslagen. Er is geen resultaat of workflow uitgevoerd.`;await loadDefinitions();}
+      catch(error){if(token===generation)notice.textContent='Definitie niet opgeslagen: '+error.message;}
+      finally{saveButton.disabled=!enabled||!writable;}
+    });
+    previous.addEventListener('click',()=>loadDefinitions(Math.max(0,definitionsOffset-100)));next.addEventListener('click',()=>loadDefinitions(definitionsOffset+100));document.getElementById('cohortDefinitionsRefresh').addEventListener('click',()=>loadDefinitions());
+    return {setEnabled(value,canWrite=false){enabled=Boolean(value);writable=Boolean(canWrite);form.querySelector('fieldset').disabled=!enabled;definitionsForm.querySelector('fieldset').disabled=!enabled;saveForm.querySelector('fieldset').disabled=!enabled||!writable;saveForm.querySelector('button').disabled=!enabled||!writable;button.disabled=!enabled;if(!enabled){generation++;definitionsGeneration++;selectedDefinition=null;savedSelect.replaceChildren();output.replaceChildren();savedNotice.textContent='Opgeslagen definities zijn niet beschikbaar.';notice.textContent='Cohorten vereisen toegang tot Analytics-rapporten en events.';}else loadDefinitions();}};
   }
   root.FoundlyCohortUI={mount};
 })(globalThis);

@@ -75,7 +75,7 @@
       "phase": 11,
       "name": "Analytics",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned reports, retained export, durable events, standalone loading and observed source-scoped cohorts pass permission, interval, missing-data and encrypted restart tests. Saved cohort/model definitions, large-tenant performance and remaining section/browser acceptance remain. Relevant authorized event copies are now bounded by count and bytes before cohort calculation; production latency and indexing remain unproven."
+      "evidence_or_gap": "Owned reports, observed source-scoped cohorts and saved typed cohort definitions pass private ownership/source ACL, revision-bound calculation, current caller rights, capacity bounds, atomic rollback and encrypted restart tests. Broader analytic models, model revision history, cohort ZERO tools, large-tenant performance and browser acceptance remain."
     },
     {
       "phase": 12,
@@ -189,7 +189,7 @@
       "phase": 30,
       "name": "Browser acceptance",
       "status": "BLOCKED_EXTERNAL",
-      "evidence_or_gap": "BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: cloud browser navigation returned net::ERR_BLOCKED_BY_CLIENT. The documented Sites preview requires a compatible Vite dev server; this custom Node application has none. No architecture replacement, bypass, deployment or browser pass."
+      "evidence_or_gap": "BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: fresh browser connection succeeded on 2026-09-09, but navigation to the isolated local /login page returned net::ERR_BLOCKED_BY_CLIENT. Documented Sites preview requires a compatible Vite dev server; the existing custom Node application has none. No bypass, architecture replacement, production deployment or browser pass."
     },
     {
       "phase": 31,

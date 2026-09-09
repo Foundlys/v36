@@ -4,15 +4,17 @@
   "command": "npm test",
   "exit_code": 0,
   "source_sha256": {
+    "analysis-cohort-definitions-api-test.js": "465d41ebca47d858e3d34eb45a7e1c28e4d7ba910ecdf052a461682074766522",
+    "analysis-cohort-definitions-test.js": "5e2ccd21f39bcc8f0d3b28a75733ba3ea5adc0235075df6fd17931bdf436217a",
     "analysis-cohorts-api-test.js": "df940ed810fe8a61e6021caf53bfc5cc0d4a6f27ae7784c7ae838ac8cc3b1f17",
-    "analysis-cohorts-client.js": "2a94ad3265f9e4952ef204c288dea42da563140404ac8c577fa70054a5ab1e03",
+    "analysis-cohorts-client.js": "2e945eb557961e085ac8cdcbcdfd278729033603f8a8668978c8bafadeaba6bd",
     "analysis-cohorts-test.js": "a835d4305b9db6ae110e3c7dc107b81f3278ba3f90ce0e69cfbebdc970266fd9",
-    "analysis-cohorts.js": "200fe4df8e1d5f734bf0e52ddce1c87d76b8f6bef97c7988d20b90e0f7952a1a",
+    "analysis-cohorts.js": "13d85c9d74d849ad9337ae569cc308cfbbb3f860961627d3d4ce14dd47ea14f0",
     "analysis-loading-api-test.js": "70b7c5dc4285a1ab8e58fe2d87a8575bdb4456d5db7fc3448801eabae9bc8cf5",
     "analysis-loading-test.js": "a507db8157ea1e5cc8c80c8c6b11e1f07ffab73301b0e7dcb04d623c2cd73611",
-    "analysis-loading.js": "f158fcb4207d300bab9f080f335a9499293dedda1a5fae5cadfcd6671f62fa0d",
-    "analysis-script.js": "d18bdcc1214b37e80e07debe88f974eb4b99533c9d8267b209b5c088fa0a8a36",
-    "analysis.html": "2c24b682a95c4815bed7318c52783b265562e88c875d1230f1f46294b9e09cac",
+    "analysis-loading.js": "bdd292d830bec821a050dd5cfe925fa6c68f40b8723d34d9fa3885cb1e42ea9e",
+    "analysis-script.js": "3780c9dfd77dd63db2d562efc3992fc1cfea5e717be3771b651e48e59e048a8e",
+    "analysis.html": "25c202866372c4107d4ed3af8915724f86a184de5c608e5123a6d12e14300f33",
     "automation-owned-action.js": "7946547dec1a745479c9b169a64a9290f9fe0d1142ab28c53d939ecd54d1669e",
     "automotive-api-regression-test.js": "b70c4e1b67f6664aabd253982af95e0535fdd4f97f8d70cd82be78a496a152ae",
     "automotive-api.js": "04d10bb0c3bc0a074d70e0c459a8c80b297593b14dc97a5f2c8265702fea2c4c",
@@ -23,9 +25,9 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "e208d10bfc1bb5df7288b82d1366d5cc66dfc347a049f3c98a4ed2fdf8c24ca2",
+    "business-domain-api.js": "f26d51c54436858bdf2d979d20a1078d6947a5e7e4ab8e3efc577780d26207b2",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "f5909f317b1022bb74e5440edb088c38927ae60e250f5e472098d9aae1bb9d9a",
+    "business-domains.js": "f882fec2a5b927cb0bf2d9cdef291d1339cf4130dc190dfbcbe935aca183008a",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
@@ -77,7 +79,7 @@
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
-    "module-access-contracts.js": "3cb03ca2c670205fe7d58d53a9a63bd5bbc1174ab955d2c727a9b54133316529",
+    "module-access-contracts.js": "e714d94bfaab7884fab7152fdd8ff6781baac0128e6c1059f00782de579a5786",
     "module-catalog.js": "1bf460e615ee1fa290c448688cb2eda2e1f2f9292ea927ef70ee5c0348d9deb2",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
@@ -85,7 +87,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "d2efaab58abca54c6cd9822f2dc4e21f78fe02eeb3570fc63a2a6d01f7d98e48",
+    "package.json": "206893222bcbec5c0c8ae29219c02a4da39323590770ef78b1affa264badfbb9",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -162,7 +164,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "39812f4f1958f9170310af3d345ab2fbe33d471a348017e6fbfe9b5d6106a3f9",
+  "output_sha256": "f399832ef8917b5f05b5e3ad636498248e5ebeec674d8224ced05194cb74f434",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -429,7 +431,10 @@
     "Reproduced unhandled static ReadStream error terminating the process; HTML and asset reads now return 503 before response output or close a partial response without terminating the server",
     "Authenticated concurrent failing static reads leave API requests and configuration intact; restored reads, client cancellation, encrypted restart and full regression pass",
     "Cohort query validation precedes source retrieval; 50,000 irrelevant/private fixture events are excluded before copying, selected results are detached and bounded by count and bytes, capacity overflow fails without partial analytics; existing event projection callers remain compatible",
-    "Actual HTTP blind dashboard overwrite reproduced; concurrent updates and initial creates now admit one writer, reset revisions remain monotonic across encrypted restart, stale resurrection/deletion and missing or malformed preconditions fail, persistence rollback preserves the prior revision"
+    "Actual HTTP blind dashboard overwrite reproduced; concurrent updates and initial creates now admit one writer, reset revisions remain monotonic across encrypted restart, stale resurrection/deletion and missing or malformed preconditions fail, persistence rollback preserves the prior revision",
+    "Owned saved cohort definitions use Core persistence, audit/outbox, strict model validation, create idempotency and revision-bound explicit calculation under current caller permissions; saving has no source reads or workflow effects",
+    "Cohort definition private ownership, current event/report revocation, stale revision refusal, rollback, encrypted HTTP restart, archive and retained export pass; the actual UI supports named save/load and paginated discovery",
+    "Fresh browser connection succeeded but local acceptance navigation to /login was rejected by ERR_BLOCKED_BY_CLIENT; browser acceptance is still not proven. An isolated fixture was used and terminated; no production credentials or state changed"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -441,7 +446,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-dashboard-concurrency-regression.log",
+  "output_file": ".recovery-evidence/20260909-cohort-definitions-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -454,10 +459,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "652d6d61c09d836c5491a41efca209a48c465949",
-    "tree": "7c10893dc3f5f47868c4baf6926fcec5d9e41d0b",
-    "run": 75,
-    "run_id": 34320265771,
+    "head": "b586aa44cdbdbab3d4ca5f8cf3da2e61f48570b8",
+    "tree": "fdc3da2849eb0f5502dcfc06a70cfb43ff236eec",
+    "run": 77,
+    "run_id": 34321222897,
     "conclusion": "success"
   }
 }

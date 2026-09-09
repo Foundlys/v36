@@ -29,8 +29,8 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "KPI registry, incremental cache, SSE, permission-partitioned event rollups and bounded historical pagination are tested. The actual page loader now supports Analysis-only composition and partial capabilities without requiring Automation; optional failures and disabled components are explicit. Event-stream connection state is distinct from successful HTTP loading. Explicit source-scoped observed retention cohorts now expose definition, interval bounds, unique membership, partial-window nulls and provenance, with private-event and encrypted restart tests. Source queries now filter relevant authorized records before copying and reject count/byte overflow without partial reports; a 50,000-excluded-row fixture verifies bounded copying.",
-      "gap": "Saved cohort definitions, configurable analytic models, large-tenant query performance and remaining analysis drilldowns/browser acceptance are incomplete.",
+      "foundly_current": "KPI registry, incremental cache, SSE, permission-partitioned event rollups and bounded historical pagination are tested. The actual page loader now supports Analysis-only composition and partial capabilities without requiring Automation; optional failures and disabled components are explicit. Event-stream connection state is distinct from successful HTTP loading. Explicit source-scoped observed retention cohorts now expose definition, interval bounds, unique membership, partial-window nulls and provenance, with private-event and encrypted restart tests. Source queries now filter relevant authorized records before copying and reject count/byte overflow without partial reports; a 50,000-excluded-row fixture verifies bounded copying. Owned, typed cohort definitions now support explicit save/load and revision-bound recalculation using current caller rights, with retained export and encrypted restart.",
+      "gap": "Broader configurable analytic models, definition revision history, large-tenant query performance and remaining analysis drilldowns/browser acceptance are incomplete.",
       "required_change": "Complete real analysis sections and model definitions with provenance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
@@ -41,7 +41,9 @@
         "analysis-loading-api-test.js",
         "analysis-cohorts-test.js",
         "analysis-cohorts-api-test.js",
-        "event-projection-bounds-test.js"
+        "event-projection-bounds-test.js",
+        "analysis-cohort-definitions-test.js",
+        "analysis-cohort-definitions-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

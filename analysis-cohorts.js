@@ -5,7 +5,8 @@ const fail=(code,message)=>{throw Object.assign(new Error(message),{code,statusC
 function cohortRetention(events,query={},now=Date.now()){
   const keys=['from','to','interval_days','periods','identity_field','acquisition_event','return_event'];
   if(Object.keys(query).some(key=>!keys.includes(key)))fail('cohort_query_invalid','De cohortdefinitie bevat een niet-ondersteunde filter');
-  const date=key=>{const value=query[key];if(typeof value!=='string'||!/(?:Z|[+-]\d{2}:\d{2})$/.test(value)||!Number.isFinite(Date.parse(value)))fail('cohort_period_invalid','Kies een geldige periode met tijdzone-offset');return Date.parse(value);};
+  const date=key=>{const value=query[key],parts=typeof value==='string'&&value.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d{1,3})?)?(Z|[+-]\d{2}:\d{2})$/),at=Date.parse(value);
+    if(!parts||!Number.isFinite(at)||Number(parts[2])>23||Number(parts[3])>59||Number(parts[4]||0)>59||new Date(parts[1]+'T00:00:00.000Z').toISOString().slice(0,10)!==parts[1])fail('cohort_period_invalid','Kies een geldige periode met tijdzone-offset');return at;};
   const from=date('from'),to=date('to');
   if(to<=from||to-from>366*DAY)fail('cohort_period_invalid','Kies een periode van maximaal 366 dagen');
   const days=Number(query.interval_days??7),periods=Number(query.periods??4),field=query.identity_field;
@@ -56,4 +57,17 @@ function queryCohorts(resolver,platform,ctx,actor,query){
   const events=platform.eventsForProjection(ctx,actor,{event_names:[validated.definition.acquisition_event,validated.definition.return_event],occurred_before:validated.period.observed_to,max_events:20000,max_bytes:8*1024*1024});
   return cohortRetention(events,query,now);
 }
-module.exports={cohortRetention,queryCohorts};
+function normalizeCohortDefinition(query){
+  if(!query||typeof query!=='object'||Array.isArray(query))fail('cohort_query_invalid','Een expliciete cohortdefinitie is verplicht');
+  const validated=cohortRetention([],query);
+  return {from:validated.period.from,to:validated.period.to,acquisition_event:validated.definition.acquisition_event,return_event:validated.definition.return_event,identity_field:validated.definition.identity_field,interval_days:validated.definition.interval_days,periods:validated.definition.periods};
+}
+function querySavedCohort(core,platform,ctx,actor,id,query){
+  const row=core.get(ctx,actor,'cohort_definitions',id);
+  if(Object.keys(query).some(key=>key!=='expected_revision')||!/^([1-9][0-9]*)$/.test(String(query.expected_revision||'')))fail('cohort_revision_required','Kies expliciet de opgeslagen definitierevisie');
+  if(Number(query.expected_revision)!==row.revision)throw Object.assign(new Error('De opgeslagen definitie is intussen gewijzigd; laad deze opnieuw'),{statusCode:409,code:'cohort_revision_conflict'});
+  if(row.status==='ARCHIVED'||row.deleted_at)fail('cohort_definition_archived','Deze definitie is gearchiveerd');
+  if(row.model_version!==1)fail('cohort_model_version_unsupported','Deze modelversie is niet beschikbaar');
+  return {...queryCohorts(core.resolver,platform,ctx,actor,row.cohort_definition),definition_reference:{id:row.id,revision:row.revision,title:row.title,model_version:row.model_version},saved_result:false};
+}
+module.exports={cohortRetention,queryCohorts,normalizeCohortDefinition,querySavedCohort};
