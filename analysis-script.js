@@ -182,7 +182,7 @@ async function askZero(event) {
   input.value = '';
   $('#analysisZeroOutput').textContent = 'ZERO verifieert KPI-bronnen…';
   try {
-    const result = await api('/api/zero/turn', { method: 'POST', body: JSON.stringify({ message, conversation_id: sessionStorage.foundlyAnalysisConversation || (sessionStorage.foundlyAnalysisConversation = crypto.randomUUID()), turn_id: crypto.randomUUID(), preferred_module: 'analysis', client_context: { surface: 'analysis', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone } }) });
+    const result = await api('/api/zero/turn', { method: 'POST', body: JSON.stringify({ message, conversation_id: sessionStorage.foundlyAnalysisConversation || (sessionStorage.foundlyAnalysisConversation = crypto.randomUUID()), turn_id: crypto.randomUUID(), preferred_module: 'analysis', client_context: { surface: 'analysis', cohort_definition:cohortView.selectedDefinition(), timezone: Intl.DateTimeFormat().resolvedOptions().timeZone } }) });
     $('#analysisZeroOutput').textContent = result.display_text || result.answer;
   } catch (error) { $('#analysisZeroOutput').textContent = error.message; }
 }

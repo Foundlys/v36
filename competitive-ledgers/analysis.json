@@ -114,14 +114,15 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Existing ZERO analysis tools and protected automation targets are preserved.",
+      "foundly_current": "Existing ZERO tools and protected automation targets remain. Actual ZERO cohort turns now require a selected saved definition revision, consume reports/events capabilities and revalidate source access on replay. Conversation/audit retain a reference rather than source results; role downgrade, encrypted restart and capability revocation are tested.",
       "gap": "Full analysis-to-approved-action-to-outcome loop lacks end-to-end acceptance.",
       "required_change": "Implement explicit policy-bound action proposals and outcome correlation.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "platform-core-regression-test.js",
         "workflow-execution-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "analysis-cohort-zero-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

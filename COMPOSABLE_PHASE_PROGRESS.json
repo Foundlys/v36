@@ -75,7 +75,7 @@
       "phase": 11,
       "name": "Analytics",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned reports, observed source-scoped cohorts and saved typed cohort definitions pass private ownership/source ACL, revision-bound calculation, current caller rights, capacity bounds, atomic rollback and encrypted restart tests. Broader analytic models, model revision history, cohort ZERO tools, large-tenant performance and browser acceptance remain."
+      "evidence_or_gap": "Owned reports, observed source-scoped cohorts and saved typed cohort definitions pass private ownership/source ACL, revision-bound calculation, current caller rights, capacity bounds, atomic rollback and encrypted restart tests. Broader analytic models, model revision history, large-tenant performance and browser acceptance remain."
     },
     {
       "phase": 12,
@@ -105,7 +105,7 @@
       "phase": 16,
       "name": "ZERO orchestration",
       "status": "PARTIAL",
-      "evidence_or_gap": "Dynamic availability and real read tools; complete structured prepare/execute/verify coverage remains"
+      "evidence_or_gap": "Dynamic availability and real read tools; explicitly selected saved cohorts now use exact revision/current-caller queries, source-free conversation retention and permission-revalidated replay. Full structured prepare/execute/verify coverage across remaining modules/actions remains."
     },
     {
       "phase": 17,

@@ -35,7 +35,7 @@ const TOOL_MODULES = Object.freeze({
   draft_message: 'communication', create_report: 'analysis',
   crm_priority_leads: 'crm', crm_pipeline_summary: 'crm', crm_customer_360: 'crm',
   crm_inventory_customer_matches: 'crm', analysis_kpi: 'analysis', analysis_funnel: 'analysis',
-  analysis_campaign_outcome: 'analysis', finance_report: 'finance',
+  analysis_cohort_retention:'analysis',analysis_campaign_outcome: 'analysis', finance_report: 'finance',
   automation_status: 'automation', automation_run: 'automation',
   automotive_search: 'procurement', automotive_comparables: 'procurement',
   automotive_economics: 'procurement', automotive_candidate_analysis: 'procurement', automotive_today: 'procurement'
@@ -45,7 +45,7 @@ const TOOL_CAPABILITIES = Object.freeze({
   procurement_summary:'procurement:opportunities',sales_pipeline:'sales:pipeline',calendar_agenda:'calendar:events',communication_drafts:'communication:drafts',marketing_campaigns:'marketing:campaigns',
   create_lead:'crm:leads',crm_priority_leads:'crm:leads',crm_pipeline_summary:'crm:relationships',crm_customer_360:'crm:relationships',crm_inventory_customer_matches:'crm:relationships',
   create_task:'automation:workflows',create_appointment:'calendar:events',draft_message:'communication:drafts',create_report:'analysis:reports',
-  analysis_kpi:'analysis:kpis',analysis_funnel:'analysis:funnel',analysis_campaign_outcome:'analysis:reports',finance_report:'finance:reports',
+  analysis_cohort_retention:'analysis:reports',analysis_kpi:'analysis:kpis',analysis_funnel:'analysis:funnel',analysis_campaign_outcome:'analysis:reports',finance_report:'finance:reports',
   automation_status:'automation:runs',automation_run:'automation:workflows',
   automotive_search:'procurement:sourcing',automotive_comparables:'procurement:sourcing',automotive_economics:'procurement:opportunities',automotive_candidate_analysis:'procurement:opportunities',automotive_today:'procurement:opportunities'
 });
@@ -55,7 +55,7 @@ function freeze(value) {
 }
 const TOOL_REQUIRED_CAPABILITIES=freeze(Object.fromEntries(Object.entries(TOOL_MODULES).map(([tool,owner])=>{
   const method={crm_priority_leads:'priorityLeads',crm_pipeline_summary:'analytics',crm_customer_360:'customer360',crm_inventory_customer_matches:'inventoryCustomerMatches',automation_status:'automationStatus'}[tool];
-  return [tool,[...new Set([TOOL_CAPABILITIES[tool],...(METHOD_CAPABILITIES[owner]?.[method]||[])])]];
+  return [tool,[...new Set([TOOL_CAPABILITIES[tool],...(METHOD_CAPABILITIES[owner]?.[method]||[]),...(tool==='analysis_cohort_retention'?['analysis:events']:[])])]];
 })));
 const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, [label, engine, capabilities, categories]]) => [id, {
   module_id: id, display_name: label, version: '1.0.0', schema_version: VERSION,

@@ -30,7 +30,7 @@
     }
     definitionsForm.addEventListener('submit',async event=>{
       event.preventDefault();if(!enabled||!savedSelect.value)return;const token=++generation;output.replaceChildren();selectedDefinition=null;
-      try{const data=await request('/api/analysis/cohort_definitions/'+encodeURIComponent(savedSelect.value));if(token!==generation||!enabled)return;const row=data.record;if(row.status==='ARCHIVED')throw Error('Deze definitie is gearchiveerd.');for(const [key,value] of Object.entries(row.cohort_definition)){const field=form.elements.namedItem(key);if(field)field.value=['from','to'].includes(key)?value.slice(0,-1):value;}selectedDefinition={id:row.id,revision:row.revision};notice.textContent=`${row.title} · revisie ${row.revision} geladen. Kies Berekenen voor actuele toegankelijke brondata.`;}
+      try{const data=await request('/api/analysis/cohort_definitions/'+encodeURIComponent(savedSelect.value));if(token!==generation||!enabled)return;const row=data.record;if(row.status==='ARCHIVED')throw Error('Deze definitie is gearchiveerd.');for(const [key,value] of Object.entries(row.cohort_definition)){const field=form.elements.namedItem(key);if(field)field.value=['from','to'].includes(key)?value.slice(0,-1):value;}selectedDefinition={id:row.id,revision:row.revision};notice.textContent=`${row.title} · revisie ${row.revision} geladen. Kies Berekenen of vraag ZERO naar deze cohort voor actuele toegankelijke brondata.`;}
       catch(error){if(token===generation)notice.textContent='Definitie niet geladen: '+error.message;}
     });
     saveForm.addEventListener('submit',async event=>{
@@ -43,7 +43,7 @@
       finally{saveButton.disabled=!enabled||!writable;}
     });
     previous.addEventListener('click',()=>loadDefinitions(Math.max(0,definitionsOffset-100)));next.addEventListener('click',()=>loadDefinitions(definitionsOffset+100));document.getElementById('cohortDefinitionsRefresh').addEventListener('click',()=>loadDefinitions());
-    return {setEnabled(value,canWrite=false){enabled=Boolean(value);writable=Boolean(canWrite);form.querySelector('fieldset').disabled=!enabled;definitionsForm.querySelector('fieldset').disabled=!enabled;saveForm.querySelector('fieldset').disabled=!enabled||!writable;saveForm.querySelector('button').disabled=!enabled||!writable;button.disabled=!enabled;if(!enabled){generation++;definitionsGeneration++;selectedDefinition=null;savedSelect.replaceChildren();output.replaceChildren();savedNotice.textContent='Opgeslagen definities zijn niet beschikbaar.';notice.textContent='Cohorten vereisen toegang tot Analytics-rapporten en events.';}else loadDefinitions();}};
+    return {selectedDefinition(){return enabled&&selectedDefinition?{...selectedDefinition}:null;},setEnabled(value,canWrite=false){enabled=Boolean(value);writable=Boolean(canWrite);form.querySelector('fieldset').disabled=!enabled;definitionsForm.querySelector('fieldset').disabled=!enabled;saveForm.querySelector('fieldset').disabled=!enabled||!writable;saveForm.querySelector('button').disabled=!enabled||!writable;button.disabled=!enabled;if(!enabled){generation++;definitionsGeneration++;selectedDefinition=null;savedSelect.replaceChildren();output.replaceChildren();savedNotice.textContent='Opgeslagen definities zijn niet beschikbaar.';notice.textContent='Cohorten vereisen toegang tot Analytics-rapporten en events.';}else loadDefinitions();}};
   }
   root.FoundlyCohortUI={mount};
 })(globalThis);
