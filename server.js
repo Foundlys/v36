@@ -127,7 +127,7 @@ function makeRuntime({root,registry}){
     email:{
       id:'email',naam:'SMTP / IMAP E-mail',categorie:'communicatie',connection_mode:'credentials',auth_strategy:'smtp',
       base_url:'',health:{path:'',method:'GET'},sync:{path:'',method:'GET'},
-      credential_fields:[{key:'smtp_host',label:'SMTP host',secret:false},{key:'smtp_port',label:'SMTP port',secret:false},{key:'smtp_user',label:'SMTP username',secret:false},{key:'smtp_password',label:'SMTP password',secret:true}],
+      credential_fields:[{key:'smtp_host',label:'SMTP host',secret:false},{key:'smtp_port',label:'SMTP port',secret:false},{key:'smtp_user',label:'SMTP username',secret:false},{key:'smtp_password',label:'SMTP password',secret:true},{key:'smtp_from',label:'Afzenderadres (optioneel als gebruikersnaam een e-mailadres is)',secret:false,required:false}],
       capabilities:['connect','test','send','tenant_credentials']
     },
     voice:{
@@ -605,7 +605,7 @@ const {WorkflowDrafts,createWorkflowDraftApi}=require('./workflow-drafts');
 const WORKFLOW_DRAFTS=new WorkflowDrafts({bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),audit:(...args)=>PLATFORM_CORE.audit(...args)},COMPOSITION);
 const WORKFLOW_DRAFT_API=createWorkflowDraftApi({drafts:WORKFLOW_DRAFTS,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
 const BUSINESS_DOMAINS=Object.fromEntries(Object.keys(BUSINESS_DOMAIN_DEFINITIONS).map(module=>[module,new BusinessDomain(module,{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),audit:(...args)=>PLATFORM_CORE.audit(...args),memberPrincipal:(c,id)=>IDENTITIES.principal(c,id),memberActive:(c,id)=>IDENTITIES.bucket(c,'members').some(row=>row.id===id&&row.status==='ACTIVE'),draftMember:(c,id)=>{const member=IDENTITIES.bucket(c,'members').find(row=>row.id===id);return member?{id:member.id,display_name:member.display_name}:null;},draftCollaborators:(c,q)=>IDENTITIES.bucket(c,'members').filter(row=>row.status==='ACTIVE'&&String(row.display_name||'').toLowerCase().includes(q.toLowerCase())).slice(0,21).map(row=>({id:row.id,display_name:row.display_name})),publish:(c,actor,event)=>PLATFORM_CORE.ingestEvent(c,{...actor,permissions:[...(actor.permissions||[]),'events:write']},event,{idempotencyKey:event.idempotency_key})},COMPOSITION)]));
-const BUSINESS_DOMAIN_API=createBusinessDomainApi({domains:BUSINESS_DOMAINS,platform:PLATFORM_CORE,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
+const BUSINESS_DOMAIN_API=createBusinessDomainApi({domains:BUSINESS_DOMAINS,platform:PLATFORM_CORE,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json,mailAccount:c=>{const config=MAIL_AUTH.configuration(c),credentials=CONNECTOR_RUNTIME.readConfig(c,'email')?.credentials||{},from=credentials.smtp_from||config.username,k=encKey();try{require('./communication-smtp').configuration(config);}catch{return null;}return k?{provider:'email',from,binding:crypto.createHmac('sha256',k).update(JSON.stringify({context:c,config,from})).digest('hex')}:null;}});
 const MAIL_AUTH=new (require('./communication-mail-auth').MailAuthentication)(BUSINESS_DOMAINS.communication,{configuration:c=>require('./communication-provider-state').smtpConfiguration(CONNECTOR_RUNTIME.readConfig(c,'email')?.credentials||{},cleanEnv),allowedHosts:()=>env('FOUNDLY_CONNECTOR_ALLOWED_HOSTS').split(',').map(value=>value.trim().toLowerCase()).filter(Boolean)});
 function crmCanonicalEvent(c,event){
   const entity=String(event.meta?.entity||''),recordId=String(event.meta?.record_id||''),record=entity&&recordId?arr(records,key(c,`crm:${entity}`)).find(row=>row.id===recordId):null,type=String(event.type||'');
@@ -727,7 +727,7 @@ function sourceContract(c,mod,statuses){
   return {engine_id:mod,external_sources:{connected,configured,total_connected:connected.length,total_configured:configured.length,claim_basis:'successful_provider_probe_for_this_engine'},foundly_data_layer:{role:'normalized_cache_and_persistence',records:rows.length,provenance_counts:counts},local_persistence:{path_role:'cache_and_normalized_datastore',...storageStatus()},historical_internal_data:{available:counts.historical_internal+memoryRecords>0,records:counts.historical_internal,memory_records:memoryRecords},derived_intelligence:{available:counts.derived_intelligence+decisionRecords>0,records:counts.derived_intelligence,decision_records:decisionRecords}};
 }
 function scopedRecordRows(c,scope){
-  if(scope.startsWith('identity:')||scope==='platform:automation_drafts'||[require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-mail-auth').SCOPE].includes(scope))return [];
+  if(scope.startsWith('identity:')||scope==='platform:automation_drafts'||[require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-mail-auth').SCOPE,require('./communication-send-reviews').SCOPE].includes(scope))return [];
   const actor=platformPrincipal(),items=arr(records,key(c,scope));if(!COMPOSITION.profile(c))return items;
   if(!scopeVisible(scope,COMPOSITION,c,actor))return [];
   if(scope.startsWith('crm:'))return ENTITY_DEFINITIONS[scope.slice(4)]?crmOwnedRows(c,scope.slice(4)):[];

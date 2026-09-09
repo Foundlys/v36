@@ -111,7 +111,7 @@
       "phase": 17,
       "name": "Registries",
       "status": "PARTIAL",
-      "evidence_or_gap": "Canonical registries retained; public positive-state/receipt forgery blocked; remaining runtime-to-registry integration and complete capability mapping remain Native/generic SMTP status no longer infers authenticated connectivity from socket/HTTP reachability; authenticated mail transport itself remains unimplemented."
+      "evidence_or_gap": "Native/generic SMTP status shares explicit TLS authentication proof, without inferring send/mailbox/delivery capability. Verified public destination, mandatory TLS, current authority/configuration, proof expiry and encrypted restart pass. Actual approved SMTP submission and receive/receipt reconciliation remain unimplemented."
     },
     {
       "phase": 18,
@@ -206,7 +206,7 @@
     "recovered_tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
     "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
     "production_changes_authorized": false,
-    "next_independent_work": "Communication source-bound send approval, approved SMTP submission with durable ambiguous-outcome handling, and provider receive/thread/receipt reconciliation. Explicit TLS SMTP authentication, retained inbox search/personal status and bounded text attachments now pass. Preserve remaining ledger gaps and all prior work; no production changes."
+    "next_independent_work": "Connect source-bound internal send reviews to approved SMTP submission with durable accepted/rejected/ambiguous outcomes and current authority/policy checks; then provider receive/thread/receipt reconciliation and remaining ledger gaps. Explicit TLS SMTP authentication, internal designated review/withdrawal, retained inbox and bounded text attachments are implemented. Preserve all prior work; no production changes."
   },
   "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
   "execution_overrides": [

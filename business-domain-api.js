@@ -1,7 +1,7 @@
 'use strict';
 const { DEFINITIONS }=require('./business-domains');
 const {calendarOperations}=require('./calendar-operations');
-function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson}){
+function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson,mailAccount=()=>null}){
   return async(req,res,url)=>{
     const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing|analysis)(?:\/(.*))?$/);
     if(!match)return false;
@@ -33,6 +33,15 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         const service=require('./communication-replies');
         if(parts[2]==='draft-preview'&&req.method==='GET'){if([...url.searchParams.keys()].some(key=>key!=='mode'))return sendJson(res,422,{ok:false,code:'message_draft_query_invalid'});return sendJson(res,200,{ok:true,...service.preview(core,ctx,actor,parts[1],url.searchParams.get('mode'))});}
         if(parts[2]==='drafts'&&req.method==='POST'){const result=service.create(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
+      }
+      if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='send-reviews'){
+        const service=require('./communication-send-reviews'),options={idempotency_key:req.headers['idempotency-key']};
+        if(parts.length===3&&req.method==='GET')return sendJson(res,200,{ok:true,...service.list(core,ctx,actor,parts[1],mailAccount)});
+        if(parts.length===4&&parts[3]==='preview'&&req.method==='GET')return sendJson(res,200,{ok:true,...service.preview(core,ctx,actor,parts[1],url.searchParams.get('purpose'),mailAccount)});
+        if(parts.length===4&&parts[3]==='reviewers'&&req.method==='GET')return sendJson(res,200,{ok:true,...service.reviewers(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams),mailAccount)});
+        if(parts.length===3&&req.method==='POST'){const result=service.prepare(core,ctx,actor,parts[1],await readBody(req),options,mailAccount);return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
+        if(parts.length===5&&['approve','cancel'].includes(parts[4])&&req.method==='POST')return sendJson(res,200,{ok:true,...service.decide(core,ctx,actor,parts[1],parts[3],await readBody(req),options,mailAccount,parts[4]==='cancel')});
+        return sendJson(res,405,{ok:false,code:'method_not_allowed'});
       }
       if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='attachments'&&[3,4].includes(parts.length)){
         const service=require('./communication-attachments');

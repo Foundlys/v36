@@ -1,14 +1,16 @@
 # Foundly Composable OS — Phase 24 Communication checkpoint
 
-Evidence assembled 2026-09-09T14:40:02.490480+00:00. This is a continuation checkpoint, not a completed masterbuild or release. No restart of earlier phases. Current authoritative attachment SHA-256: `06ed763665e5ed8479b5aa60116aa6d11c0c776587f07fc9d12883bfd2a653bf`. The user's current instruction prohibits production changes.
+Evidence assembled 2026-09-09T15:01:15.391471+00:00. This is a continuation checkpoint, not a completed masterbuild or release. No restart of earlier phases. Current authoritative attachment SHA-256: `06ed763665e5ed8479b5aa60116aa6d11c0c776587f07fc9d12883bfd2a653bf`. The user's current instruction prohibits production changes.
 
 ## IMPLEMENTED
 
 Recovered local `5a622839cc83ed38f656be11bb6acd90ef6cb765` and published `afdc6e5ad528a6744af6d8d58b5dac8c987c7ab4` had identical tree `dc4220d359ba5fea36b3bb787ec34ef1341f6d32`. Preserved all newer tracked and untracked Communication files as `e630b67463d8405eeb8f08b49f437b8a5105748b` before further implementation. Older worktrees and unpublished history were retained. Remote main remained `073f03041b72a1c35c7559e116c3e0cd4aa0db02`.
 
-The current tested source files and regression log are identified by SHA-256 in COMPOSABLE_TEST_EVIDENCE.json. The preceding retained-inbox checkpoint was local `2c796117544f2bfdd8872c1d2278e6e9689e2a87`, published `4f24df55cb4b5bfb8ea105514946057fb26e4687`, with identical tree `9d940691ae1c8b0369ffac84ebd4887fa7cded62` and passing CI run 93. [PR #15](https://github.com/Foundlys/v36/pull/15) remains a draft; its description records the latest published commit/tree and verified CI status.
+The current tested source files and regression log are identified by SHA-256 in COMPOSABLE_TEST_EVIDENCE.json. The preceding SMTP-authentication checkpoint was local `1fe36e2f09a59c7ac3ddf757a200a010ffd4d094`, published `99c14c2ed80cf65abe4c57b837e627d6afa78266`, with identical tree `975f9c1673d9bd1746af2abda305d12224606cb7` and passing CI run 94. [PR #15](https://github.com/Foundlys/v36/pull/15) remains a draft; its description records the latest published commit/tree and verified CI status.
 
 Draft/message counts remain separate. Invalid, explicitly unavailable or incomplete source contracts cannot become trustworthy zeroes. Explicit sharing, bounded member search, immutable history, CAS edits/restores, current source/parent ACL, rollback, idempotency and encrypted restart are tested. Unversioned legacy drafts preserve a labelled baseline. Native and generic SMTP configuration use identical field/environment resolution; partial credentials never imply configured, authenticated mail access or delivery. Source-bound reply/forward preparation creates only internal drafts and does not copy original untrusted text into the authored body.
+
+Internal send review now binds exact draft/source, recipients, attachments, configured sender/account and current user-recorded purpose preferences. A separate active designated reviewer must retain approval and source access. Current-account/permission changes during HTTP body waits prevent approval; the requester can withdraw an approval. Review snapshots and receipts survive encrypted restart, remain private under current source access and never create a sent message or send-ready claim. Production handler tests cover explicit decisions and stale/detached responses. Actual SMTP submission is the next implementation gap.
 
 ## COMPETITIVE RESEARCH
 
@@ -224,11 +226,11 @@ Focused tests prove owner-only sharing authority; no privilege borrowing by coll
 
 ## TESTS
 
-`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-mail-auth-regression.log`; SHA-256 `d0a030f66c422c2a7811dd8f0a4d89e29c6f5b2f0894426fec0ddeb3ab19f05f`.
+`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-send-reviews-regression.log`; SHA-256 `1950d8155f0d2f5a5dce932775ccbee296817cd58bcded31eb2c9a2fe38fd38c`.
 
-New focused suites: `communication-smtp-test.js`, `communication-mail-auth-test.js`, `communication-mail-auth-api-test.js`, `communication-inbox-test.js`, `communication-inbox-client-test.js`, `communication-attachments-test.js`, `communication-attachments-client-test.js`, `communication-drafts-test.js`, `communication-drafts-api-test.js`, `communication-history-bounds-test.js`, `communication-drafts-client-test.js`, `communication-provider-state-test.js`, `communication-replies-test.js`, `communication-replies-api-test.js`. Existing snapshot, Calendar and complete baseline suites pass. The 20,000-row history fixture verifies bounded parent lookups without cross-request ACL caching. The in-memory DOM test does not count as browser acceptance.
+New focused suites: `communication-send-reviews-test.js`, `communication-send-reviews-api-test.js`, `communication-send-reviews-client-test.js`, `communication-smtp-test.js`, `communication-mail-auth-test.js`, `communication-mail-auth-api-test.js`, `communication-inbox-test.js`, `communication-inbox-client-test.js`, `communication-attachments-test.js`, `communication-attachments-client-test.js`, `communication-drafts-test.js`, `communication-drafts-api-test.js`, `communication-history-bounds-test.js`, `communication-drafts-client-test.js`, `communication-provider-state-test.js`, `communication-replies-test.js`, `communication-replies-api-test.js`. Existing snapshot, Calendar and complete baseline suites pass. The 20,000-row history fixture verifies bounded parent lookups without cross-request ACL caching. The in-memory DOM test does not count as browser acceptance.
 
-[CI run 93](https://github.com/Foundlys/v36/actions/runs/34363389014) passed for the preceding published retained-inbox checkpoint. CI for the current source checkpoint must be checked separately; the PR description records its latest verified status.
+[CI run 94](https://github.com/Foundlys/v36/actions/runs/34365311224) passed for the preceding published SMTP-authentication checkpoint. CI for the current source checkpoint must be checked separately; the PR description records its latest verified status.
 
 ## PRODUCTION
 
@@ -257,7 +259,7 @@ Observed GitHub refs, immutable tree hashes and preceding CI results are real re
 | calendar | calendar:intelligence | CRITICAL | BELOW_PARITY | Structured creation from natural language and verified provider synchronization need more integration. |
 | communication | communication:workspace | CRITICAL | BELOW_PARITY | Live co-editing/takeover, comments, broader attachment formats/scanning, external threading/reply/forward delivery and provider-synchronized inbox workflows remain incomplete; actual browser/keyboard/viewport acceptance is blocked. |
 | communication | communication:delivery | CRITICAL | BELOW_PARITY | Approved SMTP submission, IMAP receive/synchronization and durable delivery/receipt reconciliation remain unimplemented. Explicit SMTP authentication has local TLS and API evidence, but legitimate live account acceptance is absent. |
-| communication | communication:intelligence | CRITICAL | BELOW_PARITY | Consent-aware approved execution and reply/forward verification need complete integration. |
+| communication | communication:intelligence | CRITICAL | BELOW_PARITY | Internal exact-source approval is implemented. Current-policy transport execution, durable outcomes, ZERO handoff and reply/forward verification remain incomplete. |
 | crm | crm:relationships | CRITICAL | BELOW_PARITY | Full competitive workflow review, custom-object UI and all required field/security workflows are not evidenced. |
 | crm | crm:composition | CRITICAL | BELOW_PARITY | Other mixed entry paths, browser and full per-user CRM product acceptance remain open. |
 | crm | crm:intelligence | CRITICAL | BELOW_PARITY | Measured superiority over benchmark task completion is not demonstrated. |
@@ -275,7 +277,7 @@ Observed GitHub refs, immutable tree hashes and preceding CI results are real re
 | sales | sales:intelligence | CRITICAL | BELOW_PARITY | Full prepare/execute/verify orchestration and outcome feedback are incomplete. |
 
 
-Active execution remains Phase 24. Earlier PARTIAL product gates remain unmet acceptance requirements; they do not justify resetting or rebuilding completed work. Next independent Communication work is authenticated transport/receipt processing, broader attachment handling and provider-synchronized inbox workflows, followed by remaining ledger work.
+Active execution remains Phase 24. Earlier PARTIAL product gates remain unmet acceptance requirements; they do not justify resetting or rebuilding completed work. Next independent Communication work connects internal approval to authenticated SMTP submission, durable accepted/rejected/ambiguous outcomes and reconciliation, then provider-synchronized inbox/threading and remaining ledger work.
 
 ## FINAL READINESS VERDICT
 
