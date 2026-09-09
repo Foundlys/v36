@@ -1,6 +1,6 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "module": "automation",
   "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
@@ -45,11 +45,17 @@
           "url": "https://help.zapier.com/hc/en-us/articles/8496288555917-Add-branching-logic-to-Zap-workflows-with-Paths",
           "observed": "Official documentation describes branching workflows with Paths. Foundly does not claim comparable visual branching coverage.",
           "retrieved_at": "2026-09-09"
+        },
+        {
+          "product": "n8n",
+          "url": "https://docs.n8n.io/build/understand-workflows/save-and-publish-workflows",
+          "observed": "Saving keeps edits in draft; explicit publication pins production execution to a version. Publishing another version and unpublishing are supported.",
+          "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests.",
-      "gap": "Visual branching/grouped-condition editing, version activation management, arbitrary outcome reconciliation and searchable debugging remain incomplete. Browser acceptance is blocked.",
-      "required_change": "Complete workflow version activation and evidence-bound recovery; verify the actual editor in a browser before product acceptance.",
+      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests. Owner-scoped activation now selects one immutable version or pauses the group, with optimistic revision checks, canonical transition events and retained pending runs.",
+      "gap": "Visual branching/grouped-condition editing, separate autosaved drafts, arbitrary outcome reconciliation and searchable debugging remain incomplete. Browser acceptance is blocked.",
+      "required_change": "Complete evidence-bound outcome reconciliation and debugging; verify editor interaction in a browser.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "workflow-execution-test.js",
@@ -58,7 +64,8 @@
         "workflow-retry-test.js",
         "workflow-retry-api-test.js",
         "workflow-authoring-test.js",
-        "workflow-authoring-api-test.js"
+        "workflow-authoring-api-test.js",
+        "workflow-activation-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

@@ -27,7 +27,7 @@
     "composition-api-test.js": "82c1540d476619d5ef11379945cfd86ef03afcdbdee79a99919f337eba84ac68",
     "composition-matrix-test.js": "8e8ab94fb67a328fcffa5245963bc034606a76f60b48f99a6e7964edd18fa3f4",
     "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
-    "composition-runtime.js": "31e28ac7d1667dd5ebe8f2ff150ab5b5f0e5cbada0f9c8b967f0e3251a37ccf2",
+    "composition-runtime.js": "88344374abaa67f3da5553cc39ce1e9ccad682b8f5cb1903c817e8b3e9778fd7",
     "core-access-api-test.js": "b25892c9b81fec28bda24960af6d763af3a7265b79c1e171f5e5d82d89e3273b",
     "core-access-contracts-test.js": "c14a093653346a5008ce96edb2f0de69498964be4f60d2f809012d148f0752f1",
     "core-access-contracts.js": "2a06da2b118ac9bf8858f849ffcce33abaaaadce898dbdae11d9158d8e31cba1",
@@ -48,7 +48,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "3915de00583b817f6981ba8753559bf61e4893eb5bb1ff965badcfd78939f5da",
-    "foundly-workspace.js": "13e122190b6dc608f6760cae3776dddd645eb84bf4fe07587ff78fc48f46270d",
+    "foundly-workspace.js": "65601faae6322f0409e385c8c9cf87999b96ad4bf53d964e29b44ffbe7fa13d9",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
     "index.html": "0ade18d7e603a3d4fdde914057eea695a9c81ea5f5f8f14b2842a84e18a884bd",
@@ -56,19 +56,19 @@
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
-    "module-access-contracts.js": "fa4bc44f0ec51bb3047bcdc3ce8926c93b30fd5e6f56c7355b146ef032815ccb",
-    "module-catalog.js": "1382d4820682e6d301226a2ec2e30095e091940ae46da955690efe07cd02ae9f",
+    "module-access-contracts.js": "ba76733097940647697a0c742fb9616298799059f6ea89166641afd1d8ef2f9f",
+    "module-catalog.js": "932339f8a65b2340a37188cba91163969a15eb826247092b1e6611c03be3259b",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "7b4a29bb8e33e012b9e829c622d309c0e9d3739ec9ec9bfe492d0586ad8a1256",
+    "package.json": "62344d68fc8a4294d5d7da3fb6ca8af84b69f061512d544cef61268fb14ce8a2",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
-    "platform-api.js": "13e3d311675ddebd494e7f9ffdfb84c4c7ef90517a2f8e3cb688bd764e53240f",
+    "platform-api.js": "4a67afb572330496b7f36a7fc6d655a5e92da7b614ddc20ac115382f5106d206",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
-    "platform-core.js": "71a7fa537dd37b79ec23bcbb6d4da57cff412af4dd9f870592ac8b66b54b1b28",
+    "platform-core.js": "642a801d1e59148f09c3ff224a8b4b3b645a4b2be6190b8cba029213b0186275",
     "procurement-order-review-test.js": "46cc8d43d1fe70f8302bb64b0d2ef0f5d2e05a18c7b59bb040c6e99438c84f02",
     "procurement-reviews-test.js": "d9428eb623960fdf54bdbe3c3a91e92dbc93b55a3122c35288aad6baf0b97d3a",
     "procurement-reviews.js": "30b84df3820e6dd202e13d68650201cf5fded4458d615c59b5086f223f072edc",
@@ -96,10 +96,12 @@
     "test-provider-report-fetch-mock.js": "ddc1b79869204bfb23d92b10d00ff948de8ea0c5f3e1a7ed4354d8683c3a98d8",
     "test-readiness-fetch-mock.js": "418e1bd9efd1aebbd2b819e8bb1c6a937fc2c8123161625ead5d707d163db92c",
     "test-workflow-retry-fault.js": "d1837fe7153b1eb146cef0677831cff82296de2f0e2f736ecb2e65c56ff53dc3",
-    "workflow-authoring-api-test.js": "c637dbf756e25bb358688d864c6731ab20dc74490ab0532a2a559bd947c56b4c",
+    "workflow-activation-test.js": "5e4f54dea4109b79af8810581248d0cff77a8e310ec9053a9cecf80a3153ec87",
+    "workflow-activation.js": "fcd32be289dfc44789aacfba3e45a99d6f1999b95796efa6ad47cd7a01e1f1ef",
+    "workflow-authoring-api-test.js": "87ded9dc8717281bc1aeb24c70586cb18c20184e9ef8f5e96fd06fe47864abf8",
     "workflow-authoring-test.js": "f17181a161c7663e8f67e789dfa4c2df6385dff06759c9bd8e1762507add5ac8",
     "workflow-authoring.js": "a749c7fdf98f70046eafa0602ea5fd1d650df4c0080d2c8106615f0021ae93fd",
-    "workflow-editor.js": "e25a77c6fea3975d8fd3695c06ac6a3722fa112f0a0e64b46b2716eb41064d26",
+    "workflow-editor.js": "567b9441d40ad7030b7f8bc2eb179f8440c80d45afd6179f45a91fa91c4f0bfc",
     "workflow-execution-test.js": "2c1ac923751dd212844f0bdf4e28019d4ef86d8b1c36c6e9a1487a3812b2a227",
     "workflow-execution.js": "c4e2c9c66544283bf20bf8aafb7b7bb7a81b6fb9fdd5afe6b4b536db1c9c8a63",
     "workflow-retry-api-test.js": "f0eec87c1d1f8a00f825f1f80dffb302dbd4a3022c1b8265481fa3ff6e2f8aca",
@@ -109,7 +111,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "640f0e68cdb02f1d203a7dd139a8fddefa855ee4a8d528bb52875340e8ad1f65",
+  "output_sha256": "e01e2e3d652060ef22f4a325969d17921a7af679f71b8eed399e7c31d167d151",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -328,7 +330,9 @@
     "Lost response after durable task write returns the same task on owner-bound retry after encrypted HTTP restart",
     "Retry deadlines, exponential cap, maximum attempts, permission denial and revoked capability/adapter contract verified",
     "Shared authoring contract compiles ordered steps, typed conditions, explicit schedule, approval and retry without side effects",
-    "Authenticated sequential definition and exact approval preserve task identity and document contents through encrypted restart; VIEWER cannot define workflows"
+    "Authenticated sequential definition and exact approval preserve task identity and document contents through encrypted restart; VIEWER cannot define workflows",
+    "Owner-scoped active workflow version/pause with CAS replay, persistence rollback and canonical activation transition events",
+    "Paused delayed runs preserve steps across encrypted restart; reactivation does not repeat completed effects or lend scheduler authority"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -340,7 +344,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-workflow-authoring-regression.log",
+  "output_file": ".recovery-evidence/20260909-workflow-activation-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -353,10 +357,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "b19964e25fbb75d9cf560697ae20401735fc97b9",
-    "tree": "2d9a4107fbb1c52d432de5f14dc5f307208246e5",
-    "run": 59,
-    "run_id": 34308739329,
+    "head": "2978072af47c065c46f3ebbcd213fc9ca0be71ec",
+    "tree": "c37a9c46bde9ae7543df6ee31d20c435d2e8e7fb",
+    "run": 60,
+    "run_id": 34309208102,
     "conclusion": "success"
   }
 }

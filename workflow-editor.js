@@ -13,7 +13,7 @@
     const at=field(form,'Gepland tijdstip met UTC-offset (bijv. 2026-09-30T09:00:00+02:00)'),eventName=field(form,'Expliciete eventnaam (verplicht bij een automatische eigen trigger)');
     const syncTrigger=()=>{at.parentElement.hidden=trigger.value!=='schedule';at.required=trigger.value==='schedule';eventName.parentElement.hidden=trigger.value==='schedule';};trigger.addEventListener('change',syncTrigger);syncTrigger();
     const approval=field(form,'Menselijke goedkeuring vereist vóór uitvoering','checkbox');
-    form.append(make('p','Stappen worden op volgorde uitgevoerd. Een onware conditie slaat alleen die stap over. Opslaan bewaart deze versie; oudere versies en uitvoerhistorie blijven behouden. Automatische versies draaien afzonderlijk; oudere actieve versies blijven actief.'));
+    form.append(make('p','Stappen worden op volgorde uitgevoerd. Een onware conditie slaat alleen die stap over. Opslaan bewaart deze versie; oudere versies en uitvoerhistorie blijven behouden. Gebruik na opslaan de versieactivatie om één versie te kiezen. Zonder expliciete keuze behouden bestaande versies hun eerdere activiteitsinstelling en kan een nieuwe automatische versie direct na opslaan starten.'));
     const list=make('div');list.className='workflow-step-list';form.append(list);const steps=[];
     const notice=make('output');notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');
     function renumber(){steps.forEach((step,index)=>{step.legend.textContent=`Stap ${index+1}`;step.up.disabled=index===0;step.down.disabled=index===steps.length-1;list.append(step.box);});add.disabled=steps.length>=spec.max_steps;}
