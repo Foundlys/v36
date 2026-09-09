@@ -904,6 +904,88 @@
     cell.append(details);
   }
 
+  function appendDraftCollaboration(record,cell,content){
+    const details=node('details'),summary=node('summary','','Delen en versiegeschiedenis'),body=node('div'),notice=node('p');
+    notice.setAttribute('role','status');details.append(summary,body,notice);cell.append(details);
+    const route=`/api/communication/drafts/${encodeURIComponent(record.id)}`;
+    let loaded=false,model=null;
+    const actionForm=(buttonLabel,submitAction)=>{
+      const form=node('form'),reason=node('textarea'),reasonLabel=node('label','','Reden'),confirm=node('input'),confirmLabel=node('label','','Ik bevestig deze wijziging'),submit=node('button','primary-button',buttonLabel);
+      const expectedRevision=model.current_revision;
+      let key=crypto.randomUUID(),previousInput=null;
+      reason.required=true;reason.maxLength=1000;confirm.type='checkbox';confirm.required=true;submit.type='submit';
+      reasonLabel.append(reason);confirmLabel.append(confirm);form.append(reasonLabel,confirmLabel,submit);
+      form.addEventListener('submit',async event=>{
+        event.preventDefault();submit.disabled=true;
+        try{
+          const input={reason:reason.value,confirm:confirm.checked,expected_revision:expectedRevision},signature=JSON.stringify(input);
+          if(previousInput!==null&&signature!==previousInput)key=crypto.randomUUID();previousInput=signature;
+          await submitAction(input,key);
+          if(content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='drafts')await renderDomainSection('drafts',content);
+        }catch(error){notice.textContent=friendlyError(error);submit.disabled=false;}
+      });return form;
+    };
+    const appendPage=page=>{
+      for(const version of page.items){
+        const item=node('article','context-item'),preview=node('button','secondary-button','Revisie bekijken'),previewBody=node('div');preview.type='button';
+        item.append(node('h4','',`Revisie ${version.draft_revision??'onbekend'} · ${version.title||record.title}`),node('p','',version.change_reason||version.capture_kind),preview,previewBody);body.append(item);
+        preview.addEventListener('click',async()=>{
+          preview.disabled=true;
+          try{
+            const result=await request(`/api/communication/draft_revisions/${encodeURIComponent(version.id)}`),snapshot=result.record.snapshot;
+            replaceChildren(previewBody,[node('h5','',snapshot.title||'Ouder concept'),node('pre','',snapshot.content||''),node('p','',`Ontvangers: ${(snapshot.to||[]).join(', ')||'niet opgegeven'}`)]);
+            if(model.can_write&&Number.isSafeInteger(version.draft_revision))previewBody.append(actionForm('Deze inhoud als nieuwe revisie herstellen',(input,key)=>request(route+'/restore',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({...input,source_revision:version.draft_revision})})));
+          }catch(error){notice.textContent=friendlyError(error);preview.disabled=false;}
+        });
+      }
+      if(page.next_offset!==null){
+        const more=node('button','secondary-button','Meer revisies');more.type='button';body.append(more);
+        more.addEventListener('click',async()=>{
+          more.disabled=true;
+          try{
+            const next=await request(route+`/revisions?offset=${page.next_offset}`);
+            if(next.current_revision!==model.current_revision)throw new Error('Het concept is gewijzigd. Open de concepten opnieuw om de actuele geschiedenis te laden.');
+            more.remove();appendPage(next);
+          }catch(error){notice.textContent=friendlyError(error);more.disabled=false;}
+        });
+      }
+    };
+    const appendSharing=()=>{
+      const selected=new Map(model.collaborators.map(member=>[member.id,member.display_name])),chosen=node('div'),search=node('input'),label=node('label','','Medebewerker zoeken'),searchButton=node('button','secondary-button','Zoeken'),results=node('div');
+      search.type='search';search.maxLength=100;searchButton.type='button';label.append(search);
+      const redraw=()=>{
+        replaceChildren(chosen,[]);
+        for(const [id,name] of selected){const row=node('p','',name+' '),remove=node('button','secondary-button','Verwijderen');remove.type='button';remove.setAttribute('aria-label',`${name} verwijderen`);remove.addEventListener('click',()=>{selected.delete(id);redraw();});row.append(remove);chosen.append(row);}
+        if(!selected.size)chosen.append(node('p','','Alleen de eigenaar en bevoegde beheerders hebben toegang.'));
+      };
+      let shareSignature=null,shareKey=null;
+      const form=actionForm('Toegang bijwerken',(input,key)=>{
+        const payload={...input,collaborator_ids:[...selected.keys()]},signature=JSON.stringify(payload);
+        if(signature!==shareSignature){shareSignature=signature;shareKey=crypto.randomUUID();}
+        return request(route+'/collaborators',{method:'POST',headers:{'idempotency-key':shareKey},body:JSON.stringify(payload)});
+      });
+      form.prepend(chosen,label,searchButton,results);
+      form.append(node('small','','Delen geeft toegang tot dit concept en zijn geschiedenis. Bewerken vereist eigen Communication-schrijfrechten. Verwijder medebewerkers en sla op om hun toegang in te trekken.'));
+      search.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();searchButton.click();}});
+      searchButton.addEventListener('click',async()=>{
+        searchButton.disabled=true;
+        try{
+          const found=await request(route+'/collaborator-options?q='+encodeURIComponent(search.value.trim()));replaceChildren(results,[]);
+          for(const member of found.items){const choose=node('button','secondary-button',member.display_name);choose.type='button';choose.disabled=selected.has(member.id);choose.addEventListener('click',()=>{if(selected.size>=20){notice.textContent='Kies maximaal twintig medebewerkers.';return;}selected.set(member.id,member.display_name);choose.disabled=true;redraw();});results.append(choose);}
+          results.append(node('p','',found.has_more?'Verfijn je zoekopdracht om meer medebewerkers te vinden.':found.items.length?'':'Geen actieve medebewerkers gevonden.'));
+        }catch(error){notice.textContent=friendlyError(error);}finally{searchButton.disabled=false;}
+      });redraw();body.append(form);
+    };
+    details.addEventListener('toggle',async()=>{
+      if(!details.open||loaded)return;loaded=true;notice.textContent='Geschiedenis laden…';
+      try{
+        model=await request(route+'/revisions');replaceChildren(body,[]);
+        notice.textContent=`${model.total} bewaarde revisies. Herstellen bewaart de huidige toegangsrechten en verzendt niets.`;
+        if(model.can_share)appendSharing();appendPage(model);
+      }catch(error){notice.textContent=friendlyError(error);loaded=false;}
+    });
+  }
+
   async function renderDomainSection(entity, content) {
     replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
     try {
@@ -911,8 +993,8 @@
       if (state.activeSection.toLowerCase() !== entity) return;
       const required = state.workspace.domain_required_fields?.[entity] || [];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
-      const fieldNames = [...new Set([...required, 'description','status',...(state.workspaceId==='sales'&&entity==='opportunities'?['expected_close_date','closed_date','forecast_category']:[]),...(state.workspaceId==='procurement'&&entity==='orders'?['evidence_reference']:[]),...(state.workspaceId==='procurement'&&entity==='approval_policies'?['allow_self_approval']:[]), ...(state.workspaceId==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants']:[]), ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
-      const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag', currency:'Valuta', probability:'Kans (0–1)',expected_close_date:'Verwachte sluitdatum',closed_date:'Werkelijke sluitdatum',forecast_category:'Prognosecategorie', subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
+      const fieldNames = [...new Set([...required, 'description','status',...(state.workspaceId==='communication'&&entity==='drafts'?['to']:[]),...(state.workspaceId==='sales'&&entity==='opportunities'?['expected_close_date','closed_date','forecast_category']:[]),...(state.workspaceId==='procurement'&&entity==='orders'?['evidence_reference']:[]),...(state.workspaceId==='procurement'&&entity==='approval_policies'?['allow_self_approval']:[]), ...(state.workspaceId==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants']:[]), ...(['procurement','sales'].includes(state.workspaceId) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
+      const labels = { title:'Titel', name:'Naam', content:'Inhoud', description:'Omschrijving', start_at:'Start met tijdzone-offset', end_at:'Einde met tijdzone-offset', timezone:'Tijdzone', value_cents:'Bedrag', currency:'Valuta', probability:'Kans (0–1)',expected_close_date:'Verwachte sluitdatum',closed_date:'Werkelijke sluitdatum',forecast_category:'Prognosecategorie', to:'Ontvangers (e-mailadressen, gescheiden door komma’s)',subject_id:'Onderwerp-ID', purpose:'Doel', status:'Status' };
       for (const name of fieldNames) {
         const sourcing=state.workspaceId==='procurement'&&['rfqs','bids'].includes(entity);const sourcingLabels={rfq_id:'Offerteaanvraag',rfq_revision:'Revisie aanvraag',supplier_id:'Leverancier',lines:'Artikelen',evidence_reference:'Herkomst bieding (bijv. offertekenmerk en datum)',target_cents:'Doelbedrag',owner_id:'Gebruikers-ID eigenaar',period_start:'Begin doelperiode',period_end:'Einde doelperiode',minimum_value_cents:'Vanaf bedrag',approval_steps:'Beoordelaars (gebruikers-ID’s, in volgorde)',allow_self_approval:'Aanvrager mag ook beoordelen'};const label=node('label','',sourcingLabels[name]||labels[name] || name), input=node((['status','calendar_id','allow_self_approval'].includes(name)||sourcing&&['rfq_id','supplier_id'].includes(name))?'select':['content','description','lines'].includes(name)?'textarea':'input');
         if(name==='allow_self_approval'){for(const [value,text] of [['false','Nee, afzonderlijke beoordelaar verplicht'],['true','Ja, expliciet toegestaan']]){const option=node('option','',text);option.value=value;input.append(option);}}
@@ -960,6 +1042,7 @@
             if(payload.rfq_revision)payload.rfq_revision=Number(payload.rfq_revision);
             if(payload.lines)payload.lines=payload.lines.split('\n').filter(line=>line.trim()).map(line=>{const parts=line.split('|').map(value=>value.trim());if(entity==='rfqs'){if(parts.length!==3)throw new Error('Gebruik artikelcode | omschrijving | aantal');return {item_id:parts[0],description:parts[1],quantity:Number(parts[2])};}if(parts.length<3||parts.length>4||!/^\d+(?:[.,]\d{1,2})?$/.test(parts[2]))throw new Error('Gebruik artikelcode | aantal | stukprijs | levertijd');const [whole,fraction='']=parts[2].replace(',','.').split('.');return {item_id:parts[0],quantity:Number(parts[1]),unit_price_cents:Number(whole)*100+Number(fraction.padEnd(2,'0')),...(parts[3]?{delivery_days:Number(parts[3])}:{})};});
           }
+          if(state.workspaceId==='communication'&&entity==='drafts'){payload.to=fields.get('to').value.split(',').map(value=>value.trim()).filter(Boolean);payload.description=fields.get('description').value.trim();}
           if(payload.allow_self_approval!==undefined)payload.allow_self_approval=payload.allow_self_approval==='true';
           if(payload.approval_steps)payload.approval_steps=payload.approval_steps.split(',').map(value=>value.trim()).filter(Boolean);
           if(payload.participants)payload.participants=payload.participants.split(',').map(value=>value.trim()).filter(Boolean);if(recurrenceFields){const {frequency,count,interval}=recurrenceFields;payload.recurrence=window.FoundlyCalendarRecurrence.normalize(frequency.value?{frequency:frequency.value,count:Number(count.value),interval:Number(interval.value)}:null);}
@@ -977,16 +1060,17 @@
         if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
         edit.addEventListener('click',()=>{if(recurrenceFields){let rule;try{rule=window.FoundlyCalendarRecurrence.normalize(record.recurrence);}catch(error){notice.textContent=friendlyError(error);return;}recurrenceFields.frequency.value=rule?.frequency||'';recurrenceFields.count.value=String(rule?.count||1);recurrenceFields.interval.value=String(rule?.interval||1);recurrenceFields.refresh();}editing=record;const packConflict=Boolean(record.industry_field_pack_id&&record.industry_field_pack_id!==contract.industry_id);for(const [name,{input}] of industryInputs){input.value=packConflict?'':String(record.industry_fields?.[name]??'');input.disabled=packConflict;}notice.textContent=packConflict?'Bewaarde branchevelden blijven behouden. Herstel het oorspronkelijke pakket om ze te bewerken.':'';for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
+        if(state.workspaceId==='communication'&&entity==='drafts')appendDraftCollaboration(record,cell,content);
         if(state.workspaceId==='marketing'&&entity==='creatives'&&!['APPROVED_INTERNAL','ARCHIVED'].includes(record.status))appendCreativeReviewRequest(record,cell,content);
         if(state.workspaceId==='marketing'&&entity==='creative_reviews')appendCreativeReview(record,cell,content);
         if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',()=>renderProcurementComparison(record,content,notice));cell.append(compare);}
         if(state.workspaceId==='procurement'&&entity==='orders'&&!['APPROVED_INTERNAL','ARCHIVED','CANCELLED'].includes(record.status)){const prepare=node('button','secondary-button','Order ter beoordeling');prepare.type='button';prepare.addEventListener('click',()=>prepareProcurementAward({order_id:record.id},null,cell));cell.append(prepare);}
         if(state.workspaceId==='procurement'&&entity==='awards')appendAwardReview(record,cell,content);
         if(state.workspaceId==='sales'&&entity==='forecast_snapshots'){const detail=node('details');detail.append(node('summary','','Bewaarde prognose'));appendForecastResult(detail,record.forecast);cell.append(detail);}
-        if(!['messages','notifications','awards','forecast_snapshots','creative_reviews'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
+        if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','draft_revisions'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
       }
       const summary=node('p','',`${result.total} records${result.next_offset!==null?' · eerste 100 getoond':''}`);
-      const children=[summary];if(!['messages','notifications','awards','forecast_snapshots','creative_reviews'].includes(entity))children.push(form);
+      const children=[summary];if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','draft_revisions'].includes(entity))children.push(form);
       children.push(rows.length?table:node('div','EmptyState','Nog geen records in dit onderdeel.'));
       replaceChildren(content,children);
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}

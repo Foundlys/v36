@@ -606,7 +606,7 @@ const IDENTITY_API=createIdentityApi({identities:IDENTITIES,context:trustedConte
 const {WorkflowDrafts,createWorkflowDraftApi}=require('./workflow-drafts');
 const WORKFLOW_DRAFTS=new WorkflowDrafts({bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),audit:(...args)=>PLATFORM_CORE.audit(...args)},COMPOSITION);
 const WORKFLOW_DRAFT_API=createWorkflowDraftApi({drafts:WORKFLOW_DRAFTS,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
-const BUSINESS_DOMAINS=Object.fromEntries(Object.keys(BUSINESS_DOMAIN_DEFINITIONS).map(module=>[module,new BusinessDomain(module,{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),audit:(...args)=>PLATFORM_CORE.audit(...args),publish:(c,actor,event)=>PLATFORM_CORE.ingestEvent(c,{...actor,permissions:[...(actor.permissions||[]),'events:write']},event,{idempotencyKey:event.idempotency_key})},COMPOSITION)]));
+const BUSINESS_DOMAINS=Object.fromEntries(Object.keys(BUSINESS_DOMAIN_DEFINITIONS).map(module=>[module,new BusinessDomain(module,{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),audit:(...args)=>PLATFORM_CORE.audit(...args),memberActive:(c,id)=>IDENTITIES.bucket(c,'members').some(row=>row.id===id&&row.status==='ACTIVE'),draftMember:(c,id)=>{const member=IDENTITIES.bucket(c,'members').find(row=>row.id===id);return member?{id:member.id,display_name:member.display_name}:null;},draftCollaborators:(c,q)=>IDENTITIES.bucket(c,'members').filter(row=>row.status==='ACTIVE'&&String(row.display_name||'').toLowerCase().includes(q.toLowerCase())).slice(0,21).map(row=>({id:row.id,display_name:row.display_name})),publish:(c,actor,event)=>PLATFORM_CORE.ingestEvent(c,{...actor,permissions:[...(actor.permissions||[]),'events:write']},event,{idempotencyKey:event.idempotency_key})},COMPOSITION)]));
 const BUSINESS_DOMAIN_API=createBusinessDomainApi({domains:BUSINESS_DOMAINS,platform:PLATFORM_CORE,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
 function crmCanonicalEvent(c,event){
   const entity=String(event.meta?.entity||''),recordId=String(event.meta?.record_id||''),record=entity&&recordId?arr(records,key(c,`crm:${entity}`)).find(row=>row.id===recordId):null,type=String(event.type||'');
@@ -734,6 +734,8 @@ function scopedRecordRows(c,scope){
   if(scope.startsWith('crm:'))return ENTITY_DEFINITIONS[scope.slice(4)]?crmOwnedRows(c,scope.slice(4)):[];
   if(scope==='platform:raw_events')return PLATFORM_CORE.eventsForProjection(c,actor);
   if(scope==='platform:canonical_records')return PLATFORM_CORE.canonicalRecordsForProjection(c,actor);
+  if(scope==='communicatie')return items.filter(row=>row&&BUSINESS_DOMAINS.communication.visible(row,actor)&&BUSINESS_DOMAINS.communication.snapshotReadable(c,actor,row));
+  if(scope==='communication:draft_revisions')return items.filter(row=>BUSINESS_DOMAINS.communication.snapshotReadable(c,actor,row)).map(require('./communication-drafts').metadata);
   if(scope==='marketing:creative_reviews')return items.filter(row=>BUSINESS_DOMAINS.marketing.visible(row,actor)&&BUSINESS_DOMAINS.marketing.snapshotReadable(c,actor,row));
   if(scope==='sales:forecast_snapshots'){try{COMPOSITION.assertCapability(c,actor,'sales:opportunities');return items.filter(row=>BUSINESS_DOMAINS.sales.visible(row,actor)&&BUSINESS_DOMAINS.sales.snapshotReadable(c,actor,row));}catch(error){if(error.statusCode===403)return [];throw error;}}
   const privileged=actor.roles.some(role=>['ADMIN','FOUNDER','SUPER_ADMIN','MANAGER'].includes(role.toUpperCase()));

@@ -87,7 +87,7 @@
       "phase": 13,
       "name": "Communication",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned drafts/templates/preferences. Dashboard separates unsent drafts from retained messages, respects independent capabilities/private owners and reports missing or incomplete counts honestly through encrypted restart. Mail authorization, delivery, attachments and collaboration remain."
+      "evidence_or_gap": "Retained message/draft separation, invalid/incomplete source availability, owner-authorized sharing, bounded member selection, immutable revision history, CAS restore without access rollback/send, mid-body principal/collaborator revocation and encrypted restart pass focused tests. Live co-editing, comments, reply/forward, safe attachments, mail provider acceptance and browser acceptance remain."
     },
     {
       "phase": 14,
@@ -189,7 +189,7 @@
       "phase": 30,
       "name": "Browser acceptance",
       "status": "BLOCKED_EXTERNAL",
-      "evidence_or_gap": "BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: fresh browser connection succeeded on 2026-09-09, but navigation to the isolated local /login page returned net::ERR_BLOCKED_BY_CLIENT. Documented Sites preview requires a compatible Vite dev server; the existing custom Node application has none. No bypass, architecture replacement, production deployment or browser pass."
+      "evidence_or_gap": "BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: on 2026-09-09 the isolated local server returned HTTP 200 to its launcher; the connected cloud browser refused http://127.0.0.1:29670/login with net::ERR_BLOCKED_BY_CLIENT. No browser/keyboard/viewport pass, deployment, alternate network route or bypass."
     },
     {
       "phase": 31,
@@ -197,5 +197,14 @@
       "status": "PARTIAL",
       "evidence_or_gap": "This checkpoint and ledgers preserve truth; no completion verdict issued"
     }
-  ]
+  ],
+  "continuation_point": {
+    "active_phase": 24,
+    "module": "communication",
+    "recovered_local_head": "5a622839cc83ed38f656be11bb6acd90ef6cb765",
+    "recovered_published_head": "afdc6e5ad528a6744af6d8d58b5dac8c987c7ab4",
+    "recovered_tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
+    "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
+    "production_changes_authorized": false
+  }
 }

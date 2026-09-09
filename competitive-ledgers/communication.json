@@ -1,6 +1,6 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "module": "communication",
   "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
@@ -18,19 +18,27 @@
         {
           "product": "Front",
           "url": "https://help.front.com/en/articles/2216",
-          "observed": "Shared drafts follow inbox access and support collaborative editing.",
-          "retrieved_at": "2026-09-05"
+          "observed": "Explicit sharing of private drafts, inbox/conversation-based access, single-editor takeover and live editing visibility are documented. Foundly does not yet claim live co-editing or inbox access equivalence.",
+          "retrieved_at": "2026-09-09"
+        },
+        {
+          "product": "Front",
+          "url": "https://dev.frontapp.com/reference/create-draft-reply",
+          "observed": "The documented draft-reply API uses drafts write scope and explicit conversation/channel references, private/shared modes, recipient lists and bounded attachments. This is benchmark evidence, not a Foundly implementation claim.",
+          "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Owned drafts, templates, threads and preferences with permissions and safe empty inbox. Dashboard now separates drafts from retained messages, respects current private owners and independent capabilities, and makes missing classification/incomplete page counts unavailable rather than measured zero. No external mailbox completeness or verified delivery is inferred.",
-      "gap": "Collaborative editing, attachments, reply/forward and complete inbox workflows remain incomplete.",
-      "required_change": "Complete message/thread contracts and safe attachment/reference handling.",
+      "foundly_current": "Owned drafts, templates, threads and preferences remain standalone. Draft sharing uses explicit owner/admin authority, a bounded tenant member search, current member status and current parent ACL for all retained revisions. Edits use revision preconditions. Restore creates a new draft revision, preserves current collaborators, binds idempotency to the actor/input and does not send. History survives encrypted restart and persistence failure rolls back draft, history, audit and receipt together. Legacy unversioned drafts retain a labelled baseline. Dashboard separates drafts from retained messages and treats unavailable, invalid or incomplete source contracts as unavailable.",
+      "gap": "Live co-editing/takeover, comments, attachments, reply/forward and complete inbox workflows remain incomplete; actual browser/keyboard/viewport acceptance is blocked.",
+      "required_change": "Complete source-bound message/thread preparation, safe attachment handling and inbox workflows, then verify real browser and authorized provider behavior.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
         "communication-snapshot-test.js",
-        "communication-snapshot-api-test.js"
+        "communication-snapshot-api-test.js",
+        "communication-drafts-test.js",
+        "communication-drafts-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

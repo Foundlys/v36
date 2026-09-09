@@ -1,8 +1,17 @@
 'use strict';
 function communicationSnapshot({read,calendar,metric}){
-  const load=operation=>{if(!operation)return {available:false,total:null,items:[],code:'MODULE_UNAVAILABLE'};try{const value=operation();return {...value,available:true,code:null};}catch(error){return {available:false,total:null,items:[],code:String(error.code||'source_unavailable').slice(0,100)};}};
+  const load=operation=>{
+    const unavailable=code=>({available:false,total:null,items:[],code});
+    if(!operation)return unavailable('MODULE_UNAVAILABLE');
+    try{
+      const value=operation();
+      if(value?.available===false||value?.complete===false)return unavailable('SOURCE_UNAVAILABLE');
+      if(!value||!Number.isSafeInteger(value.total)||value.total<0||!Array.isArray(value.items)||value.items.length>value.total||value.items.some(row=>!row||typeof row!=='object'||Array.isArray(row)))return unavailable('SOURCE_CONTRACT_INCOMPLETE');
+      return {...value,available:true,code:null};
+    }catch(error){return unavailable(String(error.code||'source_unavailable').slice(0,100));}
+  };
   const drafts=load(()=>read('drafts')),messages=load(()=>read('messages')),appointments=load(calendar),rows=messages.items;
-  const complete=messages.available&&rows.length===messages.total;
+  const complete=messages.available&&messages.complete!==false&&rows.length===messages.total;
   const direction=row=>typeof row.direction==='string'?row.direction.toUpperCase():null;
   const readState=row=>typeof row.read==='boolean'?row.read:row.status==='UNREAD'?false:row.status==='READ'?true:null;
   const directionsKnown=rows.every(row=>['INBOUND','OUTBOUND'].includes(direction(row))),readKnown=rows.every(row=>readState(row)!==null);
