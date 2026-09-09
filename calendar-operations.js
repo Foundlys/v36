@@ -1,5 +1,8 @@
 'use strict';
 const crypto=require('node:crypto');
+const {scopedMutation}=require('./scoped-mutation');
+const reminderCursors=new WeakMap();
+function reminderPrincipal(row){const principal=Object.hasOwn(row||{},'execution_principal_id')?row.execution_principal_id:row?.source_module==='calendar'&&row?.owned_entity==='reminders'?row.provenance?.actor_id:null;return typeof principal==='string'&&principal?principal:null;}
 const {occurrences}=require('./business-domains');
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -50,20 +53,31 @@ function calendarOperations(core){
     },
     tickReminders(ctx,actor,now=new Date()){
       core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'calendar:events','write');
-      const notifications=core.bucket(ctx,'notifications'),due=core.bucket(ctx,'reminders').filter(row=>core.visible(row,actor)&&!['ARCHIVED','CANCELLED','COMPLETED'].includes(row.status)&&Date.parse(row.due_at)<=now.getTime()).slice(0,100);
-      if(!due.length)return {processed:0,delivery:'IN_APP_ONLY',external_delivery:false};
-      core.mutate(ctx,()=>{for(const reminder of due){
-        const key=`reminder:${reminder.id}:${reminder.revision}`;
-        if(!notifications.some(row=>row.delivery_key===key)){
-          const notification={id:crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:reminder.owner_id,title:reminder.title,content:reminder.content||'',related_refs:reminder.related_refs||[],status:'OPEN',delivery_key:key,delivery_state:'AVAILABLE_IN_APP',created_at:now.toISOString(),updated_at:now.toISOString(),revision:1,source_module:'calendar'};
-          notifications.push(notification);core.recordEvent(ctx,actor,'notifications',notification,'created');
-        }
-        reminder.status='COMPLETED';reminder.delivery_state='AVAILABLE_IN_APP';reminder.delivered_at=now.toISOString();
+      if(!Number.isFinite(now.getTime()))fail('reminder_clock_invalid','Ongeldige uitvoertijd');
+      const eligible=core.bucket(ctx,'reminders').filter(row=>reminderPrincipal(row)===actor.id&&!['ARCHIVED','CANCELLED','COMPLETED'].includes(row.status)&&typeof row.due_at==='string'&&Date.parse(row.due_at)<=now.getTime());
+      if(!reminderCursors.has(core))reminderCursors.set(core,new Map());const cursors=reminderCursors.get(core),cursorKey=JSON.stringify([ctx.tenant_id,ctx.dealer_id,actor.id]),last=cursors.get(cursorKey),after=last?eligible.findIndex(row=>row.id===last):-1,start=eligible.length?(after+1)%eligible.length:0;
+      const due=Array.from({length:Math.min(100,eligible.length)},(_,index)=>eligible[(start+index)%eligible.length]).map(row=>({id:row.id,revision:row.revision})),results=[];
+      if(due.length)cursors.set(cursorKey,due[due.length-1].id);else cursors.delete(cursorKey);
+      for(const reference of due){
+        try{
+          scopedMutation(core.adapter,ctx,['calendar:reminders','calendar:notifications','calendar:outbox','platform:audit'],()=>{
+            const matches=core.bucket(ctx,'reminders').filter(row=>row?.id===reference.id),reminder=matches[0];
+            if(matches.length!==1||typeof reminder?.id!=='string'||!reminder.id||!Number.isSafeInteger(reminder.revision)||reminder.revision<1||typeof reminder.title!=='string'||!reminder.title.trim()||reminder.content!==undefined&&typeof reminder.content!=='string')fail('reminder_invalid','De herinnering heeft geen geldige broninhoud');
+            if(reminderPrincipal(reminder)!==actor.id||reminder.revision!==reference.revision||['ARCHIVED','CANCELLED','COMPLETED'].includes(reminder.status))fail('reminder_changed','De herinnering is intussen gewijzigd',409);
+            core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'calendar:events','write');
+            const notifications=core.bucket(ctx,'notifications'),deliveryKey=`reminder:${reminder.id}:${reminder.revision}`,at=now.toISOString();
+            if(!notifications.some(row=>row.delivery_key===deliveryKey)){
+              const notification={id:crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:reminder.owner_id,title:reminder.title,content:reminder.content||'',related_refs:reminder.related_refs||[],status:'OPEN',delivery_key:deliveryKey,delivery_state:'AVAILABLE_IN_APP',created_at:at,updated_at:at,revision:1,source_module:'calendar',execution_principal_id:actor.id};
+              notifications.push(notification);core.recordEvent(ctx,actor,'notifications',notification,'created');
+            }
+            reminder.status='COMPLETED';reminder.delivery_state='AVAILABLE_IN_APP';reminder.delivered_at=at;reminder.updated_at=at;reminder.revision++;core.recordEvent(ctx,actor,'reminders',reminder,'updated');
+          });
+          results.push({id:reference.id,status:'COMPLETED'});
+        }catch(error){results.push({id:typeof reference.id==='string'?reference.id:null,status:'FAILED',code:String(error.code||'reminder_delivery_failed').slice(0,100)});}
       }
-      });
-      if(due.length)core.flush(ctx,actor);
-      return {processed:due.length,delivery:'IN_APP_ONLY',external_delivery:false};
+      let event_delivery='NO_NEW_EVENTS';if(results.some(row=>row.status==='COMPLETED')){event_delivery='DELIVERED';try{core.flush(ctx,actor);}catch{event_delivery='QUEUED_RETRY';}}
+      return {processed:results.filter(row=>row.status==='COMPLETED').length,failed:results.filter(row=>row.status==='FAILED').length,results,event_delivery,delivery:'IN_APP_ONLY',external_delivery:false,execution_principal_id:actor.id};
     }
   };
 }
-module.exports={calendarOperations};
+module.exports={calendarOperations,reminderPrincipal};

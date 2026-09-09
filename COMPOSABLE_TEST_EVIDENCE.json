@@ -28,10 +28,12 @@
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
     "business-domain-api.js": "0c1e25ec2c1afe2b0bc51d111a343924a39489e6d56fe7db0dced2449e1cef87",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "518a31af77c569c3aeca7a49d3455c9cb282bddc07a3948f90c08e8ed8f356af",
+    "business-domains.js": "498053c95f69a2a68604dd71b18f96198481490b09f7f5ad00698f967dbb62b8",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
-    "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
+    "calendar-operations.js": "2a4a77cc007389d746e66bb3820755f86c840713ec6c6e57c9b195020d6ce980",
+    "calendar-reminder-principal-api-test.js": "7e7e440f2eb1a220d7ec7a93481affe7c9ecaba2a739ebed4e082a0fb6de1890",
+    "calendar-reminder-principal-test.js": "782bac62951fc3419d973cb8c6e43993d6c7c70f923849781a57779ad9bc51ae",
     "calendar-scheduling-test.js": "6d6e3ab8155062093dbe9ca2afd0f1802ab5bd723de4e448c918411951002fdb",
     "capability-resolver-test.js": "6d648c0e3a01de1da16612954345321aa87ec85360a948e84206bcc9c1ece9dd",
     "capability-resolver.js": "425d4e42ecee1b819b4e81e4dc10f20cc2403c5c34c9805c4ac5bd760879b995",
@@ -91,7 +93,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "052edbee5efc39ac979d2a06e7c91e92dd8d926f4b0f7e507421e2367dec5eba",
+    "package.json": "5b3447cf9d90384c7fc1d8aafe6c9561538fa3a26c13a0196669d0b91711cb0d",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -122,7 +124,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "928b4e892b5a7f7844562fbe2247350da58ad3c2beb178a730d156680fa7c523",
+    "server.js": "af85d14872a02eeee00098dc6cabf24309a93dcee02ead1d0ecd0ee5fbee9cb1",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -174,7 +176,7 @@
     "workspace-system.js": "43bec7a0829a4f8748fe92e48f82048e1678eeee18d142ac8d459a67eab1911b",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "8de6372d1a63b0160ccd5b08378cb5ac4cbea2cf3be45de7e1be356d2f733d79",
+  "output_sha256": "09f427cee3be00450d05a1ed080596b3660e00796ea9434177ea4a14e2d70776",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -449,7 +451,8 @@
     "Read-only Sales probability scenarios retain original source records, exact cent rounding, separate currencies and missing-data nulls; immutable scenario snapshots bind current source/target basis and explicit assumptions, with owner/revision denial, replay, rollback, encrypted restart and retained export",
     "Dashboard session controller rejects stale loads and cross-scope saves, detaches outgoing payloads, serializes saves and preserves edits made while saving with the new acknowledged revision; protected helper delivery and existing server concurrency tests pass",
     "Actual pre-configuration account creation/directory access is already refused with identity_composition_required. The suspected real-member legacy bypass did not reproduce; no authorization code was changed. New HTTP coverage verifies zero partial account creation, bootstrap setup, real session isolation and restart",
-    "Marketing creative reviews bind exact source and review revisions, sequential assigned current authority and rationale; final approval atomically freezes content while retaining NOT_PUBLISHED. Real member-session tests verify private source/Data protection, no implicit access grant, replay, rollback, mid-review/final encrypted restart and retained export"
+    "Marketing creative reviews bind exact source and review revisions, sequential assigned current authority and rationale; final approval atomically freezes content while retaining NOT_PUBLISHED. Real member-session tests verify private source/Data protection, no implicit access grant, replay, rollback, mid-review/final encrypted restart and retained export",
+    "Calendar reminder execution binds to the current authorized planner separately from recipient ownership; real role revocation/suspension, bounded per-record failure isolation/nonstarvation, atomic notification commit, canonical legacy author fallback, retained unbound reminders and encrypted restart without duplicates pass."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -461,7 +464,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-marketing-creative-reviews-regression.log",
+  "output_file": ".recovery-evidence/20260909-calendar-principal-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -474,10 +477,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "cd9094360d960fc52dd51ccfdbaf10700e3fea7d",
-    "tree": "4e1f303256d39997f660a9e6c6d160e079ef762c",
-    "run": 81,
-    "run_id": 34323843547,
+    "head": "daaffc219b92f6e8261edf3c8aa2f20a900fe3e6",
+    "tree": "accc2529a337577f0fcff7d4b7063a5714dcba26",
+    "run": 82,
+    "run_id": 34324922384,
     "conclusion": "success"
   }
 }
