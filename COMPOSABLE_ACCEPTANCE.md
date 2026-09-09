@@ -232,3 +232,9 @@ The previous dashboard concurrency tree passed GitHub Actions run 77. A fresh Br
 ## ZERO cohort analysis and replay — 2026-09-09
 
 The real ZERO turn path now consumes an explicitly loaded saved cohort definition revision and the current reports/events capabilities. It uses the same canonical query service as Analytics. No source result is retained in conversation/audit; only a definition reference and generic response remain. Repeated turns recalculate current authorized sources and cannot return the earlier broader report. Authenticated tests verify role downgrade, encrypted restart, private source exclusion, source-free conversation text, foreign owner denial, stale definition refusal, capability/tool revocation and no business side effects. Full npm test exited 0. The previous saved-definition checkpoint passed CI run 78. Other ZERO action paths and full masterbuild acceptance remain incomplete; production was untouched.
+
+## Sales probability scenarios — 2026-09-09
+
+Explicit, revision-bound probability assumptions now project over the existing owned Sales forecast without modifying opportunities. The comparison retains separate currencies, exact cent rounding and null complete totals when source/probability coverage is incomplete. Scenarios are labeled user assumptions and never accounting revenue or measured confidence. The existing immutable snapshot path binds all source/target data plus assumptions and retains current-source ACL checks.
+
+Focused unit/HTTP tests and full npm test pass: read-only query access, private source denial, unchanged records, missing-data semantics, stale revisions/basis, idempotency, failed storage rollback, encrypted restart and retained export. The actual forecast editor has scenario selection/rationale/comparison/save controls; browser acceptance is unproven. The previous ZERO cohort tree passed GitHub Actions run 79. Production was untouched.

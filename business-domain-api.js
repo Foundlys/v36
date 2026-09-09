@@ -28,6 +28,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       }
       if(id==='sales'&&parts[0]==='forecast'){
         const service=require('./sales-forecast');
+        if(parts.length===3&&parts[1]==='scenarios'&&parts[2]==='query'&&req.method==='POST'){const data=await readBody(req);if(Object.keys(data).some(key=>!['filters','scenario'].includes(key)))return sendJson(res,422,{ok:false,code:'scenario_query_invalid'});return sendJson(res,200,{ok:true,...require('./sales-scenarios').scenarioForecast(core,ctx,actor,data.filters||{},data.scenario)});}
         if(parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...service.forecast(core,ctx,actor,Object.fromEntries(url.searchParams))});
         if(parts.length===2&&parts[1]==='snapshots'&&req.method==='POST')return sendJson(res,201,{ok:true,...service.snapshotForecast(core,ctx,actor,await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
       }

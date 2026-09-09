@@ -51,7 +51,7 @@
       "phase": 7,
       "name": "Sales",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned pipelines, forecasts, exact owner/period/currency quotas, revision-bound snapshots and current source permission checks pass; hierarchy, scenario workflows, sequences and browser acceptance remain."
+      "evidence_or_gap": "Owned pipelines, exact owner/period/currency quotas and current-source snapshots pass. Explicit per-opportunity probability scenarios now preserve recorded values, separate currencies, null incomplete comparisons and immutable source-bound snapshots through encrypted restart. Hierarchy, amount/date adjustments, sequences and browser acceptance remain."
     },
     {
       "phase": 8,

@@ -26,7 +26,7 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "f26d51c54436858bdf2d979d20a1078d6947a5e7e4ab8e3efc577780d26207b2",
+    "business-domain-api.js": "5af037d546ce6a94b22532ceedc9d2274a1c4bcf19a69c1b99822cf195500f45",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
     "business-domains.js": "f882fec2a5b927cb0bf2d9cdef291d1339cf4130dc190dfbcbe935aca183008a",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
@@ -63,7 +63,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "56741df4428f77765394987a05f6d6689359bc7e2d46ba9ade90161ec28b0ccd",
-    "foundly-workspace.js": "39cae5fe69976ae79d632642d8d95c5fb126e643c809da5c74b1337f2a644c5b",
+    "foundly-workspace.js": "cbf4a977acd8a1119157afc649c0d0a37b746c911e137e1fee216a371c2d8507",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -88,7 +88,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "333fb208736e68b8891ac5d6aff035bef00791fc858b7e87c56d927d3c0d4ae5",
+    "package.json": "ec3a28fcbeb5f9f3fba0dfaffb2e15868a58da077f68b0787f5c1e607de3165b",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -108,10 +108,13 @@
     "provider-report-cache.js": "57f843e7a908d45a23fe7eed933ba443219f2e87ddfa8b328591f5bbd2db59e4",
     "readiness-config-regression-test.js": "e819960859d8263a9eb7039966823e9ef0f191c4dcb808cf512d924aa08de903",
     "sales-forecast-test.js": "7a559f75b9b7f6d3c49bffe140d9fc84fcb8757b5ac934366c808aa45e15cd8f",
-    "sales-forecast.js": "2a18e4c4ed624f04f459b65736e6a0fe91dc255e1b330155ed2c66ff2952d56e",
+    "sales-forecast.js": "48f4266f55f82b0ad5d17b4344131c261582030b8fd7f933c6af30be15144c77",
     "sales-quotas-api-test.js": "76923f1f369b91f37e362e98f23dccbe336db939ece38e6d12d532401176417a",
     "sales-quotas-test.js": "de7f90f78c6d706607faccdb64ad25a152897766eb0b8bf0f3a4278175f84fd8",
     "sales-quotas.js": "206611188c6a5e292a0c109936b447eb62903bce5d6843db48438a3463f4e402",
+    "sales-scenarios-api-test.js": "cd614d5280d0bc9d62fc6781e5d4d3fde8da5b1243dac71cf01b539ec45acfe6",
+    "sales-scenarios-test.js": "839cb293ff468856e0446e08deca4a667c354579db75de606c8ca7786939ba98",
+    "sales-scenarios.js": "262281936d2f56d8b3fd9b62910f380156e3df923cddc032f1bc8c2ffa60cf72",
     "sales-snapshot-access.js": "46344ed18b5580c68d4acb82f412820271abbfb71d1de554f93ab9f962844a23",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
@@ -165,7 +168,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "0db748cdb229dee4833d2041b45925128978fcbb414256e2ed1aec3786647307",
+  "output_sha256": "11c6e592b4129ea0e3e8f16a69b2cd9f0e380578ac2ec6ad2a9ab8f85be3f651",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -436,7 +439,8 @@
     "Owned saved cohort definitions use Core persistence, audit/outbox, strict model validation, create idempotency and revision-bound explicit calculation under current caller permissions; saving has no source reads or workflow effects",
     "Cohort definition private ownership, current event/report revocation, stale revision refusal, rollback, encrypted HTTP restart, archive and retained export pass; the actual UI supports named save/load and paginated discovery",
     "Fresh browser connection succeeded but local acceptance navigation to /login was rejected by ERR_BLOCKED_BY_CLIENT; browser acceptance is still not proven. An isolated fixture was used and terminated; no production credentials or state changed",
-    "Actual ZERO turn uses an explicitly selected saved cohort revision; dynamic tool access consumes both reports and events. Conversation/audit retain only a reference and generic response. Replays recompute current source ACL after role downgrade and encrypted restart; foreign selection, stale definition and revoked capability are refused without business effects"
+    "Actual ZERO turn uses an explicitly selected saved cohort revision; dynamic tool access consumes both reports and events. Conversation/audit retain only a reference and generic response. Replays recompute current source ACL after role downgrade and encrypted restart; foreign selection, stale definition and revoked capability are refused without business effects",
+    "Read-only Sales probability scenarios retain original source records, exact cent rounding, separate currencies and missing-data nulls; immutable scenario snapshots bind current source/target basis and explicit assumptions, with owner/revision denial, replay, rollback, encrypted restart and retained export"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -448,7 +452,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-cohort-zero-regression.log",
+  "output_file": ".recovery-evidence/20260909-sales-scenarios-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -461,10 +465,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "a47ee17e7a27961c4874e68e1c6b0391fcd14037",
-    "tree": "2a3425824c5a39f502879dcd843980e631a94bb8",
-    "run": 78,
-    "run_id": 34321968797,
+    "head": "afca5a996e21d73206450f2ee61e6cb29fee82aa",
+    "tree": "079d876cf3587e960e9b2e0a75a3f73ce22abef8",
+    "run": 79,
+    "run_id": 34322548812,
     "conclusion": "success"
   }
 }
