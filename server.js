@@ -734,6 +734,7 @@ function scopedRecordRows(c,scope){
   if(scope.startsWith('crm:'))return ENTITY_DEFINITIONS[scope.slice(4)]?crmOwnedRows(c,scope.slice(4)):[];
   if(scope==='platform:raw_events')return PLATFORM_CORE.eventsForProjection(c,actor);
   if(scope==='platform:canonical_records')return PLATFORM_CORE.canonicalRecordsForProjection(c,actor);
+  if(scope==='marketing:creative_reviews')return items.filter(row=>BUSINESS_DOMAINS.marketing.visible(row,actor)&&BUSINESS_DOMAINS.marketing.snapshotReadable(c,actor,row));
   if(scope==='sales:forecast_snapshots'){try{COMPOSITION.assertCapability(c,actor,'sales:opportunities');return items.filter(row=>BUSINESS_DOMAINS.sales.visible(row,actor)&&BUSINESS_DOMAINS.sales.snapshotReadable(c,actor,row));}catch(error){if(error.statusCode===403)return [];throw error;}}
   const privileged=actor.roles.some(role=>['ADMIN','FOUNDER','SUPER_ADMIN','MANAGER'].includes(role.toUpperCase()));
   return items.filter(row=>row&&(!row.owner_id||row.owner_id===actor.id||privileged)&&(!row.permissions?.user_ids?.length||row.permissions.user_ids.includes(actor.id)||privileged)&&(!row.permissions?.roles?.length||row.permissions.roles.some(role=>actor.roles.includes(role))||privileged));

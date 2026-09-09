@@ -12,7 +12,7 @@ const DEFINITIONS = Object.freeze({
   analysis:{legacy:'rapportages',primary:'reports',entities:['reports','provider_reports','provider_events','cohort_definitions'],required:{cohort_definitions:['title','cohort_definition'],reports:['title','content'],provider_reports:['title'],provider_events:['title']}},
   procurement: { legacy: 'inkoop', primary: 'opportunities', entities: ['opportunities','suppliers','rfqs','bids','approval_policies','awards','quotes','orders','documents','tasks'], required: {approval_policies:['name','currency','minimum_value_cents','approval_steps'],awards:['title'], rfqs:['title','currency','lines'],bids:['title','rfq_id','rfq_revision','supplier_id','currency','lines','evidence_reference'],suppliers: ['name'], opportunities: ['title'], quotes: ['title'], orders: ['title'], documents: ['name'], tasks: ['title'] } },
   sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','quotas','forecast_snapshots','quotes','orders','activities','tasks'], required: {quotas:['name','owner_id','period_start','period_end','currency','target_cents'],forecast_snapshots:['title'], opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
-  marketing: { legacy: 'social_media', primary: 'campaigns', entities: ['campaigns','audiences','creatives','experiments'], required: {campaigns:['title'],audiences:['name'],creatives:['title','content'],experiments:['title']} },
+  marketing: { legacy: 'social_media', primary: 'campaigns', entities: ['campaigns','audiences','creatives','experiments','creative_reviews'], required: {creative_reviews:['title'],campaigns:['title'],audiences:['name'],creatives:['title','content'],experiments:['title']} },
   calendar: { legacy: 'agenda', primary: 'events', entities: ['events','calendars','availability','reminders','notifications'], required: { events: ['title','start_at','end_at','timezone'], calendars: ['name','timezone'], availability: ['title','start_at','end_at','timezone'],reminders:['title','due_at'],notifications:['title'] } },
   communication: { legacy: 'communicatie', primary: 'drafts', entities: ['drafts','messages','threads','templates','preferences'], required: { drafts: ['title','content'], messages: ['title','content'], threads: ['title'], templates: ['title','content'], preferences: ['subject_id','purpose','status'] } }
 });
@@ -55,8 +55,9 @@ class BusinessDomain {
   runtimeProbe(ctx,actor){this.scope(ctx,actor);return Object.values(this.summary(ctx,actor).by_entity).some(result=>result.available&&Array.isArray(result.items));}
   scope(ctx,actor,operation='read'){normalizeContext(ctx);requirePermission(actor,`${this.id}:${operation}`);return this.resolver.assertModule(ctx,actor,this.id,operation);}
   bucket(ctx,entity){if(!this.definition.entities.includes(entity))fail('entity_unknown','Onbekend onderdeel',404);return this.adapter.bucket(ctx,entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`);}
-  visible(row,actor){if(this.id==='procurement'&&(row.owned_entity==='approval_policies'||row.owned_entity==='awards'&&row.approval_steps?.includes(actor.id)))return true;return (actor.roles||[]).some(r=>['ADMIN','SUPER_ADMIN','FOUNDER','MANAGER'].includes(String(r).toUpperCase()))||row.owner_id===actor.id;}
+  visible(row,actor){if(this.id==='marketing'&&row.owned_entity==='creative_reviews'&&row.approval_steps?.includes(actor.id))return true;if(this.id==='procurement'&&(row.owned_entity==='approval_policies'||row.owned_entity==='awards'&&row.approval_steps?.includes(actor.id)))return true;return (actor.roles||[]).some(r=>['ADMIN','SUPER_ADMIN','FOUNDER','MANAGER'].includes(String(r).toUpperCase()))||row.owner_id===actor.id;}
   validate(entity,input,previous={}){
+    if(this.id==='marketing'&&entity==='creative_reviews')fail('creative_review_action_required','Gebruik de expliciete creatieve beoordelingsacties');
     if(entity.startsWith('provider_'))fail('provider_ingest_required','Providerresultaten worden uitsluitend door de geverifieerde rapportadapter opgeslagen');
     const unknown=Object.keys(input).filter(key=>!OWNED_FIELDS.has(key));if(unknown.length)fail('domain_fields_invalid','Niet-ondersteunde velden');
     const next={...previous,...sanitizeInput(input)};
@@ -88,7 +89,7 @@ class BusinessDomain {
     }
     return next;
   }
-  snapshotReadable(ctx,actor,row){return require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row);}
+  snapshotReadable(ctx,actor,row){return require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row)&&require('./marketing-creative-reviews').reviewReadable(this,ctx,actor,row);}
   list(ctx,actor,entity,query={}){
     if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');
     this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const limit=Math.max(1,Math.min(250,Number(query.limit)||100)),offset=Math.max(0,Number(query.offset)||0),q=String(query.q||'').toLowerCase();

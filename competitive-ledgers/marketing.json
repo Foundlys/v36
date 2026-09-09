@@ -29,14 +29,16 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Owned campaigns, audiences, creatives and experiment plans remain NOT_PUBLISHED.",
-      "gap": "Journey execution, audience activation, creative review and complete campaign workflows are incomplete.",
+      "foundly_current": "Owned campaigns, audiences, creatives and experiment plans remain NOT_PUBLISHED. Exact-source creative content review now uses sequential assigned current authority, reasons and immutable internal approval without publication. Real member-session and encrypted restart tests pass, including private review copies after source ownership changes.",
+      "gap": "Journey execution, audience activation, broader creative version management and complete campaign/browser workflows are incomplete.",
       "required_change": "Complete consent-aware workflow contracts, distinct operational views and provider handoffs.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
-        "platform-api-regression-test.js"
+        "platform-api-regression-test.js",
+        "marketing-creative-reviews-test.js",
+        "marketing-creative-reviews-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

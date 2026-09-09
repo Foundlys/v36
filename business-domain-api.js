@@ -26,6 +26,11 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='awards'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareAward(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='awards'&&parts.length===3&&['approve','cancel'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews[parts[2]==='approve'?'reviewAward':'cancelAward'](core,ctx,actor,parts[1],await readBody(req),options)});
       }
+      if(id==='marketing'){
+        const service=require('./marketing-creative-reviews'),options={idempotency_key:req.headers['idempotency-key']};
+        if(parts[0]==='creatives'&&parts[2]==='reviews'&&parts.length===3&&req.method==='POST')return sendJson(res,201,{ok:true,...service.prepareCreativeReview(core,ctx,actor,parts[1],await readBody(req),options)});
+        if(parts[0]==='creative_reviews'&&parts.length===3&&['approve','withdraw'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...service[parts[2]==='approve'?'reviewCreative':'withdrawCreativeReview'](core,ctx,actor,parts[1],await readBody(req),options)});
+      }
       if(id==='sales'&&parts[0]==='forecast'){
         const service=require('./sales-forecast');
         if(parts.length===3&&parts[1]==='scenarios'&&parts[2]==='query'&&req.method==='POST'){const data=await readBody(req);if(Object.keys(data).some(key=>!['filters','scenario'].includes(key)))return sendJson(res,422,{ok:false,code:'scenario_query_invalid'});return sendJson(res,200,{ok:true,...require('./sales-scenarios').scenarioForecast(core,ctx,actor,data.filters||{},data.scenario)});}

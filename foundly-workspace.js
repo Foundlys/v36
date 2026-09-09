@@ -80,6 +80,7 @@
     LEADS: ['Leads', 'Canonical en CRM-gekoppelde leads met bronprovenance.'],
     ATTRIBUTION: ['Attribution', 'Versiebeheerde attributie zonder omzet- of margedubbeltelling.'],
     CONVERSIONS: ['Conversions', 'Provider- en canonical conversies met aparte ontvangst- en processingstatus.'],
+    CREATIVE_REVIEWS: ['Creatieve beoordelingen', 'Exacte inhoud, aangewezen beoordelaars en vastgelegde besluiten. Goedkeuring publiceert niets.'],
     AUDIENCES: ['Audiences', 'Alleen providerbevestigde of persistente audience-objecten.'],
     CREATIVES: ['Creatives', 'Werkelijke creative records; niets wordt als live gepubliceerd zonder providerreceipt.'],
     MEASUREMENT: ['Measurement', 'Meta CAPI, GA4 Measurement Protocol en enhanced-conversion contracten.'],
@@ -842,6 +843,22 @@
     form.addEventListener('submit',async event=>{event.preventDefault();const token=++generation;calculate.disabled=true;try{const filters={from:fields.from.value,to:fields.to.value,...(fields.currency.value.trim()?{currency:fields.currency.value.trim().toUpperCase()}:{})},result=await request(`/api/sales/forecast?${new URLSearchParams(filters)}`);if(token!==generation||!form.isConnected)return;resultBox.replaceChildren();appendForecastResult(resultBox,result);appendForecastSnapshotForm(resultBox,result,filters);appendForecastScenario(resultBox,result,filters);notice.textContent='Prognose berekend uit vastgelegde verkoopkansen.';}catch(error){if(token===generation)notice.textContent=friendlyError(error);}finally{calculate.disabled=false;}});
   }
 
+  function appendCreativeReviewRequest(record,parent,content) {
+    const details=node('details');details.append(node('summary','','Inhoud laten beoordelen'));
+    const form=node('form'),reviewerLabel=node('label','','Beoordelaars, in volgorde (gebruikers-ID’s)'),reviewers=node('input'),reasonLabel=node('label','','Onderbouwing'),reason=node('textarea'),confirmLabel=node('label','','Ik vraag beoordeling aan van deze inhoud en revisie'),confirm=node('input'),button=node('button','secondary-button','Beoordeling aanvragen'),notice=node('output');
+    reviewers.required=reason.required=confirm.required=true;reviewers.maxLength=1000;reason.maxLength=1000;confirm.type='checkbox';reviewerLabel.append(reviewers);reasonLabel.append(reason);confirmLabel.prepend(confirm);button.type='submit';notice.setAttribute('role','status');form.append(node('p','','Beoordelaars moeten al toegang tot deze creatie en goedkeuringsrechten hebben. Deze aanvraag publiceert niets.'),reviewerLabel,reasonLabel,confirmLabel,button,notice);details.append(form);parent.append(details);const key=crypto.randomUUID();
+    form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{await request(`/api/marketing/creatives/${encodeURIComponent(record.id)}/reviews`,{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({expected_revision:record.revision,approval_steps:reviewers.value.split(',').map(x=>x.trim()).filter(Boolean),reason:reason.value,confirm:confirm.checked})});notice.textContent='Vastgelegd onder Creative reviews. De creatie is niet gepubliceerd.';}catch(error){notice.textContent=friendlyError(error);button.disabled=false;}});
+  }
+  function appendCreativeReview(record,parent,content) {
+    const details=node('details');details.append(node('summary','','Inhoud en beoordelingen'),node('p','',`Bronrevisie ${record.creative_revision} · ${record.reason} · volgorde: ${record.approval_steps.join(' → ')}`),node('pre','',record.creative_snapshot.content),node('p','','Interne inhoudsbeoordeling. Geen providerpublicatie uitgevoerd.'));
+    for(const review of record.reviews)details.append(node('p','',`${review.actor_id}: ${review.decision} · ${review.reason}`));if(record.withdrawal_reason)details.append(node('p','',record.withdrawal_reason));parent.append(details);
+    if(record.status!=='APPROVAL_REQUIRED')return;
+    const form=node('form'),decisionLabel=node('label','','Besluit'),decision=node('select'),reasonLabel=node('label','','Reden'),reason=node('textarea'),confirmLabel=node('label','','Ik bevestig deze beoordelingsrevisie'),confirm=node('input'),save=node('button','secondary-button','Besluit vastleggen'),withdraw=node('button','secondary-button','Aanvraag intrekken'),notice=node('output');
+    for(const [value,label] of [['APPROVE','Inhoud goedkeuren'],['REJECT','Afwijzen']]){const option=node('option','',label);option.value=value;decision.append(option);}decisionLabel.append(decision);reason.required=true;reason.maxLength=1000;reasonLabel.append(reason);confirm.type='checkbox';confirm.required=true;confirmLabel.prepend(confirm);save.type='submit';withdraw.type='button';notice.setAttribute('role','status');form.append(decisionLabel,reasonLabel,confirmLabel,save,withdraw,notice);details.append(form);const key=crypto.randomUUID(),withdrawKey=crypto.randomUUID();
+    form.addEventListener('submit',async event=>{event.preventDefault();save.disabled=true;try{await request(`/api/marketing/creative_reviews/${encodeURIComponent(record.id)}/approve`,{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({expected_revision:record.revision,decision:decision.value,reason:reason.value,confirm:confirm.checked})});await renderDomainSection('creative_reviews',content);}catch(error){notice.textContent=friendlyError(error);save.disabled=false;}});
+    withdraw.addEventListener('click',async()=>{if(!form.reportValidity())return;withdraw.disabled=true;try{await request(`/api/marketing/creative_reviews/${encodeURIComponent(record.id)}/withdraw`,{method:'POST',headers:{'idempotency-key':withdrawKey},body:JSON.stringify({expected_revision:record.revision,reason:reason.value,confirm:confirm.checked})});await renderDomainSection('creative_reviews',content);}catch(error){notice.textContent=friendlyError(error);withdraw.disabled=false;}});
+  }
+
   async function renderProcurementComparison(record,content,notice) {
     try {
       const comparison=await request(`/api/procurement/rfqs/${encodeURIComponent(record.id)}/comparison`),panel=node('div','bid-comparison');
@@ -952,14 +969,16 @@
         if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
         edit.addEventListener('click',()=>{editing=record;const packConflict=Boolean(record.industry_field_pack_id&&record.industry_field_pack_id!==contract.industry_id);for(const [name,{input}] of industryInputs){input.value=packConflict?'':String(record.industry_fields?.[name]??'');input.disabled=packConflict;}notice.textContent=packConflict?'Bewaarde branchevelden blijven behouden. Herstel het oorspronkelijke pakket om ze te bewerken.':'';for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):name==='recurrence'?`${record[name].frequency},${record[name].count}`:Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
+        if(state.workspaceId==='marketing'&&entity==='creatives'&&!['APPROVED_INTERNAL','ARCHIVED'].includes(record.status))appendCreativeReviewRequest(record,cell,content);
+        if(state.workspaceId==='marketing'&&entity==='creative_reviews')appendCreativeReview(record,cell,content);
         if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',()=>renderProcurementComparison(record,content,notice));cell.append(compare);}
         if(state.workspaceId==='procurement'&&entity==='orders'&&!['APPROVED_INTERNAL','ARCHIVED','CANCELLED'].includes(record.status)){const prepare=node('button','secondary-button','Order ter beoordeling');prepare.type='button';prepare.addEventListener('click',()=>prepareProcurementAward({order_id:record.id},null,cell));cell.append(prepare);}
         if(state.workspaceId==='procurement'&&entity==='awards')appendAwardReview(record,cell,content);
         if(state.workspaceId==='sales'&&entity==='forecast_snapshots'){const detail=node('details');detail.append(node('summary','','Bewaarde prognose'));appendForecastResult(detail,record.forecast);cell.append(detail);}
-        if(!['messages','notifications','awards','forecast_snapshots'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
+        if(!['messages','notifications','awards','forecast_snapshots','creative_reviews'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
       }
       const summary=node('p','',`${result.total} records${result.next_offset!==null?' · eerste 100 getoond':''}`);
-      const children=[summary];if(!['messages','notifications','awards','forecast_snapshots'].includes(entity))children.push(form);
+      const children=[summary];if(!['messages','notifications','awards','forecast_snapshots','creative_reviews'].includes(entity))children.push(form);
       children.push(rows.length?table:node('div','EmptyState','Nog geen records in dit onderdeel.'));
       replaceChildren(content,children);
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}
