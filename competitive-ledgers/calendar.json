@@ -90,13 +90,14 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO reads independent calendar data; existing appointment request tooling is preserved.",
+      "foundly_current": "ZERO reads independent calendar data; existing appointment request tooling is preserved. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart.",
       "gap": "Structured creation from natural language and verified provider synchronization need more integration.",
       "required_change": "Use typed date/participant schemas and explicit confirmation for ambiguous appointments.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "domain-zero-replay-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

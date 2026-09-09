@@ -86,13 +86,14 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO draft summaries and existing safe drafting paths exist.",
+      "foundly_current": "ZERO draft summaries and existing safe drafting paths exist. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart.",
       "gap": "Consent-aware approved execution and reply/forward verification need complete integration.",
       "required_change": "Build input-bound send approval, provider transport and durable receipt processing.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "domain-zero-replay-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
