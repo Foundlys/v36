@@ -3,7 +3,7 @@
   async function load(api,params,kpiIds){
     const {resolution}=await api('/api/composition');
     if(!resolution.visible_modules.includes('analysis'))throw Object.assign(new Error('Analytics is niet beschikbaar voor deze gebruiker'),{status:403});
-    const caps=new Set(resolution.capabilities),components={},dashboard={kpis:{}},result={dashboard,components,platform:null,connectors:null,automation:null,events_enabled:caps.has('analysis:events')};
+    const caps=new Set(resolution.capabilities),components={},dashboard={kpis:{}},result={dashboard,components,platform:null,connectors:null,automation:null,events_enabled:caps.has('analysis:events'),cohorts_enabled:caps.has('analysis:events')&&caps.has('analysis:reports')};
     async function fetchPart(name,path,enabled,apply){if(!enabled){components[name]={status:'DISABLED'};return;}try{const value=await api(path);apply(value);components[name]={status:'AVAILABLE'};}catch(error){components[name]={status:'ERROR',message:error.message,status_code:error.status||null};}}
     const operations=[fetchPart('platform','/api/platform/status',true,value=>{result.platform=value;}),fetchPart('connectors','/api/platform/connectors',true,value=>{result.connectors=value;}),fetchPart('automation','/api/automation/status',resolution.visible_modules.includes('automation')&&caps.has('automation:workflows')&&caps.has('automation:runs'),value=>{result.automation=value;})];
     if(['kpis','events','funnel','reports'].every(name=>caps.has('analysis:'+name))){

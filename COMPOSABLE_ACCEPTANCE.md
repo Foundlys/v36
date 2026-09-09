@@ -204,3 +204,7 @@ The subsequent industry preset increment passes full npm test. It adds declarati
 ## Dashboard persistence rollback — 2026-09-09
 
 A genuine isolated filesystem failure reproduced a rejected dashboard write remaining in memory. Dashboard writes and resets now use the existing scoped transaction primitive for their layout and audit buckets. Failed persistence restores both; a later graceful process flush cannot commit the rejected state. Authenticated failure/restart tests also preserve unrelated team dashboards and verify successful reset replay. The full regression passed. This increment preserves existing revision semantics; additional concurrent-edit handling remains open. Production was untouched.
+
+## Reconnection and cohort checkpoint — 2026-09-09
+
+The restored runtime contained an older snapshot. Its original worktree and pending order-review edits were preserved. The complete GitHub-tested tree was recovered by blob/tree hashes in a separate worktree; all prior source hashes matched. See RECOVERY_20260909_RECONNECTED.md. The interrupted cohort work was reconstructed and completed, including correction of its duplicate invalid-event count and static client route. Unit and authenticated Analysis-only API tests pass, and the full npm test suite exited 0 on this exact source set. No frozen engines changed. Browser and full masterbuild acceptance remain incomplete; production was untouched.

@@ -1,0 +1,13 @@
+# Reconnected execution checkpoint
+
+The returned filesystem was an older snapshot: original worktree `/workspace/scratch/3940532561c2`, branch `feature/composable-os-execution`, HEAD `30c516b147faf5643a89c6e6ce03ab75b64db0fc`, six modified tracked files and the untracked procurement order-review test. Staging and stashes were empty. This original worktree remains untouched. Its refs, binary patches and untracked files were additionally archived under `/workspace/scratch/f5fdbfd82296/recovery/reconnected-20260909T062419`.
+
+Canonical repository: `Foundlys/v36`. Remote main is still `073f03041b72a1c35c7559e116c3e0cd4aa0db02`. Remote feature branch and draft PR15 both point to `385a0bf6c728ea4ea18323364c55fa2f486026b3`. GitHub Actions run 73, ID 34317889583, succeeded on that head. All remote branches were inspected; none supersedes this masterbuild branch.
+
+The complete published tree `01c939f7444b1d24fe9df63fefe49cb221db975b` was recovered from verified Git objects into this separate worktree. Every blob and tree SHA matched. Every source SHA256 in COMPOSABLE_TEST_EVIDENCE.json matched. Local recovery branch: `recovery/composable-os-reconnected`; initial local HEAD `f907fed2a87593fbb296b4138767042a3a7ff11a`. This commit preserves the available older local history and the exact published tree; the canonical incremental history remains on GitHub. No reset, clean, rebase, forced update or overwrite of unpublished work was used.
+
+The old pending order-review changes are earlier versions of the reviewed and hardened order workflow already present in the recovered published tree. They remain archived; they are not reapplied over newer passing implementations. The authoritative uploaded masterprompt was recovered from the older upload with matching SHA256 `772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f`.
+
+Exact interruption: uncommitted Analytics cohort code/UI had been written, but the filesystem snapshot no longer contains those files. The attempt to write its test failed when the execution transport disconnected, so no cohort test completed. Recover these bounded changes from the recorded tool patches, finish focused and full regressions, then publish a new exact tested tree. No completed functionality is rebuilt. The last contiguous completed masterbuild gate remains Phase 1; later gates remain partial as recorded.
+
+Production was not modified. A fresh public readiness observation returned HTTP 200, version 6.0.0, PASS; the parallel health request timed out. Browser acceptance remains unproven. No active application/test process was found in the recovered environment.

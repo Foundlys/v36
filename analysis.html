@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/business-workspaces.css">
   <link rel="stylesheet" href="/foundly-shell.css">
   <script src="/analysis-loading.js" defer></script>
+  <script src="/analysis-cohorts-client.js" defer></script>
   <script src="/analysis-script.js" defer></script>
   <script src="/foundly-shell.js" defer></script>
 </head>
@@ -28,7 +29,7 @@
       <a href="#funnel">Leads</a>
       <a href="#history">Customers</a>
       <a href="#sources">Sources</a>
-      <a href="#history">Cohorts</a>
+      <a href="#cohorts">Cohorts</a>
       <a href="#sources">Data Quality</a>
       <a href="#analysisAutomation">Alerts</a>
       <a href="#overview">Dashboards</a>
@@ -56,6 +57,18 @@
       <article class="panel" id="funnel"><header class="panel-head"><div><p class="eyebrow">FULL JOURNEY</p><h2>Commerciële funnel</h2><p class="panel-subtitle">Van advertentie tot betaalde omzet, uitsluitend canonical events.</p></div><span class="panel-badge" id="funnelSource">CANONICAL</span></header><div class="funnel" id="analysisFunnel"></div></article>
       <article class="panel" id="events"><header class="panel-head"><div><p class="eyebrow">EVENT BUS</p><h2>Realtime eventfeed</h2><p class="panel-subtitle" id="eventFreshness">Freshness onbekend</p></div><span class="panel-badge">SSE</span></header><div class="stack" id="analysisEvents"></div></article>
       <article class="panel wide" id="history"><header class="panel-head"><div><p class="eyebrow">INCREMENTAL ROLLUPS</p><h2>Historische aggregatie</h2><p class="panel-subtitle">Materiële dagsamenvattingen; geen volledige eventscan in de browser.</p></div><span class="panel-badge" id="rollupCount">0 BUCKETS</span></header><div class="table-shell"><table><thead><tr><th>Dag</th><th>Event</th><th>Bron</th><th>Aantal</th><th>Laatst ontvangen</th></tr></thead><tbody id="analysisHistory"></tbody></table><div class="empty hidden" id="analysisHistoryEmpty"></div></div></article>
+      <article class="panel wide" id="cohorts">
+        <header class="panel-head"><div><p class="eyebrow">COHORTANALYSE</p><h2>Instroom en terugkeer</h2><p class="panel-subtitle">Eerste toegankelijke instroom in de bewaarde historie. Identiteiten blijven gescheiden per bron; er wordt geen persoon of koppeling afgeleid.</p></div></header>
+        <form id="cohortForm"><fieldset class="toolbar" disabled><legend>Cohortdefinitie</legend>
+          <label>Instroomevent<input name="acquisition_event" required maxlength="80" placeholder="Canonical eventnaam"></label>
+          <label>Terugkeerevent<input name="return_event" required maxlength="80" placeholder="Andere canonical eventnaam"></label>
+          <label>Identiteit<select name="identity_field"><option value="customer_id">Klant-ID</option><option value="lead_id">Lead-ID</option><option value="anonymous_id">Anonieme ID</option><option value="session_id">Sessie-ID</option></select></label>
+          <label>Vanaf (UTC)<input type="date" name="from" required></label><label>Tot, exclusief (UTC)<input type="date" name="to" required></label>
+          <label>Periode<select name="interval_days"><option value="1">1 dag</option><option value="7" selected>7 dagen</option><option value="30">30 dagen</option></select></label>
+          <label>Vervolgperioden<input type="number" name="periods" min="1" max="12" value="4" required></label><button class="primary" type="submit">Berekenen</button>
+        </fieldset></form>
+        <p id="cohortNotice" role="status">Kies expliciet de eventnamen en een periode. Periode 0 telt terugkeer binnen het instroominterval.</p><div class="table-shell" id="cohortOutput"></div>
+      </article>
       <article class="panel" id="sources"><header class="panel-head"><div><p class="eyebrow">PROVENANCE</p><h2>Bronnen &amp; connectors</h2></div><span class="panel-badge">TRUTHFUL STATUS</span></header><div class="source-grid" id="analysisSources"></div></article>
       <article class="panel" id="analysisAutomation"><header class="panel-head"><div><p class="eyebrow">AUTOMATION</p><h2>Uitvoeringsstatus</h2></div><span class="panel-badge">AUDITED</span></header><div class="stack" id="analysisAutomationContent"></div></article>
     </section>
