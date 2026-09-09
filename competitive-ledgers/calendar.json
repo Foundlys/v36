@@ -57,9 +57,9 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Strict offset-bearing civil dates reject invalid rollover and sub-millisecond precision. Recurrence uses observed IANA offsets, refuses ambiguous or nonexistent generated wall times including half-hour changes and skipped days, preserves milliseconds and elapsed duration, and retains conflict behavior after encrypted restart.",
-      "gap": "Recurrence form interval preservation, broader scheduling UX, external-calendar reconciliation and browser acceptance remain open.",
-      "required_change": "Preserve recurrence interval and explicit removal in the actual form; validate real calendar adapters with owner authorization and complete browser acceptance.",
+      "foundly_current": "Strict offset-bearing civil dates reject invalid rollover and sub-millisecond precision. Recurrence uses observed IANA offsets, refuses ambiguous or nonexistent generated wall times including half-hour changes and skipped days, preserves milliseconds and elapsed duration, and retains conflict behavior after encrypted restart. Actual typed recurrence controls preserve interval and explicit removal; shared strict model and authenticated HTTP/restart tests pass.",
+      "gap": "External calendar reconciliation, broader scheduling workflows and browser acceptance remain open.",
+      "required_change": "Validate real calendar adapters with authorized access and complete actual scheduling/browser acceptance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",

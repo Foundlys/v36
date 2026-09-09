@@ -85,7 +85,7 @@ const WORKSPACE_DEFINITIONS = Object.freeze({
     eyebrow: 'OMNICHANNEL OPERATIONS', description: 'Audited inbox, calendar, voice and notification surfaces.',
     sections: ['OVERVIEW', 'DRAFTS', 'MESSAGES', 'THREADS', 'TEMPLATES', 'PREFERENCES', 'INBOX', 'EMAIL', 'WHATSAPP', 'CALENDAR', 'VOICE', 'NOTIFICATIONS', 'AUTOMATIONS', 'AUDIT'],
     domain_entities: BUSINESS_DOMAINS.communication.entities, domain_required_fields: BUSINESS_DOMAINS.communication.required,
-    default_widgets: [widget('messages', 'Messages'), widget('inbound', 'Inbound'), widget('outbound', 'Outbound'), widget('unread', 'Unread'), widget('appointments', 'Calendar events'), widget('communication_channels', 'Channel availability', 'CONNECTOR', 6), widget('recent_communication', 'Recent communication', 'TABLE', 6, 5), widget('voice_status', 'Voice status', 'STATUS')]
+    default_widgets: [widget('drafts', 'Drafts'), widget('messages', 'Recorded messages'), widget('inbound', 'Recorded inbound'), widget('outbound', 'Recorded outbound'), widget('unread', 'Recorded unread'), widget('appointments', 'Calendar events'), widget('communication_channels', 'Channel availability', 'CONNECTOR', 6), widget('recent_communication', 'Recorded communication', 'TABLE', 6, 5), widget('voice_status', 'Voice status', 'STATUS')]
   },
   marketing: {
     id: 'marketing', route: '/marketing', label: 'Marketing', short_label: 'Marketing', capability: 'marketing', module_id: 'social_media',

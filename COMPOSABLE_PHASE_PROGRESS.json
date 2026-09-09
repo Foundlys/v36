@@ -57,7 +57,7 @@
       "phase": 8,
       "name": "CRM",
       "status": "PARTIAL",
-      "evidence_or_gap": "Existing engine and isolated configuration pass; competitive and full identity/UI acceptance remain"
+      "evidence_or_gap": "Preserved CRM engine and standalone configuration pass. Current member authority now survives body-await boundaries: revoked creates, suspended updates and special dashboard requests leave no record/audit mutation through restart. A separate current-source ZERO replay defect was reproduced and is the next security task; custom-object/UI/competitive acceptance remain."
     },
     {
       "phase": 9,
@@ -81,13 +81,13 @@
       "phase": 12,
       "name": "Calendar",
       "status": "PARTIAL",
-      "evidence_or_gap": "Current-planner reminders, failure isolation/nonstarvation and encrypted restart pass. Strict dates and offset-aware recurrence now cover half-hour/full-hour ambiguity, gaps, skipped days and exact milliseconds with real HTTP conflict/restart proof. Recurrence form interval preservation, external reconciliation and browser acceptance remain."
+      "evidence_or_gap": "Current-planner reminders, failure isolation, strict civil dates, half-hour/full-hour recurrence and encrypted restart pass. Actual typed recurrence form preserves intervals and explicit removal through a shared contract. External reconciliation, remaining scheduling UX and browser acceptance remain."
     },
     {
       "phase": 13,
       "name": "Communication",
       "status": "PARTIAL",
-      "evidence_or_gap": "Own drafts/templates/preferences; mail authorization, delivery, attachments and collaboration remain"
+      "evidence_or_gap": "Owned drafts/templates/preferences. Dashboard separates unsent drafts from retained messages, respects independent capabilities/private owners and reports missing or incomplete counts honestly through encrypted restart. Mail authorization, delivery, attachments and collaboration remain."
     },
     {
       "phase": 14,

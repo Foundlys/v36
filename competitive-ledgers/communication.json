@@ -2,7 +2,7 @@
   "schema_version": "foundly-competitive-ledger/1.0.0",
   "version": "1.0.0",
   "module": "communication",
-  "assessed_at": "2026-09-05",
+  "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -22,13 +22,15 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Owned drafts, templates, threads and preferences with permissions and safe empty inbox.",
+      "foundly_current": "Owned drafts, templates, threads and preferences with permissions and safe empty inbox. Dashboard now separates drafts from retained messages, respects current private owners and independent capabilities, and makes missing classification/incomplete page counts unavailable rather than measured zero. No external mailbox completeness or verified delivery is inferred.",
       "gap": "Collaborative editing, attachments, reply/forward and complete inbox workflows remain incomplete.",
       "required_change": "Complete message/thread contracts and safe attachment/reference handling.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "communication-snapshot-test.js",
+        "communication-snapshot-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

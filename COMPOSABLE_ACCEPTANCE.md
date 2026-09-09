@@ -260,3 +260,17 @@ Focused tests and full npm test exited 0: revocation, suspension, explicit recip
 Reproduced defects included silent February 30 rollover, unreported half-hour ambiguity and lost milliseconds on subsequent occurrences. A shared Calendar time contract now rejects invalid civil dates before writes/queries and resolves generated wall times against actual nearby IANA offsets. Ambiguous/gap occurrences require correction or explicitly offset one-off events. Elapsed duration and milliseconds are preserved. Existing records are not rewritten.
 
 Unit and authenticated API tests cover leap dates, full/half-hour transitions, a skipped civil day, weekly intervals, rejected-edit source/revision preservation, recurring conflicts and encrypted restart. Full npm test exited 0. Previous principal checkpoint passed CI run 83. This is local/runtime timezone evidence, not external-calendar reconciliation or browser acceptance. The next verified UI gap is the edit form dropping the stored recurrence interval. Production was untouched.
+
+## Calendar editor and Communication counts — 2026-09-09
+
+The actual Calendar form now has typed frequency/count/interval controls. Shared browser/server normalization preserves a two-week interval during edits, explicitly removes recurrence with null, and refuses unsupported rules. Authenticated API tests verify the protected asset, unchanged intervals, removed future conflicts and encrypted restart. Browser interaction remains unproven.
+
+An authenticated test reproduced an unsent Communication draft counting as a message. The dashboard now reports drafts separately and derives message counts only from accessible retained message records. Missing classification and incomplete page coverage yield unavailable counts; independently disabled draft/inbox capabilities do not remove unrelated accessible components. Real member/private-owner, revocation, encrypted restart and bounded pure projection tests pass. Full npm test exited 0. Prior date checkpoint passed CI run 84. No production mutation.
+
+During this regression, a separate isolated CRM reproduction confirmed that revoking a member while a request body is pending produces HTTP 401 after a lead has already entered memory. Existing regression did not cover this. Exact next action: preserve dynamic current identity through the CRM principal adapter and verify no mutation, audit or persisted record on pending-request revocation. This checkpoint is not full security acceptance.
+
+## CRM current request authority — 2026-09-09
+
+An authenticated partial-body request reproduced HTTP 401 after a lead had already entered memory following role revocation. The CRM principal adapter now preserves the underlying current member getters instead of copying roles/identity before await. Composition and engine entry checks therefore reject before mutation. The frozen CRM engine is unchanged.
+
+Tests cover revoked create, suspended update and the special dashboard route; records and CRM audit remain identical before/after refusal and encrypted restart. Ordinary authorized CRM operations and full npm test pass. A separate isolated test subsequently reproduced a CRM source-access leak on ZERO result replay after role downgrade. Exact next task is read-result revalidation and source-safe conversation output; full security/product acceptance is not claimed. No production mutation.

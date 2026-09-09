@@ -20,11 +20,10 @@ const INTERNAL_STATUSES = new Set(['DRAFT','OPEN','QUALIFIED','WON','LOST','CANC
 const OWNED_FIELDS = new Set(['cohort_definition','title','name','content','description','status','value_cents','cost_cents','currency','probability','supplier_id','opportunity_id','pipeline_id','stage_id','stages','owner_id','start_at','end_at','timezone','participants','calendar_id','recurrence','thread_id','to','subject_id','purpose','legal_basis','related_refs','industry_fields','due_at','direction','consent_status','filters','hypothesis','success_metric','budget_cents','rfq_id','rfq_revision','lines','evidence_reference','minimum_value_cents','approval_steps','allow_self_approval','expected_close_date','closed_date','forecast_category','period_start','period_end','target_cents']);
 const {timestamp,timezone,wallParts,wallNumber,fromWall}=require('./calendar-time');
 function occurrences(row) {
-  const start=timestamp(row.start_at),end=timestamp(row.end_at),rule=row.recurrence;
+  const start=timestamp(row.start_at),end=timestamp(row.end_at),rule=require('./calendar-recurrence').normalize(row.recurrence);
   if(end<=start)fail('date_order_invalid','Einde moet na start liggen');
   if(!rule)return [{start_at:new Date(start).toISOString(),end_at:new Date(end).toISOString()}];
-  const count=Number(rule.count),interval=Number(rule.interval||1),frequency=String(rule.frequency||'').toUpperCase();
-  if(!['DAILY','WEEKLY'].includes(frequency)||!Number.isInteger(count)||count<1||count>104||!Number.isInteger(interval)||interval<1||interval>12)fail('recurrence_invalid','Gebruik DAILY/WEEKLY met een begrensd aantal herhalingen');
+  const {count,interval,frequency}=rule;
   const parts=wallParts(start,row.timezone),result=[];
   for(let i=0;i<count;i++){
     const date=new Date(wallNumber(parts)+(frequency==='WEEKLY'?7:1)*interval*i*86400000);
@@ -60,6 +59,7 @@ class BusinessDomain {
       timezone(next.timezone);if(!/(?:Z|[+-]\d{2}:\d{2})$/.test(next.start_at)||!/(?:Z|[+-]\d{2}:\d{2})$/.test(next.end_at))fail('date_offset_required','Start en einde moeten een UTC-offset bevatten');
       if(timestamp(next.end_at)<=timestamp(next.start_at))fail('date_order_invalid','Einde moet na start liggen');
       if(next.participants&&!Array.isArray(next.participants))fail('participants_invalid','Deelnemers moeten een lijst zijn');
+      if(Object.hasOwn(next,'recurrence'))next.recurrence=require('./calendar-recurrence').normalize(next.recurrence);
       occurrences(next);
     }
     if(this.id==='calendar'&&entity==='calendars')timezone(next.timezone);
