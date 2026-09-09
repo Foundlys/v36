@@ -62,8 +62,8 @@
     "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
-    "foundly-workspace.html": "56741df4428f77765394987a05f6d6689359bc7e2d46ba9ade90161ec28b0ccd",
-    "foundly-workspace.js": "cbf4a977acd8a1119157afc649c0d0a37b746c911e137e1fee216a371c2d8507",
+    "foundly-workspace.html": "35fa03adda7597b88c0b4f27aa1f03d3b29a7c536772ac0f87106cd10e4e0964",
+    "foundly-workspace.js": "b1e22b2bfa7265379e730c8764487fc7db8e0a3db8f8c1da9df7dd87d5ddb516",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -88,7 +88,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "ec3a28fcbeb5f9f3fba0dfaffb2e15868a58da077f68b0787f5c1e607de3165b",
+    "package.json": "ba20b2fec3dc8381597129e625c6aba851d3b53f251315a2db9d46d8f7013d94",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -119,7 +119,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "522c81811d56503fc4c1757415105a92f9a4efafb09bfc4d42d24decc1c3ebd8",
+    "server.js": "a93f52bf14d76ee8a5607aeef8cbcdf5955a78da4ef111d2cd67c65d7c3dd8e4",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -129,6 +129,7 @@
     "tenant-identities.js": "218b67f91aa6655298839b759e475bab638a4655d05732eb6f529df99d8f955d",
     "tenant-identity-api-test.js": "e3f22de92275a862d5beccea701115097147bc4fd5a4ce52882de786445f2c6c",
     "tenant-identity-api.js": "1ed89f5a567dc8de75a6beea36aafa903191f66a6d033df500bd7ee966bac841",
+    "tenant-identity-bootstrap-api-test.js": "2f42b562e17493d6c216fec605b97cea199698f287f0084cc6dcb7bd2d24c9fe",
     "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
     "test-composition-context-mock.js": "7ae21e829929286bf40027c410a84cff00d806bbb2bed8f5e0c9c71ac21f1133",
     "test-dashboard-persist-fault.js": "b45bd1a8db61937cf79687c2740a9d552b3fce5eaf7724c59c4f7a03d014fca1",
@@ -162,13 +163,15 @@
     "workflow-run-query-test.js": "dd1dce988d80094fa35a7a84528285189c48a81f865c14ad3684fa54c30d3af7",
     "workflow-run-query.js": "d434a1cde6e43c6465793be75bcca87b26037a3d586ef98ce567720c43ceaa9f",
     "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
-    "workspace-dashboard-concurrency-test.js": "498b885f445702910e2369beb14680636c1977f1152d4c8d2acbdddb7986c639",
+    "workspace-dashboard-concurrency-test.js": "2b0986ce4bb3a4b77ed647b1d31936fd8a93ab566eccaf2a1f4f0ba747d01018",
     "workspace-dashboard-persistence-test.js": "2235fec5a9696835ea7619895149eb2a400264771b0b8ab282dbf1e564765092",
+    "workspace-dashboard-session-test.js": "1aee5058c54293d9465feba7129b25ee25d8609f928e263984a102ba4442d01b",
+    "workspace-dashboard-session.js": "9d08ce29b78320493e64e984f358b535f6de8271073a3f51020d9ccfcaae4e83",
     "workspace-section-model.js": "8cca6633495bfd876cd8a09b1cf8de023da95de42917cdde2dd3a013f895951b",
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "11c6e592b4129ea0e3e8f16a69b2cd9f0e380578ac2ec6ad2a9ab8f85be3f651",
+  "output_sha256": "52d5a7eba6299fc90c08a144e392740d1b4f12bf3828a99e0a944a954e6b90b0",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -440,7 +443,9 @@
     "Cohort definition private ownership, current event/report revocation, stale revision refusal, rollback, encrypted HTTP restart, archive and retained export pass; the actual UI supports named save/load and paginated discovery",
     "Fresh browser connection succeeded but local acceptance navigation to /login was rejected by ERR_BLOCKED_BY_CLIENT; browser acceptance is still not proven. An isolated fixture was used and terminated; no production credentials or state changed",
     "Actual ZERO turn uses an explicitly selected saved cohort revision; dynamic tool access consumes both reports and events. Conversation/audit retain only a reference and generic response. Replays recompute current source ACL after role downgrade and encrypted restart; foreign selection, stale definition and revoked capability are refused without business effects",
-    "Read-only Sales probability scenarios retain original source records, exact cent rounding, separate currencies and missing-data nulls; immutable scenario snapshots bind current source/target basis and explicit assumptions, with owner/revision denial, replay, rollback, encrypted restart and retained export"
+    "Read-only Sales probability scenarios retain original source records, exact cent rounding, separate currencies and missing-data nulls; immutable scenario snapshots bind current source/target basis and explicit assumptions, with owner/revision denial, replay, rollback, encrypted restart and retained export",
+    "Dashboard session controller rejects stale loads and cross-scope saves, detaches outgoing payloads, serializes saves and preserves edits made while saving with the new acknowledged revision; protected helper delivery and existing server concurrency tests pass",
+    "Actual pre-configuration account creation/directory access is already refused with identity_composition_required. The suspected real-member legacy bypass did not reproduce; no authorization code was changed. New HTTP coverage verifies zero partial account creation, bootstrap setup, real session isolation and restart"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -452,7 +457,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-sales-scenarios-regression.log",
+  "output_file": ".recovery-evidence/20260909-dashboard-session-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -465,10 +470,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "afca5a996e21d73206450f2ee61e6cb29fee82aa",
-    "tree": "079d876cf3587e960e9b2e0a75a3f73ce22abef8",
-    "run": 79,
-    "run_id": 34322548812,
+    "head": "3f49d700466feac8b2edc80620057bd93cabb2fc",
+    "tree": "216f1a458832cb8e3cca17f38ecf6006f2b9bebc",
+    "run": 80,
+    "run_id": 34323209469,
     "conclusion": "success"
   }
 }

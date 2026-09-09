@@ -16,6 +16,7 @@ async function call(route,method='GET',body,extraHeaders={}){const response=awai
 
 (async()=>{try{
  await start();assert.equal((await call('/api/composition','PUT',{entitlements:['procurement'],expected_revision:0})).status,200);
+ const page=(await call('/procurement')).body;assert.ok(page.indexOf('/workspace-dashboard-session.js')<page.indexOf('/foundly-workspace.js'));const asset=await call('/workspace-dashboard-session.js');assert.equal(asset.status,200);assert.ok(asset.body.includes('FoundlyDashboardSession'));assert.equal((await fetch(base+'/workspace-dashboard-session.js')).status,401);
  const route='/api/workspaces/procurement/dashboard',initial=(await call(route)).body.dashboard;
  let result=await call(route,'PUT',{...initial,scope:'PERSONAL',name:'Original'});assert.equal(result.status,201);let saved=result.body.dashboard;
  result=await call(route,'PUT',{...saved,name:'Blind overwrite'});assert.equal(result.status,428,'Existing layouts must reject writes without a revision precondition');

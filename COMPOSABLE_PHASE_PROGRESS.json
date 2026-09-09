@@ -99,7 +99,7 @@
       "phase": 15,
       "name": "Workspace composition",
       "status": "PARTIAL",
-      "evidence_or_gap": "Shared forms, composer and explicit industry presets; dashboard save/reset has atomic rollback and required revisions for existing scopes, with reset tombstones preventing stale resurrection across encrypted restart. Simultaneous writer and create tests pass. Remaining section completeness, UI request ordering and browser acceptance stay open."
+      "evidence_or_gap": "Shared forms, composer and explicit industry presets; atomic dashboard save/reset revisions prevent stale resurrection. The client session controller rejects reordered/cross-scope responses and preserves edits made during a save with revision handoff. Focused controller, authenticated API and full regression pass. Remaining section completeness and actual browser acceptance stay open."
     },
     {
       "phase": 16,
@@ -123,7 +123,7 @@
       "phase": 19,
       "name": "Provisioner/composer",
       "status": "PARTIAL",
-      "evidence_or_gap": "Package preview/apply plus authorized tenant-member enrollment, roles, suspension and retained history; full multi-tenant provisioning/configuration dimensions and browser acceptance remain"
+      "evidence_or_gap": "Package preview/apply plus authorized tenant-member enrollment, roles, suspension and retained history; full multi-tenant provisioning/configuration dimensions and browser acceptance remain Real HTTP pre-configuration invitation/directory refusal and absence of partially created accounts are now verified before successful bootstrap and member enrollment."
     },
     {
       "phase": 20,

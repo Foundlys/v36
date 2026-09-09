@@ -2,6 +2,8 @@
 
 (() => {
   const byId = id => document.getElementById(id);
+  const dashboardSession=window.FoundlyDashboardSession.create();
+  const dashboardSelectionKey=()=>JSON.stringify([state.workspaceId,byId('dashboardScope').value||'PERSONAL',byId('dashboardQualifier').value.trim()]);
   const workspaceId = location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
   const state = {
     workspaceId,
@@ -991,6 +993,7 @@
   }
 
   async function loadWorkspaceData() {
+    const ticket=dashboardSession.beginLoad(dashboardSelectionKey());
     const scope = byId('dashboardScope').value || 'PERSONAL';
     const qualifier = byId('dashboardQualifier').value.trim(), params = new URLSearchParams({ scope });
     if (scope === 'TEAM' && qualifier) params.set('team_id', qualifier);
@@ -1000,6 +1003,7 @@
       request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${params}`),
       request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/snapshot`)
     ]);
+    if(!dashboardSession.finishLoad(ticket))return;
     state.workspace = definition.workspace; state.dashboard = dashboard.dashboard; state.snapshot = snapshot;
     byId('industryDashboardPreset').hidden = !state.workspace.industry_dashboard_presets;
     byId('workspaceEyebrow').textContent = state.workspace.eyebrow;
@@ -1010,22 +1014,27 @@
     const firstTab = byId('workspaceTabs').querySelector('button'); if (firstTab) selectSection(state.workspace.sections[0], firstTab);
   }
 
+  function dashboardDraft() {
+    const scope=byId('dashboardScope').value,qualifier=byId('dashboardQualifier').value.trim();
+    const payload={...state.dashboard,scope,filters:{from:byId('dateFrom').value||null,to:byId('dateTo').value||null,compare:byId('comparePeriod').checked,source:byId('sourceFilter').value||null,status:byId('statusFilter').value||null}};
+    if(scope==='TEAM')payload.team_id=qualifier;if(scope==='ROLE')payload.role=qualifier;return payload;
+  }
   async function saveDashboard() {
-    const scope = byId('dashboardScope').value, qualifier = byId('dashboardQualifier').value.trim();
-    const payload = { ...state.dashboard, scope, filters: { from: byId('dateFrom').value || null, to: byId('dateTo').value || null, compare: byId('comparePeriod').checked, source: byId('sourceFilter').value || null, status: byId('statusFilter').value || null } };
-    if (scope === 'TEAM') payload.team_id = qualifier;
-    if (scope === 'ROLE') payload.role = qualifier;
-    const query = new URLSearchParams({ scope }); if (qualifier) query.set(scope === 'TEAM' ? 'team_id' : 'role', qualifier);
+    let ticket;
     try {
-      const result = await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${query}`, { method: 'PUT', headers: { 'if-match': String(state.dashboard.revision) }, body: JSON.stringify(payload) });
-      state.dashboard = result.dashboard; toggleEditing(false); renderDashboard(); toast('Dashboard tenant- en gebruikersgebonden opgeslagen.');
-    } catch (error) { toast(friendlyError(error), true); }
+      const payload=dashboardDraft();ticket=dashboardSession.beginSave(dashboardSelectionKey(),payload);if(!ticket)return;
+      byId('saveDashboard').disabled=true;const query=new URLSearchParams({scope:payload.scope});if(payload.scope==='TEAM')query.set('team_id',payload.team_id);if(payload.scope==='ROLE')query.set('role',payload.role);
+      const result=await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${query}`,{method:'PUT',headers:{'if-match':String(ticket.draft.revision)},body:JSON.stringify(ticket.draft)});
+      const completion=dashboardSession.finishSave(ticket,result.dashboard,dashboardDraft(),dashboardSelectionKey());if(!completion.applied)return;
+      state.dashboard=completion.dashboard;toggleEditing(completion.dirty);renderDashboard();toast(completion.dirty?'Opgeslagen. Je latere bewerkingen staan nog lokaal; kies opnieuw Opslaan.':'Dashboard tenant- en gebruikersgebonden opgeslagen.');
+    }catch(error){dashboardSession.failSave(ticket);toast(friendlyError(error),true);}
+    finally{byId('saveDashboard').disabled=!state.editing||dashboardSession.saving;}
   }
 
   function toggleEditing(force) {
     state.editing = typeof force === 'boolean' ? force : !state.editing;
     byId('editDashboard').textContent = state.editing ? 'Bewerken sluiten' : 'Dashboard aanpassen';
-    byId('addWidget').disabled = !state.editing; byId('saveDashboard').disabled = !state.editing; renderDashboard();
+    byId('addWidget').disabled = !state.editing; byId('saveDashboard').disabled = !state.editing||dashboardSession.saving; renderDashboard();
   }
 
   async function chooseIndustryPreset(moduleId,kind,apply) {
