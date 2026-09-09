@@ -77,14 +77,17 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Drafts cannot claim sent status; provider records cannot be fabricated through the user CRUD API. Native SMTP status and the generic SMTP profile status now share one conservative projection: credentials mean configured only, never authenticated/connected or send-verified. Arbitrary configured TCP destinations are not probed by the missing mail adapter.",
-      "gap": "An authenticated SMTP/IMAP send/receive adapter and durable message receipt processing are not implemented. Legitimate provider/account access is also absent. This is an implementation gap as well as an external acceptance dependency.",
+      "foundly_current": "Drafts cannot claim sent status; provider records cannot be fabricated through the user CRUD API. Native SMTP status and the generic SMTP profile status now share one conservative projection: credentials mean configured only, never authenticated/connected or send-verified. Arbitrary configured TCP destinations are not probed by the missing mail adapter. Explicit native/generic email test actions now authenticate SMTP using verified TLS on 465 or mandatory STARTTLS on 587. The selected public IPv4 destination is pinned after DNS validation, private/reserved destinations are refused, post-STARTTLS capabilities are reloaded and credentials are never sent before verified TLS. Current connector-management and Communication authority plus configuration fingerprints are rechecked across async boundaries. Successful proof uses existing encrypted storage, expires after fifteen minutes and does not imply inbox access, message send or final delivery. Passive native/generic status reads use the same current proof without starting SMTP connections. The current adapter issues no MAIL, RCPT or DATA commands and requires public IPv4 plus AUTH PLAIN over TLS; IPv6-only and other auth mechanisms remain unsupported.",
+      "gap": "Authenticated SMTP submission of approved content, IMAP receive/synchronization and durable message delivery/receipt reconciliation remain unimplemented. Legitimate provider/account access is also absent. Explicit SMTP authentication has local TLS and authenticated-API proof, but no live account acceptance.",
       "required_change": "Implement an authorized authenticated mail adapter with destination/TLS safeguards, input-bound send policy, durable receipts and reconciliation; then validate with legitimate account access. No test messages to real recipients.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
-        "communication-provider-state-test.js"
+        "communication-provider-state-test.js",
+        "communication-smtp-test.js",
+        "communication-mail-auth-test.js",
+        "communication-mail-auth-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

@@ -206,7 +206,7 @@
     "recovered_tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
     "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
     "production_changes_authorized": false,
-    "next_independent_work": "Communication authenticated mail transport/receipt processing, source-bound send approval and provider-synchronized threading. Retained-message inbox search/personal read/archive and bounded text attachments now pass; broader file formats/scanning and live account/browser acceptance remain open. Do not restart completed work or alter production."
+    "next_independent_work": "Communication source-bound send approval, approved SMTP submission with durable ambiguous-outcome handling, and provider receive/thread/receipt reconciliation. Explicit TLS SMTP authentication, retained inbox search/personal status and bounded text attachments now pass. Preserve remaining ledger gaps and all prior work; no production changes."
   },
   "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
   "execution_overrides": [

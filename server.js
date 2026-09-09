@@ -226,7 +226,7 @@ function makeRuntime({root,registry}){
   function authHeaders(p){const c=p._credentials||{},t=p._tokens||{},h={...(p.headers||{})};if(p.health?.accept&&!h.accept)h.accept=p.health.accept;switch(p.auth_strategy){case'basic':if(c.username||c.password)h.authorization=`Basic ${Buffer.from(`${c.username||''}:${c.password||''}`).toString('base64')}`;break;case'bearer':if(t.access_token||c.access_token||c.api_key)h.authorization=`Bearer ${t.access_token||c.access_token||c.api_key}`;break;case'api_key_header':{const key=c.api_key||c.access_token;if(key)h[p.auth_header||'authorization']=(p.auth_prefix===undefined?'Bearer ':p.auth_prefix)+key;break;}default:if(t.access_token)h.authorization=`Bearer ${t.access_token}`}return h}
   async function status(c,id){const p=merged(id,c);if(!p)return {id,configured:false,connected:false,error:'Onbekende connector'};const cr=p._credentials||{},tk=p._tokens||{};const required=(p.credential_fields||[]).filter(f=>f.required!==false);const configured=p.auth_strategy==='public'||Boolean(tk.access_token)||(required.length>0&&required.every(f=>Boolean(cr[f.key])))||Boolean(cr.api_key||cr.username||cr.client_id||cr.webhook_url||cr.secret);
     const out={id,name:p.naam||id,category:p.categorie||'overig',connection_mode:p.connection_mode,auth_strategy:p.auth_strategy,configured,connected:false,capabilities:p.capabilities||[],error:null};
-    if(p.auth_strategy==='smtp'){const smtp=require('./communication-provider-state');return {...out,...smtp.smtpConfigurationState(smtp.smtpConfigured(cr,id==='email'?cleanEnv:()=>''))};}
+    if(p.auth_strategy==='smtp'){const smtp=require('./communication-provider-state');return {...out,...(id==='email'?MAIL_AUTH.status(c):smtp.smtpConfigurationState(smtp.smtpConfigured(cr)))};}
     if(!configured)return out;if(p.auth_strategy==='webhook'){out.status='configured_waiting_for_verified_delivery';return out}const url=(p.base_url||'').replace(/\/$/,'')+(p.health?.path||'');if(!url){out.error='Base URL/health endpoint nog niet ingesteld';return out}
     try{const r=await safeFetch(url,{method:p.health?.method||'GET',headers:authHeaders(p)});out.connected=r.ok;if(!r.ok)out.error=`HTTP ${r.status}`;}catch(e){out.error=redactJarvisText(e.message)}return out}
   async function oauthStart(req,res,id,u){const c=ctx(req),p=merged(id,c);if(!p)return send(res,404,{error:'Onbekende connector'});const o=p.oauth||{},cr=p._credentials||{};if(!o.authorization_url||!o.token_url)return send(res,409,{error:'OAuth endpoints ontbreken in connectorprofiel; vul ze eenmalig in via PROFIEL'});if(!cr.client_id)return send(res,409,{error:'Client ID ontbreekt'});const callbackPath=`/api/connector-runtime/oauth/${encodeURIComponent(id)}/callback`,redirect=`${origin(req)}${callbackPath}`,gate=oauthStartGate(redirect,callbackPath);if(!gate.ok)return send(res,503,{error:'OAuth start geblokkeerd: productieconfiguratie of persistente state-opslag is niet gereed',code:oauthStartFailureCode(gate),checks:gate.checks});const state=issueState({...c,id,return_to:u.searchParams.get('return_to')||'/?open=integraties'}),q=new URLSearchParams({response_type:'code',client_id:cr.client_id,redirect_uri:redirect,state});if(o.scope)q.set('scope',Array.isArray(o.scope)?o.scope.join(' '):o.scope);for(const [k,v] of Object.entries(o.authorize_params||{}))q.set(k,String(v));res.writeHead(302,{location:`${o.authorization_url}?${q}`,'cache-control':'no-store'});res.end()}
@@ -245,7 +245,7 @@ function makeRuntime({root,registry}){
       if(req.method==='POST'||req.method==='PUT'){const b=await body(req),old=readConfig(c,id);writeConfig(c,id,{...old,credentials:{...(old.credentials||{}),...(b.credentials||{})},profile_overrides:{...(old.profile_overrides||{}),...(b.profile_overrides||{})}});return send(res,200,{ok:true,id})}
       if(req.method==='DELETE'){removeConfig(c,id);return send(res,200,{ok:true,id,removed:true})}
     }
-    if(m&&m[1]==='test'&&req.method==='POST'){const id=decodeURIComponent(m[2]),s=await status(ctx(req),id);return send(res,200,{ok:true,connector:s})}
+    if(m&&m[1]==='test'&&req.method==='POST'){const id=decodeURIComponent(m[2]);if(id==='email'){try{return send(res,200,await MAIL_AUTH.probe(ctx(req),platformPrincipal()));}catch(error){return send(res,error.statusCode||503,{ok:false,code:error.code||'mail_authentication_unavailable',error:'Mailverificatie is niet beschikbaar',external_send:false});}}const s=await status(ctx(req),id);return send(res,200,{ok:true,connector:s})}
     if(m&&m[1]==='sync'&&req.method==='POST'){try{return send(res,200,redactSecrets(await sync(ctx(req),decodeURIComponent(m[2]))))}catch(e){return send(res,502,{error:redactJarvisText(e.message,500)})}}
     const om=u.pathname.match(/^\/api\/connector-runtime\/oauth\/([^/]+)\/(start|callback)$/);if(om){const id=decodeURIComponent(om[1]);if(om[2]==='start')return oauthStart(req,res,id,u);return oauthCallback(req,res,id,u)}
     if(u.pathname==='/api/connector-runtime/status'&&req.method==='GET'){const c=ctx(req),ps=profiles(),rows=[];for(const id of Object.keys(ps))rows.push(await status(c,id));return send(res,200,{ok:true,total:rows.length,configured:rows.filter(x=>x.configured).length,connected:rows.filter(x=>x.connected).length,connectors:rows})}
@@ -478,12 +478,7 @@ async function probeWhatsApp(c={tenant_id:'default',dealer_id:'default'}){
 async function probeWebhook(){const configured=Boolean(cleanEnv('FOUNDLY_WEBHOOK_SECRET'));return {id:'webhooks',configured,connected:false,status:configured?'configured_waiting_for_verified_delivery':'niet_geconfigureerd',error:null};}
 function tcpProbe(host,port,secure=false){return new Promise((resolve,reject)=>{let done=false;const finish=(err)=>{if(done)return;done=true;try{sock.destroy()}catch{};err?reject(err):resolve(true)};const opts={host,port:Number(port),servername:host,rejectUnauthorized:true};const sock=secure?tls.connect(opts,()=>finish()):net.connect({host,port:Number(port)},()=>finish());sock.setTimeout(3500,()=>finish(new Error('SMTP timeout')));sock.on('error',finish)});}
 async function probeEmail(c={tenant_id:'default',dealer_id:'default'}){
-  const rc=CONNECTOR_RUNTIME.readConfig(c,'email')||{},cr=rc.credentials||{};
-  const configured=require('./communication-provider-state').smtpConfigured(cr,cleanEnv);
-  // No authenticated SMTP/IMAP adapter currently supplies a receipt. Opening a
-  // configured TCP socket cannot prove mail connectivity and is not a safe
-  // general-purpose probe of an administrator-supplied destination.
-  return {id:'email',...require('./communication-provider-state').smtpConfigurationState(configured)};
+  return {id:'email',...MAIL_AUTH.status(c)};
 }
 async function probeVoice(c={tenant_id:'default',dealer_id:'default'}){
   const rc=CONNECTOR_RUNTIME.readConfig(c,'voice')||{},cr=rc.credentials||{};const apiKey=cleanEnv('OPENAI_API_KEY')||cleanEnv('VOICE_API_KEY')||cr.api_key||cr.access_token||'';
@@ -611,6 +606,7 @@ const WORKFLOW_DRAFTS=new WorkflowDrafts({bucket:(c,scope)=>arr(records,key(c,sc
 const WORKFLOW_DRAFT_API=createWorkflowDraftApi({drafts:WORKFLOW_DRAFTS,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
 const BUSINESS_DOMAINS=Object.fromEntries(Object.keys(BUSINESS_DOMAIN_DEFINITIONS).map(module=>[module,new BusinessDomain(module,{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),audit:(...args)=>PLATFORM_CORE.audit(...args),memberPrincipal:(c,id)=>IDENTITIES.principal(c,id),memberActive:(c,id)=>IDENTITIES.bucket(c,'members').some(row=>row.id===id&&row.status==='ACTIVE'),draftMember:(c,id)=>{const member=IDENTITIES.bucket(c,'members').find(row=>row.id===id);return member?{id:member.id,display_name:member.display_name}:null;},draftCollaborators:(c,q)=>IDENTITIES.bucket(c,'members').filter(row=>row.status==='ACTIVE'&&String(row.display_name||'').toLowerCase().includes(q.toLowerCase())).slice(0,21).map(row=>({id:row.id,display_name:row.display_name})),publish:(c,actor,event)=>PLATFORM_CORE.ingestEvent(c,{...actor,permissions:[...(actor.permissions||[]),'events:write']},event,{idempotencyKey:event.idempotency_key})},COMPOSITION)]));
 const BUSINESS_DOMAIN_API=createBusinessDomainApi({domains:BUSINESS_DOMAINS,platform:PLATFORM_CORE,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
+const MAIL_AUTH=new (require('./communication-mail-auth').MailAuthentication)(BUSINESS_DOMAINS.communication,{configuration:c=>require('./communication-provider-state').smtpConfiguration(CONNECTOR_RUNTIME.readConfig(c,'email')?.credentials||{},cleanEnv),allowedHosts:()=>env('FOUNDLY_CONNECTOR_ALLOWED_HOSTS').split(',').map(value=>value.trim().toLowerCase()).filter(Boolean)});
 function crmCanonicalEvent(c,event){
   const entity=String(event.meta?.entity||''),recordId=String(event.meta?.record_id||''),record=entity&&recordId?arr(records,key(c,`crm:${entity}`)).find(row=>row.id===recordId):null,type=String(event.type||'');
   let eventName='crm_record_changed';
@@ -731,7 +727,7 @@ function sourceContract(c,mod,statuses){
   return {engine_id:mod,external_sources:{connected,configured,total_connected:connected.length,total_configured:configured.length,claim_basis:'successful_provider_probe_for_this_engine'},foundly_data_layer:{role:'normalized_cache_and_persistence',records:rows.length,provenance_counts:counts},local_persistence:{path_role:'cache_and_normalized_datastore',...storageStatus()},historical_internal_data:{available:counts.historical_internal+memoryRecords>0,records:counts.historical_internal,memory_records:memoryRecords},derived_intelligence:{available:counts.derived_intelligence+decisionRecords>0,records:counts.derived_intelligence,decision_records:decisionRecords}};
 }
 function scopedRecordRows(c,scope){
-  if(scope.startsWith('identity:')||scope==='platform:automation_drafts'||[require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE].includes(scope))return [];
+  if(scope.startsWith('identity:')||scope==='platform:automation_drafts'||[require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-mail-auth').SCOPE].includes(scope))return [];
   const actor=platformPrincipal(),items=arr(records,key(c,scope));if(!COMPOSITION.profile(c))return items;
   if(!scopeVisible(scope,COMPOSITION,c,actor))return [];
   if(scope.startsWith('crm:'))return ENTITY_DEFINITIONS[scope.slice(4)]?crmOwnedRows(c,scope.slice(4)):[];
@@ -1668,6 +1664,7 @@ async function api(req,res,u){
   const testMatch=u.pathname.match(/^\/api\/integration-test\/([^/]+)$/);
   if(testMatch&&req.method==='POST'){
     const c=ctx(req),cid=testMatch[1]; if(!CONNECTOR_REGISTRY[cid])return json(res,404,{error:'Onbekende connector'});
+    if(cid==='email'){try{return json(res,200,await MAIL_AUTH.probe(c,platformPrincipal()));}catch(error){return json(res,error.statusCode||503,{ok:false,code:error.code||'mail_authentication_unavailable',error:'Mailverificatie is niet beschikbaar',external_send:false});}}
     const s=(await universalStatuses(c,true)).list.find(x=>x.id===cid); return json(res,200,{ok:true,connector:s});
   }
   if(u.pathname==='/api/integration-registry'&&req.method==='GET')return json(res,200,{ok:true,total:CONNECTORS.length,connectors:CONNECTORS.map(id=>({id,...CONNECTOR_REGISTRY[id]}))});
