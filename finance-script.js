@@ -2,7 +2,7 @@
 
 const $ = selector => document.querySelector(selector);
 const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
-const state = { status: null, entities: [], dashboard: null, reports: null };
+const state = { loading:null,loadGeneration:0,status: null, entities: [], dashboard: null, reports: null };
 const MONEY_LABELS = { revenue: 'Omzet', gross_margin: 'Brutomarge', operating_result: 'Operationeel resultaat', cash: 'Cash', receivables: 'Debiteuren', payables: 'Crediteuren', overdue: 'Achterstallig', vat_position: 'BTW-positie' };
 
 async function api(path, options = {}) {
@@ -15,7 +15,7 @@ async function api(path, options = {}) {
   return data;
 }
 
-function money(value) { return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value || 0) / 100); }
+function money(value) { if(typeof value!=='number'||!Number.isFinite(value))return 'Niet beschikbaar';return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value || 0) / 100); }
 function formatDate(value) { if (!value) return '—'; const date = new Date(value); return Number.isNaN(date.getTime()) ? '—' : new Intl.DateTimeFormat('nl-NL', { dateStyle: 'medium' }).format(date); }
 function filters() {
   const params = new URLSearchParams();
@@ -25,16 +25,19 @@ function filters() {
   return params;
 }
 
+function unavailable(name){const component=state.loading?.components?.[name];return component?.status==='DISABLED'?'Dit onderdeel is uitgeschakeld of niet beschikbaar binnen je toegang.':component?.status==='ERROR'?'Dit onderdeel kon niet laden: '+component.message:null;}
+
 function renderEntities() {
-  const selected = $('#financeEntity').value;
+  const selected = state.loading?.selected_entity_id||'';
   $('#financeEntity').innerHTML = `<option value="">Alle entiteiten</option>${state.entities.map(entity => `<option value="${escapeHtml(entity.id)}">${escapeHtml(entity.name)}</option>`).join('')}`;
-  if (state.entities.some(entity => entity.id === selected)) $('#financeEntity').value = selected;
-  else if (state.entities.length === 1) $('#financeEntity').value = state.entities[0].id;
+  if(selected&&!state.entities.some(entity=>entity.id===selected))$('#financeEntity').insertAdjacentHTML('beforeend',`<option value="${escapeHtml(selected)}">Bestaand entiteitsfilter behouden</option>`);
+  $('#financeEntity').value=selected;$('#financeEntity').disabled=Boolean(unavailable('entities'));
 }
 
 function renderKpis() {
+  const reason=unavailable('dashboard');if(reason){$('#financeKpis').innerHTML=`<div class="empty">${escapeHtml(reason)}</div>`;return;}
   const widgets = (state.dashboard?.widgets || []).filter(widget => MONEY_LABELS[widget.id]);
-  $('#financeKpis').innerHTML = widgets.map(widget => `<article class="kpi-card"><h2>${escapeHtml(MONEY_LABELS[widget.id])}</h2><strong class="kpi-value">${escapeHtml(money(widget.value_cents))}</strong><span class="kpi-meta">${escapeHtml(state.dashboard.source || 'posted_immutable_journal_entries')}</span></article>`).join('');
+  $('#financeKpis').innerHTML = widgets.map(widget => `<article class="kpi-card"><h2>${escapeHtml(MONEY_LABELS[widget.id])}</h2><strong class="kpi-value">${escapeHtml(widget.available===false?'Niet beschikbaar':money(widget.value_cents))}</strong><span class="kpi-meta">${escapeHtml(state.dashboard.source || 'posted_immutable_journal_entries')}</span></article>`).join('');
 }
 
 function renderPnl() {
@@ -81,7 +84,7 @@ function renderCompliance() {
     ['Uitgaande BTW', money(reports?.vat_summary?.output_vat_cents)],
     ['Voorbelasting', money(reports?.vat_summary?.input_vat_cents)],
     ['BTW-positie', money(reports?.vat_summary?.position_cents)],
-    ['Proefbalans', reports?.trial_balance?.balanced ? 'IN BALANS' : 'NIET IN BALANS'],
+    ['Proefbalans', reports?.trial_balance?.balanced===true?'IN BALANS':reports?.trial_balance?.balanced===false?'NIET IN BALANS':'NIET BESCHIKBAAR'],
     ['Postingcontract', status?.schema?.posting_contract || 'UNKNOWN'],
     ['Inkoopgoedkeuring', status?.schema?.purchase_posting_gate || 'UNKNOWN']
   ];
@@ -97,30 +100,23 @@ function renderJournal() {
 }
 
 async function load(refreshEntities = false) {
+  const generation=++state.loadGeneration;
   const notice = $('#financeNotice');
   notice.className = 'notice';
   notice.textContent = 'Financiële administratie laden…';
   try {
-    if (!state.entities.length || refreshEntities) {
-      const [status, entities] = await Promise.all([api('/api/finance/status'), api('/api/finance/records/legal_entities?limit=100')]);
-      state.status = status;
-      state.entities = entities.items || [];
-      renderEntities();
-    }
-    const params = filters();
-    [state.dashboard, state.reports] = await Promise.all([api(`/api/finance/dashboard?${params}`), api(`/api/finance/reports?${params}`)]);
+    const loaded=await window.FoundlyFinanceLoading.load(api,filters());if(generation!==state.loadGeneration)return;
+    state.loading=loaded;Object.assign(state,{status:loaded.status,entities:loaded.entities,dashboard:loaded.dashboard,reports:loaded.reports});renderEntities();
     renderKpis();
-    renderPnl();
-    renderAging();
-    renderForecast();
-    renderCompliance();
-    renderJournal();
+    const reportError=unavailable('reports');
+    if(reportError){for(const selector of ['#financePnl','#financeJournal'])$(selector).innerHTML='';for(const selector of ['#financePnlEmpty','#financeJournalEmpty']){$(selector).classList.remove('hidden');$(selector).textContent=reportError;}for(const selector of ['#financeAging','#financeForecast','#financeComplianceContent'])$(selector).innerHTML=`<div class="empty">${escapeHtml(reportError)}</div>`;$('#journalCount').textContent='NIET BESCHIKBAAR';$('#financeAgingBadge').textContent='NIET BESCHIKBAAR';}
+    else{renderPnl();renderAging();renderForecast();renderCompliance();renderJournal();}
     const durable = Boolean(state.status?.persistence?.durable);
-    notice.className = `notice${durable ? ' success' : ''}`;
-    notice.textContent = state.entities.length ? `${state.reports.general_ledger.entries.length} geboekte journaalposten geladen · ${durable ? 'duurzame opslag bewezen' : 'duurzame productieopslag niet bewezen'} · ${formatDate(state.reports.observed_at)}` : 'Nog geen legal entity ingericht. Het dashboard toont uitsluitend controleerbare nul- en empty states.';
-    $('#financeConnection').className = 'status-pill live';
-    $('#financeConnection').textContent = 'LEDGER API';
+    notice.className=state.loading.loading_status==='PARTIAL'?'notice error':'notice';
+    notice.textContent=unavailable('reports')||`Financiële rapportages geladen · ${durable?'duurzame opslag bewezen':'duurzame productieopslag niet bewezen'} · ${formatDate(state.reports?.observed_at)}${unavailable('entities')?' · Entiteitenlijst niet beschikbaar; bestaand filter behouden.':''}`;
+    $('#financeConnection').className='status-pill';$('#financeConnection').textContent=state.loading.loading_status==='PARTIAL'?'DEELS BESCHIKBAAR':'API BEREIKBAAR';
   } catch (error) {
+    if(generation!==state.loadGeneration)return;
     notice.className = 'notice error';
     notice.textContent = `Finance niet beschikbaar: ${error.message}`;
     $('#financeConnection').className = 'status-pill error';

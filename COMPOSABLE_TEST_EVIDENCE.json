@@ -22,7 +22,7 @@
     "business-domain-api.js": "11d7fc8c2c269abc3077f0e7f2e2ea226ca69018d5ac452dc88db72300bdf161",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
     "business-domains.js": "f5909f317b1022bb74e5440edb088c38927ae60e250f5e472098d9aae1bb9d9a",
-    "business-workspaces-regression-test.js": "cdd5aabdd528e7722037cb7cdfccc33ce61ae08e6a830d269596748abb68b75d",
+    "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
     "calendar-scheduling-test.js": "6d6e3ab8155062093dbe9ca2afd0f1802ab5bd723de4e448c918411951002fdb",
@@ -44,8 +44,11 @@
     "crm.css": "a5128eaa17af2cb32476e2dbfb4397f5ec2a5a1d5185ba1fce119f01f8024a84",
     "crm.html": "7226e04d5cb6a8c225cd9fbf409c894d9003c837a58a47fbbdfeb3fb31ef7955",
     "finance-core.js": "321c10d6eee403ff331fe44004e938fcfac4a32ead9c025f750c6b9843342222",
-    "finance-script.js": "203bde465086de70ee1e80706da2655a8b1224d6973a7f5b9ec5017350c1a085",
-    "finance.html": "3aded10576c15f52b6522ab3ec34556f6af8bb32e45dd32f8168f549eeb1cf01",
+    "finance-loading-api-test.js": "5a5eeeb74c8c3be1a751b5e3adb7fba7567ff70abd4fb305d1562038959ff2b2",
+    "finance-loading-test.js": "dffe964b45f411fa68cfecc40c33a58f3b8d6cf5d38015d833fc465d3f7afb6c",
+    "finance-loading.js": "f56ad1d1363ed043804d370e2af0e94c5316c643a4d8329a42aef573abacfe45",
+    "finance-script.js": "c1be1ca914595b3ae5dfb73d553de6c8ac3b62180b2e7b62f7d5c45181a2448d",
+    "finance.html": "f67d61e4e79ff1435ac2f28382c80eb8ede899c377765f5b3b3e0bacce2a694c",
     "foundly-masterbuild-regression-test.js": "2f8da2ed741507d57559dda3894c1cd5f6bb2f31388343f02ad794c6606df884",
     "foundly-registry.js": "98055c90eddc39aa7932db307bc12c7c19e233f04d9050e627fcb4b6c754ba93",
     "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
@@ -74,7 +77,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "8e9de7e4ad97fc9b856506e6187411bf12db5448e707de9f8c27c198d20656ba",
+    "package.json": "4aef56d961da52e706c8824cb3537511663f2aa090a07a7739dbc9d03f0dfc1b",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -102,7 +105,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "224f7be340e4b951323e5b9634531688e853e0a2fb8d873cdbd52fdaefa85267",
+    "server.js": "5e7027522443f1871b5ae14af71e47cdba445d11426870385a7186770549846c",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -145,7 +148,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "c9c83caecb377d75f46a1a525b1027a0322aaaf54c9d8c36c0ddd67cff3e8da3",
+  "output_sha256": "75ef356822263ee2e392dfffd9a914a468cd0cf05873f353f31e47fc67503b08",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -395,7 +398,10 @@
     "Analysis page loader now works with Analysis-only entitlement and skips unavailable optional Automation calls; genuine Automation failures stay isolated",
     "Partial Analysis capabilities select only permitted component APIs; disabled and failed parts are distinguished from empty data",
     "HTTP reachability is distinct from verified event-stream connection; no unconditional LIVE API state after a batch request",
-    "Business workspace regression checks both delivered Analysis client files while preserving route, escaping and no-fabricated-data checks"
+    "Business workspace regression checks both delivered Analysis client files while preserving route, escaping and no-fabricated-data checks",
+    "Finance-only page loading independently enforces ledger and reports capabilities; unavailable legal-entity lookup cannot block authorized reports or discard an explicit entity filter",
+    "Missing Finance amounts and failed/disabled components remain unavailable, while genuine zero values are preserved; encrypted HTTP restart and delivered client assets pass",
+    "Finance UI loading changes preserve the frozen accounting engine; no browser acceptance or external accounting outcome is inferred"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -407,7 +413,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-analysis-standalone-loading-verified.log",
+  "output_file": ".recovery-evidence/20260909-finance-loading-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -420,10 +426,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "4766d6da2485ade0539b440ebfc5a37beee5adac",
-    "tree": "39af8ef64be5c6792b9c5dc6ed7c1c37436fb957",
-    "run": 68,
-    "run_id": 34314945942,
+    "head": "adc7a2eca4bf9035c1000a338fc002a581177382",
+    "tree": "d869d0d598b0d14c4f53c4e52ee5ce9204385a00",
+    "run": 70,
+    "run_id": 34316185795,
     "conclusion": "success"
   }
 }

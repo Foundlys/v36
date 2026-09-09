@@ -29,14 +29,16 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Preserved double-entry engine, invoice approval/posting, reconciliation proposals, tax rules, exports and restart persistence pass existing tests.",
+      "foundly_current": "Preserved double-entry engine, invoice approval/posting, reconciliation proposals, tax rules, exports and restart persistence pass existing tests. Finance-only client loading now isolates component failures and respects partial ledger/report capabilities without inventing empty values or dropping entity filters.",
       "gap": "Complete period-close, jurisdiction-specific accounting and competitive UX acceptance remain open.",
       "required_change": "Close explicit accounting/UX gaps without replacing the ledger.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "platform-core-regression-test.js",
         "platform-api-regression-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "finance-loading-test.js",
+        "finance-loading-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
