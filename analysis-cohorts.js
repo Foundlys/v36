@@ -52,6 +52,8 @@ function cohortRetention(events,query={},now=Date.now()){
 }
 function queryCohorts(resolver,platform,ctx,actor,query){
   requirePermission(actor,'analysis:read');resolver.assertCapability(ctx,actor,'analysis:reports');resolver.assertCapability(ctx,actor,'analysis:events');
-  return cohortRetention(platform.eventsForProjection(ctx,actor),query);
+  const now=Date.now(),validated=cohortRetention([],query,now);
+  const events=platform.eventsForProjection(ctx,actor,{event_names:[validated.definition.acquisition_event,validated.definition.return_event],occurred_before:validated.period.observed_to,max_events:20000,max_bytes:8*1024*1024});
+  return cohortRetention(events,query,now);
 }
 module.exports={cohortRetention,queryCohorts};

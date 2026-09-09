@@ -75,7 +75,7 @@
       "phase": 11,
       "name": "Analytics",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned reports, retained export, durable events, standalone loading and observed source-scoped cohorts pass permission, interval, missing-data and encrypted restart tests. Saved cohort/model definitions, large-tenant performance and remaining section/browser acceptance remain."
+      "evidence_or_gap": "Owned reports, retained export, durable events, standalone loading and observed source-scoped cohorts pass permission, interval, missing-data and encrypted restart tests. Saved cohort/model definitions, large-tenant performance and remaining section/browser acceptance remain. Relevant authorized event copies are now bounded by count and bytes before cohort calculation; production latency and indexing remain unproven."
     },
     {
       "phase": 12,
@@ -159,7 +159,7 @@
       "phase": 25,
       "name": "Performance/accessibility",
       "status": "PARTIAL",
-      "evidence_or_gap": "Existing regressions and form hardening; actual new viewport/keyboard/load acceptance remains"
+      "evidence_or_gap": "Static response read failures isolate the request; cohort event copies filter current ACL/name/time before count/byte limits, verified with 50,000 excluded fixture rows. Actual viewport/keyboard/concurrent production load acceptance remains."
     },
     {
       "phase": 26,

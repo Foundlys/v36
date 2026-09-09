@@ -152,7 +152,22 @@ class FoundlyPlatformCore{
     }
     if(attempted)this.commit();return {attempted,pending:this.bucket(ctx,'event_notifications').filter(row=>row.status==='PENDING').length};
   }
-  eventsForProjection(context,principalInput){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'events:read');return clone(this.bucket(ctx,'raw_events').filter(row=>eventReadable(row,principal)));}
+  eventsForProjection(context,principalInput,query=null){
+    const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'events:read');const rows=this.bucket(ctx,'raw_events');
+    if(query===null)return clone(rows.filter(row=>eventReadable(row,principal)));
+    const {event_names,occurred_before,max_events,max_bytes}=query,before=Date.parse(occurred_before);
+    if(Object.keys(query).some(key=>!['event_names','occurred_before','max_events','max_bytes'].includes(key))||!Array.isArray(event_names)||!event_names.length||event_names.length>20||event_names.some(name=>typeof name!=='string'||!/^[a-z][a-z0-9_.:-]{1,79}$/.test(name))||typeof occurred_before!=='string'||!/(?:Z|[+-]\d{2}:\d{2})$/.test(occurred_before)||!Number.isFinite(before)||!Number.isInteger(max_events)||max_events<1||max_events>20000||!Number.isInteger(max_bytes)||max_bytes<1||max_bytes>10485760)throw platformError(422,'event_projection_query_invalid','Ongeldige begrensde eventprojectie');
+    const names=new Set(event_names),selected=[];let bytes=0;
+    for(const row of rows){
+      if(!row||!names.has(row.event_name)||!eventReadable(row,principal))continue;
+      const at=Date.parse(row.occurred_at);if(Number.isFinite(at)&&at>=before)continue;
+      if(selected.length>=max_events)throw platformError(422,'event_projection_capacity_exceeded','Te veel toegankelijke bronrecords voor deze analyse');
+      const serialized=JSON.stringify(row);bytes+=Buffer.byteLength(serialized,'utf8');
+      if(bytes>max_bytes)throw platformError(422,'event_projection_capacity_exceeded','De toegankelijke brongegevens zijn te groot voor deze analyse');
+      selected.push(JSON.parse(serialized));
+    }
+    return selected;
+  }
   canonicalRecordsForProjection(context,principalInput){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'platform:read');return clone(this.bucket(ctx,'canonical_records').filter(row=>eventReadable(row,principal)));}
   canReadEvent(context,principalInput,event){const {principal}=this.scope(context,principalInput);requirePermission(principal,'events:read');return eventReadable(event,principal);}
   incrementRollup(ctx,event){const date=day(event.occurred_at),campaign=event.campaign_id||'',source=event.utm_source||event.source||'',key=[date,event.event_name,campaign,source,...(Object.keys(event.permissions||{}).length?[digest(JSON.stringify(event.permissions))]:[])].join('|'),rows=this.bucket(ctx,'event_rollups');let row=rows.find(item=>item.key===key);if(!row){row={key,date,permissions:clone(event.permissions||{}),event_name:event.event_name,campaign_id:event.campaign_id||null,source,events:0,value_cents:0,revenue_cents:0,gross_margin_cents:0,last_received_at:null,source_event_ids:[]};rows.push(row)}row.events++;row.value_cents+=Math.round(finite(event.properties.value_cents));row.revenue_cents+=Math.round(finite(event.properties.revenue_cents||(/purchase|invoice_paid|deal_won/.test(event.event_name)?event.properties.value_cents:0)));row.gross_margin_cents+=Math.round(finite(event.properties.gross_margin_cents));row.last_received_at=event.received_at;if(row.source_event_ids.length<500)row.source_event_ids.push(event.event_id)}

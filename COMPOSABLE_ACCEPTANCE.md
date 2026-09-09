@@ -212,3 +212,7 @@ The restored runtime contained an older snapshot. Its original worktree and pend
 ## Static response failure isolation — 2026-09-09
 
 An isolated ReadStream failure reproduced an application-process crash. HTML and asset responses now bind read errors to their own response: an unopened failed file returns 503 without a filesystem path, partial output is closed, and disconnected clients release the stream. Concurrent API reads remain available and retain configuration. The focused fault/cancellation/restart test and complete npm test suite pass. Production was not modified. This does not establish load, viewport or browser acceptance.
+
+## Bounded cohort source projection — 2026-09-09
+
+Strict cohort query validation now happens before source retrieval. Current ACLs, event names and observed end filter records before detached copying; selected data has both a 20,000-event and 8 MiB bound. Overflow rejects the query without a partial report. A fixture with 50,000 irrelevant/private events verifies their payloads are never copied, authorized output is detached, malformed queries fail before retrieval and existing unbounded engine callers retain their contract. Focused tests and full npm test pass. This is bounded-copy correctness, not indexed scanning or production throughput acceptance. The preceding static-response tree passed GitHub Actions run 75. No production mutation.

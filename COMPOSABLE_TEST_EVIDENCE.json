@@ -7,7 +7,7 @@
     "analysis-cohorts-api-test.js": "df940ed810fe8a61e6021caf53bfc5cc0d4a6f27ae7784c7ae838ac8cc3b1f17",
     "analysis-cohorts-client.js": "2a94ad3265f9e4952ef204c288dea42da563140404ac8c577fa70054a5ab1e03",
     "analysis-cohorts-test.js": "a835d4305b9db6ae110e3c7dc107b81f3278ba3f90ce0e69cfbebdc970266fd9",
-    "analysis-cohorts.js": "c46f2ce24550f7afca736b9886e3a1f26a9c11159285b79050857a20d59df672",
+    "analysis-cohorts.js": "200fe4df8e1d5f734bf0e52ddce1c87d76b8f6bef97c7988d20b90e0f7952a1a",
     "analysis-loading-api-test.js": "70b7c5dc4285a1ab8e58fe2d87a8575bdb4456d5db7fc3448801eabae9bc8cf5",
     "analysis-loading-test.js": "a507db8157ea1e5cc8c80c8c6b11e1f07ffab73301b0e7dcb04d623c2cd73611",
     "analysis-loading.js": "f158fcb4207d300bab9f080f335a9499293dedda1a5fae5cadfcd6671f62fa0d",
@@ -47,6 +47,7 @@
     "crm-standalone.js": "6ba1ae10db4a7bee666a07f8af8249a9861563f4e69f5374614cc300dd339139",
     "crm.css": "a5128eaa17af2cb32476e2dbfb4397f5ec2a5a1d5185ba1fce119f01f8024a84",
     "crm.html": "7226e04d5cb6a8c225cd9fbf409c894d9003c837a58a47fbbdfeb3fb31ef7955",
+    "event-projection-bounds-test.js": "c012fa1aec92dff049f15e5025860f2a5adc4102b40ea6a6732f4e63ef14a83a",
     "finance-core.js": "321c10d6eee403ff331fe44004e938fcfac4a32ead9c025f750c6b9843342222",
     "finance-loading-api-test.js": "5a5eeeb74c8c3be1a751b5e3adb7fba7567ff70abd4fb305d1562038959ff2b2",
     "finance-loading-test.js": "dffe964b45f411fa68cfecc40c33a58f3b8d6cf5d38015d833fc465d3f7afb6c",
@@ -84,11 +85,11 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "123382cfdf0d0b8f38c9e41d3de2c12901965ce576c1fdcf91ed22c0f325229f",
+    "package.json": "1f454bda18c7c6576c030eed517c494c0d016b4f9873a18b39243c03e551e8c1",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
-    "platform-core.js": "32180e460371643d60ffcc10b07fccab481e97bca8f1bf58a39010fce9bbf26e",
+    "platform-core.js": "40f2bcc5beea88f641b1d781884346845b4c225e87ffc6a99b5e41b3b66afcb5",
     "procurement-allocations-api-test.js": "3017267de260f3d54893cf19046b5d01556b284411688a16fdfe97aeb9469e77",
     "procurement-allocations-test.js": "9a4dabc9697489c33b2fab7e5f520208a5f980b13ac622439c356923ddb52e83",
     "procurement-allocations.js": "c0b137fc69871e442c41505152e8547364ad9e414a5ed58551e4d73a234cde27",
@@ -160,7 +161,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "3371ab6674851230880160202e83a1bbca7c6d6349355bfc66b99070fe551351",
+  "output_sha256": "7db0d40346bf162617797f810acb6bc2a25913986f3362de38efa34525071e9a",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -425,7 +426,8 @@
     "Cohort event deduplication, private-source filtering, interval boundaries, pre-acquisition exclusion, missing/incomplete results and current reports/events capabilities pass authenticated encrypted restart",
     "Actual Analytics cohort panel and protected client delivery are implemented; full npm test passes on the recovered tree, with no browser acceptance inferred",
     "Reproduced unhandled static ReadStream error terminating the process; HTML and asset reads now return 503 before response output or close a partial response without terminating the server",
-    "Authenticated concurrent failing static reads leave API requests and configuration intact; restored reads, client cancellation, encrypted restart and full regression pass"
+    "Authenticated concurrent failing static reads leave API requests and configuration intact; restored reads, client cancellation, encrypted restart and full regression pass",
+    "Cohort query validation precedes source retrieval; 50,000 irrelevant/private fixture events are excluded before copying, selected results are detached and bounded by count and bytes, capacity overflow fails without partial analytics; existing event projection callers remain compatible"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -437,7 +439,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-static-response-regression.log",
+  "output_file": ".recovery-evidence/20260909-bounded-events-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -450,10 +452,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "385a0bf6c728ea4ea18323364c55fa2f486026b3",
-    "tree": "01c939f7444b1d24fe9df63fefe49cb221db975b",
-    "run": 73,
-    "run_id": 34317889583,
+    "head": "652d6d61c09d836c5491a41efca209a48c465949",
+    "tree": "7c10893dc3f5f47868c4baf6926fcec5d9e41d0b",
+    "run": 75,
+    "run_id": 34320265771,
     "conclusion": "success"
   }
 }
