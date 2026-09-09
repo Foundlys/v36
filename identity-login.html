@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aanmelden · Foundly OS</title>
+  <link rel="stylesheet" href="/identity-login.css">
+  <script src="/identity-login.js" defer></script>
+</head>
+<body>
+  <main>
+    <p class="brand">FOUNDLY OS</p>
+    <h1 id="identityTitle">Aanmelden</h1>
+    <p id="identityDescription">Gebruik je persoonlijke Foundly-account.</p>
+    <form id="identityForm">
+      <label id="usernameLabel">Gebruikersnaam<input id="identityUsername" autocomplete="username" required maxlength="200"></label>
+      <label>Wachtwoord<input id="identityPassword" type="password" autocomplete="current-password" required maxlength="128"></label>
+      <button id="identitySubmit" type="submit">Aanmelden</button>
+      <output id="identityNotice" role="status" aria-live="polite"></output>
+    </form>
+    <p class="help">Nog geen account? Vraag je bevoegde Foundly-beheerder om een uitnodiging.</p>
+    <a href="/settings">Beheerderstoegang</a>
+  </main>
+</body>
+</html>

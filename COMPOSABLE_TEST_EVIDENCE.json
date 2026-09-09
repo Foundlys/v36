@@ -49,8 +49,11 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "3915de00583b817f6981ba8753559bf61e4893eb5bb1ff965badcfd78939f5da",
-    "foundly-workspace.js": "9757afc20181b80186e85a079dd38629b0464553e924f85491cc54c5e007dd66",
+    "foundly-workspace.js": "7f4c6317e3cff41c30b93b4c9ccadd6d0a4acbe422c937687d04d3eae6c6bf3a",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
+    "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
+    "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
+    "identity-login.js": "127d342aea8cd2f8a36943f8e9038a61381dd5612bd58843262f4a1d5dbbc52a",
     "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
     "index.html": "0ade18d7e603a3d4fdde914057eea695a9c81ea5f5f8f14b2842a84e18a884bd",
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
@@ -65,7 +68,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "e98c4b81ca95dad127bae66c60e39b31029102679233ac40994399aa20150d73",
+    "package.json": "c3003f1cf7b0c66bc04b5db730bcbb77367cddc85dfe8a0a914291bb53492316",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "7617439d9067ed2bb5c5ee09e1978910e59707a490368f7845ee014b5bbf7b77",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -85,12 +88,17 @@
     "sales-forecast.js": "f12b72d2899456e8946d270a4212d8683a1c57403c327f80c4c6d7a5ff5522b5",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-proof-test.js": "9b0073375c95166f8c04ea8b3c9a0733aaf33aaa4402c72e1078fcd213bcdba2",
-    "server.js": "8447ef0eb6270c426a5a46a34734c572378560501059fee4ddee86140ee3552e",
+    "server.js": "966b018dce110368cff7c5fdbfc21bf68e3e4e685c71c6864f1b163ae7ef8f64",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
+    "tenant-identities-test.js": "b1d4d1e045e35997e387b1422e4c833c9383ae0582c3db66cf73ae030c358b5b",
+    "tenant-identities.js": "218b67f91aa6655298839b759e475bab638a4655d05732eb6f529df99d8f955d",
+    "tenant-identity-api-test.js": "1d593771bb9d57177be3472322be79aa2667608192c55546dcd5f5e3503a22dc",
+    "tenant-identity-api.js": "1ed89f5a567dc8de75a6beea36aafa903191f66a6d033df500bd7ee966bac841",
     "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
     "test-composition-context-mock.js": "7ae21e829929286bf40027c410a84cff00d806bbb2bed8f5e0c9c71ac21f1133",
+    "test-identity-body-barrier.js": "2edd7a9d0aee639d30d1ff8cecfc2b0734eafff7878557832d1a16a068244e45",
     "test-jarvis-fetch-mock.js": "af79a374e59631e604c66dd1ad434093d8963488d17a7e1e36bb89af48f1fa51",
     "test-masterbuild-fetch-mock.js": "006626a31f610f73ef4a642643f2a7d4d996ee1ab9e18fea099fd53c9cd94378",
     "test-oauth-fetch-mock.js": "ba0dfede11e61b3bc59119c7132e8b414a8a49f45be000a8f6e00c944c042130",
@@ -116,7 +124,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "8bc6dd0bf211736e6bdf95394fd021a2d406f6686ffca0a2600bfd9c3d1384a2",
+  "output_sha256": "71f6ca5fc4ce622e0655f1f11394eb3fa03dd4d68abdf3a3567e016b2e067731",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -340,7 +348,11 @@
     "Paused delayed runs preserve steps across encrypted restart; reactivation does not repeat completed effects or lend scheduler authority",
     "Exact record fingerprint and original actor/request/step checks recover proven internal results without executing another step",
     "A genuine test-server process exit after encrypted task commit leaves RUNNING state; restart, evidence reconciliation and explicit continuation create no duplicate task",
-    "Absent, changed, foreign and fabricated outcome evidence cannot produce a successful recovery"
+    "Absent, changed, foreign and fabricated outcome evidence cannot produce a successful recovery",
+    "Tenant enrollment and real opaque session cookies preserve concurrent member identity and private Core/ZERO state",
+    "Live principal resolution rejects revoked membership even after HTTP authentication while the body is pending",
+    "Current active member roles control owned automatic workflows and queued tasks; suspended accounts do not execute",
+    "One-use invite races, salted scrypt verification, current-revision login, session revocation, secret-free projections, atomic rollback and encrypted restart"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -352,7 +364,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-workflow-recovery-regression.log",
+  "output_file": ".recovery-evidence/20260909-tenant-identity-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -365,10 +377,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "46987fb3f89b26762fb5e42769ae468f850c74bb",
-    "tree": "ee738f2b52ae74ebd4e837e0a785f2167dc2d19e",
-    "run": 61,
-    "run_id": 34309625624,
+    "head": "24ced6c983f78fd54d8dd5671b44db24b2c3054b",
+    "tree": "12568441b1a0fe865544fa5c4eadcfe6d4c6e41f",
+    "run": 62,
+    "run_id": 34310400088,
     "conclusion": "success"
   }
 }

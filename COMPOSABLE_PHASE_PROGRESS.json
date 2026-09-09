@@ -27,7 +27,7 @@
       "phase": 3,
       "name": "Capability resolver",
       "status": "PARTIAL",
-      "evidence_or_gap": "Composed module/role/tool, private event/data/memory/conversation and worker-owner guards; complete remaining mixed-entry audit and real end-user identity provisioning remain"
+      "evidence_or_gap": "Composed module/role/tool and private-data guards now use real tenant member sessions with live operation-boundary roles; invitation, suspension and current-member workers pass HTTP/restart. Remaining mixed-entry audit and browser acceptance are explicit"
     },
     {
       "phase": 4,
@@ -123,7 +123,7 @@
       "phase": 19,
       "name": "Provisioner/composer",
       "status": "PARTIAL",
-      "evidence_or_gap": "Package preview/apply and founder guard; real user/tenant provisioning and all configuration dimensions remain"
+      "evidence_or_gap": "Package preview/apply plus authorized tenant-member enrollment, roles, suspension and retained history; full multi-tenant provisioning/configuration dimensions and browser acceptance remain"
     },
     {
       "phase": 20,

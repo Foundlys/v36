@@ -616,6 +616,7 @@
     byId('contextTitle').textContent = title;
     byId('contextDescription').textContent = description;
     const content = byId('contextContent'), items = [];
+    if(state.workspaceId==='settings'&&['USERS','ROLES'].includes(section)){renderIdentityUsers(section,content);return;}
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
     if(state.workspaceId==='sales'&&section==='FORECAST'){renderSalesForecast(content);return;}
     if(state.workspaceId==='calendar'&&section==='SCHEDULING'){renderScheduling(content);return;}
@@ -684,6 +685,38 @@
       }catch(error){output.textContent=friendlyError(error);}finally{preview.disabled=false;}});
       apply.addEventListener('click',async()=>{if(!prepared)return;apply.disabled=true;try{await request('/api/composition',{method:'PUT',body:JSON.stringify(prepared)});const nav=await request('/api/workspaces');state.navigation=nav.workspaces;renderNavigation();await renderComposer(content);toast('Samenstelling opgeslagen.');}catch(error){output.textContent=friendlyError(error);apply.disabled=false;}});
       replaceChildren(content,[form]);
+    }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
+  }
+
+  async function renderIdentityUsers(section,content){
+    replaceChildren(content,[node('p','LoadingState','Gebruikerscontext laden…')]);
+    try{
+      const session=await request('/api/identity/session'),items=[];
+      if(!session.authenticated){const link=node('a','','Persoonlijk aanmelden');link.href='/login';replaceChildren(content,[link]);return;}
+      const self=node('article','context-item');self.append(node('h3','','Huidige gebruiker'),node('p','',session.principal.id),node('p','',`Rollen: ${session.principal.roles.join(', ')}`));
+      if(session.principal.permissions.length)self.append(node('p','',`Extra modulerechten: ${session.principal.permissions.join(', ')}`));
+      if(session.authentication_method==='MEMBER_SESSION'){const logout=node('button','','Uitloggen');logout.type='button';logout.addEventListener('click',async()=>{logout.disabled=true;try{await request('/api/identity/logout',{method:'POST',body:'{}'});location.assign('/login');}catch(error){toast(friendlyError(error),true);logout.disabled=false;}});self.append(logout);}
+      items.push(self);
+      if(section==='ROLES'||!session.can_manage){if(!session.can_manage)items.push(node('p','','Gebruikersbeheer vereist Founder- of Super Admin-rechten.'));replaceChildren(content,items);return;}
+      const data=await request('/api/identity/users');if(state.activeSection!==section)return;
+      const invitation=node('div');invitation.setAttribute('role','status');
+      const showInvitation=result=>{const label=node('label','','Persoonlijke uitnodigingslink'),link=node('textarea');link.value=result.enrollment_url;link.readOnly=true;label.append(link);replaceChildren(invitation,[node('p','',`Uitnodiging aangemaakt, nog niet verstuurd. Geldig tot ${new Date(result.expires_at).toLocaleString('nl-NL')}. Deel deze link persoonlijk; de ontvanger kiest een eigen wachtwoord.`),label]);};
+      function memberForm(member){
+        const form=node('form','domain-record-form'),notice=node('output');notice.setAttribute('role','status');const fields={};
+        if(!member)for(const [name,label]of [['username','Gebruikersnaam'],['display_name','Naam']]){const wrap=node('label','',label),input=node('input');input.required=true;input.maxLength=200;wrap.append(input);form.append(wrap);fields[name]=input;}
+        const roles=node('fieldset'),permissions=node('details'),roleInputs=[],permissionInputs=[];roles.append(node('legend','','Rollen'));permissions.append(node('summary','','Extra modulerechten'));
+        for(const [values,container,controls,selected]of [[data.roles,roles,roleInputs,member?.roles||['VIEWER']],[data.permissions,permissions,permissionInputs,member?.permissions||[]]])for(const value of values){const label=node('label','',value),input=node('input');input.type='checkbox';input.value=value;input.defaultChecked=selected.includes(value);input.checked=input.defaultChecked;label.append(input);container.append(label);controls.push(input);}
+        form.append(roles,permissions);let status;
+        if(member){const wrap=node('label','','Accountstatus');status=node('select');for(const value of !member.enrolled?['SUSPENDED']:['ACTIVE','SUSPENDED']){const option=node('option','',value==='ACTIVE'?'Actief':'Geblokkeerd');option.value=value;status.append(option);}status.value=member.status==='INVITED'?'SUSPENDED':member.status;wrap.append(status);form.append(wrap);}
+        const reasonLabel=node('label','','Reden voor deze toegang'),reason=node('input'),confirmLabel=node('label','','Ik heb de gebruiker, rollen en gevolgen gecontroleerd'),confirm=node('input'),save=node('button','primary-button',member?'Toegang wijzigen en oude sessies intrekken':'Uitnodiging aanmaken');reason.required=true;reason.maxLength=500;reasonLabel.append(reason);confirm.type='checkbox';confirm.required=true;confirmLabel.append(confirm);save.type='submit';form.append(reasonLabel,confirmLabel,save,notice);
+        form.addEventListener('submit',async event=>{event.preventDefault();save.disabled=true;try{const payload={roles:roleInputs.filter(input=>input.checked).map(input=>input.value),permissions:permissionInputs.filter(input=>input.checked).map(input=>input.value),reason:reason.value.trim(),confirm:confirm.checked,...(member?{status:status.value,expected_revision:member.revision}:{username:fields.username.value.trim(),display_name:fields.display_name.value.trim()})};const result=await request('/api/identity/users'+(member?'/'+encodeURIComponent(member.id):''),{method:member?'PUT':'POST',body:JSON.stringify(payload)});if(member)await renderIdentityUsers(section,content);else{showInvitation(result);form.reset();notice.textContent='De uitnodiging staat hieronder. Vernieuw de gebruikerslijst na het delen.';}}catch(error){notice.textContent=friendlyError(error);}finally{save.disabled=false;}});
+        if(member&&!member.enrolled){const renew=node('button','','Nieuwe uitnodigingslink maken');renew.type='button';form.append(renew);renew.addEventListener('click',async()=>{if(!reason.reportValidity()||!confirm.reportValidity())return;renew.disabled=true;try{const result=await request(`/api/identity/users/${encodeURIComponent(member.id)}/reissue`,{method:'POST',body:JSON.stringify({expected_revision:member.revision,confirm:confirm.checked,reason:reason.value.trim()})});showInvitation(result);notice.textContent='De eerdere uitnodigingslink is nu ongeldig. Vernieuw de lijst vóór een volgende wijziging.';}catch(error){notice.textContent=friendlyError(error);renew.disabled=false;}});}
+        return form;
+      }
+      items.push(node('h3','','Nieuwe gebruiker'),memberForm(null),invitation);
+      const refresh=node('button','','Gebruikerslijst vernieuwen');refresh.type='button';refresh.addEventListener('click',()=>renderIdentityUsers(section,content));items.push(refresh);
+      for(const member of data.items){const card=node('details','context-item');card.append(node('summary','',`${member.display_name} · ${member.username} · ${member.status}`),node('p','',`Gebruikers-ID: ${member.id}`),node('p','',`Revisie ${member.revision} · ${member.roles.join(', ')}`),memberForm(member));items.push(card);}
+      replaceChildren(content,items);
     }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
   }
 
