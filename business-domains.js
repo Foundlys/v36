@@ -167,7 +167,7 @@ class BusinessDomain {
     for(const entity of this.definition.entities){try{by_entity[entity]={...this.list(ctx,actor,entity,{limit:100}),available:true};}catch(error){if(error.code!=='capability_disabled')throw error;by_entity[entity]={items:[],total:null,available:false,reason:error.code};}}
     const opportunities=by_entity.opportunities?.available?this.bucket(ctx,'opportunities').filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&this.visible(row,actor)):[],currency_groups={};
     for(const row of opportunities){if(!row.currency||!Number.isSafeInteger(row.value_cents))continue;const group=currency_groups[row.currency]||(currency_groups[row.currency]={open_cents:0,weighted_cents:0,won_cents:0});if(row.status==='WON')group.won_cents+=row.value_cents;else if(!['LOST','CANCELLED'].includes(row.status)){group.open_cents+=row.value_cents;if(Number.isFinite(row.probability))group.weighted_cents+=Math.round(row.value_cents*row.probability);}}
-    return {module_id:this.id,by_entity,currency_groups,aggregate_scope:'ALL_PERMISSION_FILTERED_RECORDS',observed_at:new Date().toISOString(),no_fake_data:true};
+    return {module_id:this.id,by_entity,currency_groups,...(this.id==='communication'?{submission_summary:require('./communication-submissions').summary(this,ctx,actor)}:{}),aggregate_scope:'ALL_PERMISSION_FILTERED_RECORDS',observed_at:new Date().toISOString(),no_fake_data:true};
   }
 }
 module.exports={BusinessDomain,DEFINITIONS,occurrences};

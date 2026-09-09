@@ -51,5 +51,15 @@ class MailSubmissions{
   this.authorize(ctx,actor,id);return {submission:metadata(current()),deduplicated:false};
  }
 }
+function summary(core,ctx,actor){
+ const unavailable=reason=>({available:false,total_retained:null,status_counts:null,provider_acceptance_unknown:null,delivered_total:null,external_mailbox_total:null,coverage:'CURRENT_SOURCE_AUTHORIZED_ATTEMPTS_ONLY',reason});
+ try{
+  core.scope(ctx,actor);core.resolver.assertCapability(ctx,actor,'communication:drafts');const readable=require('./communication-drafts').revisionAccess(core,ctx,actor),allowed=new Set(core.bucket(ctx,'drafts').filter(row=>!row.deleted_at&&core.visible(row,actor)&&readable(row)).map(row=>row.id)),rows=core.adapter.bucket(ctx,SCOPE);
+  if(rows.length>1000||rows.some(row=>!row||typeof row.draft_id!=='string'))return unavailable('SUBMISSION_SOURCE_INCOMPLETE');
+  const visible=rows.filter(row=>allowed.has(row.draft_id)),counts={CONNECTING:0,DATA_IN_FLIGHT:0,UNKNOWN:0,NOT_SUBMITTED:0,REJECTED_BY_PROVIDER:0,ACCEPTED_BY_PROVIDER:0};
+  if(new Set(visible.map(row=>row.id)).size!==visible.length||visible.some(row=>typeof row.id!=='string'||!Object.hasOwn(counts,row.status)||!Number.isSafeInteger(row.revision)||row.revision<1||typeof row.mime_data!=='string'||!Number.isSafeInteger(row.payload_size_bytes)||Buffer.byteLength(row.mime_data)!==row.payload_size_bytes||crypto.createHash('sha256').update(row.mime_data).digest('hex')!==row.payload_sha256))return unavailable('SUBMISSION_SOURCE_INCOMPLETE');
+  for(const row of visible)counts[row.status]++;return {available:true,total_retained:visible.length,status_counts:counts,provider_acceptance_unknown:counts.CONNECTING+counts.DATA_IN_FLIGHT+counts.UNKNOWN,delivered_total:null,external_mailbox_total:null,coverage:'CURRENT_SOURCE_AUTHORIZED_ATTEMPTS_ONLY',reason:null};
+ }catch(error){if(['capability_disabled','composition_module_disabled'].includes(error.code)||[401,403,404].includes(error.statusCode))return unavailable('SUBMISSION_SOURCE_UNAVAILABLE');throw error;}
+}
 function exportOwned(core,ctx,drafts){const allowed=new Set(drafts.map(row=>row.id));return core.adapter.bucket(ctx,SCOPE).filter(row=>allowed.has(row.draft_id)).map(row=>({...metadata(row),retained_mime:row.mime_data}));}
-module.exports={MailSubmissions,SCOPE,blocks,exportOwned};
+module.exports={MailSubmissions,SCOPE,blocks,exportOwned,summary};

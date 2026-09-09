@@ -29,7 +29,7 @@
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
     "business-domain-api.js": "8203ae7630d755e904992d2291c37828eec89a62bdf4532121cfe4c85e55eb1b",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "8718997ee233d2d018942ec66cbb14dcba40a1c607e1d67f5de0768b8f781cdb",
+    "business-domains.js": "1c32b9df9fa7b086091f802df6cf846c0c6c84a03419c1f185025a771165184b",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
@@ -156,7 +156,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "1e0302ccbdae3e5f6061ce74235c502ebb12fc6af44ff17b141a2377d0f7570c",
+    "server.js": "abe9aaba06dd7663844c8532cb1525f2c10122e2e01a527cb7b185203ae71413",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -217,9 +217,9 @@
     "communication-send-reviews-client-test.js": "4e5aebbf7b2b8189674945c80270215d73a1876b12a977b16d1881c7bab9e285",
     "communication-mime.js": "78a29ba1678a985c7a2cd959bcbee25ed8897eb6216869a76ae3917acc7fcb53",
     "communication-mime-test.js": "4c3dd89ac1cce061600e53f6dbce93a2fff63b0dc2994b4e0105b11db98dc23f",
-    "communication-submissions.js": "8e4ab15baea51b9727fe8d9efb6a8091b3789fecf6d2ba3ab2ed73020870bbfc",
-    "communication-submissions-test.js": "687600b2d86a72b7402dbf267c7727f9de09e6f51e6039f78f3ec7a371e11b95",
-    "communication-submissions-api-test.js": "41a562dae42a628ac18768b48e1a11c4b558505c49b00b01855b64da935d63e3",
+    "communication-submissions.js": "6d943d4327200934951aaf2c6f866089e013fb439519e7683f26a8b73a87c2e1",
+    "communication-submissions-test.js": "32c3a0c07c647a38cc17df7b599bf93a3670a8f0293ba4f781e029098e7a23cb",
+    "communication-submissions-api-test.js": "a4bd9ef39c6a7d74d47fd4e8d9cf50500d075fdcb8c3a33b1dc6f6c59321c87f",
     "test-mail-submission-fixture.js": "301b4475a4fd4c27fe9ce3b122b8372caa479fc62f5155a3a2de0a1e882832fd"
   },
   "output_sha256": "10d24677740e1bba24626806d8fc193cc5f9c31ff0347bc1bc2062ace0b3fc4a",
@@ -377,7 +377,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-09T15:18:10.382803+00:00",
+  "verified_at": "2026-09-09T15:28:23.045909+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -521,7 +521,10 @@
     "Native submission requires current exact approval/requester/reviewer/executor/account/preferences plus external confirmation; pre-network and DATA boundaries persist atomically, only verified final acceptance records a message, draft remains separate",
     "Real HTTP sessions prove revoked preferences before DATA, duplicate denial, actual process crash after DATA persistence and no resend after encrypted restart; observed acceptance survives executor revocation under permission-free receipt attribution while the unauthorized response is denied",
     "Final receipt persistence failure preserves the in-flight unknown state; uncertain attempts block retry even after draft edits; current-source owned export retains exact MIME and shared Data excludes operational payloads",
-    "Production submission handlers require a separate external confirmation, suppress duplicate pending actions and show unknown-outcome investigation without a resend control; actual browser acceptance remains unproven"
+    "Production submission handlers require a separate external confirmation, suppress duplicate pending actions and show unknown-outcome investigation without a resend control; actual browser acceptance remains unproven",
+    "ZERO Communication status/overview reaches the existing domain read, while plain workspace navigation remains semantic UI only; missing entity counts read unavailable instead of literal null",
+    "Integrity-checked submission summary counts only current draft/source-authorized retained attempts, exposes unknown acceptance and null delivered/mailbox totals, and makes incomplete source evidence unavailable",
+    "Real ZERO exact-turn replay recalculates submission visibility after draft reassignment and encrypted restart, retains source-free conversation/audit and preserves unavailable message counts with inbox capability disabled"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -533,7 +536,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-communication-submission-regression.log",
+  "output_file": ".recovery-evidence/20260909-communication-zero-outcomes-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -546,10 +549,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "9ffadb987fc1bc3a71edfde79a932c47c45d56d4",
-    "tree": "945e8c795fde544cb0e0f1b5b0c43664a4edf718",
-    "run": 95,
-    "run_id": 34367627874,
+    "head": "9cbf1c6ef0085fe0560a234c6eb977b993e6fddd",
+    "tree": "3d9fef4fa990debf8fca3cb87551e30a94eba2bd",
+    "run": 96,
+    "run_id": 34369545095,
     "conclusion": "success"
   },
   "current_production_observation": {

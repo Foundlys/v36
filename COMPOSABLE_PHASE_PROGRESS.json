@@ -75,7 +75,7 @@
       "phase": 11,
       "name": "Analytics",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned reports, observed source-scoped cohorts and saved typed cohort definitions pass private ownership/source ACL, revision-bound calculation, current caller rights, capacity bounds, atomic rollback and encrypted restart tests. Broader analytic models, model revision history, large-tenant performance and browser acceptance remain. Native exact-source designated review and separately confirmed SMTP submission now preserve durable accepted/rejected/unknown outcomes, current identities/preferences and encrypted crash/restart without blind resend. Live account, receive/threading/reconciliation and ZERO handoff remain open."
+      "evidence_or_gap": "Owned reports, observed source-scoped cohorts and saved typed cohort definitions pass private ownership/source ACL, revision-bound calculation, current caller rights, capacity bounds, atomic rollback and encrypted restart tests. Broader analytic models, model revision history, large-tenant performance and browser acceptance remain."
     },
     {
       "phase": 12,
@@ -87,7 +87,7 @@
       "phase": 13,
       "name": "Communication",
       "status": "PARTIAL",
-      "evidence_or_gap": "Retained message/draft separation, invalid/incomplete source availability, owner-authorized sharing, bounded member selection, immutable revision history, CAS restore without access rollback/send, mid-body principal/collaborator revocation and encrypted restart pass focused tests. Live co-editing, comments, reply/forward, safe attachments, mail provider acceptance and browser acceptance remain. Source-bound reply/forward draft preparation now passes exact source/recipient binding, stale body-wait rejection, current source ACL across native/history/export/ZERO and encrypted replay. No source quote or external send is performed."
+      "evidence_or_gap": "Retained message/draft separation, invalid/incomplete source availability, owner-authorized sharing, bounded member selection, immutable revision history, CAS restore without access rollback/send, mid-body principal/collaborator revocation and encrypted restart pass focused tests. Live co-editing, comments, provider-backed threading, broader attachment formats/scanning, live provider acceptance and browser acceptance remain. Bounded retained UTF-8 text attachments and personal retained inbox search/read/archive are implemented. Source-bound reply/forward draft preparation now passes exact source/recipient binding, stale body-wait rejection, current source ACL across native/history/export/ZERO and encrypted replay. No source quote or external send is performed. Native exact-source review and separately confirmed SMTP submission preserve current identities/preferences and durable accepted/rejected/unknown outcomes through encrypted process crash/restart without blind resend. ZERO outcome reads revalidate current-source visibility and unavailable counts. Provider receive/threading/reconciliation, ZERO action handoff and live/browser acceptance remain open."
     },
     {
       "phase": 14,
@@ -206,7 +206,7 @@
     "recovered_tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
     "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
     "production_changes_authorized": false,
-    "next_independent_work": "Provider receive/threading and evidence-based reconciliation of unknown SMTP submissions and delivery/bounce receipts, plus ZERO handoff through the existing exact-source native policy. Approved SMTP submission now durably binds MIME/Message-ID/current authority, records only accepted messages and prevents blind retry across process crash/restart. Preserve every earlier checkpoint and remaining ledger gap; no production changes."
+    "next_independent_work": "Provider receive/threading and evidence-based reconciliation of unknown SMTP submissions and delivery/bounce receipts, plus ZERO prepare/review/execute handoff through the existing exact-source native policy. Approved SMTP submission now durably binds MIME/Message-ID/current authority, records only accepted messages and prevents blind retry across process crash/restart. Preserve every earlier checkpoint and remaining ledger gap; no production changes. ZERO outcome reads now recompute current authorized attempts on replay and distinguish unavailable counts and unknown delivery."
   },
   "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
   "execution_overrides": [
