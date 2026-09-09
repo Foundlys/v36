@@ -145,6 +145,8 @@ class BusinessDomain {
   approve(ctx,actor,entity,id,input){const result=this.mutate(ctx,()=>this.approveOwned(ctx,actor,entity,id,input));try{this.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;}
   approveOwned(ctx,actor,entity,id,input){
     this.scope(ctx,actor,'manage');if(!['quotes','orders'].includes(entity))fail('approval_not_applicable','Geen goedkeuringsobject');
+    const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'approve');
+    if(this.id==='procurement'&&entity==='orders')fail('order_review_required','Gebruik de verplichte orderbeoordeling met aangewezen beoordelaars',409);
     const row=this.bucket(ctx,entity).find(r=>r.id===id);if(!row||!this.visible(row,actor))fail('record_not_found','Record niet gevonden',404);
     if(input.confirm!==true||input.expected_revision!==row.revision)fail('approval_confirmation_required','Bevestig exact deze recordrevisie',409);
     if(row.status==='APPROVED_INTERNAL')return {record:clone(row),deduplicated:true,external_commitment:false};

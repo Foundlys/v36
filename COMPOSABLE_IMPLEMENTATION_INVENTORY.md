@@ -117,3 +117,9 @@ Generic memory access is limited to documented business/Core scopes and current 
 Connector mutations, authorization starts, global profile changes, worker ticks and forced persistence have explicit Core permissions. Normal module navigation/read rights do not grant these operations. OAuth callbacks keep their existing state/signature boundary.
 
 Automatic legacy queue work is bound to its stored owner, matching the workflow scheduler contract. Tasks without a proven current owner are retained but skipped in composed mode. Other owners do not starve the current queue; task exceptions are isolated with bounded error codes. Composed ZERO conversations, durable result replay and confirmations carry requester identity. Another administrator cannot reuse an owned conversation. No end-user authentication provider or credential was introduced.
+
+## Direct Procurement order review
+
+Owned direct orders now use the same mandatory currency/amount policies and assigned sequential reviewers as RFQ awards. Preview binds the order and policy revisions; the final approval changes the order and review atomically. Source/policy changes, arbitrary approvers, stale revisions and the former direct approval shortcut are rejected. Rejection and withdrawal keep the source order unapproved. Internal approval remains distinct from supplier submission or external commitment. This extends the existing review entity, persistence adapter and workspace; it creates no parallel approval engine.
+
+Targeted tests include explicit module/role checks, assigned reviewer access without impersonating the source owner, policy drift, rollback on persistence failure, replay, immutable approved orders and encrypted HTTP restart. Partial item awards and supplier collaboration remain open.

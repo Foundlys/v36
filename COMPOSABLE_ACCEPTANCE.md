@@ -70,7 +70,7 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 | 3 Capability resolver | PARTIAL | Composed module/role/tool, private event/data/memory/conversation and worker-owner guards; complete remaining mixed-entry audit and real end-user identity provisioning remain |
 | 4 Industry abstraction | PARTIAL | Validated pack fields and test injection; complete UI/KPI/workflow extension registry remains |
 | 5 Automotive pack | PARTIAL | Existing engine preserved; integration and non-regression checked; complete composed browser/provider acceptance remains |
-| 6 Procurement | PARTIAL | RFQs, scoped bid comparisons and internal full-bid awards with mandatory sequential policies; partial allocations, direct-order policy coverage and browser acceptance remain |
+| 6 Procurement | PARTIAL | RFQs, bid comparisons, full-bid awards and direct-order mandatory sequential reviews; partial item allocations, supplier authorization and browser acceptance remain |
 | 7 Sales | PARTIAL | Owned stages, period-based currency forecasts and immutable revision-bound snapshots; quotas, hierarchies, sequences and browser acceptance remain |
 | 8 CRM | PARTIAL | Existing engine and isolated configuration pass; competitive and full identity/UI acceptance remain |
 | 9 Marketing | PARTIAL | Owned plans and existing measurement adapters; journey activation and real provider proof remain |
@@ -144,3 +144,7 @@ The recovered unpublished forecast implementation is completed as a bounded incr
 Targeted tests verify private memory/queue access, reserved namespace rejection, connector and worker privileges, current-owner execution, failure isolation, and ZERO conversation/confirmation ownership through authenticated HTTP and encrypted restart. Existing legacy behavior is preserved until explicit composition. Unowned historical tasks are retained, not automatically attributed to a new principal. Final full-regression results for this increment are recorded separately in the checkpoint evidence.
 
 The full `npm test` regression for the Core access increment exited 0. Exact source hashes and output fingerprint are recorded in `COMPOSABLE_TEST_EVIDENCE.json`. This is another development checkpoint; formal deployment remains blocked by the remaining masterbuild acceptance gaps.
+
+## 2026-09-09 order policy checkpoint
+
+The full `npm test` matrix exited 0 with the direct-order review workflow and authenticated encrypted restart. A subsequent bounded evidence-reference type/length check and its negative test passed the focused order/RFQ review suites. Exact current source hashes and this distinction are recorded in `COMPOSABLE_TEST_EVIDENCE.json`; remote CI must verify the published tree. No production deployment occurred.

@@ -4,6 +4,7 @@ const {compareBids}=require('./procurement-sourcing');
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
 const clone=value=>JSON.parse(JSON.stringify(value));
 const hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
+function mandatoryPolicy(domain,ctx,currency,value){return domain.bucket(ctx,'approval_policies').filter(row=>row.status==='OPEN'&&row.currency===currency&&row.minimum_value_cents<=value).sort((a,b)=>b.minimum_value_cents-a.minimum_value_cents)[0];}
 function validatePolicy(domain,ctx,actor,entity,value,previous){
   if(entity==='awards')fail('award_action_required','Gebruik de expliciete toekennings- en beoordelingsacties');
   if(entity!=='approval_policies')return;
@@ -19,10 +20,33 @@ function previewAward(domain,ctx,actor,rfqId,bidId){
   const comparison=compareBids(domain,ctx,actor,rfqId),bid=comparison.items.find(row=>row.id===bidId&&row.comparable),rfq=domain.get(ctx,actor,'rfqs',rfqId);
   if(!bid)fail('award_bid_not_comparable','Kies een volledige bieding voor de actuele aanvraag',409);
   if(['CANCELLED','ARCHIVED'].includes(rfq.status))fail('rfq_closed','De aanvraag is gesloten',409);
-  const policy=domain.bucket(ctx,'approval_policies').filter(row=>row.status==='OPEN'&&row.currency===bid.currency&&row.minimum_value_cents<=bid.total_cents).sort((a,b)=>b.minimum_value_cents-a.minimum_value_cents)[0];
+  const policy=mandatoryPolicy(domain,ctx,bid.currency,bid.total_cents);
   if(!policy)fail('approval_policy_required','Configureer eerst een actief goedkeuringsbeleid voor dit bedrag en deze valuta',409);
   const proposal={rfq_id:rfq.id,rfq_revision:rfq.revision,bid_id:bid.id,bid_revision:bid.revision,policy_id:policy.id,policy_revision:policy.revision,supplier_id:bid.supplier_id,value_cents:bid.total_cents,currency:bid.currency,bid_lines:bid.lines,evidence_reference:bid.evidence_reference,approval_steps:policy.approval_steps,allow_self_approval:policy.allow_self_approval===true};
   return {...proposal,title:`Toekenning: ${rfq.title}`,preview_fingerprint:hash(proposal),external_commitment:false,provider_verified:false};
+}
+function previewOrderApproval(domain,ctx,actor,orderId){
+  domain.scope(ctx,actor);domain.resolver.assertCapability(ctx,actor,'procurement:approvals');
+  const order=domain.get(ctx,actor,'orders',orderId);
+  if(['APPROVED_INTERNAL','CANCELLED','ARCHIVED'].includes(order.status))fail('order_not_reviewable','Deze order kan niet opnieuw ter goedkeuring worden aangeboden',409);
+  if(!Number.isSafeInteger(order.value_cents)||order.value_cents<0||!/^[A-Z]{3}$/.test(order.currency||'')||typeof order.evidence_reference!=='string'||!order.evidence_reference.trim()||order.evidence_reference.length>1000)fail('order_review_evidence_required','Leg bedrag, valuta en herkomst van de order vast');
+  const policy=mandatoryPolicy(domain,ctx,order.currency,order.value_cents);
+  if(!policy)fail('approval_policy_required','Configureer eerst een actief goedkeuringsbeleid voor dit bedrag en deze valuta',409);
+  const proposal={order_id:order.id,order_revision:order.revision,order_title:order.title,policy_id:policy.id,policy_revision:policy.revision,value_cents:order.value_cents,currency:order.currency,evidence_reference:order.evidence_reference,approval_steps:policy.approval_steps,allow_self_approval:policy.allow_self_approval===true};
+  return {...proposal,title:`Orderbeoordeling: ${order.title}`,preview_fingerprint:hash(proposal),external_commitment:false,provider_verified:false};
+}
+function prepareOrderApproval(domain,ctx,actor,orderId,input,options={}){
+  domain.scope(ctx,actor,'write');domain.resolver.assertCapability(ctx,actor,'procurement:approvals','write');
+  return action(domain,ctx,actor,`order:${orderId}`,input,options,()=>{
+    const preview=previewOrderApproval(domain,ctx,actor,orderId);
+    if(input.confirm!==true||input.preview_fingerprint!==preview.preview_fingerprint)fail('award_preview_changed','Bevestig de actuele order en het actuele beleid',409);
+    if(!String(input.reason||'').trim()||String(input.reason).length>1000)fail('award_reason_required','Leg de reden voor deze order vast');
+    if(domain.bucket(ctx,'awards').some(row=>row.order_id===orderId&&row.order_revision===preview.order_revision&&!['CANCELLED','REJECTED_INTERNAL'].includes(row.status)))fail('award_already_active','Deze orderrevisie heeft al een actieve beoordeling',409);
+    if(domain.bucket(ctx,'awards').length>=25000)fail('domain_capacity','Recordlimiet bereikt',507);
+    if(!preview.allow_self_approval&&preview.approval_steps.includes(actor.id))fail('award_self_approval_forbidden','Het beleid vereist een andere beoordelaar',403);
+    const now=new Date().toISOString(),row={...preview,id:crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:actor.id,owned_entity:'awards',source_module:'procurement',schema_version:1,revision:1,status:'APPROVAL_REQUIRED',reason:String(input.reason).trim(),reviews:[],created_at:now,updated_at:now,provenance:{source_id:'authorized_user_decision',actor_id:actor.id,classification:'INTERNAL_ORDER_REVIEW',provider_verified:false}};
+    domain.bucket(ctx,'awards').push(row);domain.recordEvent(ctx,actor,'awards',row,'created');return row;
+  });
 }
 function action(domain,ctx,actor,operation,input,options,callback){
   const key=options?.idempotency_key;if(typeof key!=='string'||!key.length||key.length>200)fail('award_idempotency_required','Een unieke actie-ID is verplicht');
@@ -32,6 +56,7 @@ function action(domain,ctx,actor,operation,input,options,callback){
   try{domain.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
 function prepareAward(domain,ctx,actor,rfqId,input,options={}){
+  domain.scope(ctx,actor,'write');
   domain.resolver.assertCapability(ctx,actor,'procurement:approvals','write');
   return action(domain,ctx,actor,`prepare:${rfqId}`,input,options,()=>{
     const preview=previewAward(domain,ctx,actor,rfqId,input.bid_id);
@@ -45,6 +70,7 @@ function prepareAward(domain,ctx,actor,rfqId,input,options={}){
   });
 }
 function reviewAward(domain,ctx,actor,id,input,options={}){
+  domain.scope(ctx,actor,'approve');
   domain.resolver.assertCapability(ctx,actor,'procurement:approvals','approve');
   return action(domain,ctx,actor,`review:${id}`,input,options,()=>{
     domain.get(ctx,actor,'awards',id);const row=domain.bucket(ctx,'awards').find(row=>row.id===id);
@@ -55,17 +81,22 @@ function reviewAward(domain,ctx,actor,id,input,options={}){
     if(!row.allow_self_approval&&row.owner_id===actor.id)fail('award_self_approval_forbidden','Dit beleid vereist een andere beoordelaar',403);
     if(!['APPROVE','REJECT'].includes(input.decision)||!String(input.reason||'').trim()||String(input.reason).length>1000)fail('award_review_invalid','Goedkeuren of afwijzen vereist een reden');
     // Recheck the source revisions and current mandatory policy even for later steps.
-    domain.resolver.assertCapability(ctx,actor,'procurement:sourcing');
+    if(!row.order_id)domain.resolver.assertCapability(ctx,actor,'procurement:sourcing');
     // Assigned reviewers inspect the persisted proposal; verify its already-bound
     // source references internally without impersonating the proposal owner.
-    const rfq=domain.bucket(ctx,'rfqs').find(item=>item.id===row.rfq_id),bid=domain.bucket(ctx,'bids').find(item=>item.id===row.bid_id),policy=domain.bucket(ctx,'approval_policies').filter(item=>item.status==='OPEN'&&item.currency===row.currency&&item.minimum_value_cents<=row.value_cents).sort((a,b)=>b.minimum_value_cents-a.minimum_value_cents)[0];
-    if(!rfq||!bid||!policy||['CANCELLED','ARCHIVED'].includes(rfq.status)||['CANCELLED','ARCHIVED'].includes(bid.status)||rfq.revision!==row.rfq_revision||bid.revision!==row.bid_revision||policy.id!==row.policy_id||policy.revision!==row.policy_revision)fail('award_evidence_changed','Aanvraag, bieding of verplicht beleid is gewijzigd; bereid een nieuwe toekenning voor',409);
+    const policy=mandatoryPolicy(domain,ctx,row.currency,row.value_cents),order=row.order_id?domain.bucket(ctx,'orders').find(item=>item.id===row.order_id):null;
+    let evidenceCurrent;
+    if(row.order_id)evidenceCurrent=order&&!['APPROVED_INTERNAL','CANCELLED','ARCHIVED'].includes(order.status)&&order.revision===row.order_revision;
+    else{const rfq=domain.bucket(ctx,'rfqs').find(item=>item.id===row.rfq_id),bid=domain.bucket(ctx,'bids').find(item=>item.id===row.bid_id);evidenceCurrent=rfq&&bid&&!['CANCELLED','ARCHIVED'].includes(rfq.status)&&!['CANCELLED','ARCHIVED'].includes(bid.status)&&rfq.revision===row.rfq_revision&&bid.revision===row.bid_revision;}
+    if(!evidenceCurrent||!policy||policy.id!==row.policy_id||policy.revision!==row.policy_revision)fail('award_evidence_changed','Bronrecord of verplicht beleid is gewijzigd; bereid een nieuwe beoordeling voor',409);
     row.reviews.push({step,actor_id:actor.id,decision:input.decision,reason:String(input.reason).trim(),record_revision:row.revision,at:new Date().toISOString()});
     row.status=input.decision==='REJECT'?'REJECTED_INTERNAL':row.reviews.length===row.approval_steps.length?'APPROVED_INTERNAL':'APPROVAL_REQUIRED';row.revision++;row.updated_at=new Date().toISOString();
+    if(order&&row.status==='APPROVED_INTERNAL'){order.status='APPROVED_INTERNAL';order.revision++;order.updated_at=row.updated_at;order.approved_by=actor.id;order.approval_reference_id=row.id;domain.recordEvent(ctx,actor,'orders',order,'approved');}
     domain.recordEvent(ctx,actor,'awards',row,row.status==='APPROVED_INTERNAL'?'approved':'updated');return row;
   });
 }
 function cancelAward(domain,ctx,actor,id,input,options={}){
+  domain.scope(ctx,actor,'write');
   domain.resolver.assertCapability(ctx,actor,'procurement:approvals','write');
   return action(domain,ctx,actor,`cancel:${id}`,input,options,()=>{
     domain.get(ctx,actor,'awards',id);const row=domain.bucket(ctx,'awards').find(row=>row.id===id);
@@ -74,4 +105,4 @@ function cancelAward(domain,ctx,actor,id,input,options={}){
     row.status='CANCELLED';row.revision++;row.updated_at=new Date().toISOString();domain.recordEvent(ctx,actor,'awards',row,'updated');return row;
   });
 }
-module.exports={validatePolicy,previewAward,prepareAward,reviewAward,cancelAward};
+module.exports={validatePolicy,previewAward,prepareAward,reviewAward,cancelAward,previewOrderApproval,prepareOrderApproval};

@@ -1,7 +1,7 @@
 {
   "schema_version": "foundly-checkpoint-test-evidence/1.0.0",
   "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
-  "command": "npm test",
+  "command": "npm test; then node procurement-order-review-test.js && node procurement-reviews-test.js after bounded evidence-reference type validation",
   "exit_code": 0,
   "source_sha256": {
     "analysis-script.js": "684d45906099af4da1cfc4b1ccf6dcfca4785d1b8977ba627c7e1b21c23c1c4c",
@@ -13,9 +13,9 @@
     "automotive-provider-contract-test.js": "329970409b47230409a31ce4625304c30eab555a9fc9dfeef7e9721abb848571",
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
-    "business-domain-api.js": "842c3dca1efde82d6d47bfed64220aea33d366abfcab8f8ae0a72ab29cfa536c",
+    "business-domain-api.js": "916c33c4264a9a329b2f5d8c6960c6d573ea492ffcb89213eeb8ce4c4baad6c5",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "ca236751016dfcc4d90820812d0efad3c462715e4633c04d01468457dab140e5",
+    "business-domains.js": "78b8a29ca0a78c7e34b431d35b0abec7525b97405c532961723ba335d17c3d88",
     "business-workspaces-regression-test.js": "cd2d0eff658c502aa216491f17957cd6d3925b5ddb7bb72d8c3e5b1afbf89db6",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
@@ -23,7 +23,7 @@
     "capability-resolver-test.js": "3de7025cf2fde865b45490045f9511fc00e919b7b44b96201ec90ecec0c6e67c",
     "capability-resolver.js": "5fba69c6d2af4a4000afc2dfb03820dd597c55d00aa0796c4d2dfffbd23f1b0a",
     "composition-api-test.js": "82c1540d476619d5ef11379945cfd86ef03afcdbdee79a99919f337eba84ac68",
-    "composition-matrix-test.js": "bb26c8d3489208138e4cf29ebd0b8c25cd2501d467533e1eba97abfcb1a75015",
+    "composition-matrix-test.js": "8e8ab94fb67a328fcffa5245963bc034606a76f60b48f99a6e7964edd18fa3f4",
     "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
     "composition-runtime.js": "2d6ac16f3ef04f16b2f9ba37ddbf287b58295d1369a7bf6a75df27e7c85ce136",
     "core-access-api-test.js": "365027ed442b86e8fa0ca7b7bdb88e48cfc83fae00318cffdaec4f4ccc3e6c5d",
@@ -43,7 +43,7 @@
     "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "44636e84cfaf143dc7b81825f6e609ef5917d344430cfbcf01f5d2338e30987d",
-    "foundly-workspace.js": "d717dea85a72fdb66079f023bceb1f3822a659752446bed8fb6d2015630bea89",
+    "foundly-workspace.js": "00f70c4e7abe693c2576a41d91ee16511fc2fabe64438df59e9ec50e691bb8d2",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
@@ -57,13 +57,14 @@
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "816daa1dac68387541ea5c470265f6b0f23498e98a8901cd186812be4ebb45ce",
+    "package.json": "3694efe826f69f4502daa622cf2c416367ac53b7259f430304a2783f058068cd",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "13e3d311675ddebd494e7f9ffdfb84c4c7ef90517a2f8e3cb688bd764e53240f",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
     "platform-core.js": "9c87db4d92f24b01997d0fcd2d1c0172a4a8bd6c01e10413ddefadea4a63d8fb",
+    "procurement-order-review-test.js": "46cc8d43d1fe70f8302bb64b0d2ef0f5d2e05a18c7b59bb040c6e99438c84f02",
     "procurement-reviews-test.js": "d9428eb623960fdf54bdbe3c3a91e92dbc93b55a3122c35288aad6baf0b97d3a",
-    "procurement-reviews.js": "5a48a4205d8dfa94a18257cbaa7c422ef3dd7e5fe298dd80e1e0974678eb0ed4",
+    "procurement-reviews.js": "30b84df3820e6dd202e13d68650201cf5fded4458d615c59b5086f223f072edc",
     "procurement-sourcing-test.js": "a736cfeac3a4eba2edc11f3215296986fb874bbbd00a86fd332f4c0156111c2a",
     "procurement-sourcing.js": "c84eda288f0758f6fca2acc5897665992deed6b631cbce2cb29a7d8ee74f0127",
     "production-audit.js": "5eb2897e9b682dfbc71ef209fecd60c9ac395e2b9290d33737bdc1ebfd2111e6",
@@ -89,7 +90,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "59fa995916ef8ab242467df3c4ca33b67490fba2734739645cab1fec97c17cec",
+  "output_sha256": "9b20a1045da9d7f0e56569b55eb79f86c3fa9ea413db8ff87126c91f9b15f2d8",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -244,7 +245,7 @@
   "new_browser_acceptance": "BLOCKED_CLOUD_BROWSER_URL_POLICY",
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-08",
+  "verified_at": "2026-09-09",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -289,7 +290,11 @@
     "Core connector/profile mutations and worker/persistence commands require explicit privileges",
     "Queued work never runs under a different owner; foreign queue prefixes do not starve owned work",
     "Per-task exceptions are isolated and returned without private error payloads",
-    "ZERO conversation read/delete/replay and confirmation consumption bind the requesting principal"
+    "ZERO conversation read/delete/replay and confirmation consumption bind the requesting principal",
+    "Direct procurement orders cannot bypass mandatory review policy",
+    "Final assigned review atomically approves the exact source order revision",
+    "Order approval rejects changed evidence, changed mandatory policy and missing structured inputs",
+    "Order rejection and withdrawal retain unapproved source records; encrypted HTTP restart preserves approved reference"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -301,11 +306,17 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260908-core-access-regression.log",
+  "output_file": ".recovery-evidence/20260909-order-review-regression.log",
   "previous_remote_ci": {
-    "commit": "42fdbee1bf6ef380e71b93fca75849365b7901d7",
-    "run_id": 34252512453,
-    "run_number": 54,
+    "commit": "9805fde21c7fbb91cf588c1a5e2a29de2361af36",
+    "run_id": 34253730959,
+    "run_number": 55,
     "conclusion": "success"
+  },
+  "final_focused_gate": {
+    "command": "node procurement-order-review-test.js && node procurement-reviews-test.js",
+    "exit_code": 0,
+    "output_sha256": "384ea0d064462067fe39ea1b98281450d9eccb0c23f80699a2141d19cde3f8c1",
+    "full_suite_difference": "Only order evidence-reference string/length validation and its negative test changed after the full suite; exact current tree requires remote CI."
   }
 }

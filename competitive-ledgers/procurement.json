@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "module": "procurement",
-  "assessed_at": "2026-09-06",
+  "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -35,15 +35,16 @@
           "retrieved_at": "2026-09-06"
         }
       ],
-      "foundly_current": "Owned RFQs, revision-bound bids, complete-scope price comparison and internal full-bid awards. Active currency/amount thresholds select mandatory sequential approval policies; reviewer assignment, default separation of duties, source/policy revision binding, rejection, withdrawal and restart are tested.",
-      "gap": "Supplier collaboration, partial item awards, policy application to legacy direct orders and browser acceptance remain incomplete.",
-      "required_change": "Complete item-level allocation and broader purchasing-policy coverage, then authorized supplier collaboration and browser acceptance.",
+      "foundly_current": "Owned RFQs, revision-bound bids, complete-scope price comparison and internal full-bid awards. Active currency/amount thresholds select mandatory sequential approval policies; reviewer assignment, default separation of duties, source/policy revision binding, rejection, withdrawal and restart are tested. Direct owned orders now use the same mandatory policy and assigned reviewers; the final review atomically approves the exact source revision.",
+      "gap": "Supplier collaboration, partial item awards and browser acceptance remain incomplete.",
+      "required_change": "Complete item-level allocation, then authorized supplier collaboration and browser acceptance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
         "procurement-sourcing-test.js",
-        "procurement-reviews-test.js"
+        "procurement-reviews-test.js",
+        "procurement-order-review-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

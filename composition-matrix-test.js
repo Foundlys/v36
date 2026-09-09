@@ -70,7 +70,7 @@ async function workflow(id){
     assert.equal((await request(`/api/${id}/export`)).body.collections[entity].length,1);
     const zero=await request('/api/zero/turn','POST',{message:`Toon ${id} overzicht`,preferred_module:id,turn_id:`matrix-turn-${id}`,conversation_id:`matrix-conversation-${id}`});
     assert.equal(zero.status,200,JSON.stringify(zero));assert.ok(zero.body.verification.persisted_records_only);assert.equal(zero.body.actions.length,0);
-    let rfqId,awardId,forecastId;
+    let rfqId,awardId,forecastId,orderId;
     if(id==='sales'){
       assert.equal((await request('/api/sales/forecast?from=2026-02-30&to=2026-09-30')).status,422);
       const dated=await request(`/api/sales/opportunities/${saved.body.record.id}`,'PUT',{expected_close_date:'2026-09-15',expected_revision:2});assert.equal(dated.status,200);
@@ -92,9 +92,14 @@ async function workflow(id){
       const award=await request(`/api/procurement/rfqs/${rfqId}/awards`,'POST',proposal,{'idempotency-key':'matrix-award'});assert.equal(award.status,201,JSON.stringify(award));awardId=award.body.record.id;
       assert.equal((await request(`/api/procurement/rfqs/${rfqId}/awards`,'POST',proposal,{'idempotency-key':'matrix-award'})).body.deduplicated,true);
       const reviewed=await request(`/api/procurement/awards/${awardId}/approve`,'POST',{expected_revision:1,decision:'APPROVE',reason:'Explicit fixture review',confirm:true},{'idempotency-key':'matrix-review'});assert.equal(reviewed.status,200,JSON.stringify(reviewed));assert.equal(reviewed.body.record.status,'APPROVED_INTERNAL');assert.equal(reviewed.body.external_commitment,false);
+      const order=await request('/api/procurement/orders','POST',{title:'Matrix direct order',value_cents:3000,currency:'EUR',evidence_reference:'Matrix fixture order document'});assert.equal(order.status,201);orderId=order.body.record.id;
+      assert.equal((await request(`/api/procurement/orders/${orderId}/approve`,'POST',{confirm:true,expected_revision:1})).status,409,'Direct approval must not bypass mandatory policy');
+      const orderPreview=(await request(`/api/procurement/orders/${orderId}/approval-preview`)).body;
+      const orderReview=await request(`/api/procurement/orders/${orderId}/approvals`,'POST',{preview_fingerprint:orderPreview.preview_fingerprint,reason:'Matrix direct order checked',confirm:true},{'idempotency-key':'matrix-order-review'});assert.equal(orderReview.status,201,JSON.stringify(orderReview));
+      const orderApproved=await request(`/api/procurement/awards/${orderReview.body.record.id}/approve`,'POST',{expected_revision:1,decision:'APPROVE',reason:'Explicit fixture order review',confirm:true},{'idempotency-key':'matrix-order-approved'});assert.equal(orderApproved.status,200);assert.equal(orderApproved.body.external_commitment,false);
 
     }
-    return async()=>{assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);if(rfqId)assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);if(awardId)assert.equal((await request(`/api/procurement/awards/${awardId}`)).body.record.status,'APPROVED_INTERNAL');if(forecastId){const snapshot=await request(`/api/sales/forecast_snapshots/${forecastId}`);assert.equal(snapshot.status,200);assert.equal(snapshot.body.record.forecast.groups[0].weighted_cents,6000);assert.equal(snapshot.body.record.immutable,true);}};
+    return async()=>{assert.equal((await request(`/api/${id}/${entity}/${saved.body.record.id}`)).body.record.title,`Updated ${id}`);if(rfqId)assert.equal((await request(`/api/procurement/rfqs/${rfqId}/comparison`)).body.items[0].total_cents,2500);if(awardId)assert.equal((await request(`/api/procurement/awards/${awardId}`)).body.record.status,'APPROVED_INTERNAL');if(orderId)assert.equal((await request(`/api/procurement/orders/${orderId}`)).body.record.status,'APPROVED_INTERNAL');if(forecastId){const snapshot=await request(`/api/sales/forecast_snapshots/${forecastId}`);assert.equal(snapshot.status,200);assert.equal(snapshot.body.record.forecast.groups[0].weighted_cents,6000);assert.equal(snapshot.body.record.immutable,true);}};
   }
   if(id==='crm'){
     const response=await request('/api/crm/contacts','POST',{name:'Matrix fixture contact'});assert.equal(response.status,201,JSON.stringify(response));
