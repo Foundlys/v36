@@ -27,9 +27,9 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "a89195e25fda606fc94a896ca42bba8dbab5fd1cc5d61ec23efa7fc34c1cd4e7",
+    "business-domain-api.js": "ba4b3516292d46b3717e7712093f57446c1a2acc9decfdf64495bb85ee7a57e2",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "43e7ccf4479b9c43ae00f6caf60d252c6a05918afdc7cceb0344b3c78ca7ef5c",
+    "business-domains.js": "1bccfdcd4c38b8c1112476f5ab9a1b41a6ce7307af2e28054c1c3700709e5a3c",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
@@ -50,9 +50,12 @@
     "communication-drafts-test.js": "64ef4854189c9f68688e6ed6bce782533b96334acefcf525fafe2679fbceea04",
     "communication-drafts.js": "1ef66f7acd1b1d81341de2f1993b069df72550971f0f67a9f1d73e216fe26596",
     "communication-history-bounds-test.js": "0801bc7de1ce98cb95439668cd5a4b4278c3adc103ecc48841bf4afde586a1eb",
+    "communication-inbox-client-test.js": "67f68c35c41cbc8cad0ca926b757e6729ed3f79170f612201ccdd7907fd9877c",
+    "communication-inbox-test.js": "65ee4194dec347446ac3731d3da19746df70828e1e965e9343be918d1afcea2c",
+    "communication-inbox.js": "5ddc1a90e721ec44148969763cfca4afdfdf318a49fd2ed158e6dbf532a213c4",
     "communication-provider-state-test.js": "436eddba807c9b55cced3bde68e0e30f7858c533734cfa128b16d46d93cb2b32",
     "communication-provider-state.js": "37891d19bf5cb06890628669b0537784b28c8c13de5f083b2f8d6904608a9caf",
-    "communication-replies-api-test.js": "b8c260a7a0d6a63977474cde20eefbed49a7c3428414688205e360ca543a52c4",
+    "communication-replies-api-test.js": "0953b709048eb23ba15b43926b738083c14894a51eb389f90e2892c76ddcf25d",
     "communication-replies-test.js": "81136bc8d8858a178ca51630fd6b175fa2db74522224ca197fa97366bccad25a",
     "communication-replies.js": "448c89726782c8d2e48b7621de1b2ff680da54fd2158e0a09d26712c7aa8e13b",
     "communication-snapshot-api-test.js": "17953fa835407ed7ff8eb128f4703cd65848eba1e8723ce1d0c21a457af1d4e7",
@@ -89,7 +92,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "4f387285442f2cb5d792a1c1324edfd363bc325448fff2cc7af70c4624a107f1",
-    "foundly-workspace.js": "654236cfdb19f5c22163f128f33bf3d2951bb483d611cb081edc7a5d0c7c5f8a",
+    "foundly-workspace.js": "852bd8d2798f7f5f4633adca31aa0bdf05f6ddb2d0d2a9fa8bb1e71454d35a0e",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -117,7 +120,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "0b065c26e6ef9943ef09690acfc6fca04f496a9cf3edaa3ab9418bb7be93c059",
+    "package.json": "e7c42a234e8ed7b3b5e6ce03add83849cfe2e80e882d68c6afef02ed564ffb1e",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -148,7 +151,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "7f16b51c70655c3b254da7cc2ef5d8c0fab87a35777282b56117afb4fcf681dc",
+    "server.js": "7f70063e55aa3513e1dfd12a406bef3888f186b510e43fe7d7767a4ea5dd5e73",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -203,7 +206,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "3b11bf435f7d45b8086a1df31c13726cd627d658c0ce4c70700f9b920d4484e3"
   },
-  "output_sha256": "b816e47a04356eb681c144bd77bf7071eea12686d903b5c46e6cf74fa8b61cf3",
+  "output_sha256": "cc16bba80e7b58772e77cc7ff14786110a56dd88074cdc046f03816fdafbdac6",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -358,7 +361,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-09T14:10:06.183597+00:00",
+  "verified_at": "2026-09-09T14:22:50.007945+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -492,7 +495,8 @@
     "Native and generic SMTP status use the same configuration-only projection, never claim authenticated connectivity from socket/HTTP reachability and perform no arbitrary SMTP destination probe. Authenticated mail transport and receipt processing remain implementation gaps.",
     "Source-bound REPLY/FORWARD internal draft preparation passes exact retained-message revision/hash/recipient binding, persistence rollback, encrypted replay and source changes during body waits. Current source rights govern drafts/history/native/export/ZERO; retained export survives module disablement subject to current source ownership. Labelled message fixtures are not live provider evidence; no external send.",
     "Final full npm test passed the shared SMTP credential/environment resolver: a username alone remains unconfigured and native/generic email status agree on configured SMTP environment variables, without authentication/send claims or network probes.",
-    "Full npm test passes bounded UTF-8 text attachments, canonical base64/byte validation, immutable historical restore, per-draft/tenant storage limits, current parent/source permission checks, body-wait collaborator revocation, encrypted restart, owned export after disablement and absence of content from generic Data/ZERO. Production client handlers validate SHA-256 before text/plain download, preserve input-bound retries and readonly/detached controls. No malware scan, binary support or browser acceptance is claimed."
+    "Full npm test passes bounded UTF-8 text attachments, canonical base64/byte validation, immutable historical restore, per-draft/tenant storage limits, current parent/source permission checks, body-wait collaborator revocation, encrypted restart, owned export after disablement and absence of content from generic Data/ZERO. Production client handlers validate SHA-256 before text/plain download, preserve input-bound retries and readonly/detached controls. No malware scan, binary support or browser acceptance is claimed.",
+    "Full npm test passes the dedicated retained-message inbox: 125-record search/pagination, private result counts, null external mailbox totals and personal read evidence, source-revision-bound per-user read/archive state, no provider mutation, CAS/replay/rollback, body-wait source change/reownership denial, encrypted restart and owned export after disablement. Production handlers render source text inertly, omit provider-message CRUD, do not implicitly mark read and discard stale/detached search results."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -504,7 +508,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-communication-attachments-regression.log",
+  "output_file": ".recovery-evidence/20260909-communication-inbox-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -517,10 +521,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "98ceadb62ca822c5ec179435d981e9ccfb82f100",
-    "tree": "f0f6951966307d9bc0b6e855da83da9712b4cd4b",
-    "run": 91,
-    "run_id": 34335829819,
+    "head": "4b432275413b0b31c9ff2c9ff581ca09f2178815",
+    "tree": "9d1ea59421dbe1fca1aa7dbd7e1549543cd10aa2",
+    "run": 92,
+    "run_id": 34362053761,
     "conclusion": "success"
   },
   "current_production_observation": {

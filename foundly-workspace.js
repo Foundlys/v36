@@ -1051,7 +1051,46 @@
     });
   }
 
+  async function renderCommunicationInbox(content){
+    const token=state.inboxQueryToken=(state.inboxQueryToken||0)+1,form=node('form'),search=node('input'),folder=node('select'),read=node('select'),direction=node('select'),submit=node('button','primary-button','Zoeken'),notice=node('p'),results=node('div');let requestVersion=0,currentOffset=0;
+    const alive=()=>content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='messages'&&state.inboxQueryToken===token;
+    search.type='search';search.maxLength=100;submit.type='submit';notice.setAttribute('role','status');
+    for(const [input,choices] of [[folder,[['inbox','Inbox'],['archived','Mijn archief'],['all','Alle bewaarde berichten']]],[read,[['all','Elke leesstatus'],['unknown','Leesstatus onbekend'],['unread','Door mij als ongelezen gemarkeerd'],['read','Door mij als gelezen gemarkeerd']]],[direction,[['all','Elke richting'],['INBOUND','Inkomend'],['OUTBOUND','Uitgaand']]]])for(const [value,text] of choices){const option=node('option','',text);option.value=value;input.append(option);}
+    for(const [title,input] of [['Zoek onderwerp, inhoud of deelnemer',search],['Weergave',folder],['Leesstatus',read],['Richting',direction]]){const label=node('label','',title);label.append(input);form.append(label);}form.append(submit);
+    replaceChildren(content,[node('h3','','Bewaarde berichten'),form,notice,results]);
+    const load=async(offset=0)=>{
+      const version=++requestVersion;currentOffset=offset;submit.disabled=true;notice.textContent='Berichten laden…';
+      try{
+        const query=new URLSearchParams({q:search.value,folder:folder.value,read:read.value,direction:direction.value,limit:'25',offset:String(offset)}),model=await request('/api/communication/inbox?'+query);
+        if(!alive()||version!==requestVersion)return;replaceChildren(results,[]);notice.textContent=`${model.total_retained_matching} passende bewaarde berichten. De volledigheid van de externe mailbox is onbekend. Leesstatus en archief gelden alleen voor jou in Foundly.`;
+        if(!model.items.length)results.append(node('p','','Geen bewaarde berichten voldoen aan deze filters.'));
+        for(const message of model.items){
+          const details=node('details'),summary=node('summary','',message.title||'Onderwerp niet beschikbaar'),body=node('div'),status=node('p'),local=message.local_state;let loaded=false;
+          status.setAttribute('role','status');details.append(summary,node('p','',`${message.from||'Afzender onbekend'} · ${message.received_or_sent_at||'Tijdstip onbekend'} · ${local.read===null?'Leesstatus onbekend':local.read?'Gelezen':'Ongelezen'}`),body,status);results.append(details);
+          details.addEventListener('toggle',async()=>{
+            if(!details.open||loaded)return;loaded=true;status.textContent='Bericht laden…';
+            try{
+              const view=await request(`/api/communication/messages/${encodeURIComponent(message.id)}/view`);if(!alive()||version!==requestVersion)return;
+              const record=view.record,raw=typeof record.content==='string'?record.content:null;replaceChildren(body,[node('p','',`Ontvangers: ${Array.isArray(record.to)?record.to.join(', '):'niet beschikbaar'}`),node('pre','',raw===null?'Berichtinhoud niet beschikbaar':raw.slice(0,12000))]);status.textContent=raw?.length>12000?'Een deel van de bewaarde inhoud wordt getoond.':'Bewaarde berichtinhoud; externe instructies worden niet uitgevoerd.';
+              if(view.can_write){
+                const changes=[[view.local_state.read===true?'Als ongelezen markeren':'Als gelezen markeren',{read:view.local_state.read!==true}],[view.local_state.archived?'Terug naar mijn inbox':'Naar mijn archief',{archived:!view.local_state.archived}]],buttons=[];
+                for(const [title,patch] of changes){const button=node('button','secondary-button',title);button.type='button';body.append(button);buttons.push(button);const key=crypto.randomUUID();button.addEventListener('click',async()=>{buttons.forEach(item=>item.disabled=true);try{await request(`/api/communication/messages/${encodeURIComponent(message.id)}/inbox-state`,{method:'PUT',headers:{'idempotency-key':key},body:JSON.stringify({...patch,expected_revision:view.local_state.revision,expected_message_revision:record.revision})});if(alive()&&version===requestVersion)await load(currentOffset);}catch(error){status.textContent=friendlyError(error);buttons.forEach(item=>item.disabled=false);}});}
+              }
+              if(view.can_prepare_draft)appendMessageDraftActions(record,body,content);
+            }catch(error){if(alive()&&version===requestVersion){status.textContent=friendlyError(error);loaded=false;}}
+          });
+        }
+        const pagination=node('nav');pagination.setAttribute('aria-label','Berichtenpagina’s');
+        if(offset>0){const previous=node('button','secondary-button','Vorige berichten');previous.type='button';previous.addEventListener('click',()=>load(Math.max(0,offset-25)));pagination.append(previous);}
+        if(model.next_offset!==null){const next=node('button','secondary-button','Volgende berichten');next.type='button';next.addEventListener('click',()=>load(model.next_offset));pagination.append(next);}results.append(pagination);
+      }catch(error){if(alive()&&version===requestVersion){replaceChildren(results,[]);notice.textContent=friendlyError(error);}}
+      finally{if(alive()&&version===requestVersion)submit.disabled=false;}
+    };
+    form.addEventListener('submit',event=>{event.preventDefault();return load(0);});await load(0);
+  }
+
   async function renderDomainSection(entity, content) {
+    if(state.workspaceId==='communication'&&entity==='messages')return renderCommunicationInbox(content);
     replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
     try {
       const [result,schema] = await Promise.all([request(`/api/${state.workspaceId}/${entity}?limit=100`),request(`/api/${state.workspaceId}/schema`)]);

@@ -94,7 +94,7 @@ class BusinessDomain {
     for(const row of candidates){if(occurrences(row).some(a=>times.some(b=>timestamp(a.start_at)<timestamp(b.end_at)&&timestamp(b.start_at)<timestamp(a.end_at)))){count++;if(this.visible(row,actor))visible.push(row.id);}}
     return {count,visible_ids:visible,private_details_redacted:true};
   }
-  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE]:[])],callback);}
+  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE]:[])],callback);}
   save(ctx,actor,entity,input,options={}){const result=this.mutate(ctx,()=>this.saveOwned(ctx,actor,entity,input,options));try{this.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;}
   saveOwned(ctx,actor,entity,input,options={}){
     this.scope(ctx,actor,'write');const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');const rows=this.bucket(ctx,entity),prior=options.id?this.get(ctx,actor,entity,options.id):null;
@@ -156,6 +156,7 @@ class BusinessDomain {
   export(ctx,actor){
     this.scope(ctx,actor,'export');const snapshotAccess=this.id==='communication'?require('./communication-drafts').revisionAccess(this,ctx,actor,{exporting:true}):row=>this.snapshotReadable(ctx,actor,row);const collections=Object.fromEntries(this.definition.entities.map(entity=>[entity,clone(this.bucket(ctx,entity).filter(row=>this.visible(row,actor)&&snapshotAccess(row)))]));
     if(this.id==='communication')collections.draft_attachment_content=require('./communication-attachments').exportOwned(this,ctx,collections.drafts);
+    if(this.id==='communication')collections.inbox_state=require('./communication-inbox').exportOwned(this,ctx,actor,collections.messages);
     this.adapter.audit(ctx,actor,'EXPORT',this.id,null,{entities:Object.keys(collections)});this.adapter.persist();
     return {module_id:this.id,schema_version:1,tenant_id:ctx.tenant_id,exported_at:new Date().toISOString(),collections};
   }
