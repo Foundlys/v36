@@ -82,10 +82,11 @@ const BUNDLES = freeze({ COMPLETE: Object.keys(MODULES), OPERATIONS: ['crm', 'ca
 const INDUSTRIES = freeze({
   GENERAL: { industry_id: 'GENERAL', production: true, extensions: {} },
   AUTOMOTIVE: { industry_id: 'AUTOMOTIVE', production: true, route: '/automotive', extensions: {
-    procurement: { objects: ['vehicle', 'listing'], tools: Object.keys(TOOL_MODULES).filter(t => t.startsWith('automotive_')), connectors: ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc'], fields: ['vin', 'registration', 'mileage'], field_schema:{vin:{type:'string'},registration:{type:'string'},mileage:{type:'number'}}, kpis: ['buy_score', 'acquisition_economics'] },
+    procurement: { objects: ['vehicle', 'listing'], tools: Object.keys(TOOL_MODULES).filter(t => t.startsWith('automotive_')), connectors: ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc'], fields: ['vin', 'registration', 'mileage'], field_schema:{vin:{type:'string'},registration:{type:'string'},mileage:{type:'number'}}, kpis: ['buy_score', 'acquisition_economics'], dashboard_presets:[{id:'vehicle_sourcing_review',version:1,name:'Voertuiginkoop beoordelen',required_capabilities:['procurement:sourcing','procurement:approvals','procurement:suppliers'],metrics:['rfqs','bids','awards','suppliers']}] },
     crm: { fields: ['vehicle_interest'], objects: ['vehicle_customer_relationship'] },
     sales: { fields: ['vehicle_id'], kpis: ['days_in_stock'] },
-    analysis: { kpis: ['inventory_velocity', 'vehicle_margin'] }
+    analysis: { kpis: ['inventory_velocity', 'vehicle_margin'] },
+    automation: {workflow_templates:[{id:'vehicle_review_followup',version:1,name:'Voertuigbeoordeling opvolgen',required_capabilities:['automation:workflows'],draft:{name:'Voertuigbeoordeling opvolgen',version:1,trigger_type:'custom_event',automatic:false,approval_required:true,steps:[{type:'create_task',values:{title:'Controleer de voertuiggegevens en leg je beoordeling vast'},attempts:1}]}}]},
   } }
 });
 function moduleId(value) { const key=String(value || '').toLowerCase();return Object.hasOwn(ALIASES,key)?ALIASES[key]:null; }

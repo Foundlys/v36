@@ -33,7 +33,7 @@
       "phase": 4,
       "name": "Industry abstraction",
       "status": "PARTIAL",
-      "evidence_or_gap": "Typed industry field schema and existing workspace forms, pack provenance, partial updates and encrypted persistence verified; bounded permission-filtered KPI definition extension and second-industry CRM/Analysis proof now pass; browser acceptance and full workflow/dashboard extension registry remain"
+      "evidence_or_gap": "Typed fields, provenance, bounded KPI definitions and declarative dashboard/manual-workflow presets share universal engines and current capability gates; authenticated save/restart/pack-switch tests and second-industry fixtures pass. Production KPI/source integrations, additional specialization types and browser acceptance remain."
     },
     {
       "phase": 5,
@@ -189,7 +189,7 @@
       "phase": 30,
       "name": "Browser acceptance",
       "status": "BLOCKED_EXTERNAL",
-      "evidence_or_gap": "Cloud browser explicitly rejects local URLs; no bypass attempted"
+      "evidence_or_gap": "BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: cloud browser navigation returned net::ERR_BLOCKED_BY_CLIENT. The documented Sites preview requires a compatible Vite dev server; this custom Node application has none. No architecture replacement, bypass, deployment or browser pass."
     },
     {
       "phase": 31,

@@ -24,6 +24,7 @@ const {calendarOperations}=require('./calendar-operations');
 const {authorizeDashboard}=require('./workspace-authorization');
 const {assertCoreRoute,assertCorePermission,privateRowVisible,processOwnedQueue}=require('./core-access-contracts');
 const {projectedWorkspace,hasPartialComposition,partialSnapshot}=require('./composition-projections');
+const {industryPresets}=require('./industry-presets');
 const {MODULES:COMMERCIAL_MODULES,BUNDLES:COMMERCIAL_BUNDLES,INDUSTRIES,moduleId:commercialModuleId}=require('./module-catalog');
 const {guardDomain,filterTools,filterWorkspaces,assertRoute:assertCompositionRoute,moduleVisible,scopeVisible,connectorVisible}=require('./composition-runtime');
 const {FoundlyPlatformCore}=require('./platform-core');
@@ -1502,6 +1503,7 @@ async function handleCompositionApi(req,res,u){
   if(!u.pathname.startsWith('/api/composition'))return false;
   const c=trustedContext(),actor=platformPrincipal();
   try{
+    if(u.pathname==='/api/composition/industry-presets'&&req.method==='GET')return json(res,200,industryPresets(COMPOSITION,c,actor,u.searchParams.get('module'),u.searchParams.get('module')==='automation'?require('./workflow-authoring').contract(PLATFORM_CORE.schema().automation):null));
     if(u.pathname==='/api/composition/catalog'&&req.method==='GET')return json(res,200,{ok:true,modules:Object.values(COMMERCIAL_MODULES),bundles:COMMERCIAL_BUNDLES,industries:INDUSTRIES});
     if(u.pathname==='/api/composition'&&req.method==='GET')return json(res,200,{ok:true,resolution:COMPOSITION.resolve(c,actor),profile:COMPOSITION.profile(c),can_manage:canManageComposition(actor)});
     if(u.pathname==='/api/composition/preview'&&req.method==='POST')return json(res,200,COMPOSITION.preview(c,actor,await body(req)));

@@ -67,23 +67,23 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 | 0 Repository/runtime/checkpoint | COMPLETE | Local/remote refs and worktrees recovered; functional work preserved; live public baseline observed |
 | 1 Architecture inventory | COMPLETE | Ownership, retained buckets, Core services and dependency boundaries in inventory |
 | 2 Module contracts | PARTIAL | Nine manifests, shared role grants, isolated probes, owned entity/operation mappings and durable events; remaining legacy contracts and full standalone product acceptance are explicit |
-| 3 Capability resolver | PARTIAL | Composed module/role/tool, private event/data/memory/conversation and worker-owner guards; complete remaining mixed-entry audit and real end-user identity provisioning remain |
-| 4 Industry abstraction | PARTIAL | Validated pack fields and test injection; complete UI/KPI/workflow extension registry remains |
+| 3 Capability resolver | PARTIAL | Composed module/role/tool and private-data guards now use real tenant member sessions with live operation-boundary roles; invitation, suspension and current-member workers pass HTTP/restart. Remaining mixed-entry audit and browser acceptance are explicit |
+| 4 Industry abstraction | PARTIAL | Typed fields, provenance, bounded KPI definitions and declarative dashboard/manual-workflow presets share universal engines and current capability gates; authenticated save/restart/pack-switch tests and second-industry fixtures pass. Production KPI/source integrations, additional specialization types and browser acceptance remain. |
 | 5 Automotive pack | PARTIAL | Existing engine preserved; integration and non-regression checked; complete composed browser/provider acceptance remains |
-| 6 Procurement | PARTIAL | RFQs, bid comparisons, full-bid awards and direct-order mandatory sequential reviews; partial item allocations, supplier authorization and browser acceptance remain |
-| 7 Sales | PARTIAL | Owned stages, period-based currency forecasts and immutable revision-bound snapshots; quotas, hierarchies, sequences and browser acceptance remain |
+| 6 Procurement | PARTIAL | Owned sourcing, complete RFQ item/quantity allocation, aggregate approval thresholds, sequential reviewers, source/policy revision protection and encrypted restart pass; supplier collaboration and browser acceptance remain. |
+| 7 Sales | PARTIAL | Owned pipelines, forecasts, exact owner/period/currency quotas, revision-bound snapshots and current source permission checks pass; hierarchy, scenario workflows, sequences and browser acceptance remain. |
 | 8 CRM | PARTIAL | Existing engine and isolated configuration pass; competitive and full identity/UI acceptance remain |
 | 9 Marketing | PARTIAL | Owned plans and existing measurement adapters; journey activation and real provider proof remain |
-| 10 Finance | PARTIAL | Accounting preserved and tested; complete competitive/accounting and provider acceptance remain |
+| 10 Finance | PARTIAL | Preserved accounting engine and Finance-only capability-aware client loading pass full regression and encrypted restart; complete period-close, jurisdiction-specific workflows, scenarios and browser acceptance remain. |
 | 11 Analytics | PARTIAL | Owned reports with explicit inference provenance, retained export and durable events; permission-filtered analytics exist; cohorts/model/section contracts remain |
 | 12 Calendar | PARTIAL | Availability-driven slots, distribution, idempotent booking, internal reminders, private ACL and restart; external reconciliation/browser proof pending |
 | 13 Communication | PARTIAL | Own drafts/templates/preferences; mail authorization, delivery, attachments and collaboration remain |
-| 14 Automation | PARTIAL | Durable execution/events and bounded scheduling; immutable approval policy and legacy replay verified; complete editor/retry/recovery workflows remain |
+| 14 Automation | PARTIAL | Owner-bound execution, bounded retries, sequential authoring, private drafts, version activation, proof-based recovery and searchable paginated run history pass. Visual branching and external recovery evidence remain incomplete; browser acceptance is blocked. |
 | 15 Workspace composition | PARTIAL | Shared forms, composer and distinct projections; explicitly missing sections and browser acceptance remain |
 | 16 ZERO orchestration | PARTIAL | Dynamic availability and real read tools; complete structured prepare/execute/verify coverage remains |
 | 17 Registries | PARTIAL | Canonical registries retained; public positive-state/receipt forgery blocked; remaining runtime-to-registry integration and complete capability mapping remain |
 | 18 Policy/risk | PARTIAL | Input-bound approvals and requester identity, connector administration and owner-bound automatic work; complete external-action policy coverage remains |
-| 19 Provisioner/composer | PARTIAL | Package preview/apply and founder guard; real user/tenant provisioning and all configuration dimensions remain |
+| 19 Provisioner/composer | PARTIAL | Package preview/apply plus authorized tenant-member enrollment, roles, suspension and retained history; full multi-tenant provisioning/configuration dimensions and browser acceptance remain |
 | 20 Second industry proof | COMPLETE | Test-only manifest extends owned business records; unavailable in production |
 | 21 Standalone matrix | PARTIAL | Nine configuration/workflow/restart profiles pass; full product acceptance remains pending |
 | 22 Composition matrix | PARTIAL | Twelve configuration/restart combinations pass; exhaustive choreography remains |
@@ -94,7 +94,7 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 | 27 GitHub/CI | PARTIAL | Draft checkpoint published; final release PR/CI/merge gates remain |
 | 28 Production deployment | NOT_STARTED | No release until genuine architecture/acceptance defects are closed |
 | 29 Post-deploy checks | NOT_STARTED | No new production deployment to validate |
-| 30 Browser acceptance | BLOCKED_EXTERNAL | Cloud browser explicitly rejects local URLs; no bypass attempted |
+| 30 Browser acceptance | BLOCKED_EXTERNAL | BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: cloud browser navigation returned net::ERR_BLOCKED_BY_CLIENT. The documented Sites preview requires a compatible Vite dev server; this custom Node application has none. No architecture replacement, bypass, deployment or browser pass. |
 | 31 Final evidence | PARTIAL | This checkpoint and ledgers preserve truth; no completion verdict issued |
 
 Last contiguous fully completed phase: **1**. Earliest incomplete requirement:
@@ -194,3 +194,9 @@ The existing administrator authentication is preserved. Founder/Super Admin mana
 AsyncLocalStorage isolates request identities. Principal getters revalidate current membership at domain boundaries, including after asynchronous request-body reading. Registered active members can execute their own scheduled workflows and queued tasks under their current roles, with a bounded rotating owner list and isolated failures. The service scheduler does not lend its authority. The Users/Roles surface and a dedicated enrollment/login page use these existing Core-backed APIs.
 
 Full `npm test` exited 0. Unit tests cover one-use redemption races, role changes during password verification, revocation, expiration, retained membership and rollback. HTTP tests use two real fixture sessions, simultaneous private-memory writes, private ZERO conversations, current-role denial, a body-await revocation barrier, cookie/Origin protection, secret-free data projections, current-member scheduling, suspension and encrypted restart. Browser interaction, MFA, SSO and verified email delivery remain unproven or unimplemented. Production public health was separately observed HTTP 200, version 6.0.0; no deployment or production mutation occurred. The preceding recovery tree passed GitHub Actions run 62.
+
+## Industry presets and standalone loading — 2026-09-09
+
+Finance and Analysis pages now isolate component failures and respect partial capabilities. Full regression and authenticated restart tests pass; missing values remain unavailable. Finance loading checkpoint `c1bff62004577cb0b5b37c477ca3c4e6dc2d7ea9` matches local `8f0583160bde0affc2c1e96ee6f0c012a8ae2ed7` at tree `bda5ab8c34dac35a7dceef27d4bd4321857f0960`; GitHub Actions run 71 succeeded.
+
+The subsequent industry preset increment passes full npm test. It adds declarative existing-metric layouts and manual approval-required workflow drafts through existing engines, with no side effects on discovery. Current permissions and capabilities filter availability. Existing records survive encrypted restart and pack changes. The exact source hashes are recorded in COMPOSABLE_TEST_EVIDENCE.json. UI interactions still require browser acceptance. No production changes.

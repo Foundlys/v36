@@ -738,7 +738,9 @@
         chooser.append(node('option','','Nieuw concept'));chooser.firstChild.value='';for(const draft of drafts.items){const option=node('option','',`${draft.draft.name||'Naamloos concept'} · revisie ${draft.revision}`);option.value=draft.id;chooser.append(option);}label.append(chooser);open.type='button';
         const show=draft=>{const editor=window.FoundlyWorkflowEditor.create({document,spec:data.editor_contract,request,draft,onSaved:()=>renderAutomationSection(section,content)});editorBox.replaceChildren(editor);};show();
         open.addEventListener('click',()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}try{show(drafts.items.find(row=>row.id===chooser.value)||null);message.textContent='';}catch(error){message.textContent=error.message;}});
-        result.push(label,open,message,editorBox);
+        const template=node('button','secondary-button','Branchesjabloon kiezen');template.type='button';
+        template.addEventListener('click',async()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}template.disabled=true;try{await chooseIndustryPreset('automation','workflow',selected=>{show({draft:selected.draft});message.textContent='Sjabloon geopend als nieuw concept. Bewaar het concept of controleer de workflowversie voordat je deze opslaat.';});}catch(error){message.textContent=friendlyError(error);}finally{template.disabled=false;}});
+        result.push(label,open,template,message,editorBox);
       }
       const rows=workflowSections.includes(section)?data.workflows:data.runs;
       for(const row of rows||[]){
@@ -977,6 +979,7 @@
       request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/snapshot`)
     ]);
     state.workspace = definition.workspace; state.dashboard = dashboard.dashboard; state.snapshot = snapshot;
+    byId('industryDashboardPreset').hidden = !state.workspace.industry_dashboard_presets;
     byId('workspaceEyebrow').textContent = state.workspace.eyebrow;
     byId('workspaceTitle').textContent = state.workspace.label;
     byId('workspaceDescription').textContent = state.workspace.description;
@@ -1001,6 +1004,17 @@
     state.editing = typeof force === 'boolean' ? force : !state.editing;
     byId('editDashboard').textContent = state.editing ? 'Bewerken sluiten' : 'Dashboard aanpassen';
     byId('addWidget').disabled = !state.editing; byId('saveDashboard').disabled = !state.editing; renderDashboard();
+  }
+
+  async function chooseIndustryPreset(moduleId,kind,apply) {
+    const data=await request('/api/composition/industry-presets?'+new URLSearchParams({module:moduleId}));
+    const choices=data.items.filter(item=>item.kind===kind&&item.can_prepare);
+    if(!choices.length)return toast(data.unavailable.length?'Branchesjablonen zijn momenteel niet beschikbaar.':'Geen passend branchesjabloon voor je huidige toegang.');
+    const dialog=node('dialog'),form=node('form'),label=node('label','','Branchesjabloon'),select=node('select'),use=node('button','primary-button','Overnemen'),cancel=node('button','secondary-button','Annuleren');
+    for(const item of choices){const option=node('option','',`${item.name} · versie ${item.version}`);option.value=item.id;select.append(option);}
+    label.append(select);use.type='submit';cancel.type='button';form.append(label,node('p','','Je kunt het sjabloon aanpassen voordat je het opslaat. Er wordt niets uitgevoerd.'),use,cancel);dialog.append(form);document.body.append(dialog);
+    const close=()=>{dialog.close();dialog.remove();};cancel.addEventListener('click',close);dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+    form.addEventListener('submit',event=>{event.preventDefault();const selected=choices.find(item=>item.id===select.value);if(selected){apply(selected);close();}});dialog.showModal();
   }
 
   function openWidgetDialog() {
@@ -1081,6 +1095,7 @@
     byId('exportWorkspace').addEventListener('click', exportRows);
     byId('zeroForm').addEventListener('submit', askZero);
     byId('provisionerForm').addEventListener('submit', submitProvisioner);
+    byId('industryDashboardPreset').addEventListener('click',async()=>{const button=byId('industryDashboardPreset');button.disabled=true;try{await chooseIndustryPreset(state.workspaceId,'dashboard',selected=>{state.dashboard={...state.dashboard,name:selected.dashboard.name,widgets:selected.dashboard.widgets};toggleEditing(true);toast('Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.');});}catch(error){toast(friendlyError(error),true);}finally{button.disabled=false;}});
     byId('dashboardScope').addEventListener('change', async event => {
       const qualified = ['TEAM', 'ROLE'].includes(event.target.value); byId('dashboardQualifierWrap').hidden = !qualified;
       try { await loadWorkspaceData(); } catch (error) { toast(friendlyError(error), true); }

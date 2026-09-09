@@ -30,7 +30,7 @@
     "capability-resolver.js": "425d4e42ecee1b819b4e81e4dc10f20cc2403c5c34c9805c4ac5bd760879b995",
     "composition-api-test.js": "82c1540d476619d5ef11379945cfd86ef03afcdbdee79a99919f337eba84ac68",
     "composition-matrix-test.js": "8e8ab94fb67a328fcffa5245963bc034606a76f60b48f99a6e7964edd18fa3f4",
-    "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
+    "composition-projections.js": "73bd871e6fdd5f8dc44091879a4a1e7ccf3b5b3c759994d1519611eb00d00936",
     "composition-runtime.js": "c7b11549e2a921128e3a514c888cce4e5fe441fe0b5b7f72ddee8c5c1c78ba3e",
     "core-access-api-test.js": "b25892c9b81fec28bda24960af6d763af3a7265b79c1e171f5e5d82d89e3273b",
     "core-access-contracts-test.js": "c14a093653346a5008ce96edb2f0de69498964be4f60d2f809012d148f0752f1",
@@ -54,8 +54,8 @@
     "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
-    "foundly-workspace.html": "74120b56080245a09620336daa7cccfc35be28ed0d4bdabdf1ea642762efc606",
-    "foundly-workspace.js": "81c04f781762cc0b4ca387cc2774153dd6f90deb1249b3a1c4b87bb3f3117a8f",
+    "foundly-workspace.html": "56741df4428f77765394987a05f6d6689359bc7e2d46ba9ade90161ec28b0ccd",
+    "foundly-workspace.js": "f9982ea4968d03f9916778bbaf2bd9fdca8c9ab063fa5626b532d64be8f7fd6b",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -65,19 +65,22 @@
     "industry-field-api-test.js": "76ee1cda1bf682d49d5cf8c6ae86a4f4cbaa095b4ccf7ac5bedcd8080efc8695",
     "industry-field-contract.js": "b7f1c9abc73983447921baffeaafdd1a16540b10d17e4093355a3202f0f1e527",
     "industry-kpis.js": "962d6c714c0843945647572541c50d6da966f8385d4c8508aaf2fee01f95c67c",
+    "industry-presets-api-test.js": "760c1d902772dbeef0f50cd60de9cf2f376189797b68080eb35888e7b4a4b720",
+    "industry-presets-test.js": "61dfa4ce64ea92e428c25090aeab10e830c4c06533c9e7e8aa29c0ce6e41a578",
+    "industry-presets.js": "a1f87162cfdd7bb52879829b1c551901c96e971b8ec80f3e0e44186606dc21ed",
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
     "module-access-contracts.js": "e8d34ab121dcb669aec049bebb5aa9c625fd198e8f6dde3a912b0c84767d57c4",
-    "module-catalog.js": "932339f8a65b2340a37188cba91163969a15eb826247092b1e6611c03be3259b",
+    "module-catalog.js": "1bf460e615ee1fa290c448688cb2eda2e1f2f9292ea927ef70ee5c0348d9deb2",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "4aef56d961da52e706c8824cb3537511663f2aa090a07a7739dbc9d03f0dfc1b",
+    "package.json": "5a50173eb7b409dc6dfac1a8e22b565e3163cf0743d20a95185165654ed6231b",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -105,7 +108,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "5e7027522443f1871b5ae14af71e47cdba445d11426870385a7186770549846c",
+    "server.js": "901edf6c0564bf21b5e8a10b10ffa910bd37b6a2227efda26f33828bb59e1098",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -148,7 +151,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "75ef356822263ee2e392dfffd9a914a468cd0cf05873f353f31e47fc67503b08",
+  "output_sha256": "1df69a78e00efbbf411714f349b119a69052c359670db665356b60d1ceb6fd28",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -300,7 +303,7 @@
     "automotive-core.js"
   ],
   "frozen_diff_from_baseline": "EMPTY",
-  "new_browser_acceptance": "BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: fresh cloud browser navigation to local fixture returned net::ERR_BLOCKED_BY_CLIENT on 2026-09-09",
+  "new_browser_acceptance": "BLOCKED_EXTERNAL_BROWSER_ACCEPTANCE: cloud browser navigation returned net::ERR_BLOCKED_BY_CLIENT. The documented Sites preview requires a compatible Vite dev server; this custom Node application has none. No architecture replacement, bypass, deployment or browser pass.",
   "production_deployed": false,
   "masterbuild_complete": false,
   "verified_at": "2026-09-09",
@@ -401,7 +404,11 @@
     "Business workspace regression checks both delivered Analysis client files while preserving route, escaping and no-fabricated-data checks",
     "Finance-only page loading independently enforces ledger and reports capabilities; unavailable legal-entity lookup cannot block authorized reports or discard an explicit entity filter",
     "Missing Finance amounts and failed/disabled components remain unavailable, while genuine zero values are preserved; encrypted HTTP restart and delivered client assets pass",
-    "Finance UI loading changes preserve the frozen accounting engine; no browser acceptance or external accounting outcome is inferred"
+    "Finance UI loading changes preserve the frozen accounting engine; no browser acceptance or external accounting outcome is inferred",
+    "Industry manifests contribute versioned dashboard presets and manual approval-required workflow drafts through existing universal APIs; discovery causes no persistent changes or execution",
+    "Current source capabilities are derived for native dashboard metrics even if a manifest omits them; revoked workflow/approval capabilities hide templates and unauthorized publication remains denied",
+    "Production Automotive and test-only second-industry presets share the same registry; malformed actions, automatic template subscriptions and invented metrics are rejected independently",
+    "Owned dashboard save, encrypted restart and industry-switch retention pass; a manually published workflow creates one task only after exact approval, with replay retaining its identity"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -413,7 +420,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-finance-loading-regression.log",
+  "output_file": ".recovery-evidence/20260909-industry-presets-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -426,10 +433,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "adc7a2eca4bf9035c1000a338fc002a581177382",
-    "tree": "d869d0d598b0d14c4f53c4e52ee5ce9204385a00",
-    "run": 70,
-    "run_id": 34316185795,
+    "head": "c1bff62004577cb0b5b37c477ca3c4e6dc2d7ea9",
+    "tree": "bda5ab8c34dac35a7dceef27d4bd4321857f0960",
+    "run": 71,
+    "run_id": 34316953387,
     "conclusion": "success"
   }
 }

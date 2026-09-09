@@ -2,7 +2,9 @@
 const {MODULES}=require('./module-catalog');
 const {ENTITY_CAPABILITIES}=require('./module-access-contracts');
 function projectedWorkspace(workspace,resolution){
-  if(!MODULES[workspace.id]||resolution.legacy_compatibility)return workspace;
+  if(!MODULES[workspace.id])return workspace;
+  workspace={...workspace,industry_dashboard_presets:Boolean(resolution.industry_extensions?.[workspace.id]?.dashboard_presets?.length)};
+  if(resolution.legacy_compatibility)return workspace;
   const allowed=new Set(resolution.capabilities),aliases={customers:'contacts',activity:'activities',forecast:'deals',communication:'messages',analytics:'deals',dashboards:'dashboard_views','sales invoices':'invoices','purchase invoices':'invoices',bank:'bank_transactions',reconciliation:'reconciliations',receivables:'invoices',payables:'invoices',vat:'vat_codes',close:'closing_periods',forecasts:'cash_forecasts',funnels:'funnel'};
   const visible=section=>{const name=section.toLowerCase(),entity=aliases[name]||name.replaceAll(' ','_'),cap=ENTITY_CAPABILITIES[workspace.id]?.[entity];return !cap||allowed.has(cap);};
   return {...workspace,sections:workspace.sections.filter(visible),domain_entities:workspace.domain_entities?.filter(visible),capabilities:MODULES[workspace.id].provided_capabilities.filter(cap=>allowed.has(cap)),capability_aware:true};

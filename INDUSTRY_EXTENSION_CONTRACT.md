@@ -8,4 +8,12 @@ Module engines own their records and enforce existing tenant, module, capability
 
 `second-industry-integration-test.js` exercises a property/customer relationship through existing CRM custom fields and deals, and a property yield fixture through Analytics-only canonical events. It tests private records, separate entitlements, reload and revoked source capabilities. It is architectural fixture evidence, not a production Real Estate product or provider acceptance.
 
-Remaining: full industry workflow/dashboard registry, production KPI integrations with verified source contracts, and browser acceptance.
+`industry-presets.js` exposes GET `/api/composition/industry-presets?module=<module>` under current module read permissions. Manifests may supply versioned `dashboard_presets` (`id`, `version`, `name`, `metrics`, optional `required_capabilities`) and Automation-owned `workflow_templates` with a shared editor `draft`. Only existing workspace metrics and editor actions are accepted. Native metric capabilities are derived, not trusted to an optional manifest declaration; complex metrics conservatively require the full owning module. Discovery is read-only and does not install, activate or execute anything. Invalid individual definitions are reported separately.
+
+Workflow templates require manual custom-event invocation, automatic=false and approval_required=true. Current workflow and approval capabilities must be active. The existing editor opens a new private draft; publication, version activation, approvals and execution use existing APIs and current authorization. These are starting points, not executable manifest handlers or imported provider access. The initial Automotive template prepares an internal vehicle-review follow-up task without reading other modules.
+
+Dashboard templates select existing authorized workspace metrics. The user explicitly adopts a layout and then saves it through the existing personal/team/role dashboard API. Current dashboard filters and scope are retained in the UI. The initial Automotive procurement preset selects RFQs, bids, awards and suppliers; it adds no synthetic economics. Saved layouts and published workflows remain independent owned records when the industry changes. A later manifest version does not rewrite them.
+
+`industry-presets-test.js` and `industry-presets-api-test.js` cover separate module contexts, revoked capabilities, malformed/external/automatic definitions, a test-only second industry, encrypted restart, preservation across industry changes and approved exactly-once internal task creation. Node/API evidence is not browser acceptance.
+
+Remaining: broader specialization types, production KPI integrations with verified source contracts, and browser acceptance.
