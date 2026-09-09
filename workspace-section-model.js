@@ -36,7 +36,7 @@ function sectionModel(workspace,section,snapshot) {
   }
   if(workspace==='settings'){
     if(section==='TENANT')return result([snapshot.tenant,details.tenant_profile].filter(Boolean),'ACTIVE_TENANT_CONFIGURATION');
-    if(section==='ROLES'||section==='USERS')return result([{active_roles:snapshot.metrics?.role_model?.value,user_directory:'NOT_IMPLEMENTED',identity_model:'SERVICE_AUTHENTICATION'}],'SERVER_PRINCIPAL');
+    if(section==='ROLES'||section==='USERS')return result([{active_roles:snapshot.metrics?.role_model?.value,...details.identity}],'SERVER_PRINCIPAL');
     if(section==='SECURITY')return result(details.readiness?[{authentication:details.readiness.authentication,encryption:details.readiness.encryption,public_base_url:details.readiness.public_base_url}]:[],'RUNTIME_CHECKS');
     if(section==='PERSISTENCE')return result(details.readiness?.persistence?[details.readiness.persistence]:[],'RUNTIME_STORAGE_CHECK');
     if(section==='ZERO')return result(details.zero_preferences?[details.zero_preferences]:[],'CURRENT_ZERO_PREFERENCES');

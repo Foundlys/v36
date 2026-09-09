@@ -108,10 +108,10 @@ class BusinessDomain {
     const value=this.validate(entity,input,prior||{});
     if(this.id==='sales')require('./sales-forecast').validateForecast(entity,value);
     if(this.id==='procurement'){require('./procurement-sourcing').validateSourcing(this,ctx,actor,entity,value);require('./procurement-reviews').validatePolicy(this,ctx,actor,entity,value,prior);}
-    if(input.industry_fields){
-      const extension=this.resolver.resolve(ctx,actor).industry_extensions?.[this.id],fields=extension?.fields||[],schema=extension?.field_schema||{};
-      if(typeof input.industry_fields!=='object'||Array.isArray(input.industry_fields)||Object.keys(input.industry_fields).some(field=>!fields.includes(field)))fail('industry_field_unavailable','Veld hoort niet bij het actieve branchepakket');
-      for(const [field,fieldValue] of Object.entries(input.industry_fields)){const expected=schema[field]?.type;if(expected&&typeof fieldValue!==expected||typeof fieldValue==='number'&&!Number.isFinite(fieldValue)||typeof fieldValue==='object')fail('industry_field_invalid','Brancheveld heeft een ongeldige waarde');}
+    if(Object.hasOwn(input,'industry_fields')){
+      const {fieldContract,validateFields}=require('./industry-field-contract'),contract=fieldContract(this.resolver,ctx,actor,this.id);
+      value.industry_fields=validateFields(contract,input.industry_fields,prior);
+      value.industry_field_pack_id=contract.industry_id;
     }
     if(this.id==='sales'&&entity==='opportunities'&&value.pipeline_id){
       const pipeline=this.get(ctx,actor,'pipelines',value.pipeline_id),stage=(pipeline.stages||[]).find(s=>s.id===value.stage_id);

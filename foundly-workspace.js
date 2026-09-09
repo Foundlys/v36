@@ -840,7 +840,7 @@
   async function renderDomainSection(entity, content) {
     replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
     try {
-      const result = await request(`/api/${state.workspaceId}/${entity}?limit=100`);
+      const [result,schema] = await Promise.all([request(`/api/${state.workspaceId}/${entity}?limit=100`),request(`/api/${state.workspaceId}/schema`)]);
       if (state.activeSection.toLowerCase() !== entity) return;
       const required = state.workspace.domain_required_fields?.[entity] || [];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
@@ -865,6 +865,15 @@
         if(['start_at','end_at'].includes(name))input.placeholder='2026-09-06T10:00:00+02:00';
         label.append(input);form.append(label);fields.set(name,input);
       }
+      const industryInputs=new Map(),contract=schema.industry_fields||{fields:[]};
+      if(contract.fields.length){
+        const group=node('fieldset'),legend=node('legend','',`Branchevelden · ${contract.industry_id}`);group.append(legend);
+        for(const field of contract.fields){const label=node('label','',field.label),input=node(field.type==='boolean'?'select':'input');
+          if(field.type==='boolean'){for(const [value,title] of [['','Niet opgegeven'],['true','Ja'],['false','Nee']]){const option=node('option','',title);option.value=value;input.append(option);}}
+          else {input.type=field.type==='number'?'number':'text';input.maxLength=1000;if(field.type==='number')input.step='any';}
+          input.name=`industry_${field.name}`;label.append(input);group.append(label);industryInputs.set(field.name,{input,type:field.type});
+        }form.append(group);
+      }
       let editing=null;
       const save=node('button','primary-button','Opslaan');save.type='submit';form.append(save,notice);
       notice.setAttribute('role','status');
@@ -879,6 +888,8 @@
           if(payload.allow_self_approval!==undefined)payload.allow_self_approval=payload.allow_self_approval==='true';
           if(payload.approval_steps)payload.approval_steps=payload.approval_steps.split(',').map(value=>value.trim()).filter(Boolean);
           if(payload.participants)payload.participants=payload.participants.split(',').map(value=>value.trim()).filter(Boolean);if(payload.recurrence){const [frequency,count]=payload.recurrence.split(',');payload.recurrence={frequency:frequency.trim().toUpperCase(),count:Number(count),interval:1};}
+          const industryValues={};for(const [name,{input,type}] of industryInputs)if(!input.disabled&&input.value.trim()!=='')industryValues[name]=type==='number'?Number(input.value):type==='boolean'?input.value==='true':input.value.trim();
+          if(Object.keys(industryValues).length)payload.industry_fields=industryValues;
           if(editing)payload.expected_revision=editing.revision;
           await request(`/api/${state.workspaceId}/${entity}${editing?`/${encodeURIComponent(editing.id)}`:''}`,{method:editing?'PUT':'POST',headers:{'idempotency-key':crypto.randomUUID()},body:JSON.stringify(payload)});
           await renderDomainSection(entity,content);toast('Record opgeslagen.');
@@ -890,7 +901,7 @@
         const tr=node('tr');tr.append(node('td','',record.title||record.name||record.id),node('td','',record.status||record.delivery_state||'—'),node('td','',record.updated_at?new Date(record.updated_at).toLocaleString('nl-NL'):'—'));
         if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
-        edit.addEventListener('click',()=>{editing=record;for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):name==='recurrence'?`${record[name].frequency},${record[name].count}`:Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
+        edit.addEventListener('click',()=>{editing=record;const packConflict=Boolean(record.industry_field_pack_id&&record.industry_field_pack_id!==contract.industry_id);for(const [name,{input}] of industryInputs){input.value=packConflict?'':String(record.industry_fields?.[name]??'');input.disabled=packConflict;}notice.textContent=packConflict?'Bewaarde branchevelden blijven behouden. Herstel het oorspronkelijke pakket om ze te bewerken.':'';for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):name==='recurrence'?`${record[name].frequency},${record[name].count}`:Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
         if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',()=>renderProcurementComparison(record,content,notice));cell.append(compare);}
         if(state.workspaceId==='procurement'&&entity==='orders'&&!['APPROVED_INTERNAL','ARCHIVED','CANCELLED'].includes(record.status)){const prepare=node('button','secondary-button','Order ter beoordeling');prepare.type='button';prepare.addEventListener('click',()=>prepareProcurementAward({order_id:record.id},null,cell));cell.append(prepare);}
         if(state.workspaceId==='procurement'&&entity==='awards')appendAwardReview(record,cell,content);

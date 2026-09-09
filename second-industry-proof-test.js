@@ -14,6 +14,16 @@ for(const module of ['procurement','sales']){
   const service=new BusinessDomain(module,adapter,testResolver);
   const record=service.save(ctx,actor,'opportunities',{title:'Explicit property fixture',industry_fields:{property_reference:'fixture-property-1'}}).record;
   assert.equal(record.industry_fields.property_reference,'fixture-property-1');
+  assert.equal(record.industry_field_pack_id,'REAL_ESTATE_DEMO');
+  const general=new BusinessDomain(module,adapter,production);
+  const retained=general.save(ctx,actor,'opportunities',{title:'Retained after pack switch'},{id:record.id,expected_revision:record.revision}).record;
+  assert.equal(retained.industry_fields.property_reference,'fixture-property-1');
+  assert.throws(()=>general.save(ctx,actor,'opportunities',{industry_fields:{}},{id:record.id,expected_revision:retained.revision}),{code:'industry_pack_conflict'});
+  assert.throws(()=>service.save(ctx,actor,'opportunities',{title:'Null field',industry_fields:null}),{code:'industry_field_invalid'});
+  assert.throws(()=>service.save(ctx,actor,'opportunities',{title:'Wrong type',industry_fields:{property_reference:20}}),{code:'industry_field_invalid'});
+  const revised=service.save(ctx,actor,'opportunities',{industry_fields:{property_reference:'fixture-property-2'}},{id:record.id,expected_revision:retained.revision}).record;
+  assert.equal(revised.industry_field_pack_id,'REAL_ESTATE_DEMO');
+  assert.equal(revised.industry_fields.property_reference,'fixture-property-2');
   assert.throws(()=>service.save(ctx,actor,'opportunities',{title:'Wrong pack field',industry_fields:{vin:'not-allowed'}}),{code:'industry_field_unavailable'});
   assert.throws(()=>new BusinessDomain(module,adapter,production).save(ctx,actor,'opportunities',{title:'Production should reject demo',industry_fields:{property_reference:'fixture-property-1'}}),{code:'industry_field_unavailable'});
 }
