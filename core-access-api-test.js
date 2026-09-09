@@ -32,6 +32,11 @@ async function request(route, method = 'GET', body, extraHeaders={}) {
  try{
   env.FOUNDLY_PLATFORM_USER_ID='owner-a';await start();
   assert.equal((await request('/api/composition','PUT',{entitlements:['crm','automation'],expected_revision:0})).status,200);
+  for(const route of ['/api/engines','/api/system/status']){const engines=(await request(route)).body.engines;assert.ok(engines.some(row=>row.id==='crm'));assert.ok(!engines.some(row=>row.id==='finance'||row.id==='inkoop'));}
+  const count=(await request('/api/crm/contacts')).body.total;
+  assert.equal((await request('/api/module/crm/data','POST',{record:{name:'Unvalidated fixture'}})).status,409);
+  assert.equal((await request('/api/data/ingest','POST',{module:'crm',source:'fixture_manual',record:{name:'Unvalidated fixture'}})).status,409);
+  assert.equal((await request('/api/crm/contacts')).body.total,count,'Generic ingestion must not mutate owned domain records');
   const aMemory=await request('/api/memory/crm','POST',{text:'Private memory A'});assert.equal(aMemory.status,201);
   const queueA=await request('/api/engine/automatisering/execute','POST',{action:'follow_up',title:'Owner A task'});assert.equal(queueA.status,202);assert.equal(queueA.body.task.owner_id,'owner-a');
   assert.equal((await request('/api/memory/jarvis-confirmations')).status,403);

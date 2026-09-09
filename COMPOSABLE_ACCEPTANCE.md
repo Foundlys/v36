@@ -66,7 +66,7 @@ Module manifests retain `standalone: UNVERIFIED`, `sellable: false` and
 |---|---|---|
 | 0 Repository/runtime/checkpoint | COMPLETE | Local/remote refs and worktrees recovered; functional work preserved; live public baseline observed |
 | 1 Architecture inventory | COMPLETE | Ownership, retained buckets, Core services and dependency boundaries in inventory |
-| 2 Module contracts | PARTIAL | Nine manifests, isolated runtime probes, owned entity/operation capability mappings and durable Analytics/Automation events; complete legacy entry-point and role-contract closure remains |
+| 2 Module contracts | PARTIAL | Nine manifests, shared role grants, isolated probes, owned entity/operation mappings and durable events; remaining legacy contracts and full standalone product acceptance are explicit |
 | 3 Capability resolver | PARTIAL | Composed module/role/tool, private event/data/memory/conversation and worker-owner guards; complete remaining mixed-entry audit and real end-user identity provisioning remain |
 | 4 Industry abstraction | PARTIAL | Validated pack fields and test injection; complete UI/KPI/workflow extension registry remains |
 | 5 Automotive pack | PARTIAL | Existing engine preserved; integration and non-regression checked; complete composed browser/provider acceptance remains |
@@ -148,3 +148,7 @@ The full `npm test` regression for the Core access increment exited 0. Exact sou
 ## 2026-09-09 order policy checkpoint
 
 The full `npm test` matrix exited 0 with the direct-order review workflow and authenticated encrypted restart. A subsequent bounded evidence-reference type/length check and its negative test passed the focused order/RFQ review suites. Exact current source hashes and this distinction are recorded in `COMPOSABLE_TEST_EVIDENCE.json`; remote CI must verify the published tree. No production deployment occurred.
+
+## Shared role and ingress contract checkpoint
+
+Full `npm test` exited 0 on the shared manifest/resolver role table and generic-ingress guards. HTTP tests verify that rejection leaves business collections unchanged. Frozen engines and renderer remain byte-identical. This checkpoint does not supply a production end-user identity provider or close remaining competitive product gaps.

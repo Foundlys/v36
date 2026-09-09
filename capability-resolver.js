@@ -3,6 +3,7 @@
 const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
 const crypto = require('crypto');
 const {scopedMutation}=require('./scoped-mutation');
+const {roleGrants}=require('./module-role-policy');
 const clone = value => JSON.parse(JSON.stringify(value));
 function fail(code, message, statusCode = 403) { throw Object.assign(new Error(message), { code, statusCode }); }
 function identity(ctx) {
@@ -11,8 +12,7 @@ function identity(ctx) {
 }
 function permissions(actor = {}) {
   const roles = (actor.roles || []).map(x => String(x).toUpperCase());
-  return new Set([...(actor.permissions || []), ...(roles.some(r => ['ADMIN', 'FOUNDER', 'SUPER_ADMIN'].includes(r)) ? ['*'] : []),
-    ...roles.flatMap(role => role === 'MANAGER' ? Object.keys(MODULES).filter(id=>id!=='finance').flatMap(id => [`${id}:read`, `${id}:write`, `${id}:export`]) : role === 'FINANCE_ADMIN' ? ['finance:read','finance:write','finance:approve','finance:export'] : role === 'APPROVER' ? ['finance:read','finance:approve'] : role === 'ANALYST' ? ['analysis:read','finance:read'] : role === 'VIEWER' ? Object.keys(MODULES).map(id => `${id}:read`) : role === 'SALES' ? ['crm:read','crm:write','sales:read','sales:write','calendar:read','calendar:write','communication:read','communication:write'] : role === 'ACCOUNTANT' ? ['finance:read','finance:write','finance:export'] : role === 'MARKETING' ? ['crm:read','crm:write','marketing:read','marketing:write','analysis:read'] : [])]);
+  return new Set([...(actor.permissions || []),...roles.flatMap(role=>roleGrants(role,Object.keys(MODULES)))]);
 }
 function allowed(actor, permission) { const p = permissions(actor); return p.has('*') || p.has(permission); }
 function requirePermission(actor, permission) { if (!allowed(actor, permission)) fail('composition_forbidden', 'Deze capability is niet toegestaan'); }
@@ -25,7 +25,7 @@ function resolve(ctx, actor, profile = null, options = {}) {
   const legacy = !profile;
   const industry = profile?.industry_id || 'AUTOMOTIVE';
   const registry = options.industries || INDUSTRIES;
-  const pack = registry[industry];
+  const pack = Object.hasOwn(registry,industry)?registry[industry]:null;
   if (!pack || (!pack.production && !options.allowTestIndustries)) fail('industry_unavailable', 'Industrie is niet beschikbaar', 422);
   const entitled = new Set(legacy ? Object.keys(MODULES) : profile.entitlements);
   const enabled = (legacy ? Object.keys(MODULES) : profile.enabled_modules).filter(id => entitled.has(id));
@@ -50,7 +50,7 @@ class CapabilityResolver {
     identity(ctx);
     if (!canManage(actor)) fail('composition_forbidden', 'Alleen de bevoegde platformbeheerder mag pakketrechten wijzigen');
     if (input.tenant_id && input.tenant_id !== ctx.tenant_id || input.dealer_id && input.dealer_id !== ctx.dealer_id) fail('composition_tenant_mismatch', 'Cross-tenant configuratie geweigerd');
-    const bundle = input.bundle ? BUNDLES[input.bundle] : null;
+    const bundle = input.bundle&&Object.hasOwn(BUNDLES,input.bundle)?BUNDLES[input.bundle]:null;
     if (input.bundle && !bundle) fail('bundle_invalid', 'Onbekend pakket', 422);
     const normalize = values => {
       if (!Array.isArray(values) || values.length > 50) fail('modules_invalid', 'Expliciete modulelijst vereist', 422);
@@ -81,7 +81,7 @@ class CapabilityResolver {
     });
   }
   assertModule(ctx, actor, id, operation = 'read') {
-    if (!MODULES[id]) fail('module_unknown', 'Onbekende module', 404);
+    if (!Object.hasOwn(MODULES,id)) fail('module_unknown', 'Onbekende module', 404);
     const state = this.resolve(ctx, actor);
     // Export survives disablement/revocation but still requires current export permission.
     if (operation !== 'export' && !state.enabled_modules.includes(id)) fail('module_disabled', `${MODULES[id].display_name} is niet actief`);

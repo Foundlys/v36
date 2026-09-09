@@ -123,3 +123,9 @@ Automatic legacy queue work is bound to its stored owner, matching the workflow 
 Owned direct orders now use the same mandatory currency/amount policies and assigned sequential reviewers as RFQ awards. Preview binds the order and policy revisions; the final approval changes the order and review atomically. Source/policy changes, arbitrary approvers, stale revisions and the former direct approval shortcut are rejected. Rejection and withdrawal keep the source order unapproved. Internal approval remains distinct from supplier submission or external commitment. This extends the existing review entity, persistence adapter and workspace; it creates no parallel approval engine.
 
 Targeted tests include explicit module/role checks, assigned reviewer access without impersonating the source owner, policy drift, rollback on persistence failure, replay, immutable approved orders and encrypted HTTP restart. Partial item awards and supplier collaboration remain open.
+
+## Manifest role authority and generic ingress
+
+Module manifests and the runtime resolver now derive module-role grants from one policy table. Finance accurately advertises ACCOUNTANT/APPROVER access and excludes unassigned MANAGER authority; domain engines still enforce their existing record-level rules. Unknown or inherited JavaScript property names are rejected as modules/bundles without modifying composition state.
+
+In explicitly composed tenants, the legacy generic module-data and data-ingest endpoints cannot create business-owned records outside the module validation contract. Canonical ingestion remains a distinct Core API. Legacy status inventories omit disabled commercial engines. Targeted HTTP tests verify rejection without any domain-record mutation and retain valid native APIs. No credentials or production configuration changed.

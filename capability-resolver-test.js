@@ -38,6 +38,11 @@ for (const ids of [['crm', 'analysis'], ['crm', 'automation'], ['crm', 'finance'
   assert.deepEqual(core.resolve(ctx, admin).enabled_modules, [...ids].sort());
 }
 const before = persisted;
+for(const unknown of ['constructor','__proto__','toString','hasOwnProperty']){
+ assert.throws(()=>core.configure(ctx,admin,{entitlements:[unknown],expected_revision:core.profile(ctx).revision}),{code:'module_unknown'});
+ assert.throws(()=>core.configure(ctx,admin,{bundle:unknown,expected_revision:core.profile(ctx).revision}),{code:'bundle_invalid'});
+ assert.throws(()=>core.assertModule(ctx,admin,unknown),{code:'module_unknown'});
+}
 assert.throws(() => core.configure(ctx, viewer, { bundle: 'COMPLETE' }), { code: 'composition_forbidden' });
 assert.throws(() => core.configure(ctx, { id: 'tenant-admin', roles: ['ADMIN'] }, { bundle: 'COMPLETE' }), { code: 'composition_forbidden' });
 assert.throws(() => core.configure(ctx, admin, { bundle: 'COMPLETE', tenant_id: other.tenant_id }), { code: 'composition_tenant_mismatch' });

@@ -2,6 +2,7 @@
 
 // Commercial identity is independent of historical storage/engine aliases.
 const {ENTITY_CAPABILITIES,METHOD_CAPABILITIES}=require('./module-access-contracts');
+const {roleContract}=require('./module-role-policy');
 const VERSION = 'foundly-module-contract/1.0.0';
 const DEFINITIONS = {
   procurement: ['Inkoop', 'inkoop', ['sourcing', 'suppliers', 'opportunities', 'approvals'], ['AUTOMOTIVE_MARKETPLACE']],
@@ -63,7 +64,7 @@ const MODULES = freeze(Object.fromEntries(Object.entries(DEFINITIONS).map(([id, 
   zero_tools: Object.keys(TOOL_MODULES).filter(tool => TOOL_MODULES[tool] === id),
   source_categories: categories, connector_categories: categories,
   dashboard_presets: [`${id}:default`], widgets: capabilities,
-  permissions: ['read', 'write', 'export', 'manage','approve'].map(p => `${id}:${p}`), roles: ['ADMIN', 'MANAGER', 'VIEWER'],
+  permissions: ['read', 'write', 'export', 'manage','approve'].map(p => `${id}:${p}`), roles: Object.keys(roleContract(id,Object.keys(DEFINITIONS))), role_permissions:roleContract(id,Object.keys(DEFINITIONS)),
   data_domains: [id], retention_policy: 'RETAIN_UNTIL_EXPLICIT_AUTHORIZED_POLICY',
   disable_policy: 'HIDDEN_RETAINED_EXPORTABLE', reactivation_policy: 'RESTORE_WITH_CURRENT_PERMISSIONS',
   health_endpoint: `/api/composition/modules/${id}/health`, ready_endpoint: `/api/composition/modules/${id}/ready`,
@@ -83,7 +84,7 @@ const INDUSTRIES = freeze({
     analysis: { kpis: ['inventory_velocity', 'vehicle_margin'] }
   } }
 });
-function moduleId(value) { return ALIASES[String(value || '').toLowerCase()] || null; }
+function moduleId(value) { const key=String(value || '').toLowerCase();return Object.hasOwn(ALIASES,key)?ALIASES[key]:null; }
 function routeModule(pathname) {
   const pieces = pathname.split('/').filter(Boolean);
   if(pieces[0]==='api'&&pieces[1]==='tax')return 'finance';

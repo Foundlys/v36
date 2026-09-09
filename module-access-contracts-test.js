@@ -10,6 +10,11 @@ const {DEFINITIONS}=require('./business-domains');
 const state=new Map(),ctx={tenant_id:'access-contract-fixture',dealer_id:'default'},admin={id:'owner',roles:['ADMIN','SUPER_ADMIN']},viewer={id:'viewer',roles:['VIEWER']};
 const adapter={bucket(c,scope){const key=JSON.stringify([c.tenant_id,c.dealer_id,scope]);if(!state.has(key))state.set(key,[]);return state.get(key);},persist(){},audit(){},emit(){}};
 const resolver=new CapabilityResolver(adapter);
+assert.ok(MODULES.finance.roles.includes('ACCOUNTANT'));assert.ok(MODULES.finance.roles.includes('APPROVER'));assert.ok(!MODULES.finance.roles.includes('MANAGER'));
+assert.deepEqual(MODULES.finance.role_permissions.APPROVER,['finance:read','finance:approve']);
+assert.ok(!MODULES.procurement.roles.includes('SALES'));
+assert.ok(MODULES.sales.roles.includes('SALES'));
+assert.ok(Object.isFrozen(MODULES.finance.role_permissions.APPROVER));
 for(const id of Object.keys(MODULES)){
   const entities=id==='crm'?Object.keys(ENTITY_DEFINITIONS):id==='finance'?new FoundlyFinanceCore(adapter).schema().entities:DEFINITIONS[id]?.entities||[];
   for(const entity of entities){assert.ok(ENTITY_CAPABILITIES[id][entity],`${id}.${entity} must declare a capability`);assert.ok(MODULES[id].provided_capabilities.includes(ENTITY_CAPABILITIES[id][entity]));}
