@@ -1,16 +1,16 @@
 # Foundly Composable OS — Phase 24 Communication checkpoint
 
-Evidence assembled 2026-09-09T15:01:15.391471+00:00. This is a continuation checkpoint, not a completed masterbuild or release. No restart of earlier phases. Current authoritative attachment SHA-256: `06ed763665e5ed8479b5aa60116aa6d11c0c776587f07fc9d12883bfd2a653bf`. The user's current instruction prohibits production changes.
+Evidence assembled 2026-09-09T15:18:10.382803+00:00. This is a continuation checkpoint, not a completed masterbuild or release. No restart of earlier phases. Current authoritative attachment SHA-256: `06ed763665e5ed8479b5aa60116aa6d11c0c776587f07fc9d12883bfd2a653bf`. The user's current instruction prohibits production changes.
 
 ## IMPLEMENTED
 
 Recovered local `5a622839cc83ed38f656be11bb6acd90ef6cb765` and published `afdc6e5ad528a6744af6d8d58b5dac8c987c7ab4` had identical tree `dc4220d359ba5fea36b3bb787ec34ef1341f6d32`. Preserved all newer tracked and untracked Communication files as `e630b67463d8405eeb8f08b49f437b8a5105748b` before further implementation. Older worktrees and unpublished history were retained. Remote main remained `073f03041b72a1c35c7559e116c3e0cd4aa0db02`.
 
-The current tested source files and regression log are identified by SHA-256 in COMPOSABLE_TEST_EVIDENCE.json. The preceding SMTP-authentication checkpoint was local `1fe36e2f09a59c7ac3ddf757a200a010ffd4d094`, published `99c14c2ed80cf65abe4c57b837e627d6afa78266`, with identical tree `975f9c1673d9bd1746af2abda305d12224606cb7` and passing CI run 94. [PR #15](https://github.com/Foundlys/v36/pull/15) remains a draft; its description records the latest published commit/tree and verified CI status.
+The current tested source files and regression log are identified by SHA-256 in COMPOSABLE_TEST_EVIDENCE.json. The preceding internal-review checkpoint was local `03a076b7ed287f54ac3fc34633b34bd1c17a899a`, published `9ffadb987fc1bc3a71edfde79a932c47c45d56d4`, with identical tree `945e8c795fde544cb0e0f1b5b0c43664a4edf718` and passing CI run 95. [PR #15](https://github.com/Foundlys/v36/pull/15) remains a draft; its description records the latest published commit/tree and verified CI status.
 
 Draft/message counts remain separate. Invalid, explicitly unavailable or incomplete source contracts cannot become trustworthy zeroes. Explicit sharing, bounded member search, immutable history, CAS edits/restores, current source/parent ACL, rollback, idempotency and encrypted restart are tested. Unversioned legacy drafts preserve a labelled baseline. Native and generic SMTP configuration use identical field/environment resolution; partial credentials never imply configured, authenticated mail access or delivery. Source-bound reply/forward preparation creates only internal drafts and does not copy original untrusted text into the authored body.
 
-Internal send review now binds exact draft/source, recipients, attachments, configured sender/account and current user-recorded purpose preferences. A separate active designated reviewer must retain approval and source access. Current-account/permission changes during HTTP body waits prevent approval; the requester can withdraw an approval. Review snapshots and receipts survive encrypted restart, remain private under current source access and never create a sent message or send-ready claim. Production handler tests cover explicit decisions and stale/detached responses. Actual SMTP submission is the next implementation gap.
+Internal send review now binds exact draft/source, recipients, attachments, configured sender/account and current user-recorded purpose preferences. A separate active designated reviewer must retain approval and source access. Current-account/permission changes during HTTP body waits prevent approval; the requester can withdraw an approval. Review snapshots and receipts survive encrypted restart, remain private under current source access and do not themselves send a message. Production handler tests cover explicit decisions and stale/detached responses. A separate confirmed native submission now rechecks current requester/reviewer/executor rights, preferences and exact account/source. Stable MIME/Message-ID and DATA boundaries persist before network effects. Only verified provider acceptance creates a recorded message; delivery remains unverified. Unknown outcomes and failed final persistence block blind resend across edited drafts and real process crash/restart. Receipt observation survives executor revocation after bytes without authorizing a new action. Provider receive/thread/receipt reconciliation remains open.
 
 ## COMPETITIVE RESEARCH
 
@@ -91,7 +91,7 @@ The preserved deterministic CRM, Analytics/Knowledge/Automation/Finance and five
 
 ## AUTONOMY RESULTS
 
-Read tools and existing internal actions remain subject to current module, role, ownership and capability checks. Communication sharing/restoration uses explicit confirmation and reason; source-bound draft creation is internal only. SMTP sending, mailbox synchronization, delivery reconciliation and external reply/forward are not implemented by this increment. The following matrix describes acceptance status, not permission to perform actions.
+Read tools and existing internal actions remain subject to current module, role, ownership and capability checks. Communication sharing/restoration uses explicit confirmation and reason; source-bound draft creation is internal only. Native SMTP submission has a separate exact-source review and external confirmation. ZERO handoff, mailbox synchronization, delivery reconciliation and provider-backed reply/forward threading remain incomplete. The following matrix describes acceptance status, not permission to perform actions.
 
 | Module | READ | ANALYZE | RECOMMEND | PREPARE | AUTONOMOUS LOW-RISK | POLICY-GATED | HUMAN-CONFIRM | VERIFY | AUDIT | LEARN |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -108,7 +108,7 @@ Read tools and existing internal actions remain subject to current module, role,
 
 ## CONNECTOR RESULTS
 
-The static canonical catalogue still contains 100 connectors and 104 sources. The complete provider list below is catalogue evidence only. No current authenticated production/provider status was obtained in this continuation. UNKNOWN is deliberately not converted to false or zero. Catalogue membership does not prove an implemented transport, tenant entitlement, configuration, authentication, synchronization or real records. Native/generic SMTP specifically remains configuration-only until an authenticated adapter and receipt path exist.
+The static canonical catalogue still contains 100 connectors and 104 sources. The complete provider list below is catalogue evidence only. No current authenticated production/provider status was obtained in this continuation. UNKNOWN is deliberately not converted to false or zero. Catalogue membership does not prove an implemented transport, tenant entitlement, configuration, authentication, synchronization or real records. Native/generic SMTP has explicit TLS authentication proof and a separately authorized approved-submission adapter with durable acceptance/unknown receipts. This is local fixture/API evidence; mailbox and final delivery remain unverified, and no live account status is inferred.
 
 | Provider | Category | Industry | Implemented | Visible | Configured | Authenticated | Probe | Sync | Search | Real records | Freshness | Workspace | ZERO | Status | Blocker |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -226,11 +226,11 @@ Focused tests prove owner-only sharing authority; no privilege borrowing by coll
 
 ## TESTS
 
-`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-send-reviews-regression.log`; SHA-256 `1950d8155f0d2f5a5dce932775ccbee296817cd58bcded31eb2c9a2fe38fd38c`.
+`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-submission-regression.log`; SHA-256 `10d24677740e1bba24626806d8fc193cc5f9c31ff0347bc1bc2062ace0b3fc4a`.
 
-New focused suites: `communication-send-reviews-test.js`, `communication-send-reviews-api-test.js`, `communication-send-reviews-client-test.js`, `communication-smtp-test.js`, `communication-mail-auth-test.js`, `communication-mail-auth-api-test.js`, `communication-inbox-test.js`, `communication-inbox-client-test.js`, `communication-attachments-test.js`, `communication-attachments-client-test.js`, `communication-drafts-test.js`, `communication-drafts-api-test.js`, `communication-history-bounds-test.js`, `communication-drafts-client-test.js`, `communication-provider-state-test.js`, `communication-replies-test.js`, `communication-replies-api-test.js`. Existing snapshot, Calendar and complete baseline suites pass. The 20,000-row history fixture verifies bounded parent lookups without cross-request ACL caching. The in-memory DOM test does not count as browser acceptance.
+New focused suites: `communication-mime-test.js`, `communication-submissions-test.js`, `communication-submissions-api-test.js`, `communication-send-reviews-test.js`, `communication-send-reviews-api-test.js`, `communication-send-reviews-client-test.js`, `communication-smtp-test.js`, `communication-mail-auth-test.js`, `communication-mail-auth-api-test.js`, `communication-inbox-test.js`, `communication-inbox-client-test.js`, `communication-attachments-test.js`, `communication-attachments-client-test.js`, `communication-drafts-test.js`, `communication-drafts-api-test.js`, `communication-history-bounds-test.js`, `communication-drafts-client-test.js`, `communication-provider-state-test.js`, `communication-replies-test.js`, `communication-replies-api-test.js`. Existing snapshot, Calendar and complete baseline suites pass. The 20,000-row history fixture verifies bounded parent lookups without cross-request ACL caching. The in-memory DOM test does not count as browser acceptance.
 
-[CI run 94](https://github.com/Foundlys/v36/actions/runs/34365311224) passed for the preceding published SMTP-authentication checkpoint. CI for the current source checkpoint must be checked separately; the PR description records its latest verified status.
+[CI run 95](https://github.com/Foundlys/v36/actions/runs/34367627874) passed for the preceding published internal-review checkpoint. CI for the current source checkpoint must be checked separately; the PR description records its latest verified status.
 
 ## PRODUCTION
 
@@ -258,8 +258,8 @@ Observed GitHub refs, immutable tree hashes and preceding CI results are real re
 | calendar | calendar:time | CRITICAL | BELOW_PARITY | External calendar reconciliation, broader scheduling workflows and browser acceptance remain open. |
 | calendar | calendar:intelligence | CRITICAL | BELOW_PARITY | Structured creation from natural language and verified provider synchronization need more integration. |
 | communication | communication:workspace | CRITICAL | BELOW_PARITY | Live co-editing/takeover, comments, broader attachment formats/scanning, external threading/reply/forward delivery and provider-synchronized inbox workflows remain incomplete; actual browser/keyboard/viewport acceptance is blocked. |
-| communication | communication:delivery | CRITICAL | BELOW_PARITY | Approved SMTP submission, IMAP receive/synchronization and durable delivery/receipt reconciliation remain unimplemented. Explicit SMTP authentication has local TLS and API evidence, but legitimate live account acceptance is absent. |
-| communication | communication:intelligence | CRITICAL | BELOW_PARITY | Internal exact-source approval is implemented. Current-policy transport execution, durable outcomes, ZERO handoff and reply/forward verification remain incomplete. |
+| communication | communication:delivery | CRITICAL | BELOW_PARITY | IMAP receive/synchronization, provider thread IDs, unknown-attempt reconciliation and final delivery/bounce receipts remain unimplemented. Approved SMTP submission has local TLS, current-policy API and real process-crash evidence; live account acceptance is absent. |
+| communication | communication:intelligence | CRITICAL | BELOW_PARITY | Native exact-source approval/submission and durable outcomes are implemented. ZERO handoff, provider-backed reply/forward threading and receive/delivery reconciliation remain incomplete. |
 | crm | crm:relationships | CRITICAL | BELOW_PARITY | Full competitive workflow review, custom-object UI and all required field/security workflows are not evidenced. |
 | crm | crm:composition | CRITICAL | BELOW_PARITY | Other mixed entry paths, browser and full per-user CRM product acceptance remain open. |
 | crm | crm:intelligence | CRITICAL | BELOW_PARITY | Measured superiority over benchmark task completion is not demonstrated. |
@@ -277,7 +277,7 @@ Observed GitHub refs, immutable tree hashes and preceding CI results are real re
 | sales | sales:intelligence | CRITICAL | BELOW_PARITY | Full prepare/execute/verify orchestration and outcome feedback are incomplete. |
 
 
-Active execution remains Phase 24. Earlier PARTIAL product gates remain unmet acceptance requirements; they do not justify resetting or rebuilding completed work. Next independent Communication work connects internal approval to authenticated SMTP submission, durable accepted/rejected/ambiguous outcomes and reconciliation, then provider-synchronized inbox/threading and remaining ledger work.
+Active execution remains Phase 24. Earlier PARTIAL product gates remain unmet acceptance requirements; they do not justify resetting or rebuilding completed work. Next independent Communication work is provider receive/threading, evidence-based unknown-attempt and delivery/bounce reconciliation, and ZERO handoff through the current native review/submit policy, followed by remaining ledger work.
 
 ## FINAL READINESS VERDICT
 

@@ -11,7 +11,7 @@ function basis(core,ctx,actor,id,purpose,getAccount){
  const draft=authorize(core,ctx,actor,id);core.resolver.assertCapability(ctx,actor,'communication:threads');
  if(typeof purpose!=='string'||!purpose.trim()||purpose.length>100)fail('send_purpose_invalid','Leg het doel van deze correspondentie vast');purpose=purpose.trim();
  if(!Number.isSafeInteger(draft.revision)||draft.revision<1||!Array.isArray(draft.to)||!draft.to.length||draft.to.length>100||draft.to.some(value=>!address(value))||new Set(draft.to).size!==draft.to.length)fail('send_recipients_unavailable','Kies unieke ondersteunde e-mailontvangers voor een versie van dit concept');
- require('./communication-drafts').validateInput(draft);
+ require('./communication-drafts').validateInput(draft);require('./communication-mime').validateContent(draft);
  const account=getAccount(ctx);if(!account||account.provider!=='email'||!address(account.from)||typeof account.binding!=='string'||account.binding.length!==64)fail('send_account_unavailable','Een geldige afzender en accountconfiguratie ontbreken',409);
  const attachments=require('./communication-attachments').references(core,ctx,id,draft.attachments),preferences=core.bucket(ctx,'preferences'),policy=[];
  for(const recipient of draft.to){
@@ -52,6 +52,7 @@ function prepare(core,ctx,actor,id,input,options,getAccount){
  if(typeof input.reviewer_id!=='string'||input.reviewer_id===actor.id||!core.adapter.memberActive?.(ctx,input.reviewer_id))fail('send_reviewer_unavailable','Kies een andere actieve bevoegde beoordelaar',403);
  const reviewer=core.adapter.memberPrincipal?.(ctx,input.reviewer_id);authorize(core,ctx,reviewer,id,'approve');if(hash(basis(core,ctx,reviewer,id,input.purpose,getAccount))!==hash(plan))fail('send_reviewer_unavailable','De beoordelaar kan deze bron niet verifiëren',403);
  return operation(core,ctx,actor,{draft_id:id,...input},options,'SEND_PREPARE',()=>{
+  if(require('./communication-submissions').blocks(core,ctx,id,hash(plan)))fail('send_submission_exists','Een bestaande verzendpoging verhindert een nieuwe beoordeling',409);
   const rows=core.adapter.bucket(ctx,SCOPE);if(rows.length>=2500||rows.filter(row=>row.draft_id===id).length>=100)fail('send_review_capacity','De limiet voor bewaarde verzendbeoordelingen is bereikt',507);
   if(rows.some(row=>row.draft_id===id&&['APPROVAL_REQUIRED','APPROVED_INTERNAL'].includes(row.status)&&row.basis_fingerprint===hash(plan)))fail('send_review_exists','Voor deze inhoud bestaat al een open of goedgekeurde beoordeling',409);
   const now=new Date().toISOString(),row={id:crypto.randomUUID(),...plan,basis_fingerprint:hash(plan),owner_id:actor.id,requester_id:actor.id,reviewer_id:input.reviewer_id,reason:input.reason.trim(),status:'APPROVAL_REQUIRED',revision:1,created_at:now,updated_at:now,owned_entity:'send_reviews',schema_version:1};rows.push(row);core.recordEvent(ctx,actor,'send_reviews',row,'created');return row;
@@ -64,6 +65,7 @@ function decide(core,ctx,actor,id,reviewId,input,options,getAccount,cancel=false
  if(!cancel&&!core.adapter.memberActive?.(ctx,actor.id))fail('send_reviewer_unavailable','De beoordelaar is niet meer actief',403);
  if(!cancel&&!['APPROVE','REJECT'].includes(input.decision))fail('send_review_decision_invalid','Kies goedkeuren of afwijzen');
  return operation(core,ctx,actor,{draft_id:id,review_id:reviewId,...input},options,cancel?'SEND_CANCEL':'SEND_REVIEW',()=>{
+  if(cancel&&require('./communication-submissions').blocks(core,ctx,id,row.basis_fingerprint))fail('send_submission_exists','Deze verzending is al aangeboden of vereist onderzoek',409);
   if(row.revision!==input.expected_revision||!(cancel?['APPROVAL_REQUIRED','APPROVED_INTERNAL']:['APPROVAL_REQUIRED']).includes(row.status))fail('send_review_changed','De beoordeling is intussen gewijzigd',409);
   if(!cancel&&hash(basis(core,ctx,actor,id,row.purpose,getAccount))!==row.basis_fingerprint)fail('send_basis_changed','Het concept, account of de voorkeuren zijn gewijzigd',409);
   row.status=cancel?'CANCELLED':input.decision==='APPROVE'?'APPROVED_INTERNAL':'REJECTED';row.revision++;row.updated_at=new Date().toISOString();row.decision_reason=input.reason.trim();row.decided_by=actor.id;core.recordEvent(ctx,actor,'send_reviews',row,'updated');return row;

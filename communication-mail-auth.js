@@ -9,7 +9,7 @@ class MailAuthentication{
   const config=this.configuration(ctx),configured=Object.values(config).every(Boolean),base=smtpConfigurationState(configured),proof=this.core.adapter.bucket(ctx,SCOPE)[0],now=Date.now();
   if(!configured)return base;
   const verified=proof?.status==='AUTHENTICATED'&&proof.config_hash===hash(config)&&Number.isSafeInteger(proof.verified_at_ms)&&proof.verified_at_ms<=now&&now-proof.verified_at_ms<15*60*1000;
-  return {...base,authenticated:verified,authentication_verified:verified,tls_verified:verified,authentication_observed_at:verified?new Date(proof.verified_at_ms).toISOString():null,status:verified?'smtp_geauthenticeerd_inbox_niet_geverifieerd':base.status,blocker:verified?'MAIL_SEND_RECEIVE_ADAPTER_REQUIRED':'EXPLICIT_SMTP_AUTHENTICATION_REQUIRED',mailbox_access_verified:false,connected:false,send_verified:false};
+  return {...base,authenticated:verified,authentication_verified:verified,tls_verified:verified,authentication_observed_at:verified?new Date(proof.verified_at_ms).toISOString():null,status:verified?'smtp_geauthenticeerd_inbox_niet_geverifieerd':base.status,blocker:verified?'MAIL_RECEIVE_AND_DELIVERY_RECONCILIATION_REQUIRED':'EXPLICIT_SMTP_AUTHENTICATION_REQUIRED',mailbox_access_verified:false,connected:false,send_verified:false};
  }
  async probe(ctx,actor){
   this.authorize(ctx,actor);const config=this.configuration(ctx);require('./communication-smtp').configuration(config);const fingerprint=hash(config),rows=this.core.adapter.bucket(ctx,SCOPE),now=Date.now();

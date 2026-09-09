@@ -75,7 +75,7 @@
       "phase": 11,
       "name": "Analytics",
       "status": "PARTIAL",
-      "evidence_or_gap": "Owned reports, observed source-scoped cohorts and saved typed cohort definitions pass private ownership/source ACL, revision-bound calculation, current caller rights, capacity bounds, atomic rollback and encrypted restart tests. Broader analytic models, model revision history, large-tenant performance and browser acceptance remain."
+      "evidence_or_gap": "Owned reports, observed source-scoped cohorts and saved typed cohort definitions pass private ownership/source ACL, revision-bound calculation, current caller rights, capacity bounds, atomic rollback and encrypted restart tests. Broader analytic models, model revision history, large-tenant performance and browser acceptance remain. Native exact-source designated review and separately confirmed SMTP submission now preserve durable accepted/rejected/unknown outcomes, current identities/preferences and encrypted crash/restart without blind resend. Live account, receive/threading/reconciliation and ZERO handoff remain open."
     },
     {
       "phase": 12,
@@ -111,7 +111,7 @@
       "phase": 17,
       "name": "Registries",
       "status": "PARTIAL",
-      "evidence_or_gap": "Native/generic SMTP status shares explicit TLS authentication proof, without inferring send/mailbox/delivery capability. Verified public destination, mandatory TLS, current authority/configuration, proof expiry and encrypted restart pass. Actual approved SMTP submission and receive/receipt reconciliation remain unimplemented."
+      "evidence_or_gap": "Explicit verified TLS SMTP authentication and separately confirmed source-bound approved submission pass local transport and real-session API tests. Current source/account/requester/reviewer/executor checks, durable MIME and DATA boundary, accepted-only records and crash/ambiguous no-retry pass. Provider receive/thread/receipt reconciliation and live account acceptance remain open."
     },
     {
       "phase": 18,
@@ -206,7 +206,7 @@
     "recovered_tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
     "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
     "production_changes_authorized": false,
-    "next_independent_work": "Connect source-bound internal send reviews to approved SMTP submission with durable accepted/rejected/ambiguous outcomes and current authority/policy checks; then provider receive/thread/receipt reconciliation and remaining ledger gaps. Explicit TLS SMTP authentication, internal designated review/withdrawal, retained inbox and bounded text attachments are implemented. Preserve all prior work; no production changes."
+    "next_independent_work": "Provider receive/threading and evidence-based reconciliation of unknown SMTP submissions and delivery/bounce receipts, plus ZERO handoff through the existing exact-source native policy. Approved SMTP submission now durably binds MIME/Message-ID/current authority, records only accepted messages and prevents blind retry across process crash/restart. Preserve every earlier checkpoint and remaining ledger gap; no production changes."
   },
   "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
   "execution_overrides": [

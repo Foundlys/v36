@@ -1,6 +1,6 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "module": "communication",
   "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
@@ -77,9 +77,9 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Drafts cannot claim sent status; provider records cannot be fabricated through the user CRUD API. Native SMTP status and the generic SMTP profile status now share one conservative projection: credentials mean configured only, never authenticated/connected or send-verified. Passive status does not probe configured TCP destinations. Explicit native/generic email test actions now authenticate SMTP using verified TLS on 465 or mandatory STARTTLS on 587. The selected public IPv4 destination is pinned after DNS validation, private/reserved destinations are refused, post-STARTTLS capabilities are reloaded and credentials are never sent before verified TLS. Current connector-management and Communication authority plus configuration fingerprints are rechecked across async boundaries. Successful proof uses existing encrypted storage, expires after fifteen minutes and does not imply inbox access, message send or final delivery. Passive native/generic status reads use the same current proof without starting SMTP connections. The current adapter issues no MAIL, RCPT or DATA commands and requires public IPv4 plus AUTH PLAIN over TLS; IPv6-only and other auth mechanisms remain unsupported.",
-      "gap": "Authenticated SMTP submission of approved content, IMAP receive/synchronization and durable message delivery/receipt reconciliation remain unimplemented. Legitimate provider/account access is also absent. Explicit SMTP authentication has local TLS and authenticated-API proof, but no live account acceptance.",
-      "required_change": "Implement an authorized authenticated mail adapter with destination/TLS safeguards, input-bound send policy, durable receipts and reconciliation; then validate with legitimate account access. No test messages to real recipients.",
+      "foundly_current": "Drafts cannot claim sent status; provider records cannot be fabricated through the user CRUD API. Native SMTP status and the generic SMTP profile status now share one conservative projection: credentials mean configured only, never authenticated/connected or send-verified. Passive status does not probe configured TCP destinations. Explicit native/generic email test actions now authenticate SMTP using verified TLS on 465 or mandatory STARTTLS on 587. The selected public IPv4 destination is pinned after DNS validation, private/reserved destinations are refused, post-STARTTLS capabilities are reloaded and credentials are never sent before verified TLS. Current connector-management and Communication authority plus configuration fingerprints are rechecked across async boundaries. Successful proof uses existing encrypted storage, expires after fifteen minutes and does not imply inbox access, message send or final delivery. Passive native/generic status reads use the same current proof without starting SMTP connections. Authentication-only calls issue no MAIL, RCPT or DATA commands; the approved submission path described below performs those commands. Both paths require public IPv4 plus AUTH PLAIN over verified TLS; IPv6-only and other auth mechanisms remain unsupported. Explicit submission now requires exact source-bound internal approval, current requester/reviewer source and preference authority, current executor connector-management and Communication write permissions, and a separate external-action confirmation. Stable Message-ID, MIME bytes and hash are durably encrypted before networking; the DATA boundary persists before payload bytes. Only a verified final SMTP 250 acceptance and successful atomic persist create an outbound message record; recipient delivery stays unverified and the source draft stays separate. Provider rejection, pre-payload failure and unknown outcomes remain distinct. Lost connections, a real process crash after DATA and failed final persistence never cause an automatic resend or a new attempt under an edited draft. Receipt observation uses permission-free attribution if executor rights change after payload transmission, while responses and future actions still require current authority. Exact MIME bodies, original attachment bytes and attempts are retained for current-source owned export. Native controls show uncertain outcomes without a resend control.",
+      "gap": "IMAP receive/synchronization, provider thread identifiers, reconciliation of unknown attempts and final delivery/bounce receipts remain unimplemented. SMTP submission and crash boundaries have local TLS and real-session HTTP proof; legitimate live account acceptance remains absent.",
+      "required_change": "Implement authenticated provider receive/threading and evidence-based reconciliation without turning Sent-folder copies or user-entered outcomes into provider delivery proof; validate with legitimate account access. No test messages to real recipients.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
@@ -87,7 +87,11 @@
         "communication-provider-state-test.js",
         "communication-smtp-test.js",
         "communication-mail-auth-test.js",
-        "communication-mail-auth-api-test.js"
+        "communication-mail-auth-api-test.js",
+        "communication-mime-test.js",
+        "communication-submissions-test.js",
+        "communication-submissions-api-test.js",
+        "communication-send-reviews-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
@@ -112,9 +116,9 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO draft summaries and existing safe drafting paths exist. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart. Source-bound draft preparation now preserves the original message reference and current access through history/export/ZERO; no external send action is added. Internal send reviews now bind the exact draft revision/content/recipients, retained attachment hashes, configured sender/account HMAC and unambiguous current user-recorded recipient-purpose preferences. A different active designated reviewer must have current approval and source access. Approval, rejection and requester withdrawal use revision preconditions, actor/input-bound replay and atomic encrypted storage. Changed sources, preferences, account configuration or rights prevent approval. This is internal review only, with no send-ready claim, SMTP submission or provider-verified consent.",
-      "gap": "Execution of internally approved content, current policy revalidation at the transport boundary, durable outcomes, ZERO handoff and reply/forward verification still require integration.",
-      "required_change": "Connect exact internal approval to current authorized SMTP submission with durable accepted/rejected/ambiguous outcomes and reconciliation; integrate ZERO without bypassing native policy.",
+      "foundly_current": "ZERO draft summaries and existing safe drafting paths exist. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart. Source-bound draft preparation now preserves the original message reference and current access through history/export/ZERO; no external send action is added. Internal send reviews now bind the exact draft revision/content/recipients, retained attachment hashes, configured sender/account HMAC and unambiguous current user-recorded recipient-purpose preferences. A different active designated reviewer must have current approval and source access. Approval, rejection and requester withdrawal use revision preconditions, actor/input-bound replay and atomic encrypted storage. Changed sources, preferences, account configuration or rights prevent approval. Review remains distinct from the separately confirmed SMTP submission path. User-recorded preferences are not provider-verified consent. Native approved submission revalidates all current identities, exact reviewed sources and preferences before credentials/envelope/DATA, and preserves known versus unknown outcomes without automatic retry. ZERO does not yet expose this new external action.",
+      "gap": "ZERO handoff, provider-backed reply/forward threading and receive/delivery reconciliation still require integration.",
+      "required_change": "Integrate ZERO with exact native preview/review/execute policy and current-source outcome reads; complete provider threading and reconciliation without bypassing approval.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",

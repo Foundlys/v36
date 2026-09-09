@@ -1,6 +1,7 @@
 'use strict';
 
-// Explicit SMTP authentication only: this module never issues MAIL/RCPT/DATA.
+// Explicit authentication and approved-submission transport primitives.
+// Authentication-only calls never issue MAIL/RCPT/DATA.
 // RFC 8314, RFC 3207 and RFC 4954; TLS certificate/hostname verification is
 // mandatory and pre-STARTTLS capabilities are discarded. Configuration reads
 // and ordinary connector status pages never open this connection.
@@ -46,8 +47,9 @@ class Replies{
  detach(){if(this.buffer||this.lines.length||this.queue.length||this.pending)throw failure('smtp_unsolicited_response');this.socket.removeListener('data',this.onData);this.socket.removeListener('error',this.onError);this.socket.removeListener('close',this.onClose);}
 }
 function createTransport({lookup=dns.lookup.bind(dns),connectTcp=net.connect,connectTls=tls.connect,timeoutMs=15000}={}){
- return async function authenticate(input,{allowedHosts=[],authorize=()=>{}}={}){
-  const config=configuration(input);let socket,reader,timer;
+ const exchange=async function(input,{allowedHosts=[],authorize=()=>{},beforeData}={},message=null){
+  const config=configuration(input);if(message){require('./communication-mime').validateWire(message);if(typeof beforeData!=='function')throw failure('smtp_durable_boundary_required',422);}let socket,reader,timer,dataStarted=false,knownOutcome=null;
+  const outcome=(state,extra={})=>({state,provider_acceptance:state==='ACCEPTED_BY_PROVIDER'?true:state==='UNKNOWN'?null:false,delivery_verified:false,external_send:dataStarted,observed_at:new Date().toISOString(),...extra});
   const connect=(factory,options,event)=>new Promise((resolve,reject)=>{
    const active=socket=factory(options);const fail=()=>{active.removeListener(event,ready);reject(failure('smtp_tls_or_connection_failed'));};const ready=()=>{active.removeListener('error',fail);resolve(active);};active.once('error',fail);active.once(event,ready);
   });
@@ -70,12 +72,30 @@ function createTransport({lookup=dns.lookup.bind(dns),connectTcp=net.connect,con
    authorize();const encoded=Buffer.from('\0'+config.username+'\0'+config.password).toString('base64');let auth=await reader.command('AUTH PLAIN '+encoded,[235,334]);
    if(auth.code===334){authorize();auth=await reader.command(encoded,[235]);}
    if(auth.code!==235)throw failure('smtp_authentication_failed');authorize();
+   if(message){
+    const sizes=hello.lines.slice(1).map(line=>line.match(/^SIZE(?: ([0-9]+))?$/i)).filter(Boolean),size=sizes[0]?.[1];
+    if(size&&Number(size)>0&&Buffer.byteLength(message.data)>Number(size))throw failure('smtp_message_too_large',422);
+    authorize();await reader.command('MAIL FROM:<'+message.from+'>'+(sizes.length?' SIZE='+Buffer.byteLength(message.data):''),[250]);
+    for(const recipient of message.to){authorize();await reader.command('RCPT TO:<'+recipient+'>',[250,251]);}
+    authorize();await reader.command('DATA',[354]);authorize();
+    if(reader.buffer||reader.lines.length||reader.queue.length||reader.failed)throw failure('smtp_unsolicited_response');
+    // The caller synchronously persists the in-flight boundary before bytes.
+    // A crash after this callback has an unknown outcome and cannot auto-retry.
+    const boundary=beforeData();if(boundary&&typeof boundary.then==='function')throw failure('smtp_durable_boundary_invalid',422);authorize();
+    const response=reader.next();dataStarted=true;socket.write(message.data.replace(/(^|\r\n)\./g,'$1..')+'.\r\n');
+    const receipt=await response;
+    if(receipt.code===250)knownOutcome=outcome('ACCEPTED_BY_PROVIDER',{smtp_code:250,receipt_sha256:require('node:crypto').createHash('sha256').update(JSON.stringify(receipt)).digest('hex'),tls_verified:true,authentication_verified:true});
+    else if(receipt.code>=400)knownOutcome=outcome('REJECTED_BY_PROVIDER',{smtp_code:receipt.code});
+    else throw failure('smtp_submission_response_invalid');
+    return knownOutcome;
+   }
    // A failed QUIT does not invalidate a successful authenticated exchange.
    try{await reader.command('QUIT',[221]);}catch{}
    return {authenticated:true,authentication_verified:true,tls_verified:true,transport:'SMTP_SUBMISSION',auth_method:'PLAIN_OVER_VERIFIED_TLS',port:config.port,observed_at:new Date().toISOString(),send_verified:false,mailbox_access_verified:false,external_send:false};
   };
-  try{return await Promise.race([work(),deadline]);}catch(error){if(error?.code?.startsWith('smtp_')||[401,403,409].includes(error?.statusCode))throw error;throw failure('smtp_verification_failed');}
+  try{return await Promise.race([work(),deadline]);}catch(error){if(message)return knownOutcome||outcome(dataStarted?'UNKNOWN':'NOT_SUBMITTED',{error_code:/^(smtp_|mail_|send_|composition_|core_|identity_)/.test(error?.code||'')?error.code:'smtp_submission_failed'});if(error?.code?.startsWith('smtp_')||[401,403,409].includes(error?.statusCode))throw error;throw failure('smtp_verification_failed');}
   finally{clearTimeout(timer);socket?.destroy();}
  };
+ const authenticate=(input,options)=>exchange(input,options);authenticate.submit=(input,message,options)=>exchange(input,options,message);return authenticate;
 }
 module.exports={createTransport,configuration,publicV4};
