@@ -1,6 +1,6 @@
 {
   "schema_version": "foundly-phase-progress/1.0.0",
-  "masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
+  "masterprompt_sha256": "06ed763665e5ed8479b5aa60116aa6d11c0c776587f07fc9d12883bfd2a653bf",
   "baseline": "073f03041b72a1c35c7559e116c3e0cd4aa0db02",
   "last_contiguous_complete_phase": 1,
   "release_complete": false,
@@ -207,5 +207,11 @@
     "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
     "production_changes_authorized": false,
     "next_independent_work": "Communication safe attachment contracts and inbox workflows; authenticated transport/receipts require implementation and legitimate account access; preserve remaining cross-module ledger gaps."
-  }
+  },
+  "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
+  "execution_overrides": [
+    "Continue actual existing Phase 24 work without restart",
+    "Preserve all unpublished local work",
+    "No reset, completed-phase rebuild or production changes"
+  ]
 }

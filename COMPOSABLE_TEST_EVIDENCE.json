@@ -47,8 +47,8 @@
     "communication-drafts-test.js": "64ef4854189c9f68688e6ed6bce782533b96334acefcf525fafe2679fbceea04",
     "communication-drafts.js": "afa763b6d29a95b22433356f7ba4e2422c86d6e224a2e8178b8c0c7df9c5894c",
     "communication-history-bounds-test.js": "0801bc7de1ce98cb95439668cd5a4b4278c3adc103ecc48841bf4afde586a1eb",
-    "communication-provider-state-test.js": "6faed120e0c407d53e9e664c2719f52df81fd18424aa52b33d7e505ba1bd2568",
-    "communication-provider-state.js": "ee112cd9d99dc911ac3e9b509f2c6b931180a91a906a679f0625a88b316108be",
+    "communication-provider-state-test.js": "436eddba807c9b55cced3bde68e0e30f7858c533734cfa128b16d46d93cb2b32",
+    "communication-provider-state.js": "37891d19bf5cb06890628669b0537784b28c8c13de5f083b2f8d6904608a9caf",
     "communication-replies-api-test.js": "b8c260a7a0d6a63977474cde20eefbed49a7c3428414688205e360ca543a52c4",
     "communication-replies-test.js": "81136bc8d8858a178ca51630fd6b175fa2db74522224ca197fa97366bccad25a",
     "communication-replies.js": "448c89726782c8d2e48b7621de1b2ff680da54fd2158e0a09d26712c7aa8e13b",
@@ -145,7 +145,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "56ccbd28c285b993ffdb658e90ad5c971e19c4b6b9bc75f1e553553b99a5e6ea",
+    "server.js": "cb3c730f1365c3786b45f8eb921529bd3b4012b0492b76ac7142be6f9b4c980b",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -355,7 +355,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-09T09:27:39.924264+00:00",
+  "verified_at": "2026-09-09T09:37:08.507387+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -487,7 +487,8 @@
     "Recovered unpublished Communication collaboration/history preserved before extension. Full npm test passes current-owner sharing, active-member selection, immutable history and exact restore without access rollback/send, legacy baseline retention, bounded input, atomic rollback, replay and encrypted restart. Actual body-wait revocation/suspension denies pending edits/shares/restores; dashboard invalid/unavailable source contracts stay unavailable. Browser local route blocked by ERR_BLOCKED_BY_CLIENT despite launcher HTTP 200; production untouched.",
     "20,000 Communication revision fixtures use one current parent ACL projection per request; simulated production client handlers preserve revision preconditions and detached workspace isolation. No actual browser acceptance claimed.",
     "Native and generic SMTP status use the same configuration-only projection, never claim authenticated connectivity from socket/HTTP reachability and perform no arbitrary SMTP destination probe. Authenticated mail transport and receipt processing remain implementation gaps.",
-    "Source-bound REPLY/FORWARD internal draft preparation passes exact retained-message revision/hash/recipient binding, persistence rollback, encrypted replay and source changes during body waits. Current source rights govern drafts/history/native/export/ZERO; retained export survives module disablement subject to current source ownership. Labelled message fixtures are not live provider evidence; no external send."
+    "Source-bound REPLY/FORWARD internal draft preparation passes exact retained-message revision/hash/recipient binding, persistence rollback, encrypted replay and source changes during body waits. Current source rights govern drafts/history/native/export/ZERO; retained export survives module disablement subject to current source ownership. Labelled message fixtures are not live provider evidence; no external send.",
+    "Final full npm test passed the shared SMTP credential/environment resolver: a username alone remains unconfigured and native/generic email status agree on configured SMTP environment variables, without authentication/send claims or network probes."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -499,7 +500,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-communication-replies-regression.log",
+  "output_file": ".recovery-evidence/20260909-communication-final-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
