@@ -53,8 +53,8 @@
           "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests. Owner-scoped activation now selects one immutable version or pauses the group, with optimistic revision checks, canonical transition events and retained pending runs. Exact persisted internal task/document outcomes can now reconcile interrupted result capture, followed by a separately requested continuation. Original actor, request, step definition and record fingerprints are checked; missing or external proof stays blocked. Owner-private partial drafts now persist independently of executable workflow definitions. The editor autosaves with revision checks, serializes writes and offers a new-draft copy on conflicts. Incomplete draft storage creates no workflows or tasks; lost responses, foreign owners, rollback, encrypted restart and disabled-module export pass.",
-      "gap": "Visual branching/grouped-condition editing, recovery without a proven internal result and searchable debugging remain incomplete. Browser acceptance is blocked.",
+      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests. Owner-scoped activation now selects one immutable version or pauses the group, with optimistic revision checks, canonical transition events and retained pending runs. Exact persisted internal task/document outcomes can now reconcile interrupted result capture, followed by a separately requested continuation. Original actor, request, step definition and record fingerprints are checked; missing or external proof stays blocked. Owner-private partial drafts now persist independently of executable workflow definitions. The editor autosaves with revision checks, serializes writes and offers a new-draft copy on conflicts. Incomplete draft storage creates no workflows or tasks; lost responses, foreign owners, rollback, encrypted restart and disabled-module export pass. Run history now supports authorized text/status/event/workflow/date filtering and pagination beyond the previous latest-100 window. Querying is read-only and retained exports honor source ownership unless the caller has Automation administration authority.",
+      "gap": "Visual branching/grouped-condition editing and recovery without a proven internal result remain incomplete. Debugging has searchable execution metadata; browser acceptance is blocked.",
       "required_change": "Complete debugging and original workflow authoring breadth; external outcome recovery requires legitimate provider verification contracts.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
@@ -69,7 +69,9 @@
         "workflow-recovery-test.js",
         "workflow-recovery-api-test.js",
         "workflow-drafts-test.js",
-        "workflow-drafts-api-test.js"
+        "workflow-drafts-api-test.js",
+        "workflow-run-query-test.js",
+        "workflow-run-query-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

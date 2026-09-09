@@ -4,7 +4,7 @@ const { MODULES, TOOL_MODULES, moduleId, routeModule } = require('./module-catal
 const {ENTITY_CAPABILITIES,METHOD_CAPABILITIES,methodOperation,providerRouteContract}=require('./module-access-contracts');
 const PLATFORM_METHODS = {
   calculateKpi: 'analysis', realtime: 'analysis', historical: 'analysis', attribution: 'analysis', commercialFunnel: 'analysis', campaignOutcome: 'analysis', dashboard: 'analysis',
-  previewAutomationRecovery:'automation',recoverAutomation:'automation',verifyAutomationRecord:'automation',setAutomationActivation:'automation', defineAutomation: 'automation', runAutomation: 'automation', tickAutomations:'automation', automationStatus: 'automation', automationRecords: 'automation', createAutomationRecord: 'automation', exportAutomation:'automation',
+  automationDefinitions:'automation',queryAutomationRuns:'automation',previewAutomationRecovery:'automation',recoverAutomation:'automation',verifyAutomationRecord:'automation',setAutomationActivation:'automation', defineAutomation: 'automation', runAutomation: 'automation', tickAutomations:'automation', automationStatus: 'automation', automationRecords: 'automation', createAutomationRecord: 'automation', exportAutomation:'automation',
   taxRules:'finance',calculateVat:'finance',validateDutchInvoice:'finance',retentionPolicy:'finance',archiveLegalRecord:'finance',taxCapabilities:'finance',
   metaPlan: 'marketing', ga4Plan: 'marketing', enhancedConversionPlan: 'marketing', queueDelivery: 'marketing'
 };
@@ -26,6 +26,7 @@ function guardDomain(service, owner, resolverProvider) {
           const entityCapability=entity?routeCapability(`/api/${id}/${entity}`,id):null;
           if(entityCapability&&operation!=='export')resolverProvider().assertCapability(ctx,actor,entityCapability,operation);
           for(const capability of METHOD_CAPABILITIES[id]?.[property]||[])resolverProvider().assertCapability(ctx,actor,capability,operation);
+          if(property==='runAutomation'&&args[4]?.approval)resolverProvider().assertCapability(ctx,actor,'automation:approvals','approve');
           if (owner === 'procurement' && resolverProvider().resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') {
             throw Object.assign(new Error('Automotive is niet actief voor deze tenant'), { statusCode: 403, code: 'industry_disabled' });
           }

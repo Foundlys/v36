@@ -720,11 +720,19 @@
     }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
   }
 
-  async function renderAutomationSection(section,content) {
+  async function renderAutomationSection(section,content,query={}) {
+    const token=state.automationQueryToken=(state.automationQueryToken||0)+1;
     replaceChildren(content,[node('p','LoadingState','Workflowgegevens laden…')]);
     try {
-      const data=await request('/api/automation/status');if(state.activeSection!==section)return;
-      const result=[];
+      const workflowSections=['WORKFLOWS','TRIGGERS','ACTIONS','DEPENDENCIES'],data=workflowSections.includes(section)?await request('/api/automation/workflows'):{};if(state.activeSection!==section||token!==state.automationQueryToken)return;
+      const result=[];let page;
+      if(!workflowSections.includes(section)){
+        const defaults=section==='APPROVALS'?{status:'AWAITING_APPROVAL'}:section==='FAILURES'?{status:'ERROR,BLOCKED,DEAD_LETTER,RECOVERY_READY,RUNNING'}:section==='RETRIES'?{retried:'true'}:{},filters={...defaults,...query,limit:'50'};
+        page=await request('/api/automation/runs?'+new URLSearchParams(filters));if(token!==state.automationQueryToken)return;data.runs=page.items;const composition=await request('/api/composition');if(token!==state.automationQueryToken)return;data.can_manage=page.can_manage&&composition.resolution.capabilities.includes('automation:workflows');data.retryable_actions=page.retryable_actions;data.can_approve=data.can_manage&&composition.resolution.capabilities.includes('automation:approvals');
+        const form=node('form','domain-record-form'),search=node('input'),label=node('label','','Zoek op run, workflow, event, stap of foutmelding'),status=node('select'),statusLabel=node('label','','Uitvoerstatus'),find=node('button','secondary-button','Zoeken');search.value=query.q||'';search.maxLength=200;label.append(search);
+        for(const value of ['', 'RUNNING','SUCCEEDED','ERROR','BLOCKED','AWAITING_APPROVAL','WAITING_TIME','WAITING_RETRY','DEAD_LETTER','RECOVERY_READY']){const option=node('option','',value||'Alle statussen');option.value=value;status.append(option);}status.value=query.status||'';statusLabel.append(status);find.type='submit';form.append(label,statusLabel,find);form.addEventListener('submit',event=>{event.preventDefault();renderAutomationSection(section,content,{q:search.value.trim(),...(status.value?{status:status.value}:{}),offset:'0'});});result.push(form,node('p','',`${page.total} toegankelijke uitvoeringen · vanaf ${page.offset+1}`));
+        const navigation=node('div');for(const [title,offset]of [['Vorige',page.offset>=50?page.offset-50:null],['Volgende',page.next_offset]]){const button=node('button','secondary-button',title);button.type='button';button.disabled=offset===null;button.addEventListener('click',()=>renderAutomationSection(section,content,{...query,offset:String(offset)}));navigation.append(button);}result.push(navigation);
+      }
       if(section==='WORKFLOWS'&&data.can_manage){
         const drafts=await request('/api/automation/drafts'),editorBox=node('div'),chooser=node('select'),label=node('label','','Bewaard concept'),open=node('button','secondary-button','Concept openen'),message=node('output');
         chooser.append(node('option','','Nieuw concept'));chooser.firstChild.value='';for(const draft of drafts.items){const option=node('option','',`${draft.draft.name||'Naamloos concept'} · revisie ${draft.revision}`);option.value=draft.id;chooser.append(option);}label.append(chooser);open.type='button';
@@ -732,7 +740,7 @@
         open.addEventListener('click',()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}try{show(drafts.items.find(row=>row.id===chooser.value)||null);message.textContent='';}catch(error){message.textContent=error.message;}});
         result.push(label,open,message,editorBox);
       }
-      const workflowSections=['WORKFLOWS','TRIGGERS','ACTIONS','DEPENDENCIES'],rows=workflowSections.includes(section)?data.workflows:section==='APPROVALS'?data.runs.filter(r=>r.status==='AWAITING_APPROVAL'):section==='FAILURES'?data.runs.filter(r=>['ERROR','BLOCKED','DEAD_LETTER','RECOVERY_READY'].includes(r.status)||r.steps?.some(step=>step.status==='RUNNING')):section==='RETRIES'?data.runs.filter(r=>r.status==='WAITING_RETRY'||r.steps?.some(s=>Number(s.attempts)>1)):section==='AUDIT'?data.runs:data.runs;
+      const rows=workflowSections.includes(section)?data.workflows:data.runs;
       for(const row of rows||[]){
         const card=node('article','context-item');card.append(node('h3','',row.name||row.run_id),node('p','',workflowSections.includes(section)?`Versie ${row.version} · ${row.effective_enabled?'Actief':'Gepauzeerd of uitgeschakeld'}`:row.status));
         if(['TRIGGERS','WORKFLOWS'].includes(section))card.append(node('p','',`Trigger: ${row.trigger?.type||'—'}`));
@@ -760,7 +768,7 @@
         if(section==='WORKFLOWS'&&data.can_manage){
           const form=node('form'),label=node('label','','Bestaande eventreferentie'),input=node('input'),button=node('button','','Workflow uitvoeren'),notice=node('output');input.required=true;input.maxLength=200;label.append(input);button.type='submit';button.disabled=!row.effective_enabled;form.append(label,button,notice);form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{const run=await request(`/api/automation/workflows/${row.id}/runs`,{method:'POST',body:JSON.stringify({event:{event_id:input.value.trim(),type:row.trigger?.type,source:'authorized_manual_run'}})});notice.textContent=`Uitkomst: ${run.status}`;}catch(error){notice.textContent=friendlyError(error);}finally{button.disabled=false;}});card.append(form);
         }
-        if(section==='APPROVALS'){
+        if(section==='APPROVALS'&&data.can_approve){
           const form=node('form'),label=node('label','','Reden voor goedkeuring van deze run'),input=node('input'),button=node('button','','Exacte run goedkeuren'),notice=node('output');input.required=true;input.maxLength=500;label.append(input);button.type='submit';form.append(label,button,notice);
           form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{await request(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs,approval:{run_id:row.run_id,request_signature:row.request_signature,reference:crypto.randomUUID(),reason:input.value.trim()}}})});await renderAutomationSection(section,content);}catch(error){notice.textContent=friendlyError(error);button.disabled=false;}});card.append(form);
         }

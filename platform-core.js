@@ -237,9 +237,11 @@ class FoundlyPlatformCore{
     const rows=this.bucket(ctx,`automation_${entity}`).filter(row=>privileged||row.owner_id===principal.id),limit=Math.max(1,Math.min(250,Number(query.limit)||100)),offset=Math.max(0,Number(query.offset)||0);
     return {items:clone(rows.slice(offset,offset+limit)),total:rows.length,next_offset:offset+limit<rows.length?offset+limit:null,tenant_filtered:true};
   }
+  automationDefinitions(context,principalInput){const status=this.automationStatus(context,principalInput);return {workflows:status.workflows,workflow_count:status.workflow_count,editor_contract:status.editor_contract,can_manage:status.can_manage,retryable_actions:status.retryable_actions};}
+  queryAutomationRuns(context,principalInput,query={}){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'platform:read');return require('./workflow-run-query').queryRuns(this,ctx,principal,query);}
   exportAutomation(context,principalInput){
     const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'export:run');
-    const collections=Object.fromEntries(['automations','automation_runs','automation_tasks','automation_documents','automation_activations'].map(scope=>[scope,clone(this.bucket(ctx,scope))]));
+    const collections=Object.fromEntries(['automations','automation_runs','automation_tasks','automation_documents','automation_activations'].map(scope=>[scope,clone(this.bucket(ctx,scope).filter(row=>require('./workflow-run-query').visible(principal,row,scope)))]));
     this.audit(ctx,principal,'EXPORT','automation',null,{collections:Object.keys(collections)});this.commit();return {module_id:'automation',tenant_id:ctx.tenant_id,collections,audited:true};
   }
   flushModuleEvents(context,principalInput){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'events:write');return flushOwnedEvents(this,ctx,principal);}

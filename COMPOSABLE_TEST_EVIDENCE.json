@@ -28,7 +28,7 @@
     "composition-api-test.js": "82c1540d476619d5ef11379945cfd86ef03afcdbdee79a99919f337eba84ac68",
     "composition-matrix-test.js": "8e8ab94fb67a328fcffa5245963bc034606a76f60b48f99a6e7964edd18fa3f4",
     "composition-projections.js": "1b1ee31b69f3a26625a56459df9eec777fff971bc8328b2a48ac1f46306f9540",
-    "composition-runtime.js": "cc184353a0ce08fc7a633df665458327d793b444d629ca605b6b8295380b8cb2",
+    "composition-runtime.js": "c7b11549e2a921128e3a514c888cce4e5fe441fe0b5b7f72ddee8c5c1c78ba3e",
     "core-access-api-test.js": "b25892c9b81fec28bda24960af6d763af3a7265b79c1e171f5e5d82d89e3273b",
     "core-access-contracts-test.js": "c14a093653346a5008ce96edb2f0de69498964be4f60d2f809012d148f0752f1",
     "core-access-contracts.js": "2a06da2b118ac9bf8858f849ffcce33abaaaadce898dbdae11d9158d8e31cba1",
@@ -49,7 +49,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "74120b56080245a09620336daa7cccfc35be28ed0d4bdabdf1ea642762efc606",
-    "foundly-workspace.js": "b7e98bead3598a375d364391bcd29e2c3a6a2d8a5bd84ffaab4f00288cfdcf16",
+    "foundly-workspace.js": "81c04f781762cc0b4ca387cc2774153dd6f90deb1249b3a1c4b87bb3f3117a8f",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -63,7 +63,7 @@
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
-    "module-access-contracts.js": "290e3d36ec4885a4c2ec8d173e59836bf885b00a5661563098827419d6aa99b2",
+    "module-access-contracts.js": "e8d34ab121dcb669aec049bebb5aa9c625fd198e8f6dde3a912b0c84767d57c4",
     "module-catalog.js": "932339f8a65b2340a37188cba91163969a15eb826247092b1e6611c03be3259b",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
@@ -71,11 +71,11 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "152f75c51ac2782720c216361663ed2b1a42ac2015fe21eca3e61d2384c28c88",
+    "package.json": "0ad97af4ff9931b3217d495d124e7786d2480874366a00af682bb602df9e9936",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
-    "platform-api.js": "7617439d9067ed2bb5c5ee09e1978910e59707a490368f7845ee014b5bbf7b77",
+    "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
-    "platform-core.js": "00857b0dcd9c815e9f07f49287e838f01a2d77ad298549be88b7155d5673a53a",
+    "platform-core.js": "32180e460371643d60ffcc10b07fccab481e97bca8f1bf58a39010fce9bbf26e",
     "procurement-allocations-api-test.js": "3017267de260f3d54893cf19046b5d01556b284411688a16fdfe97aeb9469e77",
     "procurement-allocations-test.js": "9a4dabc9697489c33b2fab7e5f520208a5f980b13ac622439c356923ddb52e83",
     "procurement-allocations.js": "c0b137fc69871e442c41505152e8547364ad9e414a5ed58551e4d73a234cde27",
@@ -134,12 +134,15 @@
     "workflow-recovery.js": "2ab1456f07dc408cc6e213a5a7375575e2ae1111bd9ac07a3d9619141e39fe88",
     "workflow-retry-api-test.js": "f0eec87c1d1f8a00f825f1f80dffb302dbd4a3022c1b8265481fa3ff6e2f8aca",
     "workflow-retry-test.js": "8088b36f556fd41f778c6d59443486700c5ba1b4dfc6cacae95d3f9e848f7247",
+    "workflow-run-query-api-test.js": "353a3e6a6317f973fdb066d41913f00224fa342551ec00bef0b3e485bae43027",
+    "workflow-run-query-test.js": "dd1dce988d80094fa35a7a84528285189c48a81f865c14ad3684fa54c30d3af7",
+    "workflow-run-query.js": "d434a1cde6e43c6465793be75bcca87b26037a3d586ef98ce567720c43ceaa9f",
     "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
     "workspace-section-model.js": "8cca6633495bfd876cd8a09b1cf8de023da95de42917cdde2dd3a013f895951b",
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "3feeb11623ce3809646f58821e80d8f507fd75819ad707ec53eb95f723514734",
+  "output_sha256": "93e1ddc1ed614a1a60eaa730bce62624d7e5d4210db2837a0f30e53bdb131720",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -382,7 +385,10 @@
     "Forecast snapshot reads and retained exports recheck current source and quota ownership after role downgrade or source reassignment, without deleting immutable evidence",
     "Owner-private incomplete Automation drafts use independent encrypted buckets and never create executable definitions or side effects",
     "CAS draft writes, serialized client saves, lost-response acknowledgement, foreign-owner refusal even for administrators, atomic rollback, encrypted HTTP restart and disabled-module export",
-    "Sales snapshot current-source visibility is applied to shared record projections as well as domain reads and exports; role-downgrade HTTP case added"
+    "Sales snapshot current-source visibility is applied to shared record projections as well as domain reads and exports; role-downgrade HTTP case added",
+    "Automation run metadata search, status/event/date filters and stable paging beyond 100 runs with no side effects and no private count/search leakage",
+    "Workflow definition and run-history read routes independently enforce their capabilities, including encrypted HTTP restart",
+    "Automation exports require current per-collection ownership unless caller has administration authority; generic run approvals now explicitly enforce the approval capability and permission"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -394,7 +400,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-workflow-drafts-verified.log",
+  "output_file": ".recovery-evidence/20260909-workflow-run-query-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -407,10 +413,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "63fc5d250a4b8e549d069ec73f4cd6955344851f",
-    "tree": "56a800410583b2ee564774cf14833c2365d5026e",
-    "run": 67,
-    "run_id": 34314254765,
+    "head": "4766d6da2485ade0539b440ebfc5a37beee5adac",
+    "tree": "39af8ef64be5c6792b9c5dc6ed7c1c37436fb957",
+    "run": 68,
+    "run_id": 34314945942,
     "conclusion": "success"
   }
 }

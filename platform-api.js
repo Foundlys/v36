@@ -280,6 +280,8 @@ function createPlatformApi(options = {}) {
       if(url.pathname==='/api/analysis/export'&&req.method==='GET')return sendJson(res,200,platform.export(ctx,actor,'events','JSON'));
       if (automationEntity && req.method === 'GET') return sendJson(res, 200, platform.automationRecords(ctx, actor, automationEntity[1], Object.fromEntries(url.searchParams)));
       if (automationEntity && req.method === 'POST') return sendJson(res, 201, platform.createAutomationRecord(ctx, actor, automationEntity[1], await readBody(req), {idempotencyKey:req.headers['idempotency-key']}));
+      if(url.pathname==='/api/automation/workflows'&&req.method==='GET')return sendJson(res,200,platform.automationDefinitions(ctx,actor));
+      if(url.pathname==='/api/automation/runs'&&req.method==='GET')return sendJson(res,200,platform.queryAutomationRuns(ctx,actor,Object.fromEntries(url.searchParams)));
       if (url.pathname === '/api/automation/status' && req.method === 'GET') return sendJson(res, 200, platform.automationStatus(ctx, actor));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
       const recovery=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/recovery$/);

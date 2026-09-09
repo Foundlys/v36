@@ -1,0 +1,28 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {FoundlyPlatformCore}=require('./platform-core'),{CapabilityResolver}=require('./capability-resolver'),{guardDomain}=require('./composition-runtime');
+const store=new Map(),ctx={tenant_id:'query-fixture',dealer_id:'default'},admin={id:'admin',roles:['ADMIN','SUPER_ADMIN']},owner={id:'owner',roles:['MANAGER']},other={id:'other',roles:['MANAGER']},reader={id:owner.id,roles:['VIEWER'],permissions:['automation:export','export:run']};
+let effects=0;const adapter={bucket(c,s){const k=JSON.stringify([c.tenant_id,c.dealer_id,s]);if(!store.has(k))store.set(k,[]);return store.get(k);},persist(){},audit(){},executeAutomationAction(){effects++;return {executed:true,external_write:false};}};
+const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['automation'],expected_revision:0});const core=guardDomain(new FoundlyPlatformCore(adapter),'platform',()=>resolver);
+(async()=>{
+ const wf=core.defineAutomation(ctx,owner,{name:'Search fixture workflow',trigger:'custom_event',actions:[{type:'notify',message:'Fixture notification'}]});
+ for(let i=0;i<120;i++)await core.runAutomation(ctx,owner,wf.id,{event_id:'query-event-'+i},{inputs:{private_note:'Not a search index'}});
+ const foreign=core.defineAutomation(ctx,other,{name:'Private other workflow',trigger:'custom_event',actions:[{type:'notify'}]});await core.runAutomation(ctx,other,foreign.id,{event_id:'hidden-event'});
+ const before=effects,page=core.queryAutomationRuns(ctx,reader,{limit:50});assert.equal(page.total,120);assert.equal(page.items.length,50);assert.equal(page.next_offset,50);
+ const second=core.queryAutomationRuns(ctx,reader,{limit:50,offset:50}),last=core.queryAutomationRuns(ctx,reader,{limit:50,offset:100});assert.equal(new Set([...page.items,...second.items,...last.items].map(row=>row.run_id)).size,120);assert.equal(last.next_offset,null);
+ assert.equal(core.queryAutomationRuns(ctx,reader,{event_id:'query-event-2'}).total,1);assert.equal(core.queryAutomationRuns(ctx,reader,{q:'NOTIFY',status:'succeeded'}).total,120);assert.equal(core.queryAutomationRuns(ctx,reader,{q:'Not a search index'}).total,0);
+ assert.equal(core.queryAutomationRuns(ctx,reader,{q:'hidden-event'}).total,0);assert.equal(core.queryAutomationRuns(ctx,reader,{actor_id:other.id}).total,0);assert.equal(core.queryAutomationRuns(ctx,reader,{retried:'true'}).total,0);
+ assert.throws(()=>core.queryAutomationRuns(ctx,reader,{limit:101}),{code:'automation_query_page_invalid'});assert.throws(()=>core.queryAutomationRuns(ctx,reader,{status:'made_up'}),{code:'automation_query_status_invalid'});assert.throws(()=>core.queryAutomationRuns(ctx,reader,{from:'2026-01-01'}),{code:'automation_query_date_invalid'});
+ assert.equal(effects,before,'Querying history must never rerun an action');
+ core.setAutomationActivation(ctx,owner,wf.id,{active:true,confirm:true,expected_revision:0,reason:'Fixture version choice'});core.setAutomationActivation(ctx,other,foreign.id,{active:true,confirm:true,expected_revision:0,reason:'Other fixture choice'});
+ const exported=core.exportAutomation(ctx,reader).collections;assert.equal(exported.automation_runs.length,120);assert.equal(exported.automations.length,1);assert.equal(exported.automation_activations.length,1);assert.ok(!JSON.stringify(exported).includes('hidden-event'));
+ assert.equal(core.queryAutomationRuns({...ctx,tenant_id:'other-tenant'},admin).total,0);
+ const approvalFlow=core.defineAutomation(ctx,admin,{name:'Approval capability fixture',trigger:'custom_event',approval_required:true,actions:[{type:'notify'}]}),approvalEvent={event_id:'approval-capability-fixture'},waiting=await core.runAutomation(ctx,admin,approvalFlow.id,approvalEvent);
+ resolver.configure(ctx,admin,{entitlements:['automation'],capability_flags:{'automation:approvals':false},expected_revision:1});
+ assert.throws(()=>core.runAutomation(ctx,admin,approvalFlow.id,approvalEvent,{approval:{run_id:waiting.run_id,request_signature:waiting.request_signature,reference:'blocked-capability-review',reason:'Fixture review'}}),{code:'capability_disabled'});
+ resolver.configure(ctx,admin,{entitlements:['automation'],capability_flags:{'automation:runs':false},expected_revision:2});assert.throws(()=>core.queryAutomationRuns(ctx,reader),{code:'capability_disabled'});
+ assert.ok(core.automationDefinitions(ctx,reader).workflows.some(row=>row.id===wf.id));
+ resolver.configure(ctx,admin,{entitlements:['automation'],capability_flags:{'automation:workflows':false},expected_revision:3});assert.equal(core.queryAutomationRuns(ctx,reader).total,120);assert.throws(()=>core.automationDefinitions(ctx,reader),{code:'capability_disabled'});
+ resolver.configure(ctx,admin,{entitlements:['automation'],enabled_modules:[],expected_revision:4});assert.equal(core.exportAutomation(ctx,reader).collections.automation_runs.length,120);
+ console.log('PASS searchable history beyond latest 100, stable pagination, status/event/step filters, private metadata, no replay, tenant boundaries and owner-filtered retained export');
+})().catch(error=>{console.error(error);process.exitCode=1;});
