@@ -93,7 +93,7 @@
       "phase": 14,
       "name": "Automation",
       "status": "PARTIAL",
-      "evidence_or_gap": "Durable execution, owner-bound scheduling, exact approval, bounded retries, sequential authoring, activation/pause and verified internal outcome recovery; debugging, visual branching and browser acceptance remain"
+      "evidence_or_gap": "Owner-bound execution, bounded retries, sequential authoring, private autosaved drafts, version activation, proof-based crash recovery and restart pass. Visual branching, debugging and external recovery evidence remain incomplete; browser acceptance is blocked."
     },
     {
       "phase": 15,

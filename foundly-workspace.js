@@ -726,7 +726,11 @@
       const data=await request('/api/automation/status');if(state.activeSection!==section)return;
       const result=[];
       if(section==='WORKFLOWS'&&data.can_manage){
-        result.push(window.FoundlyWorkflowEditor.create({document,spec:data.editor_contract,request,onSaved:()=>renderAutomationSection(section,content)}));
+        const drafts=await request('/api/automation/drafts'),editorBox=node('div'),chooser=node('select'),label=node('label','','Bewaard concept'),open=node('button','secondary-button','Concept openen'),message=node('output');
+        chooser.append(node('option','','Nieuw concept'));chooser.firstChild.value='';for(const draft of drafts.items){const option=node('option','',`${draft.draft.name||'Naamloos concept'} · revisie ${draft.revision}`);option.value=draft.id;chooser.append(option);}label.append(chooser);open.type='button';
+        const show=draft=>{const editor=window.FoundlyWorkflowEditor.create({document,spec:data.editor_contract,request,draft,onSaved:()=>renderAutomationSection(section,content)});editorBox.replaceChildren(editor);};show();
+        open.addEventListener('click',()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}try{show(drafts.items.find(row=>row.id===chooser.value)||null);message.textContent='';}catch(error){message.textContent=error.message;}});
+        result.push(label,open,message,editorBox);
       }
       const workflowSections=['WORKFLOWS','TRIGGERS','ACTIONS','DEPENDENCIES'],rows=workflowSections.includes(section)?data.workflows:section==='APPROVALS'?data.runs.filter(r=>r.status==='AWAITING_APPROVAL'):section==='FAILURES'?data.runs.filter(r=>['ERROR','BLOCKED','DEAD_LETTER','RECOVERY_READY'].includes(r.status)||r.steps?.some(step=>step.status==='RUNNING')):section==='RETRIES'?data.runs.filter(r=>r.status==='WAITING_RETRY'||r.steps?.some(s=>Number(s.attempts)>1)):section==='AUDIT'?data.runs:data.runs;
       for(const row of rows||[]){

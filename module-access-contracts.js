@@ -9,7 +9,7 @@ const ENTITY_GROUPS={
   sales:{forecast:['forecast','forecast_snapshots','quotas'],opportunities:['opportunities','tasks'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
   calendar:{events:['events','reminders','notifications'],availability:['availability','calendars','scheduling'],conflicts:['conflicts']},
   communication:{drafts:['drafts','templates'],threads:['threads','preferences'],inbox:['messages','inbox']},
-  automation:{workflows:['workflows','tasks','documents'],runs:['runs'],approvals:['approvals']}
+  automation:{workflows:['workflows','tasks','documents','drafts'],runs:['runs'],approvals:['approvals']}
 };
 const ENTITY_CAPABILITIES=Object.fromEntries(Object.entries(ENTITY_GROUPS).map(([id,groups])=>[id,Object.fromEntries(Object.entries(groups).flatMap(([cap,entities])=>entities.map(entity=>[entity,`${id}:${cap}`])))]));
 const METHOD_CAPABILITIES={

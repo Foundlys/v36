@@ -39,8 +39,12 @@ async function request(route, method = 'GET', body, extraHeaders={}) {
  await stop();await start();assert.equal((await request('/api/sales/quotas/'+target.body.record.id)).body.record.target_cents,100000);assert.equal((await request('/api/sales/forecast_snapshots/'+snapshot.body.record.id)).body.record.forecast.quotas.items[0].attainment_percent,25);
  assert.equal((await request('/api/sales/quotas/'+target.body.record.id,'PUT',{expected_revision:1,target_cents:200000})).status,200);
  assert.equal((await request('/api/sales/forecast/snapshots','POST',input,{'idempotency-key':'changed-target'})).status,409);
+ const privateOpportunity=await request('/api/sales/opportunities','POST',{title:'Private other-owned source fixture',owner_id:'private-other-owner',currency:'EUR',value_cents:999000,status:'WON',closed_date:'2026-09-20'});assert.equal(privateOpportunity.status,201);
+ const broad=await request('/api/sales/forecast?'+new URLSearchParams(filters)),broadSnapshot=await request('/api/sales/forecast/snapshots','POST',{title:'Owned broad snapshot',filters,basis_fingerprint:broad.body.basis_fingerprint,confirm:true},{'idempotency-key':'broad-api-snapshot'});assert.equal(broadSnapshot.status,201);
  await stop();env.FOUNDLY_PLATFORM_ROLES='SALES';await start();assert.equal((await request('/api/sales/quotas/'+target.body.record.id,'PUT',{expected_revision:2,target_cents:1})).status,403);
  assert.equal((await request('/api/sales/quotas')).body.total,1);
+ assert.equal((await request('/api/sales/forecast_snapshots/'+broadSnapshot.body.record.id)).status,404);
+ const dataSnapshot=await request('/api/workspaces/data/snapshot');assert.equal(dataSnapshot.status,200);assert.ok(!JSON.stringify(dataSnapshot.body).includes('Private other-owned source fixture'),'Shared Data must not reveal a saved snapshot whose current sources are private');
  await stop();env.FOUNDLY_PLATFORM_USER_ID='other-fixture-seller';await start();assert.equal((await request('/api/sales/quotas')).body.total,0);
  console.log('PASS authenticated quota management, workspace exposure, exact target-bound snapshots, encrypted restart, stale target denial and private seller access');
 }finally{await stop();fs.rmSync(dir,{recursive:true,force:true});}})().catch(error=>{console.error(error);process.exitCode=1;});

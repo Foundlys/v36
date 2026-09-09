@@ -1,0 +1,24 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {CapabilityResolver}=require('./capability-resolver');
+const {WorkflowDrafts,SCOPE}=require('./workflow-drafts');
+const {create}=require('./workflow-draft-session');
+let rows=new Map(),disk,broken=false;const ctx={tenant_id:'draft-fixture',dealer_id:'default'},admin={id:'admin',roles:['ADMIN','SUPER_ADMIN']},owner={id:'owner',roles:[],permissions:['automation:read','automation:write','automation:export']},foreign={...admin,id:'foreign'};
+const adapter={bucket(c,scope){const k=JSON.stringify([c.tenant_id,c.dealer_id,scope]);if(!rows.has(k))rows.set(k,[]);return rows.get(k);},persist(){if(broken)throw new Error('fixture disk failure');disk=JSON.stringify([...rows]);},audit(c,a,action,entity,id,meta){adapter.bucket(c,'platform:audit').push({actor_id:a.id,action,entity,id,meta});}};
+const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['automation'],expected_revision:0});let drafts=new WorkflowDrafts(adapter,resolver);
+const draft={name:'Unfinished fixture',steps:[{type:'create_task',values:{title:''}}],automatic:true};
+let record=drafts.save(ctx,owner,'fixture-draft',{draft,expected_revision:0}).record;assert.equal(record.executable,false);assert.equal(record.status,'DRAFT');assert.equal(record.draft.steps[0].values.title,'');
+assert.equal(drafts.save(ctx,owner,'fixture-draft',{draft,expected_revision:0}).deduplicated,true);assert.equal(drafts.list(ctx,foreign).items.length,0);assert.throws(()=>drafts.save(ctx,foreign,'fixture-draft',{draft,expected_revision:0}),{code:'workflow_draft_missing'});
+assert.throws(()=>drafts.save(ctx,owner,'fixture-draft',{draft:{...draft,name:'Stale'},expected_revision:0}),{code:'workflow_draft_conflict'});
+assert.throws(()=>drafts.save(ctx,{id:owner.id,roles:['VIEWER']},'fixture-draft',{draft,expected_revision:1}),{code:'composition_forbidden'});
+const before=JSON.stringify([...rows]);broken=true;assert.throws(()=>drafts.save(ctx,owner,'fixture-draft',{draft:{...draft,name:'New'},expected_revision:1}),/fixture disk failure/);broken=false;assert.equal(JSON.stringify([...rows]),before);
+rows=new Map(JSON.parse(disk));drafts=new WorkflowDrafts(adapter,resolver);assert.equal(drafts.list(ctx,owner).items[0].revision,1);assert.equal(adapter.bucket(ctx,'platform:automation_workflows').length,0);
+(async()=>{
+ let calls=0,loseResponse=false;const request=async(path,options)=>{calls++;await new Promise(resolve=>setTimeout(resolve,5));const result=drafts.save(ctx,owner,path.split('/').at(-1),JSON.parse(options.body));if(loseResponse){loseResponse=false;throw new Error('Fixture lost response');}return result;};
+ const session=create({id:'client-queue',request});await Promise.all([session.save({name:'First partial'}),session.save({name:'Latest partial'})]);assert.equal(session.revision,2);assert.equal(drafts.list(ctx,owner).items.find(row=>row.id==='client-queue').draft.name,'Latest partial');
+ loseResponse=true;await assert.rejects(session.save({name:'Response lost'}),/lost response/);await session.save({name:'Response lost'});assert.equal(session.revision,3,'Exact retry acknowledges the original committed save');
+ drafts.save(ctx,owner,'client-queue',{draft:{name:'Other editor'},expected_revision:3});await assert.rejects(session.save({name:'Stale local edits'}),{code:'workflow_draft_conflict'});const afterConflict=calls;await assert.rejects(session.save({name:'Still local'}),/nieuw concept/);assert.equal(calls,afterConflict,'Conflicted editor cannot overwrite another session');
+ resolver.configure(ctx,admin,{entitlements:['automation'],enabled_modules:[],expected_revision:1});assert.throws(()=>drafts.list(ctx,owner),{code:'module_disabled'});assert.equal(drafts.list(ctx,owner,'export').items.length,2);
+ assert.ok(adapter.bucket(ctx,'platform:audit').filter(row=>row.entity==='automation_draft').every(row=>row.meta.content_logged===false));
+ console.log('PASS private partial drafts, no execution, CAS replay, concurrent edit conflict, serialized client writes, lost response recovery, rollback, reload and retained export');
+})().catch(error=>{console.error(error);process.exitCode=1;});
