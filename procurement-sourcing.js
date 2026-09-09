@@ -42,6 +42,6 @@ function compareBids(domain,ctx,actor,id){
   });
   const eligible=items.filter(row=>row.comparable).sort((a,b)=>a.total_cents-b.total_cents||a.id.localeCompare(b.id));
   for(const row of eligible){row.price_rank=1+eligible.filter(other=>other.total_cents<row.total_cents).length;row.difference_from_lowest_cents=row.total_cents-eligible[0].total_cents;}
-  return {rfq_id:rfq.id,rfq_revision:rfq.revision,title:rfq.title,currency:rfq.currency,items:[...eligible,...items.filter(row=>!row.comparable)],comparable_count:eligible.length,comparison_basis:'RECORDED_FULL_SCOPE_PRICES_ONLY',tax_shipping_basis:'AS_RECORDED_NOT_INDEPENDENTLY_VERIFIED',provider_verified:false,external_commitment:false,observed_at:new Date().toISOString()};
+  return {rfq_id:rfq.id,rfq_revision:rfq.revision,requested_lines:rfq.lines,title:rfq.title,currency:rfq.currency,items:[...eligible,...items.filter(row=>!row.comparable)],comparable_count:eligible.length,comparison_basis:'RECORDED_FULL_SCOPE_PRICES_ONLY',tax_shipping_basis:'AS_RECORDED_NOT_INDEPENDENTLY_VERIFIED',provider_verified:false,external_commitment:false,observed_at:new Date().toISOString()};
 }
 module.exports={validateSourcing,compareBids};

@@ -25,6 +25,13 @@ function previewAward(domain,ctx,actor,rfqId,bidId){
   const proposal={rfq_id:rfq.id,rfq_revision:rfq.revision,bid_id:bid.id,bid_revision:bid.revision,policy_id:policy.id,policy_revision:policy.revision,supplier_id:bid.supplier_id,value_cents:bid.total_cents,currency:bid.currency,bid_lines:bid.lines,evidence_reference:bid.evidence_reference,approval_steps:policy.approval_steps,allow_self_approval:policy.allow_self_approval===true};
   return {...proposal,title:`Toekenning: ${rfq.title}`,preview_fingerprint:hash(proposal),external_commitment:false,provider_verified:false};
 }
+function previewAllocation(domain,ctx,actor,rfqId,allocations){
+  domain.resolver.assertCapability(ctx,actor,'procurement:approvals');
+  const proposal=require('./procurement-allocations').allocationProposal(domain,ctx,actor,rfqId,allocations),policy=mandatoryPolicy(domain,ctx,proposal.currency,proposal.value_cents);
+  if(!policy)fail('approval_policy_required','Configureer eerst een actief goedkeuringsbeleid voor het gezamenlijke bedrag en deze valuta',409);
+  const bound={...proposal,policy_id:policy.id,policy_revision:policy.revision,approval_steps:policy.approval_steps,allow_self_approval:policy.allow_self_approval===true};
+  return {...bound,preview_fingerprint:hash(bound),external_commitment:false,provider_verified:false};
+}
 function previewOrderApproval(domain,ctx,actor,orderId){
   domain.scope(ctx,actor);domain.resolver.assertCapability(ctx,actor,'procurement:approvals');
   const order=domain.get(ctx,actor,'orders',orderId);
@@ -59,7 +66,8 @@ function prepareAward(domain,ctx,actor,rfqId,input,options={}){
   domain.scope(ctx,actor,'write');
   domain.resolver.assertCapability(ctx,actor,'procurement:approvals','write');
   return action(domain,ctx,actor,`prepare:${rfqId}`,input,options,()=>{
-    const preview=previewAward(domain,ctx,actor,rfqId,input.bid_id);
+    if(input.allocations!==undefined&&input.bid_id!==undefined)fail('award_selection_ambiguous','Kies een hele bieding of een artikelverdeling');
+    const preview=input.allocations!==undefined?previewAllocation(domain,ctx,actor,rfqId,input.allocations):previewAward(domain,ctx,actor,rfqId,input.bid_id);
     if(input.confirm!==true||input.preview_fingerprint!==preview.preview_fingerprint)fail('award_preview_changed','Bevestig de actuele bieding en het actuele goedkeuringsbeleid',409);
     if(!String(input.reason||'').trim()||String(input.reason).length>1000)fail('award_reason_required','Leg de reden voor deze keuze vast');
     if(domain.bucket(ctx,'awards').some(row=>row.rfq_id===rfqId&&row.rfq_revision===preview.rfq_revision&&!['CANCELLED','REJECTED_INTERNAL'].includes(row.status)))fail('award_already_active','Deze aanvraagrevisie heeft al een actieve toekenning',409);
@@ -87,6 +95,7 @@ function reviewAward(domain,ctx,actor,id,input,options={}){
     const policy=mandatoryPolicy(domain,ctx,row.currency,row.value_cents),order=row.order_id?domain.bucket(ctx,'orders').find(item=>item.id===row.order_id):null;
     let evidenceCurrent;
     if(row.order_id)evidenceCurrent=order&&!['APPROVED_INTERNAL','CANCELLED','ARCHIVED'].includes(order.status)&&order.revision===row.order_revision;
+    else if(row.allocation_kind==='ITEM_SPLIT'){const rfq=domain.bucket(ctx,'rfqs').find(item=>item.id===row.rfq_id);evidenceCurrent=rfq&&!['CANCELLED','ARCHIVED'].includes(rfq.status)&&rfq.revision===row.rfq_revision&&row.allocation_lines.every(line=>{const bid=domain.bucket(ctx,'bids').find(item=>item.id===line.bid_id);return bid&&!['CANCELLED','ARCHIVED'].includes(bid.status)&&bid.revision===line.bid_revision;});}
     else{const rfq=domain.bucket(ctx,'rfqs').find(item=>item.id===row.rfq_id),bid=domain.bucket(ctx,'bids').find(item=>item.id===row.bid_id);evidenceCurrent=rfq&&bid&&!['CANCELLED','ARCHIVED'].includes(rfq.status)&&!['CANCELLED','ARCHIVED'].includes(bid.status)&&rfq.revision===row.rfq_revision&&bid.revision===row.bid_revision;}
     if(!evidenceCurrent||!policy||policy.id!==row.policy_id||policy.revision!==row.policy_revision)fail('award_evidence_changed','Bronrecord of verplicht beleid is gewijzigd; bereid een nieuwe beoordeling voor',409);
     row.reviews.push({step,actor_id:actor.id,decision:input.decision,reason:String(input.reason).trim(),record_revision:row.revision,at:new Date().toISOString()});
@@ -105,4 +114,4 @@ function cancelAward(domain,ctx,actor,id,input,options={}){
     row.status='CANCELLED';row.revision++;row.updated_at=new Date().toISOString();domain.recordEvent(ctx,actor,'awards',row,'updated');return row;
   });
 }
-module.exports={validatePolicy,previewAward,prepareAward,reviewAward,cancelAward,previewOrderApproval,prepareOrderApproval};
+module.exports={previewAllocation,validatePolicy,previewAward,prepareAward,reviewAward,cancelAward,previewOrderApproval,prepareOrderApproval};

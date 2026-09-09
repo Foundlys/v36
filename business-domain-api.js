@@ -20,6 +20,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[0]==='orders'&&parts.length===3&&parts[2]==='approval-preview'&&req.method==='GET')return sendJson(res,200,{ok:true,...reviews.previewOrderApproval(core,ctx,actor,parts[1])});
         if(parts[0]==='orders'&&parts.length===3&&parts[2]==='approvals'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareOrderApproval(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='award-preview'&&req.method==='GET')return sendJson(res,200,{ok:true,...reviews.previewAward(core,ctx,actor,parts[1],url.searchParams.get('bid_id'))});
+        if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='allocation-preview'&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews.previewAllocation(core,ctx,actor,parts[1],(await readBody(req)).allocations)});
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='awards'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareAward(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='awards'&&parts.length===3&&['approve','cancel'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews[parts[2]==='approve'?'reviewAward':'cancelAward'](core,ctx,actor,parts[1],await readBody(req),options)});
       }

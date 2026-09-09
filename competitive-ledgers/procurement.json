@@ -35,16 +35,18 @@
           "retrieved_at": "2026-09-06"
         }
       ],
-      "foundly_current": "Owned RFQs, revision-bound bids, complete-scope price comparison and internal full-bid awards. Active currency/amount thresholds select mandatory sequential approval policies; reviewer assignment, default separation of duties, source/policy revision binding, rejection, withdrawal and restart are tested. Direct owned orders now use the same mandatory policy and assigned reviewers; the final review atomically approves the exact source revision.",
-      "gap": "Supplier collaboration, partial item awards and browser acceptance remain incomplete.",
-      "required_change": "Complete item-level allocation, then authorized supplier collaboration and browser acceptance.",
+      "foundly_current": "Owned RFQs, revision-bound bids, complete-scope price comparison and internal full-bid awards. Active currency/amount thresholds select mandatory sequential approval policies; reviewer assignment, default separation of duties, source/policy revision binding, rejection, withdrawal and restart are tested. Direct owned orders now use the same mandatory policy and assigned reviewers; the final review atomically approves the exact source revision. Item and quantity splits across multiple supplier bids are now one complete RFQ allocation proposal. Aggregate thresholds, exact requested quantities, bound bid revisions, sequential approvals, rollback, encrypted restart and duplicate-plan denial pass.",
+      "gap": "Supplier collaboration, incomplete-request or incremental awards and browser acceptance remain incomplete.",
+      "required_change": "Complete authorized supplier collaboration and browser acceptance; evaluate incremental requests with cumulative approval protection.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
         "procurement-sourcing-test.js",
         "procurement-reviews-test.js",
-        "procurement-order-review-test.js"
+        "procurement-order-review-test.js",
+        "procurement-allocations-test.js",
+        "procurement-allocations-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

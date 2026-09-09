@@ -16,7 +16,7 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "9a9b6e67672c54190d68206280ef862f6fbcf15400180a04804517c18268a003",
+    "business-domain-api.js": "11d7fc8c2c269abc3077f0e7f2e2ea226ca69018d5ac452dc88db72300bdf161",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
     "business-domains.js": "2895143946a34c9a3aa8d63dc3a02f9641200ce02b13cf4543e62acbb793349d",
     "business-workspaces-regression-test.js": "cd2d0eff658c502aa216491f17957cd6d3925b5ddb7bb72d8c3e5b1afbf89db6",
@@ -49,7 +49,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "3915de00583b817f6981ba8753559bf61e4893eb5bb1ff965badcfd78939f5da",
-    "foundly-workspace.js": "879e1c29f1178378f256f43f4debd33a1e3323a376c146b9b05d881ad2ec8cd1",
+    "foundly-workspace.js": "1437448561759cb133a40d12a180122a151c1876ea43ce43a4a2ea84051b3d24",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -71,16 +71,19 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "bc02b0f691a568bb6d9f78e79033dab6618be9a2a196a43c53a8fa25a3482025",
+    "package.json": "7d366285b270a9c840342444a3e9d328366f7c643471425c282f8d4265509290",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "7617439d9067ed2bb5c5ee09e1978910e59707a490368f7845ee014b5bbf7b77",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
     "platform-core.js": "00857b0dcd9c815e9f07f49287e838f01a2d77ad298549be88b7155d5673a53a",
+    "procurement-allocations-api-test.js": "3017267de260f3d54893cf19046b5d01556b284411688a16fdfe97aeb9469e77",
+    "procurement-allocations-test.js": "9a4dabc9697489c33b2fab7e5f520208a5f980b13ac622439c356923ddb52e83",
+    "procurement-allocations.js": "c0b137fc69871e442c41505152e8547364ad9e414a5ed58551e4d73a234cde27",
     "procurement-order-review-test.js": "46cc8d43d1fe70f8302bb64b0d2ef0f5d2e05a18c7b59bb040c6e99438c84f02",
     "procurement-reviews-test.js": "d9428eb623960fdf54bdbe3c3a91e92dbc93b55a3122c35288aad6baf0b97d3a",
-    "procurement-reviews.js": "30b84df3820e6dd202e13d68650201cf5fded4458d615c59b5086f223f072edc",
+    "procurement-reviews.js": "409a193994623759009c8962c46ac2f1c1df93b266f5fffe4c7392498df3bcdd",
     "procurement-sourcing-test.js": "a736cfeac3a4eba2edc11f3215296986fb874bbbd00a86fd332f4c0156111c2a",
-    "procurement-sourcing.js": "c84eda288f0758f6fca2acc5897665992deed6b631cbce2cb29a7d8ee74f0127",
+    "procurement-sourcing.js": "e04719c35744078039ee7b6c541e747963596cfec852cb32f522a48864c7a6c0",
     "production-audit.js": "5eb2897e9b682dfbc71ef209fecd60c9ac395e2b9290d33737bdc1ebfd2111e6",
     "production-security-test.js": "124b25c9c3207ebdc73dd9e9a59c85c20ef8a005c25a0d8a6b6c6b90d4d46fdc",
     "provider-access-api-test.js": "bcb866027d12c09b19270f68d20de3a528bfd2c5e706dff33d03f60d0a6b2c23",
@@ -128,7 +131,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "59ab3660d843fe915160ec5bbc83404fc3b901383bf97786515ffc04711617fe",
+  "output_sha256": "23ff729a4f40ea1008eb4c9980f0a5c42ed1b7c42d3814b7933564a312107a13",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -362,7 +365,10 @@
     "Settings identity snapshot now identifies the current real member and implemented directory",
     "Second-industry fixture uses unchanged CRM custom-field/related-record contracts and Analytics canonical events in separate CRM-only and Analysis-only contexts",
     "Declarative ratio KPI extension enforces current analysis KPI and event capabilities, event ACL, explicit period, currency, exact integer inputs and source provenance; missing data remains null",
-    "Older unstamped industry records cannot mix incompatible pack fields during updates"
+    "Older unstamped industry records cannot mix incompatible pack fields during updates",
+    "Procurement item/quantity split uses one complete RFQ proposal and aggregate mandatory approval threshold; exact quantities prevent fragmented lower-policy approvals",
+    "Partial supplier bids, immutable bound allocation lines, private sources, sequential review, changed bid/policy rejection, atomic rollback and encrypted HTTP restart",
+    "Allocation preview and review UI added to existing workspace; appearance/browser execution remain unproven"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -374,7 +380,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-industry-integration-verified.log",
+  "output_file": ".recovery-evidence/20260909-procurement-allocations-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -387,10 +393,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "635c34b8c9378c75c62ca60b0f3a45db75dac652",
-    "tree": "e16375e1c011e6f2aef60abb259aa4d3c7c22fd7",
-    "run": 63,
-    "run_id": 34312269249,
+    "head": "fca4c1a0f341fb12fb44e033026f8899eb5381a7",
+    "tree": "9207168407fe67302c431673c26b8009515231de",
+    "run": 65,
+    "run_id": 34313323972,
     "conclusion": "success"
   }
 }
