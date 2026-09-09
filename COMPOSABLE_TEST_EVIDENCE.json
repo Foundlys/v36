@@ -4,8 +4,11 @@
   "command": "npm test",
   "exit_code": 0,
   "source_sha256": {
-    "analysis-script.js": "684d45906099af4da1cfc4b1ccf6dcfca4785d1b8977ba627c7e1b21c23c1c4c",
-    "analysis.html": "fb6dcf82808a4b7e1311b246e5bb3814e18184b969c4d5a58671b69288f107b4",
+    "analysis-loading-api-test.js": "70b7c5dc4285a1ab8e58fe2d87a8575bdb4456d5db7fc3448801eabae9bc8cf5",
+    "analysis-loading-test.js": "a507db8157ea1e5cc8c80c8c6b11e1f07ffab73301b0e7dcb04d623c2cd73611",
+    "analysis-loading.js": "024945661b103abb9e98b9292a9a8b4881016f744b2b40ff77b937c42d32cc2b",
+    "analysis-script.js": "e670f0d98d72f584fede7e8a14c2fa165430ffc7736c7eb2f0d5bde4a0b119d1",
+    "analysis.html": "b4168a82051be2cb89cc3fbad8dedfe341b2a75ec2c59bad679743925d848a0c",
     "automation-owned-action.js": "7946547dec1a745479c9b169a64a9290f9fe0d1142ab28c53d939ecd54d1669e",
     "automotive-api-regression-test.js": "b70c4e1b67f6664aabd253982af95e0535fdd4f97f8d70cd82be78a496a152ae",
     "automotive-api.js": "04d10bb0c3bc0a074d70e0c459a8c80b297593b14dc97a5f2c8265702fea2c4c",
@@ -19,7 +22,7 @@
     "business-domain-api.js": "11d7fc8c2c269abc3077f0e7f2e2ea226ca69018d5ac452dc88db72300bdf161",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
     "business-domains.js": "f5909f317b1022bb74e5440edb088c38927ae60e250f5e472098d9aae1bb9d9a",
-    "business-workspaces-regression-test.js": "cd2d0eff658c502aa216491f17957cd6d3925b5ddb7bb72d8c3e5b1afbf89db6",
+    "business-workspaces-regression-test.js": "cdd5aabdd528e7722037cb7cdfccc33ce61ae08e6a830d269596748abb68b75d",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "14bb94748043441a0da6ba241fba59c64351087dbaa1b34a17233c5c22a5d09c",
     "calendar-scheduling-test.js": "6d6e3ab8155062093dbe9ca2afd0f1802ab5bd723de4e448c918411951002fdb",
@@ -71,7 +74,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "0ad97af4ff9931b3217d495d124e7786d2480874366a00af682bb602df9e9936",
+    "package.json": "8e9de7e4ad97fc9b856506e6187411bf12db5448e707de9f8c27c198d20656ba",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -99,7 +102,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "da9a2319633046ab01c84a1e57255bfe1bdf2f4f3a45fdcbfb82b38524a89e89",
+    "server.js": "224f7be340e4b951323e5b9634531688e853e0a2fb8d873cdbd52fdaefa85267",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -142,7 +145,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "93e1ddc1ed614a1a60eaa730bce62624d7e5d4210db2837a0f30e53bdb131720",
+  "output_sha256": "c9c83caecb377d75f46a1a525b1027a0322aaaf54c9d8c36c0ddd67cff3e8da3",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -388,7 +391,11 @@
     "Sales snapshot current-source visibility is applied to shared record projections as well as domain reads and exports; role-downgrade HTTP case added",
     "Automation run metadata search, status/event/date filters and stable paging beyond 100 runs with no side effects and no private count/search leakage",
     "Workflow definition and run-history read routes independently enforce their capabilities, including encrypted HTTP restart",
-    "Automation exports require current per-collection ownership unless caller has administration authority; generic run approvals now explicitly enforce the approval capability and permission"
+    "Automation exports require current per-collection ownership unless caller has administration authority; generic run approvals now explicitly enforce the approval capability and permission",
+    "Analysis page loader now works with Analysis-only entitlement and skips unavailable optional Automation calls; genuine Automation failures stay isolated",
+    "Partial Analysis capabilities select only permitted component APIs; disabled and failed parts are distinguished from empty data",
+    "HTTP reachability is distinct from verified event-stream connection; no unconditional LIVE API state after a batch request",
+    "Business workspace regression checks both delivered Analysis client files while preserving route, escaping and no-fabricated-data checks"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -400,7 +407,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-workflow-run-query-regression.log",
+  "output_file": ".recovery-evidence/20260909-analysis-standalone-loading-verified.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
