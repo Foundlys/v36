@@ -282,6 +282,9 @@ function createPlatformApi(options = {}) {
       if (automationEntity && req.method === 'POST') return sendJson(res, 201, platform.createAutomationRecord(ctx, actor, automationEntity[1], await readBody(req), {idempotencyKey:req.headers['idempotency-key']}));
       if (url.pathname === '/api/automation/status' && req.method === 'GET') return sendJson(res, 200, platform.automationStatus(ctx, actor));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
+      const recovery=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/recovery$/);
+      if(recovery&&req.method==='GET')return sendJson(res,200,platform.previewAutomationRecovery(ctx,actor,recovery[1]));
+      if(recovery&&req.method==='POST')return sendJson(res,200,platform.recoverAutomation(ctx,actor,recovery[1],await readBody(req)));
       const activation=url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/activation$/);
       if(activation&&req.method==='PUT')return sendJson(res,200,platform.setAutomationActivation(ctx,actor,activation[1],await readBody(req)));
       const run = url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/runs$/);

@@ -4,7 +4,7 @@
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.FoundlyWorkflowAuthoring=api;})(globalThis,()=>{
   const fields={
     create_task:{label:'Taak maken',fields:[{key:'title',label:'Taaktitel',required:true,max:200}]},
-    create_document:{label:'Conceptdocument maken',fields:[{key:'title',label:'Documenttitel',required:true,max:200},{key:'content',label:'Inhoud',multiline:true,max:20000}]},
+    create_document:{label:'Conceptdocument maken',fields:[{key:'title',label:'Documenttitel',required:true,max:200},{key:'content',label:'Inhoud',multiline:true,max:12000}]},
     notify:{label:'Interne melding',fields:[{key:'message',label:'Melding',required:true,max:240}]},
     delay:{label:'Wachten',fields:[{key:'seconds',label:'Wachttijd in seconden',type:'number',required:true,min:1,max:2592000}]}
   };

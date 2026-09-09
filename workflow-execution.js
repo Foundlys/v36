@@ -68,7 +68,7 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   if (row && (row.request_signature || signature({ workflow: workflow.signature, trigger: row.trigger, inputs: row.inputs })) !== requestSignature) fail('automation_replay_conflict', 'Event-ID heeft andere workflow-invoer');
   if (row && row.actor_id !== actor.id && !actor.permissions.has('*')) fail('automation_run_forbidden', 'Run behoort tot een andere gebruiker', 403);
   if (row?.steps.some(step => step.status === 'RUNNING')) fail('automation_outcome_indeterminate', 'Controleer het resultaat van de onderbroken stap vóór hervatten');
-  const resuming = row?.status === 'AWAITING_APPROVAL' && options.approval || ['WAITING_TIME','WAITING_RETRY'].includes(row?.status)&&Date.parse(row.next_wakeup_at)<=core.adapter.now().getTime();
+  const resuming = row?.status==='RECOVERY_READY'||row?.status === 'AWAITING_APPROVAL' && options.approval || ['WAITING_TIME','WAITING_RETRY'].includes(row?.status)&&Date.parse(row.next_wakeup_at)<=core.adapter.now().getTime();
   if (row && !resuming) return { ...clone(row), replayed: true };
   if(resuming)for(const step of row.steps)if(step.status==='WAITING_RETRY'&&core.adapter.automationActionContract?.(step.type)?.idempotent!==true)fail('automation_retry_contract_missing','Het retrycontract is niet meer beschikbaar',409);
 
@@ -144,4 +144,4 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   flushOwnedEvents(core,ctx,actor);
   return clone(row);
 }
-module.exports = { AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts };
+module.exports = { AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts,signature };
