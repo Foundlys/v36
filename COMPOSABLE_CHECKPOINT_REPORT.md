@@ -212,17 +212,19 @@ The static canonical catalogue still contains 100 connectors and 104 sources. Th
 | Zapier (zapier) | AUTOMATION | ALL | PER-PROVIDER PROOF NOT REASSESSED | CATALOGUED; TENANT GATED | UNKNOWN | UNKNOWN | NOT REOBSERVED | NOT REOBSERVED | NOT ASSERTED | UNKNOWN | UNKNOWN | CANONICAL REGISTRY | CAPABILITY GATED | UNVERIFIED CURRENT RUNTIME | No current authenticated provider/runtime evidence |
 
 
+Bounded UTF-8 .txt attachments now retain verified original bytes in private encrypted tenant storage. Attach/detach and historical restore use the current draft revision and parent/source ACL. Unsupported binary formats and malware scanning remain unimplemented. Generic Data/ZERO summaries exclude attachment bytes; client downloads validate SHA-256 and use text/plain without inline rendering.
+
 ## SECURITY
 
 Focused tests prove owner-only sharing authority; no privilege borrowing by collaborators; active tenant member checks; request-body-wait revocation/suspension; no draft/history/export/ZERO access after loss of source ownership; no public user forging of retained provider messages; input-bound CAS and idempotency; atomic rollback; encrypted restart; and no arbitrary TCP/HTTP SMTP destination probes from configuration status. Current-source history selection is recomputed per request. The full regression preserves existing OAuth, tenant, Core/legacy, prompt/provider boundary and replay tests. Remaining mixed-entry/model-assisted audit scope is not declared complete.
 
 ## TESTS
 
-`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-final-regression.log`; SHA-256 `e41a62a14d0c1adfac79b93ee1df449f255d883aefaf46a20cd93e10e9ddddfb`.
+`npm test` exited 0 for the current source checkpoint. `COMPOSABLE_TEST_EVIDENCE.json` records every source hash, the actual configuration matrix, timestamp, command, exit code and log SHA-256. Current log: `.recovery-evidence/20260909-communication-attachments-regression.log`; SHA-256 `b816e47a04356eb681c144bd77bf7071eea12686d903b5c46e6cf74fa8b61cf3`.
 
-New focused suites: `communication-drafts-test.js`, `communication-drafts-api-test.js`, `communication-history-bounds-test.js`, `communication-drafts-client-test.js`, `communication-provider-state-test.js`, `communication-replies-test.js`, `communication-replies-api-test.js`. Existing snapshot, Calendar and complete baseline suites pass. The 20,000-row history fixture verifies bounded parent lookups without cross-request ACL caching. The in-memory DOM test does not count as browser acceptance.
+New focused suites: `communication-attachments-test.js`, `communication-attachments-client-test.js`, `communication-drafts-test.js`, `communication-drafts-api-test.js`, `communication-history-bounds-test.js`, `communication-drafts-client-test.js`, `communication-provider-state-test.js`, `communication-replies-test.js`, `communication-replies-api-test.js`. Existing snapshot, Calendar and complete baseline suites pass. The 20,000-row history fixture verifies bounded parent lookups without cross-request ACL caching. The in-memory DOM test does not count as browser acceptance.
 
-[CI run 88](https://github.com/Foundlys/v36/actions/runs/34333036427) passed for the preceding published collaboration checkpoint. CI for the current source checkpoint must be checked separately; the PR description records its latest verified status.
+[CI run 91](https://github.com/Foundlys/v36/actions/runs/34335829819) passed for the preceding published source-bound draft checkpoint. CI for the current source checkpoint must be checked separately; the PR description records its latest verified status.
 
 ## PRODUCTION
 
@@ -249,7 +251,7 @@ Observed GitHub refs, immutable tree hashes and preceding CI results are real re
 | calendar | calendar:scheduling | CRITICAL | BELOW_PARITY | External-calendar reconciliation and actual browser acceptance remain unproven. |
 | calendar | calendar:time | CRITICAL | BELOW_PARITY | External calendar reconciliation, broader scheduling workflows and browser acceptance remain open. |
 | calendar | calendar:intelligence | CRITICAL | BELOW_PARITY | Structured creation from natural language and verified provider synchronization need more integration. |
-| communication | communication:workspace | CRITICAL | BELOW_PARITY | Live co-editing/takeover, comments, safe attachments, external threading/reply/forward delivery and complete inbox workflows remain incomplete; actual browser/keyboard/viewport acceptance is blocked. |
+| communication | communication:workspace | CRITICAL | BELOW_PARITY | Live co-editing/takeover, comments, broader attachment formats/scanning, external threading/reply/forward delivery and complete inbox workflows remain incomplete; actual browser/keyboard/viewport acceptance is blocked. |
 | communication | communication:delivery | CRITICAL | BELOW_PARITY | An authenticated SMTP/IMAP send/receive adapter and durable message receipt processing are not implemented. Legitimate provider/account access is also absent. This is an implementation gap as well as an external acceptance dependency. |
 | communication | communication:intelligence | CRITICAL | BELOW_PARITY | Consent-aware approved execution and reply/forward verification need complete integration. |
 | crm | crm:relationships | CRITICAL | BELOW_PARITY | Full competitive workflow review, custom-object UI and all required field/security workflows are not evidenced. |
@@ -269,7 +271,7 @@ Observed GitHub refs, immutable tree hashes and preceding CI results are real re
 | sales | sales:intelligence | CRITICAL | BELOW_PARITY | Full prepare/execute/verify orchestration and outcome feedback are incomplete. |
 
 
-Active execution remains Phase 24. Earlier PARTIAL product gates remain unmet acceptance requirements; they do not justify resetting or rebuilding completed work. Next independent Communication work is safe attachments, authenticated transport/receipt processing and complete inbox workflows, followed by remaining ledger work.
+Active execution remains Phase 24. Earlier PARTIAL product gates remain unmet acceptance requirements; they do not justify resetting or rebuilding completed work. Next independent Communication work is authenticated transport/receipt processing, broader attachment handling and complete inbox workflows, followed by remaining ledger work.
 
 ## FINAL READINESS VERDICT
 

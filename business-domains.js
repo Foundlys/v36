@@ -94,7 +94,7 @@ class BusinessDomain {
     for(const row of candidates){if(occurrences(row).some(a=>times.some(b=>timestamp(a.start_at)<timestamp(b.end_at)&&timestamp(b.start_at)<timestamp(a.end_at)))){count++;if(this.visible(row,actor))visible.push(row.id);}}
     return {count,visible_ids:visible,private_details_redacted:true};
   }
-  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='communication'?['communication:draft_operations']:[])],callback);}
+  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE]:[])],callback);}
   save(ctx,actor,entity,input,options={}){const result=this.mutate(ctx,()=>this.saveOwned(ctx,actor,entity,input,options));try{this.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;}
   saveOwned(ctx,actor,entity,input,options={}){
     this.scope(ctx,actor,'write');const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');const rows=this.bucket(ctx,entity),prior=options.id?this.get(ctx,actor,entity,options.id):null;
@@ -102,6 +102,7 @@ class BusinessDomain {
     if(prior?.status==='APPROVED_INTERNAL')fail('approved_record_immutable','Maak een nieuwe revisie buiten het goedgekeurde record');
     if(this.id==='communication'&&entity==='drafts'&&prior&&input.owner_id!==undefined&&input.owner_id!==prior.owner_id&&prior.owner_id!==actor.id&&!this.visible({owner_id:null},actor))fail('draft_owner_change_forbidden','Een medebewerker kan geen eigenaarschap wijzigen',403);
     const value=this.validate(entity,input,prior||{});
+    if(this.id==='communication'&&entity==='drafts'&&Object.hasOwn(options,'draft_attachments'))value.attachments=require('./communication-attachments').references(this,ctx,options.id,options.draft_attachments);
     if(this.id==='sales'){require('./sales-forecast').validateForecast(entity,value);require('./sales-quotas').validateQuota(this,ctx,actor,entity,value,prior);}
     if(this.id==='procurement'){require('./procurement-sourcing').validateSourcing(this,ctx,actor,entity,value);require('./procurement-reviews').validatePolicy(this,ctx,actor,entity,value,prior);}
     if(Object.hasOwn(input,'industry_fields')){
@@ -154,7 +155,8 @@ class BusinessDomain {
   }
   export(ctx,actor){
     this.scope(ctx,actor,'export');const snapshotAccess=this.id==='communication'?require('./communication-drafts').revisionAccess(this,ctx,actor,{exporting:true}):row=>this.snapshotReadable(ctx,actor,row);const collections=Object.fromEntries(this.definition.entities.map(entity=>[entity,clone(this.bucket(ctx,entity).filter(row=>this.visible(row,actor)&&snapshotAccess(row)))]));
-    this.adapter.audit(ctx,actor,'EXPORT',this.id,null,{entities:this.definition.entities});this.adapter.persist();
+    if(this.id==='communication')collections.draft_attachment_content=require('./communication-attachments').exportOwned(this,ctx,collections.drafts);
+    this.adapter.audit(ctx,actor,'EXPORT',this.id,null,{entities:Object.keys(collections)});this.adapter.persist();
     return {module_id:this.id,schema_version:1,tenant_id:ctx.tenant_id,exported_at:new Date().toISOString(),collections};
   }
   summary(ctx,actor){

@@ -27,9 +27,9 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "d6a397c93c10f83f49056cd46eb882df6833ce723e6e33df830815157df3c965",
+    "business-domain-api.js": "a89195e25fda606fc94a896ca42bba8dbab5fd1cc5d61ec23efa7fc34c1cd4e7",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "df7f07fcb8f0750fde5987fb95b4f938c5694030a31880402beb47508358f360",
+    "business-domains.js": "43e7ccf4479b9c43ae00f6caf60d252c6a05918afdc7cceb0344b3c78ca7ef5c",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
@@ -42,10 +42,13 @@
     "calendar-time.js": "755a737a11110799f4f656267e80f2ec26e083f61b74461ee999c440afacea6f",
     "capability-resolver-test.js": "6d648c0e3a01de1da16612954345321aa87ec85360a948e84206bcc9c1ece9dd",
     "capability-resolver.js": "425d4e42ecee1b819b4e81e4dc10f20cc2403c5c34c9805c4ac5bd760879b995",
-    "communication-drafts-api-test.js": "55ca055e4d9bac11a5874a45c1f2fdb3cc481f5fee669d9ead7d9c745b04e26e",
+    "communication-attachments-client-test.js": "716eb020df0162a3d40b9a075ba441b039839986751f7916f0538078d2af42d3",
+    "communication-attachments-test.js": "4646ad6d181f4c83d7df8a77db1bfc3f472609c661e1ac216b2b339ce10173ad",
+    "communication-attachments.js": "8544649f1930adb005df388f1662a836aab40397a6f914e876ebfded1985c69e",
+    "communication-drafts-api-test.js": "fe40b099e8e7ecf42884c3fc97885be56001a8a0472344ca9df18c1c37e952ce",
     "communication-drafts-client-test.js": "a4e6308e4f6625ba46ebfd0d50bca3c47b8208e4a06a0a49051a7d2cade01970",
     "communication-drafts-test.js": "64ef4854189c9f68688e6ed6bce782533b96334acefcf525fafe2679fbceea04",
-    "communication-drafts.js": "afa763b6d29a95b22433356f7ba4e2422c86d6e224a2e8178b8c0c7df9c5894c",
+    "communication-drafts.js": "1ef66f7acd1b1d81341de2f1993b069df72550971f0f67a9f1d73e216fe26596",
     "communication-history-bounds-test.js": "0801bc7de1ce98cb95439668cd5a4b4278c3adc103ecc48841bf4afde586a1eb",
     "communication-provider-state-test.js": "436eddba807c9b55cced3bde68e0e30f7858c533734cfa128b16d46d93cb2b32",
     "communication-provider-state.js": "37891d19bf5cb06890628669b0537784b28c8c13de5f083b2f8d6904608a9caf",
@@ -86,7 +89,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "4f387285442f2cb5d792a1c1324edfd363bc325448fff2cc7af70c4624a107f1",
-    "foundly-workspace.js": "5384b7d20d865a6c68b4e2928e478f43c6fcc96b02ed4941cd330bffb70292b6",
+    "foundly-workspace.js": "654236cfdb19f5c22163f128f33bf3d2951bb483d611cb081edc7a5d0c7c5f8a",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -114,7 +117,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "057fef783e3ecd8cb29164d2ee5b1c72a373cacef3764012a29abb19b5a70683",
+    "package.json": "0b065c26e6ef9943ef09690acfc6fca04f496a9cf3edaa3ab9418bb7be93c059",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -145,7 +148,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "cb3c730f1365c3786b45f8eb921529bd3b4012b0492b76ac7142be6f9b4c980b",
+    "server.js": "7f16b51c70655c3b254da7cc2ef5d8c0fab87a35777282b56117afb4fcf681dc",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -200,7 +203,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "3b11bf435f7d45b8086a1df31c13726cd627d658c0ce4c70700f9b920d4484e3"
   },
-  "output_sha256": "e41a62a14d0c1adfac79b93ee1df449f255d883aefaf46a20cd93e10e9ddddfb",
+  "output_sha256": "b816e47a04356eb681c144bd77bf7071eea12686d903b5c46e6cf74fa8b61cf3",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -355,7 +358,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-09T09:37:08.507387+00:00",
+  "verified_at": "2026-09-09T14:10:06.183597+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -488,7 +491,8 @@
     "20,000 Communication revision fixtures use one current parent ACL projection per request; simulated production client handlers preserve revision preconditions and detached workspace isolation. No actual browser acceptance claimed.",
     "Native and generic SMTP status use the same configuration-only projection, never claim authenticated connectivity from socket/HTTP reachability and perform no arbitrary SMTP destination probe. Authenticated mail transport and receipt processing remain implementation gaps.",
     "Source-bound REPLY/FORWARD internal draft preparation passes exact retained-message revision/hash/recipient binding, persistence rollback, encrypted replay and source changes during body waits. Current source rights govern drafts/history/native/export/ZERO; retained export survives module disablement subject to current source ownership. Labelled message fixtures are not live provider evidence; no external send.",
-    "Final full npm test passed the shared SMTP credential/environment resolver: a username alone remains unconfigured and native/generic email status agree on configured SMTP environment variables, without authentication/send claims or network probes."
+    "Final full npm test passed the shared SMTP credential/environment resolver: a username alone remains unconfigured and native/generic email status agree on configured SMTP environment variables, without authentication/send claims or network probes.",
+    "Full npm test passes bounded UTF-8 text attachments, canonical base64/byte validation, immutable historical restore, per-draft/tenant storage limits, current parent/source permission checks, body-wait collaborator revocation, encrypted restart, owned export after disablement and absence of content from generic Data/ZERO. Production client handlers validate SHA-256 before text/plain download, preserve input-bound retries and readonly/detached controls. No malware scan, binary support or browser acceptance is claimed."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -500,7 +504,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-communication-final-regression.log",
+  "output_file": ".recovery-evidence/20260909-communication-attachments-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -513,10 +517,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "e54b115f5507f70f2aa3e3b34197b9f9404d8c04",
-    "tree": "6d5970b68591bda0e275c53bc582691e48a6253d",
-    "run": 88,
-    "run_id": 34333036427,
+    "head": "98ceadb62ca822c5ec179435d981e9ccfb82f100",
+    "tree": "f0f6951966307d9bc0b6e855da83da9712b4cd4b",
+    "run": 91,
+    "run_id": 34335829819,
     "conclusion": "success"
   },
   "current_production_observation": {

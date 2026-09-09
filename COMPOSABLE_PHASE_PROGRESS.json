@@ -206,7 +206,7 @@
     "recovered_tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
     "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
     "production_changes_authorized": false,
-    "next_independent_work": "Communication safe attachment contracts and inbox workflows; authenticated transport/receipts require implementation and legitimate account access; preserve remaining cross-module ledger gaps."
+    "next_independent_work": "Communication authenticated transport/receipts and complete inbox workflows; broader attachment formats/scanning remain incomplete beyond verified text attachments. Legitimate account access is required for provider acceptance; preserve remaining cross-module ledger gaps."
   },
   "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
   "execution_overrides": [

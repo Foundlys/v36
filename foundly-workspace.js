@@ -932,6 +932,42 @@
     });
   }
 
+  function appendDraftAttachments(record,cell,content){
+    const details=node('details'),panel=node('div'),notice=node('p');notice.setAttribute('role','status');details.append(node('summary','','Tekstbijlagen'),panel,notice);cell.append(details);
+    const route=`/api/communication/drafts/${encodeURIComponent(record.id)}/attachments`;let loaded=false;
+    const reload=async()=>{
+      const model=await request(route);replaceChildren(panel,[]);
+      panel.append(node('p','','UTF-8 .txt-bestanden, maximaal 64 KiB per bestand en tien bijlagen per concept. De inhoud wordt niet automatisch verwerkt of verzonden.'));
+      if(!model.items.length)panel.append(node('p','','Dit concept heeft geen bijlagen.'));
+      const redraw=async()=>{if(content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='drafts')await renderDomainSection('drafts',content);};
+      for(const attachment of model.items){
+        const item=node('article','context-item'),download=node('button','secondary-button','Tekstbestand downloaden');download.type='button';download.setAttribute('aria-label',`${attachment.name} downloaden`);item.append(node('p','',`${attachment.name} · ${attachment.size_bytes} bytes`),download);panel.append(item);
+        download.addEventListener('click',async()=>{
+          download.disabled=true;let href;
+          try{
+            const result=await request(route+'/'+encodeURIComponent(attachment.id)),value=result.attachment,bytes=Uint8Array.from(atob(value.content_base64),char=>char.charCodeAt(0)),actual=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),byte=>byte.toString(16).padStart(2,'0')).join('');
+            if(actual!==value.sha256||bytes.length!==value.size_bytes)throw new Error('De bijlage kon niet worden geverifieerd.');
+            href=URL.createObjectURL(new Blob([bytes],{type:'text/plain;charset=utf-8'}));const link=node('a');link.href=href;link.download=value.name;document.body.append(link);link.click();link.remove();notice.textContent='Tekstbestand gedownload.';
+          }catch(error){notice.textContent=friendlyError(error);}finally{download.disabled=false;if(href)setTimeout(()=>URL.revokeObjectURL(href),1000);}
+        });
+        if(model.can_write){const remove=node('button','secondary-button','Uit concept verwijderen');remove.type='button';remove.setAttribute('aria-label',`${attachment.name} uit concept verwijderen`);item.append(remove);const key=crypto.randomUUID();remove.addEventListener('click',async()=>{remove.disabled=true;try{await request(route+'/detach',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({attachment_id:attachment.id,expected_revision:model.current_revision})});await redraw();notice.textContent='Bijlage verwijderd uit het huidige concept; de geschiedenis blijft bewaard.';}catch(error){notice.textContent=friendlyError(error);remove.disabled=false;}});}
+      }
+      if(model.can_write){
+        const form=node('form'),file=node('input'),label=node('label','','Tekstbestand kiezen'),submit=node('button','primary-button','Bijlage opslaan');file.type='file';file.accept='.txt,text/plain';file.required=true;submit.type='submit';submit.disabled=model.items.length>=model.max_current;label.append(file);form.append(label,submit);panel.append(form);let key=crypto.randomUUID(),lastPayload=null;
+        form.addEventListener('submit',async event=>{
+          event.preventDefault();submit.disabled=true;
+          try{
+            const selected=file.files?.[0];if(!selected||selected.size>model.max_bytes)throw new Error('Kies een tekstbestand van maximaal 64 KiB.');
+            const bytes=new Uint8Array(await selected.arrayBuffer());let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);
+            const encoded=JSON.stringify({name:selected.name,content_base64:btoa(binary),expected_revision:model.current_revision});if(lastPayload!==null&&lastPayload!==encoded)key=crypto.randomUUID();lastPayload=encoded;
+            await request(route,{method:'POST',headers:{'idempotency-key':key},body:encoded});await redraw();notice.textContent='Bijlage bij het concept opgeslagen.';
+          }catch(error){notice.textContent=friendlyError(error);submit.disabled=false;}
+        });
+      }
+    };
+    details.addEventListener('toggle',async()=>{if(!details.open||loaded)return;loaded=true;notice.textContent='Bijlagen laden…';try{await reload();notice.textContent='Bijlagen worden als tekst gedownload. Er is geen virusscan uitgevoerd.';}catch(error){notice.textContent=friendlyError(error);loaded=false;}});
+  }
+
   function appendDraftCollaboration(record,cell,content){
     const details=node('details'),summary=node('summary','','Delen en versiegeschiedenis'),body=node('div'),notice=node('p');
     notice.setAttribute('role','status');details.append(summary,body,notice);cell.append(details);
@@ -962,6 +998,7 @@
           try{
             const result=await request(`/api/communication/draft_revisions/${encodeURIComponent(version.id)}`),snapshot=result.record.snapshot;
             replaceChildren(previewBody,[node('h5','',snapshot.title||'Ouder concept'),node('pre','',snapshot.content||''),node('p','',`Ontvangers: ${(snapshot.to||[]).join(', ')||'niet opgegeven'}`)]);
+            previewBody.append(node('p','',`Bijlagen: ${(snapshot.attachments||[]).map(item=>item.name).join(', ')||'geen'}`));
             if(model.can_write&&Number.isSafeInteger(version.draft_revision))previewBody.append(actionForm('Deze inhoud als nieuwe revisie herstellen',(input,key)=>request(route+'/restore',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({...input,source_revision:version.draft_revision})})));
           }catch(error){notice.textContent=friendlyError(error);preview.disabled=false;}
         });
@@ -1089,7 +1126,7 @@
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
         edit.addEventListener('click',()=>{if(recurrenceFields){let rule;try{rule=window.FoundlyCalendarRecurrence.normalize(record.recurrence);}catch(error){notice.textContent=friendlyError(error);return;}recurrenceFields.frequency.value=rule?.frequency||'';recurrenceFields.count.value=String(rule?.count||1);recurrenceFields.interval.value=String(rule?.interval||1);recurrenceFields.refresh();}editing=record;const packConflict=Boolean(record.industry_field_pack_id&&record.industry_field_pack_id!==contract.industry_id);for(const [name,{input}] of industryInputs){input.value=packConflict?'':String(record.industry_fields?.[name]??'');input.disabled=packConflict;}notice.textContent=packConflict?'Bewaarde branchevelden blijven behouden. Herstel het oorspronkelijke pakket om ze te bewerken.':'';for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
         if(state.workspaceId==='communication'&&entity==='messages')appendMessageDraftActions(record,cell,content);
-        if(state.workspaceId==='communication'&&entity==='drafts')appendDraftCollaboration(record,cell,content);
+        if(state.workspaceId==='communication'&&entity==='drafts'){appendDraftCollaboration(record,cell,content);appendDraftAttachments(record,cell,content);}
         if(state.workspaceId==='marketing'&&entity==='creatives'&&!['APPROVED_INTERNAL','ARCHIVED'].includes(record.status))appendCreativeReviewRequest(record,cell,content);
         if(state.workspaceId==='marketing'&&entity==='creative_reviews')appendCreativeReview(record,cell,content);
         if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',()=>renderProcurementComparison(record,content,notice));cell.append(compare);}
