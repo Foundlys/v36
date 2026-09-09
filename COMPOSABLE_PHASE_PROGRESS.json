@@ -81,7 +81,7 @@
       "phase": 12,
       "name": "Calendar",
       "status": "PARTIAL",
-      "evidence_or_gap": "Availability, distribution and idempotent booking; reminders now use the current authorized planner separately from recipient ownership. Real role revocation/suspension, per-record failure isolation/nonstarvation and encrypted restart pass. Further timezone/recurrence edges, external reconciliation and browser acceptance remain."
+      "evidence_or_gap": "Current-planner reminders, failure isolation/nonstarvation and encrypted restart pass. Strict dates and offset-aware recurrence now cover half-hour/full-hour ambiguity, gaps, skipped days and exact milliseconds with real HTTP conflict/restart proof. Recurrence form interval preservation, external reconciliation and browser acceptance remain."
     },
     {
       "phase": 13,

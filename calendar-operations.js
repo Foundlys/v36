@@ -6,7 +6,7 @@ function reminderPrincipal(row){const principal=Object.hasOwn(row||{},'execution
 const {occurrences}=require('./business-domains');
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
-function instant(value){if(typeof value!=='string'||!/(?:Z|[+-]\d{2}:\d{2})$/.test(value)||!Number.isFinite(Date.parse(value)))fail('date_offset_required','Gebruik een geldige datum met UTC-offset');return Date.parse(value);}
+const {timestamp:instant}=require('./calendar-time');
 function calendarOperations(core){
   return {
     slots(ctx,actor,input={}){
@@ -63,7 +63,7 @@ function calendarOperations(core){
           scopedMutation(core.adapter,ctx,['calendar:reminders','calendar:notifications','calendar:outbox','platform:audit'],()=>{
             const matches=core.bucket(ctx,'reminders').filter(row=>row?.id===reference.id),reminder=matches[0];
             if(matches.length!==1||typeof reminder?.id!=='string'||!reminder.id||!Number.isSafeInteger(reminder.revision)||reminder.revision<1||typeof reminder.title!=='string'||!reminder.title.trim()||reminder.content!==undefined&&typeof reminder.content!=='string')fail('reminder_invalid','De herinnering heeft geen geldige broninhoud');
-            if(reminderPrincipal(reminder)!==actor.id||reminder.revision!==reference.revision||['ARCHIVED','CANCELLED','COMPLETED'].includes(reminder.status))fail('reminder_changed','De herinnering is intussen gewijzigd',409);
+            if(instant(reminder.due_at)>now.getTime()||reminderPrincipal(reminder)!==actor.id||reminder.revision!==reference.revision||['ARCHIVED','CANCELLED','COMPLETED'].includes(reminder.status))fail('reminder_changed','De herinnering is intussen gewijzigd',409);
             core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'calendar:events','write');
             const notifications=core.bucket(ctx,'notifications'),deliveryKey=`reminder:${reminder.id}:${reminder.revision}`,at=now.toISOString();
             if(!notifications.some(row=>row.delivery_key===deliveryKey)){

@@ -57,13 +57,15 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Timezone-offset validation, DST wall-time recurrence and private conflict redaction are tested.",
-      "gap": "More timezone and recurrence edge cases and external-calendar reconciliation remain open.",
-      "required_change": "Expand recurrence coverage and validate real calendar adapters with owner authorization.",
+      "foundly_current": "Strict offset-bearing civil dates reject invalid rollover and sub-millisecond precision. Recurrence uses observed IANA offsets, refuses ambiguous or nonexistent generated wall times including half-hour changes and skipped days, preserves milliseconds and elapsed duration, and retains conflict behavior after encrypted restart.",
+      "gap": "Recurrence form interval preservation, broader scheduling UX, external-calendar reconciliation and browser acceptance remain open.",
+      "required_change": "Preserve recurrence interval and explicit removal in the actual form; validate real calendar adapters with owner authorization and complete browser acceptance.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "calendar-time-test.js",
+        "calendar-time-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

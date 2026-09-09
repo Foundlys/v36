@@ -28,13 +28,16 @@
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
     "business-domain-api.js": "0c1e25ec2c1afe2b0bc51d111a343924a39489e6d56fe7db0dced2449e1cef87",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "498053c95f69a2a68604dd71b18f96198481490b09f7f5ad00698f967dbb62b8",
+    "business-domains.js": "05154612b36243efc20980e645980139de78ae9a76f48d63cf949ed163f37505",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
-    "calendar-operations.js": "2a4a77cc007389d746e66bb3820755f86c840713ec6c6e57c9b195020d6ce980",
+    "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
     "calendar-reminder-principal-api-test.js": "7e7e440f2eb1a220d7ec7a93481affe7c9ecaba2a739ebed4e082a0fb6de1890",
     "calendar-reminder-principal-test.js": "782bac62951fc3419d973cb8c6e43993d6c7c70f923849781a57779ad9bc51ae",
     "calendar-scheduling-test.js": "6d6e3ab8155062093dbe9ca2afd0f1802ab5bd723de4e448c918411951002fdb",
+    "calendar-time-api-test.js": "3f61688ed34c2ce71dca05636d9bd40c329163f6244828e55e629c40da704605",
+    "calendar-time-test.js": "2136381d7b2c6f51b054be2caafbc30c72829f96a158ac8cc3a4bd856cb87120",
+    "calendar-time.js": "755a737a11110799f4f656267e80f2ec26e083f61b74461ee999c440afacea6f",
     "capability-resolver-test.js": "6d648c0e3a01de1da16612954345321aa87ec85360a948e84206bcc9c1ece9dd",
     "capability-resolver.js": "425d4e42ecee1b819b4e81e4dc10f20cc2403c5c34c9805c4ac5bd760879b995",
     "composition-api-test.js": "82c1540d476619d5ef11379945cfd86ef03afcdbdee79a99919f337eba84ac68",
@@ -93,7 +96,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "5b3447cf9d90384c7fc1d8aafe6c9561538fa3a26c13a0196669d0b91711cb0d",
+    "package.json": "b395bc903d48bfb8be08b9d3b1147e72f5ace82fb6ffd602f41a1d5730dec24e",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -176,7 +179,7 @@
     "workspace-system.js": "43bec7a0829a4f8748fe92e48f82048e1678eeee18d142ac8d459a67eab1911b",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "09f427cee3be00450d05a1ed080596b3660e00796ea9434177ea4a14e2d70776",
+  "output_sha256": "81ada17dbe077a4487d04d711e62e14a2bfe998f760b898a84852f3565187c9c",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -452,7 +455,8 @@
     "Dashboard session controller rejects stale loads and cross-scope saves, detaches outgoing payloads, serializes saves and preserves edits made while saving with the new acknowledged revision; protected helper delivery and existing server concurrency tests pass",
     "Actual pre-configuration account creation/directory access is already refused with identity_composition_required. The suspected real-member legacy bypass did not reproduce; no authorization code was changed. New HTTP coverage verifies zero partial account creation, bootstrap setup, real session isolation and restart",
     "Marketing creative reviews bind exact source and review revisions, sequential assigned current authority and rationale; final approval atomically freezes content while retaining NOT_PUBLISHED. Real member-session tests verify private source/Data protection, no implicit access grant, replay, rollback, mid-review/final encrypted restart and retained export",
-    "Calendar reminder execution binds to the current authorized planner separately from recipient ownership; real role revocation/suspension, bounded per-record failure isolation/nonstarvation, atomic notification commit, canonical legacy author fallback, retained unbound reminders and encrypted restart without duplicates pass."
+    "Calendar reminder execution binds to the current authorized planner separately from recipient ownership; real role revocation/suspension, bounded per-record failure isolation/nonstarvation, atomic notification commit, canonical legacy author fallback, retained unbound reminders and encrypted restart without duplicates pass.",
+    "Calendar strict civil timestamps reject rollover and precision loss; actual IANA offsets detect half-hour/full-hour ambiguity, gaps and skipped days. Recurrences retain milliseconds/elapsed duration; authenticated rejected edits preserve source revisions and encrypted restart reproduces conflicts."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -464,7 +468,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-calendar-principal-regression.log",
+  "output_file": ".recovery-evidence/20260909-calendar-time-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -477,10 +481,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "daaffc219b92f6e8261edf3c8aa2f20a900fe3e6",
-    "tree": "accc2529a337577f0fcff7d4b7063a5714dcba26",
-    "run": 82,
-    "run_id": 34324922384,
+    "head": "4f6774c290df8b2b9005e3616cb6ac21194daa08",
+    "tree": "d25fe6901785a01273c584093b44d89ed25c2333",
+    "run": 83,
+    "run_id": 34325979962,
     "conclusion": "success"
   }
 }
