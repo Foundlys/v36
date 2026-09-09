@@ -9,6 +9,7 @@ function validateFields(contract,input,previous){
   const fail=(code,message)=>{throw Object.assign(new Error(message),{code,statusCode:422});};
   if(!input||typeof input!=='object'||Array.isArray(input))fail('industry_field_invalid','Branchevelden moeten een object zijn');
   if(previous?.industry_field_pack_id&&previous.industry_field_pack_id!==contract.industry_id&&Object.keys(previous.industry_fields||{}).length)fail('industry_pack_conflict','Bewaarde branchevelden horen bij een ander pakket; herstel dat pakket om deze velden te wijzigen');
+  if(!previous?.industry_field_pack_id&&Object.keys(previous?.industry_fields||{}).some(name=>!contract.fields.some(field=>field.name===name)))fail('industry_pack_conflict','Oudere branchevelden passen niet bij het actieve pakket; de bestaande gegevens blijven behouden');
   for(const [name,value] of Object.entries(input)){
     const field=contract.fields.find(row=>row.name===name);
     if(!field)fail('industry_field_unavailable','Veld hoort niet bij het actieve branchepakket');

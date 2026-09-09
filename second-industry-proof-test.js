@@ -24,6 +24,9 @@ for(const module of ['procurement','sales']){
   const revised=service.save(ctx,actor,'opportunities',{industry_fields:{property_reference:'fixture-property-2'}},{id:record.id,expected_revision:retained.revision}).record;
   assert.equal(revised.industry_field_pack_id,'REAL_ESTATE_DEMO');
   assert.equal(revised.industry_fields.property_reference,'fixture-property-2');
+  delete service.bucket(ctx,'opportunities').find(row=>row.id===record.id).industry_field_pack_id;
+  assert.throws(()=>general.save(ctx,actor,'opportunities',{industry_fields:{}},{id:record.id,expected_revision:revised.revision}),{code:'industry_pack_conflict'});
+  assert.equal(service.get(ctx,actor,'opportunities',record.id).industry_fields.property_reference,'fixture-property-2');
   assert.throws(()=>service.save(ctx,actor,'opportunities',{title:'Wrong pack field',industry_fields:{vin:'not-allowed'}}),{code:'industry_field_unavailable'});
   assert.throws(()=>new BusinessDomain(module,adapter,production).save(ctx,actor,'opportunities',{title:'Production should reject demo',industry_fields:{property_reference:'fixture-property-1'}}),{code:'industry_field_unavailable'});
 }

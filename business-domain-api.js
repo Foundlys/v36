@@ -1,13 +1,14 @@
 'use strict';
 const { DEFINITIONS }=require('./business-domains');
 const {calendarOperations}=require('./calendar-operations');
-function createBusinessDomainApi({domains,context,principal,readBody,sendJson}){
+function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson}){
   return async(req,res,url)=>{
     const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing|analysis)(?:\/(.*))?$/);
     if(!match)return false;
     const id=match[1],core=domains[id],parts=(match[2]||'status').split('/'),ctx=context(),actor=principal();
-    if(id==='analysis'&&!['reports','provider_reports','provider_events','owned-export'].includes(parts[0]))return false;
+    if(id==='analysis'&&!['reports','provider_reports','provider_events','owned-export','industry-kpis','schema'].includes(parts[0]))return false;
     try{
+      if(id==='analysis'&&parts[0]==='industry-kpis'&&parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./industry-kpis').industryKpis(core.resolver,platform,ctx,actor,Object.fromEntries(url.searchParams))});
       if(parts[0]==='schema'&&req.method==='GET'){core.scope(ctx,actor);return sendJson(res,200,{ok:true,module_id:id,entities:DEFINITIONS[id].entities,required_fields:DEFINITIONS[id].required,industry_fields:require('./industry-field-contract').fieldContract(core.resolver,ctx,actor,id)});}
       if(['status','summary'].includes(parts[0])&&req.method==='GET')return sendJson(res,200,{ok:true,...core.summary(ctx,actor)});
       if(['export','owned-export'].includes(parts[0])&&req.method==='GET')return sendJson(res,200,{ok:true,...core.export(ctx,actor)});

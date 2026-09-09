@@ -1,0 +1,43 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {CapabilityResolver,resolve}=require('./capability-resolver');
+const {INDUSTRIES}=require('./module-catalog');
+const {FoundlyCrmCore}=require('./crm-core');
+const {FoundlyPlatformCore}=require('./platform-core');
+const {guardDomain}=require('./composition-runtime');
+const {industryKpis}=require('./industry-kpis');
+let store=new Map();
+const adapter={bucket(c,scope){const key=JSON.stringify([c.tenant_id,c.dealer_id,scope]);if(!store.has(key))store.set(key,[]);return store.get(key);},persist(){},audit(){},emit(){},publish(){}};
+const owner={id:'fixture-owner',roles:['ADMIN','SUPER_ADMIN']},viewer={id:'fixture-viewer',roles:['VIEWER']};
+const pack={industry_id:'REAL_ESTATE_DEMO',production:false,extensions:{crm:{fields:['property_reference'],objects:['property_customer_relationship']},analysis:{kpis:['property_gross_yield'],kpi_definitions:[{id:'property_gross_yield',name:'Fixture gross rental yield',version:1,event_name:'property_annual_snapshot',operation:'RATIO_OF_SUMS_PERCENT',numerator:'annual_rent_cents',denominator:'purchase_price_cents',currency_required:true}]}}};
+const resolver=new CapabilityResolver(adapter),testResolver=Object.create(resolver);
+testResolver.resolve=(c,a)=>resolve(c,a,{...resolver.profile(c),industry_id:pack.industry_id},{industries:{...INDUSTRIES,REAL_ESTATE_DEMO:pack},allowTestIndustries:true});
+const crm=guardDomain(new FoundlyCrmCore(adapter),'crm',()=>testResolver),platform=new FoundlyPlatformCore(adapter);
+const crmCtx={tenant_id:'fixture-property-crm-only',dealer_id:'default'},analysisCtx={tenant_id:'fixture-property-analysis-only',dealer_id:'default'};
+resolver.configure(crmCtx,owner,{entitlements:['crm'],expected_revision:0});resolver.configure(analysisCtx,owner,{entitlements:['analysis'],expected_revision:0});
+// Uses the existing CRM custom-field and related-record contracts, not a second CRM engine.
+const definition=crm.create(crmCtx,owner,'custom_fields',{name:'property_reference',entity:'contacts',field_type:'RELATION',related_entity:'deals'});
+const property=crm.create(crmCtx,owner,'deals',{title:'Explicit property fixture',owner_id:owner.id,property_reference:'fixture-property-1'});
+const customer=crm.create(crmCtx,owner,'contacts',{name:'Explicit customer fixture',owner_id:owner.id,custom_fields:{[definition.name]:property.id}});
+assert.equal(crm.get(crmCtx,owner,'contacts',customer.id).custom_fields[definition.name],property.id);
+assert.throws(()=>crm.get(crmCtx,viewer,'contacts',customer.id),{code:'crm_record_not_found'});
+assert.throws(()=>crm.get(analysisCtx,owner,'contacts',customer.id),{code:'module_disabled'});
+const period={from:'2026-01-01T00:00:00Z',to:'2027-01-01T00:00:00Z',currency:'EUR'};
+function event(id,properties,permissions={user_ids:[viewer.id]}){return platform.ingestEvent(analysisCtx,owner,{event_id:id,event_name:'property_annual_snapshot',source:'second_industry_fixture',occurred_at:'2026-06-01T00:00:00Z',properties:{industry_id:pack.industry_id,currency:'EUR',...properties},permissions,consent_context:{purpose:'architecture_fixture',legal_basis:'contract'},provider_verified:false});}
+const empty=industryKpis(testResolver,platform,analysisCtx,viewer,period).items[0];assert.equal(empty.available,false);assert.equal(empty.value,null);
+event('fixture-annual-a',{annual_rent_cents:1200000,purchase_price_cents:20000000});event('fixture-annual-b',{annual_rent_cents:2400000,purchase_price_cents:40000000});
+event('fixture-private',{annual_rent_cents:99000000,purchase_price_cents:100},{user_ids:[owner.id]});
+event('fixture-invalid',{annual_rent_cents:'invented',purchase_price_cents:40000000});event('fixture-currency',{annual_rent_cents:900000,purchase_price_cents:10000000,currency:'USD'});
+const projected=industryKpis(testResolver,platform,analysisCtx,viewer,period).items[0];assert.equal(projected.value,6);assert.equal(projected.sample_size,2);assert.equal(projected.data_quality.excluded_visible_records,2);assert.ok(projected.supporting_records.every(row=>row.provider_verified===false));assert.ok(!JSON.stringify(projected).includes('fixture-private'));
+assert.throws(()=>industryKpis(testResolver,platform,crmCtx,viewer,period),{code:'module_disabled'});
+assert.throws(()=>industryKpis(testResolver,platform,analysisCtx,viewer,{...period,currency:undefined}),{code:'industry_kpi_currency_required'});
+assert.throws(()=>industryKpis(testResolver,platform,analysisCtx,viewer,{...period,to:'invalid'}),{code:'industry_kpi_period_invalid'});
+// Reinstantiate storage and both unmodified engines to prove references and event provenance survive reload.
+store=new Map(JSON.parse(JSON.stringify([...store])));
+const restartedCrm=guardDomain(new FoundlyCrmCore(adapter),'crm',()=>testResolver),restartedPlatform=new FoundlyPlatformCore(adapter);
+assert.equal(restartedCrm.get(crmCtx,owner,'contacts',customer.id).custom_fields[definition.name],property.id);
+assert.deepEqual(industryKpis(testResolver,restartedPlatform,analysisCtx,viewer,period).items[0],projected);
+resolver.configure(analysisCtx,owner,{entitlements:['analysis'],expected_revision:1,capability_flags:{'analysis:events':false}});
+assert.throws(()=>industryKpis(testResolver,restartedPlatform,analysisCtx,viewer,period),{code:'capability_disabled'});
+assert.equal(INDUSTRIES.REAL_ESTATE_DEMO,undefined);assert.deepEqual(testResolver.resolve(crmCtx,owner).visible_modules,['crm']);assert.deepEqual(testResolver.resolve(analysisCtx,owner).visible_modules,['analysis']);
+console.log('PASS test-only second-industry CRM relationship and Analytics KPI, standalone modules, reload, ACL filtering, provenance, null values, invalid/currency exclusion and revoked source capability');

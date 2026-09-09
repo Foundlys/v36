@@ -16,7 +16,7 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "1836b7c0df5bbf16b26e89dd9fd65c502cbc63a56e2cab4408e3e678da50ccd5",
+    "business-domain-api.js": "9a9b6e67672c54190d68206280ef862f6fbcf15400180a04804517c18268a003",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
     "business-domains.js": "2895143946a34c9a3aa8d63dc3a02f9641200ce02b13cf4543e62acbb793349d",
     "business-workspaces-regression-test.js": "cd2d0eff658c502aa216491f17957cd6d3925b5ddb7bb72d8c3e5b1afbf89db6",
@@ -56,8 +56,9 @@
     "identity-login.js": "127d342aea8cd2f8a36943f8e9038a61381dd5612bd58843262f4a1d5dbbc52a",
     "index-script.js": "b5235bf4380c839daa670ba46aa326e7d8cad486c8f1a586fb08efcbd8999336",
     "index.html": "0ade18d7e603a3d4fdde914057eea695a9c81ea5f5f8f14b2842a84e18a884bd",
-    "industry-field-api-test.js": "3a464cc1c7c455703dd66a33e6dfda06676fac4d2f6faa7c190e10cc406a2b45",
-    "industry-field-contract.js": "6470ebef836638445b313320ebffc3315379e61d293d5ccf29cdce7f4f223386",
+    "industry-field-api-test.js": "76ee1cda1bf682d49d5cf8c6ae86a4f4cbaa095b4ccf7ac5bedcd8080efc8695",
+    "industry-field-contract.js": "b7f1c9abc73983447921baffeaafdd1a16540b10d17e4093355a3202f0f1e527",
+    "industry-kpis.js": "962d6c714c0843945647572541c50d6da966f8385d4c8508aaf2fee01f95c67c",
     "jarvis-audio.js": "c9690d2b0b7e12cf9e5ba799df7a7e6ecd595559397c9de8c83430d79ada4131",
     "jarvis-client-regression-test.js": "e6277c5a786dba0194ce8772781053e3d7189871cf44a0394e4512fd68af56db",
     "jarvis-production-regression-test.js": "c0f8b4f0ed006d7c9b99bb7754f079d1701a57e619c5deab63c4549db36408a9",
@@ -70,7 +71,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "9e7543e5f31c1b93b4af2740a63a6b00fe4a4988b6849dc1e24629d48738337d",
+    "package.json": "bc02b0f691a568bb6d9f78e79033dab6618be9a2a196a43c53a8fa25a3482025",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "7617439d9067ed2bb5c5ee09e1978910e59707a490368f7845ee014b5bbf7b77",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -89,8 +90,9 @@
     "sales-forecast-test.js": "7a559f75b9b7f6d3c49bffe140d9fc84fcb8757b5ac934366c808aa45e15cd8f",
     "sales-forecast.js": "f12b72d2899456e8946d270a4212d8683a1c57403c327f80c4c6d7a5ff5522b5",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
-    "second-industry-proof-test.js": "8f4c105e294c06353bf0267428e4004a517a1c37d3d021c959aab068160863b5",
-    "server.js": "55144289a9281eac40b706cd148cc59f8b47a1e52436b2d11c12136f3a50b950",
+    "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
+    "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
+    "server.js": "a225b5e8ab552c205e4695ff6d652ffad5e238e9592ca89672ba8ee1274e330c",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -126,7 +128,7 @@
     "workspace-system.js": "8ced6de30a2f1a55c892d8f64d347968317da8b4cf625dc092bd3865268ff617",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213"
   },
-  "output_sha256": "b421ea9dca8432f2c81e3bc72830031d249b5beca0116b12aa2da13776e5efb6",
+  "output_sha256": "59ab3660d843fe915160ec5bbc83404fc3b901383bf97786515ffc04711617fe",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -357,7 +359,10 @@
     "One-use invite races, salted scrypt verification, current-revision login, session revocation, secret-free projections, atomic rollback and encrypted restart",
     "Typed industry field schema served through module-authorized API and rendered in existing domain record form; browser appearance remains unproven",
     "Industry field pack provenance, partial updates, wrong-type/null rejection, encrypted restart and preservation across authorized pack switches",
-    "Settings identity snapshot now identifies the current real member and implemented directory"
+    "Settings identity snapshot now identifies the current real member and implemented directory",
+    "Second-industry fixture uses unchanged CRM custom-field/related-record contracts and Analytics canonical events in separate CRM-only and Analysis-only contexts",
+    "Declarative ratio KPI extension enforces current analysis KPI and event capabilities, event ACL, explicit period, currency, exact integer inputs and source provenance; missing data remains null",
+    "Older unstamped industry records cannot mix incompatible pack fields during updates"
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -369,7 +374,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-industry-fields-regression.log",
+  "output_file": ".recovery-evidence/20260909-industry-integration-verified.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,

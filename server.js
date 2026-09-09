@@ -600,7 +600,7 @@ const COMPOSITION=new CapabilityResolver({bucket:(c,scope)=>arr(records,key(c,sc
 const IDENTITIES=new TenantIdentities({bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),composed:c=>Boolean(COMPOSITION.profile(c)),encrypted:()=>Boolean(encKey()),reservedUsername:name=>name===env('FOUNDLY_ADMIN_USERNAME','foundly').toLowerCase(),audit:(...args)=>{const row=PLATFORM_CORE.audit(...args);row.permissions={roles:['ADMIN','FOUNDER','SUPER_ADMIN']};}});
 const IDENTITY_API=createIdentityApi({identities:IDENTITIES,context:trustedContext,principal:platformPrincipal,authorized,readBody:body,sendJson:json,origin:configuredPublicOrigin,production:env('NODE_ENV')==='production'});
 const BUSINESS_DOMAINS=Object.fromEntries(Object.keys(BUSINESS_DOMAIN_DEFINITIONS).map(module=>[module,new BusinessDomain(module,{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),audit:(...args)=>PLATFORM_CORE.audit(...args),publish:(c,actor,event)=>PLATFORM_CORE.ingestEvent(c,{...actor,permissions:[...(actor.permissions||[]),'events:write']},event,{idempotencyKey:event.idempotency_key})},COMPOSITION)]));
-const BUSINESS_DOMAIN_API=createBusinessDomainApi({domains:BUSINESS_DOMAINS,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
+const BUSINESS_DOMAIN_API=createBusinessDomainApi({domains:BUSINESS_DOMAINS,platform:PLATFORM_CORE,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
 function crmCanonicalEvent(c,event){
   const entity=String(event.meta?.entity||''),recordId=String(event.meta?.record_id||''),record=entity&&recordId?arr(records,key(c,`crm:${entity}`)).find(row=>row.id===recordId):null,type=String(event.type||'');
   let eventName='crm_record_changed';

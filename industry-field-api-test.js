@@ -44,5 +44,12 @@ async function request(route, method = 'GET', body, extraHeaders={}) {
  const kept=await request('/api/procurement/opportunities/'+record.id,'PUT',{expected_revision:revised.body.record.revision,title:'Preserved across pack change'});assert.equal(kept.status,200);assert.equal(kept.body.record.industry_fields.mileage,13000);
  assert.equal((await request('/api/procurement/opportunities/'+record.id,'PUT',{expected_revision:kept.body.record.revision,industry_fields:{}})).body.code,'industry_pack_conflict');
  assert.equal((await request('/api/procurement/opportunities','POST',{title:'No active pack',industry_fields:{vin:'fixture'}})).status,422);
+ const query='?from=2026-01-01T00:00:00Z&to=2027-01-01T00:00:00Z';
+ assert.equal((await request('/api/analysis/industry-kpis'+query)).status,403);
+ assert.equal((await request('/api/composition','PUT',{entitlements:['analysis'],industry_id:'GENERAL',expected_revision:2})).status,200);
+ const emptyKpis=await request('/api/analysis/industry-kpis'+query);assert.equal(emptyKpis.status,200);assert.deepEqual(emptyKpis.body.items,[]);assert.equal(emptyKpis.body.status,'NO_REGISTERED_KPIS');
+ assert.equal((await request('/api/analysis/industry-kpis?from=invalid')).status,422);
+ assert.equal((await request('/api/composition','PUT',{entitlements:['analysis'],industry_id:'GENERAL',expected_revision:3,capability_flags:{'analysis:events':false}})).status,200);
+ assert.equal((await request('/api/analysis/industry-kpis'+query)).status,403);
  console.log('PASS industry schema API, typed fields, encrypted restart, partial field updates, module boundaries and retained pack provenance');
 }finally{await stop();fs.rmSync(dir,{recursive:true,force:true});}})().catch(error=>{console.error(error);process.exitCode=1;});
