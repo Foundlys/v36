@@ -78,11 +78,12 @@ class BusinessDomain {
     }
     return next;
   }
-  snapshotReadable(ctx,actor,row){return require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row)&&require('./marketing-creative-reviews').reviewReadable(this,ctx,actor,row)&&require('./communication-drafts').readable(this,ctx,actor,row);}
+  snapshotReadable(ctx,actor,row){return require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row)&&require('./marketing-creative-reviews').reviewReadable(this,ctx,actor,row)&&require('./communication-drafts').readable(this,ctx,actor,row)&&require('./communication-replies').readable(this,ctx,actor,row);}
   list(ctx,actor,entity,query={}){
     if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');
     this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const limit=Math.max(1,Math.min(250,Number(query.limit)||100)),offset=Math.max(0,Number(query.offset)||0),q=String(query.q||'').toLowerCase();
-    const rows=this.bucket(ctx,entity).filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row)&&(!q||[row.title,row.name,row.description].some(v=>String(v||'').toLowerCase().includes(q)))&&(!query.status||row.status===query.status));
+    const snapshotAccess=this.id==='communication'?require('./communication-drafts').revisionAccess(this,ctx,actor):row=>this.snapshotReadable(ctx,actor,row);
+    const rows=this.bucket(ctx,entity).filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&this.visible(row,actor)&&snapshotAccess(row)&&(!q||[row.title,row.name,row.description].some(v=>String(v||'').toLowerCase().includes(q)))&&(!query.status||row.status===query.status));
     return {items:rows.slice(offset,offset+limit).map(row=>this.id==='communication'&&entity==='draft_revisions'?require('./communication-drafts').metadata(row):clone(row)),total:rows.length,limit,offset,next_offset:offset+limit<rows.length?offset+limit:null};
   }
   get(ctx,actor,entity,id){if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const row=this.bucket(ctx,entity).find(row=>row.id===id&&this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row));if(!row)fail('record_not_found','Record niet gevonden',404);return clone(row);}
@@ -152,7 +153,7 @@ class BusinessDomain {
     return {record:clone(row),external_commitment:false};
   }
   export(ctx,actor){
-    this.scope(ctx,actor,'export');const collections=Object.fromEntries(this.definition.entities.map(entity=>[entity,clone(this.bucket(ctx,entity).filter(row=>this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row)))]));
+    this.scope(ctx,actor,'export');const snapshotAccess=this.id==='communication'?require('./communication-drafts').revisionAccess(this,ctx,actor,{exporting:true}):row=>this.snapshotReadable(ctx,actor,row);const collections=Object.fromEntries(this.definition.entities.map(entity=>[entity,clone(this.bucket(ctx,entity).filter(row=>this.visible(row,actor)&&snapshotAccess(row)))]));
     this.adapter.audit(ctx,actor,'EXPORT',this.id,null,{entities:this.definition.entities});this.adapter.persist();
     return {module_id:this.id,schema_version:1,tenant_id:ctx.tenant_id,exported_at:new Date().toISOString(),collections};
   }

@@ -27,9 +27,9 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "e4824114841987b9cfff0b6f2de0b4e468841dd37e5a73726ff49384ba61ad00",
+    "business-domain-api.js": "d6a397c93c10f83f49056cd46eb882df6833ce723e6e33df830815157df3c965",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "270428c13a4279f2f8b2107d8a83ac968002c70510bee2b855988825196f9768",
+    "business-domains.js": "df7f07fcb8f0750fde5987fb95b4f938c5694030a31880402beb47508358f360",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
@@ -43,8 +43,15 @@
     "capability-resolver-test.js": "6d648c0e3a01de1da16612954345321aa87ec85360a948e84206bcc9c1ece9dd",
     "capability-resolver.js": "425d4e42ecee1b819b4e81e4dc10f20cc2403c5c34c9805c4ac5bd760879b995",
     "communication-drafts-api-test.js": "55ca055e4d9bac11a5874a45c1f2fdb3cc481f5fee669d9ead7d9c745b04e26e",
+    "communication-drafts-client-test.js": "a4e6308e4f6625ba46ebfd0d50bca3c47b8208e4a06a0a49051a7d2cade01970",
     "communication-drafts-test.js": "64ef4854189c9f68688e6ed6bce782533b96334acefcf525fafe2679fbceea04",
-    "communication-drafts.js": "e4f12413ad7f88f4740baafeae39949e6650ecabbaed593ea6fcd27d569fc3d5",
+    "communication-drafts.js": "afa763b6d29a95b22433356f7ba4e2422c86d6e224a2e8178b8c0c7df9c5894c",
+    "communication-history-bounds-test.js": "0801bc7de1ce98cb95439668cd5a4b4278c3adc103ecc48841bf4afde586a1eb",
+    "communication-provider-state-test.js": "6faed120e0c407d53e9e664c2719f52df81fd18424aa52b33d7e505ba1bd2568",
+    "communication-provider-state.js": "ee112cd9d99dc911ac3e9b509f2c6b931180a91a906a679f0625a88b316108be",
+    "communication-replies-api-test.js": "b8c260a7a0d6a63977474cde20eefbed49a7c3428414688205e360ca543a52c4",
+    "communication-replies-test.js": "81136bc8d8858a178ca51630fd6b175fa2db74522224ca197fa97366bccad25a",
+    "communication-replies.js": "448c89726782c8d2e48b7621de1b2ff680da54fd2158e0a09d26712c7aa8e13b",
     "communication-snapshot-api-test.js": "17953fa835407ed7ff8eb128f4703cd65848eba1e8723ce1d0c21a457af1d4e7",
     "communication-snapshot-test.js": "caac3437febead665f3908cac315c0b7d5a9085886fe8894df33cfc778e07af0",
     "communication-snapshot.js": "c460d6d25f1b485d3493f626d682f5da0a9490bc96f3c56c13b710aa564fe5c0",
@@ -79,7 +86,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "4f387285442f2cb5d792a1c1324edfd363bc325448fff2cc7af70c4624a107f1",
-    "foundly-workspace.js": "4c6d5356813be82554737047ae73504d7570bd25095900efda96ca8d904c0d1b",
+    "foundly-workspace.js": "5384b7d20d865a6c68b4e2928e478f43c6fcc96b02ed4941cd330bffb70292b6",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -107,7 +114,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "42508dd7e8cf16cb319f351ca2edcd16551fe53af2146e94d7ef8216494a4a3a",
+    "package.json": "057fef783e3ecd8cb29164d2ee5b1c72a373cacef3764012a29abb19b5a70683",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -138,7 +145,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "00e76e95e20485c59525f2196366740249bc7ee20ebb2b7e8169a24958569e0d",
+    "server.js": "56ccbd28c285b993ffdb658e90ad5c971e19c4b6b9bc75f1e553553b99a5e6ea",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -150,6 +157,7 @@
     "tenant-identity-api.js": "1ed89f5a567dc8de75a6beea36aafa903191f66a6d033df500bd7ee966bac841",
     "tenant-identity-bootstrap-api-test.js": "2f42b562e17493d6c216fec605b97cea199698f287f0084cc6dcb7bd2d24c9fe",
     "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
+    "test-communication-message-fixture.js": "0ed512431d4bd93f1e94c1ae2bc4ef265f6c6e8640cd060ca3329375142e7f95",
     "test-composition-context-mock.js": "7ae21e829929286bf40027c410a84cff00d806bbb2bed8f5e0c9c71ac21f1133",
     "test-dashboard-persist-fault.js": "b45bd1a8db61937cf79687c2740a9d552b3fce5eaf7724c59c4f7a03d014fca1",
     "test-identity-body-barrier.js": "2edd7a9d0aee639d30d1ff8cecfc2b0734eafff7878557832d1a16a068244e45",
@@ -192,7 +200,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "3b11bf435f7d45b8086a1df31c13726cd627d658c0ce4c70700f9b920d4484e3"
   },
-  "output_sha256": "9abe5a45fb06ce07b7d2f59eb31371cea7ff2fd7f7f266c79657ff47f8e06c3b",
+  "output_sha256": "e41a62a14d0c1adfac79b93ee1df449f255d883aefaf46a20cd93e10e9ddddfb",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -347,7 +355,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-09T09:06:55.031401+00:00",
+  "verified_at": "2026-09-09T09:27:39.924264+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -476,7 +484,10 @@
     "CRM ZERO reads now retain source-free references and recompute on exact-question replay. Real role downgrade, source reownership, capability revocation, encrypted restart and foreign conversations pass; legacy CRM answer/audit views are sanitized without deleting stored evidence, and non-read action receipts retain existing idempotency.",
     "Five owned-domain summaries and Analytics/Knowledge/Automation/Finance deterministic ZERO reads retain source-free references and recompute current sources on exact-question replay. Real role downgrade, capability revocation and encrypted restart pass without business actions; CRM inventory selection is bound only when relevant.",
     "Analysis-only ZERO recognizes explicit KPI questions without CRM. With both modules enabled, explicit Analysis/CRM preference is respected; revoked Analysis capabilities do not fall back to CRM, including after encrypted restart.",
-    "Recovered unpublished Communication collaboration/history preserved before extension. Full npm test passes current-owner sharing, active-member selection, immutable history and exact restore without access rollback/send, legacy baseline retention, bounded input, atomic rollback, replay and encrypted restart. Actual body-wait revocation/suspension denies pending edits/shares/restores; dashboard invalid/unavailable source contracts stay unavailable. Browser local route blocked by ERR_BLOCKED_BY_CLIENT despite launcher HTTP 200; production untouched."
+    "Recovered unpublished Communication collaboration/history preserved before extension. Full npm test passes current-owner sharing, active-member selection, immutable history and exact restore without access rollback/send, legacy baseline retention, bounded input, atomic rollback, replay and encrypted restart. Actual body-wait revocation/suspension denies pending edits/shares/restores; dashboard invalid/unavailable source contracts stay unavailable. Browser local route blocked by ERR_BLOCKED_BY_CLIENT despite launcher HTTP 200; production untouched.",
+    "20,000 Communication revision fixtures use one current parent ACL projection per request; simulated production client handlers preserve revision preconditions and detached workspace isolation. No actual browser acceptance claimed.",
+    "Native and generic SMTP status use the same configuration-only projection, never claim authenticated connectivity from socket/HTTP reachability and perform no arbitrary SMTP destination probe. Authenticated mail transport and receipt processing remain implementation gaps.",
+    "Source-bound REPLY/FORWARD internal draft preparation passes exact retained-message revision/hash/recipient binding, persistence rollback, encrypted replay and source changes during body waits. Current source rights govern drafts/history/native/export/ZERO; retained export survives module disablement subject to current source ownership. Labelled message fixtures are not live provider evidence; no external send."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -488,7 +499,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260909-communication-collaboration-regression.log",
+  "output_file": ".recovery-evidence/20260909-communication-replies-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -501,10 +512,18 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "afdc6e5ad528a6744af6d8d58b5dac8c987c7ab4",
-    "tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
-    "run": 87,
-    "run_id": 34329367885,
+    "head": "e54b115f5507f70f2aa3e3b34197b9f9404d8c04",
+    "tree": "6d5970b68591bda0e275c53bc582691e48a6253d",
+    "run": 88,
+    "run_id": 34333036427,
     "conclusion": "success"
+  },
+  "current_production_observation": {
+    "attempted_at": "2026-09-09T09:27:39.924264+00:00",
+    "method": "READ_ONLY_PUBLIC_HEALTH_READY",
+    "health": "UNVERIFIED_ACCESS_TOOL_REFUSED_URL",
+    "ready": "UNVERIFIED_ACCESS_TOOL_REFUSED_URL",
+    "writes": false,
+    "historical_observation_is_not_current_proof": true
   }
 }

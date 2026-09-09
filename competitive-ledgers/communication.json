@@ -1,6 +1,6 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "module": "communication",
   "assessed_at": "2026-09-09",
   "standalone_acceptance": "PARTIAL",
@@ -26,10 +26,16 @@
           "url": "https://dev.frontapp.com/reference/create-draft-reply",
           "observed": "The documented draft-reply API uses drafts write scope and explicit conversation/channel references, private/shared modes, recipient lists and bounded attachments. This is benchmark evidence, not a Foundly implementation claim.",
           "retrieved_at": "2026-09-09"
+        },
+        {
+          "product": "Front",
+          "url": "https://help.front.com/en/articles/2247",
+          "observed": "Front documents sender-only reply, reply-all and forwarding in existing or new conversations. Foundly currently proves internal source-bound draft preparation only, not these complete delivery/threading workflows.",
+          "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Owned drafts, templates, threads and preferences remain standalone. Draft sharing uses explicit owner/admin authority, a bounded tenant member search, current member status and current parent ACL for all retained revisions. Edits use revision preconditions. Restore creates a new draft revision, preserves current collaborators, binds idempotency to the actor/input and does not send. History survives encrypted restart and persistence failure rolls back draft, history, audit and receipt together. Legacy unversioned drafts retain a labelled baseline. Dashboard separates drafts from retained messages and treats unavailable, invalid or incomplete source contracts as unavailable.",
-      "gap": "Live co-editing/takeover, comments, attachments, reply/forward and complete inbox workflows remain incomplete; actual browser/keyboard/viewport acceptance is blocked.",
+      "foundly_current": "Owned drafts, templates, threads and preferences remain standalone. Draft sharing uses explicit owner/admin authority, a bounded tenant member search, current member status and current parent ACL for all retained revisions. Edits use revision preconditions. Restore creates a new draft revision, preserves current collaborators, binds idempotency to the actor/input and does not send. History survives encrypted restart and persistence failure rolls back draft, history, audit and receipt together. Legacy unversioned drafts retain a labelled baseline. Dashboard separates drafts from retained messages and treats unavailable, invalid or incomplete source contracts as unavailable. A 20,000-revision fixture resolves current parent ACL once per read/export, with no cross-request authorization cache. Production client handlers preserve revision preconditions across paginated history and do not redraw detached workspaces; simulated DOM tests do not establish browser acceptance. Reply/forward preparation now binds the exact retained message revision/hash, validates explicit recipients, creates only an unsent internal draft and never copies external source instructions into its body. Current source ownership/capabilities govern derived drafts and revision history; retained export still survives module disablement under the existing export permission and current source ownership.",
+      "gap": "Live co-editing/takeover, comments, safe attachments, external threading/reply/forward delivery and complete inbox workflows remain incomplete; actual browser/keyboard/viewport acceptance is blocked.",
       "required_change": "Complete source-bound message/thread preparation, safe attachment handling and inbox workflows, then verify real browser and authorized provider behavior.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
@@ -38,7 +44,11 @@
         "communication-snapshot-test.js",
         "communication-snapshot-api-test.js",
         "communication-drafts-test.js",
-        "communication-drafts-api-test.js"
+        "communication-drafts-api-test.js",
+        "communication-history-bounds-test.js",
+        "communication-drafts-client-test.js",
+        "communication-replies-test.js",
+        "communication-replies-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
@@ -63,20 +73,21 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Drafts cannot claim sent status; provider records cannot be fabricated through the user CRUD API.",
-      "gap": "No authenticated mail account and verified delivery/receipt chain is available in this run.",
-      "required_change": "Attach authorized mail access through the supported secure channel and verify delivery states without test emails to real people.",
+      "foundly_current": "Drafts cannot claim sent status; provider records cannot be fabricated through the user CRUD API. Native SMTP status and the generic SMTP profile status now share one conservative projection: credentials mean configured only, never authenticated/connected or send-verified. Arbitrary configured TCP destinations are not probed by the missing mail adapter.",
+      "gap": "An authenticated SMTP/IMAP send/receive adapter and durable message receipt processing are not implemented. Legitimate provider/account access is also absent. This is an implementation gap as well as an external acceptance dependency.",
+      "required_change": "Implement an authorized authenticated mail adapter with destination/TLS safeguards, input-bound send policy, durable receipts and reconciliation; then validate with legitimate account access. No test messages to real recipients.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "communication-provider-state-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
         "production": "NOT_DEPLOYED",
         "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
       },
-      "verdict": "BLOCKED_EXTERNAL"
+      "verdict": "BELOW_PARITY"
     },
     {
       "module": "communication",
@@ -94,14 +105,15 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO draft summaries and existing safe drafting paths exist. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart.",
+      "foundly_current": "ZERO draft summaries and existing safe drafting paths exist. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart. Source-bound draft preparation now preserves the original message reference and current access through history/export/ZERO; no external send action is added.",
       "gap": "Consent-aware approved execution and reply/forward verification need complete integration.",
       "required_change": "Build input-bound send approval, provider transport and durable receipt processing.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
-        "domain-zero-replay-api-test.js"
+        "domain-zero-replay-api-test.js",
+        "communication-replies-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

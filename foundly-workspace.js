@@ -904,6 +904,34 @@
     cell.append(details);
   }
 
+  function appendMessageDraftActions(record,cell,content){
+    const details=node('details'),summary=node('summary','','Antwoord of doorstuurconcept'),panel=node('div'),notice=node('p');notice.setAttribute('role','status');details.append(summary,panel,notice);cell.append(details);
+    const mode=node('select'),modeLabel=node('label','','Soort concept'),load=node('button','secondary-button','Bronbericht bekijken');load.type='button';
+    for(const [value,label] of [['REPLY','Antwoordconcept'],['FORWARD','Doorstuurconcept']]){const option=node('option','',label);option.value=value;mode.append(option);}
+    modeLabel.append(mode);panel.append(modeLabel,load);
+    load.addEventListener('click',async()=>{
+      load.disabled=true;mode.disabled=true;
+      try{
+        const preview=await request(`/api/communication/messages/${encodeURIComponent(record.id)}/draft-preview?mode=${encodeURIComponent(mode.value)}`),form=node('form'),title=node('input'),to=node('input'),text=node('textarea'),save=node('button','primary-button','Concept opslaan');
+        title.value=preview.title;title.required=true;title.maxLength=1000;to.value=(preview.suggested_to||[]).join(', ');to.required=true;to.maxLength=12000;to.readOnly=preview.mode==='REPLY';text.required=true;text.maxLength=12000;save.type='submit';save.disabled=!preview.recipient_available;
+        form.append(node('p','','Dit concept blijft gekoppeld aan het bronbericht. Er wordt niets verzonden.'),node('pre','',preview.source_excerpt),node('small','',preview.source_excerpt_truncated?'Een deel van het bronbericht wordt getoond.':''));
+        for(const [name,input] of [['Onderwerp',title],['Ontvangers',to],['Concepttekst',text]]){const label=node('label','',name);label.append(input);form.append(label);}
+        form.append(save);panel.append(form);
+        if(!preview.recipient_available)notice.textContent='De afzender ontbreekt of is niet verifieerbaar. Een antwoordconcept is niet beschikbaar.';
+        let lastPayload=null,key=crypto.randomUUID();
+        form.addEventListener('submit',async event=>{
+          event.preventDefault();save.disabled=true;
+          try{
+            const payload={mode:preview.mode,source_revision:preview.source_revision,source_hash:preview.source_hash,title:title.value,content:text.value,to:to.value.split(',').map(value=>value.trim()).filter(Boolean)},encoded=JSON.stringify(payload);
+            if(lastPayload!==null&&lastPayload!==encoded)key=crypto.randomUUID();lastPayload=encoded;
+            await request(`/api/communication/messages/${encodeURIComponent(record.id)}/drafts`,{method:'POST',headers:{'idempotency-key':key},body:encoded});
+            notice.textContent='Concept opgeslagen. Je vindt het onder Drafts. Er is niets verzonden.';
+          }catch(error){notice.textContent=friendlyError(error);save.disabled=false;}
+        });
+      }catch(error){notice.textContent=friendlyError(error);load.disabled=false;mode.disabled=false;}
+    });
+  }
+
   function appendDraftCollaboration(record,cell,content){
     const details=node('details'),summary=node('summary','','Delen en versiegeschiedenis'),body=node('div'),notice=node('p');
     notice.setAttribute('role','status');details.append(summary,body,notice);cell.append(details);
@@ -1060,6 +1088,7 @@
         if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
         edit.addEventListener('click',()=>{if(recurrenceFields){let rule;try{rule=window.FoundlyCalendarRecurrence.normalize(record.recurrence);}catch(error){notice.textContent=friendlyError(error);return;}recurrenceFields.frequency.value=rule?.frequency||'';recurrenceFields.count.value=String(rule?.count||1);recurrenceFields.interval.value=String(rule?.interval||1);recurrenceFields.refresh();}editing=record;const packConflict=Boolean(record.industry_field_pack_id&&record.industry_field_pack_id!==contract.industry_id);for(const [name,{input}] of industryInputs){input.value=packConflict?'':String(record.industry_fields?.[name]??'');input.disabled=packConflict;}notice.textContent=packConflict?'Bewaarde branchevelden blijven behouden. Herstel het oorspronkelijke pakket om ze te bewerken.':'';for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
+        if(state.workspaceId==='communication'&&entity==='messages')appendMessageDraftActions(record,cell,content);
         if(state.workspaceId==='communication'&&entity==='drafts')appendDraftCollaboration(record,cell,content);
         if(state.workspaceId==='marketing'&&entity==='creatives'&&!['APPROVED_INTERNAL','ARCHIVED'].includes(record.status))appendCreativeReviewRequest(record,cell,content);
         if(state.workspaceId==='marketing'&&entity==='creative_reviews')appendCreativeReview(record,cell,content);

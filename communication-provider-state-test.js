@@ -1,0 +1,14 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync(require.resolve('./server.js'),'utf8'),start=source.indexOf('async function probeEmail('),end=source.indexOf('\nasync function probeVoice(',start);assert.ok(start>0&&end>start);
+let calls=0,config={},environment={};
+const context={require,CONNECTOR_RUNTIME:{readConfig:()=>config},cleanEnv:name=>environment[name]||'',tcpProbe:async()=>{calls++;return true;},redactJarvisText:()=> 'redacted',merged:()=>({auth_strategy:'smtp',_credentials:{smtp_host:'fixture.invalid',smtp_port:'465',smtp_user:'fixture-user',smtp_password:'FIXTURE'},credential_fields:['smtp_host','smtp_port','smtp_user','smtp_password'].map(key=>({key})),base_url:'https://fixture.invalid',health:{path:'/health'}}),safeFetch:async()=>{calls++;return {ok:true};},authHeaders:()=>({})};vm.createContext(context);vm.runInContext(source.slice(start,end),context);
+const statusStart=source.indexOf('  async function status(c,id)'),statusEnd=source.indexOf('  async function oauthStart(',statusStart);vm.runInContext(source.slice(statusStart,statusEnd),context);
+(async()=>{
+ let result=await context.probeEmail();assert.equal(result.configured,false);assert.equal(result.connected,false);assert.equal(calls,0);
+ config={credentials:{smtp_host:'fixture.invalid',smtp_port:'465',smtp_user:'fixture-user',smtp_password:'FIXTURE_NOT_A_REAL_PASSWORD'}};
+ result=await context.probeEmail();assert.equal(result.configured,true);assert.equal(result.connected,false,'Socket reachability cannot prove SMTP authentication, mailbox access or message delivery');assert.equal(result.authenticated,false);assert.equal(result.authentication_verified,false);assert.equal(result.status,'geconfigureerd_niet_geverifieerd');assert.equal(result.send_verified,false);assert.equal(calls,0,'An absent authenticated SMTP adapter must not probe arbitrary configured TCP destinations');assert.ok(!JSON.stringify(result).includes('FIXTURE_NOT_A_REAL_PASSWORD'));
+ config={};environment={SMTP_HOST:'fixture.invalid',SMTP_PORT:'587',SMTP_USER:'fixture-user',SMTP_PASSWORD:'FIXTURE_ENV_PASSWORD'};result=await context.probeEmail();assert.equal(result.configured,true);assert.equal(result.connected,false);assert.equal(calls,0);
+ result=await context.status({},'email');assert.equal(result.configured,true);assert.equal(result.connected,false,'A configurable HTTP health URL cannot authenticate SMTP');assert.equal(result.authentication_verified,false);assert.equal(result.send_verified,false);assert.equal(calls,0);
+ console.log('PASS native and generic SMTP configuration never claims authenticated connectivity or send proof, never probes arbitrary TCP/HTTP destinations and exposes no credential values');
+})().catch(error=>{console.error(error);process.exitCode=1;});

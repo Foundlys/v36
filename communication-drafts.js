@@ -9,7 +9,14 @@ function validateInput(input){
  if(Object.hasOwn(input,'related_refs')&&(!Array.isArray(input.related_refs)||input.related_refs.length>100))fail('draft_content_invalid','Ongeldige conceptverwijzingen');
 }
 function content(row){return Object.fromEntries(FIELDS.filter(field=>row[field]!==undefined).map(field=>[field,clone(row[field])]));}
-function readable(core,ctx,actor,row){if(core.id!=='communication'||row.owned_entity!=='draft_revisions')return true;const draft=core.bucket(ctx,'drafts').find(draft=>draft.id===row.draft_id);return Boolean(draft&&(!draft.owned_entity||draft.owned_entity==='drafts')&&core.visible(draft,actor));}
+function readable(core,ctx,actor,row){if(core.id!=='communication'||row.owned_entity!=='draft_revisions')return true;const draft=core.bucket(ctx,'drafts').find(draft=>draft.id===row.draft_id);return Boolean(draft&&(!draft.owned_entity||draft.owned_entity==='drafts')&&core.visible(draft,actor)&&core.snapshotReadable(ctx,actor,draft));}
+// This predicate belongs to one synchronous read only. Never retain it across
+// requests: collaborator grants and member permissions may change immediately.
+function revisionAccess(core,ctx,actor,options={}){
+ const sourceReadable=require('./communication-replies').accessPredicate(core,ctx,actor,options);
+ const visible=new Set(core.bucket(ctx,'drafts').filter(draft=>(!draft.owned_entity||draft.owned_entity==='drafts')&&core.visible(draft,actor)&&sourceReadable(draft)).map(draft=>draft.id));
+ return row=>row.owned_entity==='draft_revisions'?visible.has(row.draft_id):sourceReadable(row);
+}
 function metadata(row){const {snapshot,...publicRow}=row;return clone(publicRow);}
 function append(core,ctx,actor,row,prior=null,annotation={}){
  const history=core.bucket(ctx,'draft_revisions');
@@ -47,6 +54,7 @@ function share(core,ctx,actor,id,input,options={}){
  return operation(core,ctx,actor,id,input,options,'SHARE',prior=>{
   const ids=input.collaborator_ids;if(!Array.isArray(ids)||ids.length>20||ids.some(id=>typeof id!=='string'||!id||id.length>200)||new Set(ids).size!==ids.length)fail('draft_collaborators_invalid','Kies maximaal twintig unieke gebruikers');
   if(ids.some(member=>!core.adapter.memberActive?.(ctx,member)))fail('draft_collaborator_unavailable','Een gekozen gebruiker is niet actief in deze tenant',404);
+  if(prior.source_message_ref&&ids.some(id=>{const principal=core.adapter.memberPrincipal?.(ctx,id);return !principal||!require('./communication-replies').readable(core,ctx,principal,prior);} ))fail('draft_collaborator_source_unavailable','Een gekozen medebewerker heeft geen toegang tot het bronbericht',403);
   const row=core.bucket(ctx,'drafts').find(row=>row.id===id);row.collaborator_ids=[...ids];row.revision=(row.revision||0)+1;row.owned_entity='drafts';row.delivery_state='NOT_SENT';row.updated_at=new Date().toISOString();
   append(core,ctx,actor,row,prior,{access_change:{before:prior.collaborator_ids||[],after:[...ids]},change_reason:input.reason.trim()});core.recordEvent(ctx,actor,'drafts',row,'updated');return row;
  });
@@ -67,4 +75,4 @@ function collaborators(core,ctx,actor,id,query={}){
  const members=core.adapter.draftCollaborators(ctx,query.q.trim());
  return {items:members.slice(0,20).map(member=>({id:member.id,display_name:member.display_name})),has_more:members.length>20};
 }
-module.exports={append,readable,metadata,history,share,restore,collaborators,validateInput};
+module.exports={append,readable,revisionAccess,metadata,history,share,restore,collaborators,validateInput};

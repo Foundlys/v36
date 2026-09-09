@@ -87,7 +87,7 @@
       "phase": 13,
       "name": "Communication",
       "status": "PARTIAL",
-      "evidence_or_gap": "Retained message/draft separation, invalid/incomplete source availability, owner-authorized sharing, bounded member selection, immutable revision history, CAS restore without access rollback/send, mid-body principal/collaborator revocation and encrypted restart pass focused tests. Live co-editing, comments, reply/forward, safe attachments, mail provider acceptance and browser acceptance remain."
+      "evidence_or_gap": "Retained message/draft separation, invalid/incomplete source availability, owner-authorized sharing, bounded member selection, immutable revision history, CAS restore without access rollback/send, mid-body principal/collaborator revocation and encrypted restart pass focused tests. Live co-editing, comments, reply/forward, safe attachments, mail provider acceptance and browser acceptance remain. Source-bound reply/forward draft preparation now passes exact source/recipient binding, stale body-wait rejection, current source ACL across native/history/export/ZERO and encrypted replay. No source quote or external send is performed."
     },
     {
       "phase": 14,
@@ -111,7 +111,7 @@
       "phase": 17,
       "name": "Registries",
       "status": "PARTIAL",
-      "evidence_or_gap": "Canonical registries retained; public positive-state/receipt forgery blocked; remaining runtime-to-registry integration and complete capability mapping remain"
+      "evidence_or_gap": "Canonical registries retained; public positive-state/receipt forgery blocked; remaining runtime-to-registry integration and complete capability mapping remain Native/generic SMTP status no longer infers authenticated connectivity from socket/HTTP reachability; authenticated mail transport itself remains unimplemented."
     },
     {
       "phase": 18,
@@ -159,7 +159,7 @@
       "phase": 25,
       "name": "Performance/accessibility",
       "status": "PARTIAL",
-      "evidence_or_gap": "Static response read failures isolate the request; cohort event copies filter current ACL/name/time before count/byte limits, verified with 50,000 excluded fixture rows. Actual viewport/keyboard/concurrent production load acceptance remains."
+      "evidence_or_gap": "Static response read failures isolate the request; cohort event copies filter current ACL/name/time before count/byte limits, verified with 50,000 excluded fixture rows. Actual viewport/keyboard/concurrent production load acceptance remains. Communication history now uses one current-parent visibility selection for 20,000 retained revision fixtures; simulated production client handlers preserve stale revision checks and detached workspace isolation."
     },
     {
       "phase": 26,
@@ -205,6 +205,7 @@
     "recovered_published_head": "afdc6e5ad528a6744af6d8d58b5dac8c987c7ab4",
     "recovered_tree": "dc4220d359ba5fea36b3bb787ec34ef1341f6d32",
     "unpublished_preservation_checkpoint": "e630b67463d8405eeb8f08b49f437b8a5105748b",
-    "production_changes_authorized": false
+    "production_changes_authorized": false,
+    "next_independent_work": "Communication safe attachment contracts and inbox workflows; authenticated transport/receipts require implementation and legitimate account access; preserve remaining cross-module ledger gaps."
   }
 }

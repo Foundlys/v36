@@ -26,6 +26,11 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='awards'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareAward(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='awards'&&parts.length===3&&['approve','cancel'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews[parts[2]==='approve'?'reviewAward':'cancelAward'](core,ctx,actor,parts[1],await readBody(req),options)});
       }
+      if(id==='communication'&&parts[0]==='messages'&&parts.length===3){
+        const service=require('./communication-replies');
+        if(parts[2]==='draft-preview'&&req.method==='GET'){if([...url.searchParams.keys()].some(key=>key!=='mode'))return sendJson(res,422,{ok:false,code:'message_draft_query_invalid'});return sendJson(res,200,{ok:true,...service.preview(core,ctx,actor,parts[1],url.searchParams.get('mode'))});}
+        if(parts[2]==='drafts'&&req.method==='POST'){const result=service.create(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
+      }
       if(id==='communication'&&parts[0]==='drafts'&&parts.length===3){
         const service=require('./communication-drafts');if(parts[2]==='collaborator-options'&&req.method==='GET')return sendJson(res,200,{ok:true,...service.collaborators(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});if(parts[2]==='revisions'&&req.method==='GET')return sendJson(res,200,{ok:true,...service.history(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});
         if(['collaborators','restore'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...service[parts[2]==='restore'?'restore':'share'](core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
