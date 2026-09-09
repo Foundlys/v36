@@ -755,7 +755,14 @@ function sourceAppliesToModule(source,module){if(!module||['all','home','data','
 async function canonicalRegistries(c,statuses=null){const resolved=statuses||await universalStatuses(c),profiles=CONNECTOR_RUNTIME.profiles(),recordsBySource=tenantSourceCounts(c),connectorRows=buildConnectorRegistry({registry:Object.fromEntries(Object.entries(CONNECTOR_REGISTRY).filter(([,spec])=>connectorVisible(spec,COMPOSITION,c,platformPrincipal()))),profiles,statuses:resolved.list,recordsBySource,redact:value=>redactJarvisText(value,160),variablePresent:name=>Boolean(cleanEnv(name))}),collections=tenantRecordCollections(c),internalCounts={foundly_core:collections.length,canonical_events:PLATFORM_CORE.eventsForProjection(c,platformPrincipal()).length,foundly_knowledge:arr(records,key(c,'platform:knowledge')).length,foundly_automotive_history:collections.filter(row=>row.scope.startsWith('automotive:')).length,foundly_crm:collections.filter(row=>row.scope.startsWith('crm:')||row.scope==='crm').length,foundly_inventory:collections.filter(row=>row.scope==='voorraad').length},sourceRows=buildSourceRegistry({connectors:connectorRows,recordsBySource,internalCounts});return {connectors:connectorRows,sources:sourceRows,recordsBySource,statuses:resolved}}
 function workspaceCapabilities(c){if(COMPOSITION.profile(c)){const state=COMPOSITION.resolve(c,platformPrincipal());return [...state.visible_modules,'core','data','knowledge','learning','connectors','settings',...(state.industry_id==='AUTOMOTIVE'&&state.visible_modules.includes('procurement')?['automotive']:[])]}const configured=env('FOUNDLY_ENABLED_CAPABILITIES').split(',').map(value=>value.trim()).filter(Boolean),profiles=arr(records,key(c,'platform:tenant_profiles')),latest=profiles.at(-1);return [...new Set([...(latest?.capabilities||[]),...configured])];}
 function dashboardStorageKey(c,workspaceId,scope='PERSONAL',principal=platformPrincipal(),qualifier=''){const normalized=String(scope||'PERSONAL').toUpperCase(),identity=normalized==='TEAM'?qualifier||principal.team_ids?.[0]||'default-team':normalized==='ROLE'?qualifier||principal.roles?.[0]||'USER':principal.id;return key(c,`workspace-dashboard:${workspaceId}:${normalized}:${identity}`)}
-function storedWorkspaceDashboard(c,workspaceId,scope,principal,qualifier){const rows=memory.get(dashboardStorageKey(c,workspaceId,scope,principal,qualifier))||[];return rows.at(-1)||null}
+function workspaceDashboardState(c,workspaceId,scope,principal,qualifier){const row=(memory.get(dashboardStorageKey(c,workspaceId,scope,principal,qualifier))||[]).at(-1);return {saved:row&&!row.reset_to_preset?row:null,revision:Number(row?.revision||0)}}
+function dashboardPrecondition(req,revision){
+  const header=req.headers['if-match'];
+  if(header===undefined){if(revision===0)return;throw Object.assign(new Error('Laad het dashboard opnieuw voordat je deze wijziging opslaat.'),{statusCode:428,code:'dashboard_revision_required'})}
+  const raw=String(header),match=raw.match(/^(?:"(0|[1-9][0-9]*)"|(0|[1-9][0-9]*))$/),expected=match?Number(match[1]??match[2]):NaN;
+  if(!Number.isSafeInteger(expected))throw Object.assign(new Error('Ongeldige dashboardrevisie'),{statusCode:422,code:'dashboard_revision_invalid'});
+  if(expected!==revision)throw Object.assign(new Error('Dashboard is intussen gewijzigd. Je bewerking blijft lokaal; vernieuw om de opgeslagen versie te laden.'),{statusCode:409,code:'dashboard_revision_conflict'});
+}
 function mutateWorkspaceDashboard(c,storageKey,mutate){return scopedMutation({bucket:(ctx,scope)=>scope==='layout'?arr(memory,storageKey):arr(records,key(ctx,'platform:audit')),persist:()=>persistCore(true)},c,['layout','audit'],mutate)}
 function metric(id,value,{unit='COUNT',available=true,source='FOUNDLY_PERSISTED_DATA',freshness='CURRENT',detail=null}={}){return {id,value:available?value:null,unit,available:Boolean(available),source,freshness,detail,synthetic:false}}
 function countWhere(rows,predicate){return rows.reduce((count,row)=>count+(predicate(row)?1:0),0)}
@@ -1454,7 +1461,7 @@ async function handleFoundlyOsApi(req,res,u){
     const requestedScope=String(u.searchParams.get('scope')||'PERSONAL').toUpperCase(),qualifier=dashboardQualifier(requestedScope,u);
     if(['GET','DELETE'].includes(req.method)){try{authorizeDashboard(actor,requestedScope,qualifier,req.method==='GET'?'read':'write')}catch(error){return json(res,403,{ok:false,code:error.code,error:error.message})}}
     if(req.method==='GET'){
-      const saved=storedWorkspaceDashboard(c,workspaceId,requestedScope,actor,qualifier),fallback=dashboardTemplate(workspaceId,actor.id);
+      const {saved,revision}=workspaceDashboardState(c,workspaceId,requestedScope,actor,qualifier),fallback={...dashboardTemplate(workspaceId,actor.id),revision};
       return json(res,200,{ok:true,dashboard:saved||fallback,persisted:Boolean(saved),default_dashboard:fallback,allowed_widgets:workspace.default_widgets,schema_version:DASHBOARD_SCHEMA_VERSION,tenant_scoped:true,user_scoped:requestedScope==='PERSONAL'});
     }
     if(req.method==='PUT'||req.method==='POST'){
@@ -1463,9 +1470,9 @@ async function handleFoundlyOsApi(req,res,u){
         authorizeDashboard(actor,scope,scopeQualifier,'write');
         if(scope==='TEAM'&&!scopeQualifier)return json(res,422,{ok:false,code:'dashboard_team_required',error:'Team-id is verplicht voor een teamdashboard'});
         if(scope==='TEAM'&&!admin&&!actor.team_ids.includes(scopeQualifier))return json(res,403,{ok:false,code:'dashboard_team_forbidden',error:'Dashboard kan alleen met een eigen team worden gedeeld'});
-        const current=storedWorkspaceDashboard(c,workspaceId,scope,actor,scopeQualifier),expected=String(req.headers['if-match']||'').replace(/^W\//,'').replaceAll('"','');
-        if(expected&&current&&expected!==String(current.revision))return json(res,409,{ok:false,code:'dashboard_revision_conflict',error:'Dashboard is intussen gewijzigd',current_revision:current.revision});
-        const now=new Date().toISOString(),saved={...normalized,id:current?.id||normalized.id,revision:Number(current?.revision||0)+1,created_at:current?.created_at||now,updated_at:now,updated_by:actor.id,persisted:true};
+        const {saved:current,revision}=workspaceDashboardState(c,workspaceId,scope,actor,scopeQualifier);
+        dashboardPrecondition(req,revision);
+        const now=new Date().toISOString(),saved={...normalized,id:current?.id||normalized.id,revision:revision+1,created_at:current?.created_at||now,updated_at:now,updated_by:actor.id,persisted:true};
         const storageKey=dashboardStorageKey(c,workspaceId,scope,actor,scopeQualifier);
         mutateWorkspaceDashboard(c,storageKey,()=>{const rows=arr(memory,storageKey);rows.push(saved);if(rows.length>50)rows.splice(0,rows.length-50);
           PLATFORM_CORE.audit(c,actor,current?'UPDATE':'CREATE','workspace_dashboard',saved.id,{workspace_id:workspaceId,scope,revision:saved.revision,widget_count:saved.widgets.length});});
@@ -1473,8 +1480,13 @@ async function handleFoundlyOsApi(req,res,u){
       }catch(error){return json(res,error.statusCode||400,{ok:false,code:error.code||'dashboard_invalid',error:redactJarvisText(error.message,300)})}
     }
     if(req.method==='DELETE'){
-      const storageKey=dashboardStorageKey(c,workspaceId,requestedScope,actor,qualifier),removed=Boolean(memory.get(storageKey)?.length);if(removed)mutateWorkspaceDashboard(c,storageKey,()=>{memory.get(storageKey).length=0;PLATFORM_CORE.audit(c,actor,'DELETE','workspace_dashboard',workspaceId,{scope:requestedScope,reset_to_preset:true});});
-      return json(res,200,{ok:true,removed,default_dashboard:dashboardTemplate(workspaceId,actor.id)});
+      try{
+        const storageKey=dashboardStorageKey(c,workspaceId,requestedScope,actor,qualifier),{saved,revision}=workspaceDashboardState(c,workspaceId,requestedScope,actor,qualifier),removed=Boolean(saved);
+        dashboardPrecondition(req,revision);
+        const nextRevision=revision+(removed?1:0);
+        if(removed)mutateWorkspaceDashboard(c,storageKey,()=>{const rows=arr(memory,storageKey);rows.push({reset_to_preset:true,revision:nextRevision,updated_at:new Date().toISOString(),updated_by:actor.id});if(rows.length>50)rows.splice(0,rows.length-50);PLATFORM_CORE.audit(c,actor,'DELETE','workspace_dashboard',workspaceId,{scope:requestedScope,reset_to_preset:true,revision:nextRevision});});
+        return json(res,200,{ok:true,removed,default_dashboard:{...dashboardTemplate(workspaceId,actor.id),revision:nextRevision}});
+      }catch(error){return json(res,error.statusCode||500,{ok:false,code:error.code||'dashboard_reset_failed',error:redactJarvisText(error.message,300)})}
     }
   }
   if(u.pathname==='/api/connector-registry'&&req.method==='GET'){

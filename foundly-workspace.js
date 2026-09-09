@@ -995,7 +995,7 @@
     if (scope === 'ROLE') payload.role = qualifier;
     const query = new URLSearchParams({ scope }); if (qualifier) query.set(scope === 'TEAM' ? 'team_id' : 'role', qualifier);
     try {
-      const result = await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${query}`, { method: 'PUT', headers: state.dashboard.revision ? { 'if-match': String(state.dashboard.revision) } : {}, body: JSON.stringify(payload) });
+      const result = await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${query}`, { method: 'PUT', headers: { 'if-match': String(state.dashboard.revision) }, body: JSON.stringify(payload) });
       state.dashboard = result.dashboard; toggleEditing(false); renderDashboard(); toast('Dashboard tenant- en gebruikersgebonden opgeslagen.');
     } catch (error) { toast(friendlyError(error), true); }
   }

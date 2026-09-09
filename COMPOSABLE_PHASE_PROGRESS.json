@@ -99,7 +99,7 @@
       "phase": 15,
       "name": "Workspace composition",
       "status": "PARTIAL",
-      "evidence_or_gap": "Shared forms, composer, distinct projections and explicit industry presets; dashboard failed save/reset now atomically restores layout/audit and cannot be committed by later restart. Remaining section completeness, concurrency and browser acceptance stay open."
+      "evidence_or_gap": "Shared forms, composer and explicit industry presets; dashboard save/reset has atomic rollback and required revisions for existing scopes, with reset tombstones preventing stale resurrection across encrypted restart. Simultaneous writer and create tests pass. Remaining section completeness, UI request ordering and browser acceptance stay open."
     },
     {
       "phase": 16,

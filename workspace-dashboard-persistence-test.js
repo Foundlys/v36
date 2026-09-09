@@ -12,7 +12,7 @@ async function start(){
  throw new Error('Fixture server start timeout');
 }
 async function stop(){if(child?.exitCode===null){const closed=once(child,'exit');child.kill('SIGTERM');await closed;}}
-async function call(route,method='GET',body){const response=await fetch(base+route,{method,redirect:'manual',headers:{authorization:`Bearer ${token}`,'content-type':'application/json'},...(body===undefined?{}:{body:JSON.stringify(body)})});const text=await response.text();let data;try{data=JSON.parse(text);}catch{data=text;}return {status:response.status,body:data,headers:response.headers};}
+async function call(route,method='GET',body,extraHeaders={}){const response=await fetch(base+route,{method,redirect:'manual',headers:{authorization:`Bearer ${token}`,'content-type':'application/json',...extraHeaders},...(body===undefined?{}:{body:JSON.stringify(body)})});const text=await response.text();let data;try{data=JSON.parse(text);}catch{data=text;}return {status:response.status,body:data,headers:response.headers};}
 
 (async()=>{try{
  await start();assert.equal((await call('/api/composition','PUT',{entitlements:['procurement'],expected_revision:0})).status,200);
@@ -20,13 +20,13 @@ async function call(route,method='GET',body){const response=await fetch(base+rou
  let result=await call(route,'PUT',{...initial,scope:'PERSONAL',name:'Preserved dashboard fixture'});assert.equal(result.status,201);const saved=result.body.dashboard;
  const teamRoute=route+'?scope=TEAM&team_id=fixture-team',teamSaved=(await call(teamRoute,'PUT',{...initial,scope:'TEAM',team_id:'fixture-team',name:'Independent team dashboard'})).body.dashboard;
  const marker=path.join(dir,'fixture-dashboard-write-failure');fs.writeFileSync(marker,'isolated test only');
- result=await call(route,'PUT',{...saved,name:'Rejected changed dashboard'});assert.ok(result.status>=400);
+ result=await call(route,'PUT',{...saved,name:'Rejected changed dashboard'},{'if-match':String(saved.revision)});assert.ok(result.status>=400);
  assert.deepEqual((await call(route)).body.dashboard,saved,'Failed persistence must restore the prior in-memory dashboard');
  fs.unlinkSync(marker);await stop();await start();assert.deepEqual((await call(route)).body.dashboard,saved,'A later process flush must not commit the rejected change');
- fs.writeFileSync(marker,'isolated test only');result=await call(route,'DELETE');assert.ok(result.status>=400);
+ fs.writeFileSync(marker,'isolated test only');result=await call(route,'DELETE',undefined,{'if-match':String(saved.revision)});assert.ok(result.status>=400);
  assert.deepEqual((await call(route)).body.dashboard,saved,'Failed reset must retain the dashboard');fs.unlinkSync(marker);
  await stop();await start();assert.deepEqual((await call(route)).body.dashboard,saved);assert.deepEqual((await call(teamRoute)).body.dashboard,teamSaved);
- result=await call(route,'DELETE');assert.equal(result.status,200);assert.equal(result.body.removed,true);assert.equal((await call(route)).body.persisted,false);assert.equal((await call(route,'DELETE')).body.removed,false);
+ result=await call(route,'DELETE',undefined,{'if-match':String(saved.revision)});assert.equal(result.status,200);assert.equal(result.body.removed,true);assert.equal((await call(route)).body.persisted,false);assert.equal((await call(route,'DELETE',undefined,{'if-match':String(result.body.default_dashboard.revision)})).body.removed,false);
  await stop();await start();assert.equal((await call(route)).body.persisted,false);assert.deepEqual((await call(teamRoute)).body.dashboard,teamSaved,'Personal reset cannot delete another dashboard scope');
  console.log('PASS dashboard failed write/reset rollback and encrypted restart without later committing rejected state');
 }finally{const marker=path.join(dir,'fixture-dashboard-write-failure');if(fs.existsSync(marker))fs.unlinkSync(marker);await stop();fs.rmSync(dir,{recursive:true,force:true});}})().catch(error=>{console.error(error);process.exitCode=1;});
