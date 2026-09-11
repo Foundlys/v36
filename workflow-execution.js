@@ -94,7 +94,7 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   if (row?.steps.some(step => step.status === 'RUNNING')) fail('automation_outcome_indeterminate', 'Controleer het resultaat van de onderbroken stap vóór hervatten');
   const resuming = row?.status==='RECOVERY_READY'||row?.status === 'AWAITING_APPROVAL' && options.approval || ['WAITING_TIME','WAITING_RETRY'].includes(row?.status)&&Date.parse(row.next_wakeup_at)<=core.adapter.now().getTime();
   if (row && !resuming) return { ...clone(row), replayed: true };
-  if(resuming)for(const step of row.steps)if(step.status==='WAITING_RETRY'&&core.adapter.automationActionContract?.(step.type)?.idempotent!==true)fail('automation_retry_contract_missing','Het retrycontract is niet meer beschikbaar',409);
+  if(resuming)for(const step of row.steps)if((step.status==='WAITING_RETRY'||step.recovery_retry===true)&&core.adapter.automationActionContract?.(step.type)?.idempotent!==true)fail('automation_retry_contract_missing','Het retrycontract is niet meer beschikbaar',409);
 
   let approval = null;
   if (options.approval) {
@@ -136,7 +136,7 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
       if (output && typeof output.then === 'function') fail('automation_async_adapter_invalid', 'Automationadapter moet synchroon uitvoeren', 500);
       if (!output || typeof output.executed !== 'boolean') fail('automation_execution_unproven', 'Adapter gaf geen expliciet uitvoerbewijs', 500);
       step.status = output.executed ? 'SUCCEEDED' : 'BLOCKED';
-      if(output.executed)delete step.error;
+      if(output.executed){delete step.error;delete step.recovery_retry;}
       step.output_index = row.outputs.length;
       row.outputs.push(sanitize(output));
     } catch (error) {

@@ -1,0 +1,14 @@
+'use strict';
+const crypto=require('node:crypto'),{validateWorkflow,validateRetryContracts,matchesCondition,signature}=require('./workflow-execution');
+const fail=(code,message,statusCode=422)=>{throw Object.assign(Error(message),{code,statusCode});};
+function preview(core,ctx,actor,workflow,input,sanitize){
+ if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(k=>!['event','inputs'].includes(k))||!input.event||typeof input.event!=='object'||Array.isArray(input.event)||!input.inputs||typeof input.inputs!=='object'||Array.isArray(input.inputs)||JSON.stringify(input).length>120000)fail('automation_run_input_invalid','Kies expliciete event- en uitvoerinvoer');
+ validateWorkflow(workflow.actions);validateRetryContracts(core,workflow.actions);
+ const definition={name:workflow.name,version:workflow.version,trigger:workflow.trigger,actions:workflow.actions,enabled:workflow.enabled!==false,approval_required:Boolean(workflow.approval_required)};
+ if(crypto.createHash('sha256').update(JSON.stringify(definition)).digest('hex')!==workflow.signature)fail('automation_definition_changed','De workflow wijkt af van zijn immutable versie',409);
+ const e=input.event;if(typeof(e.event_id||e.id)!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(e.event_id||e.id||''))fail('automation_event_invalid','Kies een geldige unieke uitvoerreferentie');if(e.tenant_id&&e.tenant_id!==ctx.tenant_id||e.dealer_id&&e.dealer_id!==ctx.dealer_id)fail('automation_tenant_mismatch','Event behoort tot een andere tenant',403);if(e.event_version!==undefined&&e.event_version!==1)fail('automation_event_version_unsupported','Eventversie wordt niet ondersteund');
+ const event=sanitize(e),inputs=sanitize(input.inputs),request_signature=signature({workflow:workflow.signature,trigger:event,inputs});
+ const prior=core.bucket(ctx,'automation_runs').find(r=>r?.automation_id===workflow.id&&r.event_id===(event.event_id||event.id));if(prior&&prior.actor_id!==actor.id&&!actor.permissions.has('*'))fail('automation_run_forbidden','Run behoort tot een andere gebruiker',403);if(prior&&signature({workflow:workflow.signature,trigger:prior.trigger,inputs:prior.inputs})!==prior.request_signature)fail('automation_run_input_changed','De bewaarde runinvoer is gewijzigd',409);if(prior&&prior.request_signature!==request_signature)fail('automation_replay_conflict','Deze uitvoerreferentie hoort bij andere invoer',409);
+ return {workflow_id:workflow.id,workflow_name:workflow.name,workflow_version:workflow.version,workflow_signature:workflow.signature,event,inputs,request_signature,approval_required:workflow.approval_required,steps:workflow.actions.map((action,index)=>({index,type:action.type,title:action.title||action.message||null,condition_matched:matchesCondition(action.when,event,inputs)})),execution_performed:false,run_created:false,source_result_retained:false,recovery_revision:prior?.recovery_revision||0};
+}
+module.exports={preview};

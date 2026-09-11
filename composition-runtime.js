@@ -4,7 +4,7 @@ const { MODULES, TOOL_MODULES, moduleId, routeModule } = require('./module-catal
 const {ENTITY_CAPABILITIES,METHOD_CAPABILITIES,methodOperation,providerRouteContract}=require('./module-access-contracts');
 const PLATFORM_METHODS = {
   calculateKpi: 'analysis', realtime: 'analysis', historical: 'analysis', attribution: 'analysis', commercialFunnel: 'analysis', campaignOutcome: 'analysis', dashboard: 'analysis',
-  inspectAutomationRun:'automation',automationDefinitions:'automation',queryAutomationRuns:'automation',previewAutomationRecovery:'automation',recoverAutomation:'automation',verifyAutomationRecord:'automation',setAutomationActivation:'automation', defineAutomation: 'automation', runAutomation: 'automation', tickAutomations:'automation', automationStatus: 'automation', automationRecords: 'automation', createAutomationRecord: 'automation', exportAutomation:'automation',
+  previewAutomationRun:'automation',inspectAutomationRun:'automation',automationDefinitions:'automation',queryAutomationRuns:'automation',previewAutomationRecovery:'automation',recoverAutomation:'automation',verifyAutomationRecord:'automation',setAutomationActivation:'automation', defineAutomation: 'automation', runAutomation: 'automation', tickAutomations:'automation', automationStatus: 'automation', automationRecords: 'automation', createAutomationRecord: 'automation', exportAutomation:'automation',
   taxRules:'finance',calculateVat:'finance',validateDutchInvoice:'finance',retentionPolicy:'finance',archiveLegalRecord:'finance',taxCapabilities:'finance',
   metaPlan: 'marketing', ga4Plan: 'marketing', enhancedConversionPlan: 'marketing', queueDelivery: 'marketing'
 };

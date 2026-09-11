@@ -277,11 +277,17 @@ class FoundlyPlatformCore{
     if(!['tasks','documents'].includes(entity))throw platformError(404,'automation_entity_invalid','Onbekend automationonderdeel');
     const key=text(options.idempotencyKey,200),fingerprint=digest(JSON.stringify(automationRecordFields(principal,entity,input))),records=this.bucket(ctx,`automation_${entity}`).filter(row=>key&&row.idempotency_key===key&&row.created_by===principal.id);
     const row=records[0],verified=records.length===1&&row.fingerprint===fingerprint&&digest(JSON.stringify(automationRecordFields(principal,entity,row)))===fingerprint;
-    return verified?{verified:true,record_id:row.id,record_revision:row.revision,record_fingerprint:fingerprint,idempotency_key:key,entity,external_write:false}:{verified:false,external_write:false};
+    return verified?{verified:true,record_id:row.id,record_revision:row.revision,record_fingerprint:fingerprint,idempotency_key:key,entity,external_write:false}:key&&records.length===0?{verified:false,absence_verified:true,outcome:'ABSENT',record_fingerprint:fingerprint,idempotency_key:key,entity,external_write:false}:{verified:false,absence_verified:false,external_write:false};
   }
   previewAutomationRecovery(context,principalInput,runId){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return previewRecovery(this,ctx,principal,runId);}
   recoverAutomation(context,principalInput,runId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return recoverWorkflow(this,ctx,principal,runId,input);}
   setAutomationActivation(context,principalInput,automationId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return setWorkflowActivation(this,ctx,principal,automationId,input);}
+  previewAutomationRun(context,principalInput,automationId,input){
+    const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');
+    const workflow=this.bucket(ctx,'automations').find(row=>row?.id===automationId&&row.enabled);if(!workflow)throw platformError(404,'automation_missing','Automation niet gevonden');
+    const activation=workflowActivation(this,ctx,workflow);if(!activation.effective_enabled)throw platformError(409,'automation_paused','Deze workflowversie is gepauzeerd');
+    return {...require('./workflow-run-preview').preview(this,ctx,principal,workflow,input,sanitize),activation_revision:activation.activation_revision};
+  }
   runAutomation(context,principalInput,automationId,event,options={}){
     const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');
     const workflow=this.bucket(ctx,'automations').find(row=>row?.id===automationId&&row.enabled);
