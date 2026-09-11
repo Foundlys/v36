@@ -29,9 +29,9 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "84a878527f4518191dd1c6f0e54f561fb9152b1c71613ad615f5eec292d5c9ca",
+    "business-domain-api.js": "8351459d550e65cff38dc3750f0931994fa417c3de042a217745ac7ee835573f",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "d130a20be79a0e5c152557c06ed9843c7ac110c12c12bc9ef2cb80fdccf8c913",
+    "business-domains.js": "c70ebd93e7cc9f04b0033da3ec2f1d13ac4eea03cd11534caa70556bc567e155",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
@@ -60,7 +60,7 @@
     "communication-drafts-api-test.js": "fe40b099e8e7ecf42884c3fc97885be56001a8a0472344ca9df18c1c37e952ce",
     "communication-drafts-client-test.js": "a4e6308e4f6625ba46ebfd0d50bca3c47b8208e4a06a0a49051a7d2cade01970",
     "communication-drafts-test.js": "64ef4854189c9f68688e6ed6bce782533b96334acefcf525fafe2679fbceea04",
-    "communication-drafts.js": "64f04f64ba966400d8de8e9b2ea6c5497802b6975cd98c2e3b19734262ed7fb3",
+    "communication-drafts.js": "3b2f96b354d93ad4eecd57ce649182bad483cdc4d7fb8c74c1ae5e1f35c04540",
     "communication-edit-sessions-test.js": "84de4551e0e100aa87b3382f3891674639a82e85c79159b0ae2305a35eb396b6",
     "communication-edit-sessions.js": "05ce153c91cc9977e54f1ed5f63a08d4e0c7b4729e150e853ef33997fcf1ee78",
     "communication-google-oauth-api-test.js": "4a5d0f3e201282bc08d1d2e5c5b3e5b2120ad267dda89070fe174169b1374e41",
@@ -169,8 +169,8 @@
     "foundly-shell.css": "b46c3f81872fd1970512829020d07c2a8417b5e995ce3e379620f5fc2353b3c0",
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "ede376f47c5825e8095016a50f40418348e8e0eb378008ae73d25b57dbfcb1cc",
-    "foundly-workspace.html": "b86426dbdd07529963214b7dac76f473c3197fbf35b45fc7d191fe4e8bbbd0ba",
-    "foundly-workspace.js": "c1aa2dee7767a2782d157de23ed36d7c6f0e023e78d032aec8e67e8803adbdcd",
+    "foundly-workspace.html": "50c11bfa3ec7bb832a73b361b8f11d4d9ec11c9d52f25ab50611e9e22c64e54f",
+    "foundly-workspace.js": "f4c7fdc1cc89bf0c1a8e181ae1333d42a12af33b37390f6696fc2f12a02b12e4",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -190,7 +190,7 @@
     "marketing-creative-reviews-test.js": "8028e04bb655faa8eca5381936a1d83f20ba31554fcb805c58b73626c2df18e5",
     "marketing-creative-reviews.js": "e96fd3550c97a986725aef542fecd3d178d111c785d4c038e26a09b20b11526a",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
-    "module-access-contracts.js": "53ef3ab117d172ef2e3ca4c0d03a03b330e25d1cb7ab3b0f976ac5f9a62303a4",
+    "module-access-contracts.js": "03f3589b7b4c51be1ea417cb28d1451ab3980a4c465db949459d54f581c9d6f6",
     "module-catalog.js": "54e4f0d3f52aacfa5f5a5bf48c97bdff4ca089d7f649a6d5231606408007255b",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
@@ -198,7 +198,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "26783471e06ca75c3f9b02c1b24e8eb510fa5d3c334b834e64536cfda2467503",
+    "package.json": "a2cd68f522772f521d901696f47f6b1caa20fe9446beeb434009403cde95f2dd",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "327d0ca9fbb795ee32014cc4aa64216d05d807fe56a2c2369e009c364d1620ff",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -236,11 +236,18 @@
     "sales-scenarios-client-test.js": "107f0f0c0f3feefddf816643f16e68490353967beb7042025a1467c822a52e25",
     "sales-scenarios-test.js": "17ec06b5c5311f7ed69f8411cbc71a864ab6e3b0ea2644b660babe44bce631b8",
     "sales-scenarios.js": "5ec8950516ecbe78b3153b533bf4a83081c214af5e31935d1ea3cac1a5fa04e9",
+    "sales-sequence-access.js": "5a5cd67dd3b16e898a0d2e3bda9c83321c08ba1dd96274f0ffe97ab8cbba486a",
+    "sales-sequence-execution.js": "ba456c8aeb380a8b85665567e4ad38df6e7f50b8cc9c8270bb80af4227b87514",
+    "sales-sequences-api-test.js": "002bb04b673c2648e525278d5d2d591b15801f5ea5ba5c088eed570b8902b8f9",
+    "sales-sequences-client-test.js": "d3e7e0e15e33505584a5c9c0b2a93ea7645289e12d93b15c197761a3680c453e",
+    "sales-sequences-client.js": "ce345a87df8dd9f443d7c7753c2b5a274eefc7dc8a5d55dd007067a668628e4e",
+    "sales-sequences-test.js": "aa1bc4d0d45ea860ac9f772acb80debcbdc7362b7702e30ea032cfca6c0a04c2",
+    "sales-sequences.js": "bd7739f1bf970cc8b04e0ad98bec8211e8cc09efabb2d0b7a158b5b477a66c32",
     "sales-snapshot-access.js": "0da5da01b64def237b3661eeee7ebd4b5671d3250714738de446a238bb313d84",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "c602a838fb823215999569a204b1ba2c1c5608612c7ab3b111525486ab9e6010",
+    "server.js": "d8e9b7ccbc1e5349985cab90cc4de2ebcd6eac427a976669d841d255a9953756",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -328,7 +335,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "f5f525ac187308a3e93ae0950b1ffc5e44fc918ce7e45dfc48c7f22f7fb2afad"
   },
-  "output_sha256": "bb38190539d7bb8bf80b9cb644d6a32fe2e1e6e545eb04adabf03bb1b8aac67b",
+  "output_sha256": "ad9a6b1905f0b62ef5a33243306a86365f9c8609b5422aa76b218808cb9e1ead",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -483,7 +490,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T18:09:27.914225+00:00",
+  "verified_at": "2026-09-11T18:40:54.442989+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -657,7 +664,8 @@
     "CRM extensible objects and native-record field workspaces now support immutable typed schema versions, required/restricted values, current CRM relationship targets, record revisions, private/team scope, explicit access changes and archive/restore, current-source-masked history and audited export. Native contact/company/person/lead/opportunity/deal/task/appointment field records require the current parent read/write permission and exact immutable parent binding; losing parent access removes their values, history and export. Field-version saves are separate explicit internal actions, and do not claim globally mandatory fields across legacy native record creation. Existing Customer 360 includes currently authorized custom relationships. Actual service and UI/native HTTP fixtures cover source/capability/session revocation, strict types and zero/false, CAS/duplicate/retry/rollback, encrypted restart, unsaved input preservation, history pagination, and 5,000-record page projection bounds. Standalone CRM passes the same encrypted custom-object/native-field flows and its declared packaging dependency closure. Frozen crm-core.js remains byte-identical. No actual browser, live provider, production deployment or measured competitive superiority is inferred. Phase 24 continues with recorded Sales amount/date scenario, hierarchy and execution gaps and the other remaining module gaps.",
     "Sales scenarios now accept separately typed probability, amount in integer minor units, and valid close-date assumptions against exact current opportunity revisions. Existing source opportunities are never changed. Explicit dates move authorized open opportunities into or out of the selected period, including initially outside-period sources; missing amount/currency/probability remains literal and never becomes a complete projection implicitly. Currency totals, exact explicit-probability rounding, missing-data uncertainty, zero amounts, period boundaries, invalid input, source ownership/capabilities, stale revisions and immutable snapshot replay/rollback/restart are tested. Snapshot access also checks additional scenario-only source records; unused selection candidates are not retained in snapshots. Actual production controls support typed assumptions, current candidate scope with owner/pipeline filters, separate snapshot confirmation, stable lost-response retry and changed/detached response refusal. Actual authenticated HTTP fixtures preserve encrypted snapshots and untouched source records. No live provider, actual browser, accounting revenue or measured competitive superiority is inferred. Phase 24 continues with forecast hierarchy and remaining recorded Sales execution and other module gaps.",
     "Sales forecast hierarchy now uses explicitly assigned, immutable hierarchy versions with one root, bounded depth, no cycles and no duplicate owner assignment. Current owner-subtree queries reuse the native forecast and currency/target contracts without granting source access or claiming an organization-wide total. Shared hierarchy readers see only their currently authorized opportunities. Root/child selection, version authoring and separate node-bound native snapshot confirmation have actual UI/native service and real-member HTTP evidence, including lost-response replay, stale/detached result rejection, encrypted restart, generic-write denial and role revocation during request-body waits. Exact node/definition/current source binding protects snapshots; malformed optional scenario/hierarchy values and corrupted stored definitions fail closed. Backend hierarchy-scoped scenarios are supported; the hierarchy UI currently exposes forecast/query and snapshot workflows. CI 117 passed the preceding amount/date scenario checkpoint. Phase 24 remains active. The next Sales pipeline-board gap includes an isolated reproduced defect: a title-only edit reset a recorded probability from 0.9 to the pipeline stage default 0.2; that code defect is recorded for immediate correction, not waived. Remaining sequence/communication and other module gaps, actual browser/live-provider/production and measured competitive gates remain open.",
-    "The isolated Sales defect where a title-only update reset explicit probability from 0.9 to stage default 0.2 is fixed. Non-transition edits preserve recorded probability; actual stage/pipeline changes apply defaults unless an explicit probability is supplied. The native Sales board now supports typed pipeline/stage editing, explicit read-only sharing, current owner-scoped currency totals and paged records, keyboard and drag preparation followed by separate revision-bound confirmation, and exact durable operation receipts. Used stages cannot be removed, shared readers cannot modify pipeline definitions, lost responses do not duplicate writes, current source/role/sharing/capability and pipeline revisions are rechecked, and real native Sales events record the actual stage transition without claiming a CRM event or changing recorded closed status. Internal receipts remain outside business exports/Data. Unit, production UI/native handlers and real-member HTTP tests cover these behaviors, atomic rollback, encrypted restart and permission revocation during body waits. Hierarchy-scoped amount/date/probability scenario controls now use the exact selected owner subtree and native node-bound snapshot path. CI 118 passed the previous hierarchy checkpoint. Phase 24 remains active: sequence execution and communication handoff, full Sales prepare/execute/verify and outcome feedback, and the remaining recorded module gaps are next. No actual browser, live-provider, production or competitive superiority is inferred."
+    "The isolated Sales defect where a title-only update reset explicit probability from 0.9 to stage default 0.2 is fixed. Non-transition edits preserve recorded probability; actual stage/pipeline changes apply defaults unless an explicit probability is supplied. The native Sales board now supports typed pipeline/stage editing, explicit read-only sharing, current owner-scoped currency totals and paged records, keyboard and drag preparation followed by separate revision-bound confirmation, and exact durable operation receipts. Used stages cannot be removed, shared readers cannot modify pipeline definitions, lost responses do not duplicate writes, current source/role/sharing/capability and pipeline revisions are rechecked, and real native Sales events record the actual stage transition without claiming a CRM event or changing recorded closed status. Internal receipts remain outside business exports/Data. Unit, production UI/native handlers and real-member HTTP tests cover these behaviors, atomic rollback, encrypted restart and permission revocation during body waits. Hierarchy-scoped amount/date/probability scenario controls now use the exact selected owner subtree and native node-bound snapshot path. CI 118 passed the previous hierarchy checkpoint. Phase 24 remains active: sequence execution and communication handoff, full Sales prepare/execute/verify and outcome feedback, and the remaining recorded module gaps are next. No actual browser, live-provider, production or competitive superiority is inferred.",
+    "Sales now owns immutable typed follow-up sequences with current opportunity-bound plans, explicit mail values, exact separate preview/start confirmation, native tasks gated by recorded completion, and native internal Communication drafts without Messages/review/submission effects. Default manual mode and explicitly authorized automatic internal mode reuse the current-member worker without an Automation dependency; task-only plans work without Communication. Due time, pause/resume/cancel, malformed plans, source loss, role revocation while reading the HTTP body, suspended authors, unrelated active authors, exact receipts, cross-module atomic rollback and encrypted restart are tested. The production editor is exercised through native services in a synthetic DOM, including input/confirmation separation, changed/detached preview refusal, lost responses and direct current-access draft handoff to the existing Communication editor/review/submission workflow. Mail delivery remains NOT_CHECKED by Sales; COMPLETED_INTERNAL means internal preparation only. CI 119 passed the preceding pipeline checkpoint. Full structured ZERO prepare/execute/verify and outcome feedback remain the next Sales code gap, followed by other recorded module gaps. Phase 24 stays active; no actual browser/provider/production or competitive-superiority evidence is inferred."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -669,7 +677,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-sales-pipeline-full-regression.log",
+  "output_file": ".recovery-evidence/20260911-sales-sequences-full-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -682,10 +690,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "10c04430c580e393ab8992be57b1ba0f65cd4714",
-    "tree": "1d7e71d6e3217bf36c077f74643f8ab0d7642a9b",
-    "run": 118,
-    "run_id": 34630223912,
+    "head": "9eeee7351e14a0d11e6aa7ac529d6a12d5d3bcb1",
+    "tree": "a7a928eabf5084ea4449d2265fb5a10dddf4a451",
+    "run": 119,
+    "run_id": 34631887655,
     "conclusion": "success",
     "status": "completed"
   },
@@ -941,6 +949,28 @@
       "log_sha256": "bb38190539d7bb8bf80b9cb644d6a32fe2e1e6e545eb04adabf03bb1b8aac67b",
       "finished_at": "2026-09-11T18:09:27.914225+00:00",
       "source_manifest": ".recovery-evidence/20260911-sales-pipeline-source-manifest.json"
+    }
+  },
+  "sales_sequences_acceptance": {
+    "immutable_typed_plans": true,
+    "explicit_preview_start": true,
+    "manual_and_confirmed_automatic_internal_execution": true,
+    "native_task_completion_gating": true,
+    "native_communication_draft_handoff": true,
+    "messages_review_send_effects": false,
+    "current_parent_acl_history_export": true,
+    "atomic_cross_module_rollback": true,
+    "exact_receipts_restart": true,
+    "real_member_body_wait_revocation_worker_isolation_suspension": true,
+    "production_ui_native_service_test": true,
+    "browser": false,
+    "live_provider": false,
+    "completion": {
+      "exit_code": 0,
+      "log": ".recovery-evidence/20260911-sales-sequences-full-regression.log",
+      "log_sha256": "ad9a6b1905f0b62ef5a33243306a86365f9c8609b5422aa76b218808cb9e1ead",
+      "finished_at": "2026-09-11T18:40:54.442989+00:00",
+      "source_manifest": ".recovery-evidence/20260911-sales-sequences-source-manifest.json"
     }
   }
 }

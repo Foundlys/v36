@@ -13,7 +13,7 @@ function readable(core,ctx,actor,row){if(core.id!=='communication'||row.owned_en
 // This predicate belongs to one synchronous read only. Never retain it across
 // requests: collaborator grants and member permissions may change immediately.
 function revisionAccess(core,ctx,actor,options={}){
- const messageReadable=require('./communication-replies').accessPredicate(core,ctx,actor,options),templateReadable=require('./communication-templates').accessPredicate(core,ctx,actor,options),sourceReadable=row=>messageReadable(row)&&templateReadable(row);
+ const messageReadable=require('./communication-replies').accessPredicate(core,ctx,actor,options),templateReadable=require('./communication-templates').accessPredicate(core,ctx,actor,options),sourceReadable=row=>messageReadable(row)&&templateReadable(row)&&require('./sales-sequence-access').readable(core,ctx,actor,row,options);
  const visible=new Set(core.bucket(ctx,'drafts').filter(draft=>(!draft.owned_entity||draft.owned_entity==='drafts')&&core.visible(draft,actor)&&sourceReadable(draft)).map(draft=>draft.id));
  return row=>row.owned_entity==='draft_revisions'?visible.has(row.draft_id):sourceReadable(row);
 }

@@ -621,6 +621,7 @@
     const content = byId('contextContent'), items = [];
     if(state.workspaceId==='settings'&&['USERS','ROLES'].includes(section)){renderIdentityUsers(section,content);return;}
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
+    if(state.workspaceId==='sales'&&['SEQUENCES','SEQUENCE_RUNS'].includes(section)){replaceChildren(content,[window.FoundlySalesSequences.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales'})]);return;}
     if(state.workspaceId==='sales'&&section==='PIPELINES'){replaceChildren(content,[window.FoundlySalesPipeline.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales'})]);return;}
     if(state.workspaceId==='sales'&&section==='FORECAST_HIERARCHIES'){const view=window.FoundlySalesHierarchy.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales',renderResult:(host,result,filters)=>{appendForecastResult(host,result);appendForecastSnapshotForm(host,result,filters,null,{id:result.hierarchy.id,node_id:result.hierarchy.node_id});appendForecastScenario(host,result,filters,{id:result.hierarchy.id,node_id:result.hierarchy.node_id});}});replaceChildren(content,[view]);return;}
     if(state.workspaceId==='sales'&&section==='FORECAST'){renderSalesForecast(content);return;}
@@ -1305,7 +1306,8 @@
     if(state.workspaceId==='communication'&&entity==='messages')return renderCommunicationInbox(content);
     replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
     try {
-      const [result,schema] = await Promise.all([request(`/api/${state.workspaceId}/${entity}?limit=100`),request(`/api/${state.workspaceId}/schema`)]);
+      const draftId=state.workspaceId==='communication'&&entity==='drafts'?new URLSearchParams(location.search).get('draft'):null;
+      const [result,schema] = await Promise.all([draftId?request('/api/communication/drafts/'+encodeURIComponent(draftId)).then(data=>({items:[data.record],total:1,next_offset:null})):request(`/api/${state.workspaceId}/${entity}?limit=100`),request(`/api/${state.workspaceId}/schema`)]);
       if (state.activeSection.toLowerCase() !== entity) return;
       const required = state.workspace.domain_required_fields?.[entity] || [];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
@@ -1440,7 +1442,7 @@
     byId('workspaceDescription').textContent = state.workspace.description;
     document.title = `${state.workspace.label} · Foundly OS`;
     populateWorkspaceFilters(); applyDashboardFilters(); renderTabs(); renderDashboard(); renderRecords(); renderSources(); updateNotice();
-    const firstTab = byId('workspaceTabs').querySelector('button'); if (firstTab) selectSection(state.workspace.sections[0], firstTab);
+    const initialSection=state.workspaceId==='communication'&&new URLSearchParams(location.search).has('draft')&&state.workspace.sections.includes('DRAFTS')?'DRAFTS':state.workspace.sections[0],initialIndex=state.workspace.sections.indexOf(initialSection),firstTab=byId('workspaceTabs').querySelectorAll('button')[initialIndex];if(firstTab)selectSection(initialSection,firstTab);
   }
 
   function dashboardDraft() {
