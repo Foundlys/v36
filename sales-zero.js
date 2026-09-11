@@ -1,0 +1,36 @@
+'use strict';
+const crypto=require('node:crypto'),hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'),fail=(code,message,statusCode=422)=>{throw Object.assign(Error(message),{code,statusCode});};
+const OPERATIONS=Object.freeze(Object.fromEntries([
+ ['SEQUENCE_LIST','sales_sequence_list','read','read','Bewaarde opvolgreeksen bekijken','catalog'],
+ ['SEQUENCE_DEFINE','sales_sequence_define','write','write','Expliciete reeksversie bewaren','definition'],
+ ['SEQUENCE_PREVIEW','sales_sequence_preview','read','write','Opvolgplan voorbereiden','definition'],
+ ['SEQUENCE_START','sales_sequence_start','write','write','Exact opvolgplan bevestigen','definition'],
+ ['SEQUENCE_READ','sales_sequence_read','read','read','Actuele opvolging verifiëren','run'],
+ ['SEQUENCE_ADVANCE','sales_sequence_advance','write','write','Exacte interne opvolgstap bevestigen','run'],
+ ['SEQUENCE_PAUSE','sales_sequence_pause','write','write','Opvolging pauzeren','run'],
+ ['SEQUENCE_RESUME','sales_sequence_resume','write','write','Opvolging hervatten','run'],
+ ['SEQUENCE_CANCEL','sales_sequence_cancel','write','write','Opvolging annuleren','run'],
+ ['OUTCOME_PREVIEW','sales_outcome_preview','read','read','Actuele verkoopuitkomst bekijken','run'],
+ ['OUTCOME_RECORD','sales_outcome_record','write','write','Uitkomst met toelichting vastleggen','run'],
+ ['FORECAST_QUERY','sales_forecast_query','read','read','Actuele verkoopprognose berekenen','forecast']
+].map(([operation,tool,mode,permission,name,source])=>[operation,{tool,mode,permission,name,source}])));
+function tools(){return Object.entries(OPERATIONS).map(([operation,op])=>({tool_id:op.tool,name:op.name,engine:'sales',description:op.name+' via actuele native Sales-rechten, revisies en afzonderlijke bevestiging. Geen externe verzending of causale omzetclaim.',parameter_schema:{type:'object',properties:{operation:{type:'string',enum:[operation]},...(op.source==='definition'?{definition_id:{type:'string'}}:op.source==='run'?{run_id:{type:'string'}}:{}),input:{type:'object'}},required:['operation',...(op.source==='definition'?['definition_id']:op.source==='run'?['run_id']:[]),'input'],additionalProperties:false},required_permissions:[...new Set(['sales:read','sales:'+op.permission])],mode:op.mode,risk_level:op.mode==='write'?'MEDIUM_RISK':'READ_ONLY',provider:'foundly_sales',timeout_ms:3000,retry:{max_attempts:1},confirmation:op.mode==='write'?'explicit_native_policy':'never',handler:'sales_native',verification:'current_native_records_and_durable_receipts',audit:'source_free_reference'}));}
+function validate(action){const op=action&&typeof action==='object'&&!Array.isArray(action)&&OPERATIONS[action.operation];if(!op||!Object.hasOwn(OPERATIONS,action.operation)||!action.input||typeof action.input!=='object'||Array.isArray(action.input)||JSON.stringify(action).length>260000)fail('sales_zero_action_invalid','Kies een geldige Sales-actie met expliciete invoer');const source=op.source==='definition'?'definition_id':op.source==='run'?'run_id':null;if(Object.keys(action).some(k=>!['operation','input',source].includes(k))||source&&(typeof action[source]!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,99}$/.test(action[source])))fail('sales_zero_source_invalid','Kies de exacte Sales-bron');if(['SEQUENCE_LIST','SEQUENCE_READ','OUTCOME_PREVIEW'].includes(action.operation)&&Object.keys(action.input).length)fail('sales_zero_action_invalid','Deze leesactie accepteert geen extra invoer');return op;}
+function execute(domain,communication,ctx,actor,action,{message,conversation_id,turn_id,prior=null}){const op=validate(action);domain.resolver.assertTool(ctx,actor,op.tool);const service=require('./sales-sequences');service.scope(domain,ctx,actor,op.permission);const request_hash=hash({message,action});if(prior&&(prior.request_hash!==request_hash||prior.operation!==action.operation))fail('sales_zero_turn_conflict','Deze turn hoort bij een andere Sales-actie',409);const reference={operation:action.operation,tool_id:op.tool,request_hash,...(action.definition_id?{definition_id:action.definition_id}:{}),...(action.run_id?{run_id:action.run_id}:{})},options={idempotency_key:hash(['SALES_ZERO',actor.id,conversation_id,turn_id])},execution=require('./sales-sequence-execution');let value;
+ switch(action.operation){
+ case 'SEQUENCE_LIST':value=service.catalog(domain,ctx,actor);break;
+ case 'SEQUENCE_DEFINE':value=service.define(domain,ctx,actor,action.definition_id,action.input);break;
+ case 'SEQUENCE_PREVIEW':value=service.preview(domain,communication,ctx,actor,action.definition_id,action.input);break;
+ case 'SEQUENCE_START':value=service.start(domain,communication,ctx,actor,action.definition_id,action.input,options);break;
+ case 'SEQUENCE_READ':value=execution.read(domain,communication,ctx,actor,action.run_id);break;
+ case 'SEQUENCE_ADVANCE':value=execution.advance(domain,communication,ctx,actor,action.run_id,action.input,options);break;
+ case 'SEQUENCE_PAUSE':case 'SEQUENCE_RESUME':case 'SEQUENCE_CANCEL':value=execution.control(domain,communication,ctx,actor,action.run_id,action.operation.slice(9),action.input,options);break;
+ case 'OUTCOME_PREVIEW':value=require('./sales-outcomes').preview(domain,communication,ctx,actor,action.run_id);break;
+ case 'OUTCOME_RECORD':value=require('./sales-outcomes').record(domain,communication,ctx,actor,action.run_id,action.input,options);break;
+ case 'FORECAST_QUERY':value=require('./sales-forecast').forecast(domain,ctx,actor,action.input);break;
+ }
+ const answer=action.operation==='OUTCOME_PREVIEW'?'Actueel vastgelegde verkoopstatus: '+value.observation.recorded_status+'. Dit bewijst geen oorzaak of bezorging.':action.operation==='OUTCOME_RECORD'?'De actuele bronuitkomst en je toelichting zijn vastgelegd. Dit is geen bewijs dat de opvolging de verkoop veroorzaakte.':op.mode==='read'?'De actuele toegankelijke Sales-bron is gecontroleerd. Bekijk de voorgestelde stap en bevestig een vervolgactie afzonderlijk.':'De interne Sales-actie is vastgelegd. Taakvoltooiing, mailbeoordeling en verzending blijven afzonderlijke handelingen.';
+ return {ok:true,status:'completed',modules:['sales'],answer,sales_data:value,sales_action_reference:reference,actions:op.mode==='write'?[{type:action.operation,tool_id:op.tool,status:value.record?.status||'RECORDED',record_id:value.record?.id,revision:value.record?.revision,deduplicated:Boolean(value.deduplicated),external_send:false}]:[],syncs:[],web:{used:false,sources:[],error:null},voice_mode:op.mode==='write'?'SUCCESS':'ANALYSIS',plan:{goal:op.name,steps:['authorize_current_native_source',op.mode==='read'?'read_current_native_state':'execute_exact_confirmed_native_action'],tools:[op.tool]},verification:{native_policy:true,source_result_retained:false,delivery_verified:false,causal_attribution:'NOT_ESTABLISHED'},ui_commands:[]};
+}
+function retain(result){const {sales_data,...safe}=result,answer='Sales-actie verwerkt. Vraag de actuele toegankelijke bron en uitkomst opnieuw op.';return {...safe,answer,display_text:answer,spoken_text:answer,actions:[],verification:{native_policy:true,current_source_recalculation_required:true,source_result_retained:false,delivery_verified:false,causal_attribution:'NOT_ESTABLISHED'}};}
+module.exports={OPERATIONS,tools,validate,execute,retain};

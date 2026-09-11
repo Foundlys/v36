@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "module": "sales",
-  "assessed_at": "2026-09-11T18:40:54.442989+00:00",
+  "assessed_at": "2026-09-11T18:52:03.548736+00:00",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -124,13 +124,16 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO pipeline summary works without CRM.",
-      "gap": "Full prepare/execute/verify orchestration and outcome feedback are incomplete.",
-      "required_change": "Add policy-gated structured sales tools with result verification.",
+      "foundly_current": "ZERO pipeline summary works without CRM. Sales ZERO now exposes registered typed native sequence catalog/definition, exact plan preview/start, current run verification, explicit advance/pause/resume/cancel, forecast query and outcome preview/record tools. The production Sales controls can select ZERO while retaining the same native policies and separate confirmations. Stable per-view conversation/action turns prevent lost-response duplicates; unsaved transport changes, detached controls and stale outcomes are refused. Outcome feedback binds the exact current opportunity and sequence revisions, records the current native status plus an explicit user note, and never changes the opportunity, completes a pending task or claims causal revenue/delivery. Current role/source checks apply on every read/replay/write, including real authenticated HTTP body waits, encrypted restart and private export. ZERO history/decrypted audit retains source-free references rather than plans, source values or user feedback. Unit, real-member HTTP and production synthetic-DOM/native-service tests pass. CI 120 passed the preceding sequence checkpoint. Phase 24 remains active; next is the recorded Analysis model/history/drilldown, multi-scope load and approved-action/outcome work, followed by the remaining recorded module gaps. This checkpoint does not waive broader module acceptance or infer actual browser, live-provider, model quality, production readiness or measured competitive superiority.",
+      "gap": "Native structured sequence/forecast tools and source-bound outcome feedback now have local evidence. Broader operational acceptance, actual browser, model quality and comparative superiority are not established.",
+      "required_change": "Retain exact native policies, current-source verification and literal attribution limits while completing all remaining recorded module and acceptance gates.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "sales-zero-test.js",
+        "sales-zero-api-test.js",
+        "sales-zero-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
