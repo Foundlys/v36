@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/business-workspaces.css">
   <link rel="stylesheet" href="/foundly-shell.css">
   <script src="/analysis-loading.js" defer></script>
+  <script src="/analysis-models-client.js" defer></script>
   <script src="/analysis-definition-history-client.js" defer></script>
   <script src="/analysis-cohorts-client.js" defer></script>
   <script src="/analysis-script.js" defer></script>
@@ -71,6 +72,7 @@
           <label>Vervolgperioden<input type="number" name="periods" min="1" max="12" value="4" required></label><button class="primary" type="submit">Berekenen</button>
         </fieldset></form>
         <div id="cohortDefinitionHistory"></div>
+        <section class="panel"><h2>Configureerbare analysemodellen</h2><div id="analysisModels"></div></section>
         <form id="cohortSaveDefinitionForm"><fieldset class="toolbar" disabled><legend>Huidige definitie bewaren</legend><label>Naam<input name="title" required maxlength="160"></label><button type="submit">Als nieuwe definitie opslaan</button></fieldset></form>
         <p id="cohortNotice" role="status">Kies expliciet de eventnamen en een periode. Periode 0 telt terugkeer binnen het instroominterval.</p><div class="table-shell" id="cohortOutput"></div>
       </article>
