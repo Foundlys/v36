@@ -1,6 +1,6 @@
 FROM node:24-alpine
 WORKDIR /app
-COPY package.json crm-core.js crm-standalone.js crm.html crm.css crm-script.js ./
+COPY package.json crm-core.js crm-objects.js crm-objects-client.js scoped-mutation.js module-access-contracts.js crm-standalone.js crm.html crm.css crm-script.js ./
 ENV NODE_ENV=production PORT=3300 FOUNDLY_CRM_DATA_DIR=/data
 RUN mkdir -p /data && chown -R node:node /app /data
 USER node

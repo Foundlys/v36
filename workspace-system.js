@@ -34,7 +34,7 @@ const WORKSPACE_DEFINITIONS = Object.freeze({
   crm: {
     id: 'crm', route: '/crm', label: 'CRM', short_label: 'CRM', capability: 'crm', module_id: 'crm',
     eyebrow: 'CUSTOMER INTELLIGENCE', description: 'Tenant-scoped customer, pipeline and relationship operations.',
-    sections: ['OVERVIEW', 'CUSTOMERS', 'COMPANIES', 'CONTACTS', 'LEADS', 'DEALS', 'PIPELINES', 'TASKS', 'ACTIVITY', 'COMMUNICATION', 'SEGMENTS', 'FORECAST', 'AUTOMATIONS', 'ANALYTICS', 'DASHBOARDS', 'SETTINGS'],
+    sections: ['OVERVIEW', 'CUSTOMERS', 'COMPANIES', 'CONTACTS', 'LEADS', 'DEALS', 'PIPELINES', 'TASKS', 'ACTIVITY', 'COMMUNICATION', 'SEGMENTS', 'CUSTOM_OBJECTS', 'FORECAST', 'AUTOMATIONS', 'ANALYTICS', 'DASHBOARDS', 'SETTINGS'],
     default_widgets: [widget('total_pipeline', 'Total pipeline'), widget('weighted_pipeline', 'Weighted pipeline'), widget('new_leads', 'New leads'), widget('qualified_leads', 'Qualified leads'), widget('conversion_rate', 'Conversion rate'), widget('won_revenue', 'Won revenue'), widget('average_deal', 'Average deal'), widget('sales_velocity', 'Sales velocity'), widget('stalled_deals', 'Stalled deals', 'TABLE', 6), widget('overdue_tasks', 'Overdue tasks'), widget('source_performance', 'Source performance', 'CHART', 6), widget('campaign_attribution', 'Campaign attribution', 'TABLE', 6), widget('forecast', 'Forecast', 'TREND', 6), widget('recent_activity', 'Recent activity', 'ACTIVITY', 6)]
   },
   analysis: {

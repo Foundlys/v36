@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "module": "crm",
-  "assessed_at": "2026-09-09",
+  "assessed_at": "2026-09-11T17:30:30.041046+00:00",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -29,15 +29,18 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Existing customer, lead, deal, pipeline, timeline, relationship, search and consent engines are preserved and regressions pass.",
-      "gap": "Full competitive workflow review, custom-object UI and all required field/security workflows are not evidenced.",
-      "required_change": "Complete capability-by-capability acceptance using existing CRM services.",
+      "foundly_current": "Existing customer, lead, deal, pipeline, timeline, relationship, search and consent engines are preserved and regressions pass. CRM extensible objects and native-record field workspaces now support immutable typed schema versions, required/restricted values, current CRM relationship targets, record revisions, private/team scope, explicit access changes and archive/restore, current-source-masked history and audited export. Native contact/company/person/lead/opportunity/deal/task/appointment field records require the current parent read/write permission and exact immutable parent binding; losing parent access removes their values, history and export. Field-version saves are separate explicit internal actions, and do not claim globally mandatory fields across legacy native record creation. Existing Customer 360 includes currently authorized custom relationships. Actual service and UI/native HTTP fixtures cover source/capability/session revocation, strict types and zero/false, CAS/duplicate/retry/rollback, encrypted restart, unsaved input preservation, history pagination, and 5,000-record page projection bounds. Standalone CRM passes the same encrypted custom-object/native-field flows and its declared packaging dependency closure. Frozen crm-core.js remains byte-identical. No actual browser, live provider, production deployment or measured competitive superiority is inferred. Phase 24 continues with recorded Sales amount/date scenario, hierarchy and execution gaps and the other remaining module gaps.",
+      "gap": "Extensible object and native-record field UI, strict versioned values and current row/team/field/source security now have service, UI/HTTP, encrypted restart and standalone evidence. Actual browser and measured full competitive acceptance remain unproven; globally mandatory fields across legacy native creation are not implemented.",
+      "required_change": "Complete any remaining authoritative CRM field policy and current-user workflow acceptance without replacing the frozen core; retain actual browser and comparison gates.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "crm-core-regression-test.js",
         "crm-api-regression-test.js",
         "crm-standalone-regression-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "crm-objects-test.js",
+        "crm-objects-api-test.js",
+        "crm-objects-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
@@ -69,9 +72,9 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "CRM runs with optional modules disabled. Real tenant-member sessions now prove current authority after body waits: revoked create, suspended update and dashboard refusal leave record/audit state unchanged, including encrypted restart. The existing 38-collection engine remains unchanged. ZERO CRM replay now rechecks current source rights after role downgrade, source reownership and restart, with source-free conversation retention and safe legacy views.",
-      "gap": "Other mixed entry paths, browser and full per-user CRM product acceptance remain open.",
-      "required_change": "Complete current-user CRM workflows, custom-field/object UI and actual browser acceptance.",
+      "foundly_current": "CRM runs with optional modules disabled. Real tenant-member sessions now prove current authority after body waits: revoked create, suspended update and dashboard refusal leave record/audit state unchanged, including encrypted restart. The existing 38-collection engine remains unchanged. ZERO CRM replay now rechecks current source rights after role downgrade, source reownership and restart, with source-free conversation retention and safe legacy views. CRM extensible objects and native-record field workspaces now support immutable typed schema versions, required/restricted values, current CRM relationship targets, record revisions, private/team scope, explicit access changes and archive/restore, current-source-masked history and audited export. Native contact/company/person/lead/opportunity/deal/task/appointment field records require the current parent read/write permission and exact immutable parent binding; losing parent access removes their values, history and export. Field-version saves are separate explicit internal actions, and do not claim globally mandatory fields across legacy native record creation. Existing Customer 360 includes currently authorized custom relationships. Actual service and UI/native HTTP fixtures cover source/capability/session revocation, strict types and zero/false, CAS/duplicate/retry/rollback, encrypted restart, unsaved input preservation, history pagination, and 5,000-record page projection bounds. Standalone CRM passes the same encrypted custom-object/native-field flows and its declared packaging dependency closure. Frozen crm-core.js remains byte-identical. No actual browser, live provider, production deployment or measured competitive superiority is inferred. Phase 24 continues with recorded Sales amount/date scenario, hierarchy and execution gaps and the other remaining module gaps.",
+      "gap": "Standalone custom objects and native fields now pass encrypted HTTP and packaging closure fixtures; actual browser and complete per-user product acceptance remain unproven.",
+      "required_change": "Finish recorded per-user acceptance and permitted actual browser evidence.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "crm-core-regression-test.js",
@@ -80,7 +83,10 @@
         "composition-matrix-test.js",
         "crm-current-principal-api-test.js",
         "zero-crm-retention-test.js",
-        "crm-zero-replay-api-test.js"
+        "crm-zero-replay-api-test.js",
+        "crm-objects-test.js",
+        "crm-objects-api-test.js",
+        "crm-objects-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
@@ -112,7 +118,7 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Existing Customer 360, lead prioritization and explicit relationship tools remain available.",
+      "foundly_current": "Existing Customer 360, lead prioritization and explicit relationship tools remain available. CRM extensible objects and native-record field workspaces now support immutable typed schema versions, required/restricted values, current CRM relationship targets, record revisions, private/team scope, explicit access changes and archive/restore, current-source-masked history and audited export. Native contact/company/person/lead/opportunity/deal/task/appointment field records require the current parent read/write permission and exact immutable parent binding; losing parent access removes their values, history and export. Field-version saves are separate explicit internal actions, and do not claim globally mandatory fields across legacy native record creation. Existing Customer 360 includes currently authorized custom relationships. Actual service and UI/native HTTP fixtures cover source/capability/session revocation, strict types and zero/false, CAS/duplicate/retry/rollback, encrypted restart, unsaved input preservation, history pagination, and 5,000-record page projection bounds. Standalone CRM passes the same encrypted custom-object/native-field flows and its declared packaging dependency closure. Frozen crm-core.js remains byte-identical. No actual browser, live provider, production deployment or measured competitive superiority is inferred. Phase 24 continues with recorded Sales amount/date scenario, hierarchy and execution gaps and the other remaining module gaps.",
       "gap": "Measured superiority over benchmark task completion is not demonstrated.",
       "required_change": "Evaluate representative workflows with equivalent data and publish traceable results.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
@@ -120,7 +126,10 @@
         "crm-core-regression-test.js",
         "crm-api-regression-test.js",
         "crm-standalone-regression-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "crm-objects-test.js",
+        "crm-objects-api-test.js",
+        "crm-objects-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

@@ -5,6 +5,7 @@
   "exit_code": 0,
   "source_sha256": {
     ".env.example": "ab4bd4e1c509a727e1b714ca6e94ec5e1f94eee86eed4a4ce2105396091e3854",
+    "Dockerfile.crm": "d060d5bff4b2fc1cca6596bcab8d3a41d047f7e34247ca023a869b73b715bdf7",
     "analysis-cohort-definitions-api-test.js": "465d41ebca47d858e3d34eb45a7e1c28e4d7ba910ecdf052a461682074766522",
     "analysis-cohort-definitions-test.js": "5e2ccd21f39bcc8f0d3b28a75733ba3ea5adc0235075df6fd17931bdf436217a",
     "analysis-cohort-zero-api-test.js": "e57d2a47e6f6f6d0897bf4c1ca0c91b3d5ab4544c4aace31197be64f2958ab99",
@@ -144,12 +145,17 @@
     "crm-core-regression-test.js": "a867a43dc85e96889dde5b7ea7608dfcb44faae2821f7e4491c5cfe92196319d",
     "crm-core.js": "951a72d4d3c94e4d7579cc6299dbf54195141c271828cfe72ffb1c5e8c2ae774",
     "crm-current-principal-api-test.js": "b8ff7274e66d5161cdeec5010defb56677b9c90cb65f6281d1414e1eb0287cbd",
-    "crm-script.js": "7c91b75bfead8143ae20c29b03c4513e72dd9883139903fa55cd3d164c97dcef",
-    "crm-standalone-regression-test.js": "d68e493afc85ea22f4a478cc35044762bb454199a07a0d0816de83990934f154",
-    "crm-standalone.js": "6ba1ae10db4a7bee666a07f8af8249a9861563f4e69f5374614cc300dd339139",
+    "crm-objects-api-test.js": "790ce075a8a90bdf85b0ddd68c4bb3055283fbc6b3821b88108c55abe12ac0e0",
+    "crm-objects-client-test.js": "823dd64e765c3d0e7e15a44bd3fbc26a50297ae00c6e4cd2e435db7c68081e97",
+    "crm-objects-client.js": "ad233c3a330ab8dcb18676f72445494da0bfff5e66e2da5a8494a28b30acb991",
+    "crm-objects-test.js": "284b38025902ba9a4eff5aad4bd05e037a00c28aabbd621824d6d3912194ea5c",
+    "crm-objects.js": "c8c19ab253add7427772dae181cca8c2622cfb5c0971ca721e80dd99c03cb80e",
+    "crm-script.js": "ed7f2032ce5454d7f2c62df8471df4119a64ee628548b812ed9a1e4965c7c9d1",
+    "crm-standalone-regression-test.js": "999da1774eb3f487e06f97e45ec822a4e3660fcff6a47f819a1a4603acd1daf5",
+    "crm-standalone.js": "c591badf960255c70a36a942c735c39ef8a481609b9cbd4f7ba8d0a504219130",
     "crm-zero-replay-api-test.js": "63bee4c16e2225164e4cffb6302812c5591fd3831e436f3143291583403e2b03",
-    "crm.css": "a5128eaa17af2cb32476e2dbfb4397f5ec2a5a1d5185ba1fce119f01f8024a84",
-    "crm.html": "7226e04d5cb6a8c225cd9fbf409c894d9003c837a58a47fbbdfeb3fb31ef7955",
+    "crm.css": "035516aef0c0bb07d23af1f1847a03491ccf5a1140856532f1c4ee73acd870d3",
+    "crm.html": "da4d467e5ed3a19b999b46e6b081c2107be2d1fb732c16884d2d88b92329f3c9",
     "domain-zero-replay-api-test.js": "be1e0fc3c6c7178713c4cd8c63e7eb628e1202fd7f95d7641439b1a21a8ed94a",
     "event-projection-bounds-test.js": "c012fa1aec92dff049f15e5025860f2a5adc4102b40ea6a6732f4e63ef14a83a",
     "finance-core.js": "321c10d6eee403ff331fe44004e938fcfac4a32ead9c025f750c6b9843342222",
@@ -184,7 +190,7 @@
     "marketing-creative-reviews-test.js": "8028e04bb655faa8eca5381936a1d83f20ba31554fcb805c58b73626c2df18e5",
     "marketing-creative-reviews.js": "e96fd3550c97a986725aef542fecd3d178d111c785d4c038e26a09b20b11526a",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
-    "module-access-contracts.js": "8cd868b143cc92cd7b3fa8c66951f779d2c5ad1f4e11d1dd891f26e3da1cc2e5",
+    "module-access-contracts.js": "6204bab850933b06e41697f9be83ff490253578b9295285d90b086cc1d9e1ad9",
     "module-catalog.js": "54e4f0d3f52aacfa5f5a5bf48c97bdff4ca089d7f649a6d5231606408007255b",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
@@ -192,7 +198,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "85383f401da38dd5d8b8d172a06822b26cc44eec178eb4e6ac588ff7a93364b4",
+    "package.json": "b43c5ce8ee5234ecf7e97b6edf5a56e118b5c44faf04a98385c9fdb6decff0f5",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "327d0ca9fbb795ee32014cc4aa64216d05d807fe56a2c2369e009c364d1620ff",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -223,7 +229,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "febc3fc23c3f75332db25f8897f5b52ba00e17db8f7f6acdef7e55ec3f6bc15d",
+    "server.js": "dadfdab1142397cd695fd0c7833dbfd1322842cf09a7f5f6ff493337aff01029",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -306,12 +312,12 @@
     "workspace-dashboard-session-test.js": "1aee5058c54293d9465feba7129b25ee25d8609f928e263984a102ba4442d01b",
     "workspace-dashboard-session.js": "9d08ce29b78320493e64e984f358b535f6de8271073a3f51020d9ccfcaae4e83",
     "workspace-section-model.js": "8cca6633495bfd876cd8a09b1cf8de023da95de42917cdde2dd3a013f895951b",
-    "workspace-system.js": "4d0bc422f44842587ce570819195ac2b4e19e5530dccf0427a28703711a0fe33",
+    "workspace-system.js": "789a728ef4cfa9b2c4a653e236da3f6cb4391d292a1a44f7bd8f6656e79136f4",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "f5f525ac187308a3e93ae0950b1ffc5e44fc918ce7e45dfc48c7f22f7fb2afad"
   },
-  "output_sha256": "5d2c5eed0919fe73392e70dfd627865cb6d832cb3e43bc2785d29b27f11c90cf",
+  "output_sha256": "b028d838fe21f10aa659b05b0de4c9956be98a8577b324331d28f0e4eb4b8f83",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -466,7 +472,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T16:50:01.671029+00:00",
+  "verified_at": "2026-09-11T17:30:30.041046+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -636,7 +642,8 @@
     "Explicit true/else paths now compile from the existing editor into bounded guarded steps in the same durable workflow engine. Up to three nested branch containers share the existing one-hundred-step authoring limit; generated predicates retain the existing depth/node bounds. A strict single-child not condition represents the else guard and rejects malformed children before any action. True and false paths are mutually exclusive for immutable run inputs; missing-value predicates, exact approval, delay/restart/replay and selected-path failure without fallback into else pass. Private partial draft storage preserves nested paths without creating workflows, and native HTTP plus actual editor handlers reopen and compile the same structure. ZERO preview/save also retains branch drafts through the native compiler/store without source-bearing retained results or execution. Further natural-language workflow creation, broader debugging, recovery without proven outcomes and remaining module/competitive/browser acceptance stay open. No live provider, browser or production proof is inferred.",
     "Natural-language workflow preparation now runs from an explicit Automation description form and direct ZERO creation requests through the existing provider helper without loading tenant records. Provider output is labelled inference and strictly limited to supported editor draft fields, actions, conditions and branch limits, or bounded clarification questions. Missing/unavailable provider output never becomes a fabricated draft. Current actor, write rights, workflow capability and native revision are rechecked after provider IO; changed same-turn proposals reject instead of silently replacing reviewed content. Preparation performs no writes; a separate exact confirmation saves through native private draft CAS, with lost-response replay and encrypted restart. Production UI handlers display literal action/trigger/approval/condition details, invalidate changed or detached proposals and keep existing editor work intact. Isolated model transport and actual member HTTP prove natural/structured routing, current-session revocation during provider wait, source-free decrypted audit/history, separate native publication and approval, and mutually exclusive execution after review. These fixtures are not live provider or browser evidence. Further debugging, outcome verification, execution/inspection orchestration and the recorded module/competitive acceptance gaps remain active Phase 24 work.",
     "Workflow debugging now reads one authorized retained run and selected step through native HTTP and ZERO inspection. It validates the immutable definition/request/step bindings, explains all nested comparison/EN/OF/NIET predicates against retained inputs including missing values, distinguishes actual FAILED/SKIPPED/WAITING states from NOT_REACHED steps, and bounds displayed field values. Inspection does not execute, commit or reverify outcomes; reported outputs remain historical reports. Current run/workflow capabilities, owner visibility, changed-source rejection, same-turn current replay, source-free decrypted audit/history and encrypted restart pass. Production UI handlers select steps, display literal text and discard denied or detached responses. Further verified-absence internal recovery, recorded execution orchestration and other module/competitive acceptance remain Phase 24 work; no live provider/browser/production proof is inferred.",
-    "Interrupted owned create_task/create_document actions now distinguish an exact durable record from verified absence using the same current native record policy and idempotency key. Absence permits only an explicit prepare-retry transition to RECOVERY_READY/PLANNED_INTERNAL; it never creates successful output or executes a following action. A separate resume checks the current idempotency contract and normal action permissions. Actual child crashes before and after encrypted side-effect persistence, proof changes, mismatched records, rollback, current ownership/capability, replay and single effects pass. External or ambiguous evidence remains unproven. ZERO now previews exact workflow/typed event inputs and submits only separately confirmed input through the same native engine. Workflow activation and recovery revisions bind confirmation, actual native run statuses remain literal, and any required approval is a separate native step. Source-free decrypted audit/history, real member HTTP/restart/revocation and production UI lost-response/stale/detached handlers pass without preview writes or duplicate execution. The previously advertised automation_run metadata now matches its implemented native route. Further recorded CRM and other module acceptance gaps remain active Phase 24 work; provider/browser/competitive/production evidence is not inferred."
+    "Interrupted owned create_task/create_document actions now distinguish an exact durable record from verified absence using the same current native record policy and idempotency key. Absence permits only an explicit prepare-retry transition to RECOVERY_READY/PLANNED_INTERNAL; it never creates successful output or executes a following action. A separate resume checks the current idempotency contract and normal action permissions. Actual child crashes before and after encrypted side-effect persistence, proof changes, mismatched records, rollback, current ownership/capability, replay and single effects pass. External or ambiguous evidence remains unproven. ZERO now previews exact workflow/typed event inputs and submits only separately confirmed input through the same native engine. Workflow activation and recovery revisions bind confirmation, actual native run statuses remain literal, and any required approval is a separate native step. Source-free decrypted audit/history, real member HTTP/restart/revocation and production UI lost-response/stale/detached handlers pass without preview writes or duplicate execution. The previously advertised automation_run metadata now matches its implemented native route. Further recorded CRM and other module acceptance gaps remain active Phase 24 work; provider/browser/competitive/production evidence is not inferred.",
+    "CRM extensible objects and native-record field workspaces now support immutable typed schema versions, required/restricted values, current CRM relationship targets, record revisions, private/team scope, explicit access changes and archive/restore, current-source-masked history and audited export. Native contact/company/person/lead/opportunity/deal/task/appointment field records require the current parent read/write permission and exact immutable parent binding; losing parent access removes their values, history and export. Field-version saves are separate explicit internal actions, and do not claim globally mandatory fields across legacy native record creation. Existing Customer 360 includes currently authorized custom relationships. Actual service and UI/native HTTP fixtures cover source/capability/session revocation, strict types and zero/false, CAS/duplicate/retry/rollback, encrypted restart, unsaved input preservation, history pagination, and 5,000-record page projection bounds. Standalone CRM passes the same encrypted custom-object/native-field flows and its declared packaging dependency closure. Frozen crm-core.js remains byte-identical. No actual browser, live provider, production deployment or measured competitive superiority is inferred. Phase 24 continues with recorded Sales amount/date scenario, hierarchy and execution gaps and the other remaining module gaps."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -648,7 +655,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-workflow-recovery-zero-run-full-regression.log",
+  "output_file": ".recovery-evidence/20260911-crm-objects-fields-full-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -661,10 +668,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "c8bc59d5de4c441d8b2a9edc65619c2802ab1f82",
-    "tree": "d99767d53c246925f6f91838495d79a6e1903ecf",
-    "run": 114,
-    "run_id": 34622884353,
+    "head": "f979d90902dca3f7857efe405cd18b89bde2ed21",
+    "tree": "c4d8cf0fd9b31ea2e3f793e6b3d4fb26859a9921",
+    "run": 115,
+    "run_id": 34624388689,
     "conclusion": "success",
     "status": "completed"
   },
@@ -846,6 +853,26 @@
       "log_sha256": "5d2c5eed0919fe73392e70dfd627865cb6d832cb3e43bc2785d29b27f11c90cf",
       "finished_at": "2026-09-11T16:50:01.671029+00:00",
       "source_manifest": ".recovery-evidence/20260911-workflow-recovery-zero-run-sources.json"
+    }
+  },
+  "crm_objects_fields_acceptance": {
+    "immutable_typed_object_versions": true,
+    "native_record_field_workspaces": true,
+    "current_parent_field_source_policy": true,
+    "required_values_on_explicit_field_version_save": true,
+    "global_legacy_native_creation_requirement": false,
+    "current_history_export_customer360": true,
+    "cas_replay_rollback_encrypted_restart": true,
+    "member_http_and_native_ui_handlers": true,
+    "standalone_encrypted_and_packaging_closure": true,
+    "browser": false,
+    "live_provider": false,
+    "completion": {
+      "exit_code": 0,
+      "log": ".recovery-evidence/20260911-crm-objects-fields-full-regression.log",
+      "log_sha256": "b028d838fe21f10aa659b05b0de4c9956be98a8577b324331d28f0e4eb4b8f83",
+      "finished_at": "2026-09-11T17:30:30.041046+00:00",
+      "source_manifest": ".recovery-evidence/20260911-crm-objects-fields-source-manifest.json"
     }
   }
 }
