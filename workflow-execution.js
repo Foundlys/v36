@@ -168,4 +168,4 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   flushOwnedEvents(core,ctx,actor);
   return clone(row);
 }
-module.exports = { validateCondition,sanitizeAction,AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts,signature };
+module.exports = { matchesCondition:matches,validateCondition,sanitizeAction,AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts,signature };

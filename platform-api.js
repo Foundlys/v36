@@ -284,6 +284,8 @@ function createPlatformApi(options = {}) {
       if(url.pathname==='/api/automation/runs'&&req.method==='GET')return sendJson(res,200,platform.queryAutomationRuns(ctx,actor,Object.fromEntries(url.searchParams)));
       if (url.pathname === '/api/automation/status' && req.method === 'GET') return sendJson(res, 200, platform.automationStatus(ctx, actor));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
+      const inspection=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/inspection$/);
+      if(inspection&&req.method==='GET')return sendJson(res,200,platform.inspectAutomationRun(ctx,actor,inspection[1],Object.fromEntries(url.searchParams)));
       const recovery=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/recovery$/);
       if(recovery&&req.method==='GET')return sendJson(res,200,platform.previewAutomationRecovery(ctx,actor,recovery[1]));
       if(recovery&&req.method==='POST')return sendJson(res,200,platform.recoverAutomation(ctx,actor,recovery[1],await readBody(req)));

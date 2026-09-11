@@ -756,6 +756,7 @@
         if(['TRIGGERS','WORKFLOWS'].includes(section))card.append(node('p','',`Trigger: ${row.trigger?.type||'—'}`));
         if(['ACTIONS','WORKFLOWS'].includes(section))for(const action of row.actions||[])card.append(node('p','',`${action.type} · ${action.title||action.message||''}`));
         if(section==='DEPENDENCIES')card.append(node('p','',`Acties: ${(row.actions||[]).map(a=>a.type).join(', ')}. Rechten worden opnieuw gecontroleerd bij uitvoering.`));
+        if(row.run_id)card.append(window.FoundlyWorkflowInspector.create({document,run:row,request,isActive:()=>content.isConnected&&state.workspaceId==='automation'&&state.activeSection===section}));
         if(row.steps)for(const step of row.steps)card.append(node('p','',`${step.index+1}. ${step.type}: ${step.status}${step.attempts?` · ${step.attempts} poging(en)`:''}${step.error?` (${step.error})`:''}`));
         if(['WAITING_RETRY','WAITING_TIME'].includes(row.status)){
           card.append(node('p','',`Volgende poging vanaf ${new Date(row.next_wakeup_at).toLocaleString('nl-NL')}. Eerdere resultaten blijven behouden.`));
