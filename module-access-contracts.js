@@ -6,7 +6,7 @@ const ENTITY_GROUPS={
   analysis:{kpis:['kpis'],events:['events','realtime','historical','provider_events'],funnel:['funnel'],reports:['reports','attribution','campaigns','provider_reports','cohorts','cohort_definitions']},
   marketing:{campaigns:['campaigns','creatives','experiments','creative_reviews'],audiences:['audiences'],attribution:['attribution','measurement']},
   procurement:{sourcing:['rfqs','bids'],suppliers:['suppliers'],opportunities:['opportunities','tasks'],approvals:['quotes','orders','documents','approval_policies','awards']},
-  sales:{forecast:['forecast','forecast_snapshots','quotas'],opportunities:['opportunities','tasks'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
+  sales:{forecast:['forecast','forecast_snapshots','forecast_hierarchies','quotas'],opportunities:['opportunities','tasks'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
   calendar:{events:['events','reminders','notifications'],availability:['availability','calendars','scheduling'],conflicts:['conflicts']},
   communication:{drafts:['drafts','templates','draft_revisions'],threads:['threads','preferences'],inbox:['messages','inbox','mailboxes']},
   automation:{workflows:['workflows','tasks','documents','drafts'],runs:['runs'],approvals:['approvals']}

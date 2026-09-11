@@ -162,7 +162,7 @@
 
   function renderTabs() {
     const tabs = (state.workspace?.sections || []).map((section, index) => {
-      const button = node('button', index === 0 ? 'active' : '', section === 'FORECAST_SNAPSHOTS' ? 'Bewaarde prognoses' : section === 'AWARDS' ? 'Voorstellen en beoordelingen' : section);
+      const button = node('button', index === 0 ? 'active' : '', section === 'FORECAST_HIERARCHIES' ? 'Prognosehiërarchie' : section === 'FORECAST_SNAPSHOTS' ? 'Bewaarde prognoses' : section === 'AWARDS' ? 'Voorstellen en beoordelingen' : section);
       button.type = 'button';
       button.id = `workspace-tab-${index}`;
       button.setAttribute('role', 'tab');
@@ -621,6 +621,7 @@
     const content = byId('contextContent'), items = [];
     if(state.workspaceId==='settings'&&['USERS','ROLES'].includes(section)){renderIdentityUsers(section,content);return;}
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
+    if(state.workspaceId==='sales'&&section==='FORECAST_HIERARCHIES'){const view=window.FoundlySalesHierarchy.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales',renderResult:(host,result,filters)=>{appendForecastResult(host,result);appendForecastSnapshotForm(host,result,filters,null,{id:result.hierarchy.id,node_id:result.hierarchy.node_id});}});replaceChildren(content,[view]);return;}
     if(state.workspaceId==='sales'&&section==='FORECAST'){renderSalesForecast(content);return;}
     if(state.workspaceId==='calendar'&&section==='SCHEDULING'){renderScheduling(content);return;}
     if(state.workspaceId==='automation'){renderAutomationSection(section,content);return;}
@@ -848,10 +849,10 @@
     for(const item of result.items)details.append(node('p','',`${item.title} · ${item.date} · ${item.currency} ${(item.value_cents/100).toFixed(2)} · ${item.status} · kans ${item.probability===null?'niet vastgelegd':Math.round(item.probability*100)+'%'} · revisie ${item.revision}`));
     for(const item of result.excluded)details.append(node('p','',`${item.id}: ${item.reason}`));parent.append(details);
   }
-  function appendForecastSnapshotForm(parent,result,filters,scenario=null) {
+  function appendForecastSnapshotForm(parent,result,filters,scenario=null,hierarchy=null) {
     const form=node('form'),label=node('label','','Naam voor bewaarde prognose'),title=node('input'),save=node('button','secondary-button',scenario?'Scenario bewaren':'Berekening bewaren'),notice=node('output');
     title.required=true;title.maxLength=240;label.append(title);save.type='submit';notice.setAttribute('role','status');form.append(label,save,notice);parent.append(form);const key=crypto.randomUUID();let busy=false;
-    form.addEventListener('submit',async event=>{event.preventDefault();if(!form.isConnected||busy)return;busy=true;save.disabled=true;try{await request('/api/sales/forecast/snapshots',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({title:title.value,filters,...(scenario?{scenario}:{}),basis_fingerprint:result.basis_fingerprint,confirm:true})});if(!form.isConnected)return;notice.textContent='Opgeslagen onder Bewaarde prognoses; verkoopkansen zijn niet aangepast.';}catch(error){if(form.isConnected)notice.textContent=friendlyError(error);save.disabled=false;busy=false;}});
+    form.addEventListener('submit',async event=>{event.preventDefault();if(!form.isConnected||busy)return;busy=true;save.disabled=true;try{await request('/api/sales/forecast/snapshots',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({title:title.value,filters,...(hierarchy?{hierarchy}:{}),...(scenario?{scenario}:{}),basis_fingerprint:result.basis_fingerprint,confirm:true})});if(!form.isConnected)return;notice.textContent='Opgeslagen onder Bewaarde prognoses; verkoopkansen zijn niet aangepast.';}catch(error){if(form.isConnected)notice.textContent=friendlyError(error);save.disabled=false;busy=false;}});
   }
   function appendForecastScenario(parent,baseline,filters) {
     const candidates=baseline.scenario_candidates||baseline.items.filter(row=>row.status!=='WON');if(!candidates.length)return;
