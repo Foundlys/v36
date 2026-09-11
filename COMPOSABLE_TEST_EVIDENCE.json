@@ -45,12 +45,13 @@
     "capability-resolver.js": "42945e0ffd83f29f847cd4045e20d00ace0a15fa646dac8396a2ce99b86e3f13",
     "communication-addresses-test.js": "6cb7e23066f5fae420e4500d19fdd519c0ce7995525763433687bdf11363ec78",
     "communication-addresses.js": "ae7e248194447f098c647c013d1930b6528d1b30027700090042fb7ec13a9c42",
-    "communication-attachments-client-test.js": "a6e92a231330454a5f2dbd54f46c4f6aa6fccc21db1fdfcb1b3a11338b4eb36c",
+    "communication-attachment-limits.js": "42f45b9932c7fb7628b3014cb56da88869ad3f04845fb737bb30fce0cd506c76",
+    "communication-attachments-client-test.js": "173a988eaa177a197f57cfbf56a81f29bf81cefaa3767a20f01f0493b5170b9d",
     "communication-attachments-test.js": "4646ad6d181f4c83d7df8a77db1bfc3f472609c661e1ac216b2b339ce10173ad",
-    "communication-attachments.js": "c0fc063116cf0817c1c0d562e149db49a58933571a695e850302260d605676be",
+    "communication-attachments.js": "96e795bd9ad772472b32c3f0ae89075818a8a29cb107d663b98d1f9c042ac900",
     "communication-binary-attachments-api-test.js": "5eaceecb8235763b72a6aa4a6e3eef294283eade217e476ad3188a2802aa1123",
     "communication-binary-attachments-test.js": "5a634267393b95c0d7d29db5cde2f3139833a0e172de4849459f47e101b4b2f2",
-    "communication-binary-attachments.js": "027e5f2410b0e8b7f8702362a110f73123fbad4a4819398b63387bbe207beea5",
+    "communication-binary-attachments.js": "8c170875f7e5d07ed5ad2d230c09542d3653c6d4f4d759bddb4a3d26cb5aa163",
     "communication-collaboration-api-test.js": "8d4eac4011b7672245edca18385c6faf905da263aa23097530cc5829c21d6d39",
     "communication-collaboration-client-test.js": "9a64bf68ec25a3a1db20724f2e50e60b27a24212a211ef03b0d77974adda4ec5",
     "communication-comments-test.js": "36fde96bbc233e735389177dfc910c7573aaa45c2f39617d17561de7b97ad1f5",
@@ -75,6 +76,8 @@
     "communication-inbox-client-test.js": "899cb43266f9c0e08dc4fee1a61876270cc98e056e2437d1619401d955a1d97b",
     "communication-inbox-test.js": "65ee4194dec347446ac3731d3da19746df70828e1e965e9343be918d1afcea2c",
     "communication-inbox.js": "be47866bd1fe9d00aa03360d123e22df01f1a2c4950b642a65bfd6ab48222118",
+    "communication-large-attachments-api-test.js": "fd13be8b1d35ce61565cb6a2081b8fcb5c9bea1bcac3a3318e5bf56e48a2685d",
+    "communication-large-attachments-test.js": "134348d3fbb6e8aa241e4d7461397dc49c98e5acf8c0b8417631abf23df1f78d",
     "communication-mail-auth-api-test.js": "1071757c5bc11df26960436bd3caafd400a79c6b24933b8cf7f1ca9c550fe352",
     "communication-mail-auth-test.js": "ae5973a51eb507ca2e874d3a7c1f66263aa3e3e9dd1f530c6020bd80e3e997a5",
     "communication-mail-auth.js": "5b4d07218c7f637e59a9e94551866c251e16bd93c8321690d2a3e97214888f0e",
@@ -82,10 +85,12 @@
     "communication-mailboxes-client-test.js": "5256d85046b7299aa46c5c5a7667aeedb3978b3d8682d61c47811dba8f67f10c",
     "communication-mailboxes-test.js": "436772a40433269a4e498c9a478b4be4def99204aaaed0d71fb1230947c0de7b",
     "communication-mailboxes.js": "d35024003b8e495759d73e3770dbb9e82d64408ca2a68962ead735e6636cd10f",
-    "communication-malware-scan-test.js": "5488e3f767f41b0dca12c7aa2d719e600c6d6e4e56fc8c9638be02c03ade06e8",
-    "communication-malware-scan.js": "2cd2174f9b48d5f88df0d319d6ffc979681ef2adc28d32dfca423a99a500d9ed",
+    "communication-malware-scan-test.js": "c655099995f20574c47bb32d97fbc6a67569c1b45a14514d0e14e28289d0a3b0",
+    "communication-malware-scan.js": "3479e004c4045167e4912dfe1c2aeb03708639c1c6d59dc174fd165567b5fa48",
     "communication-mime-test.js": "4c3dd89ac1cce061600e53f6dbce93a2fff63b0dc2994b4e0105b11db98dc23f",
-    "communication-mime.js": "f097ad4925cf915c48e84d6dcb820f98a43f9156f4a4403ccb00246ba2a5b578",
+    "communication-mime.js": "a04febe6e90279e87a48b82a5e714b644ce4e665e47e6ea25f57de0109ef505b",
+    "communication-office-attachments-test.js": "8389a9afe2a1219c9ad75e905c74d1e86e9b0d68ff6fe4e95db924ef4bac9ac4",
+    "communication-office-attachments.js": "afb8a1b6e1fd76f953cee28709c66f17ed897d796d83d867887a2b3669e097ca",
     "communication-process-observation-test.js": "787a93f172e2992fbc37139aaa1f10d9bf2443a6762cc4ddd14c657dd4d40d83",
     "communication-process-observation.js": "734b6a1327bd1ee0deb7d31dc5ea847c37851a701b79b027b4f3a06b7530dc7a",
     "communication-provider-state-test.js": "9ff949ef84422de6c143b6c1218cf5b3e7b0416041190dafbb9cc1ffe8747424",
@@ -155,7 +160,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "7b83718c0d396030031b6e90412e5a9f08ab1d1bbc088e5a5d4e350f1520b08e",
-    "foundly-workspace.js": "f750b63da414e49783290c39c2fcb7597f71b656bb93e5a042ebfef853e15372",
+    "foundly-workspace.js": "83e440c0e820ba069b6c133f49da634a723a2a02f3886c09cd871c5d47f5675d",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -183,7 +188,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "991e36af2f1efdc00702dfed727ed4dade700f20e6db922cd3e3c0d3721b4aca",
+    "package.json": "78daae6f341bc1287871c7dd023890993a61c43ce3362155c89cccc0c5b31ee9",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -238,6 +243,7 @@
     "test-mailbox-fixture.js": "2198962363d1255f860e711fbb1608f2364084fa4c47a80f2bd888de64a7b6f7",
     "test-masterbuild-fetch-mock.js": "006626a31f610f73ef4a642643f2a7d4d996ee1ab9e18fea099fd53c9cd94378",
     "test-oauth-fetch-mock.js": "ba0dfede11e61b3bc59119c7132e8b414a8a49f45be000a8f6e00c944c042130",
+    "test-office-package-fixtures.json": "40afd7fb49f90f4b44257c3815250ce0dc2bb95bb2837c78305f7c27cb9aaea5",
     "test-provider-report-fetch-mock.js": "ddc1b79869204bfb23d92b10d00ff948de8ea0c5f3e1a7ed4354d8683c3a98d8",
     "test-readiness-fetch-mock.js": "418e1bd9efd1aebbd2b819e8bb1c6a937fc2c8123161625ead5d707d163db92c",
     "test-static-read-fault.js": "4b77bbadd7dc6bc3f3d4ad5dd9db472e19848d7c5a6a64959493f988ead874f5",
@@ -274,7 +280,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "2d7769f9ba656232635bb657fea07c764ee0e86e17f7b2fd1f13eab96b7c9599"
   },
-  "output_sha256": "e9d3eb6b863c8e30af97f30202912f1284838f5befd0bb8811212ec7865ef41b",
+  "output_sha256": "4316799f8a37f4b14dc4e3081b6f88565847fcf3c63a3e1c9afeee2e32b19a67",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -429,7 +435,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T10:35:41.511447+00:00",
+  "verified_at": "2026-09-11T14:54:58.362374+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -590,7 +596,8 @@
     "Explicit XOAUTH2 now complements legacy PLAIN for SMTP 465/mandatory STARTTLS 587 and read-only IMAP 993. Separate bounded bearer-token and canonical UTC-expiry fields flow through existing encrypted tenant configuration and native connector setup; legacy default configuration fingerprints remain unchanged. Tokens never substitute for passwords or fall back after rejection. SMTP and IMAP error challenges receive only an empty acknowledgement, repeated challenges and false success are refused, and current token expiry/authority/configuration is checked before and across transport boundaries. Passive authentication/mailbox status cannot preserve trustworthy current proof after expiration. Actual isolated IPv6 TLS/STARTTLS exchanges cover bearer bytes, approved DATA, IMAP initial/continuation modes, failures and expiry; real HTTP sessions cover masked fields, encrypted restart and token rotation during pending authentication/receipt. Full regression passes. No legitimate provider credentials were changed or live account accessed; provider onboarding/automatic refresh, delivery reconciliation and browser acceptance remain open.",
     "New SMTP attempts retain immutable transport observations in a separate encrypted Core transaction before final message materialization. A retained outcome can be explicitly recovered through native or ZERO policy without opening a mail connection, repeating payload bytes or changing the original content. Current parent/source access, Communication/inbox write and connector-management rights, revision/confirmation/reason, actor/input replay, atomic rollback and private owned receipt export govern recovery. Unknown post-DATA attempts without evidence and active/unverifiable runtimes remain blocked. Linux retirement binds PID/start time to matching boot/namespace and corroborates missing proc entries with a no-signal existence probe; a different application UUID alone never proves death. The scratch runtime has inconsistent Node/proc IDs, so local positive retirement proof is unavailable and safely refused. Local actual HTTP/ZERO failed-materialization recovery, crash-without-proof denial, encrypted replay, source-free turns and production DOM controls pass full regression. CI must separately pass real Linux process termination and actual pre-DATA/after-receipt crash recovery. Unobserved provider acceptance, final delivery/bounce, cross-host fencing and broader receipt feedback remain open; no provider or production mutation occurred.",
     "Reproduced an authenticated pending connector credential request returning HTTP 200 after its administrator lost connector authority. Native encrypted credential writes, legacy integration configuration and profile creation/update now recheck the current principal and composition at the actual write boundary. Profile paths recheck again after asynchronous URL/DNS validation and reload current profile state so another accepted profile is not overwritten. Real HTTP sessions verify role revocation, suspension, module disablement, DNS-wait revocation, concurrent profile preservation, encrypted restart and ordinary authorized writes. The regression retains isolated fixture credentials only; no real credentials or production configuration were changed.",
-    "Dedicated Google mail OAuth now uses explicit encrypted email client configuration, one-use member/tenant/configuration-bound state with S256 PKCE, actual granted mail scope/expiry and verified provider subject/email. A fixed inert return page completes through an explicit same-origin authenticated POST, preserving SameSite=Strict sessions and origin checks. Fixed DNS-pinned HTTPS token/userinfo endpoints send secrets only after TLS/peer verification. Current role/configuration/disconnection races, incomplete replacement preservation, encrypted restart/rollback, automatic guarded refresh, stable approved account identity, stale inbox revision rejection before refresh and replay without another provider operation pass isolated TLS, actual HTTP-session and production DOM regressions. Passive reads never exchange tokens. Local disconnection does not revoke Google consent. Private tokens/state are excluded from Data/audit/export; owned metadata is explicit. No real account/provider/browser acceptance or production mutation is claimed."
+    "Dedicated Google mail OAuth now uses explicit encrypted email client configuration, one-use member/tenant/configuration-bound state with S256 PKCE, actual granted mail scope/expiry and verified provider subject/email. A fixed inert return page completes through an explicit same-origin authenticated POST, preserving SameSite=Strict sessions and origin checks. Fixed DNS-pinned HTTPS token/userinfo endpoints send secrets only after TLS/peer verification. Current role/configuration/disconnection races, incomplete replacement preservation, encrypted restart/rollback, automatic guarded refresh, stable approved account identity, stale inbox revision rejection before refresh and replay without another provider operation pass isolated TLS, actual HTTP-session and production DOM regressions. Passive reads never exchange tokens. Local disconnection does not revoke Google consent. Private tokens/state are excluded from Data/audit/export; owned metadata is explicit. No real account/provider/browser acceptance or production mutation is claimed.",
+    "Scanned PDF/PNG/JPEG and newly supported DOCX/XLSX/PPTX now use a 3 MiB per-file, 6 MiB current-draft and 9 MiB MIME bound through the existing encrypted attachment/review/submission path. Bounded ZIP inspection validates stored/deflated/streamed packages, local-central names/flags/sizes/CRC, complete streams and expansion limits while refusing encrypted, macro, duplicate, traversal and unverifiable structures. The existing mandatory scanner uses a versioned bounded policy; V1 receipts remain valid only for their original smaller file/type scope. Actual isolated scanner processes, real-session large-file/Office HTTP upload/download/restart, current source controls and exact greater-than-8-MiB approved MIME regression pass. Inert downloads, private export and unchanged draft/message semantics remain intact. No real malware detection, live provider delivery, Office rendering, browser or production acceptance is claimed; remaining provider/workflow/capability gaps stay open."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -602,7 +609,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-google-mail-oauth-final-regression.log",
+  "output_file": ".recovery-evidence/20260911-office-large-attachments-confirmed-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -615,10 +622,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "2d66b8efcfa182df39499f47b1b1950cb1d0324e",
-    "tree": "2cb3d019d87315a2db3bd0297f316f790115138c",
-    "run": 106,
-    "run_id": 34587763733,
+    "head": "53a05a5364ea1aa3b035e9f9bc368421da4ad5d4",
+    "tree": "14192522f504613d31928a43126b439c2a31c477",
+    "run": 107,
+    "run_id": 34590134415,
     "conclusion": "success"
   },
   "current_production_observation": {
@@ -652,5 +659,15 @@
     "production_changed": false,
     "same_site_strict_preserved": true,
     "full_browser_acceptance": false
+  },
+  "office_attachment_acceptance": {
+    "max_file_bytes": 3145728,
+    "max_current_bytes": 6291456,
+    "max_wire_bytes": 9437184,
+    "actual_scanner_process_fixture": true,
+    "actual_malware_detection": false,
+    "office_rendering": false,
+    "live_provider": false,
+    "browser": false
   }
 }

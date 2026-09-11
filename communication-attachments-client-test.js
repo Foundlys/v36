@@ -18,7 +18,7 @@ async function mount({write=true,corrupt=false,binary=false}={}){
  const context={crypto,state,Uint8Array,Blob,atob,btoa,setTimeout:callback=>callback(),URL:{createObjectURL:blob=>{blobs.push(blob);return 'blob:fixture';},revokeObjectURL:href=>revoked.push(href)},document:{body},node:(...args)=>{const node=new Element(...args);if(node.tag==='a')node.click=()=>downloads.push({name:node.download,href:node.href});return node;},replaceChildren:(parent,children)=>{parent.children=[];parent.append(...children);},friendlyError:error=>error.message,renderDomainSection:async()=>{renders++;},request:async(route,options)=>{
   requests.push({route,options});if(options){if(failUpload)throw Error('Fixture network failure');return {ok:true};}
   if(route.endsWith('/file1'))return {attachment:{...attachment,...(corrupt?{content_base64:Buffer.from('corrupt').toString('base64')}:{})}};
-  return {items:[attachment],current_revision:3,can_write:write,max_bytes:65536,max_binary_bytes:262144,accepted_extensions:['.txt','.pdf','.png','.jpg','.jpeg'],max_current:10};
+  return {items:[attachment],current_revision:3,can_write:write,max_bytes:65536,max_binary_bytes:3145728,max_current_bytes:6291456,accepted_extensions:['.txt','.pdf','.png','.jpg','.jpeg','.docx','.xlsx','.pptx'],max_current:10};
  }};
  vm.createContext(context);vm.runInContext(source.slice(start,end),context);context.appendDraftAttachments({id:'draft1'},cell,content);const details=cell.children[0];details.open=true;await details.fire('toggle');
  return {cell,content,requests,downloads,blobs,revoked,bytes,renders:()=>renders,failUpload:value=>{failUpload=value;}};

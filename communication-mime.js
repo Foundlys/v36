@@ -26,6 +26,6 @@ function compose(plan,{attempt_id,created_at,files=[]}){
  const data=headers.join('\r\n')+'\r\n'+body+'\r\n';validateWire({from:plan.from,to:recipients,data});
  return {from:plan.from,to:recipients,data,message_id:messageId,sha256:hash(data),size_bytes:Buffer.byteLength(data)};
 }
-function validateWire(message){if(!message||!address(message.from)||!Array.isArray(message.to)||message.to.length<1||message.to.length>100||message.to.some(value=>!address(value))||new Set(message.to).size!==message.to.length||typeof message.data!=='string'||message.data.length>1024*1024||!message.data.endsWith('\r\n')||/[^\x09\x0a\x0d\x20-\x7e]/.test(message.data)||/[\r\n]/.test(message.data.replace(/\r\n/g,''))||message.data.split('\r\n').some(line=>line.length>998))fail();}
+function validateWire(message){if(!message||!address(message.from)||!Array.isArray(message.to)||message.to.length<1||message.to.length>100||message.to.some(value=>!address(value))||new Set(message.to).size!==message.to.length||typeof message.data!=='string'||message.data.length>require('./communication-attachment-limits').WIRE_BYTES||!message.data.endsWith('\r\n')||/[^\x09\x0a\x0d\x20-\x7e]/.test(message.data)||/[\r\n]/.test(message.data.replace(/\r\n/g,''))||message.data.split('\r\n').some(line=>line.length>998))fail();}
 function validateContent(snapshot){subject(snapshot.title);text(snapshot.content,12000);}
 module.exports={compose,validateWire,validateContent};

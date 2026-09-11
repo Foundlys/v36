@@ -1,18 +1,18 @@
 'use strict';
 const crypto=require('node:crypto'),{POLICY,MAX_BYTES,createScanner}=require('./communication-malware-scan');
-const SCOPE='communication:binary_attachment_content',MAX_TENANT_BYTES=16*1024*1024,MAX_CURRENT_BYTES=640*1024,scan=createScanner();
+const SCOPE='communication:binary_attachment_content',MAX_TENANT_BYTES=16*1024*1024,MAX_CURRENT_BYTES=require('./communication-attachment-limits').CURRENT_BYTES,scan=createScanner();
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex'),clone=value=>JSON.parse(JSON.stringify(value));
 const fail=(code,message,statusCode=422)=>{throw Object.assign(Error(message),{code,statusCode});};
 function validate(input){
- if(!input||typeof input.name!=='string'||!/^[A-Za-z0-9][A-Za-z0-9 _()-]{0,115}\.(?:pdf|png|jpe?g)$/i.test(input.name))fail('attachment_name_invalid','Kies een PDF-, PNG- of JPEG-bestand met een eenvoudige bestandsnaam');
- if(typeof input.content_base64!=='string'||input.content_base64.length>4*Math.ceil(MAX_BYTES/3)||!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(input.content_base64))fail('attachment_content_invalid','De bijlage is ongeldig of groter dan 256 KiB');
- const bytes=Buffer.from(input.content_base64,'base64');if(!bytes.length||bytes.length>MAX_BYTES||bytes.toString('base64')!==input.content_base64)fail('attachment_content_invalid','De bijlage is ongeldig of groter dan 256 KiB');
+ if(!input||typeof input.name!=='string'||!/^[A-Za-z0-9][A-Za-z0-9 _()-]{0,115}\.(?:pdf|png|jpe?g|docx|xlsx|pptx)$/i.test(input.name))fail('attachment_name_invalid','Kies een PDF-, PNG-, JPEG-, DOCX-, XLSX- of PPTX-bestand met een eenvoudige bestandsnaam');
+ if(typeof input.content_base64!=='string'||input.content_base64.length>4*Math.ceil(MAX_BYTES/3)||!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(input.content_base64))fail('attachment_content_invalid','De bijlage is ongeldig of groter dan 3 MiB');
+ const bytes=Buffer.from(input.content_base64,'base64');if(!bytes.length||bytes.length>MAX_BYTES||bytes.toString('base64')!==input.content_base64)fail('attachment_content_invalid','De bijlage is ongeldig of groter dan 3 MiB');
  const ext=input.name.split('.').at(-1).toLowerCase(),valid=ext==='pdf'?/^%PDF-[12]\.[0-9]/.test(bytes.subarray(0,8).toString('ascii'))&&/%%EOF\s*$/.test(bytes.subarray(-1024).toString('latin1')):ext==='png'?bytes.length>=45&&bytes.subarray(0,8).equals(Buffer.from('89504e470d0a1a0a','hex'))&&bytes.subarray(12,16).toString('ascii')==='IHDR'&&bytes.subarray(-12).equals(Buffer.from('0000000049454e44ae426082','hex')):bytes.length>=4&&bytes[0]===255&&bytes[1]===216&&bytes.at(-2)===255&&bytes.at(-1)===217;
- if(!valid)fail('attachment_format_invalid','De bestandskenmerken passen niet bij de gekozen extensie');
- return {bytes,sha256:hash(bytes),media_type:ext==='pdf'?'application/pdf':ext==='png'?'image/png':'image/jpeg'};
+ if(['docx','xlsx','pptx'].includes(ext))require('./communication-office-attachments').inspect(bytes,ext);else if(!valid)fail('attachment_format_invalid','De bestandskenmerken passen niet bij de gekozen extensie');
+ return {bytes,sha256:hash(bytes),media_type:({docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',xlsx:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',pptx:'application/vnd.openxmlformats-officedocument.presentationml.presentation'})[ext]||(ext==='pdf'?'application/pdf':ext==='png'?'image/png':'image/jpeg')};
 }
 function validateScan(scan,row,{fresh=false}={}){
- if(!scan||scan.engine!=='ClamAV'||scan.policy!==POLICY||scan.verdict!=='NO_THREAT_DETECTED'||scan.sha256!==row.sha256||scan.size_bytes!==row.size_bytes||typeof scan.engine_version!=='string'||typeof scan.database_version!=='string'||!/^[a-f0-9]{64}$/.test(scan.receipt_sha256||''))fail('attachment_scan_unavailable','De bewaarde malwarecontrole is niet verifieerbaar',409);
+ if(!scan||scan.engine!=='ClamAV'||![POLICY,'CLAMAV_OFFICIAL_DB_48H_BOUNDED_V1'].includes(scan.policy)||scan.policy==='CLAMAV_OFFICIAL_DB_48H_BOUNDED_V1'&&(row.size_bytes>262144||!['application/pdf','image/png','image/jpeg'].includes(row.media_type))||scan.verdict!=='NO_THREAT_DETECTED'||scan.sha256!==row.sha256||scan.size_bytes!==row.size_bytes||typeof scan.engine_version!=='string'||typeof scan.database_version!=='string'||!/^[a-f0-9]{64}$/.test(scan.receipt_sha256||''))fail('attachment_scan_unavailable','De bewaarde malwarecontrole is niet verifieerbaar',409);
  const observed=Date.parse(scan.observed_at),database=Date.parse(scan.database_published_at);if(!Number.isFinite(observed)||!Number.isFinite(database)||database>observed+60000||observed-database>48*3600000||observed>Date.now()+60000)fail('attachment_scan_unavailable','De datum van de malwarecontrole is niet verifieerbaar',409);
  if(fresh&&(Date.now()-observed>24*3600000||Date.now()-database>48*3600000))fail('attachment_scan_expired','De malwarecontrole is verlopen; voeg de bijlage opnieuw toe voor een actuele controle',409);
 }

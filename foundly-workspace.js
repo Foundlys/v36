@@ -1040,11 +1040,12 @@
   }
 
   function appendDraftAttachments(record,cell,content){
+    const sizeLabel=bytes=>!Number.isSafeInteger(bytes)||bytes<1?'onbekend':bytes%(1024*1024)===0?`${bytes/(1024*1024)} MiB`:bytes%1024===0?`${bytes/1024} KiB`:`${bytes} bytes`;
     const details=node('details'),panel=node('div'),notice=node('p');notice.setAttribute('role','status');details.append(node('summary','','Bijlagen'),panel,notice);cell.append(details);
     const route=`/api/communication/drafts/${encodeURIComponent(record.id)}/attachments`;const alive=()=>content.isConnected&&details.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='drafts';let loaded=false;
     const reload=async()=>{
       const model=await request(route);if(!alive())return;replaceChildren(panel,[]);
-      panel.append(node('p','','Tekst tot 64 KiB; PDF, PNG en JPEG tot 256 KiB vereisen een lokale malwarecontrole. Maximaal tien bijlagen per concept. Bestanden worden niet inline geopend of verzonden. Geef een actieve bewerking vrij voordat je bijlagen wijzigt.'));
+      panel.append(node('p','',`Tekst tot ${sizeLabel(model.max_bytes)}; PDF, PNG, JPEG en Office-documenten tot ${sizeLabel(model.max_binary_bytes)} vereisen een lokale malwarecontrole. Maximaal ${model.max_current} bijlagen en ${sizeLabel(model.max_current_bytes)} per concept. Bestanden worden niet inline geopend of verzonden. Geef een actieve bewerking vrij voordat je bijlagen wijzigt.`));
       if(!model.items.length)panel.append(node('p','','Dit concept heeft geen bijlagen.'));
       const redraw=async()=>{if(content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='drafts')await renderDomainSection('drafts',content);};
       for(const attachment of model.items){
@@ -1064,7 +1065,7 @@
         form.addEventListener('submit',async event=>{
           event.preventDefault();if(!alive())return;submit.disabled=true;
           try{
-            const selected=file.files?.[0],isText=/\.txt$/i.test(selected?.name||''),limit=isText?model.max_bytes:model.max_binary_bytes;if(!selected||!Number.isFinite(limit)||selected.size>limit)throw new Error(isText?'Kies een tekstbestand van maximaal 64 KiB.':'Kies een PDF-, PNG- of JPEG-bestand van maximaal 256 KiB.');
+            const selected=file.files?.[0],isText=/\.txt$/i.test(selected?.name||''),limit=isText?model.max_bytes:model.max_binary_bytes;if(!selected||!Number.isFinite(limit)||selected.size>limit)throw new Error(`Kies een ondersteund bestand van maximaal ${sizeLabel(limit)}.`);
             const bytes=new Uint8Array(await selected.arrayBuffer());if(!alive())return;let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);
             const encoded=JSON.stringify({name:selected.name,content_base64:btoa(binary),expected_revision:model.current_revision});if(lastPayload!==null&&lastPayload!==encoded)key=crypto.randomUUID();lastPayload=encoded;
             await request(route,{method:'POST',headers:{'idempotency-key':key},body:encoded});await redraw();if(!alive())return;notice.textContent='Bijlage bij het concept opgeslagen.';
