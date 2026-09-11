@@ -51,8 +51,8 @@
     const result=new Set();let nodes=0;
     function visit(c,depth=0){
       if(!c||typeof c!=='object'||Array.isArray(c)||depth>5||++nodes>200)fail('Deze workflow bevat een ongeldige conditie.');
-      const groups=['all','any'].filter(key=>Object.hasOwn(c,key));
-      if(groups.length){if(groups.length!==1||Object.keys(c).length!==1||!Array.isArray(c[groups[0]])||!c[groups[0]].length||c[groups[0]].length>20)fail('Ongeldige conditiegroep.');for(const child of c[groups[0]])visit(child,depth+1);return;}
+      const groups=['all','any','not'].filter(key=>Object.hasOwn(c,key));
+      if(groups.length){const children=groups[0]==='not'?[c.not]:c[groups[0]];if(groups.length!==1||Object.keys(c).length!==1||!Array.isArray(children)||!children.length||children.length>20)fail('Ongeldige conditiegroep.');for(const child of children)visit(child,depth+1);return;}
       if(typeof c.field!=='string'||!/^(event|inputs)(?:\.[A-Za-z][A-Za-z0-9_]{0,79}){1,5}$/.test(c.field)||/(?:__proto__|constructor|prototype)/.test(c.field)||!operators.includes(c.operator))fail('Ongeldig conditieveld.');result.add(c.field);if(result.size>200)fail('Dit formulier ondersteunt maximaal tweehonderd verschillende conditievelden.');
     }
     if(!Array.isArray(workflow.actions)||!workflow.actions.length||workflow.actions.length>100)fail('Ongeldige workflowstappen.');
@@ -76,7 +76,7 @@
     }
     return {event,options:{inputs}};
   }
-  function contract(automation){return {version:1,condition_groups:{modes:['all','any'],max_depth:5,max_children:20,max_nodes:200},max_steps:100,triggers:automation.triggers,automatic_event_aliases:automation.event_aliases||{},actions:Object.entries(fields).filter(([type])=>automation.actions.includes(type)).map(([type,value])=>({type,...value,retryable:(automation.retryable_actions||[]).includes(type)})),operators};}
+  function contract(automation){return {version:1,branching:{max_depth:3},condition_groups:{modes:['all','any'],max_depth:5,max_children:20,max_nodes:200},max_steps:100,triggers:automation.triggers,automatic_event_aliases:automation.event_aliases||{},actions:Object.entries(fields).filter(([type])=>automation.actions.includes(type)).map(([type,value])=>({type,...value,retryable:(automation.retryable_actions||[]).includes(type)})),operators};}
   function compile(draft,spec){
     const name=String(draft.name||'').trim();if(!name||name.length>200)fail('Vul een workflownaam van maximaal 200 tekens in.');
     const version=integer(draft.version??1,1,2147483647,'Versie');
@@ -87,7 +87,18 @@
     }else if(draft.event_name){if(!/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(draft.event_name))fail('De eventnaam is ongeldig.');trigger.event_name=draft.event_name;}
     if(trigger.automatic&&trigger.type!=='schedule'&&!Object.hasOwn(spec.automatic_event_aliases,trigger.type)&&!trigger.event_name)fail('Automatische uitvoering vereist een expliciete eventnaam.');
     if(!Array.isArray(draft.steps)||!draft.steps.length||draft.steps.length>spec.max_steps)fail(`Kies 1 tot ${spec.max_steps} stappen.`);
-    const actions=draft.steps.map(step=>{
+    let draftStepCount=0;
+    function compileSteps(steps,guards=[],depth=0){
+      if(!Array.isArray(steps)||steps.length>spec.max_steps||depth>3)fail('Ongeldige vertakkingsstappen.');
+      return steps.flatMap(step=>{
+      if(!step||typeof step!=='object'||Array.isArray(step)||++draftStepCount>spec.max_steps)fail('Een workflow ondersteunt maximaal honderd stappen inclusief vertakkingen.');
+      if(step.type==='branch'){
+        if(!spec.branching||depth>=spec.branching.max_depth||Object.keys(step).some(key=>!['type','condition','then_steps','else_steps'].includes(key)))fail('Deze vertakking wordt niet ondersteund.');
+        validateDraftCondition(step.condition);if(step.condition.enabled!==true)fail('Een vertakking vereist een ingeschakelde voorwaarde.');
+        const predicate=compileCondition(step.condition),yes=compileSteps(step.then_steps,[...guards,predicate],depth+1),no=compileSteps(step.else_steps,[...guards,{not:predicate}],depth+1);
+        if(!yes.length&&!no.length)fail('Voeg minstens één actie toe aan de vertakking.');return [...yes,...no];
+      }
+      if(Object.hasOwn(step,'then_steps')||Object.hasOwn(step,'else_steps'))fail('Alleen een vertakking heeft afzonderlijke paden.');
       const definition=spec.actions.find(row=>row.type===step.type);if(!definition)fail('Deze stap wordt niet door de editor ondersteund.');
       const action={type:step.type};
       for(const field of definition.fields){const value=step.values?.[field.key];if(field.type==='number')action[field.key]=integer(value,field.min,field.max,field.label);else {const text=String(value||'').trim();if(field.required&&!text||text.length>field.max)fail(`Controleer ${field.label.toLowerCase()}.`);if(text)action[field.key]=text;}}
@@ -97,8 +108,13 @@
       }
       const attempts=integer(step.attempts??1,1,5,'Pogingen');
       if(attempts>1){if(!definition.retryable)fail('Deze actie ondersteunt geen veilige retries.');action.retry={max_attempts:attempts,initial_delay_seconds:integer(step.retry_delay,1,3600,'Retrywachttijd')};}
-      return action;
-    });
+      if(guards.length){const conditions=[...guards,...(action.when?[action.when]:[])];action.when=conditions.length===1?conditions[0]:{all:conditions};}
+      return [action];
+      });
+    }
+    const actions=compileSteps(draft.steps);if(!actions.length||actions.length>spec.max_steps)fail('Kies 1 tot 100 uitvoerbare stappen.');
+    // Generated guards must stay within the same bounded runtime model.
+    runFields({actions});
     return {name,version,trigger,actions,approval_required:draft.approval_required===true};
   }
   return {contract,compile,validateDraftCondition,runFields,manualRunInput};

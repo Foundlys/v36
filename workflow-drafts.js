@@ -17,9 +17,21 @@ class WorkflowDrafts{
     if(!draft||typeof draft!=='object'||Array.isArray(draft)||JSON.stringify(draft).length>120000||Object.keys(draft).some(key=>!['name','version','trigger_type','automatic','at','event_name','approval_required','steps'].includes(key))||draft.steps!==undefined&&(!Array.isArray(draft.steps)||draft.steps.length>100||draft.steps.some(step=>!step||typeof step!=='object'||Array.isArray(step))))fail('workflow_draft_invalid','Concept heeft een ongeldige structuur of is te groot');
     // Partial drafts remain non-executable; preserve bounded condition trees
     // separately from the shallower generic record sanitizer.
-    for(const step of draft.steps||[])if(step&&Object.hasOwn(step,'condition'))validateDraftCondition(step.condition);
-    const value=sanitizeInput({...draft,...(draft.steps?{steps:draft.steps.map(step=>{const {condition,...rest}=step;return rest;})}:{})});
-    for(const [index,step] of (draft.steps||[]).entries())if(Object.hasOwn(step,'condition'))value.steps[index].condition=clone(step.condition);
+    let stepCount=0;
+    const cleanSteps=(steps,depth=0)=>{
+      if(!Array.isArray(steps)||depth>3)fail('workflow_draft_invalid','Ongeldige vertakkingsstructuur');
+      return steps.map(step=>{
+        if(!step||typeof step!=='object'||Array.isArray(step)||++stepCount>100)fail('workflow_draft_invalid','Maximaal honderd conceptstappen inclusief vertakkingen');
+        const {condition,then_steps,else_steps,...rest}=step,value=sanitizeInput(rest);
+        if(Object.hasOwn(step,'condition')){validateDraftCondition(condition);value.condition=clone(condition);}
+        if(step.type==='branch'){
+          if(depth>=3)fail('workflow_draft_invalid','Maximaal drie geneste vertakkingen');
+          value.then_steps=cleanSteps(then_steps,depth+1);value.else_steps=cleanSteps(else_steps,depth+1);
+        }else if(Object.hasOwn(step,'then_steps')||Object.hasOwn(step,'else_steps'))fail('workflow_draft_invalid','Alleen vertakkingen hebben afzonderlijke paden');
+        return value;
+      });
+    };
+    const {steps,...rest}=draft,value=sanitizeInput(rest);if(steps!==undefined)value.steps=cleanSteps(steps);
     const fingerprint=crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'),rows=this.adapter.bucket(ctx,SCOPE),previous=rows.find(row=>row.id===id);
     if(previous&&previous.owner_id!==actor.id)fail('workflow_draft_missing','Concept niet gevonden',404);
     if(previous&&previous.request_revision===input.expected_revision&&previous.fingerprint===fingerprint)return {record:clone(previous),deduplicated:true,executable:false};

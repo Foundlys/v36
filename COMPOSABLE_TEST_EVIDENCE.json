@@ -192,7 +192,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "1d4a916652cd6cdcb05f3c48a3aa7437308e7510321af7a7332a760d4877e7cd",
+    "package.json": "2c17274fb0df0ffdcc095d0b61137b0ea95b9621e1f0636673a36e982cca9e43",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -257,16 +257,18 @@
     "workflow-activation.js": "fcd32be289dfc44789aacfba3e45a99d6f1999b95796efa6ad47cd7a01e1f1ef",
     "workflow-authoring-api-test.js": "40ff96fbd2ca7e84ac38f1f93a698b8787ef3878dfb08a2e21bb93d9062fb5ca",
     "workflow-authoring-test.js": "4dbe1a7ab64a4bcc2b291db341a770343350fab0a7776310f0094f037f1d8a53",
-    "workflow-authoring.js": "01adc2ce0da0ff33d41adc2aacfd9cc66cedceed575b2846b3259ad4594686ab",
+    "workflow-authoring.js": "fbbbf3f44d133096b9b26de8f8b54ab85ea307769e89df7757763527731b9cbe",
+    "workflow-branching-api-test.js": "239d042706f52a5067f610146c5da66fa5354c60b79614d19ce440fa73aea660",
+    "workflow-branching-test.js": "bc093c1cf30b04bf82fc45a4b89ece4f15fbaa1548558180a6dde3b75bc9405f",
     "workflow-conditions-test.js": "83e52264f8267292b369fb3ad07781db3c90d64cafc426a0666b9ae420d62710",
     "workflow-draft-session.js": "e62ca774208200af5c334d00ad359cd46042b35b8e3cd36f45f983a4b842ac08",
     "workflow-drafts-api-test.js": "8755d4b2ca6d3f39491dde2a156810a263e0d9784073bde419681a967e684ba0",
     "workflow-drafts-test.js": "2da63bc2c8b34640b07e23f05618d2f3ab27417f22748c4b0e2b072d00888d57",
-    "workflow-drafts.js": "b7258df77766c2eea1d39aab5fe7ad40f683fa47e04ec3ab547e7c347c894f2e",
-    "workflow-editor-test.js": "6885e13de5775968c24fbca0caa45477a2ef8c1b809fc57cb94585fd020675ff",
-    "workflow-editor.js": "99cfbb32fe57b136858f06f5ecbab11e21920fdf25b28808f450a64e464d0800",
+    "workflow-drafts.js": "b926666b7a512610006ed66415d7414aba47eca930c68c1034798a1febefbbf1",
+    "workflow-editor-test.js": "118ac01d17404aa30354b86144bdb234bf8ea85e72ccedbc10a8582e1362ce8a",
+    "workflow-editor.js": "09b868d5c298db52113db8a98b75f5f34ef791bfef12180ccdf91e7f7fd0cec7",
     "workflow-execution-test.js": "2c1ac923751dd212844f0bdf4e28019d4ef86d8b1c36c6e9a1487a3812b2a227",
-    "workflow-execution.js": "fcd0ce43d5f70d7df0ac77d19552b09f653ec79fc77497b7f29770016274837a",
+    "workflow-execution.js": "a8ca578e53b53478f82ff4fda7a2b69dd2d329b49f722ef36687db8c19e90744",
     "workflow-manual-run-test.js": "56bc1901fda0cd6992f252e41bf1ca7caf22151a8a94f64e4540b22a02884e3a",
     "workflow-recovery-api-test.js": "9258493ec9c9f3e6d324075fd610ee7676f4b03ea1a88c8d1e7666543b4a3c05",
     "workflow-recovery-test.js": "8c1c5da619c8f54ed0336c9ff803850c076579d6202939eb739a256554bb1236",
@@ -277,7 +279,7 @@
     "workflow-run-query-test.js": "5cd9683ab77206f1499988301ebc608cded07ce995047bbc0d05366f14a32f02",
     "workflow-run-query.js": "f88cf5c4c4ea7e54de6f56b646bc28fb6f63224052ba30968c654254b3d6f58f",
     "workflow-zero-api-test.js": "6785e146a50e2b88fcffb666bb327ccab5f32694f1dca67ed1be5e55b53c636c",
-    "workflow-zero-test.js": "d04cb2dfc3a5b7569197e9f04eb6ea028d5601dc08b7afce0d43100d5cd00016",
+    "workflow-zero-test.js": "b3104a67af86b0f2bf303ee7aa3e70a4bde0292119a9aaf7ec861931be563a47",
     "workflow-zero.js": "a76d3d16cbf3f2f32f1e4dff9cbda91400d0c8d39ed37e8ed36933d342036c32",
     "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
     "workspace-dashboard-concurrency-test.js": "2b0986ce4bb3a4b77ed647b1d31936fd8a93ab566eccaf2a1f4f0ba747d01018",
@@ -290,7 +292,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "f5f525ac187308a3e93ae0950b1ffc5e44fc918ce7e45dfc48c7f22f7fb2afad"
   },
-  "output_sha256": "b2cc9698381ee9bcd4fc6f57d5a15fa16ad977a71e788aece8078c4b515514de",
+  "output_sha256": "c8ec244ac4ce923fc321bcc686aac494f344d51be4db02191a0d091511311ace",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -445,7 +447,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T15:52:58.762701+00:00",
+  "verified_at": "2026-09-11T16:04:14.871132+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -611,7 +613,8 @@
     "Owned Communication templates now create internal drafts through explicit literal values and version-bound native or ZERO preview/confirmation. Missing values produce unavailable content, not an apparently complete draft. Actor/tenant/source/input-bound creation, atomic history/audit/receipt, encrypted replay, current template ACL across derived drafts/history/sharing/export and source-free ZERO retention pass unit, real-session body-wait and production DOM contracts. Catalog edits preserve the previously applied draft/version and exact approval; accepted isolated SMTP records retain that origin. Separate designated review, current purpose/account policy and explicit send confirmation remain required. Messages is unchanged by internal draft creation. No live provider/browser acceptance or production mutation is claimed; remaining capability gates stay open.",
     "Automation now rejects malformed conditions, including when:false, at definition and before any retained workflow execution or resume. Complete group validation precedes every step, including unconditional earlier steps; invalid scheduled workflows are isolated without rewriting retained definitions. Strict comparison values, exclusive all/any group shapes, depth/child/node limits and all existing valid operators pass adversarial regression. The existing editor now supports nested EN/OF groups and preserves bounded condition trees in private non-executable drafts, avoiding generic sanitizer depth truncation. Actual production DOM handlers, native HTTP creation, explicit approvals, encrypted draft/workflow restart, valid/false branches and duplicate-free execution pass. No live provider, actual browser or production acceptance is inferred. Visual branch-path authoring, ZERO workflow preparation and other ledger requirements remain open.",
     "ZERO now previews, explicitly saves and rereads private workflow drafts through the existing native compiler and draft store. Exact actor/tenant/input/revision fingerprints, confirmation, current source ownership and capabilities, native CAS conflicts, response-loss replay, atomic rollback and encrypted restart pass. New operations never publish, activate or run a workflow. Source-bearing draft and compiled output are excluded from retained conversation/audit results; actual encrypted audit contents were checked. The existing editor delegates explicit prepare/save controls to ZERO, adopts the native saved revision, retains identical retry keys and rejects changed/detached previews. Actual member HTTP requests revoke authority during body waits and create no executable workflows or tasks. Full natural-language authoring, explicit branch-path authoring, further execution/debugging UX and competitive/browser gates remain open. No live provider or production changes.",
-    "The actual manual Automation run form now supplies explicitly typed condition inputs and event fields through the existing run API. Missing, text, numeric, boolean and null values remain distinct; nested fields are bounded and conflicting/protected paths are rejected. Tenant, event version and manual provenance follow the selected workflow/reference instead of claiming an existing provider event. Production DOM handlers and the real native HTTP/engine path verify true/false groups, current approval behavior, stable-reference exact-input replay, encrypted restart, no duplicate effects after a lost response and detached/pending submission guards. The reproduced PLANNED-history filter defect is fixed: an actual adapter-unavailable retained run can be queried by its literal status without executing anything or revealing another owner\u2019s run. Explicit branch-path authoring, fuller natural-language workflow preparation, remaining debugging and other module/competitive/browser gates stay open. No production or provider mutation."
+    "The actual manual Automation run form now supplies explicitly typed condition inputs and event fields through the existing run API. Missing, text, numeric, boolean and null values remain distinct; nested fields are bounded and conflicting/protected paths are rejected. Tenant, event version and manual provenance follow the selected workflow/reference instead of claiming an existing provider event. Production DOM handlers and the real native HTTP/engine path verify true/false groups, current approval behavior, stable-reference exact-input replay, encrypted restart, no duplicate effects after a lost response and detached/pending submission guards. The reproduced PLANNED-history filter defect is fixed: an actual adapter-unavailable retained run can be queried by its literal status without executing anything or revealing another owner\u2019s run. Explicit branch-path authoring, fuller natural-language workflow preparation, remaining debugging and other module/competitive/browser gates stay open. No production or provider mutation.",
+    "Explicit true/else paths now compile from the existing editor into bounded guarded steps in the same durable workflow engine. Up to three nested branch containers share the existing one-hundred-step authoring limit; generated predicates retain the existing depth/node bounds. A strict single-child not condition represents the else guard and rejects malformed children before any action. True and false paths are mutually exclusive for immutable run inputs; missing-value predicates, exact approval, delay/restart/replay and selected-path failure without fallback into else pass. Private partial draft storage preserves nested paths without creating workflows, and native HTTP plus actual editor handlers reopen and compile the same structure. ZERO preview/save also retains branch drafts through the native compiler/store without source-bearing retained results or execution. Further natural-language workflow creation, broader debugging, recovery without proven outcomes and remaining module/competitive/browser acceptance stay open. No live provider, browser or production proof is inferred."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -623,7 +626,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-manual-workflow-inputs-full-regression.log",
+  "output_file": ".recovery-evidence/20260911-explicit-workflow-branches-full-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -636,10 +639,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "939069d2da0a6537023a0f6d4b2d44cc1feeed60",
-    "tree": "9b45aa7ce3cba8e604e404036b29362478cb19eb",
-    "run": 110,
-    "run_id": 34618016633,
+    "head": "90b73c40296ecfc12d3bc1923176b210059bdf52",
+    "tree": "6f7db3847f3bc880fe0de0fdddb5bfe46384c156",
+    "run": 111,
+    "run_id": 34618808237,
     "conclusion": "success"
   },
   "current_production_observation": {
@@ -740,6 +743,25 @@
       "sha256": "b2cc9698381ee9bcd4fc6f57d5a15fa16ad977a71e788aece8078c4b515514de",
       "finished_at": "2026-09-11T15:52:58.762701+00:00",
       "source_manifest": ".recovery-evidence/20260911-manual-workflow-inputs-sources.json"
+    }
+  },
+  "explicit_branch_acceptance": {
+    "mutually_exclusive_paths": true,
+    "same_durable_engine": true,
+    "strict_negation_validation": true,
+    "exact_approval_delay_restart_replay": true,
+    "failure_no_else_fallback": true,
+    "native_http_and_private_draft_reload": true,
+    "actual_editor_handlers": true,
+    "zero_native_drafts": true,
+    "browser": false,
+    "live_provider": false,
+    "completion": {
+      "exit_code": 0,
+      "log": ".recovery-evidence/20260911-explicit-workflow-branches-full-regression.log",
+      "sha256": "c8ec244ac4ce923fc321bcc686aac494f344d51be4db02191a0d091511311ace",
+      "finished_at": "2026-09-11T16:04:14.871132+00:00",
+      "source_manifest": ".recovery-evidence/20260911-explicit-workflow-branches-sources.json"
     }
   }
 }

@@ -16,10 +16,10 @@ const signature = value => crypto.createHash('sha256').update(JSON.stringify(can
 function validateCondition(condition,depth=0,budget={nodes:0}) {
   const invalid=()=>fail('automation_condition_invalid','Ongeldige conditie of conditiegroep',422);
   if(depth>5||++budget.nodes>200||!condition||typeof condition!=='object'||Array.isArray(condition))invalid();
-  const keys=Object.keys(condition),groups=['all','any'].filter(key=>Object.hasOwn(condition,key));
+  const keys=Object.keys(condition),groups=['all','any','not'].filter(key=>Object.hasOwn(condition,key));
   if(groups.length){
     if(groups.length!==1||keys.length!==1)invalid();
-    const children=condition[groups[0]];
+    const children=groups[0]==='not'?[condition.not]:condition[groups[0]];
     if(!Array.isArray(children)||!children.length||children.length>20)invalid();
     for(const child of children)validateCondition(child,depth+1,budget);
     return;
@@ -42,6 +42,7 @@ function sanitizeAction(action,sanitize){
 }
 function matches(condition,event,inputs) {
   if(condition===undefined)return true;
+  if(Object.hasOwn(condition,'not'))return !matches(condition.not,event,inputs);
   if(condition.all)return condition.all.every(child=>matches(child,event,inputs));
   if(condition.any)return condition.any.some(child=>matches(child,event,inputs));
   const value=condition.field.split('.').reduce((value,key)=>value&&Object.hasOwn(value,key)?value[key]:undefined,{event,inputs}),wanted=condition.value;
