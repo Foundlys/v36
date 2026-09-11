@@ -733,7 +733,7 @@
         const defaults=section==='APPROVALS'?{status:'AWAITING_APPROVAL'}:section==='FAILURES'?{status:'ERROR,BLOCKED,DEAD_LETTER,RECOVERY_READY,RUNNING'}:section==='RETRIES'?{retried:'true'}:{},filters={...defaults,...query,limit:'50'};
         page=await request('/api/automation/runs?'+new URLSearchParams(filters));if(token!==state.automationQueryToken)return;data.runs=page.items;const composition=await request('/api/composition');if(token!==state.automationQueryToken)return;data.can_manage=page.can_manage&&composition.resolution.capabilities.includes('automation:workflows');data.retryable_actions=page.retryable_actions;data.can_approve=data.can_manage&&composition.resolution.capabilities.includes('automation:approvals');
         const form=node('form','domain-record-form'),search=node('input'),label=node('label','','Zoek op run, workflow, event, stap of foutmelding'),status=node('select'),statusLabel=node('label','','Uitvoerstatus'),find=node('button','secondary-button','Zoeken');search.value=query.q||'';search.maxLength=200;label.append(search);
-        for(const value of ['', 'RUNNING','SUCCEEDED','ERROR','BLOCKED','AWAITING_APPROVAL','WAITING_TIME','WAITING_RETRY','DEAD_LETTER','RECOVERY_READY']){const option=node('option','',value||'Alle statussen');option.value=value;status.append(option);}status.value=query.status||'';statusLabel.append(status);find.type='submit';form.append(label,statusLabel,find);form.addEventListener('submit',event=>{event.preventDefault();renderAutomationSection(section,content,{q:search.value.trim(),...(status.value?{status:status.value}:{}),offset:'0'});});result.push(form,node('p','',`${page.total} toegankelijke uitvoeringen · vanaf ${page.offset+1}`));
+        for(const value of ['', 'RUNNING','PLANNED','SUCCEEDED','ERROR','BLOCKED','AWAITING_APPROVAL','WAITING_TIME','WAITING_RETRY','DEAD_LETTER','RECOVERY_READY']){const option=node('option','',value||'Alle statussen');option.value=value;status.append(option);}status.value=query.status||'';statusLabel.append(status);find.type='submit';form.append(label,statusLabel,find);form.addEventListener('submit',event=>{event.preventDefault();renderAutomationSection(section,content,{q:search.value.trim(),...(status.value?{status:status.value}:{}),offset:'0'});});result.push(form,node('p','',`${page.total} toegankelijke uitvoeringen · vanaf ${page.offset+1}`));
         const navigation=node('div');for(const [title,offset]of [['Vorige',page.offset>=50?page.offset-50:null],['Volgende',page.next_offset]]){const button=node('button','secondary-button',title);button.type='button';button.disabled=offset===null;button.addEventListener('click',()=>renderAutomationSection(section,content,{...query,offset:String(offset)}));navigation.append(button);}result.push(navigation);
       }
       if(section==='WORKFLOWS'&&data.can_manage){
@@ -770,9 +770,7 @@
           const controls=node('form'),label=node('label','','Reden voor versieactivatie of pauze'),reason=node('input'),confirmationLabel=node('label','','Ik heb de versie en gevolgen voor nieuwe en wachtende runs gecontroleerd'),confirmation=node('input'),activate=node('button','','Alleen deze versie activeren'),pause=node('button','','Alle versies van deze workflow pauzeren'),notice=node('output');reason.required=true;reason.maxLength=500;label.append(reason);confirmation.type='checkbox';confirmation.required=true;confirmationLabel.append(confirmation);activate.type=pause.type='submit';activate.value='activate';pause.value='pause';pause.disabled=row.activation_mode==='PAUSED';notice.setAttribute('role','status');controls.append(label,confirmationLabel,activate,pause,notice);card.append(controls);
           controls.addEventListener('submit',async event=>{event.preventDefault();const active=event.submitter?.value==='activate';activate.disabled=pause.disabled=true;try{await request(`/api/automation/workflows/${row.id}/activation`,{method:'PUT',body:JSON.stringify({active,confirm:confirmation.checked,expected_revision:row.activation_revision,reason:reason.value.trim()})});await renderAutomationSection(section,content);}catch(error){notice.textContent=friendlyError(error);activate.disabled=false;pause.disabled=row.activation_mode==='PAUSED';}});
         }
-        if(section==='WORKFLOWS'&&data.can_manage){
-          const form=node('form'),label=node('label','','Bestaande eventreferentie'),input=node('input'),button=node('button','','Workflow uitvoeren'),notice=node('output');input.required=true;input.maxLength=200;label.append(input);button.type='submit';button.disabled=!row.effective_enabled;form.append(label,button,notice);form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{const run=await request(`/api/automation/workflows/${row.id}/runs`,{method:'POST',body:JSON.stringify({event:{event_id:input.value.trim(),type:row.trigger?.type,source:'authorized_manual_run'}})});notice.textContent=`Uitkomst: ${run.status}`;}catch(error){notice.textContent=friendlyError(error);}finally{button.disabled=false;}});card.append(form);
-        }
+        if(section==='WORKFLOWS'&&data.can_manage)appendManualWorkflowRun(row,card,content);
         if(section==='APPROVALS'&&data.can_approve){
           const form=node('form'),label=node('label','','Reden voor goedkeuring van deze run'),input=node('input'),button=node('button','','Exacte run goedkeuren'),notice=node('output');input.required=true;input.maxLength=500;label.append(input);button.type='submit';form.append(label,button,notice);
           form.addEventListener('submit',async event=>{event.preventDefault();button.disabled=true;try{await request(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs,approval:{run_id:row.run_id,request_signature:row.request_signature,reference:crypto.randomUUID(),reason:input.value.trim()}}})});await renderAutomationSection(section,content);}catch(error){notice.textContent=friendlyError(error);button.disabled=false;}});card.append(form);
@@ -783,6 +781,29 @@
       if(section==='RETRIES')result.push(node('p','','Alleen ondersteunde acties met een vastgelegd retrybeleid worden na tijdelijke fouten herhaald. Een onderbroken stap met onbekende uitkomst vereist afzonderlijke beoordeling.'));
       replaceChildren(content,result);
     }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
+  }
+
+  function appendManualWorkflowRun(workflow,card,content){
+    const contract=window.FoundlyWorkflowAuthoring,form=node('form','domain-record-form'),referenceLabel=node('label','','Unieke referentie voor deze handmatige uitvoering'),reference=node('input'),button=node('button','','Workflow uitvoeren'),notice=node('output'),fields={};
+    reference.required=true;reference.maxLength=200;reference.value=crypto.randomUUID();referenceLabel.append(reference);form.append(referenceLabel);notice.setAttribute('role','status');
+    try{
+      for(const field of contract.runFields(workflow)){
+        if(field.fixed){form.append(node('p','',field.path+' volgt de uitvoerreferentie en de huidige workflowcontext.'));continue;}
+        const holder=node('fieldset'),legend=node('legend','',field.path),typeLabel=node('label','','Invoertype'),type=node('select'),valueLabel=node('label','','Waarde'),value=node('input');value.maxLength=12000;
+        for(const [id,label]of [['absent','Niet meegeven'],['text','Tekst'],['number','Getal'],['boolean','Boolean (true / false)'],['null','Leeg (null)']]){const option=node('option','',label);option.value=id;type.append(option);}type.value='absent';typeLabel.append(type);valueLabel.append(value);holder.append(legend,typeLabel,valueLabel);form.append(holder);
+        const sync=()=>{valueLabel.hidden=['absent','null'].includes(type.value);value.disabled=valueLabel.hidden;value.required=['number','boolean'].includes(type.value);};type.addEventListener('change',sync);sync();fields[field.path]={type,value};
+      }
+    }catch(error){card.append(node('p','ErrorState',friendlyError(error)));return;}
+    form.append(node('p','','Deze invoer hoort bij een handmatige uitvoering. Dezelfde referentie met dezelfde invoer herhaalt geen voltooide stappen. Een andere invoer vereist een nieuwe referentie.'),button,notice);button.type='submit';button.disabled=!workflow.effective_enabled;card.append(form);let pending=false;
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();if(pending||!workflow.effective_enabled||!form.isConnected||!content.isConnected)return;
+      try{
+        const payload=contract.manualRunInput(workflow,reference.value.trim(),Object.fromEntries(Object.entries(fields).map(([path,field])=>[path,{type:field.type.value,value:field.value.value}])));
+        pending=true;button.disabled=true;form.inert=true;
+        const run=await request(`/api/automation/workflows/${workflow.id}/runs`,{method:'POST',body:JSON.stringify(payload)});
+        if(!form.isConnected||!content.isConnected)return;notice.textContent=`Uitkomst: ${run.status}${run.replayed?' · bestaande uitvoering opnieuw opgehaald':''}`;
+      }catch(error){if(form.isConnected&&content.isConnected)notice.textContent=friendlyError(error);}finally{pending=false;form.inert=false;button.disabled=!workflow.effective_enabled;}
+    });
   }
 
   async function renderScheduling(content){

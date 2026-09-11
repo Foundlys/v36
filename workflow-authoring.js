@@ -47,6 +47,35 @@
     }
     return when;
   }
+  function runFields(workflow){
+    const result=new Set();let nodes=0;
+    function visit(c,depth=0){
+      if(!c||typeof c!=='object'||Array.isArray(c)||depth>5||++nodes>200)fail('Deze workflow bevat een ongeldige conditie.');
+      const groups=['all','any'].filter(key=>Object.hasOwn(c,key));
+      if(groups.length){if(groups.length!==1||Object.keys(c).length!==1||!Array.isArray(c[groups[0]])||!c[groups[0]].length||c[groups[0]].length>20)fail('Ongeldige conditiegroep.');for(const child of c[groups[0]])visit(child,depth+1);return;}
+      if(typeof c.field!=='string'||!/^(event|inputs)(?:\.[A-Za-z][A-Za-z0-9_]{0,79}){1,5}$/.test(c.field)||/(?:__proto__|constructor|prototype)/.test(c.field)||!operators.includes(c.operator))fail('Ongeldig conditieveld.');result.add(c.field);if(result.size>200)fail('Dit formulier ondersteunt maximaal tweehonderd verschillende conditievelden.');
+    }
+    if(!Array.isArray(workflow.actions)||!workflow.actions.length||workflow.actions.length>100)fail('Ongeldige workflowstappen.');
+    for(const action of workflow.actions){nodes=0;if(!action||typeof action!=='object'||Array.isArray(action))fail('Ongeldige workflowstap.');if(Object.hasOwn(action,'when'))visit(action.when);}
+    return [...result].sort().map(path=>({path,fixed:path.startsWith('event.')&&['event_id','event_version','tenant_id','dealer_id','type','source'].includes(path.split('.')[1])}));
+  }
+  function manualRunInput(workflow,eventId,values={}){
+    if(typeof eventId!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(eventId))fail('Gebruik een geldige unieke uitvoerreferentie.');
+    const fields=runFields(workflow),event={event_id:eventId,event_version:1,type:workflow.trigger?.type,source:'authorized_manual_run',...(workflow.tenant_id?{tenant_id:workflow.tenant_id}:{}),...(workflow.dealer_id?{dealer_id:workflow.dealer_id}:{})},inputs={};
+    if(!values||typeof values!=='object'||Array.isArray(values)||Object.keys(values).some(path=>!fields.some(field=>field.path===path&&!field.fixed)))fail('Onbekende of gereserveerde uitvoerinvoer.');
+    for(const [path,selection]of Object.entries(values)){
+      if(!selection||typeof selection!=='object'||Array.isArray(selection)||Object.keys(selection).some(key=>!['type','value'].includes(key))||!['absent','text','number','boolean','null'].includes(selection.type))fail('Kies een geldig invoertype.');
+      if(selection.type==='absent')continue;let value=selection.value;
+      if(selection.type==='null')value=null;
+      else if(selection.type==='number'){if(typeof value!=='string'||!value.trim()||!Number.isFinite(Number(value)))fail('Vul een geldig getal in voor '+path);value=Number(value);}
+      else if(selection.type==='boolean'){if(!['true','false'].includes(value))fail('Kies true of false voor '+path);value=value==='true';}
+      else if(typeof value!=='string'||value.length>12000)fail('Vul maximaal 12000 tekens in voor '+path);
+      const parts=path.split('.'),last=parts.pop();let target=parts.shift()==='event'?event:inputs;
+      for(const key of parts){if(Object.hasOwn(target,key)&&(target[key]===null||typeof target[key]!=='object'||Array.isArray(target[key])))fail('Botsende invoervelden: '+path);if(!Object.hasOwn(target,key))target[key]={};target=target[key];}
+      if(Object.hasOwn(target,last))fail('Botsende invoervelden: '+path);target[last]=value;
+    }
+    return {event,options:{inputs}};
+  }
   function contract(automation){return {version:1,condition_groups:{modes:['all','any'],max_depth:5,max_children:20,max_nodes:200},max_steps:100,triggers:automation.triggers,automatic_event_aliases:automation.event_aliases||{},actions:Object.entries(fields).filter(([type])=>automation.actions.includes(type)).map(([type,value])=>({type,...value,retryable:(automation.retryable_actions||[]).includes(type)})),operators};}
   function compile(draft,spec){
     const name=String(draft.name||'').trim();if(!name||name.length>200)fail('Vul een workflownaam van maximaal 200 tekens in.');
@@ -72,5 +101,5 @@
     });
     return {name,version,trigger,actions,approval_required:draft.approval_required===true};
   }
-  return {contract,compile,validateDraftCondition};
+  return {contract,compile,validateDraftCondition,runFields,manualRunInput};
 });

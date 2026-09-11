@@ -24,5 +24,8 @@ const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{ent
  assert.ok(core.automationDefinitions(ctx,reader).workflows.some(row=>row.id===wf.id));
  resolver.configure(ctx,admin,{entitlements:['automation'],capability_flags:{'automation:workflows':false},expected_revision:3});assert.equal(core.queryAutomationRuns(ctx,reader).total,120);assert.throws(()=>core.automationDefinitions(ctx,reader),{code:'capability_disabled'});
  resolver.configure(ctx,admin,{entitlements:['automation'],enabled_modules:[],expected_revision:4});assert.equal(core.exportAutomation(ctx,reader).collections.automation_runs.length,120);
+ const plannedCtx={tenant_id:'planned-history-fixture',dealer_id:'default'},planningCore=new FoundlyPlatformCore({...adapter,executeAutomationAction:undefined});
+ const plannedFlow=planningCore.defineAutomation(plannedCtx,owner,{name:'No execution adapter fixture',trigger:'custom_event',actions:[{type:'notify'}]});const planned=planningCore.runAutomation(plannedCtx,owner,plannedFlow.id,{event_id:'planned-history:one'});assert.equal(planned.status,'PLANNED');const plannedEffects=effects;
+ assert.equal(planningCore.queryAutomationRuns(plannedCtx,owner,{status:'PLANNED'}).items[0].run_id,planned.run_id);assert.equal(planningCore.queryAutomationRuns(plannedCtx,{...reader,id:'other'},{status:'PLANNED'}).total,0);assert.equal(effects,plannedEffects);
  console.log('PASS searchable history beyond latest 100, stable pagination, status/event/step filters, private metadata, no replay, tenant boundaries and owner-filtered retained export');
 })().catch(error=>{console.error(error);process.exitCode=1;});
