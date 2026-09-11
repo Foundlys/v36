@@ -21,6 +21,7 @@
   };
 
   const SECTION_COPY = Object.freeze({
+    EVENT_PREPARATION:['Afspraak voorbereiden','Van beschrijving naar gecontroleerde afspraakvelden en afzonderlijke bevestiging.'],
     OVERVIEW: ['Command dashboard', 'Werkelijke tenantdata, actuele bronstatus en operationele signalen voor deze workspace.'],
     DATASETS: ['Datasets', 'Canonical tenantdatasets met schema-, lineage-, freshness- en retentiecontracten.'],
     SOURCES: ['Sources', 'Bronbeschikbaarheid, provenance, laatste succesvolle observatie en recorddekking.'],
@@ -625,6 +626,7 @@
     if(state.workspaceId==='sales'&&section==='PIPELINES'){replaceChildren(content,[window.FoundlySalesPipeline.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales'})]);return;}
     if(state.workspaceId==='sales'&&section==='FORECAST_HIERARCHIES'){const view=window.FoundlySalesHierarchy.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales',renderResult:(host,result,filters)=>{appendForecastResult(host,result);appendForecastSnapshotForm(host,result,filters,null,{id:result.hierarchy.id,node_id:result.hierarchy.node_id});appendForecastScenario(host,result,filters,{id:result.hierarchy.id,node_id:result.hierarchy.node_id});}});replaceChildren(content,[view]);return;}
     if(state.workspaceId==='sales'&&section==='FORECAST'){renderSalesForecast(content);return;}
+    if(state.workspaceId==='calendar'&&section==='EVENT_PREPARATION'){const conversationId=state.conversationId||crypto.randomUUID(),active=()=>state.activeSection===section&&state.workspaceId==='calendar';let view;view=window.FoundlyCalendarEventPreparation.create({document,request,isActive:active,zeroRequest:async(action,turn)=>{if(!active()||!view?.isConnected)throw Error('De Calendar-weergave is niet meer actief.');const response=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:'Gekozen Calendar-actie',conversation_id:conversationId,turn_id:turn,preferred_module:'calendar',client_context:{calendar_action:action}})});if(!active()||!view.isConnected)throw Error('De Calendar-weergave is niet meer actief.');state.conversationId=conversationId;byId('zeroOutput').textContent=response.display_text||response.answer;if(!response.calendar_data)throw Error('Het actuele Calendar-resultaat ontbreekt.');return response.calendar_data;}});replaceChildren(content,[view]);return;}
     if(state.workspaceId==='calendar'&&section==='SCHEDULING'){renderScheduling(content);return;}
     if(state.workspaceId==='automation'){renderAutomationSection(section,content);return;}
     if ((state.workspace?.domain_entities || []).includes(section.toLowerCase())) {

@@ -20,8 +20,9 @@ function calendarOperations(core){
       const events=core.bucket(ctx,'events').filter(row=>!['ARCHIVED','CANCELLED'].includes(row.status)&&row.start_at&&row.end_at);
       const candidates=[];
       for(const calendar of calendars){
-        const revision=digest({tenant:ctx,actor:actor.id,calendar:{id:calendar.id,revision:calendar.revision},availability:availability.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision]),events:events.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision])});
-        const busy=events.filter(row=>row.calendar_id===calendar.id).flatMap(occurrences);
+        const external=core.external?core.external.busy(ctx,calendar.id,[{start_at:input.from,end_at:input.to}]):{items:[],revision:null};
+        const revision=digest({external_revision:external.revision,tenant:ctx,actor:actor.id,calendar:{id:calendar.id,revision:calendar.revision},availability:availability.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision]),events:events.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision])});
+        const busy=[...events.filter(row=>row.calendar_id===calendar.id).flatMap(occurrences),...external.items];
         const load=busy.filter(row=>Date.parse(row.start_at)>=from&&Date.parse(row.start_at)<to).length;
         for(const window of availability.filter(row=>row.calendar_id===calendar.id).flatMap(occurrences)){
           const starts=Math.max(from,Date.parse(window.start_at)),ends=Math.min(to,Date.parse(window.end_at));
@@ -37,7 +38,7 @@ function calendarOperations(core){
       const mode=String(input.distribution||'AVAILABILITY').toUpperCase();if(!['AVAILABILITY','ROUND_ROBIN'].includes(mode))fail('distribution_invalid','Onbekende verdeling');
       candidates.sort((a,b)=>mode==='ROUND_ROBIN'?(a.distribution_load-b.distribution_load||a.start_at.localeCompare(b.start_at)||a.calendar_id.localeCompare(b.calendar_id)):(a.start_at.localeCompare(b.start_at)||a.calendar_id.localeCompare(b.calendar_id)));
       const unique=[...new Map(candidates.map(row=>[`${row.calendar_id}:${row.start_at}`,row])).values()];
-      return {items:unique.slice(0,500),total:Math.min(unique.length,500),truncated:unique.length>500,limit:500,distribution:mode,scope:'AUTHORIZED_CALENDARS_AND_RECORDED_AVAILABILITY',external_calendar_coverage:'NOT_CLAIMED',observed_at:new Date().toISOString()};
+      return {items:unique.slice(0,500),total:Math.min(unique.length,500),truncated:unique.length>500,limit:500,distribution:mode,scope:'AUTHORIZED_CALENDARS_AND_RECORDED_AVAILABILITY',external_calendar_coverage:calendars.some(calendar=>core.external?.rows(ctx).some(row=>row.calendar_id===calendar.id))?'CONFIGURED_CALENDARS_RETAINED_COMPLETE_WINDOW':'NOT_CONFIGURED',observed_at:new Date().toISOString()};
     },
     book(ctx,actor,input,options={}){
       core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'calendar:events','write');

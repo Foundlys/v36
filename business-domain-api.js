@@ -1,7 +1,7 @@
 'use strict';
 const { DEFINITIONS }=require('./business-domains');
 const {calendarOperations}=require('./calendar-operations');
-function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson,mailAccount=()=>null,mailSubmissions=()=>null,mailboxes=()=>null,mailOAuth=()=>null}){
+function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson,mailAccount=()=>null,mailSubmissions=()=>null,mailboxes=()=>null,mailOAuth=()=>null,calendarLanguage=null}){
   return async(req,res,url)=>{
     const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing|analysis)(?:\/(.*))?$/);
     if(!match)return false;
@@ -17,6 +17,8 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       if(parts[0]==='schema'&&req.method==='GET'){core.scope(ctx,actor);return sendJson(res,200,{ok:true,module_id:id,entities:DEFINITIONS[id].entities,required_fields:DEFINITIONS[id].required,industry_fields:require('./industry-field-contract').fieldContract(core.resolver,ctx,actor,id)});}
       if(['status','summary'].includes(parts[0])&&req.method==='GET')return sendJson(res,200,{ok:true,...core.summary(ctx,actor)});
       if(['export','owned-export'].includes(parts[0])&&req.method==='GET')return sendJson(res,200,{ok:true,...core.export(ctx,actor)});
+      if(id==='calendar'&&parts[0]==='external-calendar'){if(!core.external)return sendJson(res,503,{ok:false,code:'calendar_external_unavailable'});if(parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...core.external.status(ctx,actor,url.searchParams.get('calendar_id'))});if(parts.length===2&&parts[1]==='reconcile'&&req.method==='POST')return sendJson(res,200,{ok:true,...await core.external.reconcile(ctx,actor,await readBody(req))});return sendJson(res,405,{ok:false,code:'method_not_allowed'});}
+      if(id==='calendar'&&parts[0]==='event-preparation'){const service=require('./calendar-event-preparation'),op=parts.length===2&&parts[1];if(req.method==='GET'&&['catalog','participants'].includes(op))return sendJson(res,200,{ok:true,...service[op==='catalog'?'catalog':'search'](core,ctx,actor,Object.fromEntries(url.searchParams))});if(req.method==='POST'&&['generate','preview','create'].includes(op)){const input=await readBody(req),value=op==='generate'?await service.generate(core,ctx,actor,input,calendarLanguage):op==='preview'?service.preview(core,ctx,actor,input):service.create(core,ctx,actor,input,{idempotency_key:req.headers['idempotency-key']});return sendJson(res,op==='create'?201:200,{ok:true,...value});}return sendJson(res,405,{ok:false,error:'Method not allowed'});}
       if(id==='calendar'&&parts[0]==='conflicts'&&req.method==='POST'){const data=await readBody(req);return sendJson(res,200,{ok:true,...core.conflicts(ctx,actor,data,data.exclude_id)});}
       if(id==='calendar'&&parts[0]==='scheduling'){const operations=calendarOperations(core);if(parts[1]==='slots'&&parts.length===2&&req.method==='GET')return sendJson(res,200,{ok:true,...operations.slots(ctx,actor,Object.fromEntries(url.searchParams))});if(parts[1]==='book'&&parts.length===2&&req.method==='POST')return sendJson(res,201,{ok:true,...operations.book(ctx,actor,await readBody(req),{idempotency_key:req.headers['idempotency-key']})});}
       if(id==='procurement'&&parts[0]==='rfqs'&&parts[2]==='comparison'&&parts.length===3&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./procurement-sourcing').compareBids(core,ctx,actor,parts[1])});
