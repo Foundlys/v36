@@ -123,7 +123,7 @@ async function load() {
   try {
     const params = query();
     const loaded=await window.FoundlyAnalysisLoading.load(api,params,KPI_ORDER);if(generation!==state.loadGeneration)return;
-    cohortView.setEnabled(loaded.cohorts_enabled,loaded.cohorts_writable);modelView.setEnabled(loaded.models_enabled,loaded.cohorts_writable,loaded.cohorts_enabled);
+    cohortView.setEnabled(loaded.cohorts_enabled,loaded.cohorts_writable);modelView.setEnabled(loaded.models_enabled,loaded.cohorts_writable,loaded.cohorts_enabled);actionView.setEnabled(loaded.cohorts_enabled,loaded.cohorts_writable);
     state.loading=loaded;Object.assign(state,{dashboard:loaded.dashboard,platform:loaded.platform,connectors:loaded.connectors,automation:loaded.automation});
     renderKpis();
     renderFunnel();
@@ -137,7 +137,7 @@ async function load() {
     if(state.loading.events_enabled){if(!state.stream)connectStream();}else{state.stream?.close();state.stream=null;state.streamConnected=false;}
     renderConnection();
   } catch (error) {
-    if(generation!==state.loadGeneration)return;cohortView.setEnabled(false);modelView.setEnabled(false);state.stream?.close();state.stream=null;state.streamConnected=false;
+    if(generation!==state.loadGeneration)return;cohortView.setEnabled(false);modelView.setEnabled(false);actionView.setEnabled(false);state.stream?.close();state.stream=null;state.streamConnected=false;
     notice.className = 'notice error';
     notice.textContent = `Analysis niet beschikbaar: ${error.message}`;
     $('#analysisConnection').className = 'status-pill error';
@@ -192,5 +192,7 @@ $('#exportEvents').addEventListener('click', exportEvents);
 $('#analysisZeroForm').addEventListener('submit', askZero);
 window.addEventListener('beforeunload', () => state.stream?.close());
 const cohortView=window.FoundlyCohortUI.mount(document,api);
-const modelView=window.FoundlyAnalysisModels.create({document,request:api});document.getElementById('analysisModels').append(modelView);
+const actionConversation=crypto.randomUUID();
+const actionView=window.FoundlyAnalysisActions.create({document,request:api,zeroRequest:async(action,turn)=>{const response=await api('/api/zero/turn',{method:'POST',body:JSON.stringify({message:'Gekozen Analysis-actie',conversation_id:actionConversation,turn_id:turn,preferred_module:'analysis',client_context:{analysis_action:action}})});if(!response.analysis_action_data)throw Error('Het actuele Analysis-resultaat ontbreekt.');return response.analysis_action_data;}});document.getElementById('analysisActions').append(actionView);
+const modelView=window.FoundlyAnalysisModels.create({document,request:api,onPropose:selection=>actionView.propose(selection)});document.getElementById('analysisModels').append(modelView);
 load();

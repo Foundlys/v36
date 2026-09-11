@@ -6,6 +6,16 @@
   "source_sha256": {
     ".env.example": "ab4bd4e1c509a727e1b714ca6e94ec5e1f94eee86eed4a4ce2105396091e3854",
     "Dockerfile.crm": "d060d5bff4b2fc1cca6596bcab8d3a41d047f7e34247ca023a869b73b715bdf7",
+    "analysis-action-access.js": "fbf3f8d47cc6a60e1c7731621f289f4de3d0954035f71b245042c14a7b48775f",
+    "analysis-action-execution.js": "0f7bf8879aec8a963fa048a263cc0979e319152847c543c112c7d26ef8f082d9",
+    "analysis-actions-api-test.js": "2e69a96a8ddd8ead9e7360c6aa75b2d64fe4be0fe0deebddbc13554065cd14c1",
+    "analysis-actions-client-test.js": "642d7b7e59f14b813b5ea1f66b8e5c50eb56134f0c5a9328e4f048f22e9c8e61",
+    "analysis-actions-client.js": "a431b734ec53ac3789e20ac907135eb021c9f5cf91789e648bb8b6f8ae24aaeb",
+    "analysis-actions-test.js": "1f17d79dca0e6630df701e8dd87a7a2eb0bbc42f987483692e1752bd452a2429",
+    "analysis-actions-zero-api-test.js": "1af8854acc09d14474a14d22e1c5c91da5572c4f294c3e4b3fa6c4ef8e2f6b36",
+    "analysis-actions-zero-client.js": "661cdef956aeb46faec13a31a3d6d9be9cc5d056f92f1e5837a0049db7d9eb16",
+    "analysis-actions-zero.js": "1aa917ad5e7232004b46de9f8fca6bde439a7866a2107d0863e234418bab3f07",
+    "analysis-actions.js": "ddae8c48b220ce7481fb3aad525b55e0180ff1d85df08ad6c7b3cb51331cc49a",
     "analysis-cohort-definitions-api-test.js": "465d41ebca47d858e3d34eb45a7e1c28e4d7ba910ecdf052a461682074766522",
     "analysis-cohort-definitions-test.js": "5e2ccd21f39bcc8f0d3b28a75733ba3ea5adc0235075df6fd17931bdf436217a",
     "analysis-cohort-zero-api-test.js": "e57d2a47e6f6f6d0897bf4c1ca0c91b3d5ab4544c4aace31197be64f2958ab99",
@@ -25,13 +35,13 @@
     "analysis-model-measures.js": "d5e7285a8475c6fd2da4d32cedf1dc068e7316a98935d70f71a19a48cd3e73b8",
     "analysis-models-api-test.js": "22dc7565ed21330fcf338cb72d5f87690f7d59b8e7ac5eba8be38aa8fc090fa0",
     "analysis-models-client-test.js": "f2ec03be1050d02a3069bc623854e3f2822b745abe7b2c8d5fe00419dff44949",
-    "analysis-models-client.js": "ff230c833d231ed0b4f181eae5b1b373a21305fc9768650df761209cfb6e11e3",
+    "analysis-models-client.js": "758555f912c39a604f10a8e00164826d1c5b3fb4cb5fff7251d7d2d7debd2918",
     "analysis-models-loading-test.js": "26d76ec7ea1f9454447e507f96a165ef320c511e775ae6a2c3f84b4b256c1f3c",
     "analysis-models-test.js": "4a5f86661120bdd534d69aeea82ecc9828081dfd1a25da139d1f43fbd2c0c03e",
     "analysis-models.js": "3534a9406b2b575571c575a461fc1e920a9044d0934f88490d90ef42165e806a",
-    "analysis-script.js": "7e4c812fd452723c5fc4b5690e3823ca2e7310d96be3114696297e72db75d41a",
+    "analysis-script.js": "eef0665edae6fa0374389fbd2de4d2c4f062c24637cd5d1dae625009e7963a1a",
     "analysis-zero-routing-api-test.js": "14aca1e491f29f52daa208fa1a0f5225ce80528a038c482e9ba31b00d381dd25",
-    "analysis.html": "6fbed9a5f30565da26bef2c1fe5cc03a0128728e1722d6ca29492b6cd8938a62",
+    "analysis.html": "82f197d1dffcc2486a2c89243cb165215a784444b52210274bd5493355e99286",
     "automation-owned-action.js": "7946547dec1a745479c9b169a64a9290f9fe0d1142ab28c53d939ecd54d1669e",
     "automotive-api-regression-test.js": "b70c4e1b67f6664aabd253982af95e0535fdd4f97f8d70cd82be78a496a152ae",
     "automotive-api.js": "04d10bb0c3bc0a074d70e0c459a8c80b297593b14dc97a5f2c8265702fea2c4c",
@@ -42,9 +52,9 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "2d8580e89fb16ad0a189b28df18cf859b1b8557d6e1f3fd0d9e7dd289d7182ff",
+    "business-domain-api.js": "59451ac9b93b899624392e379fd5062d0d13e0a3d81b9a9502d001c4d12e9b6b",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "7afc4c8c7b414734867d6734fdc8a9662715d2d73bd79bf9112c3dbb4f9b99c7",
+    "business-domains.js": "6ff99e3ee03ad89187d5eb92e3c275e148704a0357c08f11a95a3e830cbe5846",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
@@ -203,15 +213,15 @@
     "marketing-creative-reviews-test.js": "8028e04bb655faa8eca5381936a1d83f20ba31554fcb805c58b73626c2df18e5",
     "marketing-creative-reviews.js": "e96fd3550c97a986725aef542fecd3d178d111c785d4c038e26a09b20b11526a",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
-    "module-access-contracts.js": "a73af307d874c38897fb35fb6ecdaa28aed6245f0638cc5693b7db8ac6c86e35",
-    "module-catalog.js": "477e706916b6258c0cb5c70569f111a8b62ec71b2a29a108fc49198e10f3321b",
+    "module-access-contracts.js": "2b4593fe456a488ee8caf887d07170188b15f2cabe4490b73f626ecd5f8fc28f",
+    "module-catalog.js": "5b2f551b7258ed52abc91a7e7f87eb82a6665e3439df5f5046d2ebc9865180bd",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "bbb28095a6c3fa1fe25c04e7970e03f7cbaf802fac472effd5e6e0123eb27b45",
+    "package.json": "778cc842a2cd5d1b79744ecc8a1cad5b7bb726cbecb46431ba8dfb5c31c2263c",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "327d0ca9fbb795ee32014cc4aa64216d05d807fe56a2c2369e009c364d1620ff",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -256,7 +266,7 @@
     "sales-sequences-client-test.js": "d3e7e0e15e33505584a5c9c0b2a93ea7645289e12d93b15c197761a3680c453e",
     "sales-sequences-client.js": "f314118d7d996091fad43257f3b18ca046230049ae1dc7652b6a9fae2dfbfe35",
     "sales-sequences-test.js": "aa1bc4d0d45ea860ac9f772acb80debcbdc7362b7702e30ea032cfca6c0a04c2",
-    "sales-sequences.js": "bd7739f1bf970cc8b04e0ad98bec8211e8cc09efabb2d0b7a158b5b477a66c32",
+    "sales-sequences.js": "4e9718fa56c5cefeb2ac10793c0d0da8f26d5df892de942fa6c906e19581d95a",
     "sales-snapshot-access.js": "0da5da01b64def237b3661eeee7ebd4b5671d3250714738de446a238bb313d84",
     "sales-zero-api-test.js": "5dc05aa018c8749c7ad9506c6e3077b67d67859ff384825f04dd3b280af7053d",
     "sales-zero-client-test.js": "c55a925f22091ecb445dee7a951bdffc183e4b1a70a31b1d37cf64ea948e6f61",
@@ -266,7 +276,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "13dc9889857d4fe0a0858abfdee613dc4db209f021095673ae1634599e3c006c",
+    "server.js": "b77ec6c10d1ff1faaf2da4ebc633ad08c230f49c277f92e240094b861e1509bd",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -352,9 +362,9 @@
     "workspace-system.js": "789a728ef4cfa9b2c4a653e236da3f6cb4391d292a1a44f7bd8f6656e79136f4",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
-    "zero-crm-retention.js": "e84d140c9f7a9deab31e4575e3b5b8de36465f3412d43d806b1be1e00d7c934a"
+    "zero-crm-retention.js": "13cc50e671251cb261dccea279d055b654d07a0bb276bccffa2ba8be48753335"
   },
-  "output_sha256": "28055efff3d491b8badea2794d5c6ca9066596068a75386dacf0acfa6f9ee2d2",
+  "output_sha256": "b735d96756a9dec6fc829205fe543e392c1850dd95a44f511a6916416d745003",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -509,7 +519,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T19:20:30.651496+00:00",
+  "verified_at": "2026-09-11T19:52:17.297143+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -687,7 +697,8 @@
     "Sales now owns immutable typed follow-up sequences with current opportunity-bound plans, explicit mail values, exact separate preview/start confirmation, native tasks gated by recorded completion, and native internal Communication drafts without Messages/review/submission effects. Default manual mode and explicitly authorized automatic internal mode reuse the current-member worker without an Automation dependency; task-only plans work without Communication. Due time, pause/resume/cancel, malformed plans, source loss, role revocation while reading the HTTP body, suspended authors, unrelated active authors, exact receipts, cross-module atomic rollback and encrypted restart are tested. The production editor is exercised through native services in a synthetic DOM, including input/confirmation separation, changed/detached preview refusal, lost responses and direct current-access draft handoff to the existing Communication editor/review/submission workflow. Mail delivery remains NOT_CHECKED by Sales; COMPLETED_INTERNAL means internal preparation only. CI 119 passed the preceding pipeline checkpoint. Full structured ZERO prepare/execute/verify and outcome feedback remain the next Sales code gap, followed by other recorded module gaps. Phase 24 stays active; no actual browser/provider/production or competitive-superiority evidence is inferred.",
     "Sales ZERO now exposes registered typed native sequence catalog/definition, exact plan preview/start, current run verification, explicit advance/pause/resume/cancel, forecast query and outcome preview/record tools. The production Sales controls can select ZERO while retaining the same native policies and separate confirmations. Stable per-view conversation/action turns prevent lost-response duplicates; unsaved transport changes, detached controls and stale outcomes are refused. Outcome feedback binds the exact current opportunity and sequence revisions, records the current native status plus an explicit user note, and never changes the opportunity, completes a pending task or claims causal revenue/delivery. Current role/source checks apply on every read/replay/write, including real authenticated HTTP body waits, encrypted restart and private export. ZERO history/decrypted audit retains source-free references rather than plans, source values or user feedback. Unit, real-member HTTP and production synthetic-DOM/native-service tests pass. CI 120 passed the preceding sequence checkpoint. Phase 24 remains active; next is the recorded Analysis model/history/drilldown, multi-scope load and approved-action/outcome work, followed by the remaining recorded module gaps. This checkpoint does not waive broader module acceptance or infer actual browser, live-provider, model quality, production readiness or measured competitive superiority.",
     "Existing Analysis cohort definitions now retain immutable typed revision snapshots in the same atomic native save transaction. Explicit version and restore actions bind the current revision, reason and exact durable request receipt; restore creates a new revision and never runs an analysis or workflow. Current parent access governs history/list/detail/export after reassignment, with retained export after module disablement. Existing records without history capture only the genuinely retained baseline at its observed upgrade time, without inventing earlier revisions. Bounded history pages, original snapshots, malformed/foreign/corrupted source denial, atomic rollback, lost-response replay and encrypted restart are tested. Production cohort controls now expose typed revision editing and separate restore confirmation; synthetic DOM tests cover literal snapshots, unsaved input, changed/detached views, current read-only rights and retries. Real-member HTTP tests include role revocation during body waits and exact query-revision behavior. CI 121 passed the prior Sales ZERO checkpoint. Phase 24 remains active: broader configurable Analysis models, source drilldowns, multi-scope load and the explicit approved-action/outcome loop are still code-controlled work, followed by other recorded module gaps. No actual browser/provider/production or comparative acceptance is inferred.",
-    "Analysis now supports explicitly typed saved event-count, source-namespaced distinct-identity and integer minor-unit currency measures, with source/event/campaign/provider filters and up to two grouping fields. These models reuse the native definition version/history/restore workflow and current canonical-event policy. No formulas, arbitrary code, inferred identity joins, mixed-currency totals, missing-value coercion or partial capacity results are accepted. Group and source pages bind exact current model revision and selected source fingerprints; changes or revoked access require recalculation. The new native field projection avoids unused/private payload copies and supports bounded larger selections while preserving the prior projection contract. Production model creation, calculation, shared typed revision editing and source drilldown controls are tested through actual services; unchanged capability refreshes preserve unsaved input and current read-only/event/report gates remain separate. Real-member HTTP fixtures prove independent source scopes, body-wait model reassignment, encrypted restart and native revision restore. The large fixture covers 110001 retained events, 16 distinct current scopes of 2000 events each, and a separate 30001-event selection, with zero unused/private payload reads and no partial result beyond the 100000 selected-record limit. The full-regression measured timings are recorded separately and are not production/browser or universal performance acceptance. CI 122 passed the prior history checkpoint. Phase 24 continues with the recorded Analysis approved-action/current-outcome loop and other remaining module gaps; no provider completeness, causality, production or competitive-superiority claim is made."
+    "Analysis now supports explicitly typed saved event-count, source-namespaced distinct-identity and integer minor-unit currency measures, with source/event/campaign/provider filters and up to two grouping fields. These models reuse the native definition version/history/restore workflow and current canonical-event policy. No formulas, arbitrary code, inferred identity joins, mixed-currency totals, missing-value coercion or partial capacity results are accepted. Group and source pages bind exact current model revision and selected source fingerprints; changes or revoked access require recalculation. The new native field projection avoids unused/private payload copies and supports bounded larger selections while preserving the prior projection contract. Production model creation, calculation, shared typed revision editing and source drilldown controls are tested through actual services; unchanged capability refreshes preserve unsaved input and current read-only/event/report gates remain separate. Real-member HTTP fixtures prove independent source scopes, body-wait model reassignment, encrypted restart and native revision restore. The large fixture covers 110001 retained events, 16 distinct current scopes of 2000 events each, and a separate 30001-event selection, with zero unused/private payload reads and no partial result beyond the 100000 selected-record limit. The full-regression measured timings are recorded separately and are not production/browser or universal performance acceptance. CI 122 passed the prior history checkpoint. Phase 24 continues with the recorded Analysis approved-action/current-outcome loop and other remaining module gaps; no provider completeness, causality, production or competitive-superiority claim is made.",
+    "Analysis model groups now support explicit source-bound internal action proposals, a different current designated reviewer, separate approval and separate requester execution. The native target is an explicit Analysis report or an existing Sales follow-up plan; Analysis reports work without Sales, Automation or Communication. Native Sales policy validates the exact opportunity, immutable sequence and explicit draft inputs; the full native plan is shown for review. Preparation and approval have no target effects. Current model/event source access, exact query and target fingerprints, requester/reviewer roles and revisions are rechecked before execution. The native target and outcome reference commit atomically; failed persistence rolls back both, exact retries do not duplicate effects, and a pre-created native target cannot be falsely attributed to approval. Current outcome verification reports the actual native record and revision, with provider delivery unchecked and causality unestablished. Historical proposals/reports retain current parent/source access across reads and export; a completed Sales handoff remains independently Sales-owned. Production model-group and action controls cover reviewer selection, explicit input, stale/detached previews, preserved unsaved work and lost-response retry. The same controls can use registered typed ZERO tools through the same native services; current replay, conflicting turns, source-free decrypted audit/conversations and encrypted restart are tested. Real-member HTTP tests cover separate identities, revocation/suspension during body waits, source reassignment, standalone composition and native outcomes. Synthetic DOM and isolated HTTP/service evidence do not prove actual browser/provider/production or competitive acceptance. CI 123 passed the prior typed-model checkpoint. Phase 24 remains active; next is recorded Calendar natural-language structured creation and remaining module gaps."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -699,7 +710,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-analysis-models-full-regression.log",
+  "output_file": ".recovery-evidence/20260911-analysis-actions-full-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -712,10 +723,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "837a98bad1ef9d6fe307ed2d0f5e64764b003e1b",
-    "tree": "3ab9d213a742329686e4805869f42b3ac5be9bd6",
-    "run": 122,
-    "run_id": 34636901222,
+    "head": "4fce5875821d8d488b8af1fa72c21dad33f98537",
+    "tree": "aa8fdf723c440b425ef3feafbfe22758dc26c27f",
+    "run": 123,
+    "run_id": 34638412210,
     "conclusion": "success",
     "status": "completed"
   },
@@ -1065,6 +1076,29 @@
       "partial_capacity_result_returned": false,
       "browser": false,
       "production": false
+    }
+  },
+  "analysis_action_acceptance": {
+    "explicit_current_model_group": true,
+    "different_designated_approval_then_separate_execution": true,
+    "native_analysis_report_and_sales_handoff": true,
+    "standalone_analysis_without_optional_products": true,
+    "cross_module_atomic_rollback_and_no_duplicate": true,
+    "precreated_target_collision_refused": true,
+    "current_identity_and_source_checks": true,
+    "current_native_outcome_not_causal_attribution": true,
+    "real_member_http_body_wait_revocation": true,
+    "native_and_zero_production_handler_tests": true,
+    "zero_current_replay_source_free_retention": true,
+    "encrypted_restart": true,
+    "actual_browser": false,
+    "provider_delivery": false,
+    "completion": {
+      "exit_code": 0,
+      "log": ".recovery-evidence/20260911-analysis-actions-full-regression.log",
+      "log_sha256": "b735d96756a9dec6fc829205fe543e392c1850dd95a44f511a6916416d745003",
+      "finished_at": "2026-09-11T19:52:17.297143+00:00",
+      "source_manifest": ".recovery-evidence/20260911-analysis-actions-source-manifest.json"
     }
   }
 }
