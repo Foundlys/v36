@@ -33,8 +33,8 @@ async function execute(core,ctx,actor,action,{message,conversation_id,turn_id,pr
   case 'PREPARE_REVIEW':value=reviews.prepare(core,ctx,actor,action.draft_id,action.input,options,account);break;
   case 'DECIDE_REVIEW':case 'CANCEL_REVIEW':value=reviews.decide(core,ctx,actor,action.draft_id,action.review_id,action.input,options,account,action.operation==='CANCEL_REVIEW');break;
   case 'SUBMIT':value=await submissions.execute(ctx,actor,action.draft_id,action.review_id,action.input,options);break;
-  case 'REPLY_PREVIEW':value=replies.preview(core,ctx,actor,action.message_id,action.input.mode);break;
-  case 'CREATE_REPLY':value=replies.create(core,ctx,actor,action.message_id,action.input,options);break;
+  case 'REPLY_PREVIEW':value=replies.preview(core,ctx,actor,action.message_id,action.input.mode,account);break;
+  case 'CREATE_REPLY':value=replies.create(core,ctx,actor,action.message_id,action.input,options,account);break;
  }
  authorize(core,ctx,actor,action);
  const outcome=value.submission,answer=outcome?outcome.provider_acceptance===true?'De mailprovider heeft deze verzending geaccepteerd. Bezorging is niet geverifieerd.':outcome.provider_acceptance===null?'De verzenduitkomst is onbekend. De bewaarde poging vereist onderzoek; niet opnieuw verzenden.':'De provider heeft geen acceptatie bevestigd. Bekijk de bewaarde poging.':op.mode==='read'?'De actuele toegankelijke Communication-bron is opgehaald. Bekijk de inhoud en kies een expliciete vervolgactie.':'De Communication-actie is volgens de actuele bron- en beoordelingsregels vastgelegd. Er is geen mail verzonden.';

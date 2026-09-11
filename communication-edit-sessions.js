@@ -19,7 +19,7 @@ function active(core,ctx,row){
 }
 function view(core,ctx,actor,draft,row){
  const isActive=active(core,ctx,row);let canWrite=false;try{authorize(core,ctx,actor,draft.id,'write');canWrite=true;}catch(error){if(![401,403].includes(error.statusCode))throw error;}
- return {draft_id:draft.id,revision:row?.revision||0,grant_id:isActive?row.grant_id:null,current_draft_revision:draft.revision,active:isActive,holder_id:isActive?row.holder_id:null,holder_name:isActive?(core.adapter.draftMember?.(ctx,row.holder_id)?.display_name||'Gebruiker niet beschikbaar'):null,expires_at:isActive?row.expires_at:null,can_write:canWrite,working_copy:row?.working_copy?clone(row.working_copy):null,working_copy_base_revision:row?.base_revision??null,working_copy_current:row?.base_revision===draft.revision,working_copy_saved:Boolean(row?.working_copy&&row.base_revision===draft.revision&&Object.entries(row.working_copy).every(([key,value])=>JSON.stringify(value)===JSON.stringify(draft[key]??(key==='to'?[]:'')))),external_send:false};
+ return {draft_id:draft.id,revision:row?.revision||0,grant_id:isActive?row.grant_id:null,current_draft_revision:draft.revision,active:isActive,holder_id:isActive?row.holder_id:null,holder_name:isActive?(core.adapter.draftMember?.(ctx,row.holder_id)?.display_name||'Gebruiker niet beschikbaar'):null,expires_at:isActive?row.expires_at:null,can_write:canWrite,working_copy:row?.working_copy?clone(row.working_copy):null,working_copy_base_revision:row?.base_revision??null,working_copy_current:row?.base_revision===draft.revision,working_copy_saved:Boolean(row?.working_copy&&row.base_revision===draft.revision&&Object.entries(row.working_copy).every(([key,value])=>JSON.stringify(value)===JSON.stringify(draft[key]??(['to','cc'].includes(key)?[]:'')))),external_send:false};
 }
 function get(core,ctx,actor,id){const draft=authorize(core,ctx,actor,id);return view(core,ctx,actor,draft,retained(core,ctx,id));}
 function assertEdit(core,ctx,actor,id,token){
@@ -42,7 +42,7 @@ function change(core,ctx,actor,id,kind,input,options={}){
  if(kind==='takeover'&&!isActive)fail('draft_editor_changed','De eerdere sessie is niet meer actief; start een nieuwe sessie',409);
  if(['renew','release'].includes(kind)&&(!isActive||row.holder_id!==actor.id||options.edit_token!==row.token))fail('draft_editor_conflict','Deze bewerkingssessie is niet meer van jou',409);
  if(Object.hasOwn(input,'working_copy')){
-  const copy=input.working_copy;if(!copy||typeof copy!=='object'||Array.isArray(copy)||Object.keys(copy).some(key=>!['title','content','description','to'].includes(key)))fail('draft_editor_input_invalid','Ongeldige conceptinhoud');
+  const copy=input.working_copy;if(!copy||typeof copy!=='object'||Array.isArray(copy)||Object.keys(copy).some(key=>!['title','content','description','to','cc'].includes(key)))fail('draft_editor_input_invalid','Ongeldige conceptinhoud');
   require('./communication-drafts').validateInput(copy);
  }
  return scopedMutation(core.adapter,ctx,[SCOPE,'communication:draft_operations','platform:audit'],()=>{

@@ -2,10 +2,10 @@
 const crypto=require('node:crypto');
 const clone=value=>JSON.parse(JSON.stringify(value)),hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
-const FIELDS=['title','content','description','to','thread_id','related_refs','attachments'];
+const FIELDS=['title','content','description','to','cc','thread_id','related_refs','attachments'];
 function validateInput(input){
  for(const [field,max] of [['title',1000],['content',12000],['description',12000],['thread_id',200]])if(Object.hasOwn(input,field)&&(typeof input[field]!=='string'||input[field].length>max))fail('draft_content_invalid','De conceptinhoud is ongeldig of te lang');
- if(Object.hasOwn(input,'to')&&(!Array.isArray(input.to)||input.to.length>100||input.to.some(value=>typeof value!=='string'||value.length>320||!/^\S+@\S+\.\S+$/.test(value))))fail('recipients_invalid','Ongeldige e-mailontvangers');
+ for(const field of ['to','cc'])if(Object.hasOwn(input,field)&&(!Array.isArray(input[field])||input[field].length>100||input[field].some(value=>typeof value!=='string'||value.length>320||!/^\S+@\S+\.\S+$/.test(value))))fail('recipients_invalid','Ongeldige e-mailontvangers');
  if(Object.hasOwn(input,'related_refs')&&(!Array.isArray(input.related_refs)||input.related_refs.length>100))fail('draft_content_invalid','Ongeldige conceptverwijzingen');
 }
 function content(row){return Object.fromEntries(FIELDS.filter(field=>row[field]!==undefined).map(field=>[field,clone(row[field])]));}
@@ -63,7 +63,7 @@ function restore(core,ctx,actor,id,input,options={}){
  return operation(core,ctx,actor,id,input,options,'RESTORE',prior=>{
   if(!Number.isSafeInteger(input.source_revision)||input.source_revision<1)fail('draft_revision_invalid','Kies een geldige bronrevisie');
   const matches=core.bucket(ctx,'draft_revisions').filter(row=>row.draft_id===id&&row.draft_revision===input.source_revision),version=matches[0];if(matches.length!==1||!version.snapshot||hash(version.snapshot)!==version.content_hash)fail('draft_revision_unavailable','De bronrevisie is niet verifieerbaar',409);
-  const patch={title:version.snapshot.title,content:version.snapshot.content,description:version.snapshot.description||'',to:version.snapshot.to||[],thread_id:version.snapshot.thread_id||'',related_refs:version.snapshot.related_refs||[],status:'DRAFT'};
+  const patch={title:version.snapshot.title,content:version.snapshot.content,description:version.snapshot.description||'',to:version.snapshot.to||[],cc:version.snapshot.cc||[],thread_id:version.snapshot.thread_id||'',related_refs:version.snapshot.related_refs||[],status:'DRAFT'};
   const attachments=require('./communication-attachments').references(core,ctx,id,version.snapshot.attachments);
   const record=core.saveOwned(ctx,actor,'drafts',patch,{id,expected_revision:prior.revision,draft_attachments:attachments,edit_token:options.edit_token}).record,entry=core.bucket(ctx,'draft_revisions').find(row=>row.draft_id===id&&row.draft_revision===record.revision);entry.restored_from=input.source_revision;entry.change_reason=input.reason.trim();return record;
  });

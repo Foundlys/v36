@@ -39,8 +39,8 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[2]==='view'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-inbox').detail(core,ctx,actor,parts[1])});
         if(parts[2]==='inbox-state'&&req.method==='PUT')return sendJson(res,200,{ok:true,...require('./communication-inbox').update(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
         const service=require('./communication-replies');
-        if(parts[2]==='draft-preview'&&req.method==='GET'){if([...url.searchParams.keys()].some(key=>key!=='mode'))return sendJson(res,422,{ok:false,code:'message_draft_query_invalid'});return sendJson(res,200,{ok:true,...service.preview(core,ctx,actor,parts[1],url.searchParams.get('mode'))});}
-        if(parts[2]==='drafts'&&req.method==='POST'){const result=service.create(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
+        if(parts[2]==='draft-preview'&&req.method==='GET'){if([...url.searchParams.keys()].some(key=>key!=='mode'))return sendJson(res,422,{ok:false,code:'message_draft_query_invalid'});return sendJson(res,200,{ok:true,...service.preview(core,ctx,actor,parts[1],url.searchParams.get('mode'),mailAccount)});}
+        if(parts[2]==='drafts'&&req.method==='POST'){const result=service.create(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']},mailAccount);return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
       }
       if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='edit-session'){
         const service=require('./communication-edit-sessions');

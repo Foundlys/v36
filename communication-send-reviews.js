@@ -13,13 +13,14 @@ function basis(core,ctx,actor,id,purpose,getAccount){
  if(!Number.isSafeInteger(draft.revision)||draft.revision<1||!Array.isArray(draft.to)||!draft.to.length||draft.to.length>100||draft.to.some(value=>!address(value))||new Set(draft.to).size!==draft.to.length)fail('send_recipients_unavailable','Kies unieke ondersteunde e-mailontvangers voor een versie van dit concept');
  require('./communication-drafts').validateInput(draft);require('./communication-mime').validateContent(draft);
  const account=getAccount(ctx);if(!account||account.provider!=='email'||!address(account.from)||typeof account.binding!=='string'||account.binding.length!==64)fail('send_account_unavailable','Een geldige afzender en accountconfiguratie ontbreken',409);
+ const recipients=[...draft.to,...(draft.cc||[])];if(recipients.length>100||recipients.some(value=>!address(value))||new Set(recipients).size!==recipients.length)fail('send_recipients_unavailable','Kies unieke ondersteunde ontvangers in Aan en Cc');
  const attachments=require('./communication-attachments').references(core,ctx,id,draft.attachments),preferences=core.bucket(ctx,'preferences'),policy=[];
- for(const recipient of draft.to){
+ for(const recipient of recipients){
   const matches=preferences.filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&row.subject_id===recipient&&row.purpose===purpose),row=matches[0];
   if(matches.length!==1||!core.visible(row,actor)||row.status!=='GRANTED'||!Number.isSafeInteger(row.revision)||row.revision<1)fail('send_preference_unavailable','De actuele voorkeuren voor dit doel zijn niet eenduidig beschikbaar',409);
   policy.push({id:row.id,revision:row.revision,hash:hash({subject_id:row.subject_id,purpose:row.purpose,status:row.status,legal_basis:row.legal_basis??null})});
  }
- const reply_context=require('./communication-threads').sendContext(core,ctx,actor,draft),snapshot={title:draft.title,content:draft.content,to:[...draft.to],attachments,...(reply_context?{reply_context}:{})},sourceHash=hash(snapshot);
+ const reply_context=require('./communication-threads').sendContext(core,ctx,actor,draft,account),snapshot={title:draft.title,content:draft.content,to:[...draft.to],...(draft.cc?.length?{cc:[...draft.cc]}:{}),attachments,...(reply_context?{reply_context}:{})},sourceHash=hash(snapshot);
  return {draft_id:id,draft_revision:draft.revision,source_hash:sourceHash,snapshot,purpose,from:account.from,account_binding:account.binding,preference_refs:policy,policy_provenance:'USER_RECORDED_PREFERENCES_NOT_PROVIDER_VERIFIED'};
 }
 function preview(core,ctx,actor,id,purpose,getAccount){
