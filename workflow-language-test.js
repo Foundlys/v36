@@ -1,0 +1,32 @@
+'use strict';
+const assert=require('node:assert/strict'),zero=require('./workflow-zero'),language=require('./workflow-language');
+const {FoundlyPlatformCore}=require('./platform-core'),{WorkflowDrafts}=require('./workflow-drafts'),{CapabilityResolver}=require('./capability-resolver');
+let rows=new Map(),disk;const ctx={tenant_id:'language-fixture',dealer_id:'default'},admin={id:'admin',roles:['ADMIN','SUPER_ADMIN']},actor={id:'owner',roles:['MANAGER']};
+const adapter={bucket(c,s){const k=JSON.stringify([c,s]);if(!rows.has(k))rows.set(k,[]);return rows.get(k);},persist(){disk=JSON.stringify([...rows]);},audit(){}};
+const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['automation'],expected_revision:0});let drafts=new WorkflowDrafts(adapter,resolver),platform=new FoundlyPlatformCore(adapter);
+const draft={name:'PRIVATE LANGUAGE TITLE',version:1,trigger_type:'custom_event',automatic:false,approval_required:true,steps:[{type:'branch',condition:{enabled:true,mode:'leaf',field:'inputs.score',operator:'gte',value_type:'number',value:'7'},then_steps:[{type:'create_task',values:{title:'PRIVATE YES'}}],else_steps:[{type:'create_task',values:{title:'PRIVATE NO'}}]}]};
+const action={operation:'GENERATE',draft_id:'language-test',input:{prompt:'PRIVATE USER REQUEST: maak een workflow met score minstens 7, taak yes anders no',expected_revision:0}},meta={message:'Prepare a workflow',conversation_id:'language-conversation',turn_id:'language-turn'};
+const generate=(a=action,m=async()=>JSON.stringify({draft}),extra={})=>zero.generate(drafts,platform,ctx,actor,a,{...meta,...extra},m);
+(async()=>{
+ let calls=0;const result=await generate(action,async(system,input)=>{calls++;assert.ok(system.includes('PRIVATE'));assert.equal(input,JSON.stringify({request:action.input.prompt}));assert.ok(!system.includes('PRIVATE LANGUAGE TITLE'));return JSON.stringify({draft});});assert.equal(calls,1);assert.equal(result.automation_data.inference,true);assert.equal(drafts.list(ctx,actor).items.length,0);assert.equal(platform.automationStatus(ctx,admin).workflow_count,0);assert.equal(platform.automationRecords(ctx,admin,'tasks').total,0);
+ const safe=zero.retain(result);assert.ok(!JSON.stringify(safe).includes('PRIVATE'));assert.equal((await generate(action,undefined,{prior:safe.automation_action_reference})).automation_data.preview_fingerprint,result.automation_data.preview_fingerprint);
+ await assert.rejects(generate({...action,input:{...action.input,prompt:'Other request'}},undefined,{prior:safe.automation_action_reference}),{code:'automation_zero_turn_conflict'});
+ await assert.rejects(generate(action,async()=>JSON.stringify({draft:{...draft,name:'Changed model proposal'}}),{prior:safe.automation_action_reference}),{code:'automation_language_proposal_changed'});
+ const questions=await generate(action,async()=>JSON.stringify({questions:['Welke taak moet worden gemaakt?']}));assert.equal(questions.status,'needs_input');assert.equal(drafts.list(ctx,actor).items.length,0);
+ for(const output of ['',null])await assert.rejects(generate(action,async()=>output),{code:'automation_language_unavailable'});
+ await assert.rejects(generate(action,async()=>{throw Error('PRIVATE provider detail');}),{code:'automation_language_unavailable'});
+ const badDrafts=[{...draft,execute:true},{...draft,automatic:'true'},{...draft,steps:[{type:'create_task',values:{title:'x'},when:false}]},{...draft,steps:[{type:'create_task',values:{title:'x'},condition:false}]},{...draft,steps:[{type:'send_email',values:{title:'x'}}]},{...draft,steps:[{type:'create_task',values:{title:{hidden:'x'}}}]},{...draft,steps:[{...draft.steps[0],condition:{enabled:true,mode:'all',children:[]}}]}];
+ for(const output of ['not json','```json\n{}\n```','null','[]','{"questions":[]}','{"questions":["q"],"draft":{}}',...badDrafts.map(d=>JSON.stringify({draft:d}))])await assert.rejects(generate(action,async()=>output),{code:'automation_language_invalid'});
+ actor.roles=['VIEWER'];calls=0;await assert.rejects(generate(action,async()=>{calls++;return JSON.stringify({draft});}),e=>e.statusCode===403);assert.equal(calls,0);actor.roles=['MANAGER'];
+ await assert.rejects(generate(action,async()=>{actor.roles=['VIEWER'];return JSON.stringify({draft});}),e=>e.statusCode===403);actor.roles=['MANAGER'];
+ const value=result.automation_data,save={operation:'SAVE',draft_id:action.draft_id,input:{draft:value.draft,expected_revision:0,preview_fingerprint:value.preview_fingerprint,confirm:true,reason:'Reviewed exact model proposal'}};
+ assert.throws(()=>zero.execute(drafts,platform,ctx,actor,{...save,input:{...save.input,confirm:false}},meta),{code:'automation_zero_confirmation_invalid'});
+ const saved=zero.execute(drafts,platform,ctx,actor,save,meta);assert.equal(saved.automation_data.record.revision,1);rows=new Map(JSON.parse(disk));drafts=new WorkflowDrafts(adapter,resolver);platform=new FoundlyPlatformCore(adapter);assert.equal(zero.execute(drafts,platform,ctx,actor,save,meta).automation_data.deduplicated,true);assert.equal(platform.automationStatus(ctx,admin).workflow_count,0);
+ await assert.rejects(generate(),{code:'workflow_draft_conflict'});
+ await assert.rejects(generate({...action,draft_id:'concurrent'},async()=>{drafts.save(ctx,actor,'concurrent',{draft,expected_revision:0});return JSON.stringify({draft});}),{code:'workflow_draft_conflict'});
+ // Publishing, approval and execution remain separate native operations.
+ const def=require('./workflow-authoring').compile(saved.automation_data.record.draft,require('./workflow-authoring').contract(platform.schema().automation));const workflow=platform.defineAutomation(ctx,admin,def);assert.ok(workflow.id);
+ assert.ok(zero.naturalAction('Maak een workflow voor een taak','conversation','turn'));assert.equal(zero.naturalAction('Wat is de status van mijn workflows?','conversation','turn'),null);assert.equal(zero.naturalAction('Open workflow editor','conversation','turn'),null);
+ resolver.configure(ctx,admin,{entitlements:['automation'],capability_flags:{'automation:workflows':false},expected_revision:1});await assert.rejects(generate({...action,draft_id:'disabled'}),{code:'capability_disabled'});
+ console.log('PASS untrusted language proposals, strict schema/conditions, clarification/unavailable states, no implicit writes, current role/capability/revision after provider wait, changed replay denial, exact native confirmation and encrypted-store-compatible restart');
+})().catch(e=>{console.error(e);process.exitCode=1;});

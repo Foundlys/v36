@@ -743,7 +743,12 @@
         open.addEventListener('click',()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}try{show(drafts.items.find(row=>row.id===chooser.value)||null);message.textContent='';}catch(error){message.textContent=error.message;}});
         const template=node('button','secondary-button','Branchesjabloon kiezen');template.type='button';
         template.addEventListener('click',async()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}template.disabled=true;try{await chooseIndustryPreset('automation','workflow',selected=>{show({draft:selected.draft});message.textContent='Sjabloon geopend als nieuw concept. Bewaar het concept of controleer de workflowversie voordat je deze opslaat.';});}catch(error){message.textContent=friendlyError(error);}finally{template.disabled=false;}});
-        result.push(label,open,template,message,editorBox);
+        const language=window.FoundlyWorkflowGenerator.create({document,spec:data.editor_contract,zeroRequest:async(action,turnId)=>{
+          const active=()=>language.isConnected&&content.isConnected&&state.workspaceId==='automation'&&state.activeSection===section;if(!active())throw Error('De workflowweergave is niet meer actief.');
+          const response=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:action.operation==='GENERATE'?'Bereid een workflow uit mijn beschrijving voor':'Bewaar het gecontroleerde workflowvoorstel',conversation_id:state.conversationId,turn_id:turnId,preferred_module:'automation',client_context:{automation_action:action}})});
+          if(!active())throw Error('De workflowweergave is niet meer actief.');state.conversationId=response.conversation_id||state.conversationId;return response.automation_data;
+        },onSaved:record=>{const index=drafts.items.findIndex(row=>row.id===record.id);if(index>=0)drafts.items[index]=record;else{drafts.items.push(record);const option=node('option','',`${record.draft.name} · revisie ${record.revision}`);option.value=record.id;chooser.append(option);}chooser.value=record.id;}});
+        result.push(language,label,open,template,message,editorBox);
       }
       const rows=workflowSections.includes(section)?data.workflows:data.runs;
       for(const row of rows||[]){
