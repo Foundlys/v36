@@ -307,6 +307,7 @@ function createPlatformApi(options = {}) {
         return sendJson(res, 200, { ok: true, product: 'Foundly Finance', version, schema: finance.schema(), persistence: persistenceStatus(), no_fake_data: true });
       }
       if (url.pathname === '/api/finance/dashboard' && req.method === 'GET') return sendJson(res, 200, finance.dashboard(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
+      if (url.pathname === '/api/finance/forecast-scenarios' && req.method === 'POST') return sendJson(res, 200, finance.forecastScenario(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/reports' && req.method === 'GET') return sendJson(res, 200, finance.reports(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
       if (url.pathname === '/api/finance/legal-entities' && req.method === 'POST') return sendJson(res, 201, finance.createLegalEntity(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/periods' && req.method === 'POST') return sendJson(res, 201, finance.createPeriod(ctx, actor, await readBody(req)));
@@ -345,10 +346,12 @@ function createPlatformApi(options = {}) {
         const payload = await readBody(req);
         return sendJson(res, 200, finance.export(ctx, actor, payload.scope, payload.format, payload.filters || {}));
       }
+      const closePreview=url.pathname.match(/^\/api\/finance\/periods\/([A-Za-z0-9_.:-]{1,200})\/close-preview$/);
+      if(closePreview&&req.method==='GET')return sendJson(res,200,finance.previewPeriodClose(ctx,actor,closePreview[1]));
       const close = url.pathname.match(/^\/api\/finance\/periods\/([A-Za-z0-9_.:-]{1,200})\/close$/);
       if (close && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 200, finance.closePeriod(ctx, actor, close[1], payload.reason));
+        return sendJson(res, 200, finance.closePeriod(ctx, actor, close[1], payload.reason,payload));
       }
       const records = url.pathname.match(/^\/api\/finance\/records\/([a-z_]+)$/);
       if (records && req.method === 'GET') return sendJson(res, 200, finance.list(ctx, actor, records[1], query));

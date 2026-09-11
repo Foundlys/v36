@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('node:assert/strict'),crypto=require('node:crypto');
+const {FoundlyFinanceCore}=require('./finance-core'),{CapabilityResolver}=require('./capability-resolver'),{guardDomain}=require('./composition-runtime'),scenarios=require('./finance-cash-scenarios');
+let state=new Map(),writes=0;const adapter={bucket(c,s){const k=JSON.stringify([c,s]);if(!state.has(k))state.set(k,[]);return state.get(k);},persist(){writes++;},id:()=>crypto.randomUUID(),now:()=>new Date('2026-09-01T00:00:00Z'),emit(){},audit(){}};
+const ctx={tenant_id:'finance-scenario',dealer_id:'default'},admin={id:'admin',roles:['ADMIN','SUPER_ADMIN']},reader={id:'reader',roles:['VIEWER']};
+const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['finance'],expected_revision:0});const core=new FoundlyFinanceCore(adapter),finance=guardDomain(core,'finance',()=>resolver);
+
+core.migrate(ctx,admin);const entity=finance.createLegalEntity(ctx,admin,{name:'Close fixture',legal_form:'BV'}),period=finance.createPeriod(ctx,admin,{legal_entity_id:entity.id,start_date:'2026-09-01',end_date:'2026-09-30'});const accounts=finance.bootstrapDutchChart(ctx,admin,entity.id),bank=accounts.find(a=>a.system_role==='BANK'),expense=accounts.find(a=>a.system_role==='EXPENSE');
+let review=finance.previewPeriodClose(ctx,reader,period.id);assert.equal(review.ready,true);assert.equal(core.collection(ctx,'closing_periods').length,0);
+const request=()=>({reason:'Current internal close review',expected_source_hash:review.source_hash,confirm:true,request_id:'close-request-0001'});
+assert.throws(()=>finance.closePeriod(ctx,admin,period.id,'No preview'),{code:'finance_close_confirmation_required'});
+assert.throws(()=>finance.closePeriod(ctx,reader,period.id,request().reason,request()),{statusCode:403});
+finance.postJournal(ctx,admin,{legal_entity_id:entity.id,date:'2026-09-10',lines:[{account_id:bank.id,debit_cents:1000},{account_id:expense.id,credit_cents:1000}]});
+assert.throws(()=>finance.closePeriod(ctx,admin,period.id,request().reason,request()),{code:'finance_close_source_changed'});
+review=finance.previewPeriodClose(ctx,reader,period.id);assert.equal(review.totals.debit_cents_exact,'1000');
+const rows=core.collection(ctx,'journal_lines'),line=rows[0];line.debit_cents++;assert.equal(finance.previewPeriodClose(ctx,reader,period.id).ready,false);line.debit_cents--;
+core.collection(ctx,'invoices').push({id:'draft-fixture',legal_entity_id:entity.id,invoice_date:'2026-09-10T00:00:00.000Z',status:'DRAFT'});assert.equal(finance.previewPeriodClose(ctx,reader,period.id).blockers[0].code,'DRAFT_INVOICES');core.collection(ctx,'invoices').pop();
+core.collection(ctx,'bank_transactions').push({id:'unmatched-fixture',legal_entity_id:entity.id,date:'2026-09-10T00:00:00.000Z',status:'UNRECONCILED'});assert.equal(finance.previewPeriodClose(ctx,reader,period.id).blockers[0].code,'UNRECONCILED_BANK_TRANSACTIONS');core.collection(ctx,'bank_transactions').pop();
+const before=JSON.stringify([...state].filter(([,rows])=>rows.length)),persist=core.adapter.persist;core.adapter.persist=()=>{throw Error('disk failure');};assert.throws(()=>finance.closePeriod(ctx,admin,period.id,request().reason,request()),/disk failure/);assert.equal(JSON.stringify([...state].filter(([,rows])=>rows.length)),before);core.adapter.persist=persist;
+const closed=finance.closePeriod(ctx,admin,period.id,request().reason,request());assert.equal(closed.period.status,'CLOSED');assert.equal(closed.financial_posting_performed,false);assert.equal(core.adapter.bucket(ctx,'finance:close_event_outbox')[0].status,'PENDING');
+const serial=JSON.stringify([...state]);state=new Map(JSON.parse(serial));const retried=finance.closePeriod(ctx,admin,period.id,request().reason,request());assert.equal(retried.deduplicated,true);assert.equal(core.collection(ctx,'closing_periods').length,1);
+assert.throws(()=>finance.closePeriod(ctx,admin,period.id,'Different',{...request(),reason:'Different'}),{code:'finance_close_request_conflict'});
+assert.throws(()=>finance.postJournal(ctx,admin,{legal_entity_id:entity.id,date:'2026-09-10',lines:[{account_id:bank.id,debit_cents:1},{account_id:expense.id,credit_cents:1}]}),{code:'finance_period_closed'});
+resolver.configure(ctx,admin,{entitlements:['finance'],capability_flags:{'finance:payments':false},expected_revision:1});assert.throws(()=>finance.closePeriod(ctx,admin,period.id,request().reason,request()),{statusCode:403});assert.throws(()=>finance.previewPeriodClose(ctx,reader,period.id),{statusCode:403});
+console.log('PASS Finance period close: explicit current complete internal review, exact totals, unbalanced/draft/unreconciled blockers, role/capability guards, persistence rollback, encrypted-adapter-shaped restart/replay, durable event and native post-close posting refusal; no statutory/provider acceptance');

@@ -14,7 +14,9 @@ function guardDomain(service, owner, resolverProvider) {
   const methods = new Map();
   return new Proxy(service, {
     get(target, property) {
-      const value = Reflect.get(target, property);
+      const financeExtensions={forecastScenario:['./finance-cash-scenarios','scenario'],previewPeriodClose:['./finance-period-closing','preview'],closePeriod:['./finance-period-closing','close']};
+      const extension=owner==='finance'&&financeExtensions[property];
+      const value=extension?function(...args){return require(extension[0])[extension[1]](this,...args);}:Reflect.get(target,property);
       if (typeof value !== 'function') return value;
       if (!methods.has(property)) methods.set(property, function (...args) {
         const ctx = args[0], actor = args[1];
@@ -37,7 +39,8 @@ function guardDomain(service, owner, resolverProvider) {
         if (ctx?.tenant_id && ctx?.dealer_id && actor && resolverProvider().profile(ctx) && (actor.roles||[]).some(role=>['FOUNDER','SUPER_ADMIN'].includes(String(role).toUpperCase()))) {
           args[1]={...actor,roles:[...new Set([...actor.roles,'ADMIN'])]};
         }
-        return Reflect.apply(value, target, args);
+        const result=Reflect.apply(value, target, args);
+        return owner==='finance'&&['reports','dashboard'].includes(property)?require('./finance-cash-scenarios').apply(target,ctx,args[2],result,property):result;
       });
       return methods.get(property);
     }

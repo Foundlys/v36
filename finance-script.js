@@ -15,6 +15,17 @@ async function api(path, options = {}) {
   return data;
 }
 
+let financeTransport='native';const financeConversation=crypto.randomUUID();
+async function financeRequest(path,options={}){
+ if(financeTransport!=='zero')return api(path,options);
+ let action;const data=options.body?JSON.parse(options.body):{};
+ if(path==='/api/finance/forecast-scenarios')action={operation:'SCENARIO',input:data};
+ else {const match=path.match(/^\/api\/finance\/periods\/([^/]+)\/(close-preview|close)$/);if(match)action={operation:match[2]==='close'?'CLOSE':'PREVIEW_CLOSE',input:{period_id:decodeURIComponent(match[1]),...data}};}
+ if(!action)return api(path,options);
+ const result=await api('/api/zero/turn',{method:'POST',body:JSON.stringify({message:'Gekozen Finance-actie',conversation_id:financeConversation,turn_id:action.operation==='CLOSE'?data.request_id:crypto.randomUUID(),client_context:{finance_action:action}})});return result.finance_data;
+}
+$('#financeTransport').addEventListener('change',()=>{if([state.scenarioView,state.closeView].some(view=>view?.isConnected&&!view.canLeave())){$('#financeTransport').value=financeTransport;return;}financeTransport=$('#financeTransport').value;});
+
 function money(value) { if(typeof value!=='number'||!Number.isFinite(value))return 'Niet beschikbaar';return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value || 0) / 100); }
 function formatDate(value) { if (!value) return '—'; const date = new Date(value); return Number.isNaN(date.getTime()) ? '—' : new Intl.DateTimeFormat('nl-NL', { dateStyle: 'medium' }).format(date); }
 function filters() {
@@ -72,9 +83,10 @@ function renderForecast() {
     rows.push(['Goedgekeurd budget', money(budget.budget_cents)], ['Werkelijk', money(budget.actual_cents)], ['Verschil', money(budget.variance_cents)]);
   } else rows.push(['Budget', budget?.reason || 'Geen goedgekeurd budget ingeladen']);
   if (forecast?.available) {
-    rows.push(['Forecast beginsaldo', money(forecast.opening_cash_cents)], [`Forecast ${forecast.horizon_days} dagen`, money(forecast.closing_cash_cents)], ['Aannames', forecast.assumptions?.length || 0]);
+    rows.push(['Forecast beginsaldo', new Intl.NumberFormat('nl-NL',{style:'currency',currency:forecast.currency||'EUR'}).format(forecast.opening_cash_cents/100)], [`Forecast ${forecast.horizon_days} dagen`, new Intl.NumberFormat('nl-NL',{style:'currency',currency:forecast.currency||'EUR'}).format(forecast.closing_cash_cents/100)], ['Aannames', forecast.assumptions?.length || 0]);
   } else rows.push(['Cashforecast', forecast?.reason || 'Geen forecast ingeladen']);
   $('#financeForecast').innerHTML = rows.map(([label, value]) => `<div class="stack-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join('');
+  if(forecast?.available&&window.FoundlyFinanceCashScenarios){const generation=state.loadGeneration;state.scenarioView=window.FoundlyFinanceCashScenarios.create({document,request:financeRequest,forecastId:forecast.forecast_id,isActive:()=>state.loadGeneration===generation});$('#financeForecast').append(state.scenarioView);}
 }
 
 function renderCompliance() {
@@ -100,6 +112,7 @@ function renderJournal() {
 }
 
 async function load(refreshEntities = false) {
+  if([state.scenarioView,state.closeView].some(view=>view?.isConnected&&!view.canLeave())){$('#financeEntity').value=state.loading?.selected_entity_id||'';return;}
   const generation=++state.loadGeneration;
   const notice = $('#financeNotice');
   notice.className = 'notice';
@@ -164,3 +177,5 @@ $('#financeEntity').addEventListener('change', () => load(false));
 $('#exportFinance').addEventListener('click', exportJournal);
 $('#financeZeroForm').addEventListener('submit', askZero);
 load(true);
+
+if(window.FoundlyFinancePeriodClosing){state.closeView=window.FoundlyFinancePeriodClosing.create({document,request:financeRequest});$('#financePeriodClosing').append(state.closeView);}

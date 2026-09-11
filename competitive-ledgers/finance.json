@@ -2,7 +2,7 @@
   "schema_version": "foundly-competitive-ledger/1.0.0",
   "version": "1.0.0",
   "module": "finance",
-  "assessed_at": "2026-09-05",
+  "assessed_at": "2026-09-11",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -29,8 +29,8 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Preserved double-entry engine, invoice approval/posting, reconciliation proposals, tax rules, exports and restart persistence pass existing tests. Finance-only client loading now isolates component failures and respects partial ledger/report capabilities without inventing empty values or dropping entity filters.",
-      "gap": "Complete period-close, jurisdiction-specific accounting and competitive UX acceptance remain open.",
+      "foundly_current": "Preserved double-entry engine, invoice approval/posting, reconciliation proposals, tax rules, exports and restart persistence pass existing tests. Finance-only client loading now isolates component failures and respects partial ledger/report capabilities without inventing empty values or dropping entity filters. Current integration-layer period close now requires an explicit source-bound internal review and separate reason/confirmation, checks exact posted totals, period/account/currency consistency, draft invoices and unreconciled imported bank transactions, rolls back failed persistence, retains exact retry receipts and queues a durable canonical event. Native and typed ZERO use the same policy; frozen finance-core.js remains unchanged.",
+      "gap": "Jurisdiction-specific accounting completeness and actual browser/competitive UX acceptance remain UNVERIFIED. The bounded recorded internal period-close workflow is implemented; this is not statutory or provider-completeness acceptance.",
       "required_change": "Close explicit accounting/UX gaps without replacing the ledger.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
@@ -38,12 +38,16 @@
         "platform-api-regression-test.js",
         "composition-matrix-test.js",
         "finance-loading-test.js",
-        "finance-loading-api-test.js"
+        "finance-loading-api-test.js",
+        "finance-period-closing-test.js",
+        "finance-period-closing-api-test.js",
+        "finance-period-closing-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
         "production": "NOT_DEPLOYED",
-        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY",
+        "current_contract": "FINANCE_CURRENT_CONTRACT.md; new regression evidence recorded separately for the resulting tree"
       },
       "verdict": "BELOW_PARITY"
     },
@@ -109,19 +113,23 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO reads posted financial reports without optional CRM.",
-      "gap": "Forecast scenarios and outcome-based recommendations need further workflow evidence.",
+      "foundly_current": "ZERO reads posted financial reports without optional CRM. Current forecast projection now respects its explicit half-open horizon. Native/typed ZERO scenarios bind the current forecast and legal entity hash, use exact signed cents, separate currencies and preserve source records. The current recorded BANK journal movements are compared with planned movements over the same elapsed window, with source entry references/hash and explicit unknown completeness/causality. Source-free ZERO history, current body-wait rights and encrypted restart are tested.",
+      "gap": "Bounded current code-controlled scenario and recorded-outcome workflows are implemented. Actual browser, live-provider completeness, predictive quality and outcome calibration against independently verified business results remain UNVERIFIED; no comparative superiority is claimed.",
       "required_change": "Evaluate bounded financial scenarios and preserve human approval for postings, payments and filings.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "platform-core-regression-test.js",
         "platform-api-regression-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "finance-cash-scenarios-test.js",
+        "finance-cash-scenarios-api-test.js",
+        "finance-cash-scenarios-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
         "production": "NOT_DEPLOYED",
-        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY",
+        "current_contract": "FINANCE_CURRENT_CONTRACT.md; new regression evidence recorded separately for the resulting tree"
       },
       "verdict": "BELOW_PARITY"
     }
