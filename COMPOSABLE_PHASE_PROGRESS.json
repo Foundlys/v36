@@ -200,7 +200,7 @@
   ],
   "continuation_point": {
     "active_phase": 24,
-    "module": "marketing",
+    "module": "procurement",
     "calendar_published_head": "1225a069316eed37b06aa3332a8b33355c9e7356",
     "calendar_tree": "b696deb929b4a42ad9c16cac71994a79571f917d",
     "calendar_ci": {
@@ -210,7 +210,13 @@
       "first_attempt_failure": "Sales fixture EADDRINUSE after Calendar tests passed"
     },
     "production_changes_authorized": false,
-    "next_independent_work": "Continue the recorded Marketing planning/journey, creative version and measurement/intelligence gaps, then Procurement gaps. Current Finance bounded scenarios, recorded-outcome comparisons and reviewed internal period close are implemented; this does not establish jurisdiction-specific accounting, actual browser, provider completeness or competitive acceptance. Phase 24 remains ACTIVE. Recovery is concluded and must not be repeated."
+    "next_independent_work": "Continue the recorded Procurement incomplete/incremental allocation and cumulative approval gap, then remaining Procurement analysis and Marketing journey/audience-activation gaps. Current Marketing creative version/history and bounded period/source reconciliation are implemented. Phase 24 remains ACTIVE; provider/browser/jurisdiction/competitive acceptance remains unverified. Recovery is concluded and must not be repeated.",
+    "finance_published_head": "276a7a2c14bd7aa685c73ee7cc7128b9ac84fb75",
+    "finance_tree": "9e888cffdfba67e4cdf549ddfd31e9a6775acf31",
+    "finance_ci": {
+      "run": 126,
+      "result": "PASS"
+    }
   },
   "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
   "execution_overrides": [

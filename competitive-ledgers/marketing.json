@@ -2,7 +2,7 @@
   "schema_version": "foundly-competitive-ledger/1.0.0",
   "version": "1.0.0",
   "module": "marketing",
-  "assessed_at": "2026-09-05",
+  "assessed_at": "2026-09-11",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -29,8 +29,8 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Owned campaigns, audiences, creatives and experiment plans remain NOT_PUBLISHED. Exact-source creative content review now uses sequential assigned current authority, reasons and immutable internal approval without publication. Real member-session and encrypted restart tests pass, including private review copies after source ownership changes.",
-      "gap": "Journey execution, audience activation, broader creative version management and complete campaign/browser workflows are incomplete.",
+      "foundly_current": "Owned campaigns, audiences, creatives and experiment plans remain NOT_PUBLISHED. Exact-source creative content review now uses sequential assigned current authority, reasons and immutable internal approval without publication. Real member-session and encrypted restart tests pass, including private review copies after source ownership changes. Current creative revisions now retain immutable snapshots, including exact approval transitions. Explicit edit/restore uses CAS and durable current-actor receipts. Approved originals remain immutable: revisions create a separate unapproved, unpublished draft with current derivation-source access. Native and typed ZERO production controls preserve dirty/uncertain inputs and never restore approval/publication.",
+      "gap": "Journey execution, audience activation and complete campaign/provider/browser workflow acceptance remain open. Bounded creative history/version/restore is implemented and tested; no full planning parity or publication evidence is claimed.",
       "required_change": "Complete consent-aware workflow contracts, distinct operational views and provider handoffs.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
@@ -38,12 +38,17 @@
         "composition-matrix-test.js",
         "platform-api-regression-test.js",
         "marketing-creative-reviews-test.js",
-        "marketing-creative-reviews-api-test.js"
+        "marketing-creative-reviews-api-test.js",
+        "marketing-creative-history-test.js",
+        "marketing-creative-history-api-test.js",
+        "marketing-creative-history-client-test.js",
+        "marketing-zero-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
         "production": "NOT_DEPLOYED",
-        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY",
+        "current_contract": "MARKETING_CURRENT_CONTRACT.md; new regression receipt/manifest in MARKETING_CURRENT_EVIDENCE.json"
       },
       "verdict": "BELOW_PARITY"
     },
@@ -109,19 +114,24 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO can read internal campaign plans; canonical analysis has event provenance and financial-event deduplication.",
-      "gap": "Workspace summary periods and cross-channel revenue reconciliation need full acceptance.",
+      "foundly_current": "ZERO can read internal campaign plans; canonical analysis has event provenance and financial-event deduplication. The workspace now uses a bounded current-authority half-open period projection with currency groups and exact source-bound drilldown. Attributed and full revenue are no longer added together. Explicit complete financial-outcome namespace/ID pairs reconcile stages and duplicate terminal observations across sources. Missing linkage, contradictory amounts/currencies and overlapping/unscoped cumulative metrics cannot produce a trustworthy total. Native/ZERO period controls and source-free history are tested.",
+      "gap": "The bounded recorded period/source reconciliation contract is implemented. Real provider field mappings, independently verified completeness/attribution, actual browser and competitive acceptance remain UNVERIFIED. Recorded financial links are not proof of provider settlement or causal attribution.",
       "required_change": "Finish shared canonical metric projection and period/drilldown controls.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
         "composition-matrix-test.js",
-        "platform-api-regression-test.js"
+        "platform-api-regression-test.js",
+        "marketing-metrics-test.js",
+        "marketing-metrics-api-test.js",
+        "marketing-metrics-client-test.js",
+        "marketing-zero-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
         "production": "NOT_DEPLOYED",
-        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY",
+        "current_contract": "MARKETING_CURRENT_CONTRACT.md; new regression receipt/manifest in MARKETING_CURRENT_EVIDENCE.json"
       },
       "verdict": "BELOW_PARITY"
     }

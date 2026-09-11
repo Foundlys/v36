@@ -143,7 +143,7 @@
     if (!metric || metric.available === false || metric.value === null || metric.value === undefined) return 'Geen data';
     const value = metric.value;
     if (metric.unit === 'CURRENCY_CENTS' && Number.isFinite(Number(value))) {
-      return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value) / 100);
+      return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: metric.currency||'EUR', maximumFractionDigits: 0 }).format(Number(value) / 100);
     }
     if (metric.unit === 'PERCENT' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(Number(value))}%`;
     if (metric.unit === 'RATIO' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(Number(value))}×`;
@@ -183,7 +183,9 @@
     replaceChildren(byId('workspaceTabs'), tabs);
   }
 
+  function creativeWorkCanLeave(){return !(state.creativeHistoryViews||[]).some(view=>view.isConnected&&!view.canLeave());}
   function selectSection(section, button) {
+    if(!creativeWorkCanLeave())return;
     state.activeSection = section;state.communicationZeroToken=(state.communicationZeroToken||0)+1;const zeroActions=byId('zeroActions');if(zeroActions)replaceChildren(zeroActions,[]);
     for (const tab of byId('workspaceTabs').querySelectorAll('button')) {
       const selected = tab === button;
@@ -622,6 +624,7 @@
     const content = byId('contextContent'), items = [];
     if(state.workspaceId==='settings'&&['USERS','ROLES'].includes(section)){renderIdentityUsers(section,content);return;}
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
+    if(state.workspaceId==='marketing'&&['MEASUREMENT','ATTRIBUTION'].includes(section)&&window.FoundlyMarketingMetrics){replaceChildren(content,[window.FoundlyMarketingTransport.create({document,request,build:call=>window.FoundlyMarketingMetrics.create({document,request:call,isActive:()=>content.isConnected&&state.workspaceId==='marketing'&&state.activeSection===section}),isActive:()=>content.isConnected&&state.workspaceId==='marketing'&&state.activeSection===section})]);return;}
     if(state.workspaceId==='sales'&&['SEQUENCES','SEQUENCE_RUNS'].includes(section)){const conversationId=state.conversationId||crypto.randomUUID(),active=()=>state.activeSection===section&&state.workspaceId==='sales';let view;view=window.FoundlySalesSequences.create({document,request,isActive:active,zeroRequest:async(action,turn)=>{if(!active()||!view?.isConnected)throw Error('De Sales-weergave is niet meer actief.');const response=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:'Gekozen Sales-actie',conversation_id:conversationId,turn_id:turn,preferred_module:'sales',client_context:{sales_action:action}})});if(!active()||!view.isConnected)throw Error('De Sales-weergave is niet meer actief.');state.conversationId=conversationId;byId('zeroOutput').textContent=response.display_text||response.answer;if(!response.sales_data)throw Error('Het actuele Sales-resultaat ontbreekt.');return response.sales_data;}});replaceChildren(content,[view]);return;}
     if(state.workspaceId==='sales'&&section==='PIPELINES'){replaceChildren(content,[window.FoundlySalesPipeline.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales'})]);return;}
     if(state.workspaceId==='sales'&&section==='FORECAST_HIERARCHIES'){const view=window.FoundlySalesHierarchy.create({document,request,isActive:()=>state.activeSection===section&&state.workspaceId==='sales',renderResult:(host,result,filters)=>{appendForecastResult(host,result);appendForecastSnapshotForm(host,result,filters,null,{id:result.hierarchy.id,node_id:result.hierarchy.node_id});appendForecastScenario(host,result,filters,{id:result.hierarchy.id,node_id:result.hierarchy.node_id});}});replaceChildren(content,[view]);return;}
@@ -1305,6 +1308,7 @@
   }
 
   async function renderDomainSection(entity, content) {
+    if(!creativeWorkCanLeave())return;
     if(state.workspaceId==='communication'&&entity==='messages')return renderCommunicationInbox(content);
     replaceChildren(content, [node('div', 'LoadingState', 'Records laden…')]);
     try {
@@ -1383,16 +1387,17 @@
         if(state.workspaceId==='communication'&&entity==='templates'){appendTemplateDraft(record,cell,content);appendZeroCommunication(record,cell,content,'template');}
         if(state.workspaceId==='communication'&&entity==='messages')appendMessageDraftActions(record,cell,content);
         if(state.workspaceId==='communication'&&entity==='drafts'){appendDraftComments(record,cell,content);appendDraftEditor(record,cell,content);appendDraftCollaboration(record,cell,content);appendDraftAttachments(record,cell,content);appendSendReviews(record,cell,content);appendZeroCommunication(record,cell,content,'draft');}
+        if(state.workspaceId==='marketing'&&entity==='creatives'&&window.FoundlyMarketingCreativeHistory){const detail=node('details');detail.append(node('summary','','Versies en herstel'));let loaded=false;detail.addEventListener('toggle',()=>{if(!detail.open||loaded)return;loaded=true;const view=window.FoundlyMarketingTransport.create({document,request,build:call=>window.FoundlyMarketingCreativeHistory.create({document,request:call,id:record.id,isActive:()=>content.isConnected&&state.workspaceId==='marketing'&&state.activeSection.toLowerCase()==='creatives'}),isActive:()=>content.isConnected&&state.workspaceId==='marketing'&&state.activeSection.toLowerCase()==='creatives'});state.creativeHistoryViews=[...(state.creativeHistoryViews||[]).filter(v=>v.isConnected),view];detail.append(view);});cell.append(detail);}
         if(state.workspaceId==='marketing'&&entity==='creatives'&&!['APPROVED_INTERNAL','ARCHIVED'].includes(record.status))appendCreativeReviewRequest(record,cell,content);
         if(state.workspaceId==='marketing'&&entity==='creative_reviews')appendCreativeReview(record,cell,content);
         if(state.workspaceId==='procurement'&&entity==='rfqs'){const compare=node('button','secondary-button','Biedingen vergelijken');compare.type='button';compare.addEventListener('click',()=>renderProcurementComparison(record,content,notice));cell.append(compare);}
         if(state.workspaceId==='procurement'&&entity==='orders'&&!['APPROVED_INTERNAL','ARCHIVED','CANCELLED'].includes(record.status)){const prepare=node('button','secondary-button','Order ter beoordeling');prepare.type='button';prepare.addEventListener('click',()=>prepareProcurementAward({order_id:record.id},null,cell));cell.append(prepare);}
         if(state.workspaceId==='procurement'&&entity==='awards')appendAwardReview(record,cell,content);
         if(state.workspaceId==='sales'&&entity==='forecast_snapshots'){const detail=node('details');detail.append(node('summary','','Bewaarde prognose'));appendForecastResult(detail,record.forecast);cell.append(detail);}
-        if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','draft_revisions'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
+        if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','creative_revisions','draft_revisions'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
       }
       const summary=node('p','',`${result.total} records${result.next_offset!==null?' · eerste 100 getoond':''}`);
-      const children=[summary];if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','draft_revisions'].includes(entity))children.push(form);
+      const children=[summary];if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','creative_revisions','draft_revisions'].includes(entity))children.push(form);
       children.push(rows.length?table:node('div','EmptyState','Nog geen records in dit onderdeel.'));
       replaceChildren(content,children);
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}
