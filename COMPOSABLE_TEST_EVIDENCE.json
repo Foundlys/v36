@@ -170,7 +170,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "aa9b146a8ca520c793308cc289a6b245fb972327a34a38d6576616de083f9b24",
-    "foundly-workspace.js": "1c535364e84dd93ffb249daf4597a3871a56b9e6dc57dd25f995997a1103148d",
+    "foundly-workspace.js": "0f1b511ed19bdf6800ef41a34cfed9c1a2410bb1308d05a91f2cef03bdf14539",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -198,7 +198,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "b43c5ce8ee5234ecf7e97b6edf5a56e118b5c44faf04a98385c9fdb6decff0f5",
+    "package.json": "4500d377bf628c74e7be34b35a6e8fa1a5019cca1374b9bf7935ac868e7f1dde",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "327d0ca9fbb795ee32014cc4aa64216d05d807fe56a2c2369e009c364d1620ff",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -218,14 +218,15 @@
     "provider-report-cache.js": "57f843e7a908d45a23fe7eed933ba443219f2e87ddfa8b328591f5bbd2db59e4",
     "readiness-config-regression-test.js": "e819960859d8263a9eb7039966823e9ef0f191c4dcb808cf512d924aa08de903",
     "sales-forecast-test.js": "7a559f75b9b7f6d3c49bffe140d9fc84fcb8757b5ac934366c808aa45e15cd8f",
-    "sales-forecast.js": "48f4266f55f82b0ad5d17b4344131c261582030b8fd7f933c6af30be15144c77",
+    "sales-forecast.js": "ef1ca9610eb559ec2f7cd6048ab34e911951908451e02720c3c0083a12a35d1a",
     "sales-quotas-api-test.js": "76923f1f369b91f37e362e98f23dccbe336db939ece38e6d12d532401176417a",
     "sales-quotas-test.js": "de7f90f78c6d706607faccdb64ad25a152897766eb0b8bf0f3a4278175f84fd8",
     "sales-quotas.js": "206611188c6a5e292a0c109936b447eb62903bce5d6843db48438a3463f4e402",
-    "sales-scenarios-api-test.js": "cd614d5280d0bc9d62fc6781e5d4d3fde8da5b1243dac71cf01b539ec45acfe6",
-    "sales-scenarios-test.js": "839cb293ff468856e0446e08deca4a667c354579db75de606c8ca7786939ba98",
-    "sales-scenarios.js": "262281936d2f56d8b3fd9b62910f380156e3df923cddc032f1bc8c2ffa60cf72",
-    "sales-snapshot-access.js": "46344ed18b5580c68d4acb82f412820271abbfb71d1de554f93ab9f962844a23",
+    "sales-scenarios-api-test.js": "8fe8437c5e99c78975c4853cc5cb6b43ce7a6b8d213173e258344f6bd16c0623",
+    "sales-scenarios-client-test.js": "107f0f0c0f3feefddf816643f16e68490353967beb7042025a1467c822a52e25",
+    "sales-scenarios-test.js": "17ec06b5c5311f7ed69f8411cbc71a864ab6e3b0ea2644b660babe44bce631b8",
+    "sales-scenarios.js": "5ec8950516ecbe78b3153b533bf4a83081c214af5e31935d1ea3cac1a5fa04e9",
+    "sales-snapshot-access.js": "bbf6bc8d4ced1944f8be4d35e1052cd88680575801edd8a2b4754ef2365c5b0a",
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
@@ -317,7 +318,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "f5f525ac187308a3e93ae0950b1ffc5e44fc918ce7e45dfc48c7f22f7fb2afad"
   },
-  "output_sha256": "b028d838fe21f10aa659b05b0de4c9956be98a8577b324331d28f0e4eb4b8f83",
+  "output_sha256": "03ed3ac80010c575fc891a35d028916538735daa96cc2f29ae64bae1127905c6",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -472,7 +473,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T17:30:30.041046+00:00",
+  "verified_at": "2026-09-11T17:40:50.194824+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -643,7 +644,8 @@
     "Natural-language workflow preparation now runs from an explicit Automation description form and direct ZERO creation requests through the existing provider helper without loading tenant records. Provider output is labelled inference and strictly limited to supported editor draft fields, actions, conditions and branch limits, or bounded clarification questions. Missing/unavailable provider output never becomes a fabricated draft. Current actor, write rights, workflow capability and native revision are rechecked after provider IO; changed same-turn proposals reject instead of silently replacing reviewed content. Preparation performs no writes; a separate exact confirmation saves through native private draft CAS, with lost-response replay and encrypted restart. Production UI handlers display literal action/trigger/approval/condition details, invalidate changed or detached proposals and keep existing editor work intact. Isolated model transport and actual member HTTP prove natural/structured routing, current-session revocation during provider wait, source-free decrypted audit/history, separate native publication and approval, and mutually exclusive execution after review. These fixtures are not live provider or browser evidence. Further debugging, outcome verification, execution/inspection orchestration and the recorded module/competitive acceptance gaps remain active Phase 24 work.",
     "Workflow debugging now reads one authorized retained run and selected step through native HTTP and ZERO inspection. It validates the immutable definition/request/step bindings, explains all nested comparison/EN/OF/NIET predicates against retained inputs including missing values, distinguishes actual FAILED/SKIPPED/WAITING states from NOT_REACHED steps, and bounds displayed field values. Inspection does not execute, commit or reverify outcomes; reported outputs remain historical reports. Current run/workflow capabilities, owner visibility, changed-source rejection, same-turn current replay, source-free decrypted audit/history and encrypted restart pass. Production UI handlers select steps, display literal text and discard denied or detached responses. Further verified-absence internal recovery, recorded execution orchestration and other module/competitive acceptance remain Phase 24 work; no live provider/browser/production proof is inferred.",
     "Interrupted owned create_task/create_document actions now distinguish an exact durable record from verified absence using the same current native record policy and idempotency key. Absence permits only an explicit prepare-retry transition to RECOVERY_READY/PLANNED_INTERNAL; it never creates successful output or executes a following action. A separate resume checks the current idempotency contract and normal action permissions. Actual child crashes before and after encrypted side-effect persistence, proof changes, mismatched records, rollback, current ownership/capability, replay and single effects pass. External or ambiguous evidence remains unproven. ZERO now previews exact workflow/typed event inputs and submits only separately confirmed input through the same native engine. Workflow activation and recovery revisions bind confirmation, actual native run statuses remain literal, and any required approval is a separate native step. Source-free decrypted audit/history, real member HTTP/restart/revocation and production UI lost-response/stale/detached handlers pass without preview writes or duplicate execution. The previously advertised automation_run metadata now matches its implemented native route. Further recorded CRM and other module acceptance gaps remain active Phase 24 work; provider/browser/competitive/production evidence is not inferred.",
-    "CRM extensible objects and native-record field workspaces now support immutable typed schema versions, required/restricted values, current CRM relationship targets, record revisions, private/team scope, explicit access changes and archive/restore, current-source-masked history and audited export. Native contact/company/person/lead/opportunity/deal/task/appointment field records require the current parent read/write permission and exact immutable parent binding; losing parent access removes their values, history and export. Field-version saves are separate explicit internal actions, and do not claim globally mandatory fields across legacy native record creation. Existing Customer 360 includes currently authorized custom relationships. Actual service and UI/native HTTP fixtures cover source/capability/session revocation, strict types and zero/false, CAS/duplicate/retry/rollback, encrypted restart, unsaved input preservation, history pagination, and 5,000-record page projection bounds. Standalone CRM passes the same encrypted custom-object/native-field flows and its declared packaging dependency closure. Frozen crm-core.js remains byte-identical. No actual browser, live provider, production deployment or measured competitive superiority is inferred. Phase 24 continues with recorded Sales amount/date scenario, hierarchy and execution gaps and the other remaining module gaps."
+    "CRM extensible objects and native-record field workspaces now support immutable typed schema versions, required/restricted values, current CRM relationship targets, record revisions, private/team scope, explicit access changes and archive/restore, current-source-masked history and audited export. Native contact/company/person/lead/opportunity/deal/task/appointment field records require the current parent read/write permission and exact immutable parent binding; losing parent access removes their values, history and export. Field-version saves are separate explicit internal actions, and do not claim globally mandatory fields across legacy native record creation. Existing Customer 360 includes currently authorized custom relationships. Actual service and UI/native HTTP fixtures cover source/capability/session revocation, strict types and zero/false, CAS/duplicate/retry/rollback, encrypted restart, unsaved input preservation, history pagination, and 5,000-record page projection bounds. Standalone CRM passes the same encrypted custom-object/native-field flows and its declared packaging dependency closure. Frozen crm-core.js remains byte-identical. No actual browser, live provider, production deployment or measured competitive superiority is inferred. Phase 24 continues with recorded Sales amount/date scenario, hierarchy and execution gaps and the other remaining module gaps.",
+    "Sales scenarios now accept separately typed probability, amount in integer minor units, and valid close-date assumptions against exact current opportunity revisions. Existing source opportunities are never changed. Explicit dates move authorized open opportunities into or out of the selected period, including initially outside-period sources; missing amount/currency/probability remains literal and never becomes a complete projection implicitly. Currency totals, exact explicit-probability rounding, missing-data uncertainty, zero amounts, period boundaries, invalid input, source ownership/capabilities, stale revisions and immutable snapshot replay/rollback/restart are tested. Snapshot access also checks additional scenario-only source records; unused selection candidates are not retained in snapshots. Actual production controls support typed assumptions, current candidate scope with owner/pipeline filters, separate snapshot confirmation, stable lost-response retry and changed/detached response refusal. Actual authenticated HTTP fixtures preserve encrypted snapshots and untouched source records. No live provider, actual browser, accounting revenue or measured competitive superiority is inferred. Phase 24 continues with forecast hierarchy and remaining recorded Sales execution and other module gaps."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -655,7 +657,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-crm-objects-fields-full-regression.log",
+  "output_file": ".recovery-evidence/20260911-sales-amount-date-full-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -668,10 +670,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "f979d90902dca3f7857efe405cd18b89bde2ed21",
-    "tree": "c4d8cf0fd9b31ea2e3f793e6b3d4fb26859a9921",
-    "run": 115,
-    "run_id": 34624388689,
+    "head": "41ef631969f276f0af29ae3d7df51b71316209a8",
+    "tree": "ec6f09f121e2b100c74a99593243456b670e5f9f",
+    "run": 116,
+    "run_id": 34628164550,
     "conclusion": "success",
     "status": "completed"
   },
@@ -873,6 +875,23 @@
       "log_sha256": "b028d838fe21f10aa659b05b0de4c9956be98a8577b324331d28f0e4eb4b8f83",
       "finished_at": "2026-09-11T17:30:30.041046+00:00",
       "source_manifest": ".recovery-evidence/20260911-crm-objects-fields-source-manifest.json"
+    }
+  },
+  "sales_amount_date_scenario_acceptance": {
+    "typed_amount_date_probability_assumptions": true,
+    "outside_period_sources_and_current_snapshot_access": true,
+    "no_source_mutations": true,
+    "null_missing_data_and_exact_cent_rounding": true,
+    "separate_snapshot_confirmation_retry_restart": true,
+    "native_ui_and_authenticated_http": true,
+    "browser": false,
+    "live_provider": false,
+    "completion": {
+      "exit_code": 0,
+      "log": ".recovery-evidence/20260911-sales-amount-date-full-regression.log",
+      "log_sha256": "03ed3ac80010c575fc891a35d028916538735daa96cc2f29ae64bae1127905c6",
+      "finished_at": "2026-09-11T17:40:50.194824+00:00",
+      "source_manifest": ".recovery-evidence/20260911-sales-amount-date-source-manifest.json"
     }
   }
 }

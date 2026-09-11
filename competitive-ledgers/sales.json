@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.0.1",
+  "version": "1.4.0",
   "module": "sales",
-  "assessed_at": "2026-09-08",
+  "assessed_at": "2026-09-11T17:40:50.194824+00:00",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -29,9 +29,9 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Owned stages and opportunities, permission-filtered period forecasts with separate currencies and explicit unknown values, revision-bound immutable snapshots with restart and replay protection. Managed owner quotas now bind exact periods and currency to persisted forecasts. Overlap denial, missing-data nulls, target revision conflicts, encrypted restart and current source ACL on snapshot read/export are tested. Explicit source-revision-bound probability scenarios and immutable scenario snapshots now pass exact rounding, currency/null semantics, owner isolation, read-only HTTP queries and encrypted restart.",
-      "gap": "Forecast hierarchy, amount/date adjustments, broader scenario workflows and browser acceptance remain incomplete. Quotas use exact owner/period/currency scope without proration or pipeline targets.",
-      "required_change": "Complete hierarchy, adjustments and scenario workflows while retaining explicit target scope and source evidence.",
+      "foundly_current": "Owned stages and opportunities, permission-filtered period forecasts with separate currencies and explicit unknown values, revision-bound immutable snapshots with restart and replay protection. Managed owner quotas now bind exact periods and currency to persisted forecasts. Overlap denial, missing-data nulls, target revision conflicts, encrypted restart and current source ACL on snapshot read/export are tested. Explicit source-revision-bound probability scenarios and immutable scenario snapshots now pass exact rounding, currency/null semantics, owner isolation, read-only HTTP queries and encrypted restart. Sales scenarios now accept separately typed probability, amount in integer minor units, and valid close-date assumptions against exact current opportunity revisions. Existing source opportunities are never changed. Explicit dates move authorized open opportunities into or out of the selected period, including initially outside-period sources; missing amount/currency/probability remains literal and never becomes a complete projection implicitly. Currency totals, exact explicit-probability rounding, missing-data uncertainty, zero amounts, period boundaries, invalid input, source ownership/capabilities, stale revisions and immutable snapshot replay/rollback/restart are tested. Snapshot access also checks additional scenario-only source records; unused selection candidates are not retained in snapshots. Actual production controls support typed assumptions, current candidate scope with owner/pipeline filters, separate snapshot confirmation, stable lost-response retry and changed/detached response refusal. Actual authenticated HTTP fixtures preserve encrypted snapshots and untouched source records. No live provider, actual browser, accounting revenue or measured competitive superiority is inferred. Phase 24 continues with forecast hierarchy and remaining recorded Sales execution and other module gaps.",
+      "gap": "Forecast hierarchy, broader scenario workflows and browser acceptance remain incomplete. Probability/amount/date assumptions and period movements now have native service/UI/HTTP and immutable current-source snapshot evidence. Quotas retain exact owner/period/currency scope without proration or pipeline targets.",
+      "required_change": "Complete hierarchy and remaining scenario workflows while retaining explicit target scope and current source evidence.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "business-domains-test.js",
@@ -40,7 +40,8 @@
         "sales-quotas-test.js",
         "sales-quotas-api-test.js",
         "sales-scenarios-test.js",
-        "sales-scenarios-api-test.js"
+        "sales-scenarios-api-test.js",
+        "sales-scenarios-client-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
