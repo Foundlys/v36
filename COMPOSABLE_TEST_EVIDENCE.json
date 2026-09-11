@@ -42,9 +42,11 @@
     "calendar-time.js": "755a737a11110799f4f656267e80f2ec26e083f61b74461ee999c440afacea6f",
     "capability-resolver-test.js": "6d648c0e3a01de1da16612954345321aa87ec85360a948e84206bcc9c1ece9dd",
     "capability-resolver.js": "42945e0ffd83f29f847cd4045e20d00ace0a15fa646dac8396a2ce99b86e3f13",
+    "communication-addresses-test.js": "6cb7e23066f5fae420e4500d19fdd519c0ce7995525763433687bdf11363ec78",
+    "communication-addresses.js": "ae7e248194447f098c647c013d1930b6528d1b30027700090042fb7ec13a9c42",
     "communication-attachments-client-test.js": "a6e92a231330454a5f2dbd54f46c4f6aa6fccc21db1fdfcb1b3a11338b4eb36c",
     "communication-attachments-test.js": "4646ad6d181f4c83d7df8a77db1bfc3f472609c661e1ac216b2b339ce10173ad",
-    "communication-attachments.js": "87342414fc7b242f89738ffd5a5f1a57e569cbba75902c8a4a44d62f20f075da",
+    "communication-attachments.js": "c0fc063116cf0817c1c0d562e149db49a58933571a695e850302260d605676be",
     "communication-binary-attachments-api-test.js": "5eaceecb8235763b72a6aa4a6e3eef294283eade217e476ad3188a2802aa1123",
     "communication-binary-attachments-test.js": "5a634267393b95c0d7d29db5cde2f3139833a0e172de4849459f47e101b4b2f2",
     "communication-binary-attachments.js": "027e5f2410b0e8b7f8702362a110f73123fbad4a4819398b63387bbe207beea5",
@@ -59,8 +61,8 @@
     "communication-edit-sessions-test.js": "84de4551e0e100aa87b3382f3891674639a82e85c79159b0ae2305a35eb396b6",
     "communication-edit-sessions.js": "05ce153c91cc9977e54f1ed5f63a08d4e0c7b4729e150e853ef33997fcf1ee78",
     "communication-history-bounds-test.js": "0801bc7de1ce98cb95439668cd5a4b4278c3adc103ecc48841bf4afde586a1eb",
-    "communication-imap-test.js": "eed9316591973616176dc51b3f9a058c7f18e5ea3ac8fc48ff074bdb7512908f",
-    "communication-imap.js": "f7cbf3d31c6151f65ea70e63fbaa34778adca86615cc5b3256834c180c87f8a8",
+    "communication-imap-test.js": "576f6324b699528627312c80aa90dbdf6fe7596e0645ee606e026a98bc3cdaf0",
+    "communication-imap.js": "d11f98bbd1c4c9a1d4c19a35f859ed7aef2731a571fd20aa5c3b386ed354c885",
     "communication-inbox-client-test.js": "2f8cc7c3d437d0c65ee3ad6ebf3e8ed3b1e7a99fafff62e2135755b2b1fc22b0",
     "communication-inbox-test.js": "65ee4194dec347446ac3731d3da19746df70828e1e965e9343be918d1afcea2c",
     "communication-inbox.js": "be47866bd1fe9d00aa03360d123e22df01f1a2c4950b642a65bfd6ab48222118",
@@ -89,8 +91,8 @@
     "communication-send-reviews-client-test.js": "1dfca338af45c95311f303eb23b828db95bd2f4d58998f3fc42fda899fb7722c",
     "communication-send-reviews-test.js": "cf5291e145616b8578e12e5c797a5eedbb35586c590a9726c1a01b071dd1b93f",
     "communication-send-reviews.js": "142dffc2c2382596cc9470a36fbef666586c3173a2c3dfbb3629850e68d510fe",
-    "communication-smtp-test.js": "3edd8f1899cb7e18deee4f18dc1a8716871099de5173c4cea75e7be33eaf75e0",
-    "communication-smtp.js": "cafa5ef8996ae788ab258e07ece910c617885f7c962ea63bb7b552343eeb3e91",
+    "communication-smtp-test.js": "b55c0e2a3aa2a29b4ff9d3cc1b28318bd9387b39bcc89881e2235db18d104173",
+    "communication-smtp.js": "c89dec2fb2c9c4ee7ca1377dec75a3c74143de6de9b880fbadb91a875bf71462",
     "communication-snapshot-api-test.js": "17953fa835407ed7ff8eb128f4703cd65848eba1e8723ce1d0c21a457af1d4e7",
     "communication-snapshot-test.js": "caac3437febead665f3908cac315c0b7d5a9085886fe8894df33cfc778e07af0",
     "communication-snapshot.js": "c460d6d25f1b485d3493f626d682f5da0a9490bc96f3c56c13b710aa564fe5c0",
@@ -164,7 +166,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "05565c04409e303fd3855936133d385b030b8067106740b87a1c8a3ff0c1b19e",
+    "package.json": "805a8f596a12b750585018b50431016b02faa41b7773f1f66a053b33ff01ac12",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -253,7 +255,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "2d7769f9ba656232635bb657fea07c764ee0e86e17f7b2fd1f13eab96b7c9599"
   },
-  "output_sha256": "d58dfe908a7a57b5092686997aa7eb31e830a78ab1189ed54c50305cfbfa99c2",
+  "output_sha256": "c78fa67df39256028642dc8f456bd7adebaaf8007144a9ba22a34aa1eba7dc15",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -408,7 +410,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T09:11:10.220682+00:00",
+  "verified_at": "2026-09-11T09:21:56.164249+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -564,7 +566,8 @@
     "ZERO now exposes native source-bound reply preparation, internal draft creation, exact send preview, reviewer search, designated review/withdrawal and separately confirmed approved submission. Tool discovery and execution use the current operation-specific Communication and Core permissions. The same native services enforce all source, preference, account and approval rules; ZERO does not borrow a reviewer or generic confirmation. Actual HTTP sessions prove explicit submission, current owner/role checks across body waits, conflicting in-flight payload denial, encrypted exact-turn replay without resend and source-free conversation/audit views. Production UI delegates existing review/reply controls through ZERO with source selection, unchanged confirmation payloads and retry keys, and detached-view guards. This is isolated SMTP/HTTP/DOM evidence, not live delivery or browser acceptance.",
     "Internal draft comments and replies now use current parent/source access, exact source revisions, author-only withdrawal with retained originals, bounded history, actor/input replay and atomic encrypted persistence. A separate sixty-second editing grant exposes a shared working copy without changing the saved draft or Messages count. Explicit confirmed takeover rotates the private grant and blocks old editors, including an already-authenticated HTTP save awaiting its body. Current membership/source/write permissions and expiry govern each update; tokens stay out of reads, Data, audit and owned exports. Native controls publish work text while editing, retain local text on takeover/conflict, preserve pending confirmation during polling, clear revoked source views and discard detached responses. Unit, real-session/restart and production DOM-handler tests cover these contracts; actual browser/keyboard/viewport and provider acceptance remain unproven.",
     "Native and ZERO reply-all preparation now binds the exact current visible source recipients and configured sender. It preserves separate To/Cc, excludes the configured sender and repeated addresses, never copies blind recipients, and returns unavailable when source recipient or sender data is incomplete. Versioned source fingerprints preserve prior reply/forward contracts while binding new Cc and thread metadata. Draft editing, shared work text, immutable revisions/restores, review preview and recorded outbound messages retain Cc. Every To/Cc recipient requires the same current purpose preference and designated exact-source approval; the SMTP envelope includes all approved recipients while MIME preserves their header roles and reply linkage. Isolated approved transport, real native/ZERO HTTP body-wait changes, current-source replay, encrypted restart and production handlers pass; no live provider send or browser acceptance is claimed.",
-    "PDF, PNG and JPEG attachments now require bounded signature checks and a successful local ClamAV process before atomic attachment. Exact bytes and immutable scan receipts survive history/restore and current-source owned export; binary content stays out of generic Data and downloads as hash-checked octet-stream without inline rendering. Scanner execution uses fixed arguments, no shell, no inherited application credentials, private temporary storage, current authority/configuration checks, official recent database requirements, limits and strict exit/result validation. Alerts, skipped/error/timeout outcomes and source revocation while the process runs never attach a file. Review/submission refuse expired binary scans without deleting the original file/history. Actual subprocess fixtures, real HTTP/restart and production handlers pass; they do not prove a real installed scanner/database, malware detection rate, browser or live-provider acceptance. Legacy text attachments remain explicitly unscanned. The current scratch runtime lacks clamscan; no production dependency was changed."
+    "PDF, PNG and JPEG attachments now require bounded signature checks and a successful local ClamAV process before atomic attachment. Exact bytes and immutable scan receipts survive history/restore and current-source owned export; binary content stays out of generic Data and downloads as hash-checked octet-stream without inline rendering. Scanner execution uses fixed arguments, no shell, no inherited application credentials, private temporary storage, current authority/configuration checks, official recent database requirements, limits and strict exit/result validation. Alerts, skipped/error/timeout outcomes and source revocation while the process runs never attach a file. Review/submission refuse expired binary scans without deleting the original file/history. Actual subprocess fixtures, real HTTP/restart and production handlers pass; they do not prove a real installed scanner/database, malware detection rate, browser or live-provider acceptance. Legacy text attachments remain explicitly unscanned. The current scratch runtime lacks clamscan; no production dependency was changed.",
+    "SMTP authentication/submission on 465 and mandatory STARTTLS 587 plus read-only IMAP 993 now support pinned public IPv6 as well as IPv4. Every DNS answer must match its declared family and ordinary public allocation; mixed private/public answers, reserved, documentation, transition, scoped and unallocated addresses fail before credentials. The connected peer must numerically equal the selected address, including after STARTTLS, without a second DNS lookup or family fallback. Actual isolated IPv6 TCP/TLS fixtures verify authentication, approved SMTP DATA and read-only IMAP with expanded equivalent addresses; changed peers fail before AUTH. IANA allocation and special-purpose registries were checked on 2026-09-11. Full regression passes; legitimate provider routing, non-PLAIN authentication and delivery reconciliation remain unproven or open as recorded."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -576,7 +579,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-communication-binary-attachments-regression.log",
+  "output_file": ".recovery-evidence/20260911-communication-ipv6-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -589,10 +592,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "5814e04dd0ef99fce59cf42418cc00e6acb8ee3f",
-    "tree": "590cdc5c80cbc7b679984ee283b1b21ed3f13402",
-    "run": 101,
-    "run_id": 34581729460,
+    "head": "25cb344110d6be31a8a5c85f4d8629b1673c4c98",
+    "tree": "0ba72da0f28ed990bbe129d4af74a18cdb34390c",
+    "run": 102,
+    "run_id": 34583013142,
     "conclusion": "success"
   },
   "current_production_observation": {

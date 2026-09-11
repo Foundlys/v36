@@ -1,8 +1,9 @@
 'use strict';
 
 // Retained draft attachments use the existing encrypted, tenant-scoped adapter.
-// Only bounded UTF-8 .txt files are accepted. No parsing, execution, automatic
-// Knowledge ingestion, external URL fetch or malware-scan claim is involved.
+// UTF-8 text keeps its legacy validation and explicitly unscanned metadata.
+// Binary uploads delegate to the separate local scanner service; no automatic
+// Knowledge ingestion, external URL fetch or inline execution is performed.
 const crypto=require('node:crypto');
 const SCOPE='communication:draft_attachment_content',MAX_BYTES=65536,MAX_CURRENT=10,MAX_RETAINED=20,MAX_TENANT_BYTES=8*1024*1024;
 const clone=value=>JSON.parse(JSON.stringify(value));

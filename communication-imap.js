@@ -1,7 +1,7 @@
 'use strict';
 // Bounded read-only IMAP: implicit verified TLS, AUTHENTICATE PLAIN, EXAMINE,
 // UID SEARCH and BODY.PEEK. No SELECT/STORE/APPEND/EXPUNGE/provider mutation.
-const tls=require('node:tls'),dns=require('node:dns').promises,{destination}=require('./communication-smtp');
+const {sameAddress}=require('./communication-addresses'),net=require('node:net'),tls=require('node:tls'),dns=require('node:dns').promises,{destination}=require('./communication-smtp');
 const MAX_MESSAGE=262144,MAX_UIDS=25000;
 const fail=(code,statusCode=502)=>Object.assign(new Error('De mailbox kan niet betrouwbaar worden gelezen'),{code,statusCode});
 function configuration(input){
@@ -36,8 +36,8 @@ function createReader({lookup=dns.lookup.bind(dns),connectTls=tls.connect,timeou
   let socket,reader,timer,timedOut=false,sequence=0,selectedValidity=null;const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{timedOut=true;socket?.destroy();reject(fail('imap_timeout'));},timeoutMs);});
   const work=async()=>{
    authorize();const address=await destination(config.host,lookup,allowedHosts);if(timedOut)throw fail('imap_timeout');authorize();
-   await new Promise((resolve,reject)=>{socket=connectTls({host:config.host,port:993,servername:config.host,minVersion:'TLSv1.2',rejectUnauthorized:true,family:4,autoSelectFamily:false,lookup:(_host,_options,callback)=>callback(null,address,4)});socket.once('error',()=>reject(fail('imap_tls_or_connection_failed')));socket.once('secureConnect',resolve);});
-   if(!socket.authorized||socket.remoteAddress!==address)throw fail('imap_tls_or_destination_invalid',403);reader=new Replies(socket);if(!/^\* OK(?:\s|$)/i.test(plain(await reader.next())))throw fail('imap_greeting_invalid');
+   const family=net.isIP(address);await new Promise((resolve,reject)=>{socket=connectTls({host:config.host,port:993,servername:config.host,minVersion:'TLSv1.2',rejectUnauthorized:true,family,autoSelectFamily:false,lookup:(_host,_options,callback)=>callback(null,address,family)});socket.once('error',()=>reject(fail('imap_tls_or_connection_failed')));socket.once('secureConnect',resolve);});
+   if(!socket.authorized||!sameAddress(socket.remoteAddress,address))throw fail('imap_tls_or_destination_invalid',403);reader=new Replies(socket);if(!/^\* OK(?:\s|$)/i.test(plain(await reader.next())))throw fail('imap_greeting_invalid');
    const command=async(value,continuation)=>{authorize();const tag='F'+(++sequence),rows=[];socket.write(tag+' '+value+'\r\n');let continued=false;
     for(let n=0;n<1100;n++){const parts=await reader.next(),text=parts.map(part=>Buffer.isBuffer(part)?'@LITERAL@':part).join('');if(text.startsWith(tag+' ')){const match=plain(parts).match(new RegExp('^'+tag+' (OK|NO|BAD)(?: |$)(.*)$','i'));if(!match||match[1].toUpperCase()!=='OK')throw fail('imap_command_rejected');if(continuation&&!continued)throw fail('imap_authentication_invalid');return {rows,completion:match[2],tag};}
      if(/^\+(?: |$)/.test(text)){if(!continuation||continued)throw fail('imap_authentication_invalid');continued=true;authorize();socket.write(continuation+'\r\n');continue;}

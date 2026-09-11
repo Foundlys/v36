@@ -6,6 +6,7 @@
 // mandatory and pre-STARTTLS capabilities are discarded. Configuration reads
 // and ordinary connector status pages never open this connection.
 const net=require('node:net'),tls=require('node:tls'),dns=require('node:dns').promises;
+const {publicV6,sameAddress}=require('./communication-addresses');
 const failure=(code,statusCode=502)=>Object.assign(new Error('SMTP-verificatie is niet geslaagd'),{code,statusCode});
 function configuration(input){
  if(!input||typeof input!=='object'||Array.isArray(input))throw failure('smtp_configuration_invalid',422);
@@ -19,11 +20,11 @@ function publicV4(address){
 }
 async function destination(host,lookup,allowedHosts=[]){
  if(allowedHosts.length&&!allowedHosts.some(value=>value===host||value.startsWith('*.')&&host.endsWith(value.slice(1))&&host!==value.slice(2)))throw failure('smtp_host_not_allowed',403);
- const rows=await lookup(host,{all:true,verbatim:true});const v4=rows.filter(row=>row.family===4);
- // This bounded adapter currently requires a public IPv4 answer. The selected
- // address is pinned into socket lookup; no second DNS resolution can rebind it.
- if(!v4.length||v4.some(row=>!publicV4(row.address)))throw failure('smtp_destination_unavailable',403);
- return v4[0].address;
+ const rows=await lookup(host,{all:true,verbatim:true});
+ // Validate every answer, then pin one literal address and its family. Mixed
+ // public/private answers cannot use the unselected family as a bypass.
+ if(!Array.isArray(rows)||!rows.length||rows.length>64||rows.some(row=>!row||![4,6].includes(row.family)||net.isIP(row.address)!==row.family||!(row.family===4?publicV4(row.address):publicV6(row.address))))throw failure('smtp_destination_unavailable',403);
+ return (rows.find(row=>row.family===4)||rows[0]).address;
 }
 class Replies{
  constructor(socket){
@@ -56,16 +57,16 @@ function createTransport({lookup=dns.lookup.bind(dns),connectTcp=net.connect,con
   let timedOut=false;const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{timedOut=true;socket?.destroy();reject(failure('smtp_timeout'));},timeoutMs);});
   const work=async()=>{
    authorize();const address=await destination(config.host,lookup,allowedHosts);if(timedOut)throw failure('smtp_timeout');authorize();
-   const options={host:config.host,port:config.port,family:4,autoSelectFamily:false,lookup:(_host,_options,callback)=>callback(null,address,4)},tlsOptions={servername:config.host,minVersion:'TLSv1.2',rejectUnauthorized:true};
+   const family=net.isIP(address),options={host:config.host,port:config.port,family,autoSelectFamily:false,lookup:(_host,_options,callback)=>callback(null,address,family)},tlsOptions={servername:config.host,minVersion:'TLSv1.2',rejectUnauthorized:true};
    await connect(config.port===465?connectTls:connectTcp,{...options,...(config.port===465?tlsOptions:{})},config.port===465?'secureConnect':'connect');
-   if(socket.remoteAddress!==address)throw failure('smtp_destination_changed',403);
+   if(!sameAddress(socket.remoteAddress,address))throw failure('smtp_destination_changed',403);
    if(config.port===465&&!socket.authorized)throw failure('smtp_certificate_invalid');reader=new Replies(socket);
    const greeting=await reader.next();if(greeting.code!==220)throw failure('smtp_greeting_rejected');
    let hello=await reader.command('EHLO foundly-client.invalid',[250]);
    if(config.port===587){
     if(!hello.lines.slice(1).some(line=>/^STARTTLS(?:\s|$)/i.test(line)))throw failure('smtp_tls_required');
     await reader.command('STARTTLS',[220]);reader.detach();socket.pause();const previous=socket;
-    await connect(connectTls,{socket:previous,...tlsOptions},'secureConnect');if(!socket.authorized)throw failure('smtp_certificate_invalid');reader=new Replies(socket);socket.resume();
+    await connect(connectTls,{socket:previous,...tlsOptions},'secureConnect');if(!socket.authorized||!sameAddress(socket.remoteAddress,address))throw failure('smtp_certificate_invalid');reader=new Replies(socket);socket.resume();
     hello=await reader.command('EHLO foundly-client.invalid',[250]);
    }
    if(!hello.lines.slice(1).some(line=>/^AUTH[ =]/i.test(line)&&line.replace(/^AUTH[ =]/i,'').split(/\s+/).some(method=>method.toUpperCase()==='PLAIN')))throw failure('smtp_auth_method_unavailable');
