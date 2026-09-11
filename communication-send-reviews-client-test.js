@@ -14,7 +14,7 @@ const find=(root,tag,text)=>root.all().find(row=>row.tag===tag&&(text===undefine
 async function mount({canPrepare=true,canReview=false,canCancel=false,canSubmit=false,attemptStatus=null}={}){
  const content=new Element('section'),cell=new Element('td'),requests=[],state={workspaceId:'communication',activeSection:'DRAFTS'};content.append(cell);let next=null,release,redraws=0,fail=false;
  const snapshot={title:'Exact subject',content:'<script>external instructions</script>',to:['recipient@example.test'],attachments:[{name:'Notes.txt'}]},plan={purpose:'business',draft_revision:7,preview_fingerprint:'exact-source',from:'sender@example.test',snapshot};
- const context={state,crypto,URLSearchParams,node:(...args)=>new Element(...args),replaceChildren:(parent,children)=>{parent.children=[];parent.append(...children);},friendlyError:error=>error.message,renderDomainSection:async()=>{redraws++;},request:async(route,options)=>{
+ const context={state,crypto,URLSearchParams,node:(...args)=>new Element(...args),replaceChildren:(parent,children)=>{parent.children=[];parent.append(...children);},appendReplyContext:()=>{},friendlyError:error=>error.message,renderDomainSection:async()=>{redraws++;},request:async(route,options)=>{
   requests.push({route,options});if(options){if(next){const pending=next;next=null;return pending;}if(fail)throw Error('Fixture transient failure');return {ok:true};}
   if(next){const pending=next;next=null;return pending;}
   if(route.includes('/preview?'))return plan;if(route.includes('/reviewers?'))return {items:[{id:'reviewer1',display_name:'Designated colleague'}]};

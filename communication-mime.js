@@ -20,6 +20,7 @@ function compose(plan,{attempt_id,created_at,files=[]}){
  }
  const messageId='<'+attempt_id+'@'+plan.from.split('@')[1]+'>',boundary='foundly_'+attempt_id;
  const headers=['Date: '+new Date(created_at).toUTCString().replace('GMT','+0000'),'Message-ID: '+messageId,'From: <'+plan.from+'>','To: '+snapshot.to.map(value=>'<'+value+'>').join(',\r\n '),'Subject: '+subject(snapshot.title),'MIME-Version: 1.0'];
+ const reply=snapshot.reply_context;if(reply){if(!['REPLY','FORWARD'].includes(reply.mode)||!reply.headers||typeof reply.headers.available!=='boolean'||!Array.isArray(reply.headers.in_reply_to)||!Array.isArray(reply.headers.references)||[reply.headers.in_reply_to,reply.headers.references].some(ids=>ids.length>100||ids.some(value=>!require('./communication-threads').validId(value)))||(!reply.headers.available||reply.mode==='FORWARD')&&(reply.headers.in_reply_to.length||reply.headers.references.length))fail();for(const [name,ids] of [['In-Reply-To',reply.headers.in_reply_to],['References',reply.headers.references]])if(ids.length)headers.push(name+': '+ids.join('\r\n '));}
  const body=parts.length===1?parts[0]:'Content-Type: multipart/mixed; boundary="'+boundary+'"\r\n\r\n--'+boundary+'\r\n'+parts.join('\r\n--'+boundary+'\r\n')+'\r\n--'+boundary+'--';
  const data=headers.join('\r\n')+'\r\n'+body+'\r\n';validateWire({from:plan.from,to:snapshot.to,data});
  return {from:plan.from,to:[...snapshot.to],data,message_id:messageId,sha256:hash(data),size_bytes:Buffer.byteLength(data)};

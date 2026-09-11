@@ -1,7 +1,7 @@
 'use strict';
 const { DEFINITIONS }=require('./business-domains');
 const {calendarOperations}=require('./calendar-operations');
-function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson,mailAccount=()=>null,mailSubmissions=()=>null}){
+function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson,mailAccount=()=>null,mailSubmissions=()=>null,mailboxes=()=>null}){
   return async(req,res,url)=>{
     const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing|analysis)(?:\/(.*))?$/);
     if(!match)return false;
@@ -26,8 +26,16 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='awards'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareAward(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='awards'&&parts.length===3&&['approve','cancel'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews[parts[2]==='approve'?'reviewAward':'cancelAward'](core,ctx,actor,parts[1],await readBody(req),options)});
       }
+      if(id==='communication'&&parts[0]==='mailboxes'){
+        const service=mailboxes();if(!service)return sendJson(res,503,{ok:false,code:'mailbox_unavailable'});
+        if(parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...service.status(ctx,actor)});
+        if(parts.length===2&&parts[1]==='sync'&&req.method==='POST')return sendJson(res,200,{ok:true,...await service.sync(ctx,actor,await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
+        return sendJson(res,405,{ok:false,code:'method_not_allowed'});
+      }
       if(id==='communication'&&parts[0]==='inbox'&&parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-inbox').list(core,ctx,actor,Object.fromEntries(url.searchParams))});
       if(id==='communication'&&parts[0]==='messages'&&parts.length===3){
+        if(parts[2]==='conversation'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-threads').query(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});
+        if(parts[2]==='source'&&req.method==='GET'){const service=mailboxes();if(!service)return sendJson(res,503,{ok:false,code:'mailbox_unavailable'});return sendJson(res,200,{ok:true,...service.source(ctx,actor,parts[1])});}
         if(parts[2]==='view'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-inbox').detail(core,ctx,actor,parts[1])});
         if(parts[2]==='inbox-state'&&req.method==='PUT')return sendJson(res,200,{ok:true,...require('./communication-inbox').update(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
         const service=require('./communication-replies');

@@ -98,4 +98,4 @@ function createTransport({lookup=dns.lookup.bind(dns),connectTcp=net.connect,con
  };
  const authenticate=(input,options)=>exchange(input,options);authenticate.submit=(input,message,options)=>exchange(input,options,message);return authenticate;
 }
-module.exports={createTransport,configuration,publicV4};
+module.exports={createTransport,configuration,publicV4,destination};

@@ -23,7 +23,7 @@ function list(core,ctx,actor,query={}){
  authorize(core,ctx,actor);const filter=normalize(query),states=stateMap(core,ctx,actor),retained=core.bucket(ctx,'messages');if(retained.length>25000)fail('inbox_capacity','De bewaarde inbox is te groot voor deze zoekopdracht',507);
  const matched=[];let observed=0;
  for(const row of retained){
-  if(row.deleted_at||row.status==='ARCHIVED'||!core.visible(row,actor))continue;observed++;const local=stateView(states.get(row.id),row.revision);
+  if(row.deleted_at||row.provider_currently_draft===true||row.status==='ARCHIVED'||!core.visible(row,actor))continue;observed++;const local=stateView(states.get(row.id),row.revision);
   if(filter.folder!=='all'&&local.archived!==(filter.folder==='archived')||filter.read!=='all'&&local.read!==({read:true,unread:false,unknown:null})[filter.read]||filter.direction!=='all'&&row.direction!==filter.direction)continue;
   if(filter.q&&![row.title,row.content,row.from,...(Array.isArray(row.to)?row.to:[])].some(value=>typeof value==='string'&&value.toLowerCase().includes(filter.q)))continue;
   matched.push({row,local,time:messageTime(row)});
@@ -34,7 +34,8 @@ function list(core,ctx,actor,query={}){
 function detail(core,ctx,actor,id){
   authorize(core,ctx,actor);const row=core.get(ctx,actor,'messages',id);if(row.deleted_at)fail('record_not_found','Bericht niet gevonden',404);
  let canDraft=false;try{core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'communication:drafts','write');canDraft=true;}catch(error){if(error.statusCode!==403)throw error;}
- return {record:row,local_state:stateView(stateMap(core,ctx,actor).get(id),row.revision),can_write:canWrite(core,ctx,actor)&&Number.isSafeInteger(row.revision)&&row.revision>0,can_prepare_draft:canDraft,content_kind:'UNTRUSTED_RETAINED_MESSAGE',provider_updated:false};
+ let canThreads=false;try{core.resolver.assertCapability(ctx,actor,'communication:threads');canThreads=true;}catch(error){if(error.statusCode!==403)throw error;}
+ return {record:row,can_view_conversation:canThreads,local_state:stateView(stateMap(core,ctx,actor).get(id),row.revision),can_write:canWrite(core,ctx,actor)&&Number.isSafeInteger(row.revision)&&row.revision>0,can_prepare_draft:canDraft,content_kind:'UNTRUSTED_RETAINED_MESSAGE',provider_updated:false};
 }
 function update(core,ctx,actor,id,input,options={}){
  authorize(core,ctx,actor,'write');const source=core.get(ctx,actor,'messages',id);if(source.deleted_at)fail('record_not_found','Bericht niet gevonden',404);
@@ -51,5 +52,5 @@ function update(core,ctx,actor,id,input,options={}){
   core.recordEvent(ctx,actor,'inbox_state',row,'updated');return {local_state:stateView(row,source.revision),receipt,deduplicated:false,provider_updated:false};
  });try{core.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
-function exportOwned(core,ctx,actor,messages){const visible=new Set(messages.filter(row=>!row.deleted_at).map(row=>row.id));return [...stateMap(core,ctx,actor).values()].filter(row=>visible.has(row.message_id)).map(clone);}
+function exportOwned(core,ctx,actor,messages){const visible=new Set(messages.filter(row=>!row.deleted_at&&row.provider_currently_draft!==true).map(row=>row.id));return [...stateMap(core,ctx,actor).values()].filter(row=>visible.has(row.message_id)).map(clone);}
 module.exports={SCOPE,list,detail,update,exportOwned};

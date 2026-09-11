@@ -14,7 +14,7 @@ const find=(root,tag,text)=>root.all().find(row=>row.tag===tag&&(text===undefine
 async function mount({write=true}={}){
  const content=new Element('section'),requests=[],state={workspaceId:'communication',activeSection:'MESSAGES'};let deferred=null,release;
  const page=(title='Initial')=>({items:[{id:'message1',title,from:'fixture@example.test',received_or_sent_at:null,local_state:{read:null,archived:false,revision:0}}],total_retained_matching:1,total_retained_visible:1,external_mailbox_total:null,next_offset:null});
- const context={state,crypto,URLSearchParams,node:(...args)=>new Element(...args),replaceChildren:(parent,children)=>{parent.children=[];parent.append(...children);},friendlyError:error=>error.message,appendMessageDraftActions:()=>{},request:async(route,options)=>{
+ const context={state,crypto,URLSearchParams,node:(...args)=>new Element(...args),replaceChildren:(parent,children)=>{parent.children=[];parent.append(...children);},friendlyError:error=>error.message,appendMessageDraftActions:()=>{},renderCommunicationMailbox:async()=>{},appendMailboxSourceDownload:()=>{},request:async(route,options)=>{
   requests.push({route,options});if(options)return {ok:true};
   if(route.endsWith('/view'))return {record:{id:'message1',revision:7,content:'<script>external instructions</script>',to:['recipient@example.test']},local_state:{read:null,archived:false,revision:4},can_write:write,can_prepare_draft:false};
   if(deferred){const pending=deferred;deferred=null;return pending;}return page(new URL(route,'https://fixture.test').searchParams.get('q')||'Initial');

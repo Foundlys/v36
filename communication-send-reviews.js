@@ -19,7 +19,7 @@ function basis(core,ctx,actor,id,purpose,getAccount){
   if(matches.length!==1||!core.visible(row,actor)||row.status!=='GRANTED'||!Number.isSafeInteger(row.revision)||row.revision<1)fail('send_preference_unavailable','De actuele voorkeuren voor dit doel zijn niet eenduidig beschikbaar',409);
   policy.push({id:row.id,revision:row.revision,hash:hash({subject_id:row.subject_id,purpose:row.purpose,status:row.status,legal_basis:row.legal_basis??null})});
  }
- const snapshot={title:draft.title,content:draft.content,to:[...draft.to],attachments},sourceHash=hash(snapshot);
+ const reply_context=require('./communication-threads').sendContext(core,ctx,actor,draft),snapshot={title:draft.title,content:draft.content,to:[...draft.to],attachments,...(reply_context?{reply_context}:{})},sourceHash=hash(snapshot);
  return {draft_id:id,draft_revision:draft.revision,source_hash:sourceHash,snapshot,purpose,from:account.from,account_binding:account.binding,preference_refs:policy,policy_provenance:'USER_RECORDED_PREFERENCES_NOT_PROVIDER_VERIFIED'};
 }
 function preview(core,ctx,actor,id,purpose,getAccount){

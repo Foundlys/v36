@@ -10,8 +10,8 @@ function preview(core,ctx,actor,id,mode){
  if(!['REPLY','FORWARD'].includes(mode))fail('message_draft_mode_invalid','Kies beantwoorden of doorsturen');
  const source=core.get(ctx,actor,'messages',id);
  if(!Number.isSafeInteger(source.revision)||source.revision<1||typeof source.title!=='string'||typeof source.content!=='string'||source.deleted_at)fail('message_source_unavailable','De bron van het bericht is onvolledig',409);
- const sender=source.reply_to??source.from,to=mode==='REPLY'?(email(sender)?[sender]:null):[];
- return {mode,source_id:source.id,source_revision:source.revision,source_hash:sourceHash(source),title:`${mode==='REPLY'?'Re:':'Fwd:'} ${source.title}`.slice(0,1000),suggested_to:to,recipient_available:mode==='FORWARD'||to!==null,source_excerpt:source.content.slice(0,2000),source_excerpt_truncated:source.content.length>2000,source_content_kind:'UNTRUSTED_RETAINED_MESSAGE',quoted_content_copied:false,external_send:false};
+ const sender=source.reply_to_available===false?null:source.reply_to??source.from,to=mode==='REPLY'?(email(sender)?[sender]:null):[];
+ return {mode,source_id:source.id,source_revision:source.revision,source_hash:sourceHash(source),title:`${mode==='REPLY'?'Re:':'Fwd:'} ${source.title}`.slice(0,1000),suggested_to:to,recipient_available:mode==='FORWARD'||to!==null,threading:mode==='REPLY'?require('./communication-threads').replyHeaders(source):{available:true,in_reply_to:[],references:[]},source_excerpt:source.content.slice(0,2000),source_excerpt_truncated:source.content.length>2000,source_content_kind:'UNTRUSTED_RETAINED_MESSAGE',quoted_content_copied:false,external_send:false};
 }
 function readable(core,ctx,actor,row){
  if(core.id!=='communication'||row.owned_entity!=='drafts'||!row.source_message_ref)return true;
@@ -20,7 +20,7 @@ function readable(core,ctx,actor,row){
 }
 function accessPredicate(core,ctx,actor,{exporting=false}={}){
  let sources=new Set();
- try{if(!exporting)core.resolver.assertCapability(ctx,actor,'communication:inbox');sources=new Set(core.bucket(ctx,'messages').filter(row=>!row.deleted_at&&core.visible(row,actor)).map(row=>row.id));}
+ try{if(!exporting)core.resolver.assertCapability(ctx,actor,'communication:inbox');sources=new Set(core.bucket(ctx,'messages').filter(row=>!row.deleted_at&&row.provider_currently_draft!==true&&core.visible(row,actor)).map(row=>row.id));}
  catch(error){if(![401,403].includes(error.statusCode))throw error;}
  return row=>row.owned_entity!=='drafts'||!row.source_message_ref||Boolean(typeof row.source_message_ref.id==='string'&&Number.isSafeInteger(row.source_message_ref.revision)&&['REPLY','FORWARD'].includes(row.source_message_ref.mode)&&sources.has(row.source_message_ref.id));
 }
@@ -45,4 +45,4 @@ function create(core,ctx,actor,id,input,options={}){
   return {record:clone(row),deduplicated:false,external_send:false,quoted_content_copied:false};
  });try{core.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
-module.exports={preview,create,readable,accessPredicate};
+module.exports={preview,create,readable,accessPredicate,sourceHash};
