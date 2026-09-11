@@ -1,0 +1,17 @@
+# Calendar retained provider occupancy
+
+This continues Run 1, Phase 24. Existing native calendars, appointments, availability, recurrence and reminders remain the owners of internal scheduling.
+
+The External Calendar workspace reads an explicitly selected Google calendar through the existing encrypted Google grant. It requires current Calendar write/availability authority, connector-management authority, the current local calendar revision, a current account fingerprint, an exact response-window revision, a reason and separate confirmation. It neither configures OAuth nor sends invitations nor writes to a provider calendar.
+
+The transport requires a retained provider identity and an actually granted Calendar scope. Requested OAuth scopes or a different working Google service do not prove Calendar authorization. Fixed HTTPS endpoints, no redirects, bounded response bodies and current identity/configuration/grant checks apply before and after asynchronous work. A refresh can update only the same unchanged existing grant; a disconnect or replacement cannot be overwritten by a late refresh.
+
+A read covers at most 31 days at whole-second boundaries. Every page must be received, including empty intermediate pages. Limits are 20 pages, 10,000 event records and 8 MiB of response data. Repeated tokens, duplicate IDs, unknown access/time shapes, unspecified ends and incomplete responses fail closed. Timed values require a valid offset or explicit IANA interpretation. All-day ends are exclusive in the provider calendar timezone. Cancelled and transparent events do not contribute occupancy. Recurring instances must already be expanded by the provider.
+
+Only occupancy and hashed source identifiers are retained; titles, descriptions, locations, attendee lists and raw provider IDs are not copied. This does not resolve external people into internal identities. The complete returned page set is a retained observation for that bounded window, not an atomic provider-wide snapshot or realtime synchronization guarantee. Provider changes during pagination remain possible.
+
+A durable READING receipt precedes network work. Failed, interrupted, expired (15 minutes), account-changed, calendar-changed or out-of-window coverage cannot prove free time. Exact retries reread the durable result without issuing another provider request. A new explicit attempt may supersede an interrupted one; the earlier response cannot replace the newer window. Atomic persistence protects current observations, receipt metadata and source-free audit. Historical observations remain retained, with missing occupancy labelled NOT_RETURNED_IN_RESPONSE_WINDOW_NOT_DELETED.
+
+Native conflict checks and slot fingerprints incorporate current external coverage. Internal appointments remain separate from provider occupancy. An explicit separately confirmed local disable releases the external-coverage requirement without deleting observations or changing the Google grant/provider. Future native scheduling then makes no claim about that external calendar. Source-authorized owned exports include labelled historical occupancy; generic Data and ZERO conversation/audit exclude these private payloads. Calendar reassignment does not expose the previous owner's provider details.
+
+Tests use isolated provider fixtures, real local HTTP identity sessions, encrypted restart and production DOM handlers. They are not evidence of a live Google account, invitation delivery, actual browser acceptance, production deployment or competitive superiority.

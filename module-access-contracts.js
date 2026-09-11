@@ -7,7 +7,7 @@ const ENTITY_GROUPS={
   marketing:{campaigns:['campaigns','creatives','experiments','creative_reviews'],audiences:['audiences'],attribution:['attribution','measurement']},
   procurement:{sourcing:['rfqs','bids'],suppliers:['suppliers'],opportunities:['opportunities','tasks'],approvals:['quotes','orders','documents','approval_policies','awards']},
   sales:{forecast:['forecast','forecast_snapshots','forecast_hierarchies','quotas'],opportunities:['opportunities','tasks','sequences','sequence_runs'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
-  calendar:{events:['events','reminders','notifications'],availability:['availability','calendars','scheduling'],conflicts:['conflicts']},
+  calendar:{events:['events','reminders','notifications','event-preparation','event_preparation'],availability:['availability','calendars','scheduling','external-calendar','external_calendar'],conflicts:['conflicts']},
   communication:{drafts:['drafts','templates','draft_revisions'],threads:['threads','preferences'],inbox:['messages','inbox','mailboxes']},
   automation:{workflows:['workflows','tasks','documents','drafts'],runs:['runs'],approvals:['approvals']}
 };

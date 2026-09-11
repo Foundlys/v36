@@ -20,8 +20,9 @@ function calendarOperations(core){
       const events=core.bucket(ctx,'events').filter(row=>!['ARCHIVED','CANCELLED'].includes(row.status)&&row.start_at&&row.end_at);
       const candidates=[];
       for(const calendar of calendars){
-        const revision=digest({tenant:ctx,actor:actor.id,calendar:{id:calendar.id,revision:calendar.revision},availability:availability.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision]),events:events.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision])});
-        const busy=events.filter(row=>row.calendar_id===calendar.id).flatMap(occurrences);
+        const external=core.external?core.external.busy(ctx,calendar.id,[{start_at:input.from,end_at:input.to}]):{items:[],revision:null};
+        const revision=digest({external_revision:external.revision,tenant:ctx,actor:actor.id,calendar:{id:calendar.id,revision:calendar.revision},availability:availability.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision]),events:events.filter(row=>row.calendar_id===calendar.id).map(row=>[row.id,row.revision])});
+        const busy=[...events.filter(row=>row.calendar_id===calendar.id).flatMap(occurrences),...external.items];
         const load=busy.filter(row=>Date.parse(row.start_at)>=from&&Date.parse(row.start_at)<to).length;
         for(const window of availability.filter(row=>row.calendar_id===calendar.id).flatMap(occurrences)){
           const starts=Math.max(from,Date.parse(window.start_at)),ends=Math.min(to,Date.parse(window.end_at));

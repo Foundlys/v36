@@ -1,0 +1,9 @@
+{
+  "scope": "ISOLATED_IN_MEMORY_ONLY",
+  "defect": "Overlapping OPEN period permits journal posting inside a CLOSED fiscal period",
+  "closed_period": "fab86d9e-cf9e-48e4-a6e1-b22ba8ce55b6",
+  "selected_open_period": "37bd31aa-7dd0-4065-847c-a06c11ed51f4",
+  "posted": true,
+  "production_mutation": false,
+  "frozen_source_modified": false
+}
