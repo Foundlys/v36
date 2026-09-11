@@ -48,4 +48,4 @@ function parse(raw){
  return result;
 }
 function oneSafe(map,name){try{return one(map,name);}catch{return null;}}
-module.exports={parse,words,mailboxes,messageIds};
+module.exports={parse,words,mailboxes,messageIds,headers,typed};

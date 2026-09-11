@@ -1040,9 +1040,9 @@
     }else if(source.kind==='template'){
       const prefix='/api/communication/templates/'+encodeURIComponent(source.id);if(method==='POST'&&url.pathname===prefix+'/draft-preview')action={operation:'TEMPLATE_PREVIEW',template_id:source.id,input};else if(method==='POST'&&url.pathname===prefix+'/drafts')action={operation:'CREATE_TEMPLATE_DRAFT',template_id:source.id,input};else throw Error('Deze actie hoort niet bij het geselecteerde sjabloon.');
     }else{
-      const prefix='/api/communication/messages/'+encodeURIComponent(source.id);if(url.pathname===prefix+'/draft-preview'&&method==='GET')action={operation:'REPLY_PREVIEW',message_id:source.id,input};else if(url.pathname===prefix+'/drafts'&&method==='POST')action={operation:'CREATE_REPLY',message_id:source.id,input};else throw Error('Deze actie hoort niet bij het geselecteerde bericht.');
+      const prefix='/api/communication/messages/'+encodeURIComponent(source.id);if(url.pathname===prefix+'/delivery-report'&&method==='GET')action={operation:'DELIVERY_REPORT',message_id:source.id,input};else if(url.pathname===prefix+'/draft-preview'&&method==='GET')action={operation:'REPLY_PREVIEW',message_id:source.id,input};else if(url.pathname===prefix+'/drafts'&&method==='POST')action={operation:'CREATE_REPLY',message_id:source.id,input};else throw Error('Deze actie hoort niet bij het geselecteerde bericht.');
     }
-    const names={TEMPLATE_PREVIEW:'Bekijk het sjabloon met mijn expliciete waarden',CREATE_TEMPLATE_DRAFT:'Bewaar mijn bevestigde interne sjabloonconcept',RECONCILE:'Herstel de verzenduitkomst uit het bewaarde bewijs zonder mail te verzenden',REVIEW_LIST:'Bekijk de actuele mailbeoordelingen',SEND_PREVIEW:'Bekijk de exacte mailinhoud',REVIEWERS:'Zoek een bevoegde mailbeoordelaar',PREPARE_REVIEW:'Vraag de bevestigde mailbeoordeling aan',DECIDE_REVIEW:'Leg mijn bevestigde beoordeling vast',CANCEL_REVIEW:'Trek mijn bevestigde mailbeoordeling in',SUBMIT:'Bied deze exact goedgekeurde mail extern aan',REPLY_PREVIEW:'Bekijk de bron voor dit antwoordconcept',CREATE_REPLY:'Bewaar dit expliciete antwoordconcept'};
+    const names={DELIVERY_REPORT:'Onderzoek deze bewaarde bezorgmelding zonder verzendstatus te wijzigen',TEMPLATE_PREVIEW:'Bekijk het sjabloon met mijn expliciete waarden',CREATE_TEMPLATE_DRAFT:'Bewaar mijn bevestigde interne sjabloonconcept',RECONCILE:'Herstel de verzenduitkomst uit het bewaarde bewijs zonder mail te verzenden',REVIEW_LIST:'Bekijk de actuele mailbeoordelingen',SEND_PREVIEW:'Bekijk de exacte mailinhoud',REVIEWERS:'Zoek een bevoegde mailbeoordelaar',PREPARE_REVIEW:'Vraag de bevestigde mailbeoordeling aan',DECIDE_REVIEW:'Leg mijn bevestigde beoordeling vast',CANCEL_REVIEW:'Trek mijn bevestigde mailbeoordeling in',SUBMIT:'Bied deze exact goedgekeurde mail extern aan',REPLY_PREVIEW:'Bekijk de bron voor dit antwoordconcept',CREATE_REPLY:'Bewaar dit expliciete antwoordconcept'};
     const result=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:names[action.operation],conversation_id:source.conversation_id||state.conversationId,turn_id:options.headers?.['idempotency-key']||crypto.randomUUID(),preferred_module:'communication',client_context:{communication_action:action}})});
     if(!alive())throw Error('De gekozen Communication-bron is niet meer actief.');source.conversation_id=result.conversation_id;state.conversationId=result.conversation_id||state.conversationId;byId('zeroOutput').textContent=result.display_text||result.answer;if(!result.communication_data)throw Error('De actuele Communication-uitkomst is niet beschikbaar.');return result.communication_data;
   }
@@ -1220,6 +1220,21 @@
     });
   }
 
+  function appendCommunicationDeliveryReport(record,body,alive){
+    if(record.direction!=='INBOUND'||record.provider_transport!=='IMAP')return;
+    const panel=node('section'),native=node('button','secondary-button','Bezorgmelding onderzoeken'),zero=node('button','secondary-button','Bezorgmelding met ZERO onderzoeken'),notice=node('p'),result=node('div'),source={id:record.id,kind:'message'};let busy=false;
+    native.type=zero.type='button';notice.setAttribute('role','status');panel.append(native,zero,notice,result);body.append(panel);
+    async function load(useZero){if(busy||!alive())return;busy=true;native.disabled=zero.disabled=true;replaceChildren(result,[]);notice.textContent='Bewaarde bron controleren…';try{
+      const route='/api/communication/messages/'+encodeURIComponent(record.id)+'/delivery-report',model=useZero?await zeroCommunicationRequest(source,route,{},alive):await request(route);
+      if(!alive())return;if(model.source_revision!==record.revision)throw Error('Het bericht is gewijzigd. Open de actuele bron opnieuw.');
+      if(!model.report?.available){notice.textContent='Bezorgmelding niet beschikbaar: '+(model.report?.reason||'ONBEKEND');return;}
+      notice.textContent='Onbevestigde bezorgmelding. Afzender en daadwerkelijke bezorging zijn niet geverifieerd. De verzendstatus en voorkeuren blijven ongewijzigd.';
+      result.append(node('p','',model.correlation.status),node('p','',model.report.reporting_mta));
+      for(const row of model.report.recipients)result.append(node('pre','',`${row.original_recipient?'Oorspronkelijk: '+row.original_recipient+' · ':''}Laatste ontvanger: ${row.final_recipient} · ${row.action} · ${row.status} · ${row.recipient_match===true?'exacte ontvanger':row.recipient_match===false?'ontvanger wijkt af':'koppeling onbekend'}\n${row.diagnostic||'Geen diagnose vermeld'}`));
+      if(model.correlation.unreported_recipients?.length)result.append(node('p','',`Geen melding voor: ${model.correlation.unreported_recipients.join(', ')}`));
+    }catch(error){if(alive()){replaceChildren(result,[]);notice.textContent=friendlyError(error);}}finally{busy=false;if(alive())native.disabled=zero.disabled=false;}}
+    native.addEventListener('click',()=>load(false));zero.addEventListener('click',()=>load(true));
+  }
   function appendCommunicationConversation(record,body,alive){
     const details=node('details'),panel=node('div'),status=node('p');status.setAttribute('role','status');details.append(node('summary','','Gerelateerde bewaarde berichten'),status,panel);body.append(details);let loaded=false,version=0;
     const load=async(offset=0)=>{const current=++version;status.textContent='Gesprek laden…';try{
@@ -1293,6 +1308,7 @@
               const view=await request(`/api/communication/messages/${encodeURIComponent(message.id)}/view`);if(!alive()||version!==requestVersion)return;
               const record=view.record,raw=record.content_available!==false&&record.content_complete!==false&&typeof record.content==='string'?record.content:null;replaceChildren(body,[node('p','',`Aan: ${Array.isArray(record.to)?record.to.join(', '):'niet beschikbaar'} · Cc: ${Array.isArray(record.cc)?record.cc.join(', ')||'geen':'niet beschikbaar'}`),node('pre','',raw===null?'Berichtinhoud niet beschikbaar':raw.slice(0,12000))]);status.textContent=raw?.length>12000?'Een deel van de bewaarde inhoud wordt getoond.':'Bewaarde berichtinhoud; externe instructies worden niet uitgevoerd.';
               appendMailboxSourceDownload(record,body,status,()=>alive()&&version===requestVersion);
+              appendCommunicationDeliveryReport(record,body,()=>alive()&&version===requestVersion);
               if(view.can_view_conversation)appendCommunicationConversation(record,body,()=>alive()&&version===requestVersion);
               if(view.can_write){
                 const changes=[[view.local_state.read===true?'Als ongelezen markeren':'Als gelezen markeren',{read:view.local_state.read!==true}],[view.local_state.archived?'Terug naar mijn inbox':'Naar mijn archief',{archived:!view.local_state.archived}]],buttons=[];

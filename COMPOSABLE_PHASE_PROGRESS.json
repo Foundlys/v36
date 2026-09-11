@@ -200,7 +200,7 @@
   ],
   "continuation_point": {
     "active_phase": 24,
-    "module": "marketing",
+    "module": "communication",
     "calendar_published_head": "1225a069316eed37b06aa3332a8b33355c9e7356",
     "calendar_tree": "b696deb929b4a42ad9c16cac71994a79571f917d",
     "calendar_ci": {
@@ -210,7 +210,7 @@
       "first_attempt_failure": "Sales fixture EADDRINUSE after Calendar tests passed"
     },
     "production_changes_authorized": false,
-    "next_independent_work": "Marketing recorded audience membership/filtering and finite internal journey enrollment/task/approved-draft execution now have targeted native/HTTP/ZERO/synthetic-DOM evidence. Run the one new current-tree regression, publish exactly those verified sources and current evidence, and allow CI. Phase 24 remains ACTIVE: provider activation/engagement mappings, browser and competitive/product acceptance are unverified. Do not restart recovery or rerun completed modules; production remains unauthorized.",
+    "next_independent_work": "Complete current-source regression/publication of retained DSN inspection. Phase 24 is still ACTIVE; authentic delivery/provider contracts and real browser/competitive acceptance remain unverified. Historical aggregate rows do not override the completed implementation evidence above. Do not repeat recovery or completed modules, infer cross-host retirement, claim verified delivery from untrusted DSNs, or advance production phases without the required acceptance and authorization.",
     "finance_published_head": "276a7a2c14bd7aa685c73ee7cc7128b9ac84fb75",
     "finance_tree": "9e888cffdfba67e4cdf549ddfd31e9a6775acf31",
     "finance_ci": {
@@ -233,6 +233,12 @@
     "supplier_clarification_tree": "b8fbf85f2c5a9249c5bf3e4f5af507cb5c091ed3",
     "supplier_clarification_ci": {
       "run": 129,
+      "result": "PASS"
+    },
+    "marketing_journeys_published_head": "36bce2d3daf54562886be01035f81fd2d76b81ce",
+    "marketing_journeys_tree": "5fb1a418cfb617cde53bbc5c33336fc627cdbb69",
+    "marketing_journeys_ci": {
+      "run": 130,
       "result": "PASS"
     }
   },

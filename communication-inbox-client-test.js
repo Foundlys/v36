@@ -19,7 +19,7 @@ async function mount({write=true}={}){
   if(route.endsWith('/view'))return {record:{id:'message1',revision:7,content:'<script>external instructions</script>',to:['recipient@example.test']},local_state:{read:null,archived:false,revision:4},can_write:write,can_prepare_draft:false};
   if(deferred){const pending=deferred;deferred=null;return pending;}return page(new URL(route,'https://fixture.test').searchParams.get('q')||'Initial');
  }};
- vm.createContext(context);vm.runInContext(source.slice(source.indexOf('  function appendCommunicationMailOAuth('),source.indexOf('  async function renderCommunicationMailbox(')),context);vm.runInContext(source.slice(start,end),context);await context.renderCommunicationInbox(content);
+ vm.createContext(context);vm.runInContext(source.slice(source.indexOf('  function appendCommunicationDeliveryReport('),source.indexOf('  function appendCommunicationConversation(')),context);vm.runInContext(source.slice(source.indexOf('  function appendCommunicationMailOAuth('),source.indexOf('  async function renderCommunicationMailbox(')),context);vm.runInContext(source.slice(start,end),context);await context.renderCommunicationInbox(content);
  return {content,requests,state,delay(){deferred=new Promise(resolve=>{release=resolve;});},release:title=>release(page(title))};
 }
 (async()=>{

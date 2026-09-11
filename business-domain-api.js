@@ -66,6 +66,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       }
       if(id==='communication'&&parts[0]==='inbox'&&parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-inbox').list(core,ctx,actor,Object.fromEntries(url.searchParams))});
       if(id==='communication'&&parts[0]==='messages'&&parts.length===3){
+        if(parts[2]==='delivery-report'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-delivery-reports').inspect(core,ctx,actor,parts[1])});
         if(parts[2]==='conversation'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-threads').query(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});
         if(parts[2]==='source'&&req.method==='GET'){const service=mailboxes();if(!service)return sendJson(res,503,{ok:false,code:'mailbox_unavailable'});return sendJson(res,200,{ok:true,...service.source(ctx,actor,parts[1])});}
         if(parts[2]==='view'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-inbox').detail(core,ctx,actor,parts[1])});
