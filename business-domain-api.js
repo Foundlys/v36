@@ -42,6 +42,19 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[2]==='draft-preview'&&req.method==='GET'){if([...url.searchParams.keys()].some(key=>key!=='mode'))return sendJson(res,422,{ok:false,code:'message_draft_query_invalid'});return sendJson(res,200,{ok:true,...service.preview(core,ctx,actor,parts[1],url.searchParams.get('mode'))});}
         if(parts[2]==='drafts'&&req.method==='POST'){const result=service.create(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
       }
+      if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='edit-session'){
+        const service=require('./communication-edit-sessions');
+        if(parts.length===3&&req.method==='GET')return sendJson(res,200,{ok:true,...service.get(core,ctx,actor,parts[1])});
+        if(parts.length===4&&req.method==='POST')return sendJson(res,200,{ok:true,...service.change(core,ctx,actor,parts[1],parts[3],await readBody(req),{idempotency_key:req.headers['idempotency-key'],edit_token:req.headers['x-communication-edit-token']})});
+        return sendJson(res,405,{ok:false,code:'method_not_allowed'});
+      }
+      if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='comments'){
+        const service=require('./communication-comments'),options={idempotency_key:req.headers['idempotency-key']};
+        if(parts.length===3&&req.method==='GET')return sendJson(res,200,{ok:true,...service.list(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});
+        if(parts.length===3&&req.method==='POST'){const value=service.create(core,ctx,actor,parts[1],await readBody(req),options);return sendJson(res,value.deduplicated?200:201,{ok:true,...value});}
+        if(parts.length===5&&parts[4]==='withdraw'&&req.method==='POST')return sendJson(res,200,{ok:true,...service.withdraw(core,ctx,actor,parts[1],parts[3],await readBody(req),options)});
+        return sendJson(res,405,{ok:false,code:'method_not_allowed'});
+      }
       if(id==='communication'&&parts[0]==='drafts'&&parts.length===3&&parts[2]==='submissions'&&req.method==='GET'){const service=mailSubmissions();if(!service)return sendJson(res,503,{ok:false,code:'mail_submission_unavailable'});return sendJson(res,200,{ok:true,...service.list(ctx,actor,parts[1])});}
       if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='send-reviews'){
         const service=require('./communication-send-reviews'),options={idempotency_key:req.headers['idempotency-key']};
@@ -56,13 +69,13 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='attachments'&&[3,4].includes(parts.length)){
         const service=require('./communication-attachments');
         if(req.method==='GET')return sendJson(res,200,{ok:true,...(parts.length===3?service.list(core,ctx,actor,parts[1]):service.read(core,ctx,actor,parts[1],parts[3]))});
-        if(req.method==='POST'&&parts.length===3){const result=service.attach(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
-        if(req.method==='POST'&&parts[3]==='detach')return sendJson(res,200,{ok:true,...service.detach(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
+        if(req.method==='POST'&&parts.length===3){const result=service.attach(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key'],edit_token:req.headers['x-communication-edit-token']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
+        if(req.method==='POST'&&parts[3]==='detach')return sendJson(res,200,{ok:true,...service.detach(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key'],edit_token:req.headers['x-communication-edit-token']})});
         return sendJson(res,405,{ok:false,code:'method_not_allowed'});
       }
       if(id==='communication'&&parts[0]==='drafts'&&parts.length===3){
         const service=require('./communication-drafts');if(parts[2]==='collaborator-options'&&req.method==='GET')return sendJson(res,200,{ok:true,...service.collaborators(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});if(parts[2]==='revisions'&&req.method==='GET')return sendJson(res,200,{ok:true,...service.history(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});
-        if(['collaborators','restore'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...service[parts[2]==='restore'?'restore':'share'](core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
+        if(['collaborators','restore'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...service[parts[2]==='restore'?'restore':'share'](core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key'],edit_token:req.headers['x-communication-edit-token']})});
       }
       if(id==='marketing'){
         const service=require('./marketing-creative-reviews'),options={idempotency_key:req.headers['idempotency-key']};
@@ -81,7 +94,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       if(req.method==='POST'&&action==='approve'){return sendJson(res,200,{ok:true,...core.approve(ctx,actor,entity,recordId,await readBody(req))});}
       if(req.method==='POST'&&!recordId||req.method==='PUT'&&recordId&&!action){
         const data=await readBody(req),{expected_revision,...input}=data;
-        const result=core.save(ctx,actor,entity,input,{id:recordId,expected_revision,idempotency_key:req.headers['idempotency-key'],correlation_id:req.headers['x-correlation-id']});
+        const result=core.save(ctx,actor,entity,input,{id:recordId,expected_revision,idempotency_key:req.headers['idempotency-key'],edit_token:req.headers['x-communication-edit-token'],correlation_id:req.headers['x-correlation-id']});
         return sendJson(res,result.deduplicated||recordId?200:201,{ok:true,...result});
       }
       return sendJson(res,405,{ok:false,code:'method_not_allowed'});

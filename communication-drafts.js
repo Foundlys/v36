@@ -65,7 +65,7 @@ function restore(core,ctx,actor,id,input,options={}){
   const matches=core.bucket(ctx,'draft_revisions').filter(row=>row.draft_id===id&&row.draft_revision===input.source_revision),version=matches[0];if(matches.length!==1||!version.snapshot||hash(version.snapshot)!==version.content_hash)fail('draft_revision_unavailable','De bronrevisie is niet verifieerbaar',409);
   const patch={title:version.snapshot.title,content:version.snapshot.content,description:version.snapshot.description||'',to:version.snapshot.to||[],thread_id:version.snapshot.thread_id||'',related_refs:version.snapshot.related_refs||[],status:'DRAFT'};
   const attachments=require('./communication-attachments').references(core,ctx,id,version.snapshot.attachments);
-  const record=core.saveOwned(ctx,actor,'drafts',patch,{id,expected_revision:prior.revision,draft_attachments:attachments}).record,entry=core.bucket(ctx,'draft_revisions').find(row=>row.draft_id===id&&row.draft_revision===record.revision);entry.restored_from=input.source_revision;entry.change_reason=input.reason.trim();return record;
+  const record=core.saveOwned(ctx,actor,'drafts',patch,{id,expected_revision:prior.revision,draft_attachments:attachments,edit_token:options.edit_token}).record,entry=core.bucket(ctx,'draft_revisions').find(row=>row.draft_id===id&&row.draft_revision===record.revision);entry.restored_from=input.source_revision;entry.change_reason=input.reason.trim();return record;
  });
 }
 function collaborators(core,ctx,actor,id,query={}){

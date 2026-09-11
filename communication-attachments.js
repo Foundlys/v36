@@ -49,7 +49,7 @@ function change(core,ctx,actor,id,input,options,kind,execute){
  if(input.expected_revision!==(draft.revision??null)||draft.revision!=null&&(!Number.isSafeInteger(draft.revision)||draft.revision<1||draft.revision>=Number.MAX_SAFE_INTEGER))fail('record_revision_conflict','Het concept is intussen gewijzigd',409);
  if(receipts.length>=25000)fail('draft_operation_capacity','De limiet voor bewaarde conceptacties is bereikt',507);
  const result=core.mutate(ctx,()=>{
-  const refs=execute(draft),record=core.saveOwned(ctx,actor,'drafts',{}, {id,expected_revision:draft.revision,draft_attachments:refs}).record;
+  const refs=execute(draft),record=core.saveOwned(ctx,actor,'drafts',{}, {id,expected_revision:draft.revision,draft_attachments:refs,edit_token:options.edit_token}).record;
   const receipt={kind,draft_id:id,result_revision:record.revision,actor_id:actor.id,at:record.updated_at};receipts.push({key,actor_id:actor.id,fingerprint,receipt});
   core.adapter.audit(ctx,actor,kind,'communication:drafts',id,{result_revision:record.revision,attachment_ids:refs.map(ref=>ref.id)});
   return {record,receipt,deduplicated:false,external_send:false};

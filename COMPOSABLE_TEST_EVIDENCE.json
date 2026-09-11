@@ -27,9 +27,9 @@
     "automotive-script.js": "d2c8e4634021bb33e8db6a70e0c5efa3bc6a1aa1096f92fe5bbecaf153398aa8",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
     "automotive.html": "411d5c98ec4f1a22d4f1e30bdf1058a986e15160f9ed6bc364519eb76beec3de",
-    "business-domain-api.js": "4a1a0b6c4eb57cbce4148245ba38e8829732c1222db7ac644249f4264da2c052",
+    "business-domain-api.js": "33687d9313bc711fb879718f39db51e0b4f994b76b8c0ab0a608a059964c1f35",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
-    "business-domains.js": "df8719b27509e25e7895394c735b3a87cc6d0226a9f19becc2622f05e9f228c0",
+    "business-domains.js": "889b3fcc6adb426d459a08ef469aa937967ee5a8baa4c101fcda1027cb156f83",
     "business-workspaces-regression-test.js": "1d4dce261e4a39c67f1f925fa5b5a0fc6df002882487ea4bf7d24b335785ad90",
     "business-workspaces.css": "cce5e92bc86e7c0a8a7a74af0b3ecda5e5304535c1af12562ba342bb2ea39591",
     "calendar-operations.js": "7e552c1866a94e16480eb8f0de293767e11c510843b7e394c37e8d72b6eaec67",
@@ -44,11 +44,17 @@
     "capability-resolver.js": "42945e0ffd83f29f847cd4045e20d00ace0a15fa646dac8396a2ce99b86e3f13",
     "communication-attachments-client-test.js": "716eb020df0162a3d40b9a075ba441b039839986751f7916f0538078d2af42d3",
     "communication-attachments-test.js": "4646ad6d181f4c83d7df8a77db1bfc3f472609c661e1ac216b2b339ce10173ad",
-    "communication-attachments.js": "8544649f1930adb005df388f1662a836aab40397a6f914e876ebfded1985c69e",
+    "communication-attachments.js": "44074977f274419a8611eb120547acdb9b19d85366e57f66d017da7f4977e25e",
+    "communication-collaboration-api-test.js": "8d4eac4011b7672245edca18385c6faf905da263aa23097530cc5829c21d6d39",
+    "communication-collaboration-client-test.js": "9a64bf68ec25a3a1db20724f2e50e60b27a24212a211ef03b0d77974adda4ec5",
+    "communication-comments-test.js": "36fde96bbc233e735389177dfc910c7573aaa45c2f39617d17561de7b97ad1f5",
+    "communication-comments.js": "5d0fbf8052cc12bdfe5521dca5339d1b0d305aa59b558c51aa6f6712916e60de",
     "communication-drafts-api-test.js": "fe40b099e8e7ecf42884c3fc97885be56001a8a0472344ca9df18c1c37e952ce",
     "communication-drafts-client-test.js": "a4e6308e4f6625ba46ebfd0d50bca3c47b8208e4a06a0a49051a7d2cade01970",
     "communication-drafts-test.js": "64ef4854189c9f68688e6ed6bce782533b96334acefcf525fafe2679fbceea04",
-    "communication-drafts.js": "1ef66f7acd1b1d81341de2f1993b069df72550971f0f67a9f1d73e216fe26596",
+    "communication-drafts.js": "baad1c1e42f530b70bbf419ecb00328239122e0cdfddac6997eb6d31aa963ee6",
+    "communication-edit-sessions-test.js": "84de4551e0e100aa87b3382f3891674639a82e85c79159b0ae2305a35eb396b6",
+    "communication-edit-sessions.js": "72a8a846be604a4590f3969326449eb31c5c83b23756d3a8492fbdf0804ceebc",
     "communication-history-bounds-test.js": "0801bc7de1ce98cb95439668cd5a4b4278c3adc103ecc48841bf4afde586a1eb",
     "communication-imap-test.js": "eed9316591973616176dc51b3f9a058c7f18e5ea3ac8fc48ff074bdb7512908f",
     "communication-imap.js": "f7cbf3d31c6151f65ea70e63fbaa34778adca86615cc5b3256834c180c87f8a8",
@@ -122,7 +128,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "7b83718c0d396030031b6e90412e5a9f08ab1d1bbc088e5a5d4e350f1520b08e",
-    "foundly-workspace.js": "443688d120df26eb64d186a7daef15a76151c8688369cb7cde94f488ddea2e1e",
+    "foundly-workspace.js": "bafa468644c9628b944f384eb14f9812b464e23c541837429d5f6e6b3df586b6",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -150,7 +156,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "e386866515ab0aae02f0d8256cd0014dc0aeed11921b8c6e1815755ecb43f427",
+    "package.json": "114c00babf1767db5deaebc487dbd68b9bfe37652a1612bb8a55a25f267c9427",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -181,7 +187,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "fed8d91f657e343976e04f9ab3d806b935614db0d0c54486d6ee1dfc87ce9f11",
+    "server.js": "599fb365b1654f792092eff63c637214809d00a2b5dbc4cd6c2cf6ffceb6ef42",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -239,7 +245,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "2d7769f9ba656232635bb657fea07c764ee0e86e17f7b2fd1f13eab96b7c9599"
   },
-  "output_sha256": "ad4e405199377a42f0b246bd354b8ea827a3b98482712c4482e9322756cddcd5",
+  "output_sha256": "963f065f18c69604c041cddf5fe57857c68b66d84c0c9916807ab1041ba741cc",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -394,7 +400,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T08:24:26.079587+00:00",
+  "verified_at": "2026-09-11T08:45:38.785261+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -547,7 +553,8 @@
     "Real current sessions prove read-only mailbox sync, actor/configuration revocation during awaits, exact raw downloads/current-source export, UID deduplication and encrypted restart. Provider drafts stay outside Messages/inbox/snapshot and derived reply access; labelled historical export remains. Changed/paged scans never infer external message totals or delivery",
     "Production mailbox handlers require explicit sync confirmation/reason, current revision and permission, reload after uncertain action, and verify exact byte hash before octet-stream .eml download; handler tests are not actual browser acceptance",
     "Source-bound reply review now includes exact RFC 5322 In-Reply-To/References headers; source revision changes block review and submission. Approved submission persists the same linkage without claiming recipient delivery; forwards do not acquire reply headers. Current-source conversations derive only from visible retained headers, never subject equality, and expose duplicate-ID ambiguity, incomplete participants and unknown external coverage. Native HTTP, isolated approved-submission, encrypted restart and production DOM handlers pass. Malformed Reply-To is unavailable instead of silently selecting a different recipient. Provider Draft flags continue to withdraw ordinary message and derived-draft access.",
-    "ZERO now exposes native source-bound reply preparation, internal draft creation, exact send preview, reviewer search, designated review/withdrawal and separately confirmed approved submission. Tool discovery and execution use the current operation-specific Communication and Core permissions. The same native services enforce all source, preference, account and approval rules; ZERO does not borrow a reviewer or generic confirmation. Actual HTTP sessions prove explicit submission, current owner/role checks across body waits, conflicting in-flight payload denial, encrypted exact-turn replay without resend and source-free conversation/audit views. Production UI delegates existing review/reply controls through ZERO with source selection, unchanged confirmation payloads and retry keys, and detached-view guards. This is isolated SMTP/HTTP/DOM evidence, not live delivery or browser acceptance."
+    "ZERO now exposes native source-bound reply preparation, internal draft creation, exact send preview, reviewer search, designated review/withdrawal and separately confirmed approved submission. Tool discovery and execution use the current operation-specific Communication and Core permissions. The same native services enforce all source, preference, account and approval rules; ZERO does not borrow a reviewer or generic confirmation. Actual HTTP sessions prove explicit submission, current owner/role checks across body waits, conflicting in-flight payload denial, encrypted exact-turn replay without resend and source-free conversation/audit views. Production UI delegates existing review/reply controls through ZERO with source selection, unchanged confirmation payloads and retry keys, and detached-view guards. This is isolated SMTP/HTTP/DOM evidence, not live delivery or browser acceptance.",
+    "Internal draft comments and replies now use current parent/source access, exact source revisions, author-only withdrawal with retained originals, bounded history, actor/input replay and atomic encrypted persistence. A separate sixty-second editing grant exposes a shared working copy without changing the saved draft or Messages count. Explicit confirmed takeover rotates the private grant and blocks old editors, including an already-authenticated HTTP save awaiting its body. Current membership/source/write permissions and expiry govern each update; tokens stay out of reads, Data, audit and owned exports. Native controls publish work text while editing, retain local text on takeover/conflict, preserve pending confirmation during polling, clear revoked source views and discard detached responses. Unit, real-session/restart and production DOM-handler tests cover these contracts; actual browser/keyboard/viewport and provider acceptance remain unproven."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -559,7 +566,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-communication-zero-actions-regression.log",
+  "output_file": ".recovery-evidence/20260911-communication-collaboration-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -572,10 +579,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "b6e29fb33f71f88fd254dd8b1b613ac9e346cfcb",
-    "tree": "79f092da24cc4684a16e213ecea37131a04ac29f",
-    "run": 98,
-    "run_id": 34577834437,
+    "head": "2f5a8ca8a99616c2fac6a39592bbe9358fe78bdc",
+    "tree": "e17f333d73d2e8a320a84ced83b66ed347ab3e7e",
+    "run": 99,
+    "run_id": 34579119797,
     "conclusion": "success"
   },
   "current_production_observation": {
