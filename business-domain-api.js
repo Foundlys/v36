@@ -55,6 +55,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts.length===5&&parts[4]==='withdraw'&&req.method==='POST')return sendJson(res,200,{ok:true,...service.withdraw(core,ctx,actor,parts[1],parts[3],await readBody(req),options)});
         return sendJson(res,405,{ok:false,code:'method_not_allowed'});
       }
+      if(id==='communication'&&parts[0]==='drafts'&&parts.length===5&&parts[2]==='submissions'&&parts[4]==='reconcile'&&req.method==='POST'){const service=mailSubmissions();if(!service)return sendJson(res,503,{ok:false,code:'mail_submission_unavailable'});return sendJson(res,200,{ok:true,...service.reconcile(ctx,actor,parts[1],parts[3],await readBody(req),{idempotency_key:req.headers['idempotency-key']})});}
       if(id==='communication'&&parts[0]==='drafts'&&parts.length===3&&parts[2]==='submissions'&&req.method==='GET'){const service=mailSubmissions();if(!service)return sendJson(res,503,{ok:false,code:'mail_submission_unavailable'});return sendJson(res,200,{ok:true,...service.list(ctx,actor,parts[1])});}
       if(id==='communication'&&parts[0]==='drafts'&&parts[2]==='send-reviews'){
         const service=require('./communication-send-reviews'),options={idempotency_key:req.headers['idempotency-key']};

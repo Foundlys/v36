@@ -31,7 +31,7 @@ const EVENT_CONTRACTS={crm:['lead_created','lead_qualified','crm_record_created'
 const CORE_SERVICES = Object.freeze(['identity', 'authorization', 'persistence', 'audit', 'events', 'connectors', 'sources', 'knowledge', 'learning', 'zero', 'data']);
 const COMMUNICATION_OPERATIONS=Object.values(require('./communication-zero').OPERATIONS);
 const TOOL_OPERATIONS=Object.freeze(Object.fromEntries(COMMUNICATION_OPERATIONS.map(op=>[op.tool,op.permission])));
-const TOOL_CORE_PERMISSIONS=Object.freeze(Object.fromEntries(COMMUNICATION_OPERATIONS.filter(op=>op.external).map(op=>[op.tool,['connectors:manage']])));
+const TOOL_CORE_PERMISSIONS=Object.freeze(Object.fromEntries(COMMUNICATION_OPERATIONS.filter(op=>op.external||op.connector_management).map(op=>[op.tool,['connectors:manage']])));
 const TOOL_MODULES = Object.freeze({
   ...Object.fromEntries(COMMUNICATION_OPERATIONS.map(op=>[op.tool,'communication'])),
   procurement_summary:'procurement',sales_pipeline:'sales',calendar_agenda:'calendar',communication_drafts:'communication',marketing_campaigns:'marketing',
