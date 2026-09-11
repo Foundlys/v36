@@ -7,7 +7,7 @@ const uncertain=row=>['CONNECTING','DATA_IN_FLIGHT','UNKNOWN'].includes(row.stat
 function blocks(core,ctx,draftId,basis){return core.adapter.bucket(ctx,SCOPE).some(row=>row.draft_id===draftId&&(uncertain(row)||row.status==='ACCEPTED_BY_PROVIDER'&&row.basis_fingerprint===basis));}
 function metadata(row){const {mime_data,transport_instance_id,transport_runtime,...publicRow}=row;return {...clone(publicRow),delivery_verified:false,retry_available:false,reconciliation_required:uncertain(row),provider_acceptance:row.status==='ACCEPTED_BY_PROVIDER'?true:uncertain(row)?null:false};}
 class MailSubmissions{
- constructor(core,{configuration,account,allowedHosts=()=>[],submit=require('./communication-smtp').createTransport().submit}){Object.assign(this,{core,configuration,account,allowedHosts,submit});}
+ constructor(core,{configuration,account,prepare=null,allowedHosts=()=>[],submit=require('./communication-smtp').createTransport().submit}){Object.assign(this,{core,configuration,account,prepare,allowedHosts,submit});}
  read(ctx,actor,id){this.core.scope(ctx,actor);this.core.resolver.assertCapability(ctx,actor,'communication:drafts');return this.core.get(ctx,actor,'drafts',id);}
  authorize(ctx,actor,id){const draft=this.read(ctx,actor,id);this.core.scope(ctx,actor,'write');for(const cap of ['communication:drafts','communication:inbox'])this.core.resolver.assertCapability(ctx,actor,cap,'write');assertCorePermission(actor,'connectors:manage');return draft;}
  sources(ctx,actor,id,review){
@@ -22,13 +22,13 @@ class MailSubmissions{
  }
  view(ctx,actor,row){const proof=recovery.project(this.core,ctx,row);let canReconcile=false;if(proof.available)try{this.authorize(ctx,actor,row.draft_id);canReconcile=true;}catch(error){if(![401,403,404].includes(error.statusCode))throw error;}return {...metadata(row),recovery:proof,can_reconcile:canReconcile};}
  list(ctx,actor,id){this.read(ctx,actor,id);return {items:this.core.adapter.bucket(ctx,SCOPE).filter(row=>row.draft_id===id).map(row=>this.view(ctx,actor,row)),coverage:'RETAINED_SUBMISSION_ATTEMPTS',delivery_verified:false};}
- async execute(ctx,actor,id,reviewId,input,{idempotency_key}={}){
+ async execute(ctx,actor,id,reviewId,input,{idempotency_key,prepared=false}={}){
   this.authorize(ctx,actor,id);
   if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(key=>!['expected_review_revision','confirm','reason'].includes(key))||input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>1000||!Number.isSafeInteger(input.expected_review_revision)||input.expected_review_revision<1||typeof idempotency_key!=='string'||!idempotency_key||idempotency_key.length>200)fail('mail_submission_confirmation_required','Bevestig de exacte verzending met een reden en actiesleutel',422);
   const rows=this.core.adapter.bucket(ctx,SCOPE),key=hash(idempotency_key),fingerprint=hash({id,reviewId,input}),prior=rows.find(row=>row.actor_id===actor.id&&row.action_key===key);
   if(prior){if(prior.action_fingerprint!==fingerprint)fail('mail_submission_action_conflict','Deze actiesleutel heeft andere inhoud');return {submission:metadata(prior),deduplicated:true};}
   const getReview=()=>this.core.adapter.bucket(ctx,reviews.SCOPE).find(row=>row.id===reviewId&&row.draft_id===id),review=getReview();if(!review)fail('mail_review_unavailable','Beoordeling niet gevonden',404);
-  if(review.revision!==input.expected_review_revision)fail('mail_review_changed','De beoordeling is intussen gewijzigd');const plan=this.sources(ctx,actor,id,review),config=this.configuration(ctx);require('./communication-smtp').configuration(config);const configHash=hash(config);
+  if(review.revision!==input.expected_review_revision)fail('mail_review_changed','De beoordeling is intussen gewijzigd');const plan=this.sources(ctx,actor,id,review);if(this.prepare&&!prepared){if(blocks(this.core,ctx,id,review.basis_fingerprint))fail('mail_submission_exists','Deze verzending is al aangeboden of vereist eerst onderzoek');await this.prepare(ctx,actor);return this.execute(ctx,actor,id,reviewId,input,{idempotency_key,prepared:true});}const config=this.configuration(ctx);require('./communication-smtp').configuration(config);const configHash=hash(config);
   if(blocks(this.core,ctx,id,review.basis_fingerprint))fail('mail_submission_exists','Deze verzending is al aangeboden of vereist eerst onderzoek');
   if(rows.length>=1000||rows.filter(row=>row.draft_id===id).length>=100||this.core.bucket(ctx,'messages').length>=25000)fail('mail_submission_capacity','De limiet voor bewaarde verzendingen is bereikt',507);
   const receiptActor={id:actor.id,roles:[],permissions:[]},attemptId=crypto.randomUUID(),created_at=new Date().toISOString(),files=plan.snapshot.attachments.map(ref=>require('./communication-attachments').read(this.core,ctx,actor,id,ref.id).attachment),message=mime.compose(plan,{attempt_id:attemptId,created_at,files});

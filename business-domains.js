@@ -158,6 +158,7 @@ class BusinessDomain {
     this.scope(ctx,actor,'export');const snapshotAccess=this.id==='communication'?require('./communication-drafts').revisionAccess(this,ctx,actor,{exporting:true}):row=>this.snapshotReadable(ctx,actor,row);const collections=Object.fromEntries(this.definition.entities.map(entity=>[entity,clone(this.bucket(ctx,entity).filter(row=>this.visible(row,actor)&&snapshotAccess(row)))]));
     if(this.id==='communication')collections.draft_attachment_content=require('./communication-attachments').exportOwned(this,ctx,collections.drafts);
     if(this.id==='communication')collections.inbox_state=require('./communication-inbox').exportOwned(this,ctx,actor,collections.messages);
+    if(this.id==='communication')collections.mail_oauth_authorizations=require('./communication-google-oauth').exportOwned(this,ctx,actor);
     if(this.id==='communication')collections.submission_receipts=require('./communication-submission-recovery').exportOwned(this,ctx,collections.drafts);
     if(this.id==='communication')collections.submissions=require('./communication-submissions').exportOwned(this,ctx,collections.drafts);
     if(this.id==='communication')Object.assign(collections,require('./communication-mailboxes').exportOwned(this,ctx,actor,collections.messages));

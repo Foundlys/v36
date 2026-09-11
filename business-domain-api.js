@@ -1,7 +1,7 @@
 'use strict';
 const { DEFINITIONS }=require('./business-domains');
 const {calendarOperations}=require('./calendar-operations');
-function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson,mailAccount=()=>null,mailSubmissions=()=>null,mailboxes=()=>null}){
+function createBusinessDomainApi({domains,platform,context,principal,readBody,sendJson,mailAccount=()=>null,mailSubmissions=()=>null,mailboxes=()=>null,mailOAuth=()=>null}){
   return async(req,res,url)=>{
     const match=url.pathname.match(/^\/api\/(procurement|sales|calendar|communication|marketing|analysis)(?:\/(.*))?$/);
     if(!match)return false;
@@ -25,6 +25,15 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='allocation-preview'&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews.previewAllocation(core,ctx,actor,parts[1],(await readBody(req)).allocations)});
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='awards'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareAward(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='awards'&&parts.length===3&&['approve','cancel'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews[parts[2]==='approve'?'reviewAward':'cancelAward'](core,ctx,actor,parts[1],await readBody(req),options)});
+      }
+      if(id==='communication'&&parts[0]==='mail-oauth'){
+        const service=mailOAuth();if(!service)return sendJson(res,503,{ok:false,code:'mail_oauth_unavailable'});
+        if(parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...service.status(ctx,actor)});
+        if(parts.length===2&&parts[1]==='callback'&&req.method==='POST')return sendJson(res,200,{ok:true,...await service.callback(ctx,actor,await readBody(req))});
+        if(parts.length===2&&parts[1]==='start'&&req.method==='POST')return sendJson(res,200,{ok:true,...service.start(ctx,actor,await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
+        if(parts.length===2&&parts[1]==='disconnect'&&req.method==='POST')return sendJson(res,200,{ok:true,...service.disconnect(ctx,actor,await readBody(req))});
+        if(parts.length===2&&parts[1]==='refresh'&&req.method==='POST'){const input=await readBody(req);service.authorize(ctx,actor);service.confirmation(input,['confirm','reason','expected_revision']);if(input.expected_revision!==service.status(ctx,actor).revision)return sendJson(res,409,{ok:false,code:'mail_oauth_grant_changed'});await service.prepare(ctx,actor,{force:true});return sendJson(res,200,{ok:true,...service.status(ctx,actor)});}
+        return sendJson(res,405,{ok:false,code:'method_not_allowed'});
       }
       if(id==='communication'&&parts[0]==='mailboxes'){
         const service=mailboxes();if(!service)return sendJson(res,503,{ok:false,code:'mailbox_unavailable'});

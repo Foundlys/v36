@@ -3,7 +3,7 @@ const crypto=require('node:crypto'),{scopedMutation}=require('./scoped-mutation'
 const SCOPE='communication:mail_authentication',hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const fail=(code,statusCode=409)=>{throw Object.assign(new Error('Mailverificatie is niet beschikbaar'),{code,statusCode});};
 class MailAuthentication{
- constructor(core,{configuration,allowedHosts=()=>[],authenticate=require('./communication-smtp').createTransport()}={}){this.core=core;this.configuration=configuration;this.allowedHosts=allowedHosts;this.authenticate=authenticate;}
+ constructor(core,{configuration,prepare=null,allowedHosts=()=>[],authenticate=require('./communication-smtp').createTransport()}={}){this.core=core;this.prepare=prepare;this.configuration=configuration;this.allowedHosts=allowedHosts;this.authenticate=authenticate;}
  authorize(ctx,actor){this.core.scope(ctx,actor,'write');this.core.resolver.assertCapability(ctx,actor,'communication:inbox','write');assertCorePermission(actor,'connectors:manage');}
  status(ctx){
   const config=this.configuration(ctx),configured=configurationReady(config),base=smtpConfigurationState(configured),proof=this.core.adapter.bucket(ctx,SCOPE)[0],now=Date.now();
@@ -12,7 +12,7 @@ class MailAuthentication{
   return {...base,authenticated:verified,authentication_verified:verified,tls_verified:verified,authentication_observed_at:verified?new Date(proof.verified_at_ms).toISOString():null,status:verified?'smtp_geauthenticeerd_inbox_niet_geverifieerd':base.status,blocker:verified?'MAIL_RECEIVE_AND_DELIVERY_RECONCILIATION_REQUIRED':'EXPLICIT_SMTP_AUTHENTICATION_REQUIRED',mailbox_access_verified:false,connected:false,send_verified:false};
  }
  async probe(ctx,actor){
-  this.authorize(ctx,actor);const config=this.configuration(ctx);require('./communication-smtp').configuration(config);const fingerprint=hash(config),rows=this.core.adapter.bucket(ctx,SCOPE),now=Date.now();
+  this.authorize(ctx,actor);if(this.prepare){await this.prepare(ctx,actor);this.authorize(ctx,actor);}const config=this.configuration(ctx);require('./communication-smtp').configuration(config);const fingerprint=hash(config),rows=this.core.adapter.bucket(ctx,SCOPE),now=Date.now();
   if(rows[0]?.status==='VERIFYING'&&now-rows[0].started_at_ms<30000)fail('mail_authentication_busy');
   const attempt=crypto.randomUUID(),actorId=actor.id;
   scopedMutation(this.core.adapter,ctx,[SCOPE,'platform:audit'],()=>{rows.splice(0,rows.length,{attempt_id:attempt,actor_id:actorId,config_hash:fingerprint,status:'VERIFYING',started_at_ms:now,schema_version:1});this.core.adapter.audit(ctx,actor,'SMTP_AUTHENTICATION_STARTED','communication:mail_authentication',attempt,{external_send:false});});
