@@ -3,6 +3,7 @@
 (function(root){
   function create({document,spec,request,onSaved,draft:initial=null}){
     if(initial?.draft?.steps?.some(step=>!spec.actions.some(action=>action.type===step.type)))throw new Error('Dit concept bevat een actie die de huidige editor niet ondersteunt. Het bewaarde concept blijft behouden.');
+    for(const step of initial?.draft?.steps||[])if(Object.hasOwn(step,'condition'))root.FoundlyWorkflowAuthoring.validateDraftCondition(step.condition);
     const make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
     const form=make('form');form.className='domain-record-form workflow-editor';
     const field=(container,label,type='text',value='')=>{const wrapper=make('label',label),input=make(type==='textarea'?'textarea':'input');if(type!=='textarea')input.type=type;input.value=value;wrapper.append(input);container.append(wrapper);return input;};
@@ -23,12 +24,38 @@
       const type=select(box,'Actie',spec.actions.map(a=>[a.type,a.label]));box.append(settings);if(saved)type.value=saved.type;let values={},attempts,delay;
       const renderFields=()=>{settings.replaceChildren();values={};const definition=spec.actions.find(a=>a.type===type.value);for(const item of definition.fields){const input=field(settings,item.label,item.multiline?'textarea':item.type||'text',item.type==='number'?'1':'');input.required=Boolean(item.required);if(item.type==='number'){input.min=String(item.min);input.max=String(item.max);}else input.maxLength=item.max;values[item.key]=input;}attempts=field(settings,'Maximum aantal pogingen','number','1');attempts.min='1';attempts.max='5';attempts.disabled=!definition.retryable;delay=field(settings,'Eerste retrywachttijd in seconden','number','10');delay.min='1';delay.max='3600';delay.disabled=!definition.retryable;};type.addEventListener('change',renderFields);renderFields();
       const conditional=field(box,'Alleen uitvoeren wanneer de conditie waar is','checkbox'),conditions=make('div');box.append(conditions);
-      const conditionField=field(conditions,'Conditieveld, bijvoorbeeld inputs.priority'),operator=select(conditions,'Vergelijking',[['eq','Gelijk aan'],['ne','Niet gelijk aan'],['gt','Groter dan'],['gte','Groter of gelijk'],['lt','Kleiner dan'],['lte','Kleiner of gelijk'],['exists','Veld bestaat'],['in','Een van de waarden (één per regel)']]),valueType=select(conditions,'Waardetype',[['text','Tekst'],['number','Getal'],['boolean','Boolean (true / false)']]),value=field(conditions,'Vergelijkingswaarde','textarea');
-      const syncCondition=()=>{conditions.hidden=!conditional.checked;conditionField.required=conditional.checked;value.parentElement.hidden=operator.value==='exists';valueType.parentElement.hidden=['exists','in'].includes(operator.value);};conditional.addEventListener('change',syncCondition);operator.addEventListener('change',syncCondition);if(saved){for(const [key,input] of Object.entries(values))input.value=String(saved.values?.[key]??'');attempts.value=String(saved.attempts??1);delay.value=String(saved.retry_delay??10);conditional.checked=saved.condition?.enabled===true;conditionField.value=saved.condition?.field||'';operator.value=saved.condition?.operator||'eq';valueType.value=saved.condition?.value_type||'text';value.value=String(saved.condition?.value??'');}syncCondition();
+      function conditionNode(container,savedNode={},depth=0){
+        const box=make('fieldset'),legend=make('legend',depth?'Onderdeel van conditiegroep':'Voorwaarde');box.append(legend);container.append(box);
+        const kind=select(box,'Soort voorwaarde',depth>=5?[['leaf','Vergelijking']]:[['leaf','Vergelijking'],['all','EN — alle onderdelen waar'],['any','OF — minstens één onderdeel waar']]);kind.value=savedNode.mode||'leaf';
+        const leaf=make('div'),group=make('div'),childrenHost=make('div');box.append(leaf,group);group.append(childrenHost);const children=[];
+        const conditionField=field(leaf,'Conditieveld, bijvoorbeeld inputs.priority','text',savedNode.field||''),operator=select(leaf,'Vergelijking',[['eq','Gelijk aan'],['ne','Niet gelijk aan'],['gt','Groter dan'],['gte','Groter of gelijk'],['lt','Kleiner dan'],['lte','Kleiner of gelijk'],['exists','Veld bestaat'],['in','Een van de waarden (één per regel)']]),valueType=select(leaf,'Waardetype',[['text','Tekst'],['number','Getal'],['boolean','Boolean (true / false)']]),value=field(leaf,'Vergelijkingswaarde','textarea',savedNode.value??'');
+        operator.value=savedNode.operator||'eq';valueType.value=savedNode.value_type||'text';
+        const appendChild=data=>{
+          if(children.length>=20)return;
+          const child=conditionNode(childrenHost,data,depth+1);children.push(child);
+          button(child.box,'Voorwaarde verwijderen',()=>{children.splice(children.indexOf(child),1);child.box.remove();sync();markDirty();addCondition.focus();});sync();
+        };
+        const addCondition=button(group,'Voorwaarde toevoegen',()=>{appendChild({});markDirty();children.at(-1)?.box.querySelector('select').focus();});
+        function sync(active=conditional.checked){
+          leaf.hidden=kind.value!=='leaf';group.hidden=kind.value==='leaf';conditionField.required=active&&kind.value==='leaf';
+          value.parentElement.hidden=operator.value==='exists';valueType.parentElement.hidden=['exists','in'].includes(operator.value);
+          // Hidden comparisons must not participate in native form validation.
+          for(const input of [conditionField,operator,valueType,value])input.disabled=!active||kind.value!=='leaf';
+          kind.disabled=!active;addCondition.disabled=!active||children.length>=20||depth>=5;
+          for(const child of children)child.sync(active&&kind.value!=='leaf');
+        }
+        kind.addEventListener('change',()=>{if(kind.value!=='leaf'&&!children.length&&depth<5)appendChild({});sync();});operator.addEventListener('change',()=>sync());
+        for(const data of savedNode.children||[])appendChild(data);sync();
+        return {box,sync,read:()=>kind.value==='leaf'?{mode:'leaf',field:conditionField.value.trim(),operator:operator.value,value_type:valueType.value,value:value.value}:{mode:kind.value,children:children.map(child=>child.read())}};
+      }
+      conditional.checked=saved?.condition?.enabled===true;
+      const conditionRoot=conditionNode(conditions,saved?.condition||{});
+      const syncCondition=()=>{conditions.hidden=!conditional.checked;conditionRoot.sync();};conditional.addEventListener('change',syncCondition);
+      if(saved){for(const [key,input] of Object.entries(values))input.value=String(saved.values?.[key]??'');attempts.value=String(saved.attempts??1);delay.value=String(saved.retry_delay??10);}syncCondition();
       step.up=button(box,'Stap omhoog',()=>{const i=steps.indexOf(step);if(i>0){[steps[i-1],steps[i]]=[steps[i],steps[i-1]];renumber();markDirty();step.up.focus();}});
       step.down=button(box,'Stap omlaag',()=>{const i=steps.indexOf(step);if(i<steps.length-1){[steps[i+1],steps[i]]=[steps[i],steps[i+1]];renumber();markDirty();step.down.focus();}});
       button(box,'Stap verwijderen',()=>{steps.splice(steps.indexOf(step),1);box.remove();renumber();markDirty();add.focus();});
-      step.read=()=>({type:type.value,values:Object.fromEntries(Object.entries(values).map(([key,input])=>[key,input.value])),attempts:attempts.value,retry_delay:delay.value,condition:{enabled:conditional.checked,field:conditionField.value.trim(),operator:operator.value,value_type:valueType.value,value:value.value}});
+      step.read=()=>({type:type.value,values:Object.fromEntries(Object.entries(values).map(([key,input])=>[key,input.value])),attempts:attempts.value,retry_delay:delay.value,condition:{enabled:conditional.checked,...conditionRoot.read()}});
       steps.push(step);renumber();
     }
     const add=button(form,'Stap toevoegen',()=>{addStep();markDirty();steps.at(-1).box.querySelector('select').focus();});

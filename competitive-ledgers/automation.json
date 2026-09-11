@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "module": "automation",
-  "assessed_at": "2026-09-09",
+  "assessed_at": "2026-09-11T15:31:17.913780+00:00",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -53,8 +53,8 @@
           "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests. Owner-scoped activation now selects one immutable version or pauses the group, with optimistic revision checks, canonical transition events and retained pending runs. Exact persisted internal task/document outcomes can now reconcile interrupted result capture, followed by a separately requested continuation. Original actor, request, step definition and record fingerprints are checked; missing or external proof stays blocked. Owner-private partial drafts now persist independently of executable workflow definitions. The editor autosaves with revision checks, serializes writes and offers a new-draft copy on conflicts. Incomplete draft storage creates no workflows or tasks; lost responses, foreign owners, rollback, encrypted restart and disabled-module export pass. Run history now supports authorized text/status/event/workflow/date filtering and pagination beyond the previous latest-100 window. Querying is read-only and retained exports honor source ownership unless the caller has Automation administration authority.",
-      "gap": "Visual branching/grouped-condition editing and recovery without a proven internal result remain incomplete. Debugging has searchable execution metadata; browser acceptance is blocked.",
+      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests. Owner-scoped activation now selects one immutable version or pauses the group, with optimistic revision checks, canonical transition events and retained pending runs. Exact persisted internal task/document outcomes can now reconcile interrupted result capture, followed by a separately requested continuation. Original actor, request, step definition and record fingerprints are checked; missing or external proof stays blocked. Owner-private partial drafts now persist independently of executable workflow definitions. The editor autosaves with revision checks, serializes writes and offers a new-draft copy on conflicts. Incomplete draft storage creates no workflows or tasks; lost responses, foreign owners, rollback, encrypted restart and disabled-module export pass. Run history now supports authorized text/status/event/workflow/date filtering and pagination beyond the previous latest-100 window. Querying is read-only and retained exports honor source ownership unless the caller has Automation administration authority. Automation now rejects malformed conditions, including when:false, at definition and before any retained workflow execution or resume. Complete group validation precedes every step, including unconditional earlier steps; invalid scheduled workflows are isolated without rewriting retained definitions. Strict comparison values, exclusive all/any group shapes, depth/child/node limits and all existing valid operators pass adversarial regression. The existing editor now supports nested EN/OF groups and preserves bounded condition trees in private non-executable drafts, avoiding generic sanitizer depth truncation. Actual production DOM handlers, native HTTP creation, explicit approvals, encrypted draft/workflow restart, valid/false branches and duplicate-free execution pass. No live provider, actual browser or production acceptance is inferred. Visual branch-path authoring, ZERO workflow preparation and other ledger requirements remain open.",
+      "gap": "Nested condition-group editing now passes local DOM/native HTTP/restart acceptance. Explicit visual branch-path authoring, further debugging and recovery without a proven internal result remain incomplete. Actual browser acceptance remains blocked.",
       "required_change": "Complete debugging and original workflow authoring breadth; external outcome recovery requires legitimate provider verification contracts.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
@@ -71,7 +71,9 @@
         "workflow-drafts-test.js",
         "workflow-drafts-api-test.js",
         "workflow-run-query-test.js",
-        "workflow-run-query-api-test.js"
+        "workflow-run-query-api-test.js",
+        "workflow-conditions-test.js",
+        "workflow-editor-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
@@ -103,14 +105,17 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "Automatic execution and retries require the current workflow owner, current capability and trusted action idempotency contract. Permission errors are never retried. Indeterminate crash steps remain blocked.",
+      "foundly_current": "Automatic execution and retries require the current workflow owner, current capability and trusted action idempotency contract. Permission errors are never retried. Indeterminate crash steps remain blocked. Automation now rejects malformed conditions, including when:false, at definition and before any retained workflow execution or resume. Complete group validation precedes every step, including unconditional earlier steps; invalid scheduled workflows are isolated without rewriting retained definitions. Strict comparison values, exclusive all/any group shapes, depth/child/node limits and all existing valid operators pass adversarial regression. The existing editor now supports nested EN/OF groups and preserves bounded condition trees in private non-executable drafts, avoiding generic sanitizer depth truncation. Actual production DOM handlers, native HTTP creation, explicit approvals, encrypted draft/workflow restart, valid/false branches and duplicate-free execution pass. No live provider, actual browser or production acceptance is inferred. Visual branch-path authoring, ZERO workflow preparation and other ledger requirements remain open.",
       "gap": "Mixed legacy Core entry points and workflow capability coverage need continued adversarial review.",
       "required_change": "Complete the per-operation capability map and scoped external-action policies.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "workflow-execution-test.js",
         "composition-api-test.js",
-        "composition-matrix-test.js"
+        "composition-matrix-test.js",
+        "workflow-conditions-test.js",
+        "workflow-editor-test.js",
+        "workflow-authoring-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

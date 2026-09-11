@@ -11,7 +11,43 @@
   const operators=['eq','ne','gt','gte','lt','lte','exists','in'];
   const fail=message=>{throw Object.assign(new Error(message),{code:'workflow_draft_invalid'});};
   const integer=(value,min,max,label)=>{const n=Number(value);if(!Number.isInteger(n)||n<min||n>max)fail(`${label}: kies ${min} tot ${max}.`);return n;};
-  function contract(automation){return {version:1,max_steps:100,triggers:automation.triggers,automatic_event_aliases:automation.event_aliases||{},actions:Object.entries(fields).filter(([type])=>automation.actions.includes(type)).map(([type,value])=>({type,...value,retryable:(automation.retryable_actions||[]).includes(type)})),operators};}
+  function validateDraftCondition(condition,depth=0,budget={nodes:0}){
+    if(!condition||typeof condition!=='object'||Array.isArray(condition)||depth>5||++budget.nodes>200)fail('Ongeldige conditiegroep.');
+    if(depth===0&&typeof condition.enabled!=='boolean'||depth>0&&Object.hasOwn(condition,'enabled'))fail('Een conditie vereist een expliciete aan/uit-keuze.');
+    const mode=condition.mode??'leaf';
+    if(!['leaf','all','any'].includes(mode))fail('Kies een vergelijking, EN-groep of OF-groep.');
+    const allowed=mode==='leaf'?['enabled','mode','field','operator','value_type','value']:['enabled','mode','children'];
+    if(Object.keys(condition).some(key=>!allowed.includes(key)))fail('Onbekende conditievelden.');
+    if(mode==='leaf'){
+      for(const key of ['field','operator','value_type','value'])if(condition[key]!==undefined&&(typeof condition[key]!=='string'||condition[key].length>12000))fail('Ongeldige conditie-invoer.');
+    }else{
+      if(!Array.isArray(condition.children)||condition.children.length>20)fail('Een groep ondersteunt maximaal twintig onderdelen.');
+      for(const child of condition.children)validateDraftCondition(child,depth+1,budget);
+    }
+    return condition;
+  }
+  function compileCondition(c){
+    if(c.mode==='all'||c.mode==='any'){
+      if(!c.children.length)fail('Een conditiegroep mag niet leeg zijn.');
+      return {[c.mode]:c.children.map(compileCondition)};
+    }
+    if(!/^(event|inputs)(?:\.[A-Za-z][A-Za-z0-9_]{0,79}){1,5}$/.test(c.field)||/(?:__proto__|constructor|prototype)/.test(c.field)||!operators.includes(c.operator))fail('Controleer het conditieveld en de vergelijking.');
+    const when={field:c.field,operator:c.operator};
+    if(c.operator!=='exists'){
+      let value=c.value;
+      if(!['text','number','boolean'].includes(c.value_type??'text'))fail('Kies een ondersteund waardetype.');
+      if(c.operator==='in'){
+        value=String(c.value??'').split('\n').map(item=>item.trim()).filter(Boolean);
+        if(!value.length||value.length>100)fail('Vul 1 tot 100 vergelijkingswaarden in.');
+      }else if(c.value_type==='number'){if(String(value??'').trim()===''||!Number.isFinite(Number(value)))fail('Vul een geldig getal voor de conditie in.');value=Number(value);}
+      else if(c.value_type==='boolean'){if(!['true','false'].includes(String(value)))fail('Kies true of false voor de conditie.');value=String(value)==='true';}
+      else value=String(value??'');
+      if(['gt','gte','lt','lte'].includes(c.operator)&&typeof value!=='number')fail('Deze vergelijking vereist een getal.');
+      when.value=value;
+    }
+    return when;
+  }
+  function contract(automation){return {version:1,condition_groups:{modes:['all','any'],max_depth:5,max_children:20,max_nodes:200},max_steps:100,triggers:automation.triggers,automatic_event_aliases:automation.event_aliases||{},actions:Object.entries(fields).filter(([type])=>automation.actions.includes(type)).map(([type,value])=>({type,...value,retryable:(automation.retryable_actions||[]).includes(type)})),operators};}
   function compile(draft,spec){
     const name=String(draft.name||'').trim();if(!name||name.length>200)fail('Vul een workflownaam van maximaal 200 tekens in.');
     const version=integer(draft.version??1,1,2147483647,'Versie');
@@ -26,19 +62,9 @@
       const definition=spec.actions.find(row=>row.type===step.type);if(!definition)fail('Deze stap wordt niet door de editor ondersteund.');
       const action={type:step.type};
       for(const field of definition.fields){const value=step.values?.[field.key];if(field.type==='number')action[field.key]=integer(value,field.min,field.max,field.label);else {const text=String(value||'').trim();if(field.required&&!text||text.length>field.max)fail(`Controleer ${field.label.toLowerCase()}.`);if(text)action[field.key]=text;}}
-      if(step.condition?.enabled){
-        const c=step.condition;if(!/^(event|inputs)(?:\.[A-Za-z][A-Za-z0-9_]{0,79}){1,5}$/.test(c.field)||/(?:__proto__|constructor|prototype)/.test(c.field)||!operators.includes(c.operator))fail('Controleer het conditieveld en de vergelijking.');
-        const when={field:c.field,operator:c.operator};
-        if(c.operator!=='exists'){
-          let value=c.value;
-          if(c.value_type==='number'){if(String(value).trim()===''||!Number.isFinite(Number(value)))fail('Vul een geldig getal voor de conditie in.');value=Number(value);}
-          else if(c.value_type==='boolean'){if(!['true','false'].includes(String(value)))fail('Kies true of false voor de conditie.');value=String(value)==='true';}
-          else value=String(value??'');
-          if(c.operator==='in')value=String(c.value||'').split('\n').map(item=>item.trim()).filter(Boolean);
-          if(['gt','gte','lt','lte'].includes(c.operator)&&typeof value!=='number')fail('Deze vergelijking vereist een getal.');
-          when.value=value;
-        }
-        action.when=when;
+      if(Object.hasOwn(step,'condition')){
+        validateDraftCondition(step.condition);
+        if(step.condition.enabled)action.when=compileCondition(step.condition);
       }
       const attempts=integer(step.attempts??1,1,5,'Pogingen');
       if(attempts>1){if(!definition.retryable)fail('Deze actie ondersteunt geen veilige retries.');action.retry={max_attempts:attempts,initial_delay_seconds:integer(step.retry_delay,1,3600,'Retrywachttijd')};}
@@ -46,5 +72,5 @@
     });
     return {name,version,trigger,actions,approval_required:draft.approval_required===true};
   }
-  return {contract,compile};
+  return {contract,compile,validateDraftCondition};
 });

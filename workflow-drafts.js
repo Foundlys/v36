@@ -1,6 +1,7 @@
 'use strict';
 const crypto=require('node:crypto');
 const {sanitizeInput}=require('./crm-core');
+const {validateDraftCondition}=require('./workflow-authoring');
 const {requirePermission}=require('./capability-resolver');
 const {scopedMutation}=require('./scoped-mutation');
 const SCOPE='platform:automation_drafts';
@@ -13,8 +14,13 @@ class WorkflowDrafts{
   save(ctx,actor,id,input){
     this.scope(ctx,actor,'write');if(!/^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/.test(id))fail('workflow_draft_id_invalid','Ongeldig conceptkenmerk');
     const draft=input.draft;
-    if(!draft||typeof draft!=='object'||Array.isArray(draft)||JSON.stringify(draft).length>120000||Object.keys(draft).some(key=>!['name','version','trigger_type','automatic','at','event_name','approval_required','steps'].includes(key))||draft.steps!==undefined&&(!Array.isArray(draft.steps)||draft.steps.length>100))fail('workflow_draft_invalid','Concept heeft een ongeldige structuur of is te groot');
-    const value=sanitizeInput(draft),fingerprint=crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'),rows=this.adapter.bucket(ctx,SCOPE),previous=rows.find(row=>row.id===id);
+    if(!draft||typeof draft!=='object'||Array.isArray(draft)||JSON.stringify(draft).length>120000||Object.keys(draft).some(key=>!['name','version','trigger_type','automatic','at','event_name','approval_required','steps'].includes(key))||draft.steps!==undefined&&(!Array.isArray(draft.steps)||draft.steps.length>100||draft.steps.some(step=>!step||typeof step!=='object'||Array.isArray(step))))fail('workflow_draft_invalid','Concept heeft een ongeldige structuur of is te groot');
+    // Partial drafts remain non-executable; preserve bounded condition trees
+    // separately from the shallower generic record sanitizer.
+    for(const step of draft.steps||[])if(step&&Object.hasOwn(step,'condition'))validateDraftCondition(step.condition);
+    const value=sanitizeInput({...draft,...(draft.steps?{steps:draft.steps.map(step=>{const {condition,...rest}=step;return rest;})}:{})});
+    for(const [index,step] of (draft.steps||[]).entries())if(Object.hasOwn(step,'condition'))value.steps[index].condition=clone(step.condition);
+    const fingerprint=crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'),rows=this.adapter.bucket(ctx,SCOPE),previous=rows.find(row=>row.id===id);
     if(previous&&previous.owner_id!==actor.id)fail('workflow_draft_missing','Concept niet gevonden',404);
     if(previous&&previous.request_revision===input.expected_revision&&previous.fingerprint===fingerprint)return {record:clone(previous),deduplicated:true,executable:false};
     if(!Number.isInteger(input.expected_revision)||input.expected_revision!==(previous?.revision||0))fail('workflow_draft_conflict','Dit concept is elders gewijzigd; laad de bewaarde versie voordat je verder opslaat',409);

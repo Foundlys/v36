@@ -13,14 +13,35 @@ function canonical(value) {
   return value;
 }
 const signature = value => crypto.createHash('sha256').update(JSON.stringify(canonical(value))).digest('hex');
-function validateCondition(condition,depth=0) {
-  if(!condition)return;
-  if(depth>5||typeof condition!=='object')fail('automation_condition_invalid','Ongeldige conditie',422);
-  if(condition.all||condition.any){const group=condition.all||condition.any;if(!Array.isArray(group)||!group.length||group.length>20)fail('automation_condition_invalid','Ongeldige conditiegroep',422);for(const child of group)validateCondition(child,depth+1);return;}
-  if(!/^(event|inputs)(?:\.[A-Za-z][A-Za-z0-9_]{0,79}){1,5}$/.test(condition.field||'')||/(?:__proto__|constructor|prototype)/.test(condition.field)||!['eq','ne','gt','gte','lt','lte','exists','in'].includes(condition.operator))fail('automation_condition_invalid','Conditie heeft een niet-ondersteund veld of vergelijking',422);
+function validateCondition(condition,depth=0,budget={nodes:0}) {
+  const invalid=()=>fail('automation_condition_invalid','Ongeldige conditie of conditiegroep',422);
+  if(depth>5||++budget.nodes>200||!condition||typeof condition!=='object'||Array.isArray(condition))invalid();
+  const keys=Object.keys(condition),groups=['all','any'].filter(key=>Object.hasOwn(condition,key));
+  if(groups.length){
+    if(groups.length!==1||keys.length!==1)invalid();
+    const children=condition[groups[0]];
+    if(!Array.isArray(children)||!children.length||children.length>20)invalid();
+    for(const child of children)validateCondition(child,depth+1,budget);
+    return;
+  }
+  if(keys.some(key=>!['field','operator','value'].includes(key))||typeof condition.field!=='string'||!/^(event|inputs)(?:\.[A-Za-z][A-Za-z0-9_]{0,79}){1,5}$/.test(condition.field)||/(?:__proto__|constructor|prototype)/.test(condition.field)||!['eq','ne','gt','gte','lt','lte','exists','in'].includes(condition.operator))invalid();
+  const scalar=value=>value===null||typeof value==='boolean'||typeof value==='string'&&value.length<=12000||typeof value==='number'&&Number.isFinite(value);
+  if(condition.operator==='exists'){if(Object.hasOwn(condition,'value'))invalid();return;}
+  if(!Object.hasOwn(condition,'value'))invalid();
+  if(condition.operator==='in'){
+    if(!Array.isArray(condition.value)||!condition.value.length||condition.value.length>100||!condition.value.every(scalar))invalid();
+  }else if(['gt','gte','lt','lte'].includes(condition.operator)){
+    if(typeof condition.value!=='number'||!Number.isFinite(condition.value))invalid();
+  }else if(!scalar(condition.value))invalid();
+}
+function sanitizeAction(action,sanitize){
+  // Conditions are already strictly validated. Generic payload depth/string
+  // normalization must not truncate a valid group or alter comparison values.
+  const {when,...rest}=action;
+  return {...sanitize(rest),...(Object.hasOwn(action,'when')?{when:clone(when)}:{})};
 }
 function matches(condition,event,inputs) {
-  if(!condition)return true;
+  if(condition===undefined)return true;
   if(condition.all)return condition.all.every(child=>matches(child,event,inputs));
   if(condition.any)return condition.any.some(child=>matches(child,event,inputs));
   const value=condition.field.split('.').reduce((value,key)=>value&&Object.hasOwn(value,key)?value[key]:undefined,{event,inputs}),wanted=condition.value;
@@ -29,7 +50,7 @@ function matches(condition,event,inputs) {
 function validateWorkflow(actions) {
   if(!Array.isArray(actions)||!actions.length||actions.some(action=>!action||typeof action!=='object'||Array.isArray(action)))fail('automation_actions_invalid','Workflowstappen moeten geldige actieobjecten zijn',422);
   if(actions.length>100)fail('automation_action_limit','Maximaal honderd workflowstappen',422);
-  for(const action of actions){retryPolicy(action);validateCondition(action.when);if(String(action.type).toLowerCase()==='delay'&&(!Number.isInteger(action.seconds)||action.seconds<1||action.seconds>2592000))fail('automation_delay_invalid','Vertraging moet tussen één seconde en dertig dagen zijn',422);}
+  for(const action of actions){retryPolicy(action);if(Object.hasOwn(action,'when'))validateCondition(action.when);if(String(action.type).toLowerCase()==='delay'&&(!Number.isInteger(action.seconds)||action.seconds<1||action.seconds>2592000))fail('automation_delay_invalid','Vertraging moet tussen één seconde en dertig dagen zijn',422);}
 }
 
 function retryPolicy(action){
@@ -58,6 +79,8 @@ function validateTrigger(trigger){
 
 function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   const { sanitize, highRisk } = helpers;
+  // Revalidate retained definitions before any new run, resume, or side effect.
+  validateWorkflow(workflow.actions);
   if (!event || !/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(event.event_id || event.id || '')) fail('automation_event_invalid', 'Canonical event_id is verplicht', 400);
   if (event.tenant_id && event.tenant_id !== ctx.tenant_id || event.dealer_id && event.dealer_id !== ctx.dealer_id) fail('automation_tenant_mismatch', 'Event behoort tot een andere tenant', 403);
   if (event.event_version !== undefined && event.event_version !== 1) fail('automation_event_version_unsupported', 'Eventversie wordt niet ondersteund', 422);
@@ -94,7 +117,7 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
     if (['SUCCEEDED','SKIPPED_CONDITION'].includes(step?.status)) continue;
     if (step && !['AWAITING_APPROVAL', 'PLANNED_INTERNAL','WAITING_TIME','WAITING_RETRY'].includes(step.status)) break;
     if (!step) {
-      step = { index, type, input: sanitize(action), status: 'PLANNED_INTERNAL', external_write: highRisk.has(type), idempotency_key: `workflow:${row.run_id}:${index}` };
+      step = { index, type, input: sanitizeAction(action,sanitize), status: 'PLANNED_INTERNAL', external_write: highRisk.has(type), idempotency_key: `workflow:${row.run_id}:${index}` };
       row.steps.push(step);
     }
     if(!matches(action.when,row.trigger,row.inputs)){step.status='SKIPPED_CONDITION';step.completed_at=core.now();core.commit();continue;}
@@ -144,4 +167,4 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   flushOwnedEvents(core,ctx,actor);
   return clone(row);
 }
-module.exports = { AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts,signature };
+module.exports = { validateCondition,sanitizeAction,AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts,signature };

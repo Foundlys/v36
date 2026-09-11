@@ -78,7 +78,7 @@ class BusinessDomain {
     }
     return next;
   }
-  snapshotReadable(ctx,actor,row){return require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row)&&require('./marketing-creative-reviews').reviewReadable(this,ctx,actor,row)&&require('./communication-drafts').readable(this,ctx,actor,row)&&require('./communication-replies').readable(this,ctx,actor,row);}
+  snapshotReadable(ctx,actor,row){return require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row)&&require('./marketing-creative-reviews').reviewReadable(this,ctx,actor,row)&&require('./communication-drafts').readable(this,ctx,actor,row)&&require('./communication-replies').readable(this,ctx,actor,row)&&require('./communication-templates').readable(this,ctx,actor,row);}
   list(ctx,actor,entity,query={}){
     if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');
     this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const limit=Math.max(1,Math.min(250,Number(query.limit)||100)),offset=Math.max(0,Number(query.offset)||0),q=String(query.q||'').toLowerCase();
