@@ -30,14 +30,14 @@ function retained(core,ctx,id,attachmentId){
 }
 function references(core,ctx,id,refs=[]){
  if(!Array.isArray(refs)||refs.length>MAX_CURRENT||refs.some(ref=>!ref||typeof ref.id!=='string')||new Set(refs.map(ref=>ref.id)).size!==refs.length)fail('attachment_unavailable','De bijlageverwijzingen zijn niet verifieerbaar',409);
- return refs.map(ref=>{const row=retained(core,ctx,id,ref.id),meta=metadata(row);if(JSON.stringify(meta)!==JSON.stringify(ref))fail('attachment_unavailable','De bijlageverwijzingen zijn gewijzigd',409);return meta;});
+ return refs.map(ref=>{if(ref.validation==='SIGNATURE_AND_LOCAL_CLAMAV')return require('./communication-binary-attachments').reference(core,ctx,id,ref);const row=retained(core,ctx,id,ref.id),meta=metadata(row);if(JSON.stringify(meta)!==JSON.stringify(ref))fail('attachment_unavailable','De bijlageverwijzingen zijn gewijzigd',409);return meta;});
 }
 function list(core,ctx,actor,id){
  const draft=authorize(core,ctx,actor,id);let canWrite=false;try{core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'communication:drafts','write');canWrite=true;}catch(error){if(error.statusCode!==403)throw error;}
- return {items:references(core,ctx,id,draft.attachments),current_revision:draft.revision??null,can_write:canWrite,accepted_media_types:['text/plain'],accepted_extensions:['.txt'],max_bytes:MAX_BYTES,max_current:MAX_CURRENT,external_send:false};
+ return {items:references(core,ctx,id,draft.attachments),current_revision:draft.revision??null,can_write:canWrite,accepted_media_types:['text/plain','application/pdf','image/png','image/jpeg'],accepted_extensions:['.txt','.pdf','.png','.jpg','.jpeg'],max_bytes:MAX_BYTES,max_binary_bytes:require('./communication-binary-attachments').MAX_BYTES,binary_requires_local_scan:true,max_current:MAX_CURRENT,external_send:false};
 }
 function read(core,ctx,actor,id,attachmentId){
- authorize(core,ctx,actor,id);const row=retained(core,ctx,id,attachmentId);
+ authorize(core,ctx,actor,id);const binary=require('./communication-binary-attachments');if(core.adapter.bucket(ctx,binary.SCOPE).some(row=>row.draft_id===id&&row.id===attachmentId)){const row=binary.retained(core,ctx,id,attachmentId);return {attachment:{...binary.metadata(row),content_base64:row.content_base64},external_send:false};}const row=retained(core,ctx,id,attachmentId);
  return {attachment:{...metadata(row),content_base64:row.content_base64},external_send:false};
 }
 function change(core,ctx,actor,id,input,options,kind,execute){
@@ -60,6 +60,7 @@ function attach(core,ctx,actor,id,input,options={}){
   const checked=validate(input),refs=references(core,ctx,id,draft.attachments),rows=core.adapter.bucket(ctx,SCOPE);
   const duplicate=rows.find(row=>row.draft_id===id&&row.name===input.name&&row.sha256===checked.sha256);
   if(duplicate&&refs.some(ref=>ref.id===duplicate.id)){retained(core,ctx,id,duplicate.id);return refs;}
+  if(refs.reduce((sum,row)=>sum+row.size_bytes,0)+checked.bytes.length>require('./communication-binary-attachments').MAX_CURRENT_BYTES)fail('attachment_capacity','De totale omvang van conceptbijlagen is te groot',507);
   if(refs.length>=MAX_CURRENT)fail('attachment_capacity','Een concept kan maximaal tien bijlagen bevatten',507);
   if(duplicate)return [...refs,metadata(retained(core,ctx,id,duplicate.id))];
   if(rows.some(row=>!Number.isSafeInteger(row.size_bytes)||row.size_bytes<0||row.size_bytes>MAX_BYTES))fail('attachment_unavailable','Het bewaarde opslaggebruik is niet verifieerbaar',409);
@@ -77,4 +78,6 @@ function exportOwned(core,ctx,drafts){
  const allowed=new Set(drafts.map(row=>row.id));
  return core.adapter.bucket(ctx,SCOPE).filter(row=>allowed.has(row.draft_id)).map(row=>{retained(core,ctx,row.draft_id,row.id);return clone(row);});
 }
-module.exports={SCOPE,validate,metadata,references,list,read,attach,detach,exportOwned};
+async function upload(core,ctx,actor,id,input,options={}){return /\.txt$/i.test(input?.name||'')?attach(core,ctx,actor,id,input,options):require('./communication-binary-attachments').attach(core,ctx,actor,id,input,options);}
+function assertSendable(core,ctx,id,refs){for(const ref of refs||[])if(ref.validation==='SIGNATURE_AND_LOCAL_CLAMAV')require('./communication-binary-attachments').reference(core,ctx,id,ref,{fresh:true});}
+module.exports={upload,assertSendable,SCOPE,validate,metadata,references,list,read,attach,detach,exportOwned};

@@ -94,7 +94,7 @@ class BusinessDomain {
     for(const row of candidates){if(occurrences(row).some(a=>times.some(b=>timestamp(a.start_at)<timestamp(b.end_at)&&timestamp(b.start_at)<timestamp(a.end_at)))){count++;if(this.visible(row,actor))visible.push(row.id);}}
     return {count,visible_ids:visible,private_details_redacted:true};
   }
-  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-send-reviews').SCOPE,require('./communication-submissions').SCOPE,require('./communication-mailboxes').SCOPE,require('./communication-mailboxes').ITEMS,require('./communication-comments').SCOPE,require('./communication-edit-sessions').SCOPE]:[])],callback);}
+  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-send-reviews').SCOPE,require('./communication-submissions').SCOPE,require('./communication-mailboxes').SCOPE,require('./communication-mailboxes').ITEMS,require('./communication-comments').SCOPE,require('./communication-edit-sessions').SCOPE,require('./communication-binary-attachments').SCOPE]:[])],callback);}
   save(ctx,actor,entity,input,options={}){const result=this.mutate(ctx,()=>this.saveOwned(ctx,actor,entity,input,options));try{this.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;}
   saveOwned(ctx,actor,entity,input,options={}){
     this.scope(ctx,actor,'write');const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');const rows=this.bucket(ctx,entity),prior=options.id?this.get(ctx,actor,entity,options.id):null;
@@ -160,6 +160,7 @@ class BusinessDomain {
     if(this.id==='communication')collections.inbox_state=require('./communication-inbox').exportOwned(this,ctx,actor,collections.messages);
     if(this.id==='communication')collections.submissions=require('./communication-submissions').exportOwned(this,ctx,collections.drafts);
     if(this.id==='communication')Object.assign(collections,require('./communication-mailboxes').exportOwned(this,ctx,actor,collections.messages));
+    if(this.id==='communication')collections.binary_attachment_content=require('./communication-binary-attachments').exportOwned(this,ctx,collections.drafts);
     if(this.id==='communication')collections.draft_edit_sessions=require('./communication-edit-sessions').exportOwned(this,ctx,collections.drafts);
     if(this.id==='communication')collections.draft_comments=require('./communication-comments').exportOwned(this,ctx,collections.drafts);
     if(this.id==='communication')collections.send_reviews=require('./communication-send-reviews').exportOwned(this,ctx,collections.drafts);

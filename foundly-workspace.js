@@ -1035,39 +1035,39 @@
   }
 
   function appendDraftAttachments(record,cell,content){
-    const details=node('details'),panel=node('div'),notice=node('p');notice.setAttribute('role','status');details.append(node('summary','','Tekstbijlagen'),panel,notice);cell.append(details);
-    const route=`/api/communication/drafts/${encodeURIComponent(record.id)}/attachments`;let loaded=false;
+    const details=node('details'),panel=node('div'),notice=node('p');notice.setAttribute('role','status');details.append(node('summary','','Bijlagen'),panel,notice);cell.append(details);
+    const route=`/api/communication/drafts/${encodeURIComponent(record.id)}/attachments`;const alive=()=>content.isConnected&&details.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='drafts';let loaded=false;
     const reload=async()=>{
-      const model=await request(route);replaceChildren(panel,[]);
-      panel.append(node('p','','UTF-8 .txt-bestanden, maximaal 64 KiB per bestand en tien bijlagen per concept. De inhoud wordt niet automatisch verwerkt of verzonden.'));
+      const model=await request(route);if(!alive())return;replaceChildren(panel,[]);
+      panel.append(node('p','','Tekst tot 64 KiB; PDF, PNG en JPEG tot 256 KiB vereisen een lokale malwarecontrole. Maximaal tien bijlagen per concept. Bestanden worden niet inline geopend of verzonden. Geef een actieve bewerking vrij voordat je bijlagen wijzigt.'));
       if(!model.items.length)panel.append(node('p','','Dit concept heeft geen bijlagen.'));
       const redraw=async()=>{if(content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='drafts')await renderDomainSection('drafts',content);};
       for(const attachment of model.items){
-        const item=node('article','context-item'),download=node('button','secondary-button','Tekstbestand downloaden');download.type='button';download.setAttribute('aria-label',`${attachment.name} downloaden`);item.append(node('p','',`${attachment.name} · ${attachment.size_bytes} bytes`),download);panel.append(item);
+        const item=node('article','context-item'),download=node('button','secondary-button',attachment.validation==='SIGNATURE_AND_LOCAL_CLAMAV'?'Bestand downloaden':'Tekstbestand downloaden');download.type='button';download.setAttribute('aria-label',`${attachment.name} downloaden`);item.append(node('p','',`${attachment.name} · ${attachment.size_bytes} bytes`),download);panel.append(item);item.append(node('small','',attachment.validation==='SIGNATURE_AND_LOCAL_CLAMAV'?`Malwarecontrole: geen dreiging gedetecteerd op ${attachment.scan_observed_at}; dit is geen veiligheidsgarantie.`:'Tekstbijlage; geen malwarecontrole uitgevoerd.'));
         download.addEventListener('click',async()=>{
-          download.disabled=true;let href;
+          if(!alive())return;download.disabled=true;let href;
           try{
             const result=await request(route+'/'+encodeURIComponent(attachment.id)),value=result.attachment,bytes=Uint8Array.from(atob(value.content_base64),char=>char.charCodeAt(0)),actual=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),byte=>byte.toString(16).padStart(2,'0')).join('');
-            if(actual!==value.sha256||bytes.length!==value.size_bytes)throw new Error('De bijlage kon niet worden geverifieerd.');
-            href=URL.createObjectURL(new Blob([bytes],{type:'text/plain;charset=utf-8'}));const link=node('a');link.href=href;link.download=value.name;document.body.append(link);link.click();link.remove();notice.textContent='Tekstbestand gedownload.';
+            if(!alive())return;if(actual!==value.sha256||bytes.length!==value.size_bytes)throw new Error('De bijlage kon niet worden geverifieerd.');
+            href=URL.createObjectURL(new Blob([bytes],{type:value.validation==='SIGNATURE_AND_LOCAL_CLAMAV'?'application/octet-stream':'text/plain;charset=utf-8'}));const link=node('a');link.href=href;link.download=value.name;document.body.append(link);link.click();link.remove();notice.textContent='Bestand gedownload.';
           }catch(error){notice.textContent=friendlyError(error);}finally{download.disabled=false;if(href)setTimeout(()=>URL.revokeObjectURL(href),1000);}
         });
-        if(model.can_write){const remove=node('button','secondary-button','Uit concept verwijderen');remove.type='button';remove.setAttribute('aria-label',`${attachment.name} uit concept verwijderen`);item.append(remove);const key=crypto.randomUUID();remove.addEventListener('click',async()=>{remove.disabled=true;try{await request(route+'/detach',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({attachment_id:attachment.id,expected_revision:model.current_revision})});await redraw();notice.textContent='Bijlage verwijderd uit het huidige concept; de geschiedenis blijft bewaard.';}catch(error){notice.textContent=friendlyError(error);remove.disabled=false;}});}
+        if(model.can_write){const remove=node('button','secondary-button','Uit concept verwijderen');remove.type='button';remove.setAttribute('aria-label',`${attachment.name} uit concept verwijderen`);item.append(remove);const key=crypto.randomUUID();remove.addEventListener('click',async()=>{if(!alive())return;remove.disabled=true;try{await request(route+'/detach',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({attachment_id:attachment.id,expected_revision:model.current_revision})});await redraw();if(!alive())return;notice.textContent='Bijlage verwijderd uit het huidige concept; de geschiedenis blijft bewaard.';}catch(error){notice.textContent=friendlyError(error);remove.disabled=false;}});}
       }
       if(model.can_write){
-        const form=node('form'),file=node('input'),label=node('label','','Tekstbestand kiezen'),submit=node('button','primary-button','Bijlage opslaan');file.type='file';file.accept='.txt,text/plain';file.required=true;submit.type='submit';submit.disabled=model.items.length>=model.max_current;label.append(file);form.append(label,submit);panel.append(form);let key=crypto.randomUUID(),lastPayload=null;
+        const form=node('form'),file=node('input'),label=node('label','','Bestand kiezen'),submit=node('button','primary-button','Bijlage opslaan');file.type='file';file.accept=(model.accepted_extensions||['.txt']).join(',');file.required=true;submit.type='submit';submit.disabled=model.items.length>=model.max_current;label.append(file);form.append(label,submit);panel.append(form);let key=crypto.randomUUID(),lastPayload=null;
         form.addEventListener('submit',async event=>{
-          event.preventDefault();submit.disabled=true;
+          event.preventDefault();if(!alive())return;submit.disabled=true;
           try{
-            const selected=file.files?.[0];if(!selected||selected.size>model.max_bytes)throw new Error('Kies een tekstbestand van maximaal 64 KiB.');
-            const bytes=new Uint8Array(await selected.arrayBuffer());let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);
+            const selected=file.files?.[0],isText=/\.txt$/i.test(selected?.name||''),limit=isText?model.max_bytes:model.max_binary_bytes;if(!selected||!Number.isFinite(limit)||selected.size>limit)throw new Error(isText?'Kies een tekstbestand van maximaal 64 KiB.':'Kies een PDF-, PNG- of JPEG-bestand van maximaal 256 KiB.');
+            const bytes=new Uint8Array(await selected.arrayBuffer());if(!alive())return;let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);
             const encoded=JSON.stringify({name:selected.name,content_base64:btoa(binary),expected_revision:model.current_revision});if(lastPayload!==null&&lastPayload!==encoded)key=crypto.randomUUID();lastPayload=encoded;
-            await request(route,{method:'POST',headers:{'idempotency-key':key},body:encoded});await redraw();notice.textContent='Bijlage bij het concept opgeslagen.';
+            await request(route,{method:'POST',headers:{'idempotency-key':key},body:encoded});await redraw();if(!alive())return;notice.textContent='Bijlage bij het concept opgeslagen.';
           }catch(error){notice.textContent=friendlyError(error);submit.disabled=false;}
         });
       }
     };
-    details.addEventListener('toggle',async()=>{if(!details.open||loaded)return;loaded=true;notice.textContent='Bijlagen laden…';try{await reload();notice.textContent='Bijlagen worden als tekst gedownload. Er is geen virusscan uitgevoerd.';}catch(error){notice.textContent=friendlyError(error);loaded=false;}});
+    details.addEventListener('toggle',async()=>{if(!details.open||loaded)return;loaded=true;notice.textContent='Bijlagen laden…';try{await reload();if(alive())notice.textContent='Downloads behouden de originele bytes. Een scan is geen veiligheidsgarantie.';}catch(error){notice.textContent=friendlyError(error);loaded=false;}});
   }
 
   function appendDraftCollaboration(record,cell,content){

@@ -13,7 +13,7 @@ function compose(plan,{attempt_id,created_at,files=[]}){
  const snapshot=plan.snapshot;if(snapshot.cc!==undefined&&!Array.isArray(snapshot.cc))fail();const recipients=[...snapshot.to,...(snapshot.cc||[])];if(recipients.length>100||recipients.some(value=>!address(value))||new Set(recipients).size!==recipients.length)fail();require('./communication-drafts').validateInput(snapshot);text(snapshot.content,12000);if(!Array.isArray(snapshot.attachments)||snapshot.attachments.length>10||files.length!==snapshot.attachments.length)fail();
  const parts=[['Content-Type: text/plain; charset=UTF-8','Content-Transfer-Encoding: base64','',encoded(Buffer.from(snapshot.content.replace(/\r\n|\r|\n/g,'\r\n')))].join('\r\n')];
  for(let i=0;i<files.length;i++){
-  const file=files[i],ref=snapshot.attachments[i],checked=attachments.validate(file);if(file.id!==ref.id||file.name!==ref.name||checked.sha256!==ref.sha256||checked.bytes.length!==ref.size_bytes)fail();
+  const file=files[i],ref=snapshot.attachments[i],checked=ref.validation==='SIGNATURE_AND_LOCAL_CLAMAV'?require('./communication-binary-attachments').validate(file):attachments.validate(file);if(file.id!==ref.id||file.name!==ref.name||checked.sha256!==ref.sha256||checked.bytes.length!==ref.size_bytes)fail();
   // Octet-stream attachments preserve the approved original UTF-8 file bytes,
   // including line endings. They are not rendered as inline message content.
   parts.push(['Content-Type: application/octet-stream','Content-Disposition: attachment;',' filename="'+file.name+'"','Content-Transfer-Encoding: base64','',encoded(checked.bytes)].join('\r\n'));

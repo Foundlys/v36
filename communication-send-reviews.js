@@ -15,6 +15,7 @@ function basis(core,ctx,actor,id,purpose,getAccount){
  const account=getAccount(ctx);if(!account||account.provider!=='email'||!address(account.from)||typeof account.binding!=='string'||account.binding.length!==64)fail('send_account_unavailable','Een geldige afzender en accountconfiguratie ontbreken',409);
  const recipients=[...draft.to,...(draft.cc||[])];if(recipients.length>100||recipients.some(value=>!address(value))||new Set(recipients).size!==recipients.length)fail('send_recipients_unavailable','Kies unieke ondersteunde ontvangers in Aan en Cc');
  const attachments=require('./communication-attachments').references(core,ctx,id,draft.attachments),preferences=core.bucket(ctx,'preferences'),policy=[];
+ require('./communication-attachments').assertSendable(core,ctx,id,attachments);
  for(const recipient of recipients){
   const matches=preferences.filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&row.subject_id===recipient&&row.purpose===purpose),row=matches[0];
   if(matches.length!==1||!core.visible(row,actor)||row.status!=='GRANTED'||!Number.isSafeInteger(row.revision)||row.revision<1)fail('send_preference_unavailable','De actuele voorkeuren voor dit doel zijn niet eenduidig beschikbaar',409);
