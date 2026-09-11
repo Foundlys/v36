@@ -119,6 +119,7 @@
     "composition-matrix-test.js": "8e8ab94fb67a328fcffa5245963bc034606a76f60b48f99a6e7964edd18fa3f4",
     "composition-projections.js": "73bd871e6fdd5f8dc44091879a4a1e7ccf3b5b3c759994d1519611eb00d00936",
     "composition-runtime.js": "c7b11549e2a921128e3a514c888cce4e5fe441fe0b5b7f72ddee8c5c1c78ba3e",
+    "connector-current-principal-api-test.js": "2ae5431c102b33e7e0c0f8cc1b26b149efff8d966b8dc4eaa5c76ba3b5768dd7",
     "core-access-api-test.js": "b25892c9b81fec28bda24960af6d763af3a7265b79c1e171f5e5d82d89e3273b",
     "core-access-contracts-test.js": "c14a093653346a5008ce96edb2f0de69498964be4f60d2f809012d148f0752f1",
     "core-access-contracts.js": "2a06da2b118ac9bf8858f849ffcce33abaaaadce898dbdae11d9158d8e31cba1",
@@ -174,7 +175,7 @@
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "d1ca823ff4e94945e0c28adf4b60a2c8ad7ff09a43e5b6edc7618333c92f577d",
+    "package.json": "01bdddf30f5c9e73910fc80f01222f9477ff7a2501f9e1ff27baf0854eb61e6b",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -205,7 +206,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "436037e04cf67adf9fa33426ff588db7f926c534c84c2dceee053f88e5546987",
+    "server.js": "04a49a0392725c8995ec4ed7475a09f75e97c6ec2ea0aa96c902a0d7f53baf93",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -219,6 +220,7 @@
     "test-automotive-fetch-mock.js": "ed68f2104672e37131d450f61ff809b075053ba91b2878df54d44b39a930b52f",
     "test-communication-message-fixture.js": "0ed512431d4bd93f1e94c1ae2bc4ef265f6c6e8640cd060ca3329375142e7f95",
     "test-composition-context-mock.js": "7ae21e829929286bf40027c410a84cff00d806bbb2bed8f5e0c9c71ac21f1133",
+    "test-connector-profile-barrier.js": "e75e13ed22b9de16bed639fe8d526ba3377d932a2d2e60673aa5e1a2b548f28c",
     "test-dashboard-persist-fault.js": "b45bd1a8db61937cf79687c2740a9d552b3fce5eaf7724c59c4f7a03d014fca1",
     "test-identity-body-barrier.js": "2edd7a9d0aee639d30d1ff8cecfc2b0734eafff7878557832d1a16a068244e45",
     "test-jarvis-fetch-mock.js": "af79a374e59631e604c66dd1ad434093d8963488d17a7e1e36bb89af48f1fa51",
@@ -263,7 +265,7 @@
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "2d7769f9ba656232635bb657fea07c764ee0e86e17f7b2fd1f13eab96b7c9599"
   },
-  "output_sha256": "f5a47d0d533602e2a67700c855e57c3797c239026d9df540150b33b43f8b9e88",
+  "output_sha256": "a3184e46843e878ecc616d90fc38cce8c240cf5783a02876fd18456bd7ebeee5",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -418,7 +420,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T09:52:44.251040+00:00",
+  "verified_at": "2026-09-11T10:07:35.913276+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -577,7 +579,8 @@
     "PDF, PNG and JPEG attachments now require bounded signature checks and a successful local ClamAV process before atomic attachment. Exact bytes and immutable scan receipts survive history/restore and current-source owned export; binary content stays out of generic Data and downloads as hash-checked octet-stream without inline rendering. Scanner execution uses fixed arguments, no shell, no inherited application credentials, private temporary storage, current authority/configuration checks, official recent database requirements, limits and strict exit/result validation. Alerts, skipped/error/timeout outcomes and source revocation while the process runs never attach a file. Review/submission refuse expired binary scans without deleting the original file/history. Actual subprocess fixtures, real HTTP/restart and production handlers pass; they do not prove a real installed scanner/database, malware detection rate, browser or live-provider acceptance. Legacy text attachments remain explicitly unscanned. The current scratch runtime lacks clamscan; no production dependency was changed.",
     "SMTP authentication/submission on 465 and mandatory STARTTLS 587 plus read-only IMAP 993 now support pinned public IPv6 as well as IPv4. Every DNS answer must match its declared family and ordinary public allocation; mixed private/public answers, reserved, documentation, transition, scoped and unallocated addresses fail before credentials. The connected peer must numerically equal the selected address, including after STARTTLS, without a second DNS lookup or family fallback. Actual isolated IPv6 TCP/TLS fixtures verify authentication, approved SMTP DATA and read-only IMAP with expanded equivalent addresses; changed peers fail before AUTH. IANA allocation and special-purpose registries were checked on 2026-09-11. Full regression passes; legitimate provider routing, non-PLAIN authentication and delivery reconciliation remain unproven or open as recorded.",
     "Explicit XOAUTH2 now complements legacy PLAIN for SMTP 465/mandatory STARTTLS 587 and read-only IMAP 993. Separate bounded bearer-token and canonical UTC-expiry fields flow through existing encrypted tenant configuration and native connector setup; legacy default configuration fingerprints remain unchanged. Tokens never substitute for passwords or fall back after rejection. SMTP and IMAP error challenges receive only an empty acknowledgement, repeated challenges and false success are refused, and current token expiry/authority/configuration is checked before and across transport boundaries. Passive authentication/mailbox status cannot preserve trustworthy current proof after expiration. Actual isolated IPv6 TLS/STARTTLS exchanges cover bearer bytes, approved DATA, IMAP initial/continuation modes, failures and expiry; real HTTP sessions cover masked fields, encrypted restart and token rotation during pending authentication/receipt. Full regression passes. No legitimate provider credentials were changed or live account accessed; provider onboarding/automatic refresh, delivery reconciliation and browser acceptance remain open.",
-    "New SMTP attempts retain immutable transport observations in a separate encrypted Core transaction before final message materialization. A retained outcome can be explicitly recovered through native or ZERO policy without opening a mail connection, repeating payload bytes or changing the original content. Current parent/source access, Communication/inbox write and connector-management rights, revision/confirmation/reason, actor/input replay, atomic rollback and private owned receipt export govern recovery. Unknown post-DATA attempts without evidence and active/unverifiable runtimes remain blocked. Linux retirement binds PID/start time to matching boot/namespace and corroborates missing proc entries with a no-signal existence probe; a different application UUID alone never proves death. The scratch runtime has inconsistent Node/proc IDs, so local positive retirement proof is unavailable and safely refused. Local actual HTTP/ZERO failed-materialization recovery, crash-without-proof denial, encrypted replay, source-free turns and production DOM controls pass full regression. CI must separately pass real Linux process termination and actual pre-DATA/after-receipt crash recovery. Unobserved provider acceptance, final delivery/bounce, cross-host fencing and broader receipt feedback remain open; no provider or production mutation occurred."
+    "New SMTP attempts retain immutable transport observations in a separate encrypted Core transaction before final message materialization. A retained outcome can be explicitly recovered through native or ZERO policy without opening a mail connection, repeating payload bytes or changing the original content. Current parent/source access, Communication/inbox write and connector-management rights, revision/confirmation/reason, actor/input replay, atomic rollback and private owned receipt export govern recovery. Unknown post-DATA attempts without evidence and active/unverifiable runtimes remain blocked. Linux retirement binds PID/start time to matching boot/namespace and corroborates missing proc entries with a no-signal existence probe; a different application UUID alone never proves death. The scratch runtime has inconsistent Node/proc IDs, so local positive retirement proof is unavailable and safely refused. Local actual HTTP/ZERO failed-materialization recovery, crash-without-proof denial, encrypted replay, source-free turns and production DOM controls pass full regression. CI must separately pass real Linux process termination and actual pre-DATA/after-receipt crash recovery. Unobserved provider acceptance, final delivery/bounce, cross-host fencing and broader receipt feedback remain open; no provider or production mutation occurred.",
+    "Reproduced an authenticated pending connector credential request returning HTTP 200 after its administrator lost connector authority. Native encrypted credential writes, legacy integration configuration and profile creation/update now recheck the current principal and composition at the actual write boundary. Profile paths recheck again after asynchronous URL/DNS validation and reload current profile state so another accepted profile is not overwritten. Real HTTP sessions verify role revocation, suspension, module disablement, DNS-wait revocation, concurrent profile preservation, encrypted restart and ordinary authorized writes. The regression retains isolated fixture credentials only; no real credentials or production configuration were changed."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -589,7 +592,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-communication-submission-recovery-regression.log",
+  "output_file": ".recovery-evidence/20260911-connector-authority-verified-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -602,10 +605,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "b54ce3c087fc48f8db813170f54aa7d1772964ea",
-    "tree": "a237112b90d0606c4646b38358af83d971fada14",
-    "run": 104,
-    "run_id": 34584911207,
+    "head": "4c4a157953334d1218e652164f2f89d14217821c",
+    "tree": "98c97326fb2a02d964a87869f15cc243af1f4868",
+    "run": 105,
+    "run_id": 34586535201,
     "conclusion": "success"
   },
   "current_production_observation": {
@@ -620,6 +623,16 @@
     "local": "UNAVAILABLE_NODE_PROC_ID_MISMATCH",
     "local_safe_refusal": "PASS",
     "local_durable_receipt_materialization_recovery": "PASS_REAL_HTTP_ZERO_ENCRYPTED_REPLAY",
-    "positive_process_retirement_and_crash_recovery": "REQUIRED_IN_CI_NOT_YET_OBSERVED"
+    "positive_process_retirement_and_crash_recovery": "PASS_CI_105_PRECEDING_PUBLISHED_CHECKPOINT",
+    "ci_job_id": 103221937333,
+    "ci_log": ".recovery-evidence/20260911-submission-recovery-ci105.log",
+    "ci_log_sha256": "5b6dc38df42e44dec0005b8a8a68fa5223ac75e9c1b88d7d7a9f47dd461922ef"
+  },
+  "connector_authority_reproduction": {
+    "baseline_local": "030ce727f178dfbd51c01fb6782c18e507437524",
+    "observed": "HTTP_200_AFTER_CONNECTOR_AUTHORITY_REVOKED",
+    "log": ".recovery-evidence/20260911-connector-principal-repro.log",
+    "log_sha256": "a2dac3af6c6eb9b3a0bd9200baf7927148e85cc0d40c42fd4e8911065469fae4",
+    "corrected": "CURRENT_AUTHORITY_RECHECKED_AFTER_BODY_AND_DNS_AWAIT"
   }
 }
