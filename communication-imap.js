@@ -1,7 +1,7 @@
 'use strict';
-// Bounded read-only IMAP: implicit verified TLS, AUTHENTICATE PLAIN, EXAMINE,
+// Bounded read-only IMAP: implicit verified TLS, explicit SASL PLAIN/XOAUTH2, EXAMINE,
 // UID SEARCH and BODY.PEEK. No SELECT/STORE/APPEND/EXPUNGE/provider mutation.
-const {sameAddress}=require('./communication-addresses'),net=require('node:net'),tls=require('node:tls'),dns=require('node:dns').promises,{destination}=require('./communication-smtp');
+const sasl=require('./communication-sasl'),{sameAddress}=require('./communication-addresses'),net=require('node:net'),tls=require('node:tls'),dns=require('node:dns').promises,{destination}=require('./communication-smtp');
 const MAX_MESSAGE=262144,MAX_UIDS=25000;
 const fail=(code,statusCode=502)=>Object.assign(new Error('De mailbox kan niet betrouwbaar worden gelezen'),{code,statusCode});
 function configuration(input){
@@ -32,22 +32,25 @@ function fetchFields(parts,expected,body=false){
 }
 function createReader({lookup=dns.lookup.bind(dns),connectTls=tls.connect,timeoutMs=30000}={}){
  return async function read(input,{allowedHosts=[],authorize=()=>{},offset=0,limit=20,folder='INBOX'}={}){
-  const config=configuration(input);if(!Number.isSafeInteger(offset)||offset<0||offset>MAX_UIDS||!Number.isSafeInteger(limit)||limit<1||limit>20||typeof folder!=='string'||folder.length<1||folder.length>200||/[^\x20-\x7e]/.test(folder))throw fail('imap_query_invalid',422);
+  const config=configuration(input),currentAuthority=authorize;authorize=()=>{currentAuthority();sasl.current(config);};if(!Number.isSafeInteger(offset)||offset<0||offset>MAX_UIDS||!Number.isSafeInteger(limit)||limit<1||limit>20||typeof folder!=='string'||folder.length<1||folder.length>200||/[^\x20-\x7e]/.test(folder))throw fail('imap_query_invalid',422);
   let socket,reader,timer,timedOut=false,sequence=0,selectedValidity=null;const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{timedOut=true;socket?.destroy();reject(fail('imap_timeout'));},timeoutMs);});
   const work=async()=>{
    authorize();const address=await destination(config.host,lookup,allowedHosts);if(timedOut)throw fail('imap_timeout');authorize();
    const family=net.isIP(address);await new Promise((resolve,reject)=>{socket=connectTls({host:config.host,port:993,servername:config.host,minVersion:'TLSv1.2',rejectUnauthorized:true,family,autoSelectFamily:false,lookup:(_host,_options,callback)=>callback(null,address,family)});socket.once('error',()=>reject(fail('imap_tls_or_connection_failed')));socket.once('secureConnect',resolve);});
    if(!socket.authorized||!sameAddress(socket.remoteAddress,address))throw fail('imap_tls_or_destination_invalid',403);reader=new Replies(socket);if(!/^\* OK(?:\s|$)/i.test(plain(await reader.next())))throw fail('imap_greeting_invalid');
-   const command=async(value,continuation)=>{authorize();const tag='F'+(++sequence),rows=[];socket.write(tag+' '+value+'\r\n');let continued=false;
-    for(let n=0;n<1100;n++){const parts=await reader.next(),text=parts.map(part=>Buffer.isBuffer(part)?'@LITERAL@':part).join('');if(text.startsWith(tag+' ')){const match=plain(parts).match(new RegExp('^'+tag+' (OK|NO|BAD)(?: |$)(.*)$','i'));if(!match||match[1].toUpperCase()!=='OK')throw fail('imap_command_rejected');if(continuation&&!continued)throw fail('imap_authentication_invalid');return {rows,completion:match[2],tag};}
-     if(/^\+(?: |$)/.test(text)){if(!continuation||continued)throw fail('imap_authentication_invalid');continued=true;authorize();socket.write(continuation+'\r\n');continue;}
+   const command=async(value,continuation)=>{authorize();const tag='F'+(++sequence),rows=[];socket.write(tag+' '+value+'\r\n');let continued=0;
+    for(let n=0;n<1100;n++){const parts=await reader.next(),text=parts.map(part=>Buffer.isBuffer(part)?'@LITERAL@':part).join('');if(text.startsWith(tag+' ')){const match=plain(parts).match(new RegExp('^'+tag+' (OK|NO|BAD)(?: |$)(.*)$','i'));if(!match||match[1].toUpperCase()!=='OK')throw fail('imap_command_rejected');if(continuation)continuation.complete();return {rows,completion:match[2],tag};}
+     if(/^\+(?: |$)/.test(text)){if(!continuation||++continued>2)throw fail('imap_authentication_invalid');authorize();socket.write(continuation.respond(plain(parts))+'\r\n');continue;}
      const validity=text.match(/^\* OK \[UIDVALIDITY ([0-9]+)\]/i);if(selectedValidity!==null&&validity&&Number(validity[1])!==selectedValidity)throw fail('imap_uidvalidity_changed');
      if(/^\* BYE(?: |$)/i.test(text)||!/^\* /.test(text))throw fail('imap_response_invalid');rows.push(parts);
     }throw fail('imap_response_too_large');
    };
    const capabilities=(await command('CAPABILITY')).rows.map(plain).find(line=>/^\* CAPABILITY /i.test(line))?.split(/\s+/).slice(2).map(value=>value.toUpperCase())||[];
-   if(!capabilities.includes('AUTH=PLAIN')||!capabilities.some(value=>['IMAP4REV1','IMAP4REV2'].includes(value)))throw fail('imap_auth_method_unavailable');
-   await command('AUTHENTICATE PLAIN',Buffer.from('\0'+config.username+'\0'+config.password).toString('base64'));authorize();
+   const method=config.auth_method||'PLAIN';
+   if(!capabilities.includes('AUTH='+method)||!capabilities.some(value=>['IMAP4REV1','IMAP4REV2'].includes(value)))throw fail('imap_auth_method_unavailable');
+   const immediate=method==='XOAUTH2'&&(capabilities.includes('SASL-IR')||capabilities.includes('IMAP4REV2'));let sent=immediate,authError=false;
+   const authentication={respond(line){if(!sent){if(line!=='+ '&&line!=='+')throw fail('imap_authentication_invalid');sent=true;return sasl.initial(config);}if(method!=='XOAUTH2'||authError)throw fail('imap_authentication_invalid');authError=true;return '';},complete(){if(!sent||authError)throw fail('imap_authentication_invalid');}};
+   await command('AUTHENTICATE '+method+(immediate?' '+sasl.initial(config):''),authentication);authorize();
    const examined=await command('EXAMINE "'+folder.replace(/[\\"]/g,'\\$&')+'"'),lines=examined.rows.map(plain),validities=lines.map(line=>line.match(/^\* OK \[UIDVALIDITY ([0-9]+)\]/i)).filter(Boolean),exists=lines.map(line=>line.match(/^\* ([0-9]+) EXISTS$/i)).filter(Boolean);
    if(!/^\[READ-ONLY\](?: |$)/i.test(examined.completion)||validities.length!==1||!uid(validities[0][1])||exists.length!==1||!Number.isSafeInteger(Number(exists[0][1])))throw fail('imap_mailbox_state_invalid');
    const uidvalidity=Number(validities[0][1]),total=Number(exists[0][1]);selectedValidity=uidvalidity;if(total>MAX_UIDS)throw fail('imap_mailbox_capacity',507);

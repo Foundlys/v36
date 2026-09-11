@@ -6,13 +6,13 @@
 // mandatory and pre-STARTTLS capabilities are discarded. Configuration reads
 // and ordinary connector status pages never open this connection.
 const net=require('node:net'),tls=require('node:tls'),dns=require('node:dns').promises;
-const {publicV6,sameAddress}=require('./communication-addresses');
+const {publicV6,sameAddress}=require('./communication-addresses'),sasl=require('./communication-sasl');
 const failure=(code,statusCode=502)=>Object.assign(new Error('SMTP-verificatie is niet geslaagd'),{code,statusCode});
 function configuration(input){
  if(!input||typeof input!=='object'||Array.isArray(input))throw failure('smtp_configuration_invalid',422);
- const host=input.host,port=Number(input.port),username=input.username,password=input.password;
- if(typeof host!=='string'||host.length>253||!host.includes('.')||!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i.test(host)||net.isIP(host)||![465,587].includes(port)||typeof username!=='string'||!username||username.length>512||typeof password!=='string'||!password||password.length>1024||/[\x00\r\n]/.test(username+password))throw failure('smtp_configuration_invalid',422);
- return {host:host.toLowerCase(),port,username,password};
+ const host=input.host,port=Number(input.port);
+ if(typeof host!=='string'||host.length>253||!host.includes('.')||!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i.test(host)||net.isIP(host)||![465,587].includes(port))throw failure('smtp_configuration_invalid',422);
+ return {host:host.toLowerCase(),port,...sasl.credentials(input)};
 }
 function publicV4(address){
  if(net.isIP(address)!==4)return false;const [a,b,c]=address.split('.').map(Number);
@@ -49,7 +49,7 @@ class Replies{
 }
 function createTransport({lookup=dns.lookup.bind(dns),connectTcp=net.connect,connectTls=tls.connect,timeoutMs=15000}={}){
  const exchange=async function(input,{allowedHosts=[],authorize=()=>{},beforeData}={},message=null){
-  const config=configuration(input);if(message){require('./communication-mime').validateWire(message);if(typeof beforeData!=='function')throw failure('smtp_durable_boundary_required',422);}let socket,reader,timer,dataStarted=false,knownOutcome=null;
+  const config=configuration(input),currentAuthority=authorize;authorize=()=>{currentAuthority();sasl.current(config);};if(message){require('./communication-mime').validateWire(message);if(typeof beforeData!=='function')throw failure('smtp_durable_boundary_required',422);}let socket,reader,timer,dataStarted=false,knownOutcome=null;
   const outcome=(state,extra={})=>({state,provider_acceptance:state==='ACCEPTED_BY_PROVIDER'?true:state==='UNKNOWN'?null:false,delivery_verified:false,external_send:dataStarted,observed_at:new Date().toISOString(),...extra});
   const connect=(factory,options,event)=>new Promise((resolve,reject)=>{
    const active=socket=factory(options);const fail=()=>{active.removeListener(event,ready);reject(failure('smtp_tls_or_connection_failed'));};const ready=()=>{active.removeListener('error',fail);resolve(active);};active.once('error',fail);active.once(event,ready);
@@ -69,9 +69,17 @@ function createTransport({lookup=dns.lookup.bind(dns),connectTcp=net.connect,con
     await connect(connectTls,{socket:previous,...tlsOptions},'secureConnect');if(!socket.authorized||!sameAddress(socket.remoteAddress,address))throw failure('smtp_certificate_invalid');reader=new Replies(socket);socket.resume();
     hello=await reader.command('EHLO foundly-client.invalid',[250]);
    }
-   if(!hello.lines.slice(1).some(line=>/^AUTH[ =]/i.test(line)&&line.replace(/^AUTH[ =]/i,'').split(/\s+/).some(method=>method.toUpperCase()==='PLAIN')))throw failure('smtp_auth_method_unavailable');
-   authorize();const encoded=Buffer.from('\0'+config.username+'\0'+config.password).toString('base64');let auth=await reader.command('AUTH PLAIN '+encoded,[235,334]);
-   if(auth.code===334){authorize();auth=await reader.command(encoded,[235]);}
+   const method=config.auth_method||'PLAIN';
+   if(!hello.lines.slice(1).some(line=>/^AUTH[ =]/i.test(line)&&line.replace(/^AUTH[ =]/i,'').split(/\s+/).some(value=>value.toUpperCase()===method)))throw failure('smtp_auth_method_unavailable');
+   authorize();const encoded=sasl.initial(config);let auth=await reader.command('AUTH '+method+' '+encoded,[235,334]);
+   if(auth.code===334){
+    authorize();
+    // XOAUTH2 challenges after the initial response signal failure. Acknowledge
+    // with an empty response, never repeat the token or fall back to a password.
+    if(method==='XOAUTH2'){try{await reader.command('',[535,454,235]);}catch{}throw failure('smtp_authentication_failed');}
+    if(auth.lines.length!==1||auth.lines[0]!=='')throw failure('smtp_authentication_failed');
+    auth=await reader.command(encoded,[235]);
+   }
    if(auth.code!==235)throw failure('smtp_authentication_failed');authorize();
    if(message){
     const sizes=hello.lines.slice(1).map(line=>line.match(/^SIZE(?: ([0-9]+))?$/i)).filter(Boolean),size=sizes[0]?.[1];
@@ -92,7 +100,7 @@ function createTransport({lookup=dns.lookup.bind(dns),connectTcp=net.connect,con
    }
    // A failed QUIT does not invalidate a successful authenticated exchange.
    try{await reader.command('QUIT',[221]);}catch{}
-   return {authenticated:true,authentication_verified:true,tls_verified:true,transport:'SMTP_SUBMISSION',auth_method:'PLAIN_OVER_VERIFIED_TLS',port:config.port,observed_at:new Date().toISOString(),send_verified:false,mailbox_access_verified:false,external_send:false};
+   return {authenticated:true,authentication_verified:true,tls_verified:true,transport:'SMTP_SUBMISSION',auth_method:method+'_OVER_VERIFIED_TLS',port:config.port,observed_at:new Date().toISOString(),send_verified:false,mailbox_access_verified:false,external_send:false};
   };
   try{return await Promise.race([work(),deadline]);}catch(error){if(message)return knownOutcome||outcome(dataStarted?'UNKNOWN':'NOT_SUBMITTED',{error_code:/^(smtp_|mail_|send_|composition_|core_|identity_)/.test(error?.code||'')?error.code:'smtp_submission_failed'});if(error?.code?.startsWith('smtp_')||[401,403,409].includes(error?.statusCode))throw error;throw failure('smtp_verification_failed');}
   finally{clearTimeout(timer);socket?.destroy();}
