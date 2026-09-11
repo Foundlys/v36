@@ -210,11 +210,17 @@
       "first_attempt_failure": "Sales fixture EADDRINUSE after Calendar tests passed"
     },
     "production_changes_authorized": false,
-    "next_independent_work": "Continue the recorded Procurement incomplete/incremental allocation and cumulative approval gap, then remaining Procurement analysis and Marketing journey/audience-activation gaps. Current Marketing creative version/history and bounded period/source reconciliation are implemented. Phase 24 remains ACTIVE; provider/browser/jurisdiction/competitive acceptance remains unverified. Recovery is concluded and must not be repeated.",
+    "next_independent_work": "Procurement incremental quantities/cumulative approval, explicit universal cost alternatives and immutable source-linked user-reported outcomes are implemented; run the new current-tree regression and publish its exact tree. Continue supplier collaboration and Marketing journey/audience activation. Keep provider/browser/independent supplier-risk and competitive acceptance unverified. Phase 24 remains ACTIVE; no recovery authorized.",
     "finance_published_head": "276a7a2c14bd7aa685c73ee7cc7128b9ac84fb75",
     "finance_tree": "9e888cffdfba67e4cdf549ddfd31e9a6775acf31",
     "finance_ci": {
       "run": 126,
+      "result": "PASS"
+    },
+    "marketing_published_head": "1b44b63a837084fd2f9f2290267a8ab588ec0da3",
+    "marketing_tree": "f372725396f49941570e4346e058b52b780fb261",
+    "marketing_ci": {
+      "run": 127,
       "result": "PASS"
     }
   },

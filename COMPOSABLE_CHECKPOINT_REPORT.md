@@ -331,9 +331,9 @@ Observed GitHub refs, immutable tree hashes and preceding CI results are real re
 | marketing | marketing:planning | CRITICAL | BELOW_PARITY | Journey execution, audience activation, broader creative version management and complete campaign/browser workflows are incomplete. |
 | marketing | marketing:measurement | CRITICAL | BLOCKED_EXTERNAL | Real provider authorization, fresh campaign data and end-to-end transport receipts require external access. |
 | marketing | marketing:intelligence | CRITICAL | BELOW_PARITY | Workspace summary periods and cross-channel revenue reconciliation need full acceptance. |
-| procurement | procurement:sourcing | CRITICAL | BELOW_PARITY | Supplier collaboration, incomplete-request or incremental awards and browser acceptance remain incomplete. |
+| procurement | procurement:sourcing | CRITICAL | BELOW_PARITY | Incremental item awards and cumulative approval across revisions are implemented with current-source tests. Supplier collaboration and browser acceptance remain incomplete. |
 | procurement | procurement:delivery | CRITICAL | BLOCKED_EXTERNAL | Supplier/order transport has no verified account contract. |
-| procurement | procurement:intelligence | CRITICAL | BELOW_PARITY | Universal economics, outcome-calibrated recommendations and supplier-risk intelligence are below the required depth. |
+| procurement | procurement:intelligence | CRITICAL | BELOW_PARITY | Explicit comparable cost alternatives and exact-scope saved-estimate/user-reported-outcome feedback are implemented. Independent supplier-risk/provider feeds, demonstrated real outcome calibration and competitive acceptance remain unverified. |
 | sales | sales:pipeline | CRITICAL | BELOW_PARITY | Forecast hierarchy, amount/date adjustments, broader scenario workflows and browser acceptance remain incomplete. Quotas use exact owner/period/currency scope without proration or pipeline targets. |
 | sales | sales:execution | CRITICAL | BELOW_PARITY | Sequence execution, communication handoff and pipeline board editing need further integration. |
 | sales | sales:intelligence | CRITICAL | BELOW_PARITY | Full prepare/execute/verify orchestration and outcome feedback are incomplete. |

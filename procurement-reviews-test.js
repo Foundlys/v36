@@ -8,8 +8,8 @@ const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{ent
 const policy=core.save(ctx,admin,'approval_policies',{name:'Two-stage fixture policy',status:'OPEN',currency:'EUR',minimum_value_cents:0,approval_steps:['first','second']}).record;
 assert.throws(()=>core.save(ctx,buyer,'approval_policies',{name:'Unauthorized weaker policy',status:'OPEN',currency:'EUR',minimum_value_cents:1,approval_steps:['buyer']}),{code:'composition_forbidden'});
 assert.throws(()=>core.save(ctx,admin,'approval_policies',{name:'Ambiguous policy',status:'OPEN',currency:'EUR',minimum_value_cents:0,approval_steps:['first']}),{code:'approval_policy_ambiguous'});
-const supplier=core.save(ctx,buyer,'suppliers',{name:'Fixture supplier'}).record,rfq=core.save(ctx,buyer,'rfqs',{title:'Fixture request',currency:'EUR',lines:[{item_id:'A',description:'Fixture item',quantity:1}]}).record;
-const bid=core.save(ctx,buyer,'bids',{title:'Fixture offer',currency:'EUR',rfq_id:rfq.id,rfq_revision:1,supplier_id:supplier.id,evidence_reference:'Fixture offer reference',lines:[{item_id:'A',quantity:1,unit_price_cents:10000}]}).record;
+let supplier=core.save(ctx,buyer,'suppliers',{name:'Fixture supplier'}).record,rfq=core.save(ctx,buyer,'rfqs',{title:'Fixture request',currency:'EUR',lines:[{item_id:'A',description:'Fixture item',quantity:1}]}).record;
+let bid=core.save(ctx,buyer,'bids',{title:'Fixture offer',currency:'EUR',rfq_id:rfq.id,rfq_revision:1,supplier_id:supplier.id,evidence_reference:'Fixture offer reference',lines:[{item_id:'A',quantity:1,unit_price_cents:10000}]}).record;
 let preview=previewAward(core,ctx,buyer,rfq.id,bid.id),input={bid_id:bid.id,preview_fingerprint:preview.preview_fingerprint,reason:'Reviewed fixture scope and price',confirm:true};
 assert.equal(preview.policy_id,policy.id);assert.equal(preview.value_cents,10000);
 assert.throws(()=>core.save(ctx,buyer,'awards',{title:'Forged direct award'}),{code:'award_action_required'});
@@ -27,6 +27,11 @@ const approved=reviewAward(core,ctx,second,id,{...approve,expected_revision:2},{
 assert.throws(()=>core.save(ctx,buyer,'awards',{title:'Overwrite approval'},{id,expected_revision:3}),{code:'approved_record_immutable'});
 core.save(ctx,buyer,'rfqs',{title:'New request revision'},{id:rfq.id,expected_revision:1});core.save(ctx,buyer,'bids',{rfq_revision:2},{id:bid.id,expected_revision:1});
 preview=previewAward(core,ctx,buyer,rfq.id,bid.id);input={...input,preview_fingerprint:preview.preview_fingerprint};
+assert.throws(()=>prepareAward(core,ctx,buyer,rfq.id,input,{idempotency_key:'revision-must-not-reset-approved-scope'}),{code:'award_already_active'});
+// Policy drift/rejection below use an independent request, rather than re-awarding already approved quantities.
+rfq=core.save(ctx,buyer,'rfqs',{title:'Independent policy review request',currency:'EUR',lines:[{item_id:'A',description:'Fixture item',quantity:1}]}).record;
+bid=core.save(ctx,buyer,'bids',{title:'Independent offer',currency:'EUR',rfq_id:rfq.id,rfq_revision:1,supplier_id:supplier.id,evidence_reference:'Independent fixture reference',lines:[{item_id:'A',quantity:1,unit_price_cents:10000}]}).record;
+preview=previewAward(core,ctx,buyer,rfq.id,bid.id);input={...input,bid_id:bid.id,preview_fingerprint:preview.preview_fingerprint};
 const pending=prepareAward(core,ctx,buyer,rfq.id,input,{idempotency_key:'prepare-two'}).record;
 core.save(ctx,admin,'approval_policies',{approval_steps:['second']},{id:policy.id,expected_revision:1});
 assert.throws(()=>reviewAward(core,ctx,first,pending.id,approve,{idempotency_key:'stale-policy'}),{code:'award_evidence_changed'});

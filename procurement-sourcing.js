@@ -16,6 +16,7 @@ function validateSourcing(domain,ctx,actor,entity,value){
   if(!['rfqs','bids'].includes(entity))return;
   if(!['DRAFT','OPEN','CANCELLED','ARCHIVED'].includes(value.status||'DRAFT'))fail('sourcing_status_invalid','Gebruik Concept, Open, Geannuleerd of Gearchiveerd');
   if(!/^[A-Z]{3}$/.test(value.currency||''))fail('sourcing_currency_required','Valuta is verplicht');
+  if(entity==='bids'&&value.bid_scope!==undefined&&!['FULL','PARTIAL'].includes(value.bid_scope))fail('bid_scope_invalid','Kies een volledige of gedeeltelijke bieding');
   lines(value.lines,entity==='bids');
   value.delivery_state=entity==='rfqs'?'NOT_SENT':'MANUALLY_RECORDED_UNVERIFIED';
   if(entity==='rfqs')return;
@@ -23,7 +24,7 @@ function validateSourcing(domain,ctx,actor,entity,value){
   if(['CANCELLED','ARCHIVED'].includes(rfq.status))fail('rfq_closed','Deze aanvraag is gesloten',409);
   if(value.rfq_revision!==rfq.revision)fail('rfq_revision_conflict','De aanvraag is gewijzigd; beoordeel de nieuwe revisie',409);
   if(value.currency!==rfq.currency)fail('bid_currency_mismatch','Bieding moet dezelfde valuta als de aanvraag gebruiken');
-  for(const line of value.lines){const requested=rfq.lines.find(item=>item.item_id===line.item_id);if(!requested||line.quantity!==requested.quantity)fail('bid_scope_mismatch','Artikel en hoeveelheid moeten overeenkomen met de aanvraag');}
+  for(const line of value.lines){const requested=rfq.lines.find(item=>item.item_id===line.item_id);if(!requested||(value.bid_scope==='PARTIAL'?line.quantity>requested.quantity:line.quantity!==requested.quantity))fail('bid_scope_mismatch','Artikel en hoeveelheid moeten overeenkomen met de aanvraag');}
   if(typeof value.evidence_reference!=='string'||!value.evidence_reference.trim()||value.evidence_reference.length>1000)fail('bid_evidence_required','Leg de herkomst van de ontvangen bieding vast');
 }
 function compareBids(domain,ctx,actor,id){
