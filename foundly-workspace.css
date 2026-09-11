@@ -288,3 +288,5 @@ tbody tr:hover td { background: rgba(54, 169, 211, .03); }
 .workflow-step-list input, .workflow-step-list select, .workflow-step-list textarea { max-width: 100%; box-sizing: border-box; }
 .workflow-step-list button { margin: .4rem .4rem 0 0; }
 .workflow-editor [hidden] { display: none; }
+
+.sales-pipeline-board{display:flex;gap:1rem;max-width:100%;overflow-x:auto;align-items:flex-start}.sales-pipeline-stage{flex:1 0 240px;min-width:0;max-width:340px;overflow-wrap:anywhere}.sales-pipeline-stage select{max-width:100%}
