@@ -17,11 +17,13 @@ function retainInternal(result,message){
   return {ok:result.ok,status:result.status,modules:[...(result.modules||[])],actions:[],syncs:[],web:{used:false,sources:[],error:null},voice_mode:result.voice_mode,answer:NOTICE,display_text:NOTICE,spoken_text:NOTICE,ui_commands:[],plan:{goal:'Actuele broninformatie opnieuw opvragen',steps:['read_current_sources'],tools:[...(result.plan?.tools||[])]},read_reference:result.read_reference||{kind:internalKind(result),module:result.modules?.[0],message_hash:hash(message)},verification:{read_only:true,current_source_recalculation_required:true,source_result_retained:false}};
 }
 function retain(result,message){
+  if(result?.communication_action_reference)return require('./communication-zero').retain(result);
   if(!isCrmRead(result))return internalKind(result)?retainInternal(result,message):result;
   const previous=result.crm_data.read_reference,inventoryId=previous?.inventory_id||result.crm_data.inventory?.id||null;
   return {ok:result.ok,status:result.status,modules:['crm'],actions:[],syncs:[],web:{used:false,sources:[],error:null},voice_mode:result.voice_mode,answer:NOTICE,display_text:NOTICE,spoken_text:NOTICE,ui_commands:[],plan:{goal:'CRM-informatie opnieuw opvragen',steps:['read_current_crm'],tools:[...(result.plan?.tools||[])]},crm_data:{read_reference:{message_hash:previous?.message_hash||hash(message),inventory_id:inventoryId}},verification:{read_only:true,current_source_recalculation_required:true,source_result_retained:false}};
 }
 function audit(row){
+  if(row?.result_snapshot?.communication_action_reference){const result=retain(row.result_snapshot);return {...row,plan:result.plan,response:result.answer,spoken_response:result.answer,actions:[],verification:result.verification,result_snapshot:result};}
   if(!isSourceRead(row?.result_snapshot))return row;
   const result=retain(row.result_snapshot,row.transcript||'');
   return {...row,plan:result.plan,response:NOTICE,spoken_response:NOTICE,verification:result.verification,result_snapshot:result};

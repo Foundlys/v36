@@ -1,6 +1,6 @@
 'use strict';
 
-const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
+const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, TOOL_OPERATIONS, TOOL_CORE_PERMISSIONS, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
 const crypto = require('crypto');
 const {scopedMutation}=require('./scoped-mutation');
 const {roleGrants}=require('./module-role-policy');
@@ -36,7 +36,7 @@ function resolve(ctx, actor, profile = null, options = {}) {
     core_services: [...CORE_SERVICES], entitlements: [...entitled], enabled_modules: enabled, visible_modules: visible,
     capabilities: visible.flatMap(id => MODULES[id].provided_capabilities.filter(cap => profile?.capability_flags?.[cap] !== false)),
     routes: visible.map(id => MODULES[id].route),
-    tools: Object.entries(TOOL_MODULES).filter(([tool, id]) => visible.includes(id) && allowed(actor,`${id}:${WRITE_TOOLS.includes(tool)?'write':'read'}`) && TOOL_REQUIRED_CAPABILITIES[tool].every(cap=>profile?.capability_flags?.[cap] !== false) && (!tool.startsWith('automotive_') || industry === 'AUTOMOTIVE')).map(([tool]) => tool),
+    tools: Object.entries(TOOL_MODULES).filter(([tool, id]) => visible.includes(id) && allowed(actor,`${id}:${TOOL_OPERATIONS[tool]||(WRITE_TOOLS.includes(tool)?'write':'read')}`) && (TOOL_CORE_PERMISSIONS[tool]||[]).every(permission=>require('./core-access-contracts').coreAllowed(actor,permission)) && TOOL_REQUIRED_CAPABILITIES[tool].every(cap=>profile?.capability_flags?.[cap] !== false) && (!tool.startsWith('automotive_') || industry === 'AUTOMOTIVE')).map(([tool]) => tool),
     industry_extensions: Object.fromEntries(Object.entries(pack.extensions).filter(([id]) => visible.includes(id))),
     data_policy: 'HIDDEN_RETAINED_EXPORTABLE', no_customer_fork: true
   };
@@ -96,7 +96,8 @@ class CapabilityResolver {
   }
   assertTool(ctx, actor, tool) {
     const id = TOOL_MODULES[tool];
-    if (id) this.assertModule(ctx, actor, id, WRITE_TOOLS.includes(tool) ? 'write' : 'read');
+    if (id) this.assertModule(ctx, actor, id, TOOL_OPERATIONS[tool]||(WRITE_TOOLS.includes(tool) ? 'write' : 'read'));
+    for(const permission of TOOL_CORE_PERMISSIONS[tool]||[])require('./core-access-contracts').assertCorePermission(actor,permission);
     for(const capability of TOOL_REQUIRED_CAPABILITIES[tool]||[])if(this.profile(ctx)?.capability_flags?.[capability] === false) fail('capability_disabled', 'Deze capability is niet actief');
     if (tool.startsWith('automotive_') && this.resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') fail('industry_tool_disabled', 'Automotive is niet actief');
   }
