@@ -9,6 +9,8 @@
    const url=new URL(path,'https://foundly.invalid'),parts=url.pathname.split('/').filter(Boolean),input=options.body?JSON.parse(options.body):{};let action;
    if(parts[0]==='api'&&parts[1]==='procurement'){
     if(parts[2]==='rfqs'&&parts.length===5){const operations={'economics-preview':'ECONOMICS','economics-snapshots':'SNAPSHOT','allocation-preview':'ALLOCATION','incremental-allocation-preview':'ALLOCATION','awards':'PREPARE'},operation=operations[parts[4]];if(operation)action={operation,input:{rfq_id:parts[3],...input,...(operation==='ALLOCATION'?{allocation_mode:parts[4].startsWith('incremental')?'INCREMENTAL':'FULL'}:{})}};}
+    if(parts[2]==='rfqs'&&parts.length===5&&parts[4]==='clarifications')action={operation:'CLARIFICATIONS',input:{rfq_id:parts[3],...Object.fromEntries([...url.searchParams].map(([k,v])=>[k,Number(v)]))}};
+    if(parts[2]==='clarifications'){if(parts.length===3)action={operation:'CLARIFY',input};else if(parts.length===4&&parts[3]==='collaborators')action={operation:'MEMBERS',input:Object.fromEntries(url.searchParams)};else if(parts.length===4)action={operation:'CLARIFICATION',input:{clarification_id:parts[3]}};else if(parts.length===5&&['entries','collaborators'].includes(parts[4]))action={operation:parts[4]==='entries'?'REPLY':'SHARE',input:{clarification_id:parts[3],...input}};}
     if(parts[2]==='suppliers'&&parts.length===5&&parts[4]==='outcomes')action={operation:'OUTCOMES',input:{supplier_id:parts[3]}};
     if(parts[2]==='outcome-observations'&&parts.length===3)action={operation:'OBSERVE',input};
    }

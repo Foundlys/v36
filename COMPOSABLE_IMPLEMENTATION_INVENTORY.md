@@ -139,3 +139,7 @@ Full `npm test` passed after the existing readiness configuration test was isola
 ## Current Procurement incremental awards and economics
 
 See PROCUREMENT_CURRENT_CONTRACT.md for the current finite acceptance contract. Explicit partial offers, incremental allocations across revisions, cumulative sequential approval, immutable universal cost scenarios and user-reported delivery/quality/cost observations are implemented. Exact saved-scenario scope permits reported forecast-error feedback without claiming independent supplier verification. Native/typed ZERO use current source rights, atomic receipts and retained export. Supplier collaboration and provider/browser/competitive acceptance remain open.
+
+## Supplier clarification workflow
+
+PROCUREMENT_CLARIFICATIONS_CONTRACT.md describes current active-member assignment, supplier-specific questions and manually reported responses, explicit internal resolution, immutable entry history, parent/source access, atomic receipts, encrypted restart and native/ZERO production controls. No supplier identity, mail transport or external acceptance is inferred. Marketing journey/audience activation remains the next code gap.
