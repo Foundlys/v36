@@ -143,3 +143,7 @@ See PROCUREMENT_CURRENT_CONTRACT.md for the current finite acceptance contract. 
 ## Supplier clarification workflow
 
 PROCUREMENT_CLARIFICATIONS_CONTRACT.md describes current active-member assignment, supplier-specific questions and manually reported responses, explicit internal resolution, immutable entry history, parent/source access, atomic receipts, encrypted restart and native/ZERO production controls. No supplier identity, mail transport or external acceptance is inferred. Marketing journey/audience activation remains the next code gap.
+
+## Current Marketing audience and journey workflow
+
+MARKETING_JOURNEYS_CONTRACT.md records immutable audience permission revisions, exact tags and ambiguous-address/opt-out suppression, current-source finite enrollment, immutable journey definitions, native task verification and approved-content Communication draft preparation, manual/explicit internal automatic execution and current-member worker authority. Real HTTP/body-wait/restart and native/ZERO production controls are tested; no external activation, delivery, browser or competitive superiority is inferred.

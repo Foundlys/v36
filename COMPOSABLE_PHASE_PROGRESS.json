@@ -210,7 +210,7 @@
       "first_attempt_failure": "Sales fixture EADDRINUSE after Calendar tests passed"
     },
     "production_changes_authorized": false,
-    "next_independent_work": "Supplier-specific internal clarification/collaborator workflow is implemented and awaiting the new current-tree full regression/publication. Continue Marketing journey execution and audience activation next. Actual supplier identity/transport, independent risk/outcome evidence, provider/browser and competitive acceptance remain unverified; no recovery authorized. Phase 24 remains ACTIVE.",
+    "next_independent_work": "Marketing recorded audience membership/filtering and finite internal journey enrollment/task/approved-draft execution now have targeted native/HTTP/ZERO/synthetic-DOM evidence. Run the one new current-tree regression, publish exactly those verified sources and current evidence, and allow CI. Phase 24 remains ACTIVE: provider activation/engagement mappings, browser and competitive/product acceptance are unverified. Do not restart recovery or rerun completed modules; production remains unauthorized.",
     "finance_published_head": "276a7a2c14bd7aa685c73ee7cc7128b9ac84fb75",
     "finance_tree": "9e888cffdfba67e4cdf549ddfd31e9a6775acf31",
     "finance_ci": {
@@ -224,7 +224,17 @@
       "result": "PASS"
     },
     "procurement_published_head": "35617f743c2453637c7a397d927ab9f638a9fb14",
-    "procurement_tree": "17d5aff902560ecd429b1cdd1a13a12122d05afd"
+    "procurement_tree": "17d5aff902560ecd429b1cdd1a13a12122d05afd",
+    "procurement_ci": {
+      "run": 128,
+      "result": "PASS"
+    },
+    "supplier_clarification_published_head": "cff4d27967cae54740f2d6bdb03e200ae5265d1c",
+    "supplier_clarification_tree": "b8fbf85f2c5a9249c5bf3e4f5af507cb5c091ed3",
+    "supplier_clarification_ci": {
+      "run": 129,
+      "result": "PASS"
+    }
   },
   "previous_masterprompt_sha256": "772be985d8e9f27f7101bc896df565cc12aaf04810900c872f44e963ad59959f",
   "execution_overrides": [

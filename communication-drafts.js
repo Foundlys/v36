@@ -13,7 +13,7 @@ function readable(core,ctx,actor,row){if(core.id!=='communication'||row.owned_en
 // This predicate belongs to one synchronous read only. Never retain it across
 // requests: collaborator grants and member permissions may change immediately.
 function revisionAccess(core,ctx,actor,options={}){
- const messageReadable=require('./communication-replies').accessPredicate(core,ctx,actor,options),templateReadable=require('./communication-templates').accessPredicate(core,ctx,actor,options),sourceReadable=row=>messageReadable(row)&&templateReadable(row)&&require('./sales-sequence-access').readable(core,ctx,actor,row,options);
+ const messageReadable=require('./communication-replies').accessPredicate(core,ctx,actor,options),templateReadable=require('./communication-templates').accessPredicate(core,ctx,actor,options),sourceReadable=row=>require('./marketing-journeys').readable(core,ctx,actor,row,options)&&messageReadable(row)&&templateReadable(row)&&require('./sales-sequence-access').readable(core,ctx,actor,row,options);
  const visible=new Set(core.bucket(ctx,'drafts').filter(draft=>(!draft.owned_entity||draft.owned_entity==='drafts')&&core.visible(draft,actor)&&sourceReadable(draft)).map(draft=>draft.id));
  return row=>row.owned_entity==='draft_revisions'?visible.has(row.draft_id):sourceReadable(row);
 }
@@ -56,6 +56,7 @@ function share(core,ctx,actor,id,input,options={}){
   if(ids.some(member=>!core.adapter.memberActive?.(ctx,member)))fail('draft_collaborator_unavailable','Een gekozen gebruiker is niet actief in deze tenant',404);
   if(prior.source_message_ref&&ids.some(id=>{const principal=core.adapter.memberPrincipal?.(ctx,id);return !principal||!require('./communication-replies').readable(core,ctx,principal,prior);} ))fail('draft_collaborator_source_unavailable','Een gekozen medebewerker heeft geen toegang tot het bronbericht',403);
   if(prior.source_template_ref&&ids.some(id=>{const principal=core.adapter.memberPrincipal?.(ctx,id);return !principal||!require('./communication-templates').readable(core,ctx,principal,prior);}))fail('draft_collaborator_source_unavailable','Een gekozen medebewerker heeft geen toegang tot het sjabloon',403);
+  if(prior.source_marketing_journey_ref&&ids.some(id=>{const principal=core.adapter.memberPrincipal?.(ctx,id);return !principal||!require('./marketing-journeys').readable(core,ctx,principal,prior);}))fail('draft_collaborator_source_unavailable','Een gekozen medebewerker mist de doelgroep- of journeybron',403);
   const row=core.bucket(ctx,'drafts').find(row=>row.id===id);row.collaborator_ids=[...ids];row.revision=(row.revision||0)+1;row.owned_entity='drafts';row.delivery_state='NOT_SENT';row.updated_at=new Date().toISOString();
   append(core,ctx,actor,row,prior,{access_change:{before:prior.collaborator_ids||[],after:[...ids]},change_reason:input.reason.trim()});core.recordEvent(ctx,actor,'drafts',row,'updated');return row;
  });

@@ -47,4 +47,4 @@ function withdrawCreativeReview(domain,ctx,actor,id,input,options={}){
     row.status='WITHDRAWN';row.withdrawal_reason=input.reason.trim();row.revision++;row.updated_at=new Date().toISOString();domain.recordEvent(ctx,actor,'creative_reviews',row,'updated');return row;
   });
 }
-module.exports={prepareCreativeReview,reviewCreative,withdrawCreativeReview,reviewReadable};
+module.exports={sourceFingerprint,prepareCreativeReview,reviewCreative,withdrawCreativeReview,reviewReadable};

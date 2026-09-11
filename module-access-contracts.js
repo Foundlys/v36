@@ -4,7 +4,7 @@ const ENTITY_GROUPS={
   crm:{contacts:['people','contacts','consents'],companies:['companies'],leads:['leads'],relationships:['objects','tenants','users','teams','roles','opportunities','deals','pipelines','stages','activities','tasks','appointments','notes','calls','emails','messages','products','vehicles','inventory_relations','quotes','orders','documents','campaigns','sources','attributions','workflows','automations','automation_executions','custom_fields','tags','segments','dashboard_views','webhook_subscriptions','audit_events']},
   finance:{invoices:['invoices','invoice_lines','credit_notes','source_documents','attachments','document-proposals','document_proposals'],payments:['payments','bank_accounts','bank_transactions','reconciliations','collection_actions'],reports:['reports','budgets','cash_forecasts','counterparty_balances','forecast_scenarios'],ledger:['legal_entities','fiscal_periods','periods','accounts','journals','journal_entries','journal_lines','debtors','creditors','cost_centers','projects','dimensions','assets','depreciations','asset_disposals','vat_codes','tax_periods','closing_periods','audit_events','ledger']},
   analysis:{kpis:['kpis'],events:['events','realtime','historical','provider_events'],funnel:['funnel'],reports:['reports','attribution','campaigns','provider_reports','cohorts','cohort_definitions','definition_revisions','analytic_models','action_proposals']},
-  marketing:{campaigns:['campaigns','creatives','creative_revisions','experiments','creative_reviews'],audiences:['audiences'],attribution:['attribution','measurement']},
+  marketing:{campaigns:['campaigns','journey_definitions','journey_runs','tasks','creatives','creative_revisions','experiments','creative_reviews'],audiences:['audiences','audience_members','audience_activations'],attribution:['attribution','measurement']},
   procurement:{sourcing:['rfqs','bids','supplier_clarifications','clarifications'],suppliers:['suppliers'],opportunities:['opportunities','tasks','outcome_observations','economics_snapshots'],approvals:['quotes','orders','documents','approval_policies','awards']},
   sales:{forecast:['forecast','forecast_snapshots','forecast_hierarchies','quotas'],opportunities:['opportunities','tasks','sequences','sequence_runs'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
   calendar:{events:['events','reminders','notifications','event-preparation','event_preparation'],availability:['availability','calendars','scheduling','external_calendar'],conflicts:['conflicts']},
@@ -25,6 +25,7 @@ function methodOperation(method){return String(method).startsWith('export')?'exp
 // Legacy provider routes must enforce the same capability as native workspaces.
 // Reporting POSTs are reads; an internal cache is not user mutation authority.
 const PROVIDER_ROUTES=[
+  [/^\/api\/marketing\/audience-activation-preview$/, 'marketing:campaigns','write'],
   [/^\/api\/procurement\/rfqs\/[-A-Za-z0-9_.:]+\/economics-snapshots$/, 'procurement:opportunities','write'],
   [/^\/api\/procurement\/outcome-observations$/, 'procurement:opportunities','write'],
   [/^\/api\/procurement\/suppliers\/[-A-Za-z0-9_.:]+\/outcomes$/, 'procurement:opportunities','read'],

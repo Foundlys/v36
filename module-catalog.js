@@ -19,7 +19,7 @@ const RESPONSIBILITIES = {
   procurement:['owned opportunity and supplier records','internal quote/order approval','permission-filtered export'],
   sales:['owned pipeline and opportunity records','currency-separated forecast','internal quote/order approval','permission-filtered export'],
   crm:['owned customer records and relationships','permission-filtered activity and analytics','audited export'],
-  marketing:['owned campaigns and audience records','unpublished creative preparation','permission-filtered export'],
+  marketing:['owned campaigns and audience records','source-bound recorded audience permission and internal journey enrollment','native tasks and approved-content draft preparation','unpublished creative preparation','permission-filtered export'],
   finance:['legal entities and balanced journals','invoice lifecycle and reports','audited export'],
   analysis:['versioned canonical event queries','permission-filtered KPI and funnel calculations','audited export'],
   calendar:['owned events and availability','timezone-aware conflict checks','permission-filtered export'],
