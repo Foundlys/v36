@@ -164,7 +164,7 @@
     "foundly-shell.js": "3631096a26c296a76e514cf220e27eda7dd89e5575b0e09913ad56c231c9b432",
     "foundly-workspace.css": "676a93377da637d18f883616f6a4fa17a18a0cc827796d9ca60bec7ab29524d0",
     "foundly-workspace.html": "7b83718c0d396030031b6e90412e5a9f08ab1d1bbc088e5a5d4e350f1520b08e",
-    "foundly-workspace.js": "4c70f07613173b8fc9e77461a9d1eda6cd917d824889184108ff1b1d412fc812",
+    "foundly-workspace.js": "447c1e2bddf6feb504edb8e84ae4b222689230bf925072bf28dac81d406df2d8",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
@@ -185,14 +185,14 @@
     "marketing-creative-reviews.js": "e96fd3550c97a986725aef542fecd3d178d111c785d4c038e26a09b20b11526a",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
     "module-access-contracts.js": "0f9da255fda1698d57b8e1395bfe9def70d4172c076d3e933772c12e02fcd824",
-    "module-catalog.js": "b7aa308bd81c6411c1c53db6770362eeb34d76afa64b4856392a6c26571cc2fa",
+    "module-catalog.js": "54e4f0d3f52aacfa5f5a5bf48c97bdff4ca089d7f649a6d5231606408007255b",
     "module-event-contracts-test.js": "7a97f5796d434b7001bdc29f284a0207b22b41a286865f97226419867860156e",
     "module-event-outbox.js": "ff41efc772ec71f41841d3134903e19492a3e22e8c67ad6692a0b35ce1d91ba6",
     "module-readiness.js": "13dbc3f6805c4c5275039dd702540efb16af45718106d1e56c2f9a54f4505573",
     "module-role-policy.js": "85586ae015452b6ad0da118d3ed76450fa7eca1da3860d35277ae4f839b40f6c",
     "neural-runtime.js": "8c356105c96caca589c30e6027b6b714d335ebaed1626009d9462c596c7868a5",
     "oauth-production-regression-test.js": "4429e7cd43820ad0cedbcbb1c815fac352f7bbf1444d7166abf1d2d70d893f3f",
-    "package.json": "fad7ac3a45a4658113ad9849d171fdfe5f0817aa09f512fa73632391a6facd90",
+    "package.json": "942366d3260de1cf6843fe8f4c3347e9a1318f78a3ebea5d589973f6bd6faf77",
     "platform-api-regression-test.js": "1eb2cee9540073740a6d4687bcc955efd288fbf5475ad63b479cf9bd0f5c6f20",
     "platform-api.js": "24007a80e0e01c888c1d12a46bc676a162a95ef2d9377d9c081e28c41d82434b",
     "platform-core-regression-test.js": "9f8abd1855867abb0af4bd11c239a29a6cc8cb83ed37a073111b21fbd8a71e06",
@@ -223,7 +223,7 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "feebe247163fbeec274b22085e7d713b4f0426a7a390b2c1cac481a53a14f036",
+    "server.js": "77d0f3fdbc22c87d7e782fad12e792159ea956105f230d8c0fef5d81caa7e202",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
     "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
@@ -263,8 +263,8 @@
     "workflow-drafts-api-test.js": "8755d4b2ca6d3f39491dde2a156810a263e0d9784073bde419681a967e684ba0",
     "workflow-drafts-test.js": "2da63bc2c8b34640b07e23f05618d2f3ab27417f22748c4b0e2b072d00888d57",
     "workflow-drafts.js": "b7258df77766c2eea1d39aab5fe7ad40f683fa47e04ec3ab547e7c347c894f2e",
-    "workflow-editor-test.js": "e0609ded4af4fd0c93ec147febb9d9cd01c2fc06f9e1ebf3c9ebd9c0406877a0",
-    "workflow-editor.js": "108f0d03a5a20d892c640f86e08ecf7b0544a8dfef0086e38f7bed2e3d26d2dc",
+    "workflow-editor-test.js": "6885e13de5775968c24fbca0caa45477a2ef8c1b809fc57cb94585fd020675ff",
+    "workflow-editor.js": "99cfbb32fe57b136858f06f5ecbab11e21920fdf25b28808f450a64e464d0800",
     "workflow-execution-test.js": "2c1ac923751dd212844f0bdf4e28019d4ef86d8b1c36c6e9a1487a3812b2a227",
     "workflow-execution.js": "fcd0ce43d5f70d7df0ac77d19552b09f653ec79fc77497b7f29770016274837a",
     "workflow-recovery-api-test.js": "9258493ec9c9f3e6d324075fd610ee7676f4b03ea1a88c8d1e7666543b4a3c05",
@@ -275,6 +275,9 @@
     "workflow-run-query-api-test.js": "353a3e6a6317f973fdb066d41913f00224fa342551ec00bef0b3e485bae43027",
     "workflow-run-query-test.js": "dd1dce988d80094fa35a7a84528285189c48a81f865c14ad3684fa54c30d3af7",
     "workflow-run-query.js": "d434a1cde6e43c6465793be75bcca87b26037a3d586ef98ce567720c43ceaa9f",
+    "workflow-zero-api-test.js": "6785e146a50e2b88fcffb666bb327ccab5f32694f1dca67ed1be5e55b53c636c",
+    "workflow-zero-test.js": "d04cb2dfc3a5b7569197e9f04eb6ea028d5601dc08b7afce0d43100d5cd00016",
+    "workflow-zero.js": "a76d3d16cbf3f2f32f1e4dff9cbda91400d0c8d39ed37e8ed36933d342036c32",
     "workspace-authorization.js": "a8c88a6383e94f007871bae38cbe45d72723ebd44fd9b8acf5f00402df7b82f6",
     "workspace-dashboard-concurrency-test.js": "2b0986ce4bb3a4b77ed647b1d31936fd8a93ab566eccaf2a1f4f0ba747d01018",
     "workspace-dashboard-persistence-test.js": "2235fec5a9696835ea7619895149eb2a400264771b0b8ab282dbf1e564765092",
@@ -284,9 +287,9 @@
     "workspace-system.js": "4d0bc422f44842587ce570819195ac2b4e19e5530dccf0427a28703711a0fe33",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
-    "zero-crm-retention.js": "2d7769f9ba656232635bb657fea07c764ee0e86e17f7b2fd1f13eab96b7c9599"
+    "zero-crm-retention.js": "f5f525ac187308a3e93ae0950b1ffc5e44fc918ce7e45dfc48c7f22f7fb2afad"
   },
-  "output_sha256": "751573bbdf1e87e635af6df69070f3656032f713fbc903371250bd1cde6545ef",
+  "output_sha256": "c0db3401f1ff41c5ab53e8c90a1349b245238691fc1d9f5740e528d28798a872",
   "configuration_matrix": {
     "ok": true,
     "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
@@ -441,7 +444,7 @@
   "new_browser_acceptance": false,
   "production_deployed": false,
   "masterbuild_complete": false,
-  "verified_at": "2026-09-11T15:31:17.913780+00:00",
+  "verified_at": "2026-09-11T15:44:47.965647+00:00",
   "additional_verified": [
     "calendar scheduling, booking and restart via authenticated HTTP",
     "private durable in-app reminder delivery",
@@ -605,7 +608,8 @@
     "Dedicated Google mail OAuth now uses explicit encrypted email client configuration, one-use member/tenant/configuration-bound state with S256 PKCE, actual granted mail scope/expiry and verified provider subject/email. A fixed inert return page completes through an explicit same-origin authenticated POST, preserving SameSite=Strict sessions and origin checks. Fixed DNS-pinned HTTPS token/userinfo endpoints send secrets only after TLS/peer verification. Current role/configuration/disconnection races, incomplete replacement preservation, encrypted restart/rollback, automatic guarded refresh, stable approved account identity, stale inbox revision rejection before refresh and replay without another provider operation pass isolated TLS, actual HTTP-session and production DOM regressions. Passive reads never exchange tokens. Local disconnection does not revoke Google consent. Private tokens/state are excluded from Data/audit/export; owned metadata is explicit. No real account/provider/browser acceptance or production mutation is claimed.",
     "Scanned PDF/PNG/JPEG and newly supported DOCX/XLSX/PPTX now use a 3 MiB per-file, 6 MiB current-draft and 9 MiB MIME bound through the existing encrypted attachment/review/submission path. Bounded ZIP inspection validates stored/deflated/streamed packages, local-central names/flags/sizes/CRC, complete streams and expansion limits while refusing encrypted, macro, duplicate, traversal and unverifiable structures. The existing mandatory scanner uses a versioned bounded policy; V1 receipts remain valid only for their original smaller file/type scope. Actual isolated scanner processes, real-session large-file/Office HTTP upload/download/restart, current source controls and exact greater-than-8-MiB approved MIME regression pass. Inert downloads, private export and unchanged draft/message semantics remain intact. No real malware detection, live provider delivery, Office rendering, browser or production acceptance is claimed; remaining provider/workflow/capability gaps stay open.",
     "Owned Communication templates now create internal drafts through explicit literal values and version-bound native or ZERO preview/confirmation. Missing values produce unavailable content, not an apparently complete draft. Actor/tenant/source/input-bound creation, atomic history/audit/receipt, encrypted replay, current template ACL across derived drafts/history/sharing/export and source-free ZERO retention pass unit, real-session body-wait and production DOM contracts. Catalog edits preserve the previously applied draft/version and exact approval; accepted isolated SMTP records retain that origin. Separate designated review, current purpose/account policy and explicit send confirmation remain required. Messages is unchanged by internal draft creation. No live provider/browser acceptance or production mutation is claimed; remaining capability gates stay open.",
-    "Automation now rejects malformed conditions, including when:false, at definition and before any retained workflow execution or resume. Complete group validation precedes every step, including unconditional earlier steps; invalid scheduled workflows are isolated without rewriting retained definitions. Strict comparison values, exclusive all/any group shapes, depth/child/node limits and all existing valid operators pass adversarial regression. The existing editor now supports nested EN/OF groups and preserves bounded condition trees in private non-executable drafts, avoiding generic sanitizer depth truncation. Actual production DOM handlers, native HTTP creation, explicit approvals, encrypted draft/workflow restart, valid/false branches and duplicate-free execution pass. No live provider, actual browser or production acceptance is inferred. Visual branch-path authoring, ZERO workflow preparation and other ledger requirements remain open."
+    "Automation now rejects malformed conditions, including when:false, at definition and before any retained workflow execution or resume. Complete group validation precedes every step, including unconditional earlier steps; invalid scheduled workflows are isolated without rewriting retained definitions. Strict comparison values, exclusive all/any group shapes, depth/child/node limits and all existing valid operators pass adversarial regression. The existing editor now supports nested EN/OF groups and preserves bounded condition trees in private non-executable drafts, avoiding generic sanitizer depth truncation. Actual production DOM handlers, native HTTP creation, explicit approvals, encrypted draft/workflow restart, valid/false branches and duplicate-free execution pass. No live provider, actual browser or production acceptance is inferred. Visual branch-path authoring, ZERO workflow preparation and other ledger requirements remain open.",
+    "ZERO now previews, explicitly saves and rereads private workflow drafts through the existing native compiler and draft store. Exact actor/tenant/input/revision fingerprints, confirmation, current source ownership and capabilities, native CAS conflicts, response-loss replay, atomic rollback and encrypted restart pass. New operations never publish, activate or run a workflow. Source-bearing draft and compiled output are excluded from retained conversation/audit results; actual encrypted audit contents were checked. The existing editor delegates explicit prepare/save controls to ZERO, adopts the native saved revision, retains identical retry keys and rejects changed/detached previews. Actual member HTTP requests revoke authority during body waits and create no executable workflows or tasks. Full natural-language authoring, explicit branch-path authoring, further execution/debugging UX and competitive/browser gates remain open. No live provider or production changes."
   ],
   "production_observation": {
     "observed_at": "2026-09-08",
@@ -617,7 +621,7 @@
     "all_eight_checks": true,
     "writes": false
   },
-  "output_file": ".recovery-evidence/20260911-automation-conditions-full-regression.log",
+  "output_file": ".recovery-evidence/20260911-zero-workflow-drafts-full-regression.log",
   "previous_remote_ci": {
     "commit": "2c23d9b35304ed68628c8d2763b475a90b1210fc",
     "run_id": 34307209571,
@@ -630,10 +634,10 @@
     "resolution": "Readiness fixture now locally intercepts the models probe and blocks all other external fetches; full suite subsequently exited 0."
   },
   "previous_published_ci": {
-    "head": "eab3c53ff81c07733ce3e676bfe0addd029c40b3",
-    "tree": "c3f19d836d944778b95a8779ca34cf0e9f395338",
-    "run": 108,
-    "run_id": 34613148326,
+    "head": "a5e91a6221d64724521a5b33416bb4f6d9d0a1e4",
+    "tree": "e7ede0bf33c02311eaa6fba7192681878fd713b0",
+    "run": 109,
+    "run_id": 34616796725,
     "conclusion": "success"
   },
   "current_production_observation": {
@@ -701,6 +705,22 @@
       "sha256": "751573bbdf1e87e635af6df69070f3656032f713fbc903371250bd1cde6545ef",
       "finished_at": "2026-09-11T15:31:17.913780+00:00",
       "source_manifest": ".recovery-evidence/20260911-automation-conditions-sources.json"
+    }
+  },
+  "zero_workflow_draft_acceptance": {
+    "native_private_drafts": true,
+    "explicit_exact_confirmation": true,
+    "current_rights_after_body_wait": true,
+    "source_free_encrypted_audit": true,
+    "actual_editor_handlers": true,
+    "browser": false,
+    "live_provider": false,
+    "completion": {
+      "exit_code": 0,
+      "log": ".recovery-evidence/20260911-zero-workflow-drafts-full-regression.log",
+      "sha256": "c0db3401f1ff41c5ab53e8c90a1349b245238691fc1d9f5740e528d28798a872",
+      "finished_at": "2026-09-11T15:44:47.965647+00:00",
+      "source_manifest": ".recovery-evidence/20260911-zero-workflow-drafts-sources.json"
     }
   }
 }

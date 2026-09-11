@@ -1,7 +1,7 @@
 'use strict';
 // Original sequential form editor over the existing versioned workflow API.
 (function(root){
-  function create({document,spec,request,onSaved,draft:initial=null}){
+  function create({document,spec,request,onSaved,draft:initial=null,zeroRequest=null}){
     if(initial?.draft?.steps?.some(step=>!spec.actions.some(action=>action.type===step.type)))throw new Error('Dit concept bevat een actie die de huidige editor niet ondersteunt. Het bewaarde concept blijft behouden.');
     for(const step of initial?.draft?.steps||[])if(Object.hasOwn(step,'condition'))root.FoundlyWorkflowAuthoring.validateDraftCondition(step.condition);
     const make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
@@ -61,14 +61,42 @@
     const add=button(form,'Stap toevoegen',()=>{addStep();markDirty();steps.at(-1).box.querySelector('select').focus();});
     const save=make('button','Workflowversie opslaan');save.type='submit';save.className='primary-button';form.append(save,notice);
     const read=()=>({name:name.value,version:version.value,trigger_type:trigger.value,automatic:automatic.checked,at:at.value.trim(),event_name:eventName.value.trim(),approval_required:approval.checked,steps:steps.map(s=>s.read())});
-    let timer,generation=0,savedGeneration=0;
+    let timer,generation=0,savedGeneration=0,zeroPreview=null,zeroSequence=0,zeroOutput,zeroSave;
     const session=(id,revision)=>root.FoundlyWorkflowDraftSession.create({id,revision,request,onState:state=>{notice.textContent={SAVING:'Concept bewaren…',SAVED:'Concept bewaard; er is geen workflow gestart.',CONFLICT:'Dit concept is elders gewijzigd. Je invoer blijft staan; bewaar deze zo nodig als nieuw concept.',ERROR:'Concept niet bewaard. Probeer opnieuw voordat je dit scherm verlaat.'}[state];}});
-    let draftSession=session(initial?.id||root.crypto.randomUUID(),initial?.revision||0);
+    let draftId=initial?.id||root.crypto.randomUUID(),draftSession=session(draftId,initial?.revision||0);
     async function flush(){clearTimeout(timer);const current=generation;await draftSession.save(read());savedGeneration=current;form.dataset.unsaved=String(savedGeneration!==generation);}
-    function markDirty(){generation++;form.dataset.unsaved='true';notice.textContent='Wijzigingen nog niet bewaard…';clearTimeout(timer);timer=setTimeout(()=>flush().catch(()=>{}),600);}
+    function markDirty(){generation++;zeroPreview=null;if(zeroSave)zeroSave.disabled=true;if(zeroOutput)zeroOutput.textContent='';form.dataset.unsaved='true';notice.textContent='Wijzigingen nog niet bewaard…';clearTimeout(timer);timer=setTimeout(()=>flush().catch(()=>{}),600);}
     form.addEventListener('input',markDirty);form.addEventListener('change',markDirty);
     button(form,'Concept nu bewaren',()=>flush().catch(error=>{notice.textContent=error.message;}));
-    button(form,'Bewaar invoer als nieuw concept',()=>{draftSession=session(root.crypto.randomUUID(),0);flush().catch(error=>{notice.textContent=error.message;});});
+    button(form,'Bewaar invoer als nieuw concept',()=>{draftId=root.crypto.randomUUID();draftSession=session(draftId,0);zeroPreview=null;if(zeroSave)zeroSave.disabled=true;flush().catch(error=>{notice.textContent=error.message;});});
+    if(zeroRequest){
+      const zeroBox=make('fieldset');zeroBox.append(make('legend','Workflowconcept met ZERO'));form.append(zeroBox);
+      zeroOutput=make('pre');zeroBox.append(zeroOutput);const reason=field(zeroBox,'Reden om dit concept via ZERO te bewaren');reason.maxLength=500;
+      const prepare=button(zeroBox,'Concept met ZERO voorbereiden',async()=>{
+        if(prepare.disabled)return;prepare.disabled=true;zeroPreview=null;zeroSave.disabled=true;zeroOutput.textContent='';const sequence=++zeroSequence,start=generation;form.inert=true;
+        try{
+          await flush();if(!form.isConnected||generation!==start)return;
+          const input={draft:read(),expected_revision:draftSession.revision},id=draftId;
+          const result=await zeroRequest({operation:'PREVIEW',draft_id:id,input},root.crypto.randomUUID());
+          if(!form.isConnected||generation!==start||sequence!==zeroSequence||draftId!==id)return;
+          if(!result?.preview_fingerprint||result.executable!==false)throw Error('Het gecontroleerde concept is niet beschikbaar.');
+          zeroPreview={input,id,fingerprint:result.preview_fingerprint,generation:start};const describe=c=>c.all||c.any?'('+((c.all||c.any).map(describe).join(c.all?' EN ':' OF '))+')':c.field+' '+({eq:'=',ne:'≠',gt:'>',gte:'≥',lt:'<',lte:'≤',exists:'bestaat',in:'is één van'}[c.operator])+(c.operator==='exists'?'':' '+JSON.stringify(c.value));zeroOutput.textContent=result.definition.name+' · versie '+result.definition.version+'\n'+result.definition.actions.map((action,index)=>(index+1)+'. '+(spec.actions.find(row=>row.type===action.type)?.label||action.type)+' — '+(action.title||action.message||action.seconds||'')+(action.when?'\n   Voorwaarde: '+describe(action.when):'')).join('\n');zeroSave.disabled=false;
+        }catch(error){if(form.isConnected&&generation===start)notice.textContent=error.message;}finally{form.inert=false;prepare.disabled=false;}
+      });
+      zeroSave=button(zeroBox,'Bevestig concept bewaren via ZERO',async()=>{
+        if(zeroSave.disabled||!zeroPreview||zeroPreview.generation!==generation)return;
+        if(!reason.value.trim()){notice.textContent='Vul een reden in voor het bewaren van dit concept.';return;}
+        const preview=zeroPreview,action={operation:'SAVE',draft_id:preview.id,input:{...preview.input,preview_fingerprint:preview.fingerprint,confirm:true,reason:reason.value.trim()}};
+        // Retry only an identical request after an uncertain response.
+        const signature=JSON.stringify(action);if(preview.signature!==signature){preview.signature=signature;preview.turn=root.crypto.randomUUID();}
+        zeroSave.disabled=true;prepare.disabled=true;form.inert=true;clearTimeout(timer);
+        try{
+          const result=await zeroRequest(action,preview.turn);if(!form.isConnected||zeroPreview!==preview||generation!==preview.generation)return;
+          if(result?.record?.id!==draftId||!Number.isInteger(result.record.revision))throw Error('De bewaarde conceptrevisie is niet beschikbaar.');
+          draftSession=session(draftId,result.record.revision);savedGeneration=generation;form.dataset.unsaved='false';zeroPreview=null;zeroOutput.textContent='';notice.textContent='Concept via ZERO bewaard. Er is geen workflow gepubliceerd of gestart.';
+        }catch(error){if(form.isConnected&&zeroPreview===preview){notice.textContent=error.message;zeroSave.disabled=false;}}finally{form.inert=false;prepare.disabled=false;}
+      });zeroSave.disabled=true;
+    }
     if(initial){const d=initial.draft;name.value=d.name||'';version.value=String(d.version??1);trigger.value=d.trigger_type||'custom_event';automatic.checked=d.automatic===true;at.value=d.at||'';eventName.value=d.event_name||'';approval.checked=d.approval_required===true;syncTrigger();for(const step of d.steps||[])addStep(step);}else addStep();
     form.dataset.unsaved='false';
     form.addEventListener('submit',async event=>{event.preventDefault();save.disabled=true;try{

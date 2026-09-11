@@ -1,8 +1,8 @@
 {
   "schema_version": "foundly-competitive-ledger/1.0.0",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "module": "automation",
-  "assessed_at": "2026-09-11T15:31:17.913780+00:00",
+  "assessed_at": "2026-09-11T15:44:47.965647+00:00",
   "standalone_acceptance": "PARTIAL",
   "sellable": false,
   "capabilities": [
@@ -53,7 +53,7 @@
           "retrieved_at": "2026-09-09"
         }
       ],
-      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests. Owner-scoped activation now selects one immutable version or pauses the group, with optimistic revision checks, canonical transition events and retained pending runs. Exact persisted internal task/document outcomes can now reconcile interrupted result capture, followed by a separately requested continuation. Original actor, request, step definition and record fingerprints are checked; missing or external proof stays blocked. Owner-private partial drafts now persist independently of executable workflow definitions. The editor autosaves with revision checks, serializes writes and offers a new-draft copy on conflicts. Incomplete draft storage creates no workflows or tasks; lost responses, foreign owners, rollback, encrypted restart and disabled-module export pass. Run history now supports authorized text/status/event/workflow/date filtering and pagination beyond the previous latest-100 window. Querying is read-only and retained exports honor source ownership unless the caller has Automation administration authority. Automation now rejects malformed conditions, including when:false, at definition and before any retained workflow execution or resume. Complete group validation precedes every step, including unconditional earlier steps; invalid scheduled workflows are isolated without rewriting retained definitions. Strict comparison values, exclusive all/any group shapes, depth/child/node limits and all existing valid operators pass adversarial regression. The existing editor now supports nested EN/OF groups and preserves bounded condition trees in private non-executable drafts, avoiding generic sanitizer depth truncation. Actual production DOM handlers, native HTTP creation, explicit approvals, encrypted draft/workflow restart, valid/false branches and duplicate-free execution pass. No live provider, actual browser or production acceptance is inferred. Visual branch-path authoring, ZERO workflow preparation and other ledger requirements remain open.",
+      "foundly_current": "Sequential durable steps, conditions, delays, owner-bound schedules, exact approval and bounded transient retries for adapter-proven idempotent internal tasks/documents. Lost-response retries reuse the same durable owned record; exhausted retries remain in DEAD_LETTER history. Shared authoring contracts now drive a sequential editor with ordered steps, typed per-step conditions, explicit scheduling, approvals and retries; compiled definitions pass engine and authenticated encrypted-restart tests. Owner-scoped activation now selects one immutable version or pauses the group, with optimistic revision checks, canonical transition events and retained pending runs. Exact persisted internal task/document outcomes can now reconcile interrupted result capture, followed by a separately requested continuation. Original actor, request, step definition and record fingerprints are checked; missing or external proof stays blocked. Owner-private partial drafts now persist independently of executable workflow definitions. The editor autosaves with revision checks, serializes writes and offers a new-draft copy on conflicts. Incomplete draft storage creates no workflows or tasks; lost responses, foreign owners, rollback, encrypted restart and disabled-module export pass. Run history now supports authorized text/status/event/workflow/date filtering and pagination beyond the previous latest-100 window. Querying is read-only and retained exports honor source ownership unless the caller has Automation administration authority. Automation now rejects malformed conditions, including when:false, at definition and before any retained workflow execution or resume. Complete group validation precedes every step, including unconditional earlier steps; invalid scheduled workflows are isolated without rewriting retained definitions. Strict comparison values, exclusive all/any group shapes, depth/child/node limits and all existing valid operators pass adversarial regression. The existing editor now supports nested EN/OF groups and preserves bounded condition trees in private non-executable drafts, avoiding generic sanitizer depth truncation. Actual production DOM handlers, native HTTP creation, explicit approvals, encrypted draft/workflow restart, valid/false branches and duplicate-free execution pass. No live provider, actual browser or production acceptance is inferred. Visual branch-path authoring, ZERO workflow preparation and other ledger requirements remain open. ZERO now previews, explicitly saves and rereads private workflow drafts through the existing native compiler and draft store. Exact actor/tenant/input/revision fingerprints, confirmation, current source ownership and capabilities, native CAS conflicts, response-loss replay, atomic rollback and encrypted restart pass. New operations never publish, activate or run a workflow. Source-bearing draft and compiled output are excluded from retained conversation/audit results; actual encrypted audit contents were checked. The existing editor delegates explicit prepare/save controls to ZERO, adopts the native saved revision, retains identical retry keys and rejects changed/detached previews. Actual member HTTP requests revoke authority during body waits and create no executable workflows or tasks. Full natural-language authoring, explicit branch-path authoring, further execution/debugging UX and competitive/browser gates remain open. No live provider or production changes.",
       "gap": "Nested condition-group editing now passes local DOM/native HTTP/restart acceptance. Explicit visual branch-path authoring, further debugging and recovery without a proven internal result remain incomplete. Actual browser acceptance remains blocked.",
       "required_change": "Complete debugging and original workflow authoring breadth; external outcome recovery requires legitimate provider verification contracts.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
@@ -73,7 +73,9 @@
         "workflow-run-query-test.js",
         "workflow-run-query-api-test.js",
         "workflow-conditions-test.js",
-        "workflow-editor-test.js"
+        "workflow-editor-test.js",
+        "workflow-zero-test.js",
+        "workflow-zero-api-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
@@ -147,15 +149,18 @@
           "retrieved_at": "2026-09-05"
         }
       ],
-      "foundly_current": "ZERO status/run integration and audited owned tasks/documents work without CRM. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart.",
-      "gap": "Natural-language workflow creation and measured operational advantage are not fully evidenced.",
-      "required_change": "Expose validated workflow drafts through the existing policy/approval layer.",
+      "foundly_current": "ZERO status/run integration and audited owned tasks/documents work without CRM. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart. ZERO now previews, explicitly saves and rereads private workflow drafts through the existing native compiler and draft store. Exact actor/tenant/input/revision fingerprints, confirmation, current source ownership and capabilities, native CAS conflicts, response-loss replay, atomic rollback and encrypted restart pass. New operations never publish, activate or run a workflow. Source-bearing draft and compiled output are excluded from retained conversation/audit results; actual encrypted audit contents were checked. The existing editor delegates explicit prepare/save controls to ZERO, adopts the native saved revision, retains identical retry keys and rejects changed/detached previews. Actual member HTTP requests revoke authority during body waits and create no executable workflows or tasks. Full natural-language authoring, explicit branch-path authoring, further execution/debugging UX and competitive/browser gates remain open. No live provider or production changes.",
+      "gap": "Explicit ZERO native workflow draft preview/save/read now passes unit/member HTTP/restart/production editor-handler contracts. Full natural-language workflow creation, branch-path authoring and measured operational advantage remain incomplete.",
+      "required_change": "Complete natural-language workflow preparation and further execution/inspection orchestration through the current native policy; preserve separate publication and execution.",
       "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
       "test": [
         "workflow-execution-test.js",
         "composition-api-test.js",
         "composition-matrix-test.js",
-        "domain-zero-replay-api-test.js"
+        "domain-zero-replay-api-test.js",
+        "workflow-zero-test.js",
+        "workflow-zero-api-test.js",
+        "workflow-editor-test.js"
       ],
       "evidence": {
         "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",

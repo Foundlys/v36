@@ -30,9 +30,11 @@ const API_CONTRACTS={crm:{export:'/api/crm/export/:entity',schema:'/api/crm/sche
 const EVENT_CONTRACTS={crm:['lead_created','lead_qualified','crm_record_created','deal_changed','deal_created','deal_won','deal_lost','crm_record_changed','crm_record_archived','task_created','task_completed','contact_created','company_created','appointment_scheduled','quote_created'],finance:['invoice_draft_created','invoice_approved','invoice_created','invoice_paid','payment_sent','journal_posted','collection_action_created','bank_transaction_imported','period_closed'],analysis:['analysis.record.created.v1','analysis.record.updated.v1'],automation:['automation.activation.updated.v1','automation.workflow.created.v1','automation.tasks.created.v1','automation.documents.created.v1','automation.run.updated.v1']};
 const CORE_SERVICES = Object.freeze(['identity', 'authorization', 'persistence', 'audit', 'events', 'connectors', 'sources', 'knowledge', 'learning', 'zero', 'data']);
 const COMMUNICATION_OPERATIONS=Object.values(require('./communication-zero').OPERATIONS);
-const TOOL_OPERATIONS=Object.freeze(Object.fromEntries(COMMUNICATION_OPERATIONS.map(op=>[op.tool,op.permission])));
+const AUTOMATION_DRAFT_OPERATIONS=Object.values(require('./workflow-zero').OPERATIONS);
+const TOOL_OPERATIONS=Object.freeze(Object.fromEntries([...COMMUNICATION_OPERATIONS,...AUTOMATION_DRAFT_OPERATIONS].map(op=>[op.tool,op.permission])));
 const TOOL_CORE_PERMISSIONS=Object.freeze(Object.fromEntries(COMMUNICATION_OPERATIONS.filter(op=>op.external||op.connector_management).map(op=>[op.tool,['connectors:manage']])));
 const TOOL_MODULES = Object.freeze({
+  ...Object.fromEntries(AUTOMATION_DRAFT_OPERATIONS.map(op=>[op.tool,'automation'])),
   ...Object.fromEntries(COMMUNICATION_OPERATIONS.map(op=>[op.tool,'communication'])),
   procurement_summary:'procurement',sales_pipeline:'sales',calendar_agenda:'calendar',communication_drafts:'communication',marketing_campaigns:'marketing',
   create_lead: 'crm', create_task: 'automation', create_appointment: 'calendar',
@@ -44,8 +46,9 @@ const TOOL_MODULES = Object.freeze({
   automotive_search: 'procurement', automotive_comparables: 'procurement',
   automotive_economics: 'procurement', automotive_candidate_analysis: 'procurement', automotive_today: 'procurement'
 });
-const WRITE_TOOLS=Object.freeze([...COMMUNICATION_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),'create_lead','create_task','create_appointment','create_report','draft_message','automation_run']);
+const WRITE_TOOLS=Object.freeze([...AUTOMATION_DRAFT_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...COMMUNICATION_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),'create_lead','create_task','create_appointment','create_report','draft_message','automation_run']);
 const TOOL_CAPABILITIES = Object.freeze({
+  ...Object.fromEntries(AUTOMATION_DRAFT_OPERATIONS.map(op=>[op.tool,'automation:workflows'])),
   ...Object.fromEntries(COMMUNICATION_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   procurement_summary:'procurement:opportunities',sales_pipeline:'sales:pipeline',calendar_agenda:'calendar:events',communication_drafts:'communication:drafts',marketing_campaigns:'marketing:campaigns',
   create_lead:'crm:leads',crm_priority_leads:'crm:leads',crm_pipeline_summary:'crm:relationships',crm_customer_360:'crm:relationships',crm_inventory_customer_matches:'crm:relationships',
