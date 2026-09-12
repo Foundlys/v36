@@ -4,15 +4,15 @@
 // the existing resolver; MAIL and SOCIAL MEDIA do not create new entitlements.
 (function (root) {
   const MODULES = [
-    ['inkoop', 'INKOOP', 'procurement', [-410, -110, 275], '#c29b72'],
-    ['verkoop', 'VERKOOP', 'sales', [325, 175, 350], '#85b5c7'],
-    ['finance', 'FINANCE', 'finance', [-205, 280, -295], '#abbd91'],
-    ['crm', 'CRM', 'crm', [-165, 28, 75], '#84b4a3'],
-    ['agenda', 'AGENDA', 'calendar', [-85, -335, -320], '#c3b48c'],
-    ['mail', 'MAIL', 'communication', [440, 40, -175], '#9bacc4'],
-    ['social', 'SOCIAL MEDIA', 'marketing', [-450, 195, -110], '#b894b0'],
-    ['marketing', 'MARKETING', 'marketing', [80, 325, 95], '#b49e8c'],
-    ['analytics', 'ANALYTICS', 'analysis', [300, -250, -405], '#969ac4']
+    ['inkoop', 'INKOOP', 'procurement', [430, 65, 345], '#bd686d'],
+    ['verkoop', 'VERKOOP', 'sales', [165, 105, 40], '#78b6cc'],
+    ['finance', 'FINANCE', 'finance', [-450, 290, -240], '#9eb991'],
+    ['crm', 'CRM', 'crm', [-90, 230, -70], '#77b6a0'],
+    ['agenda', 'AGENDA', 'calendar', [-245, 360, 95], '#cbb779'],
+    ['mail', 'MAIL', 'communication', [55, -330, -310], '#72b8c4'],
+    ['social', 'SOCIAL MEDIA', 'marketing', [-460, 125, 250], '#be81ae'],
+    ['marketing', 'MARKETING', 'marketing', [-280, -195, -65], '#c69e73'],
+    ['analytics', 'ANALYTICS', 'analysis', [340, -205, -405], '#bbbc7d']
   ].map(([id, label, owner, position, color]) => Object.freeze({ id, label, owner, position: Object.freeze(position), color }));
   Object.freeze(MODULES);
   const LABELS = { sourcing:'Sourcing', suppliers:'Leveranciers', opportunities:'Kansen', approvals:'Beoordelingen', pipeline:'Pipeline', forecast:'Prognose', quotes:'Offertes', contacts:'Contacten', companies:'Bedrijven', leads:'Leads', relationships:'Relaties', campaigns:'Campagnes', audiences:'Doelgroepen', attribution:'Attributie', ledger:'Grootboek', invoices:'Facturen', payments:'Betalingen', reports:'Rapporten', kpis:'KPI’s', events:'Events', funnel:'Funnel', availability:'Beschikbaarheid', conflicts:'Conflicten', inbox:'Inbox', drafts:'Concepten', threads:'Gesprekken' };
