@@ -78,6 +78,13 @@ for(const pitch of [-.7,0,.7])for(const yaw of [0,Math.PI/2,Math.PI,Math.PI*1.5]
  const pose=M.compose(all,{width:1280,height:600,yaw,pitch});assert.equal(pose.collisions.length,0,'manual tilt remains separated');
  for(const node of pose.nodes){const point=M.project(M.rotated(node.position,yaw,pitch));assert.ok(Math.abs(point.x-node.screen.x)<1e-6&&Math.abs(point.y-node.screen.y)<1e-6,'manual tilt inverse projection');}
 }
+// Camera-facing ribbon width stays perpendicular to the projected line throughout rotation.
+for(let degrees=0;degrees<360;degrees+=5)for(const edge of all.edges){
+ const angle=degrees*Math.PI/180,from=edge.from==='core'?[0,0,0]:all.nodes.find(n=>n.id===edge.from).position,to=all.nodes.find(n=>n.id===edge.to).position,a=M.rotated(from,angle,.4),b=M.rotated(to,angle,.4),frame=M.segment(a,b),widthAxis=[-Math.sin(frame.roll),Math.cos(frame.roll),0];
+ assert.ok(Math.abs(Math.hypot(widthAxis[0],widthAxis[1])-1)<1e-9,'ribbon cannot turn edge-on');
+ assert.ok(Math.abs(widthAxis[0]*(b[0]-a[0])+widthAxis[1]*(b[1]-a[1]))<1e-8,'width is perpendicular to projected connection');
+ const end=[Math.cos(frame.roll)*Math.cos(frame.yaw),Math.sin(frame.roll)*Math.cos(frame.yaw),-Math.sin(frame.yaw)].map((v,i)=>a[i]+v*frame.length);end.forEach((v,i)=>assert.ok(Math.abs(v-b[i])<1e-8,'camera-facing ribbon retains real 3D endpoint'));
+}
 const composed=M.compose(all,{width:1536,height:660}),products=composed.nodes.filter(n=>!n.id.includes(':')),radii=products.map(n=>Math.hypot(...n.position));
 assert.ok(Math.max(...radii)/Math.min(...radii)>2,'rendered composition retains unequal connection lengths');
 assert.ok(Math.max(...products.map(n=>n.depth))-Math.min(...products.map(n=>n.depth))>500,'rendered composition retains depth');
