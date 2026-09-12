@@ -39,7 +39,7 @@ void main(){vec3 p=rotate(u_center+a_position*u_radius);if(u_kind==1)p=(u_core_l
 precision highp float;in vec3 v_normal;in vec3 v_local;in vec2 v_uv;out vec4 outColor;uniform vec3 u_color;uniform float u_core;
 float hash(vec3 p){p=fract(p*.1031);p+=dot(p,p.yzx+33.33);return fract((p.x+p.y)*p.z);}
 void main(){vec3 n=normalize(v_normal),light=normalize(vec3(-.7,.9,.7));float rim=pow(1.-max(n.z,0.),3.8),spec=pow(max(dot(reflect(-light,n),vec3(0,0,1)),0.),80.);float diffuse=max(dot(n,light),0.);vec3 c=vec3(.0005,.001,.002)+vec3(.0006,.0014,.003)*diffuse;
-float edge=pow(1.-max(n.z,0.),6.)*(.3+2.4*pow(abs(n.x),8.));c+=u_color*rim*(.012+edge*.28)+vec3(.12,.19,.27)*spec;
+float edge=pow(1.-max(n.z,0.),6.)*(.3+2.4*pow(abs(n.x),8.));float crown=pow(max(dot(n,normalize(vec3(-.35,.85,.15))),0.),14.);c+=u_color*rim*(.025+edge*.8+crown*.65)+vec3(.12,.19,.27)*spec;
 vec3 cell=floor(v_local*160.);float star=step(.989,hash(cell))*pow(max(0.,1.-length(fract(v_local*160.)-.5)*1.7),3.);c+=vec3(.11,.25,.36)*star*(.25+.75*diffuse);float lines=pow(1.-abs(sin(v_uv.x*210.+sin(v_uv.y*47.))),28.);c+=vec3(.003,.009,.016)*lines;
 if(u_core<.5)c+=u_color*.045*diffuse;outColor=vec4(c,1.);}`;
   const LABEL=`#version 300 es
@@ -85,7 +85,8 @@ precision highp float;in vec2 v_uv;out vec4 outColor;uniform sampler2D u_map;uni
       for(const path of this.graph.paths){for(let strand=0;strand<4;strand++){const fork={...path,p1:path.p1.map((v,k)=>v+(k===1?strand*9:0)),p2:path.p2.map((v,k)=>v+(k===2?strand*12:0))};for(let i=0;i<40;i++)line(cubic(fork,i/40),cubic(fork,(i+1)/40),path.color,strand?.45:path.primary?1.3:.8,strand?.075:path.primary?.55:.5);}}
       this.orbits=[];for(let ring=0;ring<20;ring++){const wide=ring>6,rx=wide?470+(ring-7)*16:160+ring*18,rz=wide?270+ring*8:100+ring*12,tilt=(ring%4-1.5)*.13,offset=(ring%3-1)*.15;const point=t=>wide?[Math.cos(t)*rx,Math.sin(t)*(215+ring*5)+Math.cos(t)*rx*offset*.22,Math.sin(t)*(130+ring*6)]:[Math.cos(t)*rx,Math.sin(t)*(25+ring*6)+Math.cos(t)*rx*offset*.45,Math.sin(t)*rz];this.orbits.push(point);for(let i=0;i<180;i++)line(point(i*TAU/180),point((i+1)*TAU/180),'#2186d4',ring%5===0?.75:.4,wide?.026:.12);}
       let seed=51928;const random=()=>((seed=(1664525*seed+1013904223)>>>0)/4294967296);for(let i=0;i<3800;i++){const t=random()*TAU,r=155+random()*680,p=[Math.cos(t)*r,(random()-.5)*(i%3?230:720),Math.sin(t)*r*.58],bright=random();points.push(...p,.1,.45,.8,bright>.98?.7:.05+random()*.13,bright>.99?5:1+random()*1.5);}
-      points.push(105,45,12,.05,.35,2.,2.8,26,-103,-46,15,.03,.4,1.8,2.2,21);for(const n of this.graph.nodes)points.push(...n.position,...rgb(n.color),1,n.kind==='module'?20:7);
+      // Surface beacons sit outside the sphere, so the depth buffer does not bury their blue illumination.
+      points.push(103,49,29,.025,.3,3.,4.8,48,-103,-46,29,.02,.35,2.5,3.4,38,0,114,20,.03,.4,2.,2.2,20);for(const n of this.graph.nodes)points.push(...n.position,...rgb(n.color),1,n.kind==='module'?20:7);
       this.lineBuffer=this.buffer(lines);this.lineCount=lines.length/12;this.pointBuffer=this.buffer(points);this.pointCount=points.length/8;this.movingBuffer=this.movingBuffer||this.buffer([]);
       this.satellites=[[250,210,-100,22],[1267,233,130,21],[1479,408,-140,16],[204,623,220,34],[1190,740,300,30],[350,741,150,25],[1121,113,-450,17],[523,77,-550,15]].map(([x,y,z,r])=>({position:unproject(x,y,z),radius:r*(D-z)/D}));
     }
