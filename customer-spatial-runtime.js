@@ -57,8 +57,15 @@
     setGraph(graph){
       this.graph=graph;this.nodes=[];this.world.replaceChildren();
       const positions=new Map([['core',[0,0,0]],...graph.nodes.map(n=>[n.id,n.position])]);
-      for(const edge of graph.edges){const from=positions.get(edge.from),to=positions.get(edge.to);if(!from||!to)continue;const s=M.segment(from,to),line=el('div','spatial-line'+(edge.from==='core'?'':' spatial-line--sub'));line.setAttribute('aria-hidden','true');line.style.setProperty('--accent',edge.color);line.style.width=`${s.length}px`;line.style.transform=`translate3d(${from[0]}px,${from[1]}px,${from[2]}px) rotateZ(${s.roll}rad) rotateY(${s.yaw}rad)`;this.world.append(line);}
-      for(let i=0;i<60;i++){const dust=el('i','spatial-dust');dust.setAttribute('aria-hidden','true');dust.style.transform=`translate3d(${Math.sin(i*19.1)*690}px,${Math.cos(i*7.3)*470}px,${Math.sin(i*13.7)*650}px)`;this.world.append(dust);}
+      const drawLine=(from,to,color,kind='')=>{const s=M.segment(from,to),line=el('div','spatial-line'+kind);line.setAttribute('aria-hidden','true');line.style.setProperty('--accent',color);line.style.width=`${s.length}px`;line.style.transform=`translate3d(${from[0]}px,${from[1]}px,${from[2]}px) rotateZ(${s.roll}rad) rotateY(${s.yaw}rad)`;this.world.append(line);};
+      for(const edge of graph.edges){
+        const from=positions.get(edge.from),to=positions.get(edge.to);if(!from||!to)continue;
+        drawLine(from,to,edge.color,edge.from==='core'?'':' spatial-line--sub');
+        // Fine 3D strands follow existing authorized connections; they add no nodes or relationships.
+        if(edge.from==='core')for(const side of [-1,1]){let previous=from;for(let i=1;i<=12;i++){const t=i/12,bend=Math.sin(Math.PI*t)*side,next=from.map((v,axis)=>v+(to[axis]-v)*t+bend*[18,38,60][axis]);drawLine(previous,next,edge.color,' spatial-line--filament');previous=next;}}
+      }
+      // Static depth detail belongs to the rotating world, never to a fake activity feed.
+      for(let i=0;i<240;i++){const dust=el('i','spatial-dust');dust.setAttribute('aria-hidden','true');const radius=.35+.65*((i*37%239)/239);dust.style.transform=`translate3d(${Math.sin(i*19.1)*560*radius}px,${Math.cos(i*7.3)*380*radius}px,${Math.sin(i*13.7)*450*radius}px)`;this.world.append(dust);}
       for(const node of [{id:'core',kind:'core',position:[0,0,0]},...graph.nodes]){
         const host=el('div',`spatial-node spatial-${node.kind}`),face=el(node.kind==='core'?'div':'a','spatial-face');host.dataset.node=node.id;host.style.transform=`translate3d(${node.position.join('px,')}px)`;host.style.setProperty('--accent',node.color||'#a8b8c6');
         if(node.kind==='core'){face.append(el('strong','','FOUNDLY'),el('small','','INTELLIGENCE IN MOTION'));}
@@ -68,7 +75,7 @@
       for(const [id,value] of [['mainCount',graph.nodes.filter(n=>n.kind==='module').length],['subCount',graph.nodes.filter(n=>n.kind==='subnode').length],['linkCount',graph.edges.length]]){const counter=document.getElementById(id);if(counter)counter.textContent=String(value);}
       this.renderPose();
     }
-    resize(){const box=this.viewport.getBoundingClientRect();this.scale=Math.max(.15,Math.min(1.18,box.width/1480,box.height/1120));this.fit.style.transform=`scale3d(${this.scale},${this.scale},${this.scale})`;this.viewport.style.perspective=`${1500*this.scale}px`;this.viewport.style.setProperty('--label-factor',String(Math.max(1,.55/this.scale)));}
+    resize(){const box=this.viewport.getBoundingClientRect();this.scale=Math.max(.15,Math.min(1.18,box.width/1400,box.height/900));this.fit.style.transform=`scale3d(${this.scale},${this.scale},${this.scale})`;this.viewport.style.perspective=`${1500*this.scale}px`;this.viewport.style.setProperty('--label-factor',String(Math.max(1,.55/this.scale)));}
     renderPose(){const {yaw,pitch}=this.rotation;this.world.style.transform=`rotateX(${pitch}rad) rotateY(${yaw}rad)`;for(const {face} of this.nodes)face.style.transform=`rotateY(${-yaw}rad) rotateX(${-pitch}rad) translate(-50%,-50%)`;}
     setPaused(paused){paused?this.rotation.pause():this.rotation.resume();this.toggle.textContent=paused?'Hervat rotatie':'Pauzeer rotatie';this.toggle.setAttribute('aria-pressed',String(paused));this.indicator.textContent=paused?'Rotatie gepauzeerd · sleep om te bekijken':'Automatische rotatie actief';this.lastFrame=null;}
     route(){return false;} event(){return false;} setState(state){this.state=state;} setAudio(){} setQuality(){return true;} setAutoQuality(){} focus(){this.setPaused(true);} focusCore(){return true;}
