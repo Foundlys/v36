@@ -49,5 +49,37 @@ assert.equal(new Set(main.map(p=>p[1])).size,9,'distinct heights');
 const scales=main.map(p=>1500/(1500-p[2]));assert.ok(Math.max(...scales)/Math.min(...scales)>1.6);
 for(const p of main){const q=M.rotated(p,Math.PI*2,0);q.forEach((v,i)=>assert.ok(Math.abs(v-p[i])<1e-9));assert.notDeepEqual(M.rotated(p,Math.PI,0),p);}
 for(const edge of all.edges){const from=edge.from==='core'?[0,0,0]:all.nodes.find(n=>n.id===edge.from).position,to=all.nodes.find(n=>n.id===edge.to).position,s=M.segment(from,to);const result=[Math.cos(s.roll)*Math.cos(s.yaw),Math.sin(s.roll)*Math.cos(s.yaw),-Math.sin(s.yaw)].map((v,i)=>from[i]+v*s.length);result.forEach((v,i)=>assert.ok(Math.abs(v-to[i])<1e-8));}
+
+// Independent screen-space acceptance checks for the actual composition output.
+// These assert geometry/footprints, not rendered visual quality.
+for(const ids of [['crm'],['crm','communication','calendar'],['procurement','sales','finance','crm','calendar','communication'],moduleIds]){
+ const sourceGraph=M.buildGraph({...inputs,resolution:graph(ids).resolution,sources:['facebook','instagram','tiktok'].map(source_id=>({source_id,connection_status:'CONNECTED'}))});
+ for(const [width,height] of [[1536,660],[1100,620],[1024,564],[390,460]]){
+  let previous=null;
+  const compact=width<760||height<440,sizes=Object.fromEntries(sourceGraph.nodes.map(n=>[n.id,n.kind==='module'?{width:compact?96:n.label.length*8+48,height:compact?46:42}:{width:compact?12:n.label.length*7+22,height:compact?12:26}]));
+  for(let degrees=0;degrees<360;degrees++){
+   const pose=M.compose(sourceGraph,{width,height,yaw:degrees*Math.PI/180,sizes,previous});
+   assert.equal(pose.nodes.length,sourceGraph.nodes.length,'composition never fabricates/hides entitled nodes');
+   assert.equal(pose.collisions.length,0,`label collision ${ids} ${width}x${height} at ${degrees}`);
+   for(const node of pose.nodes){
+    assert.ok(Math.abs(node.screen.x)+node.screen.w/2<=width/2-17.9,'horizontal safe margin');
+    assert.ok(Math.abs(node.screen.y)+node.screen.h/2<=height/2-17.9,'vertical safe margin');
+    assert.ok(!M.overlap(node.screen,{x:0,y:0,w:pose.core,h:pose.core},0),'core must not obscure labels');
+    const projected=M.project(M.rotated(node.position,degrees*Math.PI/180,-.08));
+    assert.ok(Math.abs(projected.x-node.screen.x)<1e-6&&Math.abs(projected.y-node.screen.y)<1e-6,'constraints map back into genuine rotating XYZ');
+    const source=sourceGraph.nodes.find(n=>n.id===node.id);
+    if(source.parent){const parent=pose.nodes.find(n=>n.id===source.parent);assert.ok(Math.hypot(node.screen.x-parent.screen.x,node.screen.y-parent.screen.y)<260,'subnodes remain local to parent');}
+   }
+   previous=pose;
+  }
+ }
+}
+for(const pitch of [-.7,0,.7])for(const yaw of [0,Math.PI/2,Math.PI,Math.PI*1.5]){
+ const pose=M.compose(all,{width:1280,height:600,yaw,pitch});assert.equal(pose.collisions.length,0,'manual tilt remains separated');
+ for(const node of pose.nodes){const point=M.project(M.rotated(node.position,yaw,pitch));assert.ok(Math.abs(point.x-node.screen.x)<1e-6&&Math.abs(point.y-node.screen.y)<1e-6,'manual tilt inverse projection');}
+}
+const composed=M.compose(all,{width:1536,height:660}),products=composed.nodes.filter(n=>!n.id.includes(':')),radii=products.map(n=>Math.hypot(...n.position));
+assert.ok(Math.max(...radii)/Math.min(...radii)>2,'rendered composition retains unequal connection lengths');
+assert.ok(Math.max(...products.map(n=>n.depth))-Math.min(...products.map(n=>n.depth))>500,'rendered composition retains depth');
 const r=new M.Rotation();for(let i=0;i<600;i++)r.step(1/60);assert.ok(r.yaw>0);r.pause();const frozen=JSON.stringify(r);for(let i=0;i<10000;i++)r.step(1/60);assert.equal(JSON.stringify(r),frozen);r.manual(.4,.2);const manual=r.yaw;r.resume();assert.equal(r.yaw,manual);r.step(.05);assert.ok(r.yaw>manual);
 console.log(`PASS spatial model: ${profiles} real-resolver profiles, capability flags, tenant mismatch, provider state, existing destinations, 3D geometry, rotation and exact pause/resume. Visual/browser acceptance not claimed.`);
