@@ -28,7 +28,13 @@
   }
   function rotated([x,y,z],yaw,pitch=0){const a=x*Math.cos(yaw)+z*Math.sin(yaw),b=-x*Math.sin(yaw)+z*Math.cos(yaw);return[a,y*Math.cos(pitch)-b*Math.sin(pitch),y*Math.sin(pitch)+b*Math.cos(pitch)];}
   function segment(from,to){const d=to.map((v,i)=>v-from[i]),length=Math.hypot(...d);return{length,yaw:Math.atan2(-d[2],Math.hypot(d[0],d[1])),roll:Math.atan2(d[1],d[0])};}
-  class Rotation{constructor(){this.yaw=0;this.pitch=-.08;this.running=true;}step(seconds){if(this.running)this.yaw=(this.yaw+Math.min(Math.max(seconds,0),.1)*Math.PI*2/180)%(Math.PI*2);}pause(){this.running=false;}resume(){this.running=true;}manual(yaw,pitch=0){if(this.running)return;this.yaw+=yaw;this.pitch=Math.max(-.7,Math.min(.7,this.pitch+pitch));}}
+  class Rotation{
+    constructor(){this.yaw=0;this.pitch=0;this.roll=0;this.time=0;this.running=true;}
+    step(seconds){if(!this.running)return;const dt=Math.min(Math.max(seconds,0),.1),old=this.time;this.time+=dt;const phase=t=>t*Math.PI*2/180;this.yaw+=phase(this.time)-phase(old);this.pitch+=.30*(Math.sin(phase(this.time)*2)-Math.sin(phase(old)*2));this.roll+=.055*(Math.sin(phase(this.time)*3)-Math.sin(phase(old)*3));}
+    pause(){this.running=false;}
+    resume(){this.running=true;}
+    manual(yaw,pitch=0){if(this.running)return;this.yaw+=yaw;this.pitch=Math.max(-.7,Math.min(.7,this.pitch+pitch));}
+  }
 
   // Screen-space constraints steer real camera-space XYZ points. Z is never flattened.
   const clamp=(value,lo,hi)=>Math.max(lo,Math.min(hi,value));
