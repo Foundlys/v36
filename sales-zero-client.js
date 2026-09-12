@@ -1,0 +1,10 @@
+'use strict';
+(function(root){
+ function createRequest({request,zeroRequest,isActive=()=>true}){const turns=new Map();return async(route,options={})=>{const url=new URL(route,'https://foundly.invalid'),method=options.method||'GET',input=options.body?JSON.parse(options.body):Object.fromEntries(url.searchParams);let action,m;
+  if(url.pathname==='/api/sales/sequences'&&method==='GET')action={operation:'SEQUENCE_LIST',input};
+  else if((m=url.pathname.match(/^\/api\/sales\/sequences\/([^/]+)(?:\/(preview|start))?$/))){if(method==='PUT'&&!m[2])action={operation:'SEQUENCE_DEFINE',definition_id:decodeURIComponent(m[1]),input};else if(method==='POST'&&m[2])action={operation:m[2]==='preview'?'SEQUENCE_PREVIEW':'SEQUENCE_START',definition_id:decodeURIComponent(m[1]),input};}
+  else if((m=url.pathname.match(/^\/api\/sales\/sequence_runs\/([^/]+)(?:\/(advance|pause|resume|cancel|outcome))?$/))){if(method==='GET'&&!m[2])action={operation:'SEQUENCE_READ',run_id:decodeURIComponent(m[1]),input};else if(m[2]==='outcome'&&['GET','POST'].includes(method))action={operation:method==='GET'?'OUTCOME_PREVIEW':'OUTCOME_RECORD',run_id:decodeURIComponent(m[1]),input};else if(method==='POST'&&m[2])action={operation:'SEQUENCE_'+m[2].toUpperCase(),run_id:decodeURIComponent(m[1]),input};}
+  if(!action)return request(route,options);if(!isActive())throw Error('De gekozen Sales-weergave is niet meer actief.');const signature=JSON.stringify(action),key=options.headers?.['idempotency-key']||(method==='PUT'?route:null);let turn=root.crypto.randomUUID();if(key){const prior=turns.get(key);if(prior?.signature===signature)turn=prior.turn;else{if(turns.size>=1000)throw Error('Heropen de Sales-weergave voor meer acties.');turns.set(key,{signature,turn});}}const result=await zeroRequest(action,turn);if(!isActive())throw Error('De gekozen Sales-weergave is niet meer actief.');if(!result||typeof result!=='object')throw Error('Het actuele Sales-resultaat ontbreekt.');return result;
+ };}
+ root.FoundlySalesZero={createRequest};
+})(globalThis);

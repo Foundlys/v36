@@ -1,0 +1,23 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {BusinessDomain}=require('./business-domains'),{CapabilityResolver}=require('./capability-resolver'),{calendarOperations}=require('./calendar-operations');
+let state=new Map(),disk,failOnce=false;const ctx={tenant_id:'reminder-principal-fixture',dealer_id:'default'},admin={id:'admin',roles:['SUPER_ADMIN']},planner={id:'planner',roles:['MANAGER']},viewer={id:'recipient',roles:['VIEWER']};
+const adapter={bucket(c,name){const key=JSON.stringify([c.tenant_id,c.dealer_id,name]);if(!state.has(key))state.set(key,[]);return state.get(key);},persist(){if(failOnce){failOnce=false;throw Error('Fixture isolated commit failure');}disk=JSON.stringify([...state]);},audit(c,a,action,entity,id,detail){this.bucket(c,'platform:audit').push({action,entity,id,detail});},publish(){}};
+const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['calendar'],expected_revision:0});const core=new BusinessDomain('calendar',adapter,resolver),operations=calendarOperations(core),now=new Date('2026-09-09T00:00:00Z');
+const create=(title,actor=planner,extra={})=>core.save(ctx,actor,'reminders',{title,due_at:'2026-01-01T00:00:00Z',...extra}).record;
+const delegated=create('Delegated recipient',planner,{owner_id:viewer.id});assert.equal(delegated.execution_principal_id,planner.id);
+assert.throws(()=>create('Forged principal',planner,{execution_principal_id:admin.id}),{code:'domain_fields_invalid'});
+assert.equal(operations.tickReminders(ctx,admin,now).processed,0,'The scheduler cannot adopt a foreign author');assert.equal(core.bucket(ctx,'notifications').length,0);
+assert.throws(()=>operations.tickReminders(ctx,{...planner,roles:['VIEWER']},now),{code:'composition_forbidden'});
+let result=operations.tickReminders(ctx,planner,now);assert.equal(result.processed,1);let notification=core.list(ctx,viewer,'notifications').items[0];assert.equal(notification.execution_principal_id,planner.id);assert.equal(notification.owner_id,viewer.id);
+const malformed=create('Malformed retained reminder'),valid=create('Unrelated valid reminder');core.bucket(ctx,'reminders').find(row=>row.id===malformed.id).title={untrusted:'Do not expose this payload'};
+result=operations.tickReminders(ctx,planner,now);assert.equal(result.failed,1);assert.equal(result.processed,1);assert.ok(!JSON.stringify(result).includes('untrusted'));assert.equal(core.get(ctx,planner,'reminders',valid.id).status,'COMPLETED');
+const failed=create('Failed commit retry'),next=create('Independent commit');failOnce=true;result=operations.tickReminders(ctx,planner,now);assert.ok(result.failed>=1);assert.equal(core.get(ctx,planner,'reminders',failed.id).status,'DRAFT');assert.equal(core.get(ctx,planner,'reminders',next.id).status,'COMPLETED');
+state=new Map(JSON.parse(disk));result=operations.tickReminders(ctx,planner,now);assert.equal(result.processed,1);assert.equal(core.bucket(ctx,'notifications').filter(row=>row.title===failed.title).length,1);assert.equal(core.bucket(ctx,'notifications').filter(row=>row.title===next.title).length,1);
+const legacy=create('Retained canonical author');delete core.bucket(ctx,'reminders').find(row=>row.id===legacy.id).execution_principal_id;assert.equal(operations.tickReminders(ctx,admin,now).processed,0);assert.equal(operations.tickReminders(ctx,planner,now).processed,1,'Existing canonical author provenance is preserved');
+const unknown=create('No trustworthy author');const unknownRow=core.bucket(ctx,'reminders').find(row=>row.id===unknown.id);delete unknownRow.execution_principal_id;delete unknownRow.provenance.actor_id;assert.equal(operations.tickReminders(ctx,admin,now).processed,0);assert.equal(operations.tickReminders(ctx,planner,now).processed,0);assert.equal(unknownRow.status,'DRAFT');
+// More failures than one bounded batch must not starve later valid work.
+for(let index=0;index<101;index++){const record=create('Retained invalid '+index);core.bucket(ctx,'reminders').find(row=>row.id===record.id).title={invalid:true};}
+const later=create('Beyond failed batch');operations.tickReminders(ctx,planner,now);operations.tickReminders(ctx,planner,now);assert.equal(core.get(ctx,planner,'reminders',later.id).status,'COMPLETED','A full failed batch must not starve later reminders');
+resolver.configure(ctx,admin,{entitlements:['calendar'],capability_flags:{'calendar:events':false},expected_revision:1});assert.throws(()=>operations.tickReminders(ctx,planner,now),{code:'capability_disabled'});
+console.log('PASS reminder author/recipient separation, no scheduler privilege borrowing, per-reminder malformed/commit failure isolation, retry/restart without duplicates, retained canonical author migration and unbound-record preservation');

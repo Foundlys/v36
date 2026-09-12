@@ -1,0 +1,32 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {CapabilityResolver,resolve}=require('./capability-resolver');
+const {INDUSTRIES}=require('./module-catalog');
+const {industryPresets}=require('./industry-presets');
+const {FoundlyPlatformCore}=require('./platform-core');
+const {contract,compile}=require('./workflow-authoring');
+const {normalizeDashboard}=require('./workspace-system');
+const {projectedWorkspace}=require('./composition-projections');
+const {WORKSPACE_DEFINITIONS}=require('./workspace-system');
+let store=new Map();const adapter={bucket(c,s){const key=JSON.stringify([c,s]);if(!store.has(key))store.set(key,[]);return store.get(key);},persist(){},audit(){}};
+const ctx={tenant_id:'preset-fixture',dealer_id:'default'},admin={id:'owner',roles:['ADMIN','SUPER_ADMIN']},viewer={id:'reader',roles:['VIEWER']},resolver=new CapabilityResolver(adapter),platform=new FoundlyPlatformCore(adapter),spec=contract(platform.schema().automation);
+const configure=(modules,flags={})=>resolver.configure(ctx,admin,{entitlements:modules,industry_id:'AUTOMOTIVE',capability_flags:flags,expected_revision:resolver.profile(ctx)?.revision||0});
+configure(['procurement']);
+const before=JSON.stringify([...store]);let data=industryPresets(resolver,ctx,viewer,'procurement',spec);assert.equal(data.items.length,1);assert.deepEqual(data.items[0].dashboard.widgets.map(w=>w.metric),['rfqs','bids','awards','suppliers']);assert.equal(data.items[0].dashboard.owner_id,viewer.id);assert.equal(data.items[0].can_prepare,false);assert.equal(JSON.stringify([...store]),before);assert.equal(data.persistent_changes,false);
+assert.deepEqual(normalizeDashboard('procurement',data.items[0].dashboard,viewer.id),data.items[0].dashboard);
+assert.throws(()=>industryPresets(resolver,ctx,viewer,'automation',spec),{code:'module_disabled'});
+assert.throws(()=>industryPresets(resolver,ctx,{id:'no-rights'},'procurement',spec),{code:'composition_forbidden'});
+assert.throws(()=>industryPresets(resolver,ctx,admin,'constructor',spec),{code:'module_unknown'});
+configure(['procurement'],{'procurement:approvals':false});assert.equal(industryPresets(resolver,ctx,admin,'procurement',spec).items.length,0);
+configure(['automation'],{'automation:approvals':false});assert.equal(industryPresets(resolver,ctx,admin,'automation',spec).items.length,0);
+configure(['automation']);data=industryPresets(resolver,ctx,viewer,'automation',spec);assert.equal(data.items[0].can_prepare,false);assert.equal(data.items[0].executable,false);const definition=compile(data.items[0].draft,spec);assert.equal(definition.trigger.automatic,false);assert.equal(definition.approval_required,true);assert.equal(platform.automationStatus(ctx,admin).workflow_count,0);
+// Same universal registry with a test-only second industry. No new engine or
+// dynamic handler/URL can be introduced by a preset.
+const draft=data.items[0].draft,pack={industry_id:'REAL_ESTATE_DEMO',production:false,extensions:{automation:{workflow_templates:[{id:'property_review',name:'Property review fixture',version:1,draft:{...draft,name:'Property review fixture'}},{id:'bad_automatic',name:'Rejected automatic fixture',version:1,draft:{...draft,automatic:true}},{id:'bad_action',name:'Rejected external fixture',version:1,draft:{...draft,steps:[{type:'webhook',values:{url:'https://example.test'}}]}}]},procurement:{dashboard_presets:[{id:'property_sourcing',name:'Property sourcing fixture',version:1,metrics:['rfqs','bids']},{id:'invented_metric',name:'Rejected synthetic fixture',version:1,metrics:['invented_property_revenue']}]}}};
+const testResolver=Object.create(resolver);testResolver.resolve=(c,a)=>resolve(c,a,{...resolver.profile(c),industry_id:pack.industry_id},{industries:{REAL_ESTATE_DEMO:pack},allowTestIndustries:true});
+data=industryPresets(testResolver,ctx,admin,'automation',spec);assert.deepEqual(data.items.map(x=>x.id),['property_review']);assert.equal(data.unavailable.length,2);assert.equal(platform.automationStatus(ctx,admin).workflow_count,0);
+configure(['procurement']);data=industryPresets(testResolver,ctx,admin,'procurement',spec);assert.deepEqual(data.items.map(x=>x.id),['property_sourcing']);assert.equal(data.unavailable.length,1);
+configure(['procurement'],{'procurement:sourcing':false});assert.equal(industryPresets(testResolver,ctx,admin,'procurement',spec).items.length,0,'Derived widget capabilities cannot be omitted in a manifest');
+assert.equal(projectedWorkspace(WORKSPACE_DEFINITIONS.procurement,testResolver.resolve(ctx,admin)).industry_dashboard_presets,true);
+store=new Map(JSON.parse(JSON.stringify([...store])));assert.equal(industryPresets(testResolver,ctx,admin,'procurement',spec).items.length,0);assert.equal(INDUSTRIES.REAL_ESTATE_DEMO,undefined);
+console.log('PASS declarative industry presets, standalone modules, current permissions/capabilities, second-industry registry, rejected automatic/external/synthetic templates, failure isolation and no storage or execution on discovery');

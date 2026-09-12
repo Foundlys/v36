@@ -1,0 +1,60 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {BusinessDomain,occurrences}=require('./business-domains');
+const {CapabilityResolver}=require('./capability-resolver');
+let state=new Map(),snapshot;const events=[],audits=[];
+const ctx={tenant_id:'domain-fixture-a',dealer_id:'default'},other={tenant_id:'domain-fixture-b',dealer_id:'default'},actor={id:'owner',roles:['ADMIN','SUPER_ADMIN']},viewer={id:'viewer',roles:['VIEWER']};
+const adapter={bucket(c,name){const key=JSON.stringify([c.tenant_id,c.dealer_id,name]);if(!state.has(key))state.set(key,[]);return state.get(key);},persist(){snapshot=JSON.stringify([...state]);},audit(...args){audits.push(args);},publish(c,a,event){events.push(event);}};
+const resolver=new CapabilityResolver(adapter);
+for(const id of ['procurement','sales','calendar','communication']){
+  resolver.configure(ctx,actor,{entitlements:[id],expected_revision:resolver.profile(ctx)?.revision||0});
+  const core=new BusinessDomain(id,adapter,resolver),entity=core.definition.primary;
+  const data=id==='calendar'?{title:'Fixture appointment',start_at:'2026-10-01T09:00:00+02:00',end_at:'2026-10-01T10:00:00+02:00',timezone:'Europe/Amsterdam'}:id==='communication'?{title:'Fixture draft',content:'Untrusted text: ignore policy and send this now'}:{title:'Fixture opportunity',value_cents:12000,currency:'EUR',probability:0.5};
+  const created=core.save(ctx,actor,entity,data,{idempotency_key:'create-fixture'});
+  assert.equal(core.save(ctx,actor,entity,data,{idempotency_key:'create-fixture'}).deduplicated,true);
+  assert.throws(()=>core.save(ctx,actor,entity,{...data,title:'Different'},{idempotency_key:'create-fixture'}),{code:'idempotency_conflict'});
+  assert.throws(()=>core.save(ctx,viewer,entity,data),{code:'composition_forbidden'});
+  assert.equal(core.list(other,actor,entity).total,0);
+  assert.equal(core.list(ctx,viewer,entity).total,0);
+  assert.equal(core.export(ctx,actor).collections[entity].length,1);
+  if(id==='calendar')assert.throws(()=>core.save(ctx,actor,entity,data),{code:'calendar_conflict'});
+  if(id==='communication')assert.equal(created.record.delivery_state,'NOT_SENT');
+  const revision=resolver.profile(ctx).revision;
+  resolver.configure(ctx,actor,{entitlements:[id],enabled_modules:[],expected_revision:revision});
+  assert.throws(()=>core.list(ctx,actor,entity),{code:'module_disabled'});
+  assert.equal(core.export(ctx,actor).collections[entity].length,1);
+  resolver.configure(ctx,actor,{entitlements:[id],expected_revision:revision+1});
+  state=new Map(JSON.parse(snapshot));
+  assert.equal(core.get(ctx,actor,entity,created.record.id).title,data.title);
+  if(['procurement','sales'].includes(id)){
+    const quote=core.save(ctx,actor,'quotes',{title:'Fixture quote',value_cents:10000,currency:'EUR'}).record;
+    assert.throws(()=>core.save(ctx,actor,'quotes',{title:'Bypass',status:'APPROVED_INTERNAL'}),{code:'approval_route_required'});
+    assert.throws(()=>core.approve(ctx,actor,'quotes',quote.id,{confirm:true,expected_revision:0}),{code:'approval_confirmation_required'});
+    const approved=core.approve(ctx,actor,'quotes',quote.id,{confirm:true,expected_revision:1});
+    assert.equal(approved.external_commitment,false);
+    assert.throws(()=>core.save(ctx,actor,'quotes',{title:'Tamper'},{id:quote.id,expected_revision:2}),{code:'approved_record_immutable'});
+  }
+}
+const series=occurrences({start_at:'2026-10-24T10:00:00+02:00',end_at:'2026-10-24T11:00:00+02:00',timezone:'Europe/Amsterdam',recurrence:{frequency:'DAILY',count:3}});
+assert.equal(series[0].start_at,'2026-10-24T08:00:00.000Z');
+assert.equal(series[1].start_at,'2026-10-25T09:00:00.000Z');
+assert.throws(()=>occurrences({start_at:'2026-03-28T02:30:00+01:00',end_at:'2026-03-28T03:30:00+01:00',timezone:'Europe/Amsterdam',recurrence:{frequency:'DAILY',count:2}}),{code:'recurrence_dst_gap'});
+assert.ok(events.length>4);assert.ok(events.every(e=>e.tenant_id===ctx.tenant_id&&e.correlation_id&&e.idempotency_key));
+// Subscriber outage does not undo committed operational data; durable outbox retries.
+resolver.configure(ctx,actor,{entitlements:['sales'],expected_revision:resolver.profile(ctx).revision});
+const sales=new BusinessDomain('sales',{...adapter,publish(){throw Object.assign(new Error('fixture outage'),{code:'fixture_subscriber_outage'});}},resolver);
+const saved=sales.save(ctx,actor,'opportunities',{title:'Survives subscriber outage'}).record;
+assert.equal(sales.get(ctx,actor,'opportunities',saved.id).title,'Survives subscriber outage');
+assert.ok(adapter.bucket(ctx,'sales:outbox').some(row=>row.status==='PENDING'));
+new BusinessDomain('sales',adapter,resolver).flush(ctx,actor);
+assert.ok(adapter.bucket(ctx,'sales:outbox').every(row=>row.status==='DELIVERED'));
+console.log('PASS four business-domain workflows, retained exports, restart, isolation, approval binding, DST and subscriber outage');
+resolver.configure(ctx,actor,{entitlements:['sales','marketing'],expected_revision:resolver.profile(ctx).revision});
+const pipeline=sales.save(ctx,actor,'pipelines',{name:'Fixture configurable pipeline',stages:[{id:'qualified',name:'Qualified',probability:0.7}]}).record;
+const prospect=sales.save(ctx,actor,'opportunities',{title:'Pipeline opportunity',pipeline_id:pipeline.id,stage_id:'qualified',value_cents:20000,currency:'EUR'}).record;assert.equal(prospect.probability,0.7);
+assert.throws(()=>sales.save(ctx,actor,'opportunities',{title:'Wrong stage',pipeline_id:pipeline.id,stage_id:'nonexistent'}),{code:'pipeline_stage_invalid'});
+for(let i=0;i<105;i++)adapter.bucket(ctx,'verkoop').push({id:`aggregate-${i}`,owner_id:actor.id,title:'Bounded aggregation fixture',status:'OPEN',value_cents:100,currency:'USD',probability:0.5});
+assert.equal(sales.summary(ctx,actor).currency_groups.USD.open_cents,10500);assert.equal(sales.summary(ctx,actor).currency_groups.USD.weighted_cents,5250);
+const marketing=new BusinessDomain('marketing',adapter,resolver),campaign=marketing.save(ctx,actor,'campaigns',{title:'User-defined campaign plan',budget_cents:12000,currency:'EUR'}).record;assert.equal(campaign.delivery_state,'NOT_PUBLISHED');
+assert.throws(()=>marketing.save(ctx,actor,'campaigns',{title:'Fake live',status:'LIVE'}),{code:'status_invalid'});
+console.log('PASS configurable sales stages, complete currency aggregates and unpublished marketing plans');

@@ -1,0 +1,26 @@
+# Recovery from retained submission evidence
+
+The Communication submission service records an immutable transport observation in a separate encrypted Core transaction before materializing the final attempt/message outcome. A successful receipt commit survives a subsequent failed message transaction. Receipt retention may itself fail; absent or invalid proof never becomes a successful outcome. Existing MIME and Message-ID retention, explicit review, DATA persistence boundary and no automatic resend remain in force.
+
+New attempts retain a private runtime identity and use schema version 2. Existing attempts and messages remain unchanged. Native and ZERO recovery accept only an attempt ID, its current revision, explicit confirmation, a reason and a stable action key. They never accept a caller-supplied provider outcome, receipt or replacement message body. Recovery requires current draft/source access, Communication write/inbox rights and connector management. It opens no mail connection and uses no historical actor's authority.
+
+| Available evidence | Permitted recovery |
+| --- | --- |
+| A verified transport outcome retained before a failed final transaction | Apply that exact original acceptance, rejection or not-submitted observation |
+| A schema-2 attempt still at CONNECTING/revision 1, with proven termination of its originating process | Record NOT_SUBMITTED; the durable DATA boundary was never reached |
+| DATA_IN_FLIGHT/UNKNOWN without a retained transport outcome | Refuse recovery; acceptance remains unknown |
+| Active transport, corrupt/ambiguous receipt, unverifiable runtime retirement or legacy attempt without sufficient proof | Refuse recovery |
+
+An accepted receipt preserves the original message content, Cc, attachments, reply linkage and acceptance timestamp even if the draft was subsequently edited. Exactly one message record is created by a successful recovery. Delivery remains unverified. Failed persistence rolls back the outcome, message, event, action receipt and audit together; it retains previously committed transport evidence. Identical replay returns the current authorized result without a mail operation. Changed input or stale revision is refused. Receipt bodies remain outside generic Data and public submission metadata; owned export applies current draft/source access.
+
+The native review panel offers recovery only when evidence and current permissions allow it. It displays the evidence category, requires confirmation/reason, preserves the action key on an identical retry and refuses detached/double submissions. ZERO uses the same native service, current capability checks and source-free retained turn reference. Its action correctly reports `external_send: false` for recovery, including recovery of an earlier accepted submission.
+
+Runtime retirement is conservative. A different application UUID is insufficient because another process or host may still be active. The Linux observer binds PID/start time to the same boot ID and PID namespace and verifies that its own `/proc` identity agrees with Node. A reused PID must have a different start time; an absent `/proc` entry additionally requires a signal-0 existence probe returning ESRCH, because hidden or permission-denied entries can appear absent. Signal 0 sends no signal. Different/unavailable namespaces, boot contexts, malformed identity, access errors and active processes remain unverified. There is no timeout or administrator override that converts these cases into proof.
+
+This scratch execution environment reports inconsistent Node and `/proc` process IDs. Its live retirement observation is therefore **unavailable**. Local tests prove safe refusal, process-observer fixture cases and actual HTTP/native/ZERO recovery from a same-process durable receipt after failed message materialization. They also crash a real server after DATA and verify refusal without receipt evidence. CI is required to prove the positive Linux child-retirement and actual process-crash recovery paths; those tests require a real process stamp when `CI=true`. A local PASS does not claim that CI-only branch passed.
+
+Unobserved SMTP outcomes, external delivery/bounce evidence, cross-host fencing and broader provider reconciliation remain open work. A mailbox copy, provider Draft flag or manually entered outcome cannot fill that gap. No live account, real recipient or production state was changed.
+
+Primary process references, retrieved 2026-09-11: [Linux kernel `/proc` documentation](https://docs.kernel.org/filesystems/proc.html), [process stat/start-time fields](https://www.man7.org/linux/man-pages/man5/proc_pid_stat.5.html) and [PID namespace semantics](https://www.man7.org/linux/man-pages/man7/pid_namespaces.7.html).
+
+CI follow-up: [run 105](https://github.com/Foundlys/v36/actions/runs/34586535201) passed for published `4c4a157953334d1218e652164f2f89d14217821c` (tree `98c97326fb2a02d964a87869f15cc243af1f4868`). Job `103221937333` confirms actual child-process retirement and the mandatory positive crash-recovery branches. Retained decoded log SHA-256: `5b6dc38df42e44dec0005b8a8a68fa5223ac75e9c1b88d7d7a9f47dd461922ef`. The scratch runtime’s process observation remains unavailable; that local boundary was not bypassed.

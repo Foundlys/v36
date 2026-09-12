@@ -1288,3 +1288,5 @@ dialog::backdrop {
     transition-duration: 0.001ms !important;
   }
 }
+
+#customObjectWorkspace fieldset,#customObjectWorkspace .form-grid>div{min-width:0;grid-column:1/-1}#customObjectWorkspace label{min-width:0}#customObjectWorkspace p,#customObjectWorkspace h3,#customObjectWorkspace h4{overflow-wrap:anywhere}#customObjectWorkspace output{display:block;margin:12px 0}

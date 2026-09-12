@@ -68,12 +68,14 @@ function createPlatformApi(options = {}) {
     const payload = JSON.stringify({ ...event, tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id });
     for (const subscription of subscribers) {
       if (subscription.tenant_id !== ctx.tenant_id || subscription.dealer_id !== ctx.dealer_id) continue;
+      if(!platform.canReadEvent(ctx,subscription.actor,event))continue;
       try { subscription.response.write(`event: foundly\ndata: ${payload}\n\n`); }
       catch { subscribers.delete(subscription); }
     }
   }
 
   function openStream(req, res, ctx) {
+    const actor=principal(req);platform.canReadEvent(ctx,actor,{});
     res.writeHead(200, responseHeaders({
       'content-type': 'text/event-stream; charset=utf-8',
       'cache-control': 'no-cache, no-transform',
@@ -81,7 +83,7 @@ function createPlatformApi(options = {}) {
       'x-accel-buffering': 'no'
     }));
     res.write(`event: ready\ndata: ${JSON.stringify({ ok: true, subscription: 'SSE', observed_at: new Date().toISOString() })}\n\n`);
-    const subscription = { tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, response: res };
+    const subscription = { tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, actor, response: res };
     subscribers.add(subscription);
     const heartbeat = setInterval(() => {
       try { res.write(': heartbeat\n\n'); }
@@ -156,7 +158,8 @@ function createPlatformApi(options = {}) {
       if (url.pathname === '/api/platform/events/ingest' && req.method === 'POST') {
         const payload = await readBody(req);
         const idempotencyKey = req.headers['idempotency-key'] || payload.idempotency_key;
-        const result = platform.ingestEvent(ctx, actor, payload.event || payload, { idempotencyKey });
+        const supplied=payload.event||payload,event={...supplied,actor_id:actor.id,source_module:'user_input',source_kind:'user_input',provider_verified:false,provenance:{...(supplied.provenance||{}),source_kind:'user_input'}};
+        const result = platform.ingestEvent(ctx, actor, event, { idempotencyKey });
         return sendJson(res, result.deduplicated ? 200 : 202, { ok: true, ...result });
       }
 
@@ -236,7 +239,7 @@ function createPlatformApi(options = {}) {
       }
       if (url.pathname === '/api/data-platform/records' && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 201, platform.upsertCanonicalRecord(ctx, actor, payload, { expected_version: payload.expected_version }));
+        return sendJson(res, 201, platform.upsertCanonicalRecord(ctx, actor, {...payload,source_kind:'USER_INPUT',provider_verified:false,provenance:{...(payload.provenance||{}),source_kind:'USER_INPUT',provider_verified:false,actor_id:actor.id}}, { expected_version: payload.expected_version }));
       }
       if (url.pathname === '/api/data-platform/objects' && req.method === 'POST') return sendJson(res, 201, platform.registerObject(ctx, actor, await readBody(req)));
 
@@ -261,17 +264,33 @@ function createPlatformApi(options = {}) {
       const transition = url.pathname.match(/^\/api\/platform\/connectors\/([A-Za-z0-9_.:-]{1,80})\/state$/);
       if (transition && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 200, platform.connectorTransition(ctx, actor, transition[1], payload.state, payload.evidence || {}));
+        const state=String(payload.state||'').toUpperCase();
+        if(!['UNCONFIGURED','DISCONNECTED','DEGRADED','ERROR','EXPIRED'].includes(state))return sendJson(res,422,{ok:false,code:state==='CONNECTED'?'connector_connected_unproven':'connector_runtime_evidence_required',error:'Een caller-aangeleverde status of boolean is geen geverifieerd runtimebewijs.'});
+        return sendJson(res, 200, platform.connectorTransition(ctx, actor, transition[1], state, {authenticated:false,probe_ok:false,initial_sync_ok:false,source:'AUTHORIZED_MANUAL_STATE_CHANGE'}));
       }
-      if (url.pathname === '/api/platform/connectors/checkpoints' && req.method === 'POST') return sendJson(res, 201, platform.connectorCheckpoint(ctx, actor, await readBody(req)));
-      if (url.pathname === '/api/platform/connectors/attempts' && req.method === 'POST') return sendJson(res, 201, platform.recordConnectorAttempt(ctx, actor, await readBody(req)));
-      if (url.pathname === '/api/platform/connectors/webhooks' && req.method === 'POST') return sendJson(res, 202, platform.recordConnectorWebhook(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/platform/connectors/checkpoints' && req.method === 'POST') return sendJson(res, 422, {ok:false,code:'connector_runtime_receipt_required',error:'Syncresultaten vereisen een geverifieerde runtime-adapter.'});
+      if (url.pathname === '/api/platform/connectors/attempts' && req.method === 'POST') {const payload=await readBody(req);if(payload.success)return sendJson(res,422,{ok:false,code:'connector_runtime_receipt_required',error:'Een succesvolle uitvoering vereist runtimebewijs.'});return sendJson(res,201,platform.recordConnectorAttempt(ctx,actor,{...payload,success:false}));}
+      if (url.pathname === '/api/platform/connectors/webhooks' && req.method === 'POST') return sendJson(res, 422, {ok:false,code:'connector_webhook_verifier_required',error:'Deze route heeft nog geen geverifieerde providersignatuur-adapter.'});
       if (url.pathname === '/api/data-platform/outbox' && req.method === 'POST') return sendJson(res, 202, platform.enqueueOutbox(ctx, actor, await readBody(req)));
       const applyOutbox = url.pathname.match(/^\/api\/data-platform\/outbox\/([A-Za-z0-9_.:-]{1,200})\/apply$/);
       if (applyOutbox && req.method === 'POST') return sendJson(res, 200, platform.applyOutbox(ctx, actor, applyOutbox[1], await readBody(req)));
 
+      const automationEntity = url.pathname.match(/^\/api\/automation\/(tasks|documents)$/);
+      if(url.pathname==='/api/automation/export'&&req.method==='GET')return sendJson(res,200,platform.exportAutomation(ctx,actor));
+      if(url.pathname==='/api/analysis/export'&&req.method==='GET')return sendJson(res,200,platform.export(ctx,actor,'events','JSON'));
+      if (automationEntity && req.method === 'GET') return sendJson(res, 200, platform.automationRecords(ctx, actor, automationEntity[1], Object.fromEntries(url.searchParams)));
+      if (automationEntity && req.method === 'POST') return sendJson(res, 201, platform.createAutomationRecord(ctx, actor, automationEntity[1], await readBody(req), {idempotencyKey:req.headers['idempotency-key']}));
+      if(url.pathname==='/api/automation/workflows'&&req.method==='GET')return sendJson(res,200,platform.automationDefinitions(ctx,actor));
+      if(url.pathname==='/api/automation/runs'&&req.method==='GET')return sendJson(res,200,platform.queryAutomationRuns(ctx,actor,Object.fromEntries(url.searchParams)));
       if (url.pathname === '/api/automation/status' && req.method === 'GET') return sendJson(res, 200, platform.automationStatus(ctx, actor));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
+      const inspection=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/inspection$/);
+      if(inspection&&req.method==='GET')return sendJson(res,200,platform.inspectAutomationRun(ctx,actor,inspection[1],Object.fromEntries(url.searchParams)));
+      const recovery=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/recovery$/);
+      if(recovery&&req.method==='GET')return sendJson(res,200,platform.previewAutomationRecovery(ctx,actor,recovery[1]));
+      if(recovery&&req.method==='POST')return sendJson(res,200,platform.recoverAutomation(ctx,actor,recovery[1],await readBody(req)));
+      const activation=url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/activation$/);
+      if(activation&&req.method==='PUT')return sendJson(res,200,platform.setAutomationActivation(ctx,actor,activation[1],await readBody(req)));
       const run = url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/runs$/);
       if (run && req.method === 'POST') {
         const payload = await readBody(req);
@@ -288,6 +307,7 @@ function createPlatformApi(options = {}) {
         return sendJson(res, 200, { ok: true, product: 'Foundly Finance', version, schema: finance.schema(), persistence: persistenceStatus(), no_fake_data: true });
       }
       if (url.pathname === '/api/finance/dashboard' && req.method === 'GET') return sendJson(res, 200, finance.dashboard(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
+      if (url.pathname === '/api/finance/forecast-scenarios' && req.method === 'POST') return sendJson(res, 200, finance.forecastScenario(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/reports' && req.method === 'GET') return sendJson(res, 200, finance.reports(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
       if (url.pathname === '/api/finance/legal-entities' && req.method === 'POST') return sendJson(res, 201, finance.createLegalEntity(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/periods' && req.method === 'POST') return sendJson(res, 201, finance.createPeriod(ctx, actor, await readBody(req)));
@@ -326,10 +346,12 @@ function createPlatformApi(options = {}) {
         const payload = await readBody(req);
         return sendJson(res, 200, finance.export(ctx, actor, payload.scope, payload.format, payload.filters || {}));
       }
+      const closePreview=url.pathname.match(/^\/api\/finance\/periods\/([A-Za-z0-9_.:-]{1,200})\/close-preview$/);
+      if(closePreview&&req.method==='GET')return sendJson(res,200,finance.previewPeriodClose(ctx,actor,closePreview[1]));
       const close = url.pathname.match(/^\/api\/finance\/periods\/([A-Za-z0-9_.:-]{1,200})\/close$/);
       if (close && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 200, finance.closePeriod(ctx, actor, close[1], payload.reason));
+        return sendJson(res, 200, finance.closePeriod(ctx, actor, close[1], payload.reason,payload));
       }
       const records = url.pathname.match(/^\/api\/finance\/records\/([a-z_]+)$/);
       if (records && req.method === 'GET') return sendJson(res, 200, finance.list(ctx, actor, records[1], query));

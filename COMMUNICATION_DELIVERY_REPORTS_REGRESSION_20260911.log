@@ -1,0 +1,768 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundly-os@6.0.0 test
+> node --check server.js && node --check index-script.js && node --check zero-audio.js && node --check jarvis-audio.js && node --check neural-runtime.js && node --check speech-formatter.js && node --check foundly-registry.js && node --check workspace-system.js && node --check foundly-workspace.js && node --check foundly-shell.js && node --check smoke-test.js && node --check production-audit.js && node --check production-security-test.js && node --check readiness-config-regression-test.js && node --check oauth-production-regression-test.js && node --check jarvis-production-regression-test.js && node --check jarvis-client-regression-test.js && node --check speech-audio-visual-regression-test.js && node --check test-oauth-fetch-mock.js && node --check test-jarvis-fetch-mock.js && node --check test-masterbuild-fetch-mock.js && node --check foundly-masterbuild-regression-test.js && node --check full-platform-e2e-test.js && node smoke-test.js && node production-audit.js && node production-security-test.js && node readiness-config-regression-test.js && node oauth-production-regression-test.js && node jarvis-production-regression-test.js && node jarvis-client-regression-test.js && node speech-audio-visual-regression-test.js && npm run test:crm && npm run test:platform && npm run test:automotive && npm run test:masterbuild && npm run test:e2e && npm run test:composition
+
+{
+  "ok": true,
+  "version": "6.0.0",
+  "oauth_state": "pass",
+  "persistence": "pass",
+  "worker_recovery": "pass",
+  "orchestration": "pass",
+  "runtime_connectors": "pass",
+  "source_contracts": "pass",
+  "provenance": "pass",
+  "ui_actions": "pass",
+  "zero_ui_contract": "pass",
+  "legacy_assistant_api": "pass",
+  "dashboard_summary": "pass",
+  "base_connectors": 100
+}
+{
+  "ok": true,
+  "version": "6.0.0",
+  "connectors_audited": 100,
+  "status_contract": "pass",
+  "dedicated_routes": "pass",
+  "ui_contract": "pass",
+  "zero_pipeline": "pass"
+}
+{
+  "ok": true,
+  "authentication": "pass",
+  "authentication_audit": "pass",
+  "runtime_auth_diagnostic": "pass",
+  "secret_exposure": "pass",
+  "tenant_header_isolation": "pass",
+  "ssrf_guard": "pass",
+  "readiness": "pass",
+  "oauth_start_gate": "pass",
+  "worker_retry": "pass",
+  "rate_limit": "pass"
+}
+{
+  "ok": true,
+  "version": "6.0.0",
+  "configured_admin_secret_accepted": "pass",
+  "placeholder_encryption_rejected": "pass",
+  "localhost_origin_rejected": "pass",
+  "callback_exactness": "pass",
+  "derived_callbacks": "pass"
+}
+{
+  "ok": true,
+  "basic_auth_start": "pass",
+  "public_callbacks": "pass",
+  "providers": [
+    "meta",
+    "google",
+    "linkedin",
+    "tiktok",
+    "wix"
+  ],
+  "generic_oauth_state": "pass",
+  "wix_signed_instance": "pass",
+  "wix_native_install": "pass",
+  "restart_persistence": "pass",
+  "tenant_binding": "pass",
+  "state_integrity": "pass",
+  "one_time_replay": "pass",
+  "concurrent_callback": "pass",
+  "transient_retry": "pass",
+  "reconnect_rollback": "pass",
+  "encrypted_tokens": "pass",
+  "bootstrap_and_connected": "pass"
+}
+{
+  "ok": true,
+  "version": "6.0.0",
+  "realtime_ephemeral": "pass",
+  "origin_guard": "pass",
+  "server_only_key": "pass",
+  "semantic_vad": "contract_pass",
+  "barge_in": "contract_pass",
+  "spoken_text": "pass",
+  "persistent_wake_preference": "contract_pass",
+  "persistent_preferences": "pass",
+  "realtime_tool_completion": "contract_pass",
+  "text_submit_feedback": "contract_pass",
+  "current_search": "pass",
+  "social_conversation": "pass",
+  "social_follow_up_context": "pass",
+  "business_context_switch": "pass",
+  "follow_up": "pass",
+  "tool_registry": "pass",
+  "ui_bus": "pass",
+  "idempotency": "pass",
+  "confirmation_replay": "pass",
+  "prompt_injection_defense": "pass",
+  "memory_pruning": "pass",
+  "restart_persistence": "pass",
+  "history_control": "pass",
+  "secret_exposure": "pass"
+}
+[FOUNDLY RENDERER] injected shader failure
+[FOUNDLY AUDIO] injected audio failure
+[FOUNDLY RENDERER] injected shader failure
+{
+  "ok": true,
+  "version": "6.0.0",
+  "double_clap_gate": "pass",
+  "standby_privacy": "contract_pass",
+  "single_realtime_pipeline": "pass",
+  "renderer_failure_isolated": "pass",
+  "audio_failure_isolated": "pass",
+  "jarvis_handlers_after_failure": "pass",
+  "runtime_bound_visuals": "pass",
+  "fake_activity_removed": "pass"
+}
+{
+  "ok": true,
+  "version": "6.0.0",
+  "speech_plain_text": "pass",
+  "dutch_normalization": "pass",
+  "display_speech_separation": "pass",
+  "audio_buses": "pass",
+  "soundscape_initialization": "pass",
+  "output_wake_suppression": "pass",
+  "adaptive_gpu_density": "pass",
+  "deterministic_visual_topology": "pass",
+  "required_motion_samples": "pass",
+  "autonomous_manual_rotation": "pass",
+  "manual_motion_continuity": "pass",
+  "real_dashboard_summary": "pass"
+}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundly-os@6.0.0 test:crm
+> node --check crm-core.js && node --check crm-script.js && node --check crm-standalone.js && node --check crm-core-regression-test.js && node --check crm-api-regression-test.js && node --check crm-standalone-regression-test.js && node crm-core-regression-test.js && node crm-api-regression-test.js && node crm-standalone-regression-test.js
+
+{
+  "ok": true,
+  "crm_core": "pass",
+  "entities": 38,
+  "tenant_isolation": "pass",
+  "rbac": "pass",
+  "customer_360": "pass",
+  "inventory_customer_matches": "pass",
+  "pipelines": "pass",
+  "analytics_real_data": "pass",
+  "analytics_filters_comparison": "pass",
+  "dashboard_builder": "pass",
+  "dashboard_sharing_defaults": "pass",
+  "audited_live_change_token": "pass",
+  "automation_external_write_gate": "pass",
+  "auto_provisioner_contract": "pass",
+  "idempotency": "pass",
+  "audit": "pass"
+}
+{
+  "ok": true,
+  "foundly_os_crm": "pass",
+  "formal_api": "pass",
+  "customer_360": "pass",
+  "inventory_customer_matches": "pass",
+  "pipelines": "pass",
+  "analytics_real_data": "pass",
+  "analytics_filters_comparison": "pass",
+  "zero_crm": "pass",
+  "zero_customer_360": "pass",
+  "zero_inventory_matches": "pass",
+  "dashboard_builder_contract": "pass",
+  "dashboard_live_updates": "pass",
+  "dashboard_csp": "pass",
+  "signed_webhooks": "pass",
+  "external_write_gate": "pass",
+  "encrypted_core_state": "pass",
+  "no_fake_ui_data": "pass"
+}
+{
+  "ok": true,
+  "standalone_crm": "pass",
+  "health_ready": "pass",
+  "api_auth": "pass",
+  "encrypted_at_rest": "pass",
+  "formal_api": "pass",
+  "customer_data_persistence": "pass",
+  "inventory_customer_matches": "pass",
+  "pipeline_drag_contract": "pass",
+  "analytics_real_data": "pass",
+  "analytics_filters_comparison": "pass",
+  "dashboard_presets": "pass",
+  "audited_live_change_token": "pass",
+  "signed_webhook": "pass",
+  "webhook_replay": "pass",
+  "external_write_gate": "pass",
+  "zero_optional": "pass",
+  "no_neural_dependency": "pass",
+  "standalone_packaging_contract": "pass"
+}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundly-os@6.0.0 test:platform
+> node --check platform-core.js && node --check finance-core.js && node --check platform-api.js && node --check analysis-script.js && node --check finance-script.js && node --check platform-core-regression-test.js && node --check platform-api-regression-test.js && node --check business-workspaces-regression-test.js && node platform-core-regression-test.js && node platform-api-regression-test.js && node business-workspaces-regression-test.js
+
+{
+  "ok": true,
+  "platform_schema": "pass",
+  "tenant_isolation": "pass",
+  "events_immutable": "pass",
+  "event_dedup": "pass",
+  "realtime_aggregation": "pass",
+  "historical_rollups": "pass",
+  "incremental_fact_cache": "pass",
+  "shared_dashboard_snapshot": "pass",
+  "kpi_registry": "pass",
+  "kpi_drilldown": "pass",
+  "attribution": "pass",
+  "commercial_funnel": "pass",
+  "campaign_outcome_dedup": "pass",
+  "meta_architecture": "configured_unverified",
+  "google_architecture": "configured_unverified",
+  "tax_rules": "pass",
+  "knowledge_lifecycle": "pass",
+  "learning_feedback": "pass",
+  "connector_contract": "pass",
+  "offline_outbox": "pass",
+  "automation_approval": "pass",
+  "provisioner_three_packs": "pass",
+  "double_entry": "pass",
+  "invoice": "pass",
+  "partial_payment": "pass",
+  "credit_note": "pass",
+  "accounts_payable": "pass",
+  "bank_reconciliation": "pass",
+  "document_review_gate": "pass",
+  "fixed_assets": "pass",
+  "financial_reports": "pass",
+  "finance_export": "pass",
+  "period_close": "pass",
+  "reversal": "pass",
+  "observability_recovery": "pass",
+  "audit": "pass"
+}
+{
+  "ok": true,
+  "platform_api": "pass",
+  "authentication": "pass",
+  "migrations": "pass",
+  "canonical_event_ingest": "pass",
+  "deduplication": "pass",
+  "crm_event_bridge": "pass",
+  "realtime_analytics": "pass",
+  "historical_pagination": "pass",
+  "campaign_outcome_api": "pass",
+  "kpi_empty_state": "pass",
+  "provider_status_truthfulness": "pass",
+  "tax_historical_gate": "pass",
+  "dutch_invoice_and_retention": "pass",
+  "data_platform_online_offline": "pass",
+  "recovery_status": "pass",
+  "knowledge": "pass",
+  "learning_feedback": "pass",
+  "connector_lifecycle": "pass",
+  "automation_execution_and_approval": "pass",
+  "provisioner": "pass",
+  "finance_api": "pass",
+  "finance_approval_budget_forecast": "pass",
+  "finance_export_api": "pass",
+  "zero_cross_platform_tools": "pass",
+  "zero_campaign_outcome": "pass",
+  "observability_http_metrics": "pass",
+  "sse": "pass",
+  "encrypted_restart_persistence": "pass"
+}
+{
+  "ok": true,
+  "analysis_workspace": "pass",
+  "finance_workspace": "pass",
+  "authenticated_routes": "pass",
+  "strict_csp_assets": "pass",
+  "accessible_responsive_design": "pass",
+  "intentional_empty_states": "pass",
+  "no_fake_ui_data": "pass"
+}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundly-os@6.0.0 test:automotive
+> node --check automotive-core.js && node --check automotive-api.js && node --check automotive-script.js && node --check automotive-core-regression-test.js && node --check automotive-api-regression-test.js && node --check automotive-provider-contract-test.js && node --check automotive-live-provider-test.js && node --check test-automotive-fetch-mock.js && node automotive-core-regression-test.js && node automotive-api-regression-test.js && node automotive-provider-contract-test.js
+
+{
+  "ok": true,
+  "automotive_schema": "1.0.0",
+  "natural_language_search": "pass",
+  "random_queries": "pass",
+  "follow_up_criteria": "pass",
+  "provider_normalization": "pass",
+  "marktplaats_cents": "pass",
+  "freshness": "pass",
+  "conservative_dedup": "pass",
+  "tenant_isolation": "pass",
+  "provider_failure_cache_fallback": "pass",
+  "comparables": "pass",
+  "bpm_estimate": "pass",
+  "economics": "pass",
+  "dealer_fit": "pass",
+  "buy_score": "pass",
+  "today_opportunities": "pass",
+  "fixture_classification": "SYNTHETIC_PROVIDER_CONTRACT_FIXTURE_NOT_LIVE_DATA"
+}
+{
+  "ok": true,
+  "automotive_api": "pass",
+  "automotive_workspace": "pass",
+  "authenticated_routes": "pass",
+  "provider_contracts": "pass",
+  "normalization_persistence": "pass",
+  "comparables_economics_score": "pass",
+  "zero_initial_query": "pass",
+  "zero_multi_turn_context": "pass",
+  "zero_budget_update": "pass",
+  "zero_flagship_query": "pass",
+  "provider_outage_cache_fallback": "pass",
+  "restart_persistence": "pass",
+  "secret_exposure": "pass",
+  "fixture_classification": "SYNTHETIC_AUTOMOTIVE_INTEGRATION_FIXTURE_NOT_PROVIDER_PROOF"
+}
+{
+  "ok": true,
+  "fixture_classification": "OFFICIAL_DOCUMENTATION_SHAPE_CONTRACT_FIXTURE_NOT_LIVE_PROVIDER_DATA",
+  "mobile_de_new_json": "pass",
+  "marktplaats_hal_search_result": "pass",
+  "marktplaats_detail_shape": "pass",
+  "official_price_cents": "pass",
+  "safe_image_semantics": "pass",
+  "provider_specific_freshness": "pass",
+  "mobile_de_pagination": "pass",
+  "marktplaats_hal_pagination": "pass",
+  "timing_telemetry": "pass",
+  "live_provider_proof": false
+}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundly-os@6.0.0 test:masterbuild
+> node foundly-masterbuild-regression-test.js
+
+{
+  "ok": true,
+  "source_registry": "pass",
+  "connector_registry": "pass",
+  "source_filtering": "pass",
+  "openai_source": "pass",
+  "truthful_lifecycle": "pass",
+  "connector_visibility": "pass",
+  "navigation": "pass",
+  "workspace_routes": 16,
+  "workspace_auth": "pass",
+  "tenant_header_isolation": "pass",
+  "dashboard_defaults": "pass",
+  "dashboard_customization": "pass",
+  "dashboard_restart_persistence": "pass",
+  "automotive_sources": "pass",
+  "inkoop_source_display": "pass",
+  "neural_renderer_frozen": "pass",
+  "no_secret_leakage": "pass",
+  "no_fake_live_data": "pass",
+  "public_provider_transport": "DETERMINISTIC_TEST_FIXTURE_NOT_LIVE_PROVIDER_PROOF"
+}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundly-os@6.0.0 test:e2e
+> node --check full-platform-e2e-test.js && node full-platform-e2e-test.js
+
+{
+  "ok": true,
+  "deterministic_fixture_only": true,
+  "external_provider_delivery": "not_executed",
+  "meta_identity_and_internal_dedup": "pass",
+  "consented_event_journey": "pass",
+  "crm_lead_to_won_deal": "pass",
+  "customer_360_timeline": "pass",
+  "finance_invoice_payment_reconciliation": "pass",
+  "balanced_ledger": "pass",
+  "campaign_revenue_margin_dedup": "pass",
+  "knowledge_outcome": "pass",
+  "learning_evaluation": "pass",
+  "zero_campaign_answer": "pass",
+  "encrypted_restart_persistence": "pass"
+}
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> foundly-os@6.0.0 test:composition
+> node capability-resolver-test.js && node composition-api-test.js && node business-domains-test.js && node workflow-execution-test.js && node workflow-conditions-test.js && node workflow-manual-run-test.js && node composition-matrix-test.js && node second-industry-proof-test.js && node second-industry-integration-test.js && node industry-field-api-test.js && node industry-presets-test.js && node industry-presets-api-test.js && node workspace-dashboard-persistence-test.js && node workspace-dashboard-concurrency-test.js && node workspace-dashboard-session-test.js && node analysis-loading-test.js && node analysis-loading-api-test.js && node event-projection-bounds-test.js && node analysis-cohorts-test.js && node analysis-cohorts-api-test.js && node analysis-cohort-definitions-test.js && node analysis-cohort-definitions-api-test.js && node analysis-definition-history-test.js && node analysis-definition-history-api-test.js && node analysis-definition-history-client-test.js && node analysis-models-test.js && node analysis-models-loading-test.js && node analysis-models-api-test.js && node analysis-models-client-test.js && node analysis-actions-test.js && node analysis-actions-api-test.js && node analysis-actions-client-test.js && node analysis-actions-client-test.js --zero && node analysis-actions-zero-api-test.js && node analysis-cohort-zero-api-test.js && node static-response-api-test.js && node finance-period-closing-test.js && node finance-period-closing-api-test.js && node finance-period-closing-client-test.js && node finance-cash-scenarios-test.js && node finance-cash-scenarios-client-test.js && node finance-cash-scenarios-api-test.js && node finance-loading-test.js && node finance-loading-api-test.js && node communication-templates-test.js && node communication-templates-api-test.js && node communication-templates-client-test.js && node communication-addresses-test.js && node communication-sasl-test.js && node communication-google-oauth-transport-test.js && node communication-google-oauth-test.js && node communication-google-oauth-api-test.js && node communication-google-oauth-client-test.js && node communication-malware-scan-test.js && node communication-office-attachments-test.js && node communication-large-attachments-test.js && node communication-large-attachments-api-test.js && node communication-binary-attachments-test.js && node communication-binary-attachments-api-test.js && node communication-reply-all-test.js && node communication-reply-all-api-test.js && node communication-reply-all-client-test.js && node communication-comments-test.js && node communication-edit-sessions-test.js && node communication-collaboration-api-test.js && node communication-collaboration-client-test.js && node communication-zero-test.js && node communication-zero-api-test.js && node communication-zero-client-test.js && node communication-threads-test.js && node communication-threads-api-test.js && node communication-threads-client-test.js && node communication-imap-test.js && node communication-rfc822-test.js && node communication-delivery-reports-test.js && node communication-delivery-reports-api-test.js && node communication-delivery-reports-client-test.js && node communication-mailboxes-test.js && node communication-mailboxes-api-test.js && node communication-mailboxes-client-test.js && node communication-mime-test.js && node communication-process-observation-test.js && node communication-submission-recovery-test.js && node communication-submission-recovery-api-test.js && node communication-submissions-test.js && node communication-submissions-api-test.js && node communication-send-reviews-test.js && node communication-send-reviews-api-test.js && node communication-send-reviews-client-test.js && node communication-smtp-test.js && node communication-mail-auth-test.js && node communication-mail-auth-api-test.js && node communication-inbox-test.js && node communication-inbox-client-test.js && node communication-attachments-test.js && node communication-attachments-client-test.js && node communication-replies-test.js && node communication-replies-api-test.js && node communication-provider-state-test.js && node communication-history-bounds-test.js && node communication-drafts-client-test.js && node communication-drafts-test.js && node communication-drafts-api-test.js && node communication-snapshot-test.js && node communication-snapshot-api-test.js && node calendar-time-test.js && node calendar-time-api-test.js && node calendar-google-reader-test.js && node calendar-external-test.js && node calendar-external-api-test.js && node calendar-external-client-test.js && node calendar-event-preparation-test.js && node calendar-event-preparation-api-test.js && node calendar-event-client-test.js && node calendar-event-client-test.js --zero && node calendar-scheduling-test.js && node calendar-reminder-principal-test.js && node calendar-reminder-principal-api-test.js && node module-access-contracts-test.js && node module-event-contracts-test.js && node procurement-sourcing-test.js && node procurement-reviews-test.js && node procurement-allocations-test.js && node procurement-allocations-api-test.js && node procurement-incremental-allocations-test.js && node procurement-incremental-allocations-api-test.js && node procurement-incremental-client-test.js && node procurement-economics-outcomes-test.js && node procurement-economics-outcomes-api-test.js && node procurement-intelligence-client-test.js && node procurement-intelligence-client-test.js --zero && node procurement-clarifications-test.js && node procurement-clarifications-api-test.js && node procurement-clarifications-client-test.js && node procurement-clarifications-client-test.js --zero && node sales-forecast-test.js && node sales-quotas-test.js && node sales-quotas-api-test.js && node sales-scenarios-test.js && node sales-scenarios-api-test.js && node sales-scenarios-client-test.js && node sales-hierarchy-test.js && node sales-hierarchy-api-test.js && node sales-hierarchy-client-test.js && node sales-pipeline-test.js && node sales-pipeline-api-test.js && node sales-pipeline-client-test.js && node sales-sequences-test.js && node sales-sequences-api-test.js && node sales-sequences-client-test.js && node sales-zero-test.js && node sales-zero-api-test.js && node sales-zero-client-test.js && node marketing-audiences-test.js && node marketing-journeys-test.js && node marketing-journeys-api-test.js && node marketing-journeys-client-test.js && node marketing-journeys-client-test.js --zero && node marketing-metrics-test.js && node marketing-metrics-api-test.js && node marketing-metrics-client-test.js && node marketing-zero-client-test.js && node marketing-creative-history-test.js && node marketing-creative-history-api-test.js && node marketing-creative-history-client-test.js && node marketing-creative-reviews-test.js && node marketing-creative-reviews-api-test.js && node core-access-contracts-test.js && node core-access-api-test.js && node procurement-order-review-test.js && node provider-access-test.js && node provider-access-api-test.js && node connector-current-principal-api-test.js && node workflow-retry-test.js && node workflow-retry-api-test.js && node workflow-authoring-test.js && node workflow-branching-test.js && node workflow-branching-api-test.js && node workflow-editor-test.js && node workflow-absence-test.js && node workflow-absence-api-test.js && node workflow-recovery-ui-test.js && node workflow-run-zero-test.js && node workflow-run-zero-api-test.js && node workflow-run-zero-client-test.js && node workflow-inspection-test.js && node workflow-inspection-api-test.js && node workflow-inspector-test.js && node workflow-language-test.js && node workflow-language-api-test.js && node workflow-generator-test.js && node workflow-zero-test.js && node workflow-zero-api-test.js && node workflow-drafts-test.js && node workflow-run-query-test.js && node workflow-run-query-api-test.js && node workflow-drafts-api-test.js && node workflow-authoring-api-test.js && node workflow-activation-test.js && node workflow-recovery-test.js && node workflow-recovery-api-test.js && node tenant-identities-test.js && node tenant-identity-api-test.js && node tenant-identity-bootstrap-api-test.js && node crm-current-principal-api-test.js && node zero-crm-retention-test.js && node crm-zero-replay-api-test.js && node domain-zero-replay-api-test.js && node analysis-zero-routing-api-test.js && node crm-objects-test.js && node crm-objects-api-test.js && node crm-objects-client-test.js
+
+PASS composition contract: nine isolated profiles, combinations, authorization, concurrency, restart, retention and test-only industry
+PASS authenticated composition API, route aliases, ZERO tools, revocation, encrypted restart and reenablement
+PASS four business-domain workflows, retained exports, restart, isolation, approval binding, DST and subscriber outage
+PASS configurable sales stages, complete currency aggregates and unpublished marketing plans
+PASS sequential workflow outcomes, input-bound approval, replay, crash boundary and canonical event versions
+PASS private canonical and knowledge records stay permission-filtered, including write lookup
+PASS immutable workflow policies, legacy signature retention and case-insensitive delay bounds
+PASS automatic workflows retain owner identity and isolate per-workflow failures
+PASS validated case-insensitive schedules and action types execute consistently
+PASS malformed workflow isolation, non-starvation, retained diagnostic records, restart replay and explicit automatic trigger validation
+PASS CRM owner/team permissions and conservative legacy bridge event access
+PASS team/permission cache separation and legacy attribution/rollup source authorization
+PASS stage subscriptions require actual canonical stage-change evidence
+PASS offline outbox ownership applies before execution and replay
+PASS malformed conditions reject definition/manual/scheduled/resumed execution without effects; complete group validation, bounds, valid operators, nested persistence and replay
+PASS actual manual-run controls send typed condition/event inputs, bind tenant/manual source, preserve missing/null types, reject protected/path/conflicting fields, execute/skip exact groups, retain stored restart replay and prevent duplicate/detached submissions
+{
+  "ok": true,
+  "scope": "authenticated configuration/workflow/restart contract matrix; not competitive or browser acceptance",
+  "profiles": [
+    {
+      "configuration": "PROCUREMENT ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "SALES ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "CRM ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "MARKETING ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "FINANCE ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "ANALYSIS ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "CALENDAR ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "COMMUNICATION ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "AUTOMATION ONLY",
+      "contract": "PASS",
+      "workflow": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "crm + analysis",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "crm + automation",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "crm + finance",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "crm + communication + calendar",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "sales + crm",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "marketing + crm + analysis",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "procurement + analysis",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "AUTOMOTIVE + PROCUREMENT + CRM + ANALYTICS",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "FINANCE + DATA + KNOWLEDGE",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "automation + communication",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "procurement + sales + crm + marketing + finance + analysis + calendar + communication + automation",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    },
+    {
+      "configuration": "FOUNDLY COMPLETE",
+      "contract": "PASS",
+      "encrypted_restart": "PASS",
+      "full_product_acceptance": "PENDING"
+    }
+  ]
+}
+PASS test-only second industry extends owned business records without production registration or universal engine changes
+PASS test-only second-industry CRM relationship and Analytics KPI, standalone modules, reload, ACL filtering, provenance, null values, invalid/currency exclusion and revoked source capability
+PASS industry schema API, typed fields, encrypted restart, partial field updates, module boundaries and retained pack provenance
+PASS declarative industry presets, standalone modules, current permissions/capabilities, second-industry registry, rejected automatic/external/synthetic templates, failure isolation and no storage or execution on discovery
+PASS authenticated industry preset discovery, optional modules, capability revocation, owned dashboard save/restart/industry-switch retention, manual workflow approval and exactly-once task through encrypted restart; browser acceptance remains unproven
+PASS dashboard failed write/reset rollback and encrypted restart without later committing rejected state
+PASS simultaneous dashboard writes/create conflicts, required preconditions, monotonic reset/recreate revisions, stale reset denial, failure rollback, scope isolation and encrypted restart
+PASS reordered dashboard loads, cross-scope save denial, detached in-flight payload, one pending save, retained concurrent local edits, revision handoff, stale save suppression and retry after failure
+PASS standalone Analytics loading, optional Automation failure isolation, capability-specific requests and explicit unavailable component states
+PASS real Analysis-only page loader, absent Automation, delivered client asset, partial capabilities and encrypted configuration restart without browser acceptance claims
+PASS 50,000 unrelated/private events excluded before copying; bounded records/bytes, input validation before retrieval, current ACL, immutable sources and legacy projection compatibility
+PASS source-scoped unique cohorts, first retained acquisition, exact interval boundaries, null incomplete windows, explicit identity, duplicate delivery, current ACL, provenance and restart
+PASS authenticated Analysis-only cohorts, delivered UI contract, private-source filtering, incomplete windows, encrypted restart, current event/report capabilities and explicit unsupported-filter rejection; no browser acceptance claimed
+PASS owned cohort definitions, strict models, create replay, revision conflicts, current caller source rights, capability revoke before query, rollback, restart, archive and retained private export
+PASS authenticated saved cohort definitions, create replay, read-only/current owner execution, private source exclusion, stale revision refusal, encrypted restart, capability denial and retained export; UI delivery verified, browser interaction unproven
+PASS immutable native definition revision capture, honest legacy baseline, explicit version/restore actions, current-parent history/export access, typed source validation, CAS/exact receipts, bounded paging, atomic rollback, adapter restart and corrupted-history denial; no queried result retention
+PASS real-member Analysis history/version/restore HTTP, exact lost-response receipts, current query revision, encrypted restart, no result/operation-key export, served editor, body-wait write revocation and current-parent reassignment/capability denial; no browser evidence
+PASS production Analysis definition-history controls with native typed revisions and separate restore, unsaved guard, literal snapshots, exact lost-response keys, stale/detached denial, retained history after adapter restart and revoked/read-only view; synthetic DOM only
+PASS typed Analysis event/distinct/currency measures, no identity stitching, current-source grouped drilldowns, unknown invalid/missing values, strict dates/filters/no code formulas, overflow/ambiguous-source refusal, native history/current revision and adapter restart/capability separation; no provider completeness claim
+{"test":"analysis-models-multi-scope-load","status":"PASS","retained_fixture_events":110001,"distinct_current_scopes":16,"expected_matching_per_scope":2000,"elapsed_ms":583,"slowest_scope_ms":85,"unused_or_private_payload_reads":0,"larger_selected_scope":30001,"partial_capacity_result_returned":false,"browser":false,"production":false}
+PASS real-member typed Analysis models and currency-grouped source drilldowns across independent authenticated scopes, no unused/private payload exposure, current model version/restore, encrypted restart, body-wait source reassignment and event/report capability separation; served UI only, no browser/provider completeness claim
+PASS production typed Analysis model editor/query/group source drilldowns and shared revision history, no save-time calculation, exact lost-response keys, literal source fields, invalidated source basis, current model revisions, preserved unsaved input, adapter restart and report/event/write availability controls; synthetic DOM only
+PASS source-bound Analysis action proposals, separate designated approval and execution, standalone report and native Sales enrollment, no preview/approval effects, current reviewer/source rights, exact receipts, atomic cross-module rollback, adapter restart, literal native outcome verification and current-source historical report/export access; no external send or causal claim
+PASS real-member Analysis group proposal -> different designated approval -> separate native Sales/report execution -> current outcome HTTP, body-wait reviewer revocation/suspension, standalone optional-module isolation, encrypted restart/no duplicates, current-source report access and independent native Sales ownership; no delivery/causal/browser claim
+PASS production Analysis model-group to proposal editor -> actual native handlers -> different designated approval -> separate execution -> current outcome, literal rendering, exact lost-response retry, no stale/detached write, preserved unsaved input, source revocation and adapter restart; synthetic DOM only
+PASS ZERO production Analysis model-group to proposal editor -> actual native handlers -> different designated approval -> separate execution -> current outcome, literal rendering, exact lost-response retry, no stale/detached write, preserved unsaved input, source revocation and adapter restart; synthetic DOM only
+PASS real-member ZERO Analysis native proposal -> separate designated approval -> separate execution/current outcome, current-source replay, conflicting/revoked turns, source-free decrypted audit/conversations and encrypted restart without duplicate effects; no provider/browser claim
+PASS actual ZERO cohort selection, dynamic read-tool filtering, current caller projection, source-free conversation history, replay revalidation after role downgrade/restart, foreign owner denial, changed-definition refusal and no business effects
+PASS static HTML/asset read failures return unavailable without crashing the server, concurrent API isolation, recovery, client cancellation and retained configuration
+PASS Finance period close: explicit current complete internal review, exact totals, unbalanced/draft/unreconciled blockers, role/capability guards, persistence rollback, encrypted-adapter-shaped restart/replay, durable event and native post-close posting refusal; no statutory/provider acceptance
+PASS Finance close HTTP: real viewer/admin roles, explicit review/confirmation, source changes during body wait, encrypted replay without duplicate close/postings, protected client assets and current capability on retry
+PASS Finance close screen: separate current review and confirmation, invalidated confirmation, preserved uncertain request, exact retry, dirty/detached refusal and inert labels; synthetic DOM
+PASS Finance scenarios: actual horizon defect corrected in reports/dashboard, explicit source-bound date/amount/zero assumptions, exact signed cents/overflow, separate entities/currencies, read-only authority and no source or posting effects; frozen engine unchanged
+PASS Finance scenario screen: explicit current source and whole-cent assumptions, exact currency, dirty-input protection, reset, inert text and detached-response refusal; synthetic DOM only
+PASS Finance scenario HTTP: Finance-only viewer reads and explicit source-bound scenarios, horizon-correct reports/dashboard, exact currency, no postings/payments, encrypted restart and current capability after body wait
+PASS Finance report loading without ledger lookup, failure isolation, preserved entity filters and explicit disabled report state
+PASS real Finance-only loader, independent ledger/report capabilities, stable entity filter, delivered asset and encrypted restart without accounting-engine changes
+PASS literal version-bound template drafts, explicit missing values, header/field limits, atomic rollback/replay, private source ACL/history/export, separate exact review/submission retaining template origin, ZERO handoff and source-free retention; isolated transport only
+PASS actual-session native/ZERO template draft creation, explicit missing values, unchanged Messages, encrypted restart/idempotency, template edit and current role/owner revocation during pending request body, current history/export access and no external provider operation
+PASS production template controls: labelled literal values/inert preview, A-B-A invalidation, explicit exact source confirmation, retry key preservation, duplicate pending refusal, native controls through ZERO selected-template adapter and detached response discard; DOM contract only
+PASS allocated IPv6 mail destinations, reserved/special/transition/mapped/scoped denial, mixed-family DNS rejection, bounded answers and canonical exact peer comparison without re-resolution
+PASS explicit SASL method, unchanged legacy configuration, OAuth-only secret selection, control/length/expiry validation, separate SMTP/IMAP credentials, environment precedence and token expiry without network access
+PASS fixed Google OAuth token/userinfo endpoints over real isolated IPv6 TLS, exact forms, secret headers only after verified peer, private-address/certificate/peer/current-authority denial, no redirects and bounded invalid/incomplete/timeout responses; no live Google account
+PASS explicit mail-only OAuth state/PKCE, initiating current member/tenant binding, actual response scope/expiry/identity requirements, one-use callback, encrypted-adapter restart/rollback, prior-grant preservation, stable account identity, guarded automatic refresh/concurrency and local disconnect; provider responses are isolated fixtures, no live account
+PASS native mail OAuth with real initiating member sessions, one-use PKCE callback/restart, isolated short-token automatic SMTP refresh, masked client fields/private grants, incomplete replacement preservation, current configuration/role/disconnect boundaries and zero recorded messages; no live Google account
+PASS actual mail OAuth DOM handlers, lazy passive status, current confirmation/configuration/revision, fixed provider navigation, unavailable authority/setup, duplicate/detached suppression and explicit local-only disconnection; browser acceptance remains unproven
+PASS actual local scanner subprocess protocol: exact copied stdin bytes, fixed no-shell limits, no inherited credentials, current authority/configuration, signed-database age flags, strict result/exit-code handling, alert/error/skip/signal/output/timeout denial; fixture only, real scanner acceptance unproven
+PASS independent stored/deflated/streamed OOXML package fixtures, CRC/local-central/descriptor consistency, no traversal/overlap/duplicates/macros/alternate paths/encryption/multipart/ZIP64/trailing payload, bounded expansion and exact 3 MiB file limit; no Office renderer or real scanner claim
+PASS two exact 3 MiB scanned files, 6 MiB draft bound before scanner, designated approval and >8 MiB MIME with byte/hash verification, accepted-only isolated submission, encrypted-adapter replay/export, V1 small-file retention and V1 Office/large-proof refusal; no external mail or real malware detection claim
+PASS actual member HTTP 3 MiB PDF and streamed DOCX/XLSX/PPTX uploads with real isolated scanner subprocess, exact original downloads, encrypted restart/replay, current metadata bounds, oversized/corrupt denial before scanner, unchanged draft revision on failure and private owned export; no real malware/provider/browser acceptance
+PASS bounded signature-checked PDF/image attachment service, scan-required writes, immutable bytes/scan receipt and historical restore, current source during async scan, atomic rollback, expired-send denial with retained owned export, encrypted restart and unchanged message count; labelled scanner fixture only
+PASS real HTTP binary upload with actual isolated scanner subprocess, alert refusal, exact bytes/private Data, retained encrypted restart/replay, current-source revocation while process runs and private owned export; no real malware-engine acceptance or external mail
+PASS source/account-bound reply-all To/Cc, self/duplicate exclusion and no blind recipients, unavailable source sets, retained history, all-recipient preferences and exact reviewed SMTP envelope/headers, current-source/identity changes and encrypted replay without resend; isolated fixture only
+PASS real native/ZERO reply-all To/Cc with configured fixture identity, exact source binding across pending body waits, unavailable Cc on same-turn replay, retained draft/history and encrypted idempotency without external sends
+PASS production reply-all controls show and bind separate To/Cc, inert source and authored text, exact sender/source fingerprint, stable retry key and detached denial; review renders Cc; DOM contract only
+PASS source-bound internal draft comments/replies, current collaborator access and reader denial, own-author withdrawal with retained evidence, exact source revision, private export, CAS/idempotency, atomic rollback and restart without mail
+PASS current-source shared working copy, explicit single-editor takeover, secret grant/CAS/expiry/revocation, no stale writer or token disclosure, atomic rollback, restart, private export and no recorded mail
+PASS real shared draft comments and live working copy, session takeover during pending save, private Data and grant tokens, source revocation during body waits, exact replay/encrypted restart and no message count changes
+PASS production comment/editor handlers: inert text, exact revisions, private session token, shared working-copy updates, confirmation retained during polling, takeover denies old save without overwriting local text, revoked-source clearing and detached response denial; browser acceptance not claimed
+PASS ZERO native Communication action contracts, current tool/role/Core rights, source-free retention, exact reviewed preparation/decision/explicit submission, no bypass, actor/input/turn replay, source revocation, disabled capabilities and encrypted restart; isolated transport only
+PASS actual ZERO HTTP native preview/review/designated approval/explicit submission, dynamic tool/Core permissions, source-free history, exact-turn and concurrent payload binding, encrypted replay without resend, source reassignment and body-wait revocation; isolated SMTP fixture only
+PASS actual native review controls delegated through ZERO, selected source/operation whitelists, explicit payload/turn keys preserved on retry, source-bound reply adapter and detached response denial; DOM contract only
+PASS current-scope header-derived conversations/participants, ambiguous IDs/cycles/no subject merge, explicit unavailable headers/Reply-To, exact source-bound reviewed reply MIME and recorded linkage, forward separation, unchanged approval policy and encrypted replay; no live send
+PASS authenticated header-derived conversation paging/current owner, exact reply review headers, provider-draft source withdrawal, independently disabled threads with inbox preserved and encrypted restart; no live account or send
+PASS production conversation/reply-review handlers show header/participant uncertainty, perform only explicit reads, render content inertly and refuse changed-revision/detached details; DOM contract only
+PASS explicit XOAUTH2 IMAP initial/continuation responses over IPv6 TLS, read-only retained MIME, error acknowledgement without repeat/fallback, invalid success after challenge refused and expiry at async boundaries; isolated credentials only
+PASS IPv4/IPv6 actual local verified TLS IMAP rev1/rev2, read-only EXAMINE/BODY.PEEK, bounded literals and UID sets, credential/current authority guards, drafts excluded, oversized/incomplete/changed mailbox evidence and no provider mutation; no live account proof
+PASS bounded MIME and encoded-header decoding, exact attachment hashes, inert HTML, folded/quoted addresses and thread metadata, unsupported/malformed/oversized content unavailable without truncation or invented empty content
+PASS untrusted RFC 3464 recipient outcomes, missing/ambiguous/corrupt source denial, exact accepted immutable submission correlation, unreported recipients, source ACL, native/ZERO current replay, source-free retention and adapter restart; zero writes/send/delivery proof
+PASS real-member read-only IMAP DSN source/native and ZERO inspection, private source denial, source-free encrypted turn retention, restart/current-capability replay denial and retained raw export; no external send or verified delivery
+PASS production DSN native/ZERO read controls: explicit inspection, literal untrusted diagnostics, missing-recipient uncertainty, current-source denial clearing, changed revision and detached response refusal, no writes; synthetic DOM only
+PASS read-only mailbox import, provider draft exclusion/current source ACL, original-source integrity/export, UID deduplication/immutability, unavailable content, bounded scan/restart/change detection, credential/role revocation, atomic rollback and explicit verified empty observations; isolated provider fixture only
+PASS real-session IMAP OAuth configuration, isolated-adapter method, current versus retained evidence, encrypted restart, mid-request token rotation and expiry before provider access
+PASS production HTTP read-only mailbox authorization, source downloads/export and private Data, provider drafts excluded from messages/snapshot, current member/configuration rechecks, verified empty versus unavailable, encrypted restart and UID deduplication; isolated provider fixture only
+PASS production mailbox UI handlers require explicit confirmation/current revision, retain honest unconfigured/incomplete states, gate rights, reload after uncertainty and verify source bytes before inert download; DOM contract only
+PASS deterministic bounded ASCII MIME, exact stable message identity, Unicode-safe folded subject, canonical body lines, original attachment bytes, hash integrity and header/wire injection refusal
+PASS restricted process view is unavailable and cannot prove retirement; actual lifecycle proof requires CI
+PASS independently durable transport receipt survives final message rollback/reload, exact historical content recovery without transport, current source/rights, CAS/replay, forged/corrupted evidence denial, unknown and active attempts blocked, private retained export and unchanged delivery uncertainty
+PASS unavailable runtime process evidence refuses pre-DATA retirement; positive crash recovery requires CI
+PASS native/ZERO receipt recovery without resend, historical message body, current privilege after body await, unknown post-DATA crash denial, encrypted replay and private export; actual positive process-retirement branch is mandatory in CI
+PASS approved SMTP attempt policy/current requester/reviewer, pre-network atomic persist, accepted-only message records, unchanged draft count/state, unknown/no-blind-retry across edits/restart, revoked policy during await, final-persist failure, current-source retained export and no live mail
+PASS real requester/reviewer/executor sessions, explicit confirmed send policy, revoked preference before bytes, accepted-only messages, encrypted replay, actual process crash after durable DATA boundary without resend, durable receipt after executor revocation, private owned export and no live mail
+PASS exact source/attachment/account/preference send-review binding, designated separate reviewer, active membership, stale/revoked policy refusal, rollback, replay/restart, private retained export and no mail-send effect
+PASS real sender/reviewer sessions, account/source binding, current body-wait config/permission changes, assigned reviewer only, approved withdrawal, encrypted replay and private current-source export with no messages/tasks sent
+PASS production review handlers bind displayed sources, require explicit reviewer/decision, retain retry keys only for identical input, discard stale previews/search and prevent detached actions; no browser acceptance claimed
+PASS local SMTP submission distinguishes provider acceptance from delivery, all-recipient rejection before payload, exact dot transparency, mandatory durable boundary, revoked rights before bytes, negative DATA replies and ambiguous lost/timeout outcomes; no live mail
+PASS explicit XOAUTH2 SMTP and STARTTLS on IPv6, exact bearer wire, approved DATA, rejection/error challenge acknowledgement without fallback or repeated token, expiry before connection and before AUTH; isolated credentials only
+PASS IPv4/IPv6 local verified TLS SMTP authentication on 465/STARTTLS 587, pinned destination, private-host refusal, post-TLS capability reset, rejected certificate/auth, bounded timeout, current authority and no message-send commands; no live account acceptance
+PASS explicit privileged SMTP verification, configuration-bound expiring proof, tenant isolation, encrypted-adapter reload, no secret projections, concurrent attempt refusal, mid-flight configuration/authority changes and fail-closed persistence; transport is an isolated fixture
+PASS real-session OAuth credential fields, masked reads, explicit method delivered to isolated adapter, encrypted proof restart, token rotation during authentication, expired-token refusal before adapter and no message/source-secret exposure
+PASS explicit native/generic SMTP test routes, real current member permission/configuration rechecks, credential-bound encrypted proof restart, passive shared status, private proof/Data and no messages/tasks; isolated transport fixture only
+PASS retained-only inbox search/pagination, private result counts, unknown personal read state, revision-bound per-user read/archive, no provider mutation, atomic rollback, source changes, replay/restart, capability revocation and retained owned export
+PASS production inbox handlers preserve unavailable coverage/read state, render external text inertly, avoid provider CRUD/implicit read mutations, bind both revisions and discard stale/detached replies; browser acceptance not claimed
+PASS UTF-8-only bounded attachments, byte integrity, no implicit source processing, tenant/current-source ACL, sharing/revocation, CAS, immutable restore, atomic rollback, replay/restart and owned export after disablement
+PASS production attachment handlers verify bytes, download text and scanned binary as inert files, avoid inline rendering, preserve input-bound retry/CAS, bound uploads and respect read-only/detached state; browser acceptance not claimed
+PASS source-bound reply/forward preparation, explicit recipients, no source quote or external send, current message access for drafts/history/export, atomic rollback, replay/restart and stale-source rejection
+PASS authenticated reply/forward preparation and personal inbox state from labelled retained-message fixture, denied public message forging, unknown external totals/read state, user-isolated archive, pending-body revision/owner conflicts, encrypted replay, current source ACL across draft/history/export/ZERO and no external send/provider mutation
+PASS native and generic SMTP configuration never claims authenticated connectivity or send proof, never probes arbitrary TCP/HTTP destinations and exposes no credential values
+PASS 20,000 retained revisions use bounded parent lookups, pagination excludes bodies, current grants are rechecked and export remains parent-authorized
+PASS production draft client handlers keep stale revision protection, explicit collaborator removal, detached workspace isolation and read-only history controls; browser acceptance not claimed
+PASS explicit draft sharing, current parent ACL for history, editor privilege boundaries, CAS edits, immutable revisions, restore without access rollback/send, receipt replay/restart, atomic failure rollback, legacy sharing and retained export
+PASS real draft owner/collaborator sessions, explicit sharing/revocation, no privilege expansion, immutable history/CAS restore, idempotent encrypted restart, private native/Data/ZERO boundaries, bounded member selection, mid-body access/member/upload revocation, exact retained text attachments and owned export without external send
+PASS drafts/message separation, known versus missing classification, invalid/incomplete source contracts, per-source failure isolation and no inferred mailbox delivery/coverage
+PASS communication snapshot separates unsent drafts from retained messages, private owners, independently revoked capabilities and encrypted restart without false delivery state
+PASS strict civil timestamps, leap dates, half-hour/full-hour ambiguity and gaps, skipped civil day, exact milliseconds, weekly intervals and elapsed duration; explicit one-off offsets remain valid
+PASS authenticated calendar date rejection across writes/slots, half-hour ambiguity, retained source/revision after rejected edit, real recurrence conflicts and encrypted restart; actual protected browser contract preserves interval, rejects unsupported rules and removes recurrence durably (browser interaction unproven)
+PASS Calendar reader: fixed GET endpoint, redirect refusal, authority after token wait, bounded stream and incomplete response rejection; no live provider
+PASS Calendar external: complete pagination, exclusive/all-day DST intervals, private occupancy, exact source/window/account binding, stale slot/preview refusal, atomic replacement/failure, native conflicts and restart
+PASS Calendar external HTTP: authenticated paginated read, native conflict, CAS, partial failure preservation, body/provider-wait authority and source changes, encrypted restart; fixture provider only
+PASS Calendar external screen: passive status, explicit current window/confirmation, changed-input invalidation, native reconciliation and detached response refusal; synthetic DOM
+PASS Calendar preparation: literal/model boundary, DST, current access, atomic creation, conflict, participant isolation, restart and retry
+PASS Calendar HTTP: native and natural/typed ZERO preparation, explicit participant/confirmation, restart/dedup, source-free history, current identity/source after body/model waits, conflicting inflight selections; isolated model fixture only
+PASS Calendar screen native: explicit fields/participants/recurrence, dirty and stale guards, detached confirmation, lost-response retry, current native outcome and revocation; DOM harness, no browser acceptance
+PASS Calendar screen ZERO: explicit fields/participants/recurrence, dirty and stale guards, detached confirmation, lost-response retry, current native outcome and revocation; DOM harness, no browser acceptance
+PASS scheduling, round-robin, stale booking rejection, durable reminder notifications, persistence rollback and isolated module readiness
+PASS reminder author/recipient separation, no scheduler privilege borrowing, per-reminder malformed/commit failure isolation, retry/restart without duplicates, retained canonical author migration and unbound-record preservation
+PASS real reminder author revocation/suspension, unrelated active author execution, explicit recipient delegation and encrypted restart without duplicate notifications or scheduler privilege expansion
+PASS all owned entities and declared engine operations enforce capability revocation, including read-only and approval roles
+PASS composition roles preserve existing Finance authority and adapt trusted platform administrators after capability checks
+PASS shared Data projections respect capabilities and exclude operational buckets
+PASS transactional module events, restart recovery, event ACL and retained owned analysis reports
+PASS owned RFQs, scoped bid comparison, stale revision rejection, no fabricated verification, rollback and restart
+PASS mandatory threshold policy, assigned sequential approval, no impersonation, policy drift, rejection, cancellation, rollback and restart
+PASS highest applicable threshold and default separation of requester/reviewer
+PASS item/quantity allocation, aggregate mandatory approval, exact scope, private bids, sequential review, restart, duplicate prevention, rollback, source/policy drift and retained export
+PASS authenticated allocation preview and approval, exact durable lines, encrypted restart, idempotent replay, duplicate plan denial, no supplier order and capability revocation
+PASS incremental Procurement: explicit partial offers, cumulative quantities/value across request revisions, threshold escalation, sequential review, one pending proposal, offer exhaustion, stale policy, rollback/restart/replay and no supplier order
+PASS Procurement incremental HTTP: real buyer/reviewer, explicit partial offer and award, current cumulative quantity/value, approved receipt across encrypted restart, no duplicate or supplier order and current body-wait authority
+PASS Procurement production allocation confirmation: explicit incremental route, displayed prior/cumulative value and remaining quantity, separate submit and exact lost-response retry without duplicate proposal/order; synthetic DOM
+PASS universal Procurement economics/outcomes: exact explicit cost assumptions, no invented zeros/taxes, comparable scope and source binding; user-reported supplier delivery/quality/cost revisions, immutable retained evidence, no double observation count, private parent rights, rollback/restart/replay and no financial/provider action
+PASS Procurement economics/outcomes HTTP and ZERO: native cost comparison, immutable exact-scope snapshot, partial award approval, observed forecast error, real principals, encrypted restart/replay, source-free conversation, current body-wait capability and private-derived-source refusal, retained disabled-module export; no order/payment
+PASS Procurement intelligence native client: explicit quantity/cost inputs, missing-vs-zero semantics, separate confirmation, exact lost-response retry, retained scenario/observation linkage, dirty/detached guards; synthetic DOM, no browser proof
+PASS Procurement intelligence ZERO client: explicit quantity/cost inputs, missing-vs-zero semantics, separate confirmation, exact lost-response retry, retained scenario/observation linkage, dirty/detached guards; synthetic DOM, no browser proof
+PASS supplier clarification: explicit current member assignment, supplier-specific question/reported response/resolution, append-only hash chain, source revision and writer revocation, atomic rollback/restart/replay, tamper refusal and retained owned export; no supplier authentication/send/order claim
+PASS real supplier-clarification HTTP/native/ZERO: current assigned collaborators, manual response provenance, source-free encrypted retained turns, restart/replay, mid-body assignment revocation, exact explicit resolution, source capability denial and retained export; no supplier login, transport or purchase
+PASS supplier-clarification native production controls: supplier/member selection, explicit literal question and reported response, separate confirmation, exact lost-response retry, no duplicate, dirty/detached guards; synthetic DOM only
+PASS supplier-clarification ZERO production controls: supplier/member selection, explicit literal question and reported response, separate confirmation, exact lost-response retry, no duplicate, dirty/detached guards; synthetic DOM only
+PASS period forecasts, explicit missing data, currency separation, owner/tenant/capability access, immutable snapshots, stale basis, replay, rollback and restart
+PASS managed owner quotas, exact periods and currency, overlap rejection, private targets, missing-data nulls, current target snapshot binding and retained restart
+PASS authenticated quota management, workspace exposure, exact target-bound snapshots, encrypted restart, stale target denial and private seller access
+PASS explicit probability scenarios, exact cent rounding, currencies, missing-data nulls, immutable sources/snapshots, scope/revision denial, idempotency, rollback, restart and current snapshot source ownership
+PASS authenticated read-only scenario comparison, source preservation, immutable snapshot replay/restart, stale revisions, private owner denial, capability revocation and retained scenario export; browser acceptance unproven
+PASS production scenario controls and native computation for amount/date assumptions, outside-period sources, zero/missing probability, literal rendering, separate immutable snapshot confirmation, adapter restart, exact lost-response replay and stale/detached response denial; DOM contract, no browser or provider evidence
+PASS immutable explicit hierarchy versions, cycle/depth/duplicate-owner validation, owner-subtree currency rollups without double counts, current scoped sources, no permission expansion, native scenario/snapshot binding, rollback/restart, corrupt definition and revoked source/capability denial
+PASS real-member hierarchy HTTP management/sharing without source permission expansion, scoped node totals, immutable snapshot and encrypted restart, generic-write denial, current role after body wait, source/capability denial and served client asset; no browser evidence
+PASS production hierarchy editor/query and snapshot handlers with native services, explicit owner/node versions, unsaved-input and exact uncertain-response retry, literal labels, root/child current-source totals, separate node-bound snapshot confirmation, stale/detached prevention, adapter restart and denied refresh; not browser evidence
+PASS reproduced title-only probability reset fixed; exact phase/pipeline transitions, explicit probability overrides, private/shared read-only pipelines, scoped currency boards, retained in-use stages, revision-bound confirmed moves, native stage-change events, exact receipts/replay, rollback/restart and revoked role/capability denial
+PASS real-member native pipeline HTTP and title-only probability regression, scoped read-only sharing, separate revision-bound moves, exact replay/no duplicate writes, used-stage protection, encrypted restart, private export, role revocation during body wait, removed sharing/capability denial and served board assets; no browser acceptance
+PASS production board editor, keyboard and drag preparation, explicit source/pipeline-revision confirmation, native stage/probability changes, literal labels, unchanged counts on preparation, exact lost-response replay, stale pipeline and detached-form refusal, adapter restart and read-only/revoked views; no actual browser evidence
+PASS explicit immutable Sales follow-up plans, no preview/start effects, native task completion and due-time gating, internal Communication draft handoff without messages/send, current parent-derived task/draft/history/export ACL, exact receipts, atomic cross-module rollback, adapter restart and corrupted-plan denial
+PASS native Sales sequences HTTP with real members, manual task verification/internal draft handoff, no Messages/review/send effects, private sources, exact start replay, live body-wait role revocation, current-author worker isolation and suspension, encrypted restart without duplicates, current parent-derived task/draft/history/review access; no provider/browser evidence
+PASS production Sales sequence editor through persisted native engine: immutable versions, explicit inputs, preview invalidation, separate confirmations, current task verification, no preview/start Messages effects, exact lost-response replay, native draft handoff, literal text, adapter resume and revoked/read-only views; synthetic DOM only
+PASS registered structured Sales ZERO tools, native prepare/execute/current verification, exact turns and native receipts, malformed/foreign denial, explicit current-revision outcome notes with unknown causality/delivery, stale-source refusal, atomic rollback, source-free retention, adapter replay and parent-derived feedback export ACL; no provider/model/browser evidence
+PASS real-member structured Sales ZERO discovery/prepare/execute/current verification and native outcome API, separate source-revision feedback, current stale/replayed outcome refusal, encrypted restart/no duplicate task, source-free decrypted audit/history, body-wait role revocation and source reassignment; no provider/browser/model evidence
+PASS production Sales controls via registered ZERO/native handlers, unsaved transport guard, prepare then explicit execute, stable lost-response turns, current native result, stale outcome refusal, separate non-causal feedback, restart/literal notes and detached/read-only controls; synthetic DOM only
+PASS Marketing audience immutable revisions, explicit user-recorded permission, no unknown default grant, exact tag filters, duplicate-address ambiguity, hidden opt-out suppression without older fallback, rollback/restart/replay and retained private export; no external activation
+PASS Marketing finite audience enrollment, immutable approved creative plan, source-bound manual/internal automatic journeys, native task verification, explicit delay/tag skip, atomic cross-module draft rollback/restart, protected recipient and immediate opt-out/source suppression; retained internal history/export, no provider send/activation or causal claim
+PASS Marketing real-member native/ZERO audience, filter, approved-content definition and activation; encrypted exact replay; current opt-out during body wait prevents task and hides bound draft/history; source-free turns, recipient protection, current-member task-only automatic worker and explicit native task completion; retained exports, no publication/send
+PASS Marketing native production controls: explicit member permission/filter source, editable definite validation error, immutable journey authoring, separate finite enrollment and step confirmation, exact response-loss retry, actual native task completion/verification, literal content and dirty/detached guards; synthetic DOM only
+PASS Marketing ZERO production controls: explicit member permission/filter source, editable definite validation error, immutable journey authoring, separate finite enrollment and step confirmation, exact response-loss retry, actual native task completion/verification, literal content and dirty/detached guards; synthetic DOM only
+PASS Marketing metrics: exact half-open period, authorized typed sources, explicit cross-channel terminal reconciliation, zero precedence/no double revenue, contradictory/unknown evidence refusal, currency isolation, overlapping snapshot/delta denial and source-bound drilldown
+PASS Marketing metrics HTTP: standalone member/current source permissions, deduplicated period revenue, exact snapshot currency, private unused payload exclusion, source-bound drilldown, encrypted restart and body-wait capability revocation
+PASS Marketing period controls: explicit query window, exact currency separation, current source-bound drilldown, edited-input invalidation and detached-response refusal; production component in synthetic DOM
+PASS Marketing transport controls: native/ZERO route parity, preserved current typed payload, stable exact write turn, dirty-mode guard and detached refusal
+PASS Marketing history: immutable source snapshots including approval, explicit draft restore, approved-source fork without inherited approval/publication, current parent/derivation access, corrupt/foreign history denial, honest legacy baseline, rollback and exact durable retry
+PASS Marketing history HTTP: real owner roles, explicit revision/restore, private history list/detail/export, current owner after body wait, exact encrypted restart/retry and served production component
+PASS Marketing creative production controls: native version/restore, separate confirmation, preserved dirty/uncertain input, exact retry without duplicate revision, literal snapshots and detached refusal; synthetic DOM
+PASS creative review exact source binding, sequential current authority, no self-approval, private source protection, rejection/withdrawal, atomic final approval, immutable content, no publication, replay, rollback, restart and retained export
+PASS real-session Marketing sequential review, current source visibility, no self/out-of-order approval, encrypted mid-review/final restart, immutable approved content, NOT_PUBLISHED state, private Data projection and retained export
+PASS Core route privileges, reserved memory namespaces, owner filtering and preserved OAuth callback boundary
+PASS owner-bound queue selection, per-task exception isolation and bounded failure disclosure
+PASS authenticated Core memory/queue isolation, connector administration denial, owner-bound worker execution, no foreign-task starvation and encrypted restart
+PASS direct-order mandatory review, sequential assigned authority, source/policy drift, atomic order approval, rollback, immutable replay, rejection, withdrawal and restart
+PASS provider alias capabilities, dependent ZERO tools, Analytics-only private cache, stable query keys, retention, isolation and persistence rollback
+PASS authenticated Analytics-only GA4 fixtures, read-only reporting, capability/property denial before transport, private cache, encrypted restart and retained export
+PASS real current connector principal after native/legacy credential and profile body awaits, role revocation/suspension and disabled module refusal, rights rechecked after DNS validation, concurrent profile preservation, encrypted configuration/profiles through restart and ordinary authorized updates
+PASS durable bounded retry, backoff, result-loss idempotency, owner/capability revalidation, revoked adapter contract, permanent-error refusal, dead-letter retention and restart
+PASS authenticated owner-bound retry after encrypted restart, lost response without duplicate tasks, immutable history, unsafe retry denial and retained export
+PASS draft compilation without effects, sequential authoring, typed conditions, offset schedule, exact approval, delay, immutable versions, replay and capability denial
+PASS explicit if/else compilation, mutually exclusive nested paths, missing-value else semantics, exact approval, delay/restart/replay, selected-path failure isolation and malformed negation/branch denial
+PASS native HTTP private branch drafts and encrypted reload, exact version/approval, true/else exclusivity, delay/restart/replay, malformed negation denial and viewer write/run denial without duplicate tasks
+PASS explicit ZERO preparation/save through actual editor handlers, native revision adoption, lost-response same-turn replay, no publish and stale preview invalidation
+PASS actual branch editor controls preserve separate true/else paths through private reload, version compilation and mutually exclusive engine execution
+PASS actual editor handlers build nested groups, preserve private drafts through reload, compile/persist/execute exact conditions, skip false groups, retain literal text, remove explicitly and reject malformed controls without writes
+PASS owned exact absence proof, prepare-only recovery without success/outputs, atomic rollback, foreign/confirmation denial, current retry contract/capability on separate resume, crash/restart/replay, appeared/mismatched records and external false-proof rejection
+PASS real encrypted child crash before owned side effect, verified absence without false success, explicit prepare-only recovery, foreign/forged denial, separate restart/resume and durable idempotent single effects
+PASS actual recovery UI distinguishes verified absence from completion, confirms preparation without execution, and rejects stale absence when a record appears; NOT browser evidence
+PASS ZERO exact run preview and explicit submission through native engine, no preview persistence, separate approval, actual retained status, changed inputs/turn/activation rejection, same-run restart/replay, current capability/tenant checks and source-free retention
+PASS actual member ZERO run preview/confirmed submission, corrected registry contract, no preview journal, separate native approval, exact same-run replay/restart, literal outcomes, source-free decrypted audit/history and mid-body revocation with zero duplicate effects
+PASS actual ZERO run UI preview/confirmation/native handlers, no preview actions, same-turn uncertain-response retry, typed-input drift and pending/detached denial, literal results and no duplicated run effects; NOT browser evidence
+PASS read-only immutable run inspection, actual condition trees and missing inputs, failed/skipped/not-reached status separation, bounded field-only values, no side effects/commits, current scoped access/capabilities, ZERO source-free replay and retained restart
+PASS real native/ natural ZERO run inspection HTTP, current retained status after separate approval, selected condition explanation, owner/capability/session denial, current replay after encrypted restart, source-free history/audit and zero inspection effects
+PASS actual run-inspector UI/native handlers, selected-step conditional explanations, missing values, literal text rendering, current denial clearing and detached-read suppression with no persistence or execution; NOT browser evidence
+PASS untrusted language proposals, strict schema/conditions, clarification/unavailable states, no implicit writes, current role/capability/revision after provider wait, changed replay denial, exact native confirmation and encrypted-store-compatible restart
+PASS real HTTP natural/structured requests with isolated model transport, zero implicit writes, exact save/restart, source-free decrypted audit/history, separate publication and approval/true-else execution, malformed/changed/unavailable proposals and member revocation during provider wait; NOT live provider evidence
+PASS actual description/review/confirmation UI handlers through native private save, same-turn lost-response retry, retained branch execution, text-only review, missing/changed/detached/provider states without implicit publication; NOT browser evidence
+PASS ZERO exact private draft preview/confirmation/save/read, changed input and replay binding, no executable workflow/tasks, current owner/tenant/role/capability denial, native concurrent revisions, source-free retention, rollback and restart
+PASS actual member ZERO private workflow preview/save/read, tool permissions, exact confirmation/replay, source-free conversation/audit, foreign owner denial, native revision conflict, encrypted restart and mid-body role revocation without workflow/task execution
+PASS private partial drafts, no execution, CAS replay, concurrent edit conflict, serialized client writes, lost response recovery, rollback, reload and retained export
+PASS searchable history beyond latest 100, stable pagination, status/event/step filters, private metadata, no replay, tenant boundaries and owner-filtered retained export
+PASS authenticated run search and paging, preserved task counts, encrypted restart, independent workflow/run capabilities and private history
+PASS authenticated unfinished drafts, no workflow activation, private Data projection, assets, encrypted restart, exact replay, CAS conflict, foreign-owner denial and retained export
+PASS authenticated authoring assets, compiled multistep API, exact approval, delay, encrypted restart, preserved versions, no duplicate side effects and viewer write denial, CAS activation, encrypted pause/resume and preserved history
+PASS owner-scoped version activation, legacy preservation, CAS replay, rollback, pause/restart/resume, current rights, no scheduler privilege expansion, immutable history and retained export
+PASS exact durable outcome reconciliation, crash/restart, unchanged side-effect count, source/owner/capability checks, forged-proof denial, atomic rollback and explicit continuation
+PASS real server-child crash after encrypted commit, verified stored outcome, forged/foreign recovery denial, explicit continuation without duplicate records, restart and retained recovery evidence
+PASS invitation authority, one-use secrets, salted password verification, tenant isolation, bounded sessions, role revocation, suspension, rollback and restart without plaintext credentials
+PASS real tenant sessions, concurrent owner isolation, private ZERO state, cookie protections, origin rejection, secret-free projections, current roles, current-member scheduling, suspension, logout and encrypted restart
+PASS real account enrollment blocked before configuration, no partial member creation, preserved bootstrap setup, then real session privacy, read-only/Core denial, ZERO filtering, conversation ownership and encrypted restart
+PASS real CRM current principal after body await: revoked create, suspended update and dashboard denial leave record/audit state unchanged, ordinary authorized writes remain valid and encrypted restart preserves only accepted work
+PASS CRM source-free retention, immutable legacy evidence with safe read views, exact question/selection binding, unverifiable old answer labeling and unchanged business-action receipts
+PASS actual CRM ZERO replay rechecks role/source ownership and capabilities after encrypted restart, keeps source-free conversation history, binds question, isolates owners and creates no business actions
+PASS five owned-domain and Analytics/Knowledge/Automation/Finance ZERO reads recompute current source rights, preserve source-free history, bind questions, reject revoked capabilities and survive encrypted restart without business actions
+PASS Analysis-only ZERO routes KPI questions without CRM, respects explicit module choice when both exist, preserves null missing data and current capability denial after encrypted restart
+PASS extensible immutable object versions, strict typed fields and relationship reads, CRM role/team/record/field permissions, hidden-value search/history protection, exact CAS/replay, rollback/restart, current source revocation and audited scoped export with frozen CRM engine
+PASS actual member custom-object schema/typed CRUD HTTP, current source/foreign/capability/session gates, CAS/no duplicate writes, encrypted restart/history and scoped audited export without changing the frozen CRM engine
+PASS actual custom-object schema/version and record UI/native handlers, literal rendering, explicit typed form saves, no duplicate uncertain-response retries, unsaved-selection guard, history/export/restart and current denial clearing; NOT browser evidence

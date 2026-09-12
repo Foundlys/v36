@@ -59,8 +59,10 @@ async function call(route, authenticated = true) {
   try {
     const analysisHtml = fs.readFileSync(path.join(__dirname, 'analysis.html'), 'utf8');
     const financeHtml = fs.readFileSync(path.join(__dirname, 'finance.html'), 'utf8');
-    const analysisScript = fs.readFileSync(path.join(__dirname, 'analysis-script.js'), 'utf8');
-    const financeScript = fs.readFileSync(path.join(__dirname, 'finance-script.js'), 'utf8');
+    const analysisScript = fs.readFileSync(path.join(__dirname, 'analysis-script.js'), 'utf8')+'\n'+fs.readFileSync(path.join(__dirname,'analysis-loading.js'),'utf8');
+    assert(analysisHtml.includes('src="/analysis-loading.js"')&&analysisHtml.indexOf('/analysis-loading.js')<analysisHtml.indexOf('/analysis-script.js'),'Capability-aware loader must be delivered before the Analysis client');
+    const financeScript = fs.readFileSync(path.join(__dirname, 'finance-script.js'), 'utf8')+'\n'+fs.readFileSync(path.join(__dirname,'finance-loading.js'),'utf8');
+    assert(financeHtml.includes('src="/finance-loading.js"')&&financeHtml.indexOf('/finance-loading.js')<financeHtml.indexOf('/finance-script.js'),'Capability-aware loader must be delivered before the Finance client');
     const css = fs.readFileSync(path.join(__dirname, 'business-workspaces.css'), 'utf8');
 
     for (const token of ['Analysis Command Dashboard', 'analysisKpis', 'analysisFunnel', 'analysisEvents', 'analysisHistory', 'analysisSources', 'analysisAutomation', 'analysisZeroForm']) assert(analysisHtml.includes(token), `Analysis workspace mist ${token}`);
@@ -79,7 +81,7 @@ async function call(route, authenticated = true) {
     assert.equal(result.response.status, 401);
     result = await call('/finance', false);
     assert.equal(result.response.status, 401);
-    for (const route of ['/analysis', '/finance', '/analysis-script.js', '/finance-script.js', '/business-workspaces.css']) {
+    for (const route of ['/analysis', '/finance', '/analysis-script.js', '/analysis-loading.js', '/finance-script.js', '/finance-loading.js', '/business-workspaces.css']) {
       result = await call(route);
       assert.equal(result.response.status, 200, `${route} niet bereikbaar`);
       assert.match(result.response.headers.get('content-security-policy'), /script-src 'self'/);

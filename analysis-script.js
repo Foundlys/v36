@@ -2,7 +2,7 @@
 
 const $ = selector => document.querySelector(selector);
 const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
-const state = { dashboard: null, platform: null, connectors: null, automation: null, stream: null, refreshTimer: null };
+const state = { loadGeneration:0, loading:null, streamConnected:false, dashboard: null, platform: null, connectors: null, automation: null, stream: null, refreshTimer: null };
 const KPI_ORDER = ['conversion_rate', 'win_rate', 'roas', 'mer', 'pipeline_value', 'weighted_pipeline', 'gross_margin', 'sales_cycle'];
 const STAGE_LABELS = { ad_impression: 'Advertentie', ad_click: 'Klik', session_started: 'Bezoek', form_submitted: 'Formulier', lead_created: 'Lead', lead_qualified: 'Gekwalificeerd', appointment_scheduled: 'Afspraak', quote_created: 'Offerte', deal_won: 'Deal', invoice_created: 'Factuur', invoice_paid: 'Betaald' };
 
@@ -42,16 +42,20 @@ function query() {
   return params;
 }
 
+function unavailable(name){const component=state.loading?.components?.[name];return component?.status==='DISABLED'?'Dit onderdeel is uitgeschakeld of niet beschikbaar binnen je toegang.':component?.status==='ERROR'?'Dit onderdeel kon niet laden: '+component.message:null;}
+function renderConnection(){const node=$('#analysisConnection');node.className=state.streamConnected?'status-pill live':'status-pill';node.textContent=state.streamConnected?'EVENTSTREAM VERBONDEN':state.loading?.status==='PARTIAL'?'DEELS BESCHIKBAAR':'API BEREIKBAAR';}
+
 function renderKpis() {
   const kpis = state.dashboard?.kpis || {};
   $('#analysisKpis').innerHTML = KPI_ORDER.map(id => {
     const metric = kpis[id];
-    const formatted = formatMetric(metric);
+    const reason=unavailable('kpi:'+id),formatted=reason?{value:'Niet beschikbaar',meta:reason}:formatMetric(metric);
     return `<article class="kpi-card${metric?.available ? '' : ' unavailable'}"><h2>${escapeHtml(metric?.kpi?.name || id)}</h2><strong class="kpi-value">${escapeHtml(formatted.value)}</strong><span class="kpi-meta">v${escapeHtml(metric?.kpi?.version || '—')} · ${escapeHtml(formatted.meta)}</span></article>`;
   }).join('');
 }
 
 function renderFunnel() {
+  const reason=unavailable('funnel');if(reason){$('#analysisFunnel').innerHTML=`<div class="empty">${escapeHtml(reason)}</div>`;$('#funnelSource').textContent='NIET BESCHIKBAAR';return;}
   const funnel = state.dashboard?.funnel;
   const stages = funnel?.stages || [];
   if (!stages.length || !funnel.events) {
@@ -64,6 +68,7 @@ function renderFunnel() {
 }
 
 function renderEvents() {
+  const reason=unavailable('realtime');if(reason){$('#analysisEvents').innerHTML=`<div class="empty">${escapeHtml(reason)}</div>`;$('#eventFreshness').textContent='NIET BESCHIKBAAR';return;}
   const realtime = state.dashboard?.realtime;
   const events = realtime?.latest || [];
   $('#eventFreshness').textContent = realtime?.freshness ? `${realtime.freshness.classification} · ${realtime.freshness.freshness_seconds ?? '—'} sec.` : 'Freshness onbekend';
@@ -71,6 +76,7 @@ function renderEvents() {
 }
 
 function renderHistory() {
+  const reason=unavailable('historical');if(reason){$('#analysisHistory').innerHTML='';$('#rollupCount').textContent='NIET BESCHIKBAAR';$('#analysisHistoryEmpty').classList.remove('hidden');$('#analysisHistoryEmpty').textContent=reason;return;}
   const rows = state.dashboard?.historical?.rollups || [];
   $('#rollupCount').textContent = `${rows.length} BUCKETS`;
   $('#analysisHistory').innerHTML = rows.slice(-200).reverse().map(row => `<tr><td>${escapeHtml(row.date)}</td><td>${escapeHtml(row.event_name)}</td><td>${escapeHtml(row.source || '—')}</td><td>${Number(row.events || 0)}</td><td>${escapeHtml(formatDate(row.last_received_at))}</td></tr>`).join('');
@@ -87,15 +93,17 @@ function renderSources() {
   const providers = state.platform?.providers || {};
   const connectors = state.connectors?.items || [];
   const cards = [
-    sourceCard('Foundly Event Gateway', state.dashboard?.realtime?.freshness?.classification || 'UNKNOWN', `${state.dashboard?.realtime?.events || 0} events in venster`),
-    sourceCard('Meta measurement', providers.meta?.connected ? 'CONNECTED' : providers.meta?.configured ? 'CONFIGURED / UNVERIFIED' : 'NOT CONFIGURED', providers.meta?.connected ? 'Probe en initiële sync bewezen' : 'Geen providerverbinding geclaimd'),
-    sourceCard('Google measurement', providers.google?.connected ? 'CONNECTED' : providers.google?.configured ? 'CONFIGURED / UNVERIFIED' : 'NOT CONFIGURED', providers.google?.connected ? 'Probe en initiële sync bewezen' : 'Geen providerverbinding geclaimd'),
+    sourceCard('Foundly Event Gateway', unavailable('realtime')?'NOT_AVAILABLE':state.dashboard?.realtime?.freshness?.classification || 'UNKNOWN', unavailable('realtime')||`${state.dashboard?.realtime?.events ?? '—'} events in venster`),
+    sourceCard('Meta measurement', unavailable('platform')?'NOT_AVAILABLE':providers.meta?.connected ? 'CONNECTED' : providers.meta?.configured ? 'CONFIGURED / UNVERIFIED' : 'NOT CONFIGURED', unavailable('platform')||(providers.meta?.connected ? 'Probe en initiële sync bewezen' : 'Geen providerverbinding geclaimd')),
+    sourceCard('Google measurement', unavailable('platform')?'NOT_AVAILABLE':providers.google?.connected ? 'CONNECTED' : providers.google?.configured ? 'CONFIGURED / UNVERIFIED' : 'NOT CONFIGURED', unavailable('platform')||(providers.google?.connected ? 'Probe en initiële sync bewezen' : 'Geen providerverbinding geclaimd')),
+    ...(unavailable('connectors')?[sourceCard('Connectorstatus','NOT_AVAILABLE',unavailable('connectors'))]:[]),
     ...connectors.slice(0, 9).map(row => sourceCard(row.provider, row.state, row.last_sync_at ? `Sync ${formatDate(row.last_sync_at)}` : 'Nog geen bewezen sync'))
   ];
   $('#analysisSources').innerHTML = cards.join('');
 }
 
 function renderAutomation() {
+  const reason=unavailable('automation');if(reason){$('#analysisAutomationContent').innerHTML=`<div class="empty">${escapeHtml(reason)}</div>`;return;}
   const data = state.automation || {};
   const rows = [
     ['Workflowversies', data.workflow_count ?? 0],
@@ -108,29 +116,28 @@ function renderAutomation() {
 }
 
 async function load() {
+  const generation=++state.loadGeneration;
   const notice = $('#analysisNotice');
   notice.className = 'notice';
   notice.textContent = 'Canonical analytics laden…';
   try {
     const params = query();
-    [state.dashboard, state.platform, state.connectors, state.automation] = await Promise.all([
-      api(`/api/analysis/dashboard?${params}`),
-      api('/api/platform/status'),
-      api('/api/platform/connectors'),
-      api('/api/automation/status')
-    ]);
+    const loaded=await window.FoundlyAnalysisLoading.load(api,params,KPI_ORDER);if(generation!==state.loadGeneration)return;
+    cohortView.setEnabled(loaded.cohorts_enabled,loaded.cohorts_writable);modelView.setEnabled(loaded.models_enabled,loaded.cohorts_writable,loaded.cohorts_enabled);actionView.setEnabled(loaded.cohorts_enabled,loaded.cohorts_writable);
+    state.loading=loaded;Object.assign(state,{dashboard:loaded.dashboard,platform:loaded.platform,connectors:loaded.connectors,automation:loaded.automation});
     renderKpis();
     renderFunnel();
     renderEvents();
     renderHistory();
     renderSources();
     renderAutomation();
-    const persistence = state.platform.persistence || {};
-    notice.className = `notice${persistence.durable ? ' success' : ''}`;
-    notice.textContent = persistence.durable ? `Data actueel. Duurzame versleutelde opslag bewezen · ${formatDate(state.dashboard.observed_at)}` : `Data geladen · duurzame productieopslag niet bewezen · ${formatDate(state.dashboard.observed_at)}`;
-    $('#analysisConnection').className = 'status-pill live';
-    $('#analysisConnection').textContent = 'LIVE API';
+    const persistence = state.platform?.persistence || {};
+    notice.className = state.loading.status==='PARTIAL'?'notice error':'notice';
+    notice.textContent = state.loading.status==='PARTIAL'?'Een of meer onderdelen konden niet laden; de beschikbare gegevens staan hieronder.':`Analytics geladen${state.loading.observed_at?' · '+formatDate(state.loading.observed_at):''}. ${persistence.durable?'Duurzame opslag bewezen.':'Duurzame productieopslag niet bewezen.'}`;
+    if(state.loading.events_enabled){if(!state.stream)connectStream();}else{state.stream?.close();state.stream=null;state.streamConnected=false;}
+    renderConnection();
   } catch (error) {
+    if(generation!==state.loadGeneration)return;cohortView.setEnabled(false);modelView.setEnabled(false);actionView.setEnabled(false);state.stream?.close();state.stream=null;state.streamConnected=false;
     notice.className = 'notice error';
     notice.textContent = `Analysis niet beschikbaar: ${error.message}`;
     $('#analysisConnection').className = 'status-pill error';
@@ -147,10 +154,10 @@ function connectStream() {
   if (!window.EventSource) return;
   state.stream?.close();
   const stream = new EventSource('/api/platform/events/stream');
-  state.stream = stream;
+  state.stream = stream;state.streamConnected=false;
   stream.addEventListener('platform.event', scheduleRefresh);
-  stream.addEventListener('ready', () => { $('#analysisConnection').className = 'status-pill live'; $('#analysisConnection').textContent = 'SSE LIVE'; });
-  stream.onerror = () => { $('#analysisConnection').className = 'status-pill'; $('#analysisConnection').textContent = 'SSE HERSTELT'; };
+  stream.addEventListener('ready', () => {if(state.stream!==stream)return;state.streamConnected=true;renderConnection();});
+  stream.onerror = () => {if(state.stream!==stream)return;state.streamConnected=false;renderConnection();};
 }
 
 async function exportEvents() {
@@ -175,7 +182,7 @@ async function askZero(event) {
   input.value = '';
   $('#analysisZeroOutput').textContent = 'ZERO verifieert KPI-bronnen…';
   try {
-    const result = await api('/api/zero/turn', { method: 'POST', body: JSON.stringify({ message, conversation_id: sessionStorage.foundlyAnalysisConversation || (sessionStorage.foundlyAnalysisConversation = crypto.randomUUID()), turn_id: crypto.randomUUID(), preferred_module: 'analysis', client_context: { surface: 'analysis', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone } }) });
+    const result = await api('/api/zero/turn', { method: 'POST', body: JSON.stringify({ message, conversation_id: sessionStorage.foundlyAnalysisConversation || (sessionStorage.foundlyAnalysisConversation = crypto.randomUUID()), turn_id: crypto.randomUUID(), preferred_module: 'analysis', client_context: { surface: 'analysis', cohort_definition:cohortView.selectedDefinition(), timezone: Intl.DateTimeFormat().resolvedOptions().timeZone } }) });
     $('#analysisZeroOutput').textContent = result.display_text || result.answer;
   } catch (error) { $('#analysisZeroOutput').textContent = error.message; }
 }
@@ -184,5 +191,8 @@ $('#refreshAnalysis').addEventListener('click', load);
 $('#exportEvents').addEventListener('click', exportEvents);
 $('#analysisZeroForm').addEventListener('submit', askZero);
 window.addEventListener('beforeunload', () => state.stream?.close());
+const cohortView=window.FoundlyCohortUI.mount(document,api);
+const actionConversation=crypto.randomUUID();
+const actionView=window.FoundlyAnalysisActions.create({document,request:api,zeroRequest:async(action,turn)=>{const response=await api('/api/zero/turn',{method:'POST',body:JSON.stringify({message:'Gekozen Analysis-actie',conversation_id:actionConversation,turn_id:turn,preferred_module:'analysis',client_context:{analysis_action:action}})});if(!response.analysis_action_data)throw Error('Het actuele Analysis-resultaat ontbreekt.');return response.analysis_action_data;}});document.getElementById('analysisActions').append(actionView);
+const modelView=window.FoundlyAnalysisModels.create({document,request:api,onPropose:selection=>actionView.propose(selection)});document.getElementById('analysisModels').append(modelView);
 load();
-connectStream();

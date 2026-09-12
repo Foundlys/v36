@@ -1,0 +1,54 @@
+'use strict';
+const assert = require('node:assert/strict');
+const {BusinessDomain} = require('./business-domains');
+const {CapabilityResolver} = require('./capability-resolver');
+const {CalendarExternal, SCOPE, MAX_AGE, normalize} = require('./calendar-external');
+const {calendarOperations} = require('./calendar-operations');
+const preparation = require('./calendar-event-preparation');
+let state = new Map(), disk, badDisk = false, account = 'account-one', now = Date.parse('2026-09-20T00:00:00Z'), pages, calls = [];
+const ctx = {tenant_id:'external-fixture',dealer_id:'default'}, admin = {id:'admin',roles:['ADMIN','SUPER_ADMIN']}, other = {id:'other',roles:['SALES']};
+const adapter = {bucket(c,s){const key=JSON.stringify([c,s]);if(!state.has(key))state.set(key,[]);return state.get(key);}, persist(){if(badDisk)throw Error('persist failure');disk=JSON.stringify([...state]);},audit(){},publish(){}};
+const resolver = new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['calendar'],expected_revision:0});
+let core = new BusinessDomain('calendar',adapter,resolver);
+function connect(){core.external = new CalendarExternal(core,{accountBinding:()=>account,now:()=>now,read:async(c,a,url,check)=>{check();calls.push(url);const page=pages.shift();if(page instanceof Error)throw page;return typeof page==='function'?page(check):page;}});}
+connect();
+const cal=core.save(ctx,admin,'calendars',{name:'Native calendar',timezone:'Europe/Amsterdam'}).record;
+const input={calendar_id:cal.id,expected_calendar_revision:1,expected_revision:0,provider_calendar_id:'primary',from:'2026-09-20T00:00:00Z',to:'2026-09-22T00:00:00Z',confirm:true,reason:'Explicit read-only reconciliation'};
+const event=(id,start='2026-09-20T08:00:00Z',end='2026-09-20T09:00:00Z')=>({id,status:'confirmed',start:{dateTime:start},end:{dateTime:end},summary:'PRIVATE provider title',attendees:[{email:'private@example.test'}]});
+const page=(items,token)=>({kind:'calendar#events',timeZone:'Europe/Amsterdam',accessRole:'owner',items,...(token?{nextPageToken:token}:{})});
+const slotQuery={calendar_ids:[cal.id],from:'2026-09-20T07:00:00Z',to:'2026-09-20T12:00:00Z',duration_minutes:60,step_minutes:60};
+const draft={calendar_id:cal.id,expected_calendar_revision:1,title:'Native event',start_at:'2026-09-20T09:00:00Z',end_at:'2026-09-20T10:00:00Z',timezone:'Europe/Amsterdam',participants:[],participants_confirmed:true,recurrence:null};
+(async()=>{
+ core.save(ctx,admin,'availability',{calendar_id:cal.id,title:'Opening',start_at:slotQuery.from,end_at:slotQuery.to,timezone:'Europe/Amsterdam'});
+ const originalSlot=calendarOperations(core).slots(ctx,admin,slotQuery).items[0];
+ pages=[page([], 'page2'),page([event('one'),{id:'gone',status:'cancelled'},{...event('free'),transparency:'transparent'}])];
+ assert.equal((await core.external.reconcile(ctx,admin,input)).busy_count,1);assert.equal(calls.length,2);assert.equal(new URL(calls[1]).searchParams.get('pageToken'),'page2');
+ assert.equal(core.list(ctx,admin,'events').total,0,'No provider object overwrites a native event');
+ assert.ok(!JSON.stringify(adapter.bucket(ctx,SCOPE)).includes('PRIVATE'));assert.ok(!JSON.stringify(adapter.bucket(ctx,SCOPE)).includes('private@example'));
+ assert.equal(core.conflicts(ctx,admin,{...draft,start_at:'2026-09-20T08:30:00Z'}).count,1);
+ const slots=calendarOperations(core).slots(ctx,admin,slotQuery).items;assert.ok(!slots.some(s=>s.start_at==='2026-09-20T08:00:00.000Z'));
+ assert.throws(()=>calendarOperations(core).book(ctx,admin,{...originalSlot,title:'Stale',confirm:true},{idempotency_key:'stale'}),{code:'availability_changed'});
+ assert.throws(()=>core.external.status(ctx,other,cal.id),{statusCode:404});
+ const preview=preparation.preview(core,ctx,admin,{draft});
+ pages=[page([event('new','2026-09-20T10:00:00Z','2026-09-20T11:00:00Z')])];await core.external.reconcile(ctx,admin,{...input,expected_revision:1});
+ assert.throws(()=>preparation.create(core,ctx,admin,{draft,preview_fingerprint:preview.preview_fingerprint,confirm:true,reason:'Old preview'},{idempotency_key:'preview'}),{code:'calendar_preview_changed'});
+ assert.equal(core.conflicts(ctx,admin,{...draft,start_at:'2026-09-20T08:30:00Z'}).count,0,'Complete replacement removes absent/cancelled occupancy');
+ const before=JSON.stringify([...state]);
+ for(const bad of [page([event('duplicate'),event('duplicate')]),page([{id:'bad',status:'confirmed'}]),page([event('x')],'loop')]){
+  pages=[bad,bad];await assert.rejects(core.external.reconcile(ctx,admin,{...input,expected_revision:2}));assert.equal(JSON.stringify([...state]),before);
+ }
+ pages=[page([event('partial')],'next'),Error('provider failure')];await assert.rejects(core.external.reconcile(ctx,admin,{...input,expected_revision:2}));assert.equal(JSON.stringify([...state]),before);
+ badDisk=true;pages=[page([])];await assert.rejects(core.external.reconcile(ctx,admin,{...input,expected_revision:2}),/persist failure/);badDisk=false;assert.equal(JSON.stringify([...state]),before);
+ const bounds={from:'2026-03-28T00:00:00Z',to:'2026-03-31T00:00:00Z'};
+ const allDay=normalize({id:'day',status:'confirmed',start:{date:'2026-03-29'},end:{date:'2026-03-30'}},'Europe/Amsterdam',bounds);assert.equal(Date.parse(allDay.end_at)-Date.parse(allDay.start_at),23*3600000);
+ assert.throws(()=>normalize({id:'bad',status:'confirmed',start:{date:'2026-02-30'},end:{date:'2026-03-01'}},'Europe/Amsterdam',bounds));
+ now+=MAX_AGE+1;assert.equal(core.external.status(ctx,admin,cal.id).coverage,'UNAVAILABLE');assert.throws(()=>calendarOperations(core).slots(ctx,admin,slotQuery),{code:'calendar_external_coverage_unavailable'});now-=MAX_AGE+1;
+ account='changed';assert.throws(()=>core.conflicts(ctx,admin,draft),{code:'calendar_external_coverage_unavailable'});account='account-one';
+ assert.throws(()=>core.external.busy(ctx,cal.id,[{start_at:input.from,end_at:'2026-09-23T00:00:00Z'}]),{code:'calendar_external_coverage_unavailable'});
+ let release;pages=[()=>new Promise(r=>release=r)];const pending=core.external.reconcile(ctx,admin,{...input,expected_revision:2});account='changed';release(page([]));await assert.rejects(pending,{code:'calendar_external_account_changed'});account='account-one';assert.equal(JSON.stringify([...state]),before);
+ state=new Map(JSON.parse(disk));core=new BusinessDomain('calendar',adapter,resolver);connect();assert.equal(core.external.status(ctx,admin,cal.id).revision,2);
+ const foreign={...ctx,tenant_id:'other'};assert.equal(core.external.busy(foreign,cal.id,[draft]).items.length,0);
+ pages=[page([])];await core.external.reconcile(ctx,admin,{...input,expected_revision:2});assert.equal(core.external.status(ctx,admin,cal.id).busy_count,0);
+ const freshSlot=calendarOperations(core).slots(ctx,admin,slotQuery).items[0];const booking=calendarOperations(core).book(ctx,admin,{...freshSlot,title:'Current confirmed booking',confirm:true},{idempotency_key:'current-external-booking'});assert.ok(booking.record.id);assert.equal(core.list(ctx,admin,'events').total,1);
+ console.log('PASS Calendar external: complete pagination, exclusive/all-day DST intervals, private occupancy, exact source/window/account binding, stale slot/preview refusal, atomic replacement/failure, native conflicts and restart');
+})().catch(e=>{console.error(e);process.exitCode=1;});

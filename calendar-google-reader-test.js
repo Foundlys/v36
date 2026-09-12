@@ -1,0 +1,11 @@
+'use strict';
+const assert=require('node:assert/strict'),{createReader}=require('./calendar-google-reader');
+(async()=>{let allowed=true,requests=0;const check=()=>{if(!allowed)throw Error('revoked');};const url='https://www.googleapis.com/calendar/v3/calendars/primary/events';
+ const read=createReader({access:async()=>{return 'fixture-token';},fetcher:async(u,options)=>{requests++;assert.equal(u,url);assert.equal(options.redirect,'error');assert.equal(options.method,'GET');return new Response(JSON.stringify({items:[]}));}});
+ assert.deepEqual(await read({}, {},url,check),{items:[]});
+ await assert.rejects(read({}, {},'https://attacker.invalid/events',check),/endpoint/);assert.equal(requests,1);
+ const revoked=createReader({access:async()=>{allowed=false;return 'fixture-token';},fetcher:async()=>{requests++;}});await assert.rejects(revoked({}, {},url,check),/revoked/);assert.equal(requests,1);allowed=true;
+ const oversized=createReader({access:async()=>'',fetcher:async()=>new Response('x'.repeat(4*1024*1024+1))});await assert.rejects(oversized({}, {},url,check),{code:'calendar_external_page_capacity'});
+ const partial=createReader({access:async()=>'',fetcher:async()=>new Response(new ReadableStream({start(c){c.enqueue(new TextEncoder().encode('{'));c.error(Error('stream failed'));}}))});await assert.rejects(partial({}, {},url,check),/stream failed/);
+ console.log('PASS Calendar reader: fixed GET endpoint, redirect refusal, authority after token wait, bounded stream and incomplete response rejection; no live provider');
+})().catch(e=>{console.error(e);process.exitCode=1;});

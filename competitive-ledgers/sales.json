@@ -1,0 +1,146 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.8.0",
+  "module": "sales",
+  "assessed_at": "2026-09-11T18:52:03.548736+00:00",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "sales",
+      "capability_id": "sales:pipeline",
+      "capability_name": "Configurable pipeline and forecasting",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Sales Hub",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Sales Hub",
+          "url": "https://knowledge.hubspot.com/forecast/use-the-forecast-tool",
+          "observed": "Forecast workbench grounded in pipeline and forecast categories.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Owned stages and opportunities, permission-filtered period forecasts with separate currencies and explicit unknown values, revision-bound immutable snapshots with restart and replay protection. Managed owner quotas now bind exact periods and currency to persisted forecasts. Overlap denial, missing-data nulls, target revision conflicts, encrypted restart and current source ACL on snapshot read/export are tested. Explicit source-revision-bound probability scenarios and immutable scenario snapshots now pass exact rounding, currency/null semantics, owner isolation, read-only HTTP queries and encrypted restart. Sales scenarios now accept separately typed probability, amount in integer minor units, and valid close-date assumptions against exact current opportunity revisions. Existing source opportunities are never changed. Explicit dates move authorized open opportunities into or out of the selected period, including initially outside-period sources; missing amount/currency/probability remains literal and never becomes a complete projection implicitly. Currency totals, exact explicit-probability rounding, missing-data uncertainty, zero amounts, period boundaries, invalid input, source ownership/capabilities, stale revisions and immutable snapshot replay/rollback/restart are tested. Snapshot access also checks additional scenario-only source records; unused selection candidates are not retained in snapshots. Actual production controls support typed assumptions, current candidate scope with owner/pipeline filters, separate snapshot confirmation, stable lost-response retry and changed/detached response refusal. Actual authenticated HTTP fixtures preserve encrypted snapshots and untouched source records. No live provider, actual browser, accounting revenue or measured competitive superiority is inferred. Phase 24 continues with forecast hierarchy and remaining recorded Sales execution and other module gaps. Sales forecast hierarchy now uses explicitly assigned, immutable hierarchy versions with one root, bounded depth, no cycles and no duplicate owner assignment. Current owner-subtree queries reuse the native forecast and currency/target contracts without granting source access or claiming an organization-wide total. Shared hierarchy readers see only their currently authorized opportunities. Root/child selection, version authoring and separate node-bound native snapshot confirmation have actual UI/native service and real-member HTTP evidence, including lost-response replay, stale/detached result rejection, encrypted restart, generic-write denial and role revocation during request-body waits. Exact node/definition/current source binding protects snapshots; malformed optional scenario/hierarchy values and corrupted stored definitions fail closed. Backend hierarchy-scoped scenarios are supported; the hierarchy UI currently exposes forecast/query and snapshot workflows. CI 117 passed the preceding amount/date scenario checkpoint. Phase 24 remains active. The next Sales pipeline-board gap includes an isolated reproduced defect: a title-only edit reset a recorded probability from 0.9 to the pipeline stage default 0.2; that code defect is recorded for immediate correction, not waived. Remaining sequence/communication and other module gaps, actual browser/live-provider/production and measured competitive gates remain open. The isolated Sales defect where a title-only update reset explicit probability from 0.9 to stage default 0.2 is fixed. Non-transition edits preserve recorded probability; actual stage/pipeline changes apply defaults unless an explicit probability is supplied. The native Sales board now supports typed pipeline/stage editing, explicit read-only sharing, current owner-scoped currency totals and paged records, keyboard and drag preparation followed by separate revision-bound confirmation, and exact durable operation receipts. Used stages cannot be removed, shared readers cannot modify pipeline definitions, lost responses do not duplicate writes, current source/role/sharing/capability and pipeline revisions are rechecked, and real native Sales events record the actual stage transition without claiming a CRM event or changing recorded closed status. Internal receipts remain outside business exports/Data. Unit, production UI/native handlers and real-member HTTP tests cover these behaviors, atomic rollback, encrypted restart and permission revocation during body waits. Hierarchy-scoped amount/date/probability scenario controls now use the exact selected owner subtree and native node-bound snapshot path. CI 118 passed the previous hierarchy checkpoint. Phase 24 remains active: sequence execution and communication handoff, full Sales prepare/execute/verify and outcome feedback, and the remaining recorded module gaps are next. No actual browser, live-provider, production or competitive superiority is inferred.",
+      "gap": "Native typed board editing, explicit owner hierarchy, hierarchy-scoped scenarios and the reproduced probability reset fix are now evidenced. Quotas retain exact owner/period/currency scope without proration or pipeline targets. Actual browser and measured competitive acceptance remain unproven.",
+      "required_change": "Retain exact source/target contracts and complete remaining legitimate operational, browser and comparative acceptance.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "sales-forecast-test.js",
+        "sales-quotas-test.js",
+        "sales-quotas-api-test.js",
+        "sales-scenarios-test.js",
+        "sales-scenarios-api-test.js",
+        "sales-scenarios-client-test.js",
+        "sales-hierarchy-test.js",
+        "sales-hierarchy-api-test.js",
+        "sales-hierarchy-client-test.js",
+        "sales-pipeline-test.js",
+        "sales-pipeline-api-test.js",
+        "sales-pipeline-client-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "sales",
+      "capability_id": "sales:execution",
+      "capability_name": "Sales work and collaboration",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Sales Hub",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Sales Hub",
+          "url": "https://knowledge.hubspot.com/forecast/use-the-forecast-tool",
+          "observed": "Forecast workbench grounded in pipeline and forecast categories.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Activities, tasks, quotes, orders and independently stored opportunities. The isolated Sales defect where a title-only update reset explicit probability from 0.9 to stage default 0.2 is fixed. Non-transition edits preserve recorded probability; actual stage/pipeline changes apply defaults unless an explicit probability is supplied. The native Sales board now supports typed pipeline/stage editing, explicit read-only sharing, current owner-scoped currency totals and paged records, keyboard and drag preparation followed by separate revision-bound confirmation, and exact durable operation receipts. Used stages cannot be removed, shared readers cannot modify pipeline definitions, lost responses do not duplicate writes, current source/role/sharing/capability and pipeline revisions are rechecked, and real native Sales events record the actual stage transition without claiming a CRM event or changing recorded closed status. Internal receipts remain outside business exports/Data. Unit, production UI/native handlers and real-member HTTP tests cover these behaviors, atomic rollback, encrypted restart and permission revocation during body waits. Hierarchy-scoped amount/date/probability scenario controls now use the exact selected owner subtree and native node-bound snapshot path. CI 118 passed the previous hierarchy checkpoint. Phase 24 remains active: sequence execution and communication handoff, full Sales prepare/execute/verify and outcome feedback, and the remaining recorded module gaps are next. No actual browser, live-provider, production or competitive superiority is inferred. Sales now owns immutable typed follow-up sequences with current opportunity-bound plans, explicit mail values, exact separate preview/start confirmation, native tasks gated by recorded completion, and native internal Communication drafts without Messages/review/submission effects. Default manual mode and explicitly authorized automatic internal mode reuse the current-member worker without an Automation dependency; task-only plans work without Communication. Due time, pause/resume/cancel, malformed plans, source loss, role revocation while reading the HTTP body, suspended authors, unrelated active authors, exact receipts, cross-module atomic rollback and encrypted restart are tested. The production editor is exercised through native services in a synthetic DOM, including input/confirmation separation, changed/detached preview refusal, lost responses and direct current-access draft handoff to the existing Communication editor/review/submission workflow. Mail delivery remains NOT_CHECKED by Sales; COMPLETED_INTERNAL means internal preparation only. CI 119 passed the preceding pipeline checkpoint. Full structured ZERO prepare/execute/verify and outcome feedback remain the next Sales code gap, followed by other recorded module gaps. Phase 24 stays active; no actual browser/provider/production or competitive-superiority evidence is inferred.",
+      "gap": "Native task and internal mail-draft sequence execution and handoff are verified locally. Actual browser, live provider and measured comparative acceptance remain unproven.",
+      "required_change": "Preserve separate native Communication review/submission confirmation and complete remaining legitimate operational, browser and comparative acceptance.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "sales-pipeline-test.js",
+        "sales-pipeline-api-test.js",
+        "sales-pipeline-client-test.js",
+        "sales-hierarchy-client-test.js",
+        "sales-sequences-test.js",
+        "sales-sequences-api-test.js",
+        "sales-sequences-client-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "sales",
+      "capability_id": "sales:intelligence",
+      "capability_name": "Sales orchestration",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "HubSpot Sales Hub",
+        "Microsoft Dynamics 365 Sales"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "HubSpot Sales Hub",
+          "url": "https://knowledge.hubspot.com/forecast/use-the-forecast-tool",
+          "observed": "Forecast workbench grounded in pipeline and forecast categories.",
+          "retrieved_at": "2026-09-05"
+        },
+        {
+          "product": "Microsoft Dynamics 365 Sales",
+          "url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast",
+          "observed": "Forecast hierarchy, access permissions, quotas, configuration and drilldowns.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO pipeline summary works without CRM. Sales ZERO now exposes registered typed native sequence catalog/definition, exact plan preview/start, current run verification, explicit advance/pause/resume/cancel, forecast query and outcome preview/record tools. The production Sales controls can select ZERO while retaining the same native policies and separate confirmations. Stable per-view conversation/action turns prevent lost-response duplicates; unsaved transport changes, detached controls and stale outcomes are refused. Outcome feedback binds the exact current opportunity and sequence revisions, records the current native status plus an explicit user note, and never changes the opportunity, completes a pending task or claims causal revenue/delivery. Current role/source checks apply on every read/replay/write, including real authenticated HTTP body waits, encrypted restart and private export. ZERO history/decrypted audit retains source-free references rather than plans, source values or user feedback. Unit, real-member HTTP and production synthetic-DOM/native-service tests pass. CI 120 passed the preceding sequence checkpoint. Phase 24 remains active; next is the recorded Analysis model/history/drilldown, multi-scope load and approved-action/outcome work, followed by the remaining recorded module gaps. This checkpoint does not waive broader module acceptance or infer actual browser, live-provider, model quality, production readiness or measured competitive superiority.",
+      "gap": "Native structured sequence/forecast tools and source-bound outcome feedback now have local evidence. Broader operational acceptance, actual browser, model quality and comparative superiority are not established.",
+      "required_change": "Retain exact native policies, current-source verification and literal attribution limits while completing all remaining recorded module and acceptance gates.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "sales-zero-test.js",
+        "sales-zero-api-test.js",
+        "sales-zero-client-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY"
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

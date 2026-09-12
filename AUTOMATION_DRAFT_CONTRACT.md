@@ -1,0 +1,48 @@
+# Automation drafts
+
+Partial editor documents live in the existing encrypted store under `platform:automation_drafts`. Drafts are not executable definitions and are never examined by the scheduler. Saving an unfinished document cannot create a task, run or workflow. Publishing a valid workflow version remains a separate existing API operation.
+
+Read, save and retained export require current Automation permissions. Drafts are private to their creator, including when another caller is an administrator. Shared Data and ZERO record projections exclude draft contents. Audits record draft ID and revision without editor contents.
+
+Each save supplies the last observed revision. Exact last-request retries acknowledge a previously persisted save; conflicting edits return 409. Client saves are serialized. A conflicted editor retains its local input and can store a separate new draft. The server transaction restores the draft and audit buckets if persistence fails. Per-owner and per-tenant counts and payload size are bounded.
+
+The existing sequential editor restores saved drafts and autosaves changes after a short delay. Users can also save immediately. A successful draft save is distinct from publishing an executable version. Browser rendering and interactions remain unproven because the available browser could not load the local acceptance fixture.
+
+Tests cover incomplete definitions without effects, current owner and role boundaries, concurrent saves, response loss, revision conflict, rollback, encrypted HTTP restart and retained export after disabling Automation. No provider access or production deployment is claimed.
+
+
+Nested condition groups
+
+The editor supports EN/all and OF/any groups with at most five nested levels, twenty children per group and two hundred nodes per action condition. Drafts may remain incomplete; compilation rejects empty groups, missing or invalid values and malformed controls. Only an explicitly disabled condition or an absent condition omits the action guard. Persisting a draft preserves its bounded condition tree exactly and does not create an executable workflow.
+
+Workflow definitions validate the full action list before storage and again before any manual, scheduled or resumed execution. Explicit false/null/scalar conditions, ambiguous groups and malformed descendants cannot become unconditional execution, even behind a matching OR sibling. Invalid retained records are preserved and diagnosed. Unconditional steps preceding a malformed condition also cannot execute. Actual DOM-handler and native HTTP/restart evidence is distinct from unproven browser acceptance.
+
+
+ZERO draft operations
+
+ZERO now previews, explicitly saves and rereads private workflow drafts through the existing native compiler and draft store. Exact actor/tenant/input/revision fingerprints, confirmation, current source ownership and capabilities, native CAS conflicts, response-loss replay, atomic rollback and encrypted restart pass. New operations never publish, activate or run a workflow. Source-bearing draft and compiled output are excluded from retained conversation/audit results; actual encrypted audit contents were checked. The existing editor delegates explicit prepare/save controls to ZERO, adopts the native saved revision, retains identical retry keys and rejects changed/detached previews. Actual member HTTP requests revoke authority during body waits and create no executable workflows or tasks. Full natural-language authoring, explicit branch-path authoring, further execution/debugging UX and competitive/browser gates remain open. No live provider or production changes.
+
+
+Manual workflow execution
+
+The actual manual Automation run form now supplies explicitly typed condition inputs and event fields through the existing run API. Missing, text, numeric, boolean and null values remain distinct; nested fields are bounded and conflicting/protected paths are rejected. Tenant, event version and manual provenance follow the selected workflow/reference instead of claiming an existing provider event. Production DOM handlers and the real native HTTP/engine path verify true/false groups, current approval behavior, stable-reference exact-input replay, encrypted restart, no duplicate effects after a lost response and detached/pending submission guards. The reproduced PLANNED-history filter defect is fixed: an actual adapter-unavailable retained run can be queried by its literal status without executing anything or revealing another owner’s run. Explicit branch-path authoring, fuller natural-language workflow preparation, remaining debugging and other module/competitive/browser gates stay open. No production or provider mutation.
+
+
+Explicit true/else paths
+
+Explicit true/else paths now compile from the existing editor into bounded guarded steps in the same durable workflow engine. Up to three nested branch containers share the existing one-hundred-step authoring limit; generated predicates retain the existing depth/node bounds. A strict single-child not condition represents the else guard and rejects malformed children before any action. True and false paths are mutually exclusive for immutable run inputs; missing-value predicates, exact approval, delay/restart/replay and selected-path failure without fallback into else pass. Private partial draft storage preserves nested paths without creating workflows, and native HTTP plus actual editor handlers reopen and compile the same structure. ZERO preview/save also retains branch drafts through the native compiler/store without source-bearing retained results or execution. Further natural-language workflow creation, broader debugging, recovery without proven outcomes and remaining module/competitive/browser acceptance stay open. No live provider, browser or production proof is inferred.
+
+
+Natural-language preparation
+
+Natural-language workflow preparation now runs from an explicit Automation description form and direct ZERO creation requests through the existing provider helper without loading tenant records. Provider output is labelled inference and strictly limited to supported editor draft fields, actions, conditions and branch limits, or bounded clarification questions. Missing/unavailable provider output never becomes a fabricated draft. Current actor, write rights, workflow capability and native revision are rechecked after provider IO; changed same-turn proposals reject instead of silently replacing reviewed content. Preparation performs no writes; a separate exact confirmation saves through native private draft CAS, with lost-response replay and encrypted restart. Production UI handlers display literal action/trigger/approval/condition details, invalidate changed or detached proposals and keep existing editor work intact. Isolated model transport and actual member HTTP prove natural/structured routing, current-session revocation during provider wait, source-free decrypted audit/history, separate native publication and approval, and mutually exclusive execution after review. These fixtures are not live provider or browser evidence. Further debugging, outcome verification, execution/inspection orchestration and the recorded module/competitive acceptance gaps remain active Phase 24 work.
+
+
+Retained workflow inspection
+
+Workflow debugging now reads one authorized retained run and selected step through native HTTP and ZERO inspection. It validates the immutable definition/request/step bindings, explains all nested comparison/EN/OF/NIET predicates against retained inputs including missing values, distinguishes actual FAILED/SKIPPED/WAITING states from NOT_REACHED steps, and bounds displayed field values. Inspection does not execute, commit or reverify outcomes; reported outputs remain historical reports. Current run/workflow capabilities, owner visibility, changed-source rejection, same-turn current replay, source-free decrypted audit/history and encrypted restart pass. Production UI handlers select steps, display literal text and discard denied or detached responses. Further verified-absence internal recovery, recorded execution orchestration and other module/competitive acceptance remain Phase 24 work; no live provider/browser/production proof is inferred.
+
+
+Verified absence and separate ZERO execution
+
+Interrupted owned create_task/create_document actions now distinguish an exact durable record from verified absence using the same current native record policy and idempotency key. Absence permits only an explicit prepare-retry transition to RECOVERY_READY/PLANNED_INTERNAL; it never creates successful output or executes a following action. A separate resume checks the current idempotency contract and normal action permissions. Actual child crashes before and after encrypted side-effect persistence, proof changes, mismatched records, rollback, current ownership/capability, replay and single effects pass. External or ambiguous evidence remains unproven. ZERO now previews exact workflow/typed event inputs and submits only separately confirmed input through the same native engine. Workflow activation and recovery revisions bind confirmation, actual native run statuses remain literal, and any required approval is a separate native step. Source-free decrypted audit/history, real member HTTP/restart/revocation and production UI lost-response/stale/detached handlers pass without preview writes or duplicate execution. The previously advertised automation_run metadata now matches its implemented native route. Further recorded CRM and other module acceptance gaps remain active Phase 24 work; provider/browser/competitive/production evidence is not inferred.

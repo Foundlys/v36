@@ -1,0 +1,125 @@
+{
+  "schema_version": "foundly-competitive-ledger/1.0.0",
+  "version": "1.0.0",
+  "module": "calendar",
+  "assessed_at": "2026-09-11",
+  "standalone_acceptance": "PARTIAL",
+  "sellable": false,
+  "capabilities": [
+    {
+      "module": "calendar",
+      "capability_id": "calendar:scheduling",
+      "capability_name": "Independent scheduling",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Calendly"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Calendly",
+          "url": "https://calendly.com/help/round-robin-distribution-overview",
+          "observed": "Scheduling can optimize for availability or equal distribution, respecting connected calendars.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Recorded availability produces bookable slots, distribution favors calendars with fewer recorded appointments in the requested period, stale selections are rejected, and private in-app reminders survive restart. HTTP booking and UI forms are implemented. Reminder execution now binds to the current authorized planner, preserving explicit recipient delegation. Revoked/suspended planners cannot borrow worker rights; isolated commits and rotating bounded batches preserve unrelated work and restart idempotency. Explicit Google Calendar read-only reconciliation now retains complete bounded time-window occupancy through all pages, including exclusive all-day dates in the provider timezone. Native conflicts, slot selection and booking use the observation. Calendar/account/revision/freshness/window changes invalidate coverage and prior selections; partial/error responses preserve the prior observation. Titles and attendees are not copied. Current authenticated HTTP and production-handler tests pass with isolated provider fixtures.",
+      "gap": "Live authorized Google account reconciliation and actual browser/keyboard/viewport acceptance remain UNVERIFIED. Each observed window is bounded to 31 days / 10000 source events and expires after 15 minutes; uncovered or stale times fail closed.",
+      "required_change": "Verify the implemented Google read-only reconciliation against a live authorized account and exercise actual scheduling/browser acceptance.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "calendar-scheduling-test.js",
+        "composition-api-test.js",
+        "calendar-reminder-principal-test.js",
+        "calendar-reminder-principal-api-test.js",
+        "calendar-external-test.js",
+        "calendar-external-api-test.js",
+        "calendar-external-client-test.js",
+        "calendar-google-reader-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY",
+        "current_targeted_tests": "PASS, current accessible Calendar tree; full regression pending new evidence. No inaccessible old evidence reused."
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "calendar",
+      "capability_id": "calendar:time",
+      "capability_name": "Time and conflict correctness",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Calendly"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Calendly",
+          "url": "https://calendly.com/help/round-robin-distribution-overview",
+          "observed": "Scheduling can optimize for availability or equal distribution, respecting connected calendars.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "Strict offset-bearing civil dates reject invalid rollover and sub-millisecond precision. Recurrence uses observed IANA offsets, refuses ambiguous or nonexistent generated wall times including half-hour changes and skipped days, preserves milliseconds and elapsed duration, and retains conflict behavior after encrypted restart. Actual typed recurrence controls preserve interval and explicit removal; shared strict model and authenticated HTTP/restart tests pass. Explicit Google Calendar read-only reconciliation now retains complete bounded time-window occupancy through all pages, including exclusive all-day dates in the provider timezone. Native conflicts, slot selection and booking use the observation. Calendar/account/revision/freshness/window changes invalidate coverage and prior selections; partial/error responses preserve the prior observation. Titles and attendees are not copied. Current authenticated HTTP and production-handler tests pass with isolated provider fixtures.",
+      "gap": "Live authorized Google account reconciliation and actual browser/keyboard/viewport acceptance remain UNVERIFIED. Each observed window is bounded to 31 days / 10000 source events and expires after 15 minutes; uncovered or stale times fail closed.",
+      "required_change": "Verify the implemented Google read-only reconciliation against a live authorized account and exercise actual scheduling/browser acceptance.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "calendar-time-test.js",
+        "calendar-time-api-test.js",
+        "calendar-external-test.js",
+        "calendar-external-api-test.js",
+        "calendar-external-client-test.js",
+        "calendar-google-reader-test.js"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY",
+        "current_targeted_tests": "PASS, current accessible Calendar tree; full regression pending new evidence. No inaccessible old evidence reused."
+      },
+      "verdict": "BELOW_PARITY"
+    },
+    {
+      "module": "calendar",
+      "capability_id": "calendar:intelligence",
+      "capability_name": "Calendar orchestration",
+      "importance": "CRITICAL",
+      "benchmark_products": [
+        "Calendly"
+      ],
+      "benchmark_evidence": [
+        {
+          "product": "Calendly",
+          "url": "https://calendly.com/help/round-robin-distribution-overview",
+          "observed": "Scheduling can optimize for availability or equal distribution, respecting connected calendars.",
+          "retrieved_at": "2026-09-05"
+        }
+      ],
+      "foundly_current": "ZERO reads independent calendar data; existing appointment request tooling is preserved. Deterministic ZERO read replay now rechecks current sources, retains no source result in conversation/audit and survives real role/capability changes plus encrypted restart. Typed native and ZERO event preparation now uses explicit calendar/timezone selection, current member participants, strict model output, ambiguous-date questions, separate exact preview/create confirmation and durable current-source retry. Production controls and real-session model/body-wait revocation, source-free retention and encrypted restart pass current targeted tests.",
+      "gap": "Live model quality, live provider and actual browser acceptance remain UNVERIFIED; no provider invitation is claimed.",
+      "required_change": "Prove live model/provider acceptance and actual browser workflows; preserve the same typed native policies.",
+      "foundly_differentiator": "Candidate: shared Core identity, provenance and ZERO tools. Comparative superiority is not proven.",
+      "test": [
+        "business-domains-test.js",
+        "composition-matrix-test.js",
+        "domain-zero-replay-api-test.js",
+        "calendar-event-preparation-test.js",
+        "calendar-event-preparation-api-test.js",
+        "calendar-event-client-test.js",
+        "calendar-event-client-test.js --zero"
+      ],
+      "evidence": {
+        "local_regression": "See COMPOSABLE_ACCEPTANCE.md for tested checkpoint and exact scope",
+        "production": "NOT_DEPLOYED",
+        "browser": "BLOCKED_CLOUD_BROWSER_LOCAL_URL_POLICY",
+        "current_targeted_tests": "PASS, current accessible Calendar tree; full regression pending new evidence. No inaccessible old evidence reused."
+      },
+      "verdict": "BELOW_PARITY"
+    }
+  ]
+}

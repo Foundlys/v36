@@ -8,6 +8,26 @@
   <link rel="stylesheet" href="/foundly-workspace.css">
   <link rel="stylesheet" href="/foundly-shell.css">
   <script src="/foundly-shell.js" defer></script>
+  <script src="/workflow-authoring.js" defer></script>
+  <script src="/workflow-draft-session.js" defer></script>
+  <script src="/workflow-editor.js" defer></script>
+  <script src="/sales-pipeline-client.js" defer></script>
+  <script src="/sales-zero-client.js" defer></script>
+  <script src="/sales-sequences-client.js" defer></script>
+  <script src="/sales-hierarchy-client.js" defer></script>
+  <script src="/workflow-generator.js" defer></script>
+  <script src="/workflow-inspector.js" defer></script>
+  <script src="/workflow-run-zero-client.js" defer></script>
+  <script defer src="/calendar-event-client.js"></script>
+<script src="/calendar-recurrence.js" defer></script>
+  <script src="/workspace-dashboard-session.js" defer></script>
+  <script src="/procurement-zero-client.js" defer></script>
+  <script src="/procurement-clarifications-client.js" defer></script>
+  <script src="/procurement-intelligence-client.js" defer></script>
+  <script src="/marketing-journeys-client.js" defer></script>
+  <script src="/marketing-zero-client.js" defer></script>
+  <script src="/marketing-metrics-client.js" defer></script>
+  <script src="/marketing-creative-history-client.js" defer></script>
   <script src="/foundly-workspace.js" defer></script>
 </head>
 <body class="FoundlyAppShell" data-foundly-workspace>
@@ -49,6 +69,7 @@
       </div>
       <div class="command-actions">
         <button class="secondary-button" id="editDashboard" type="button">Dashboard aanpassen</button>
+        <button class="secondary-button" id="industryDashboardPreset" type="button" hidden>Branchesjabloon kiezen</button>
         <button class="secondary-button" id="addWidget" type="button" disabled>+ Widget</button>
         <button class="primary-button" id="saveDashboard" type="button" disabled>Opslaan</button>
         <button class="secondary-button" id="exportWorkspace" type="button">Export</button>
@@ -138,7 +159,7 @@
 
     <section class="ZEROCommandDock" aria-labelledby="zeroDockTitle">
       <span class="zero-orb" aria-hidden="true"><i></i><i></i></span>
-      <div><p class="eyebrow">SINGLE INTELLIGENCE LAYER</p><h2 id="zeroDockTitle">Vraag ZERO in deze context.</h2><output id="zeroOutput">ZERO gebruikt dezelfde tenant, bronnen, rechten en provenance.</output></div>
+      <div><p class="eyebrow">SINGLE INTELLIGENCE LAYER</p><h2 id="zeroDockTitle">Vraag ZERO in deze context.</h2><output id="zeroOutput">ZERO gebruikt dezelfde tenant, bronnen, rechten en provenance.</output><div id="zeroActions"></div></div>
       <form id="zeroForm"><label for="zeroInput">Opdracht aan ZERO</label><input id="zeroInput" maxlength="4000" autocomplete="off" placeholder="Vraag naar deze workspace…" required><button class="primary-button" type="submit">Uitvoeren</button></form>
     </section>
 
