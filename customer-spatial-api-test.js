@@ -9,7 +9,7 @@ async function request(route,body){const r=await fetch(base+route,{method:body?'
 async function current(){const [c,n,k]=await Promise.all(['/api/composition','/api/workspaces','/api/composition/catalog'].map(p=>request(p)));return M.buildGraph({resolution:c.resolution,navigation:n,catalog:k.modules});}
 (async()=>{
  for(let i=0;i<100;i++){try{if((await fetch(base+'/api/health')).ok)break;}catch{}if(child.exitCode!==null)throw Error(logs);await new Promise(r=>setTimeout(r,80));}
- for(const file of ['customer-spatial-model.js','customer-spatial-runtime.js','customer-spatial.css']){
+ for(const file of ['customer-spatial-model.js','customer-spatial-scene.js','customer-spatial-runtime.js','customer-spatial.css']){
   assert.equal((await fetch(base+'/'+file)).status,401,'assets retain production auth');
   const r=await fetch(base+'/'+file,{headers:{authorization:`Bearer ${token}`}});assert.equal(r.status,200);assert.equal(await r.text(),fs.readFileSync(path.join(__dirname,file),'utf8'));
  }
