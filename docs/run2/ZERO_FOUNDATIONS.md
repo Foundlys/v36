@@ -12,6 +12,18 @@ The actual Realtime handlers bind calls to a finalized input transcript and a st
 
 Full local `npm test` passes, including 61 ZERO unit/HTTP tests and the 14-case foundation corpus. CI 147 passed the previous research/discovery checkpoint. No live microphone, listening or browser acceptance is claimed: the supported cloud browser rejected the local preview with `ERR_BLOCKED_BY_CLIENT`. Full UI translation, realistic cognitive evaluations, demo universes and other code-controlled gaps remain open in `ACCEPTANCE_MATRIX.md`.
 
+## Localization implementation in progress
+
+`foundly-locales.js`, `foundly-static-copy.js` and `foundly-i18n.js` introduce explicit eight-locale presentation catalogs. A personal `ui_locale` is stored separately from ZERO's `language`. Login, enrollment, related error handling and native navigation use the catalogs. A late preference response cannot overwrite a newer explicit language selection. The catalog reports a missing key instead of substituting English for an incomplete supported locale.
+
+Static bindings update existing text nodes and accessibility attributes. They preserve nested form controls, canonical option values and the frozen main dashboard's inline CSS. If a native renderer replaces a placeholder with business data, the old static binding cannot translate or overwrite that replacement. No blanket matching or automatic translation of customer records is performed. Sixty-nine reviewed dynamic main-dashboard call sites now use explicit catalog keys; state telemetry follows event metadata rather than matching a translated label.
+
+Native numeric/date formatters use the interface locale. Date-only CRM/Finance values retain their calendar date regardless of browser time zone. Missing Automotive/CRM/Analysis numeric data remains unavailable rather than becoming a zero. These checks validate formatting and state contracts, not regional accounting/tax correctness or live language quality.
+
+Static and conservative dynamic inventories are recorded in `localization-inventory.json` and `localization-dynamic-inventory.json`. The authoring scripts are separate from the runtime; the dynamic audit uses the local Acorn parser and does not execute scanned application code. Inventory coverage does not establish rendered coverage: conditionals, HTML templates, server errors, all other module copy and generated content still require work. All eight full-surface locale gates remain **FAIL / CODE_CONTROLLED**. Browser layout/assistive-technology acceptance and native-speaker review remain unverified.
+
+Full `npm test` passes at this localization checkpoint, with 69 ZERO tests and the 14-case corpus. CI 148 passed the preceding voice/cross-module tree. The subsequent locale code needs its own CI. The internet connection was rechecked successfully; supported browser access to localhost still returns `ERR_BLOCKED_BY_CLIENT`.
+
 ## Implemented and connected
 
 - `zero/memory.js`: eight memory layers; explicit user provenance; private ownership; current role/capability filtering; effective dates, expiry, supersession, conflicts, revision checks and deletion of version-chain content. Atomic writes reuse `scoped-mutation.js`.

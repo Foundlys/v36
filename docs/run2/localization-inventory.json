@@ -1,0 +1,6424 @@
+{
+  "schema_version": 1,
+  "locales": [
+    "nl-NL",
+    "en-GB",
+    "de-DE",
+    "fr-FR",
+    "es-ES",
+    "da-DK",
+    "nb-NO",
+    "sv-SE"
+  ],
+  "surfaces": [
+    {
+      "file": "index.html",
+      "sha256": "12cb047613598cde53d28ace2e3486d1d3665579bf5f646891c4471dba36f8bd",
+      "copy_items": 117,
+      "keyed_items": 106,
+      "unresolved_static_items": 2,
+      "dynamic_acceptance": "UNVERIFIED",
+      "script_dependencies": [
+        {
+          "file": "foundly-static-copy.js",
+          "sha256": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-locales.js",
+          "sha256": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-i18n.js",
+          "sha256": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "speech-formatter.js",
+          "sha256": "dcba8849663504320f1279f9fbc4ba04380ef57d44bcbc5cf071fc5b044beb4d",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "customer-spatial-model.js",
+          "sha256": "aecebff33457f50b7d939d853141de6eb744a31deb95a612e1602da4f84707ed",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "customer-spatial-scene.js",
+          "sha256": "8fe0819ab7af2a209e42644e0778b761bce46b3a11368c8bc041ac4b0a0ac880",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "customer-spatial-runtime.js",
+          "sha256": "c10d70afe85d8de8eb883c728e27a98ae74f323f2f48cb6e98f585d77d1af00e",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "zero-audio.js",
+          "sha256": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "zero-confirmation.js",
+          "sha256": "cd1292837b0817bdc10d4a53677b7ba5ec533558d9d5d2abac1931231516eecf",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "zero-voice-turns.js",
+          "sha256": "39ec6edd64b7fd87772a34af505d6579bb1aa1886fe743c35c9a04841b5276ac",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "index-script.js",
+          "sha256": "76530ea15d6d3a5eb0c3cc7976b5d894af575e0719728a1573d06e02890d858f",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-shell.js",
+          "sha256": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        }
+      ],
+      "copy": [
+        {
+          "line": 6,
+          "tag": "title",
+          "id": null,
+          "text": "Foundly OS v6.0.0 · ZERO Neural Command Center",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 60,
+          "tag": "canvas",
+          "id": "neuralField",
+          "attribute": "aria-label",
+          "text": "Interactieve driedimensionale Foundly intelligence-scène",
+          "key": "static.d09727a8"
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "F",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "b",
+          "id": null,
+          "text": "FOUNDLY",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 61,
+          "tag": "span",
+          "id": null,
+          "text": "NEURAL BUSINESS OPERATING SYSTEM · v6.0.0",
+          "key": "static.a7addcdb",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "CORE",
+          "key": "static.dab030be",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "b",
+          "id": "coreState",
+          "text": "CONTROLEREN",
+          "key": "static.1b6a441e",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "ENGINES",
+          "key": "static.597f1d78",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "CAPABILITIES",
+          "key": "static.6f000a7f",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "FIBERS",
+          "key": "static.bab388b6",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "WORKER",
+          "key": "static.a8bc6fd7",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "b",
+          "id": "runtimeState",
+          "text": "ONBEKEND",
+          "key": "static.e492e203",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "DATA LAYER",
+          "key": "static.76968730",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "b",
+          "id": "memoryState",
+          "text": "ONBEKEND",
+          "key": "static.e492e203",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": null,
+          "text": "PROVIDER PROBES",
+          "key": "static.0e58805f",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "b",
+          "id": "connectorState",
+          "text": "ONBEKEND",
+          "key": "static.e492e203",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "span",
+          "id": null,
+          "text": "AUDIO & PRIVACY",
+          "key": "static.8797a747",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "button",
+          "id": "fullscreen",
+          "attribute": "aria-label",
+          "text": "Volledig scherm",
+          "key": "static.672016d1"
+        },
+        {
+          "line": 61,
+          "tag": "button",
+          "id": "resetView",
+          "attribute": "title",
+          "text": "Herstel de autonome 3D-weergave",
+          "key": "static.767c19d1"
+        },
+        {
+          "line": 61,
+          "tag": "button",
+          "id": "resetView",
+          "text": "RESET VIEW",
+          "key": "static.b68a3d11",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "div",
+          "id": null,
+          "text": "RENDER QUALITY",
+          "key": "static.ed61113c",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "b",
+          "id": "visualQuality",
+          "text": "CONTROLEREN",
+          "key": "static.1b6a441e",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "b",
+          "id": "renderMetrics",
+          "text": "METRICS STARTEN",
+          "key": "static.c833f3d9",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "div",
+          "id": null,
+          "text": "3D VIEW",
+          "key": "static.3aca9147",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "b",
+          "id": "viewMotion",
+          "text": "AUTO 3D-VERKENNING · SLEEP OM TE DRAAIEN",
+          "key": "static.7a2b417a",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "div",
+          "id": null,
+          "text": "VOICE TRANSPORT",
+          "key": "static.60e74d20",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "b",
+          "id": "voiceTransport",
+          "text": "NIET ACTIEF",
+          "key": "static.b1875a4b",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "div",
+          "id": null,
+          "text": "MIC PRIVACY",
+          "key": "static.43dacbd0",
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "b",
+          "id": "micPrivacy",
+          "text": "UIT",
+          "key": "static.cfa2497d",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "div",
+          "id": null,
+          "text": "PERSISTED BUSINESS STATE",
+          "key": "static.d27e3811",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "Voorraadrecords",
+          "key": "static.3c45e917",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "Leads",
+          "key": "static.20520074",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "CRM-records",
+          "key": "static.c1c23ff8",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "div",
+          "id": null,
+          "text": "Bron:",
+          "key": "static.2c7a932e",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "b",
+          "id": null,
+          "text": "Foundly Data Layer",
+          "key": "static.9fa16dbd",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "div",
+          "id": null,
+          "text": "ORCHESTRATION",
+          "key": "static.124dd182",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "Actieve taken",
+          "key": "static.cb5a726f",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "Records totaal",
+          "key": "static.c541354c",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "Probes groen",
+          "key": "static.058ee1cb",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "div",
+          "id": null,
+          "text": "VERIFIED EXTERNAL SOURCES",
+          "key": "static.8805e9de",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "Status laden…",
+          "key": "static.2b5e2389",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "div",
+          "id": null,
+          "text": "Alleen zichtbaar na echte providerprobe",
+          "key": "static.5f1713df",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "div",
+          "id": null,
+          "text": "LIVE OBSERVATION",
+          "key": "static.9b748b35",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": null,
+          "text": "Laatste refresh",
+          "key": "static.b7bf5a58",
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "div",
+          "id": null,
+          "text": "Geen gesimuleerde business-events",
+          "key": "static.fdb3753b",
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "button",
+          "id": "mic",
+          "attribute": "aria-label",
+          "text": "Zero activeren",
+          "key": "static.7e5f2d8c"
+        },
+        {
+          "line": 65,
+          "tag": "b",
+          "id": null,
+          "text": "ZERO · “ZERO” OF DUBBELE KLAP",
+          "key": "static.fb4aff95",
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "span",
+          "id": "listenText",
+          "text": "Initialiseer eenmaal voor microfoontoegang",
+          "key": "static.728171f5",
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "input",
+          "id": "command",
+          "attribute": "placeholder",
+          "text": "Praat handsfree of geef optioneel een tekstopdracht…",
+          "key": "static.b1c41dc2"
+        },
+        {
+          "line": 65,
+          "tag": "button",
+          "id": "send",
+          "text": "UITVOEREN",
+          "key": "static.a0b7e062",
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "b",
+          "id": "voiceState",
+          "text": "STANDBY",
+          "key": "static.33558c7e",
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "div",
+          "id": null,
+          "text": "AUTHORITATIVE CORE",
+          "key": "static.0b56e30b",
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "div",
+          "id": "layerSmall",
+          "text": "HOOFDONDERDEEL",
+          "key": "static.1a78aa8b",
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "h2",
+          "id": "layerTitle",
+          "text": "Onderdeel",
+          "key": "static.d3f9db21",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "b",
+          "id": null,
+          "text": "AUDIO & PRIVACY",
+          "key": "static.8797a747",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "IDENTITEIT & INPUT",
+          "key": "static.5bcf94c4",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Aanspreekvorm",
+          "key": "static.27eed977",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "small",
+          "id": null,
+          "text": "Wordt voor jouw account bewaard",
+          "key": "static.5f05ba2b",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Microfoon",
+          "key": "static.7870d101",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "small",
+          "id": null,
+          "text": "Schakelt lokale audiocapture volledig uit",
+          "key": "static.d807760e",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Wake word",
+          "key": "static.67485f3b",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "small",
+          "id": null,
+          "text": "Browserherkenning; fallback verschilt per browser",
+          "key": "static.65b7f9c4",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Dubbele klap",
+          "key": "static.dcb13ffc",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "small",
+          "id": null,
+          "text": "Lokale transientanalyse, geen standby-upload",
+          "key": "static.d5ad208a",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Klapgevoeligheid",
+          "key": "static.4977774b",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "ZERO · TAAL & STEM",
+          "key": "static.c3149fdb",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Taal van ZERO",
+          "key": "static.96915220",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Nederlands",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "English (UK)",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Deutsch",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Français",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Español",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Dansk",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Norsk bokmål",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Svenska",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Stem",
+          "key": "static.3a71e4b8",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Man",
+          "key": "static.4ea8000f",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Vrouw",
+          "key": "static.eba7ef0e",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Spreekstijl",
+          "key": "static.b5c7e809",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Zakelijk en bondig",
+          "key": "static.c4469578",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Gesprek",
+          "key": "static.c0ef6154",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "Briefing",
+          "key": "static.70eed739",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "MIXER",
+          "key": "static.78c4efba",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Mastervolume",
+          "key": "static.d0b3074d",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Zero-stem",
+          "key": "static.253157bf",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Stemoutput aan",
+          "key": "static.f61065ed",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Neural soundscape",
+          "key": "static.86ec4659",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Soundscape aan",
+          "key": "static.3c3f1f6e",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Interface-effecten",
+          "key": "static.b92346f1",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "SFX aan",
+          "key": "static.19033c4c",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Alles dempen",
+          "key": "static.32200875",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "RUNTIME",
+          "key": "static.a31aa4cb",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Visual quality",
+          "key": "static.0c979330",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "small",
+          "id": null,
+          "text": "AUTO past GPU-dichtheid aan de gemeten FPS aan",
+          "key": "static.e58974b4",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "AUTO",
+          "key": "static.54a83616",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "LOW",
+          "key": "static.d22be661",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "BALANCED",
+          "key": "static.469a199d",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "HIGH",
+          "key": "static.7b2feefd",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "option",
+          "id": null,
+          "text": "ULTRA",
+          "key": "static.fc035115",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "AUDIO CONTEXT",
+          "key": "static.192cde22",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "b",
+          "id": "audioContextStatus",
+          "text": "UNINITIALIZED",
+          "key": "static.ce6ce1ec",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "OUTPUT",
+          "key": "static.5798c504",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "b",
+          "id": "audioOutputStatus",
+          "text": "GEBLOKKEERD",
+          "key": "static.88dd0c52",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "SOUNDSCAPE",
+          "key": "static.4ac7c35a",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "b",
+          "id": "musicStatus",
+          "text": "GEREED",
+          "key": "static.31ba2c6d",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "DUCKING",
+          "key": "static.51525270",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "b",
+          "id": "duckingStatus",
+          "text": "VRIJ",
+          "key": "static.98efbcb6",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "MIC PERMISSION",
+          "key": "static.6fe1d547",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "b",
+          "id": "micPermissionStatus",
+          "text": "ONBEKEND",
+          "key": "static.e492e203",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "div",
+          "id": null,
+          "text": "VOICE OUTPUT",
+          "key": "static.018329a6",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "b",
+          "id": "voiceOutputStatus",
+          "text": "GEREED",
+          "key": "static.31ba2c6d",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "span",
+          "id": null,
+          "text": "Standby-audio blijft lokaal. In conversation mode gaat microfoonaudio via de beveiligde WebRTC-sessie.",
+          "key": "static.54dd14b7",
+          "invariant": false
+        },
+        {
+          "line": 67,
+          "tag": "button",
+          "id": "saveSettings",
+          "text": "OPSLAAN",
+          "key": "static.ebe1c42b",
+          "invariant": false
+        },
+        {
+          "line": 68,
+          "tag": "h1",
+          "id": null,
+          "text": "FOUNDLY ONLINE",
+          "key": "static.6586e3a3",
+          "invariant": false
+        },
+        {
+          "line": 68,
+          "tag": "p",
+          "id": null,
+          "text": "Initialiseer lokaal geluid en microfoon één keer. De wake-analyse blijft in deze browser; ruwe standby-audio wordt niet naar Foundly of een provider verstuurd.",
+          "key": "static.b50a481f",
+          "invariant": false
+        },
+        {
+          "line": 68,
+          "tag": "button",
+          "id": "initializeFoundly",
+          "text": "INITIALISEER FOUNDLY",
+          "key": "static.ff501e86",
+          "invariant": false
+        },
+        {
+          "line": 68,
+          "tag": "span",
+          "id": null,
+          "text": "Daarna: zeg “Zero” of klap tweemaal · spraak wordt pas in conversation mode naar OpenAI Realtime gestuurd.",
+          "key": "static.4a36608c",
+          "invariant": false
+        }
+      ]
+    },
+    {
+      "file": "foundly-workspace.html",
+      "sha256": "8d9ab646f0a83bd49a58a2a9089c0ad1034265c51f411d0ec4a467b80d262e29",
+      "copy_items": 122,
+      "keyed_items": 4,
+      "unresolved_static_items": 117,
+      "dynamic_acceptance": "UNVERIFIED",
+      "script_dependencies": [
+        {
+          "file": "foundly-static-copy.js",
+          "sha256": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-locales.js",
+          "sha256": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-i18n.js",
+          "sha256": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-shell.js",
+          "sha256": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "workflow-authoring.js",
+          "sha256": "fbbbf3f44d133096b9b26de8f8b54ab85ea307769e89df7757763527731b9cbe",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "workflow-draft-session.js",
+          "sha256": "e62ca774208200af5c334d00ad359cd46042b35b8e3cd36f45f983a4b842ac08",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "workflow-editor.js",
+          "sha256": "09b868d5c298db52113db8a98b75f5f34ef791bfef12180ccdf91e7f7fd0cec7",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "sales-pipeline-client.js",
+          "sha256": "055e67fa5100ede586a557cd3592c0e8375069fb89c184778a3b768d5e554182",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "sales-zero-client.js",
+          "sha256": "b6644a3ac56ac44f8266a38070924a070b98a7f6f534f5de73c928b0420e5d81",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "sales-sequences-client.js",
+          "sha256": "f314118d7d996091fad43257f3b18ca046230049ae1dc7652b6a9fae2dfbfe35",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "sales-hierarchy-client.js",
+          "sha256": "f8aa364530df0228fa69dfb7a24b5e29cedc1048ac5962043c55d8e39632e5be",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "workflow-generator.js",
+          "sha256": "2e6ad5b8e4eefb8278c0b0c7d4db61cd9992b6b8a87ae8d622ee7ee68ab18d18",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "workflow-inspector.js",
+          "sha256": "6e24b47e654bfb870cb10cb56705d854e5e3ac67f59ab326c580b0a9d3358b6f",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "workflow-run-zero-client.js",
+          "sha256": "fdcadbc9b1082242f5f7619d38ac64f67f4bc688219bc86a3ba42162791f7af4",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "calendar-event-client.js",
+          "sha256": "742bc965cba8dfdba46041b4aeab502c64c2ca6d6dec3d8a17cdfe6f39d8e18a",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "calendar-recurrence.js",
+          "sha256": "3451ec0f346663968ae5cf70d5e606e22f4ab016fe17e14459649182f382dd3f",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "workspace-dashboard-session.js",
+          "sha256": "9d08ce29b78320493e64e984f358b535f6de8271073a3f51020d9ccfcaae4e83",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "procurement-zero-client.js",
+          "sha256": "0003e0acaa100d72fdf5de52490143e1d488920d407e154deba97af35aba5584",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "procurement-clarifications-client.js",
+          "sha256": "491cb8ed59d6a7de5ca8785d151a39e8a798887779a570d46b9c9435712e9bff",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "procurement-intelligence-client.js",
+          "sha256": "e7435c385439f77b915c9867333ff35f45cb1745226d4e8cefa48be64447cfbb",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "marketing-journeys-client.js",
+          "sha256": "179d56d6116f5950a5163c7e2ba5eab9842af26dc0e6cbbfe8e5e48f35e1edc3",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "marketing-zero-client.js",
+          "sha256": "e45cc8c7e0a6bafef1f81ad92c55215a583a8e5fa3718e2e30b76ce1f85694b2",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "marketing-metrics-client.js",
+          "sha256": "1b0b9dbb17648745414115d34fd3a43908f137d0ae973b59b7a8f77814d8dd06",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "marketing-creative-history-client.js",
+          "sha256": "d498d124dbfaedcab4a1811cb8aa68ef50c60b3b4764cda0c7dc8364cb9976fc",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-workspace.js",
+          "sha256": "fd20b6c696ce0acece16a12ce663f3db2477aed46e2f2ea4eb14b46b9f03c41c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        }
+      ],
+      "copy": [
+        {
+          "line": 7,
+          "tag": "title",
+          "id": null,
+          "text": "Foundly OS Workspace",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 37,
+          "tag": "a",
+          "id": null,
+          "text": "Naar hoofdinhoud",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 40,
+          "tag": "aside",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Foundly OS hoofdnavigatie",
+          "key": null
+        },
+        {
+          "line": 41,
+          "tag": "a",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Foundly Neural Command Center",
+          "key": null
+        },
+        {
+          "line": 43,
+          "tag": "span",
+          "id": null,
+          "text": "FOUNDLY",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 43,
+          "tag": "small",
+          "id": null,
+          "text": "OPERATING SYSTEM",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 45,
+          "tag": "button",
+          "id": "globalSearchButton",
+          "text": "Zoek in Foundly",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 45,
+          "tag": "kbd",
+          "id": null,
+          "text": "⌘ K",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 46,
+          "tag": "nav",
+          "id": "globalNav",
+          "attribute": "aria-label",
+          "text": "Foundly workspaces",
+          "key": null
+        },
+        {
+          "line": 46,
+          "tag": "span",
+          "id": null,
+          "text": "Navigatie laden…",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 47,
+          "tag": "strong",
+          "id": "sidebarStatus",
+          "text": "CONTROLEREN",
+          "key": "static.1b6a441e",
+          "invariant": false
+        },
+        {
+          "line": 47,
+          "tag": "small",
+          "id": null,
+          "text": "v6.0.0 · één Core",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 53,
+          "tag": "p",
+          "id": "workspaceEyebrow",
+          "text": "FOUNDLY WORKSPACE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 54,
+          "tag": "h1",
+          "id": "workspaceTitle",
+          "text": "Workspace laden",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 55,
+          "tag": "p",
+          "id": "workspaceDescription",
+          "text": "Tenant-scoped Foundly-capabilities worden gecontroleerd.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 58,
+          "tag": "span",
+          "id": null,
+          "text": "Interfacetaal",
+          "key": "common.language",
+          "invariant": false
+        },
+        {
+          "line": 59,
+          "tag": "span",
+          "id": "workspaceRuntime",
+          "text": "CONTROLEREN",
+          "key": "static.1b6a441e",
+          "invariant": false
+        },
+        {
+          "line": 60,
+          "tag": "button",
+          "id": "refreshWorkspace",
+          "text": "Vernieuwen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "nav",
+          "id": "workspaceTabs",
+          "attribute": "aria-label",
+          "text": "Workspace-onderdelen",
+          "key": null
+        },
+        {
+          "line": 66,
+          "tag": "section",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Dashboardcommando's",
+          "key": null
+        },
+        {
+          "line": 68,
+          "tag": "label",
+          "id": null,
+          "text": "Vanaf",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 69,
+          "tag": "label",
+          "id": null,
+          "text": "Tot",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 70,
+          "tag": "label",
+          "id": null,
+          "text": "Vergelijk periode",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "label",
+          "id": null,
+          "text": "Bron",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Alle bronnen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "label",
+          "id": null,
+          "text": "Status",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "option",
+          "id": null,
+          "text": "Alle statussen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 75,
+          "tag": "button",
+          "id": "editDashboard",
+          "text": "Dashboard aanpassen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "button",
+          "id": "industryDashboardPreset",
+          "text": "Branchesjabloon kiezen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "button",
+          "id": "addWidget",
+          "text": "+ Widget",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 78,
+          "tag": "button",
+          "id": "saveDashboard",
+          "text": "Opslaan",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 79,
+          "tag": "button",
+          "id": "exportWorkspace",
+          "text": "Export",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 83,
+          "tag": "div",
+          "id": "workspaceNotice",
+          "text": "Werkelijke tenantdata laden…",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 87,
+          "tag": "p",
+          "id": "sectionEyebrow",
+          "text": "OVERVIEW",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 87,
+          "tag": "h2",
+          "id": "sectionTitle",
+          "text": "Command dashboard",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 89,
+          "tag": "label",
+          "id": null,
+          "text": "Weergave",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 89,
+          "tag": "option",
+          "id": null,
+          "text": "Persoonlijk",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 89,
+          "tag": "option",
+          "id": null,
+          "text": "Team",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 89,
+          "tag": "option",
+          "id": null,
+          "text": "Rol",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 89,
+          "tag": "option",
+          "id": null,
+          "text": "Preset",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 90,
+          "tag": "label",
+          "id": "dashboardQualifierWrap",
+          "text": "Naam",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "p",
+          "id": null,
+          "text": "OPERATIONAL TRUTH",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "h2",
+          "id": "recordsTitle",
+          "text": "Records",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "span",
+          "id": "recordCount",
+          "text": "0 RECORDS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "label",
+          "id": null,
+          "text": "Filter zichtbare records",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "input",
+          "id": "recordSearch",
+          "attribute": "placeholder",
+          "text": "Zoek in veilige velden…",
+          "key": null
+        },
+        {
+          "line": 100,
+          "tag": "div",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Workspace records",
+          "key": null
+        },
+        {
+          "line": 102,
+          "tag": "div",
+          "id": "recordEmpty",
+          "text": "Geen echte records beschikbaar voor deze selectie.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 107,
+          "tag": "p",
+          "id": null,
+          "text": "PROVENANCE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 107,
+          "tag": "h2",
+          "id": null,
+          "text": "Bronnen & freshness",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 107,
+          "tag": "span",
+          "id": null,
+          "text": "SOURCE REGISTRY",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 113,
+          "tag": "p",
+          "id": null,
+          "text": "CONTROL PLANE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 113,
+          "tag": "h2",
+          "id": null,
+          "text": "Connectorcatalogus",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 113,
+          "tag": "span",
+          "id": "connectorCount",
+          "text": "0 CONNECTORS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 115,
+          "tag": "label",
+          "id": null,
+          "text": "Categorie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 115,
+          "tag": "option",
+          "id": null,
+          "text": "Alle categorieën",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 116,
+          "tag": "label",
+          "id": null,
+          "text": "Industrie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 116,
+          "tag": "option",
+          "id": null,
+          "text": "Alle industrieën",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 117,
+          "tag": "label",
+          "id": null,
+          "text": "Capability",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 117,
+          "tag": "option",
+          "id": null,
+          "text": "Alle capabilities",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 118,
+          "tag": "label",
+          "id": null,
+          "text": "Auth",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 118,
+          "tag": "option",
+          "id": null,
+          "text": "Alle auth-typen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 119,
+          "tag": "label",
+          "id": null,
+          "text": "Tenant",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 119,
+          "tag": "option",
+          "id": null,
+          "text": "Alle tenantscopes",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 120,
+          "tag": "label",
+          "id": null,
+          "text": "Status",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 120,
+          "tag": "option",
+          "id": null,
+          "text": "Alle statussen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 124,
+          "tag": "p",
+          "id": null,
+          "text": "ONE AUTHORITATIVE CATALOG",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 124,
+          "tag": "h2",
+          "id": "sourceRegistryTitle",
+          "text": "Foundly Source Registry",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 124,
+          "tag": "span",
+          "id": "sourceRegistryCount",
+          "text": "0 SOURCES",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 126,
+          "tag": "label",
+          "id": null,
+          "text": "Zoeken",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 126,
+          "tag": "input",
+          "id": "sourceRegistrySearch",
+          "attribute": "placeholder",
+          "text": "Bron of provider",
+          "key": null
+        },
+        {
+          "line": 127,
+          "tag": "label",
+          "id": null,
+          "text": "Categorie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 127,
+          "tag": "option",
+          "id": null,
+          "text": "Alle categorieën",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 128,
+          "tag": "label",
+          "id": null,
+          "text": "Capability",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 128,
+          "tag": "option",
+          "id": null,
+          "text": "Alle capabilities",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 129,
+          "tag": "label",
+          "id": null,
+          "text": "Type",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 129,
+          "tag": "option",
+          "id": null,
+          "text": "Alle brontypen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 130,
+          "tag": "label",
+          "id": null,
+          "text": "Status",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 130,
+          "tag": "option",
+          "id": null,
+          "text": "Alle statussen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 138,
+          "tag": "p",
+          "id": "contextEyebrow",
+          "text": "WORKSPACE SECTION",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 139,
+          "tag": "h2",
+          "id": "contextTitle",
+          "text": "Onderdeel",
+          "key": "static.d3f9db21",
+          "invariant": false
+        },
+        {
+          "line": 147,
+          "tag": "p",
+          "id": null,
+          "text": "AUTO-PROVISIONER",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 147,
+          "tag": "h2",
+          "id": null,
+          "text": "Configureer één Foundly tenant",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 147,
+          "tag": "span",
+          "id": null,
+          "text": "NO CUSTOMER FORKS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 148,
+          "tag": "p",
+          "id": null,
+          "text": "Deze actie richt alleen configuratie in. Er worden geen demo- of businessrecords aangemaakt.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 150,
+          "tag": "label",
+          "id": null,
+          "text": "Bedrijfsnaam",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 151,
+          "tag": "label",
+          "id": null,
+          "text": "Land",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 152,
+          "tag": "label",
+          "id": null,
+          "text": "Markt",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 153,
+          "tag": "label",
+          "id": null,
+          "text": "Branche",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 154,
+          "tag": "label",
+          "id": null,
+          "text": "Segment",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 155,
+          "tag": "label",
+          "id": null,
+          "text": "Businessmodel",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 156,
+          "tag": "label",
+          "id": null,
+          "text": "Kanalen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 156,
+          "tag": "input",
+          "id": null,
+          "attribute": "placeholder",
+          "text": "Komma-gescheiden",
+          "key": null
+        },
+        {
+          "line": 157,
+          "tag": "label",
+          "id": null,
+          "text": "Bestaande software",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 157,
+          "tag": "input",
+          "id": null,
+          "attribute": "placeholder",
+          "text": "Komma-gescheiden",
+          "key": null
+        },
+        {
+          "line": 158,
+          "tag": "button",
+          "id": null,
+          "text": "Configuratie valideren en opslaan",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 160,
+          "tag": "output",
+          "id": "provisionerOutput",
+          "text": "Nog geen configuratie ingediend.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 166,
+          "tag": "p",
+          "id": null,
+          "text": "SINGLE INTELLIGENCE LAYER",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 166,
+          "tag": "h2",
+          "id": "zeroDockTitle",
+          "text": "Vraag ZERO in deze context.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 166,
+          "tag": "output",
+          "id": "zeroOutput",
+          "text": "ZERO gebruikt dezelfde tenant, bronnen, rechten en provenance.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 167,
+          "tag": "label",
+          "id": null,
+          "text": "Opdracht aan ZERO",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 167,
+          "tag": "input",
+          "id": "zeroInput",
+          "attribute": "placeholder",
+          "text": "Vraag naar deze workspace…",
+          "key": null
+        },
+        {
+          "line": 167,
+          "tag": "button",
+          "id": null,
+          "text": "Uitvoeren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 170,
+          "tag": "span",
+          "id": null,
+          "text": "Real-data contract actief",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 170,
+          "tag": "span",
+          "id": null,
+          "text": "Tenant & RBAC enforced",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 170,
+          "tag": "span",
+          "id": null,
+          "text": "Geen synthetische runtimewaarden",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 174,
+          "tag": "p",
+          "id": null,
+          "text": "GLOBAL SEARCH",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 174,
+          "tag": "h2",
+          "id": null,
+          "text": "Ga naar Foundly",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 174,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 175,
+          "tag": "label",
+          "id": null,
+          "text": "Zoeken",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 175,
+          "tag": "input",
+          "id": "globalSearchInput",
+          "attribute": "placeholder",
+          "text": "Workspace, bron of connector…",
+          "key": null
+        },
+        {
+          "line": 180,
+          "tag": "p",
+          "id": null,
+          "text": "DASHBOARD",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 180,
+          "tag": "h2",
+          "id": null,
+          "text": "Widget toevoegen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 180,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 181,
+          "tag": "label",
+          "id": null,
+          "text": "Beschikbare metric",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 181,
+          "tag": "button",
+          "id": null,
+          "text": "Toevoegen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 185,
+          "tag": "p",
+          "id": null,
+          "text": "CONNECTOR DETAIL",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 185,
+          "tag": "h2",
+          "id": "connectorDialogTitle",
+          "text": "Connector",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 185,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 190,
+          "tag": "p",
+          "id": null,
+          "text": "DASHBOARD DRILLDOWN",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 190,
+          "tag": "h2",
+          "id": "metricDialogTitle",
+          "text": "Metric",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 190,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        }
+      ]
+    },
+    {
+      "file": "crm.html",
+      "sha256": "b4ab3a90776aebbdfcbcd3cf9e6a684edc713b52ae606a25ec3c069b845ed708",
+      "copy_items": 187,
+      "keyed_items": 7,
+      "unresolved_static_items": 178,
+      "dynamic_acceptance": "UNVERIFIED",
+      "script_dependencies": [
+        {
+          "file": "foundly-static-copy.js",
+          "sha256": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-locales.js",
+          "sha256": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-i18n.js",
+          "sha256": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "crm-objects-client.js",
+          "sha256": "ad233c3a330ab8dcb18676f72445494da0bfff5e66e2da5a8494a28b30acb991",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "crm-script.js",
+          "sha256": "3a3ab3b3752fec3cf08bb381847240ae6292086d457472508c7a3b2b7fb3e14c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-shell.js",
+          "sha256": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        }
+      ],
+      "copy": [
+        {
+          "line": 7,
+          "tag": "title",
+          "id": null,
+          "text": "Foundly CRM",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 19,
+          "tag": "aside",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "CRM-navigatie",
+          "key": null
+        },
+        {
+          "line": 20,
+          "tag": "a",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Foundly CRM home",
+          "key": null
+        },
+        {
+          "line": 20,
+          "tag": "span",
+          "id": null,
+          "text": "F",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 20,
+          "tag": "span",
+          "id": null,
+          "text": "FOUNDLY",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 20,
+          "tag": "small",
+          "id": null,
+          "text": "CRM",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 22,
+          "tag": "button",
+          "id": null,
+          "text": "Overview",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 23,
+          "tag": "button",
+          "id": null,
+          "text": "Customers",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 24,
+          "tag": "button",
+          "id": null,
+          "text": "Companies",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 25,
+          "tag": "button",
+          "id": null,
+          "text": "Contacts",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 26,
+          "tag": "button",
+          "id": null,
+          "text": "Leads",
+          "key": "static.20520074",
+          "invariant": false
+        },
+        {
+          "line": 27,
+          "tag": "button",
+          "id": null,
+          "text": "Deals",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 28,
+          "tag": "button",
+          "id": null,
+          "text": "Pipelines",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 29,
+          "tag": "button",
+          "id": null,
+          "text": "Tasks",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 30,
+          "tag": "button",
+          "id": null,
+          "text": "Activity",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 31,
+          "tag": "button",
+          "id": null,
+          "text": "Communication",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 32,
+          "tag": "button",
+          "id": null,
+          "text": "Segments",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 33,
+          "tag": "button",
+          "id": null,
+          "text": "Forecast",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 34,
+          "tag": "button",
+          "id": null,
+          "text": "Automations",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 35,
+          "tag": "button",
+          "id": null,
+          "text": "Analytics",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 36,
+          "tag": "button",
+          "id": null,
+          "text": "Dashboards",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 37,
+          "tag": "button",
+          "id": null,
+          "text": "Eigen objecten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 38,
+          "tag": "button",
+          "id": null,
+          "text": "Settings",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 40,
+          "tag": "a",
+          "id": null,
+          "text": "Neural Command Center",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 45,
+          "tag": "p",
+          "id": null,
+          "text": "CUSTOMER INTELLIGENCE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 45,
+          "tag": "h1",
+          "id": "viewTitle",
+          "text": "Dashboard",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 46,
+          "tag": "span",
+          "id": "crmConnection",
+          "text": "CONTROLEREN",
+          "key": "static.1b6a441e",
+          "invariant": false
+        },
+        {
+          "line": 46,
+          "tag": "button",
+          "id": "commandButton",
+          "text": "⌘ K",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 46,
+          "tag": "button",
+          "id": "newRecord",
+          "text": "+ NIEUW",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "label",
+          "id": null,
+          "text": "Preset",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "option",
+          "id": null,
+          "text": "EXECUTIVE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "option",
+          "id": null,
+          "text": "SALES",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "option",
+          "id": null,
+          "text": "MARKETING",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "option",
+          "id": null,
+          "text": "OPERATIONS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "option",
+          "id": null,
+          "text": "CRM MANAGER",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "option",
+          "id": null,
+          "text": "PERSONAL",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 52,
+          "tag": "label",
+          "id": null,
+          "text": "Vanaf",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 52,
+          "tag": "label",
+          "id": null,
+          "text": "Tot",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 53,
+          "tag": "label",
+          "id": null,
+          "text": "Vergelijk vorige periode",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 54,
+          "tag": "label",
+          "id": null,
+          "text": "Status",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 54,
+          "tag": "input",
+          "id": "dashboardStatusFilter",
+          "attribute": "placeholder",
+          "text": "bijv. OPEN",
+          "key": null
+        },
+        {
+          "line": 55,
+          "tag": "label",
+          "id": null,
+          "text": "Eigenaar",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 55,
+          "tag": "input",
+          "id": "dashboardOwnerFilter",
+          "attribute": "placeholder",
+          "text": "owner-id",
+          "key": null
+        },
+        {
+          "line": 56,
+          "tag": "label",
+          "id": null,
+          "text": "Bron",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 56,
+          "tag": "input",
+          "id": "dashboardSourceFilter",
+          "attribute": "placeholder",
+          "text": "source-id",
+          "key": null
+        },
+        {
+          "line": 57,
+          "tag": "label",
+          "id": null,
+          "text": "Delen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 57,
+          "tag": "option",
+          "id": null,
+          "text": "Privé",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 57,
+          "tag": "option",
+          "id": null,
+          "text": "Team",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 58,
+          "tag": "label",
+          "id": "dashboardTeamWrap",
+          "text": "Team-id",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 58,
+          "tag": "input",
+          "id": "dashboardTeam",
+          "attribute": "placeholder",
+          "text": "team-id",
+          "key": null
+        },
+        {
+          "line": 59,
+          "tag": "button",
+          "id": "refreshDashboard",
+          "text": "VERVERS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 59,
+          "tag": "button",
+          "id": "editDashboard",
+          "text": "BEWERK",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 59,
+          "tag": "button",
+          "id": "addWidget",
+          "text": "+ WIDGET",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 59,
+          "tag": "button",
+          "id": "saveDashboard",
+          "text": "OPSLAAN",
+          "key": "static.ebe1c42b",
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "div",
+          "id": "dashboardNotice",
+          "text": "CRM-data laden…",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "label",
+          "id": null,
+          "text": "Pipeline",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "button",
+          "id": "refreshPipeline",
+          "text": "VERVERS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "button",
+          "id": "createPipeline",
+          "text": "+ PIPELINE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "label",
+          "id": null,
+          "text": "Zoeken",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "input",
+          "id": "recordSearch",
+          "attribute": "placeholder",
+          "text": "Naam, e-mail, status…",
+          "key": null
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Leads",
+          "key": "static.20520074",
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Contacten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Bedrijven",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Deals",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Opportunities",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Taken",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Afspraken",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Activiteiten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Notities",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Calls",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "E-mails",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Berichten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Segmenten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Producten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Voertuigen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Offertes",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Orders",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "option",
+          "id": null,
+          "text": "Campagnes",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "button",
+          "id": "refreshRecords",
+          "text": "VERVERS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "button",
+          "id": "createRecord",
+          "text": "+ RECORD",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "th",
+          "id": null,
+          "text": "Naam / titel",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "th",
+          "id": null,
+          "text": "Status",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "th",
+          "id": null,
+          "text": "Eigenaar",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "th",
+          "id": null,
+          "text": "Bijgewerkt",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "p",
+          "id": null,
+          "text": "RULE ENGINE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "h2",
+          "id": null,
+          "text": "Veilige automation",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "p",
+          "id": null,
+          "text": "Interne taken mogen automatisch worden uitgevoerd. E-mail, bericht en webhook blijven geblokkeerd tot expliciete autorisatie en een geverifieerde connector.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "label",
+          "id": null,
+          "text": "Naam",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "label",
+          "id": null,
+          "text": "Trigger",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "new_lead",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "stage_change",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "no_contact",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "appointment",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "quote",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "deal_won",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "deal_lost",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "product_interest",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "campaign_source",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "score_threshold",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "webhook",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "label",
+          "id": null,
+          "text": "Actie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "task",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "notify",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "assign",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "follow_up",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "field_update",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "stage_change",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "zero_task",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "email",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "message",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "option",
+          "id": null,
+          "text": "webhook",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "button",
+          "id": null,
+          "text": "AUTOMATION OPSLAAN",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 78,
+          "tag": "p",
+          "id": null,
+          "text": "LIVE DEFINITIONS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 78,
+          "tag": "h2",
+          "id": null,
+          "text": "Automations",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "p",
+          "id": null,
+          "text": "BUSINESS PROFILE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "h2",
+          "id": null,
+          "text": "Auto-Provisioner contract",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "p",
+          "id": null,
+          "text": "Richt één configureerbare CRM-codebase in op markt, branche en segment. Dit maakt geen demo- of businessdata aan.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "label",
+          "id": null,
+          "text": "Bedrijfsnaam",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "label",
+          "id": null,
+          "text": "Land / markt",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "input",
+          "id": null,
+          "attribute": "placeholder",
+          "text": "NL",
+          "key": null
+        },
+        {
+          "line": 86,
+          "tag": "label",
+          "id": null,
+          "text": "Branche",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "label",
+          "id": null,
+          "text": "Segment",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "button",
+          "id": null,
+          "text": "CONFIGURATIE INRICHTEN",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 87,
+          "tag": "p",
+          "id": null,
+          "text": "API-FIRST",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 87,
+          "tag": "h2",
+          "id": null,
+          "text": "Platformcontract",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 87,
+          "tag": "div",
+          "id": "schemaSummary",
+          "text": "Schema laden…",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 92,
+          "tag": "section",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "ZERO CRM assistent",
+          "key": null
+        },
+        {
+          "line": 92,
+          "tag": "label",
+          "id": null,
+          "text": "ZERO",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 92,
+          "tag": "input",
+          "id": "zeroInput",
+          "attribute": "placeholder",
+          "text": "Vraag naar leads, pipeline of klantcontext…",
+          "key": null
+        },
+        {
+          "line": 92,
+          "tag": "button",
+          "id": null,
+          "text": "UITVOEREN",
+          "key": "static.a0b7e062",
+          "invariant": false
+        },
+        {
+          "line": 92,
+          "tag": "output",
+          "id": "zeroOutput",
+          "text": "ZERO gebruikt dezelfde beveiligde CRM-services.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 94,
+          "tag": "h2",
+          "id": "nativeFieldsTitle",
+          "text": "Eigen velden van het CRM-record",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 94,
+          "tag": "button",
+          "id": null,
+          "text": "Sluiten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "h2",
+          "id": "dialogTitle",
+          "text": "Record",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Naam / titel",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Status",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "E-mail",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Telefoon",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Waarde",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Kans %",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Eigenaar",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Team",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Bron",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Kanaal",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Richting",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "option",
+          "id": null,
+          "text": "Inbound",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "option",
+          "id": null,
+          "text": "Outbound",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Volgende actie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Notitie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "button",
+          "id": null,
+          "text": "OPSLAAN",
+          "key": "static.ebe1c42b",
+          "invariant": false
+        },
+        {
+          "line": 96,
+          "tag": "h2",
+          "id": null,
+          "text": "Customer 360",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 96,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 97,
+          "tag": "h2",
+          "id": null,
+          "text": "Nieuwe pipeline",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 97,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 97,
+          "tag": "label",
+          "id": null,
+          "text": "Naam",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 97,
+          "tag": "input",
+          "id": null,
+          "attribute": "placeholder",
+          "text": "Bijv. New business",
+          "key": null
+        },
+        {
+          "line": 97,
+          "tag": "label",
+          "id": null,
+          "text": "Fasen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 97,
+          "tag": "textarea",
+          "id": null,
+          "text": "Nieuw, Gekwalificeerd, Voorstel, Onderhandeling, Gewonnen, Verloren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 97,
+          "tag": "p",
+          "id": null,
+          "text": "Scheid fasen met komma’s. Kans en open/gewonnen/verloren-status worden deterministisch ingericht en zijn daarna via de API aanpasbaar.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 97,
+          "tag": "button",
+          "id": null,
+          "text": "PIPELINE MAKEN",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "h2",
+          "id": null,
+          "text": "Widget toevoegen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 98,
+          "tag": "label",
+          "id": null,
+          "text": "Type",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "KPI",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "LINE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "BAR",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "FUNNEL",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "PIPELINE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "TABLE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "LEADERBOARD",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "FORECAST",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "option",
+          "id": null,
+          "text": "ACTIVITY_FEED",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "label",
+          "id": null,
+          "text": "Metric",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "input",
+          "id": null,
+          "attribute": "placeholder",
+          "text": "pipeline_value",
+          "key": null
+        },
+        {
+          "line": 98,
+          "tag": "button",
+          "id": null,
+          "text": "TOEVOEGEN",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "h2",
+          "id": null,
+          "text": "Command palette",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Sluiten",
+          "key": null
+        },
+        {
+          "line": 99,
+          "tag": "label",
+          "id": null,
+          "text": "Ga naar of vraag ZERO",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "input",
+          "id": "commandSearch",
+          "attribute": "placeholder",
+          "text": "Dashboard, pipeline, leads, ZERO…",
+          "key": null
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "text": "Dashboard",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "text": "Pipeline",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "text": "Leads",
+          "key": "static.20520074",
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "text": "Contacten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "text": "Automations",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "text": "Configuratie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 99,
+          "tag": "button",
+          "id": null,
+          "text": "Vraag ZERO",
+          "key": null,
+          "invariant": false
+        }
+      ]
+    },
+    {
+      "file": "analysis.html",
+      "sha256": "b5c319f377ec5bedef381d6bd798040b5f8c3558f57475b900e1eec5c7f782d6",
+      "copy_items": 102,
+      "keyed_items": 2,
+      "unresolved_static_items": 98,
+      "dynamic_acceptance": "UNVERIFIED",
+      "script_dependencies": [
+        {
+          "file": "foundly-static-copy.js",
+          "sha256": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-locales.js",
+          "sha256": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-i18n.js",
+          "sha256": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "analysis-loading.js",
+          "sha256": "9eba228c6aaa0c9c08a73e9d9e4c5016c021afc1e0788613f6240683523fda9c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "analysis-actions-zero-client.js",
+          "sha256": "661cdef956aeb46faec13a31a3d6d9be9cc5d056f92f1e5837a0049db7d9eb16",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "analysis-actions-client.js",
+          "sha256": "a431b734ec53ac3789e20ac907135eb021c9f5cf91789e648bb8b6f8ae24aaeb",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "analysis-models-client.js",
+          "sha256": "758555f912c39a604f10a8e00164826d1c5b3fb4cb5fff7251d7d2d7debd2918",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "analysis-definition-history-client.js",
+          "sha256": "e6b9a7cc69305cf33441c3bb9d91c2b3bac84d457871b609fd43c944f90205e4",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "analysis-cohorts-client.js",
+          "sha256": "a5f35f6b20f6c7a4d93170eceb29fe20baae2f5c16a6b5b1e74968b4842f17ba",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "analysis-script.js",
+          "sha256": "8943716a986a6cfa2cb1adaa8f07ef0ee9482896ccac5284fb5a3dfd34466e78",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-shell.js",
+          "sha256": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        }
+      ],
+      "copy": [
+        {
+          "line": 7,
+          "tag": "title",
+          "id": null,
+          "text": "Foundly Analysis",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 24,
+          "tag": "aside",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Analysis-navigatie",
+          "key": null
+        },
+        {
+          "line": 25,
+          "tag": "span",
+          "id": null,
+          "text": "F",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 25,
+          "tag": "span",
+          "id": null,
+          "text": "FOUNDLY",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 25,
+          "tag": "small",
+          "id": null,
+          "text": "ANALYSIS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 26,
+          "tag": "p",
+          "id": null,
+          "text": "Intelligence",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 28,
+          "tag": "a",
+          "id": null,
+          "text": "Overview",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 29,
+          "tag": "a",
+          "id": null,
+          "text": "Realtime",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 30,
+          "tag": "a",
+          "id": null,
+          "text": "Historical",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 31,
+          "tag": "a",
+          "id": null,
+          "text": "KPIs",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 32,
+          "tag": "a",
+          "id": null,
+          "text": "Funnels",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 33,
+          "tag": "a",
+          "id": null,
+          "text": "Attribution",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 34,
+          "tag": "a",
+          "id": null,
+          "text": "Campaigns",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 35,
+          "tag": "a",
+          "id": null,
+          "text": "Sales",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 36,
+          "tag": "a",
+          "id": null,
+          "text": "Leads",
+          "key": "static.20520074",
+          "invariant": false
+        },
+        {
+          "line": 37,
+          "tag": "a",
+          "id": null,
+          "text": "Customers",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 38,
+          "tag": "a",
+          "id": null,
+          "text": "Sources",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 39,
+          "tag": "a",
+          "id": null,
+          "text": "Cohorts",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 40,
+          "tag": "a",
+          "id": null,
+          "text": "Data Quality",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 41,
+          "tag": "a",
+          "id": null,
+          "text": "Alerts",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 42,
+          "tag": "a",
+          "id": null,
+          "text": "Dashboards",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 44,
+          "tag": "a",
+          "id": null,
+          "text": "Neural home",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 44,
+          "tag": "a",
+          "id": null,
+          "text": "CRM",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 44,
+          "tag": "a",
+          "id": null,
+          "text": "Finance",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 49,
+          "tag": "p",
+          "id": null,
+          "text": "CANONICAL BUSINESS INTELLIGENCE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 49,
+          "tag": "h1",
+          "id": null,
+          "text": "Analysis Command Dashboard",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 50,
+          "tag": "span",
+          "id": "analysisConnection",
+          "text": "CONTROLEREN",
+          "key": "static.1b6a441e",
+          "invariant": false
+        },
+        {
+          "line": 50,
+          "tag": "button",
+          "id": "exportEvents",
+          "text": "Export events",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 53,
+          "tag": "section",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Analysisfilters",
+          "key": null
+        },
+        {
+          "line": 54,
+          "tag": "label",
+          "id": null,
+          "text": "Vanaf",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 55,
+          "tag": "label",
+          "id": null,
+          "text": "Tot",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 56,
+          "tag": "label",
+          "id": null,
+          "text": "Realtimevenster",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 56,
+          "tag": "option",
+          "id": null,
+          "text": "15 minuten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 56,
+          "tag": "option",
+          "id": null,
+          "text": "1 uur",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 56,
+          "tag": "option",
+          "id": null,
+          "text": "24 uur",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 57,
+          "tag": "label",
+          "id": null,
+          "text": "Campagne",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 57,
+          "tag": "input",
+          "id": "analysisCampaign",
+          "attribute": "placeholder",
+          "text": "Optioneel campagne-ID",
+          "key": null
+        },
+        {
+          "line": 58,
+          "tag": "button",
+          "id": "refreshAnalysis",
+          "text": "Ververs",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 60,
+          "tag": "div",
+          "id": "analysisNotice",
+          "text": "Canonical analytics laden…",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "section",
+          "id": "analysisKpis",
+          "attribute": "aria-label",
+          "text": "Analysis KPI's",
+          "key": null
+        },
+        {
+          "line": 64,
+          "tag": "p",
+          "id": null,
+          "text": "FULL JOURNEY",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "h2",
+          "id": null,
+          "text": "Commerciële funnel",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "p",
+          "id": null,
+          "text": "Van advertentie tot betaalde omzet, uitsluitend canonical events.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "span",
+          "id": "funnelSource",
+          "text": "CANONICAL",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "p",
+          "id": null,
+          "text": "EVENT BUS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "h2",
+          "id": null,
+          "text": "Realtime eventfeed",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "p",
+          "id": "eventFreshness",
+          "text": "Freshness onbekend",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "span",
+          "id": null,
+          "text": "SSE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "p",
+          "id": null,
+          "text": "INCREMENTAL ROLLUPS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "h2",
+          "id": null,
+          "text": "Historische aggregatie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "p",
+          "id": null,
+          "text": "Materiële dagsamenvattingen; geen volledige eventscan in de browser.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "span",
+          "id": "rollupCount",
+          "text": "0 BUCKETS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Dag",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Event",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Bron",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Aantal",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Laatst ontvangen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 68,
+          "tag": "p",
+          "id": null,
+          "text": "COHORTANALYSE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 68,
+          "tag": "h2",
+          "id": null,
+          "text": "Instroom en terugkeer",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 68,
+          "tag": "p",
+          "id": null,
+          "text": "Eerste toegankelijke instroom in de bewaarde historie. Identiteiten blijven gescheiden per bron; er wordt geen persoon of koppeling afgeleid.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 69,
+          "tag": "legend",
+          "id": null,
+          "text": "Opgeslagen definities",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 69,
+          "tag": "label",
+          "id": null,
+          "text": "Definitie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 69,
+          "tag": "button",
+          "id": null,
+          "text": "Definitie laden",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 69,
+          "tag": "button",
+          "id": "cohortDefinitionsPrevious",
+          "text": "Vorige",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 69,
+          "tag": "button",
+          "id": "cohortDefinitionsNext",
+          "text": "Volgende",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 69,
+          "tag": "button",
+          "id": "cohortDefinitionsRefresh",
+          "text": "Vernieuwen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 70,
+          "tag": "p",
+          "id": "cohortDefinitionsNotice",
+          "text": "Opgeslagen definities bevatten instellingen; resultaten worden opnieuw berekend met je huidige rechten.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "legend",
+          "id": null,
+          "text": "Cohortdefinitie",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "label",
+          "id": null,
+          "text": "Instroomevent",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "input",
+          "id": null,
+          "attribute": "placeholder",
+          "text": "Canonical eventnaam",
+          "key": null
+        },
+        {
+          "line": 73,
+          "tag": "label",
+          "id": null,
+          "text": "Terugkeerevent",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 73,
+          "tag": "input",
+          "id": null,
+          "attribute": "placeholder",
+          "text": "Andere canonical eventnaam",
+          "key": null
+        },
+        {
+          "line": 74,
+          "tag": "label",
+          "id": null,
+          "text": "Identiteit",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 74,
+          "tag": "option",
+          "id": null,
+          "text": "Klant-ID",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 74,
+          "tag": "option",
+          "id": null,
+          "text": "Lead-ID",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 74,
+          "tag": "option",
+          "id": null,
+          "text": "Anonieme ID",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 74,
+          "tag": "option",
+          "id": null,
+          "text": "Sessie-ID",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 75,
+          "tag": "label",
+          "id": null,
+          "text": "Vanaf (UTC)",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 75,
+          "tag": "label",
+          "id": null,
+          "text": "Tot, exclusief (UTC)",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "label",
+          "id": null,
+          "text": "Periode",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "option",
+          "id": null,
+          "text": "1 dag",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "option",
+          "id": null,
+          "text": "7 dagen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "option",
+          "id": null,
+          "text": "30 dagen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "label",
+          "id": null,
+          "text": "Vervolgperioden",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "button",
+          "id": null,
+          "text": "Berekenen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 80,
+          "tag": "h2",
+          "id": null,
+          "text": "Configureerbare analysemodellen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 81,
+          "tag": "h2",
+          "id": null,
+          "text": "Goedgekeurde vervolgacties",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 82,
+          "tag": "legend",
+          "id": null,
+          "text": "Huidige definitie bewaren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 82,
+          "tag": "label",
+          "id": null,
+          "text": "Naam",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 82,
+          "tag": "button",
+          "id": null,
+          "text": "Als nieuwe definitie opslaan",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 83,
+          "tag": "p",
+          "id": "cohortNotice",
+          "text": "Kies expliciet de eventnamen en een periode. Periode 0 telt terugkeer binnen het instroominterval.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 85,
+          "tag": "p",
+          "id": null,
+          "text": "PROVENANCE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 85,
+          "tag": "h2",
+          "id": null,
+          "text": "Bronnen & connectors",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 85,
+          "tag": "span",
+          "id": null,
+          "text": "TRUTHFUL STATUS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "p",
+          "id": null,
+          "text": "AUTOMATION",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "h2",
+          "id": null,
+          "text": "Uitvoeringsstatus",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 86,
+          "tag": "span",
+          "id": null,
+          "text": "AUDITED",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 90,
+          "tag": "section",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "ZERO Analysis assistent",
+          "key": null
+        },
+        {
+          "line": 90,
+          "tag": "label",
+          "id": null,
+          "text": "ZERO",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 90,
+          "tag": "input",
+          "id": "analysisZeroInput",
+          "attribute": "placeholder",
+          "text": "Vraag waarom een KPI deze waarde heeft…",
+          "key": null
+        },
+        {
+          "line": 90,
+          "tag": "button",
+          "id": null,
+          "text": "Vraag",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 90,
+          "tag": "output",
+          "id": "analysisZeroOutput",
+          "text": "ZERO leest dezelfde canonical events en KPI-definities.",
+          "key": null,
+          "invariant": false
+        }
+      ]
+    },
+    {
+      "file": "finance.html",
+      "sha256": "7c61dd1c576699659c6164719d49b0d37a51dc5eab10ddad40ef9699a71b1a56",
+      "copy_items": 76,
+      "keyed_items": 1,
+      "unresolved_static_items": 72,
+      "dynamic_acceptance": "UNVERIFIED",
+      "script_dependencies": [
+        {
+          "file": "foundly-static-copy.js",
+          "sha256": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-locales.js",
+          "sha256": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-i18n.js",
+          "sha256": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "finance-loading.js",
+          "sha256": "f56ad1d1363ed043804d370e2af0e94c5316c643a4d8329a42aef573abacfe45",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "finance-period-closing-client.js",
+          "sha256": "c1a975af0b5a9d2a6802168d37eb86c1a1d18faca9767aaa58930b388f16d052",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "finance-cash-scenarios-client.js",
+          "sha256": "afb1e02324b81bb119bff6b7e529b561f501e1dc0bff13b12d3319018d0e45b8",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "finance-script.js",
+          "sha256": "71b041d793c57d7364fafd5e22fefbdbfb31b9c9a11e1021e8d7287df6c7b7b0",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-shell.js",
+          "sha256": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        }
+      ],
+      "copy": [
+        {
+          "line": 7,
+          "tag": "title",
+          "id": null,
+          "text": "Foundly Finance",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 20,
+          "tag": "aside",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Finance-navigatie",
+          "key": null
+        },
+        {
+          "line": 21,
+          "tag": "span",
+          "id": null,
+          "text": "F",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 21,
+          "tag": "span",
+          "id": null,
+          "text": "FOUNDLY",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 21,
+          "tag": "small",
+          "id": null,
+          "text": "FINANCE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 22,
+          "tag": "p",
+          "id": null,
+          "text": "Accounting",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 24,
+          "tag": "a",
+          "id": null,
+          "text": "Overview",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 25,
+          "tag": "a",
+          "id": null,
+          "text": "Ledger",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 26,
+          "tag": "a",
+          "id": null,
+          "text": "Sales Invoices",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 27,
+          "tag": "a",
+          "id": null,
+          "text": "Purchase Invoices",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 28,
+          "tag": "a",
+          "id": null,
+          "text": "Payments",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 29,
+          "tag": "a",
+          "id": null,
+          "text": "Bank",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 30,
+          "tag": "a",
+          "id": null,
+          "text": "Reconciliation",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 31,
+          "tag": "a",
+          "id": null,
+          "text": "Receivables",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 32,
+          "tag": "a",
+          "id": null,
+          "text": "Payables",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 33,
+          "tag": "a",
+          "id": null,
+          "text": "VAT",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 34,
+          "tag": "a",
+          "id": null,
+          "text": "Assets",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 35,
+          "tag": "a",
+          "id": null,
+          "text": "Margins",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 36,
+          "tag": "a",
+          "id": null,
+          "text": "Budgets",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 37,
+          "tag": "a",
+          "id": null,
+          "text": "Forecasts",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 38,
+          "tag": "a",
+          "id": null,
+          "text": "Reports",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 39,
+          "tag": "a",
+          "id": null,
+          "text": "Close",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 40,
+          "tag": "a",
+          "id": null,
+          "text": "Exports",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 41,
+          "tag": "a",
+          "id": null,
+          "text": "Audit",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 43,
+          "tag": "a",
+          "id": null,
+          "text": "Neural home",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 43,
+          "tag": "a",
+          "id": null,
+          "text": "CRM",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 43,
+          "tag": "a",
+          "id": null,
+          "text": "Analysis",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 48,
+          "tag": "p",
+          "id": null,
+          "text": "POSTED IMMUTABLE JOURNALS",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 48,
+          "tag": "h1",
+          "id": null,
+          "text": "Finance Command Center",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 49,
+          "tag": "span",
+          "id": "financeConnection",
+          "text": "CONTROLEREN",
+          "key": "static.1b6a441e",
+          "invariant": false
+        },
+        {
+          "line": 49,
+          "tag": "button",
+          "id": "exportFinance",
+          "text": "Export journaal",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "section",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Financefilters",
+          "key": null
+        },
+        {
+          "line": 52,
+          "tag": "label",
+          "id": null,
+          "text": "Legal entity",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 52,
+          "tag": "option",
+          "id": null,
+          "text": "Alle entiteiten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 53,
+          "tag": "label",
+          "id": null,
+          "text": "Vanaf",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 54,
+          "tag": "label",
+          "id": null,
+          "text": "Tot",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 55,
+          "tag": "label",
+          "id": null,
+          "text": "Bediening",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 55,
+          "tag": "option",
+          "id": null,
+          "text": "Native Finance",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 55,
+          "tag": "option",
+          "id": null,
+          "text": "ZERO",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 56,
+          "tag": "button",
+          "id": "refreshFinance",
+          "text": "Ververs",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 58,
+          "tag": "div",
+          "id": "financeNotice",
+          "text": "Financiële administratie laden…",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 59,
+          "tag": "section",
+          "id": "financeKpis",
+          "attribute": "aria-label",
+          "text": "Finance KPI's",
+          "key": null
+        },
+        {
+          "line": 62,
+          "tag": "p",
+          "id": null,
+          "text": "PERFORMANCE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "h2",
+          "id": null,
+          "text": "Winst & verlies",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "p",
+          "id": null,
+          "text": "Drilldown naar geboekte grootboekregels.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "span",
+          "id": null,
+          "text": "DOUBLE ENTRY",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "th",
+          "id": null,
+          "text": "Rekening",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "th",
+          "id": null,
+          "text": "Type",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "th",
+          "id": null,
+          "text": "Debet",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "th",
+          "id": null,
+          "text": "Credit",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "th",
+          "id": null,
+          "text": "Saldo",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "p",
+          "id": null,
+          "text": "WORKING CAPITAL",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "h2",
+          "id": null,
+          "text": "Debiteuren & crediteuren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "span",
+          "id": "financeAgingBadge",
+          "text": "CURRENT",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "p",
+          "id": null,
+          "text": "FORWARD VIEW",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "h2",
+          "id": null,
+          "text": "Budget & cashforecast",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "p",
+          "id": null,
+          "text": "Alleen geladen en goedgekeurde plannen worden getoond.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "span",
+          "id": null,
+          "text": "NO SYNTHETIC DATA",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "p",
+          "id": null,
+          "text": "COMPLIANCE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "h2",
+          "id": null,
+          "text": "BTW & periodecontrole",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "span",
+          "id": null,
+          "text": "OFFICIAL RULES",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "p",
+          "id": null,
+          "text": "AUDITABLE LEDGER",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "h2",
+          "id": null,
+          "text": "Journaal",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "p",
+          "id": null,
+          "text": "POSTED, REVERSAL en CORRECTION blijven append-only.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "span",
+          "id": "journalCount",
+          "text": "0 ENTRIES",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Nummer",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Datum",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Type",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Omschrijving",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Status",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "th",
+          "id": null,
+          "text": "Bron",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 70,
+          "tag": "section",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "ZERO Finance assistent",
+          "key": null
+        },
+        {
+          "line": 70,
+          "tag": "label",
+          "id": null,
+          "text": "ZERO",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 70,
+          "tag": "input",
+          "id": "financeZeroInput",
+          "attribute": "placeholder",
+          "text": "Vraag naar cash, resultaat, debiteuren of btw-positie…",
+          "key": null
+        },
+        {
+          "line": 70,
+          "tag": "button",
+          "id": null,
+          "text": "Vraag",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 70,
+          "tag": "output",
+          "id": "financeZeroOutput",
+          "text": "ZERO leest uitsluitend geboekte, tenant-scoped journaaldata.",
+          "key": null,
+          "invariant": false
+        }
+      ]
+    },
+    {
+      "file": "automotive.html",
+      "sha256": "2003ee0340f8e83cf18ffd36eeee39259831454039da5c22b50728bdd0649b71",
+      "copy_items": 124,
+      "keyed_items": 0,
+      "unresolved_static_items": 122,
+      "dynamic_acceptance": "UNVERIFIED",
+      "script_dependencies": [
+        {
+          "file": "foundly-static-copy.js",
+          "sha256": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-locales.js",
+          "sha256": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-i18n.js",
+          "sha256": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "automotive-script.js",
+          "sha256": "ea4c57c80b14765e12d0471543614aa36542307a513bbfe4a523f650d8a9d7c4",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-shell.js",
+          "sha256": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        }
+      ],
+      "copy": [
+        {
+          "line": 7,
+          "tag": "title",
+          "id": null,
+          "text": "Foundly Automotive Intelligence",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 17,
+          "tag": "a",
+          "id": null,
+          "text": "Naar hoofdinhoud",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 18,
+          "tag": "aside",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Foundly navigatie",
+          "key": null
+        },
+        {
+          "line": 19,
+          "tag": "a",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Foundly Command Center",
+          "key": null
+        },
+        {
+          "line": 21,
+          "tag": "span",
+          "id": null,
+          "text": "FOUNDLY",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 24,
+          "tag": "a",
+          "id": null,
+          "attribute": "title",
+          "text": "Neural Command Center",
+          "key": null
+        },
+        {
+          "line": 24,
+          "tag": "em",
+          "id": null,
+          "text": "Core",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 25,
+          "tag": "a",
+          "id": null,
+          "attribute": "title",
+          "text": "CRM",
+          "key": null
+        },
+        {
+          "line": 25,
+          "tag": "em",
+          "id": null,
+          "text": "CRM",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 26,
+          "tag": "a",
+          "id": null,
+          "attribute": "title",
+          "text": "Analysis",
+          "key": null
+        },
+        {
+          "line": 26,
+          "tag": "em",
+          "id": null,
+          "text": "Analysis",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 27,
+          "tag": "a",
+          "id": null,
+          "attribute": "title",
+          "text": "Finance",
+          "key": null
+        },
+        {
+          "line": 27,
+          "tag": "em",
+          "id": null,
+          "text": "Finance",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 28,
+          "tag": "a",
+          "id": null,
+          "attribute": "title",
+          "text": "Automotive",
+          "key": null
+        },
+        {
+          "line": 28,
+          "tag": "span",
+          "id": null,
+          "text": "A",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 28,
+          "tag": "em",
+          "id": null,
+          "text": "Automotive",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 32,
+          "tag": "span",
+          "id": "railStatusText",
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 39,
+          "tag": "p",
+          "id": null,
+          "text": "FOUNDLY / CAPABILITY PACK",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 40,
+          "tag": "h1",
+          "id": null,
+          "text": "Automotive Intelligence",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 43,
+          "tag": "span",
+          "id": null,
+          "text": "Development Partner Preview",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 44,
+          "tag": "strong",
+          "id": "partnerName",
+          "text": "House of Cars",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 48,
+          "tag": "nav",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Automotive workspace-onderdelen",
+          "key": null
+        },
+        {
+          "line": 49,
+          "tag": "a",
+          "id": null,
+          "text": "Overview",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 50,
+          "tag": "a",
+          "id": null,
+          "text": "Today",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 51,
+          "tag": "a",
+          "id": null,
+          "text": "Search",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 52,
+          "tag": "a",
+          "id": null,
+          "text": "Procurement",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 53,
+          "tag": "a",
+          "id": null,
+          "text": "Vehicles",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 54,
+          "tag": "a",
+          "id": null,
+          "text": "Market",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 55,
+          "tag": "a",
+          "id": null,
+          "text": "Comparables",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 56,
+          "tag": "a",
+          "id": null,
+          "text": "Valuation",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 57,
+          "tag": "a",
+          "id": null,
+          "text": "Economics",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 58,
+          "tag": "a",
+          "id": null,
+          "text": "BPM",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 59,
+          "tag": "a",
+          "id": null,
+          "text": "Buy Score",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 60,
+          "tag": "a",
+          "id": null,
+          "text": "Inventory",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 61,
+          "tag": "a",
+          "id": null,
+          "text": "Sales",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 62,
+          "tag": "a",
+          "id": null,
+          "text": "Customer Matching",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 63,
+          "tag": "a",
+          "id": null,
+          "text": "Analytics",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 64,
+          "tag": "a",
+          "id": null,
+          "text": "Sources",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 65,
+          "tag": "a",
+          "id": null,
+          "text": "Connectors",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 66,
+          "tag": "a",
+          "id": null,
+          "text": "ZERO",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 71,
+          "tag": "p",
+          "id": null,
+          "text": "REAL-DATA COMMAND DASHBOARD",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 71,
+          "tag": "h2",
+          "id": "automotiveOverviewTitle",
+          "text": "Automotive Overview",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 72,
+          "tag": "span",
+          "id": "automotiveObserved",
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 75,
+          "tag": "span",
+          "id": null,
+          "text": "Provider health",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 75,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 75,
+          "tag": "small",
+          "id": null,
+          "text": "Connector Registry",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "span",
+          "id": null,
+          "text": "Today's opportunities",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 76,
+          "tag": "small",
+          "id": null,
+          "text": "Echte marketplace-data",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "span",
+          "id": null,
+          "text": "Top Buy Scores",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 77,
+          "tag": "small",
+          "id": null,
+          "text": "Evidence-backed scoring",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 78,
+          "tag": "span",
+          "id": null,
+          "text": "Recent searches",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 78,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 78,
+          "tag": "small",
+          "id": null,
+          "text": "Tenant history",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 79,
+          "tag": "span",
+          "id": null,
+          "text": "Market movement",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 79,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 79,
+          "tag": "small",
+          "id": null,
+          "text": "Geen schijntrend",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 80,
+          "tag": "span",
+          "id": null,
+          "text": "Inventory risk",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 80,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 80,
+          "tag": "small",
+          "id": null,
+          "text": "Persistente voorraad",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 81,
+          "tag": "span",
+          "id": null,
+          "text": "Stale stock",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 81,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 81,
+          "tag": "small",
+          "id": null,
+          "text": "Ouder dan 90 dagen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 82,
+          "tag": "span",
+          "id": null,
+          "text": "Recent ZERO recommendations",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 82,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 82,
+          "tag": "small",
+          "id": null,
+          "text": "Persisted only",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 83,
+          "tag": "span",
+          "id": null,
+          "text": "Data freshness",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 83,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 83,
+          "tag": "small",
+          "id": null,
+          "text": "Source Registry",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 84,
+          "tag": "span",
+          "id": null,
+          "text": "Source coverage",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 84,
+          "tag": "strong",
+          "id": null,
+          "text": "Controleren",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 84,
+          "tag": "small",
+          "id": null,
+          "text": "Bronnen met records",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 90,
+          "tag": "p",
+          "id": null,
+          "text": "ZERO PROCUREMENT COMMAND",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 91,
+          "tag": "h2",
+          "id": "searchTitle",
+          "text": "Zoek de sterkste inkoopkans.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 92,
+          "tag": "p",
+          "id": null,
+          "text": "ZERO vertaalt je opdracht naar filters, vraagt echte providers parallel uit en houdt live, cached en unavailable strikt uit elkaar.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 95,
+          "tag": "label",
+          "id": null,
+          "text": "Automotive zoekopdracht",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 98,
+          "tag": "span",
+          "id": null,
+          "text": "Analyseer markt",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 101,
+          "tag": "span",
+          "id": "searchState",
+          "text": "Gereed voor een provider-query",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 102,
+          "tag": "span",
+          "id": "correlationState",
+          "text": "Geen actieve trace",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 110,
+          "tag": "p",
+          "id": null,
+          "text": "SOURCE FABRIC",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 111,
+          "tag": "h2",
+          "id": "providerTitle",
+          "text": "Providerstatus",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 113,
+          "tag": "button",
+          "id": "refreshStatus",
+          "text": "Vernieuwen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 124,
+          "tag": "p",
+          "id": null,
+          "text": "OPERATIONAL MODULES",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 124,
+          "tag": "h2",
+          "id": "automotiveOperationsTitle",
+          "text": "Inventory, Sales & Matching",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 124,
+          "tag": "span",
+          "id": null,
+          "text": "PERSISTED ONLY",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 126,
+          "tag": "strong",
+          "id": null,
+          "text": "Inventory",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 126,
+          "tag": "p",
+          "id": "inventoryOperationState",
+          "text": "Werkelijke voorraadstatus laden…",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 127,
+          "tag": "strong",
+          "id": null,
+          "text": "Sales",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 127,
+          "tag": "p",
+          "id": null,
+          "text": "Verkoopgegevens verschijnen alleen wanneer ze in de gedeelde tenantdatalaag bestaan.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 128,
+          "tag": "strong",
+          "id": null,
+          "text": "Customer Matching",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 128,
+          "tag": "p",
+          "id": null,
+          "text": "Matches gebruiken uitsluitend expliciet opgeslagen CRM-relaties; er worden geen klantvoorkeuren afgeleid zonder bewijs.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 129,
+          "tag": "strong",
+          "id": null,
+          "text": "Analytics",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 129,
+          "tag": "p",
+          "id": null,
+          "text": "Canonical events en providerprovenance blijven de enige bron voor trends en prestaties.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 137,
+          "tag": "p",
+          "id": null,
+          "text": "PROCUREMENT",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 138,
+          "tag": "h2",
+          "id": "resultsTitle",
+          "text": "Zoekresultaten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 146,
+          "tag": "h3",
+          "id": null,
+          "text": "Nog geen marktquery uitgevoerd",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 147,
+          "tag": "p",
+          "id": null,
+          "text": "Start een zoekopdracht. Er verschijnen alleen provider-verified listings; nooit demo-inventaris.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 155,
+          "tag": "p",
+          "id": null,
+          "text": "DAILY SIGNAL",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 156,
+          "tag": "h2",
+          "id": "todayTitle",
+          "text": "Vandaag inkopen",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 158,
+          "tag": "button",
+          "id": "refreshToday",
+          "attribute": "aria-label",
+          "text": "Kansen van vandaag vernieuwen",
+          "key": null
+        },
+        {
+          "line": 162,
+          "tag": "h3",
+          "id": null,
+          "text": "Brondata wordt gecontroleerd",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 163,
+          "tag": "p",
+          "id": null,
+          "text": "Geen score zonder echte marketplace-listings.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 173,
+          "tag": "p",
+          "id": "detailProvider",
+          "text": "PROVIDER",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 174,
+          "tag": "h2",
+          "id": "detailTitle",
+          "text": "Voertuig",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 177,
+          "tag": "a",
+          "id": "sourceLink",
+          "text": "Open bronlisting",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 178,
+          "tag": "button",
+          "id": "closeDetail",
+          "text": "Sluiten",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 183,
+          "tag": "span",
+          "id": null,
+          "text": "BUY SCORE",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 186,
+          "tag": "div",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Voertuiganalyse",
+          "key": null
+        },
+        {
+          "line": 187,
+          "tag": "button",
+          "id": null,
+          "text": "Why buy",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 188,
+          "tag": "button",
+          "id": null,
+          "text": "Market",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 189,
+          "tag": "button",
+          "id": null,
+          "text": "Economics",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 190,
+          "tag": "button",
+          "id": null,
+          "text": "Comparables",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 191,
+          "tag": "button",
+          "id": null,
+          "text": "Risks",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 192,
+          "tag": "button",
+          "id": null,
+          "text": "Source & provenance",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 200,
+          "tag": "p",
+          "id": null,
+          "text": "CONVERSATIONAL LAYER",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 201,
+          "tag": "h2",
+          "id": "zeroTitle",
+          "text": "Vraag ZERO door.",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 202,
+          "tag": "p",
+          "id": "zeroAnswer",
+          "text": "Na een zoekopdracht kun je vragen: “Waarom nummer één?”, “Vergelijk hem met Nederland” of “Wat hou ik ongeveer over?”",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 205,
+          "tag": "label",
+          "id": null,
+          "text": "Vraag aan ZERO",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 206,
+          "tag": "input",
+          "id": "zeroQuery",
+          "attribute": "placeholder",
+          "text": "Waarom is nummer één interessant?",
+          "key": null
+        },
+        {
+          "line": 207,
+          "tag": "button",
+          "id": null,
+          "attribute": "aria-label",
+          "text": "Vraag versturen",
+          "key": null
+        },
+        {
+          "line": 212,
+          "tag": "span",
+          "id": null,
+          "text": "Real-data contract actief",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 213,
+          "tag": "span",
+          "id": "footerVersion",
+          "text": "Foundly",
+          "key": null,
+          "invariant": false
+        },
+        {
+          "line": 214,
+          "tag": "span",
+          "id": null,
+          "text": "Geen synthetische runtime-records",
+          "key": null,
+          "invariant": false
+        }
+      ]
+    },
+    {
+      "file": "identity-login.html",
+      "sha256": "a40fff4c8fe837b0f48f4b966cba26d7a474352ebc31608a34a5fbb10e44b288",
+      "copy_items": 18,
+      "keyed_items": 9,
+      "unresolved_static_items": 0,
+      "dynamic_acceptance": "UNVERIFIED",
+      "script_dependencies": [
+        {
+          "file": "foundly-static-copy.js",
+          "sha256": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-locales.js",
+          "sha256": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "foundly-i18n.js",
+          "sha256": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        },
+        {
+          "file": "identity-login.js",
+          "sha256": "4fb56d9cb8d2dc2e46d2132e667c6ac161bc0306b06709307a66b0effd2d0971",
+          "rendered_copy_acceptance": "UNVERIFIED"
+        }
+      ],
+      "copy": [
+        {
+          "line": 6,
+          "tag": "title",
+          "id": null,
+          "text": "Aanmelden · Foundly OS",
+          "key": "identity.title",
+          "invariant": false
+        },
+        {
+          "line": 15,
+          "tag": "p",
+          "id": null,
+          "text": "FOUNDLY OS",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "span",
+          "id": null,
+          "text": "Interfacetaal",
+          "key": "common.language",
+          "invariant": false
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "Nederlands",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "English (UK)",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "Deutsch",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "Français",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "Español",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "Dansk",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "Norsk bokmål",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 16,
+          "tag": "option",
+          "id": null,
+          "text": "Svenska",
+          "key": null,
+          "invariant": true
+        },
+        {
+          "line": 17,
+          "tag": "h1",
+          "id": "identityTitle",
+          "text": "Aanmelden",
+          "key": "identity.sign_in",
+          "invariant": false
+        },
+        {
+          "line": 18,
+          "tag": "p",
+          "id": "identityDescription",
+          "text": "Gebruik je persoonlijke Foundly-account.",
+          "key": "identity.description",
+          "invariant": false
+        },
+        {
+          "line": 20,
+          "tag": "span",
+          "id": null,
+          "text": "Gebruikersnaam",
+          "key": "identity.username",
+          "invariant": false
+        },
+        {
+          "line": 21,
+          "tag": "span",
+          "id": null,
+          "text": "Wachtwoord",
+          "key": "identity.password",
+          "invariant": false
+        },
+        {
+          "line": 22,
+          "tag": "button",
+          "id": "identitySubmit",
+          "text": "Aanmelden",
+          "key": "identity.sign_in",
+          "invariant": false
+        },
+        {
+          "line": 25,
+          "tag": "p",
+          "id": null,
+          "text": "Nog geen account? Vraag je bevoegde Foundly-beheerder om een uitnodiging.",
+          "key": "identity.help",
+          "invariant": false
+        },
+        {
+          "line": 26,
+          "tag": "a",
+          "id": null,
+          "text": "Beheerderstoegang",
+          "key": "identity.admin",
+          "invariant": false
+        }
+      ]
+    }
+  ],
+  "scope": "Static HTML copy and loaded script dependency inventory only. Unmarked copy is a review candidate; no automatic translation of customer data. Dynamic UI, backend errors, workflow states, generated content and layout remain separate gates.",
+  "all_surface_locale_acceptance": "FAIL_MATERIAL_CODE_GAPS"
+}

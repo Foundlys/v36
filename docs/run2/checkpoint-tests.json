@@ -81,5 +81,22 @@
     "browser": "ENVIRONMENT_UNVERIFIED: supported cloud browser rejected localhost with ERR_BLOCKED_BY_CLIENT",
     "live_voice": "UNVERIFIED: no listening or physical microphone acceptance",
     "dashboard_change": "Only required per-user language, voice and mode controls in the existing Audio/privacy panel; no layout or visual redesign"
+  },
+  "localization_checkpoint": {
+    "recorded_at": "2026-09-24T12:24:31.733455+00:00",
+    "unit_http_tests": 69,
+    "full_npm_test_exit_code": 0,
+    "log_sha256": "6301fc6b3806231e26a5f09efe5506f60309f1c1d9775c251a8dd159c4681f69",
+    "log_bytes": 88816,
+    "ci_148": {
+      "head": "5cfccb1dcfc843490c6b5f3575428a11637c186f",
+      "status": "SUCCESS",
+      "scope": "previous voice/cross-module checkpoint"
+    },
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "frozen_main_inline_css_equal_to_main_baseline": true,
+    "browser": "ENVIRONMENT_UNVERIFIED: repeated supported-browser localhost check still ERR_BLOCKED_BY_CLIENT",
+    "native_speaker_and_voice_quality": "UNVERIFIED"
   }
 }

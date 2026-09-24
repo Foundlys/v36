@@ -143,17 +143,17 @@
     if (!metric || metric.available === false || metric.value === null || metric.value === undefined) return 'Geen data';
     const value = metric.value;
     if (metric.unit === 'CURRENCY_CENTS' && Number.isFinite(Number(value))) {
-      return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: metric.currency||'EUR', maximumFractionDigits: 0 }).format(Number(value) / 100);
+      return new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: metric.currency||'EUR', maximumFractionDigits: 0 }).format(Number(value) / 100);
     }
-    if (metric.unit === 'PERCENT' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(Number(value))}%`;
-    if (metric.unit === 'RATIO' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(Number(value))}×`;
-    if (typeof value === 'number') return new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(value);
+    if (metric.unit === 'PERCENT' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(Number(value))}%`;
+    if (metric.unit === 'RATIO' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(Number(value))}×`;
+    if (typeof value === 'number') return new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(value);
     return String(value);
   }
 
   function renderNavigation() {
     const links = state.navigation.map(item => {
-      const link = node('a', '', item.short_label || item.label);
+      const link = node('a', '', globalThis.FoundlyI18n?globalThis.FoundlyI18n.t('module.'+(item.id==='home'?'core':item.id)):item.short_label || item.label);
       link.href = item.route;
       if (item.id === state.workspaceId) link.setAttribute('aria-current', 'page');
       return link;
@@ -219,7 +219,7 @@
       ['Eenheid', metric?.unit || 'VALUE'],
       ['Bron', metric?.source || 'SOURCE UNKNOWN'],
       ['Freshness', metric?.freshness || 'UNKNOWN'],
-      ['Geobserveerd', state.snapshot?.observed_at ? new Date(state.snapshot.observed_at).toLocaleString('nl-NL') : 'Onbekend'],
+      ['Geobserveerd', state.snapshot?.observed_at ? new Date(state.snapshot.observed_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'Onbekend'],
       ['Workspace', state.workspace?.label || state.workspaceId]
     ];
     for (const [label, value] of facts) list.append(node('dt', '', label), node('dd', '', value));
@@ -348,7 +348,7 @@
       const tr = node('tr');
       for (const field of fields) {
         let value = row[field];
-        if (field.endsWith('_cents') && Number.isFinite(Number(value))) value = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(Number(value) / 100);
+        if (field.endsWith('_cents') && Number.isFinite(Number(value))) value = new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: 'EUR' }).format(Number(value) / 100);
         tr.append(node('td', '', value === null || value === undefined || value === '' ? '—' : String(value).slice(0, 300)));
       }
       return tr;
@@ -423,7 +423,7 @@
       for (const category of (connector.category || []).slice(0, 4)) categories.append(node('span', '', category.replaceAll('_', ' ')));
       card.append(categories);
       const facts = node('div', 'connector-facts');
-      for (const [label, value] of [['Config', connector.configuration_state], ['Authentication', connector.authentication_state], ['Probe', connector.probe_state], ['Last probe', connector.last_probe ? new Date(connector.last_probe).toLocaleString('nl-NL') : 'NOT RUN'], ['Latency', Number.isFinite(connector.latency) ? `${connector.latency} ms` : '—'], ['Sync', connector.sync_state], ['Freshness', connector.freshness], ['Records', connector.records]]) {
+      for (const [label, value] of [['Config', connector.configuration_state], ['Authentication', connector.authentication_state], ['Probe', connector.probe_state], ['Last probe', connector.last_probe ? new Date(connector.last_probe).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'], ['Latency', Number.isFinite(connector.latency) ? `${connector.latency} ms` : '—'], ['Sync', connector.sync_state], ['Freshness', connector.freshness], ['Records', connector.records]]) {
         const fact = node('div'); fact.append(node('span', '', label), node('strong', '', value ?? '—')); facts.append(fact);
       }
       card.append(facts);
@@ -514,7 +514,7 @@
         detailFact('Lifecycle', connector.connection_state), detailFact('Configuration', connector.configuration_state),
         detailFact('Authentication', connector.authentication_state), detailFact('Probe', connector.probe_state),
         detailFact('Sync', connector.sync_state), detailFact('Records', connector.records),
-        detailFact('Last probe', connector.last_probe ? new Date(connector.last_probe).toLocaleString('nl-NL') : 'NOT RUN'),
+        detailFact('Last probe', connector.last_probe ? new Date(connector.last_probe).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'),
         detailFact('Latency', Number.isFinite(connector.latency) ? `${connector.latency} ms` : '—'), detailFact('Freshness', connector.freshness)
       );
       const labels = ['OVERVIEW', 'CAPABILITIES', 'SETUP', 'AUTHENTICATION', 'DATA', 'SYNC', 'EVENTS', 'ERRORS', 'AUDIT'];
@@ -572,7 +572,7 @@
         node('p', 'panel-copy', `Required scopes: ${(connector.required_scopes || []).join(', ') || 'Geen expliciete scopes in het huidige contract.'}`)
       ]);
       const data = panel('DATA', [detailFact('Records', connector.records), detailFact('Freshness', connector.freshness), detailFact('Tenant scope', connector.tenant_scope), node('p', 'panel-copy', 'Records worden alleen geteld vanuit de bestaande tenant-scoped persistence- en provenanceketen.')]);
-      const syncPanel = panel('SYNC', [detailFact('Sync state', connector.sync_state), detailFact('Last sync', connector.last_sync ? new Date(connector.last_sync).toLocaleString('nl-NL') : 'NOT RUN'), node('p', 'panel-copy', connector.connection_state === 'CONNECTED' ? 'Een handmatige sync is beschikbaar via SETUP.' : 'Sync blijft uitgeschakeld totdat de connector werkelijk CONNECTED is.')]);
+      const syncPanel = panel('SYNC', [detailFact('Sync state', connector.sync_state), detailFact('Last sync', connector.last_sync ? new Date(connector.last_sync).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'), node('p', 'panel-copy', connector.connection_state === 'CONNECTED' ? 'Een handmatige sync is beschikbaar via SETUP.' : 'Sync blijft uitgeschakeld totdat de connector werkelijk CONNECTED is.')]);
       const eventsPanel = panel('EVENTS', [node('div', 'EmptyState NoDataState', 'Geen afzonderlijke connector-events zijn in dit registryantwoord opgenomen. Providerpogingen blijven in de bestaande audit- en attempt stores.')]);
       const errors = panel('ERRORS', [connector.safe_error ? node('p', 'connector-safe-error', connector.safe_error) : node('div', 'EmptyState NoDataState', 'Geen veilige providerfout geregistreerd.')]);
       const audit = panel('AUDIT', [detailFact('Contract', connector.documentation_reference), node('p', 'panel-copy', 'Configureer-, test- en syncacties lopen via de bestaande tenant-scoped runtime- en auditpaden; geheimwaarden worden niet gelogd of teruggestuurd.')]);
@@ -711,7 +711,7 @@
       if(section==='ROLES'||!session.can_manage){if(!session.can_manage)items.push(node('p','','Gebruikersbeheer vereist Founder- of Super Admin-rechten.'));replaceChildren(content,items);return;}
       const data=await request('/api/identity/users');if(state.activeSection!==section)return;
       const invitation=node('div');invitation.setAttribute('role','status');
-      const showInvitation=result=>{const label=node('label','','Persoonlijke uitnodigingslink'),link=node('textarea');link.value=result.enrollment_url;link.readOnly=true;label.append(link);replaceChildren(invitation,[node('p','',`Uitnodiging aangemaakt, nog niet verstuurd. Geldig tot ${new Date(result.expires_at).toLocaleString('nl-NL')}. Deel deze link persoonlijk; de ontvanger kiest een eigen wachtwoord.`),label]);};
+      const showInvitation=result=>{const label=node('label','','Persoonlijke uitnodigingslink'),link=node('textarea');link.value=result.enrollment_url;link.readOnly=true;label.append(link);replaceChildren(invitation,[node('p','',`Uitnodiging aangemaakt, nog niet verstuurd. Geldig tot ${new Date(result.expires_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL'))}. Deel deze link persoonlijk; de ontvanger kiest een eigen wachtwoord.`),label]);};
       function memberForm(member){
         const form=node('form','domain-record-form'),notice=node('output');notice.setAttribute('role','status');const fields={};
         if(!member)for(const [name,label]of [['username','Gebruikersnaam'],['display_name','Naam']]){const wrap=node('label','',label),input=node('input');input.required=true;input.maxLength=200;wrap.append(input);form.append(wrap);fields[name]=input;}
@@ -767,7 +767,7 @@
         if(row.run_id)card.append(window.FoundlyWorkflowInspector.create({document,run:row,request,isActive:()=>content.isConnected&&state.workspaceId==='automation'&&state.activeSection===section}));
         if(row.steps)for(const step of row.steps)card.append(node('p','',`${step.index+1}. ${step.type}: ${step.status}${step.attempts?` · ${step.attempts} poging(en)`:''}${step.error?` (${step.error})`:''}`));
         if(['WAITING_RETRY','WAITING_TIME'].includes(row.status)){
-          card.append(node('p','',`Volgende poging vanaf ${new Date(row.next_wakeup_at).toLocaleString('nl-NL')}. Eerdere resultaten blijven behouden.`));
+          card.append(node('p','',`Volgende poging vanaf ${new Date(row.next_wakeup_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL'))}. Eerdere resultaten blijven behouden.`));
           if(data.can_manage){const resume=node('button','','Hervatten zodra wachttijd verstreken is'),notice=node('output');resume.type='button';notice.setAttribute('role','status');card.append(resume,notice);resume.addEventListener('click',async()=>{resume.disabled=true;try{const result=await request(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs}})});notice.textContent=['WAITING_RETRY','WAITING_TIME'].includes(result.status)?'De wachttijd is nog niet verstreken.':`Uitkomst: ${result.status}`;}catch(error){notice.textContent=friendlyError(error);}finally{resume.disabled=false;}});}
         }
         if(data.can_manage&&row.can_recover&&row.steps?.some(step=>['RUNNING','FAILED','DEAD_LETTER','BLOCKED'].includes(step.status)&&(data.retryable_actions||[]).includes(step.type))){
@@ -832,7 +832,7 @@
       const query=new URLSearchParams({from:fields.from.value,to:fields.to.value,duration_minutes:fields.duration_minutes.value,distribution:distribution.value});
       const slots=await request(`/api/calendar/scheduling/slots?${query}`);notice.textContent=slots.items.length?`${slots.items.length} beschikbare tijdsloten. Bevestig één tijdslot om te boeken.`:'Geen beschikbaarheid geregistreerd binnen deze periode.';
       for(const slot of slots.items.slice(0,50)){
-        const card=node('article','context-item'),at=new Intl.DateTimeFormat('nl-NL',{timeZone:slot.timezone,dateStyle:'medium',timeStyle:'short'}).format(new Date(slot.start_at)),button=node('button','secondary-button',`Bevestig ${at}`);button.type='button';card.append(node('p','',`${at} · ${slot.timezone}`),button);
+        const card=node('article','context-item'),at=new Intl.DateTimeFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{timeZone:slot.timezone,dateStyle:'medium',timeStyle:'short'}).format(new Date(slot.start_at)),button=node('button','secondary-button',`Bevestig ${at}`);button.type='button';card.append(node('p','',`${at} · ${slot.timezone}`),button);
         const key=crypto.randomUUID();button.addEventListener('click',async()=>{button.disabled=true;try{await request('/api/calendar/scheduling/book',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({...slot,title:fields.title.value.trim(),confirm:true})});notice.textContent='Afspraak opgeslagen in de interne agenda.';replaceChildren(results,[]);}catch(error){notice.textContent=friendlyError(error);button.disabled=false;}});results.append(card);
       }
     }catch(error){notice.textContent=friendlyError(error);}finally{search.disabled=false;}});
@@ -846,9 +846,9 @@
       const details=node('details');details.append(node('summary','','Expliciete kansaanpassingen'));for(const row of scenario.items.filter(item=>item.assumption_applied))details.append(node('p','',`${row.title} · revisie ${row.revision} · aangenomen ${row.scenario_probability_bps===null?'vastgelegde winkans':(row.scenario_probability_bps/100).toFixed(2)+'%'} · bedrag ${row.scenario_value_cents===null?'niet vastgelegd':(row.scenario_value_cents/100).toFixed(2)} ${row.currency||''} · sluitdatum ${row.scenario_close_date||'niet vastgelegd'} · ${row.included_in_period?'binnen periode':row.scenario_exclusion_reason}`));panel.append(details);parent.append(panel,node('h3','','Vastgelegde uitgangssituatie (zonder scenario)'));
     }
 
-    parent.append(node('p','',`${result.filters.from} t/m ${result.filters.to} · vastgelegd ${new Date(result.observed_at).toLocaleString('nl-NL')}. Gewogen kansen zijn geen geboekte omzet.`));
+    parent.append(node('p','',`${result.filters.from} t/m ${result.filters.to} · vastgelegd ${new Date(result.observed_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL'))}. Gewogen kansen zijn geen geboekte omzet.`));
     if(!result.available)parent.append(node('p','','Geen bruikbare kansen binnen deze periode.'));
-    for(const group of result.groups){const money=value=>value===null?'Niet beschikbaar':new Intl.NumberFormat('nl-NL',{style:'currency',currency:group.currency}).format(value/100);parent.append(node('p','',`${group.currency}: open ${money(group.open_cents)} · gewogen ${money(group.weighted_cents)} · gewonnen ${money(group.won_cents)} · ${group.probability_missing_count} open kansen zonder kanspercentage`));}
+    for(const group of result.groups){const money=value=>value===null?'Niet beschikbaar':new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{style:'currency',currency:group.currency}).format(value/100);parent.append(node('p','',`${group.currency}: open ${money(group.open_cents)} · gewogen ${money(group.weighted_cents)} · gewonnen ${money(group.won_cents)} · ${group.probability_missing_count} open kansen zonder kanspercentage`));}
     if(result.excluded.length)parent.append(node('p','',`${result.excluded.length} records missen een geldige sluitdatum, bedrag of valuta en zijn buiten de berekening gehouden.`));
     if(result.quotas?.status==='PIPELINE_TARGET_NOT_DEFINED')parent.append(node('p','','Voor deze pipeline is geen afzonderlijk doel vastgelegd.'));
     for(const quota of result.quotas?.items||[]){const labels={NO_EXACT_PERIOD_TARGET:'Geen doel voor exact deze periode',NO_SOURCE_RECORDS:'Geen bronrecords',INCOMPLETE_SOURCE_RECORDS:'Onvolledige brongegevens',ZERO_TARGET:'Doel is nul',AMBIGUOUS_TARGET:'Meerdere doelen voor dezelfde periode'};parent.append(node('p','',`${quota.owner_id} · ${quota.currency} · doel: ${quota.quota?(quota.quota.target_cents/100).toFixed(2):'niet vastgelegd'} · gerealiseerd: ${quota.attainment_percent===null?(labels[quota.unavailable_reason]||'niet beschikbaar'):quota.attainment_percent.toFixed(1)+'%'} · inclusief gewogen kansen: ${quota.projected_attainment_percent===null?'niet beschikbaar':quota.projected_attainment_percent.toFixed(1)+'%'}`));}
@@ -900,7 +900,7 @@
       const comparison=await request(`/api/procurement/rfqs/${encodeURIComponent(record.id)}/comparison`),panel=node('div','bid-comparison');
       panel.append(node('h3','',`Biedingen: ${comparison.title}`),node('p','',`${comparison.comparable_count} volledige biedingen · revisie ${comparison.rfq_revision}. Vastgelegde prijzen; geen leveranciersverificatie of bestelling.`));
       for(const bid of comparison.items){
-        const item=node('div');item.append(node('p','',`${bid.title} · ${bid.comparable?new Intl.NumberFormat('nl-NL',{style:'currency',currency:comparison.currency}).format(bid.total_cents/100):'Niet vergelijkbaar: '+bid.reasons.join(', ')} · Levertijd: ${bid.delivery_days===null?'niet vastgelegd':bid.delivery_days+' dagen'} · Herkomst: ${bid.evidence_reference}`));
+        const item=node('div');item.append(node('p','',`${bid.title} · ${bid.comparable?new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{style:'currency',currency:comparison.currency}).format(bid.total_cents/100):'Niet vergelijkbaar: '+bid.reasons.join(', ')} · Levertijd: ${bid.delivery_days===null?'niet vastgelegd':bid.delivery_days+' dagen'} · Herkomst: ${bid.evidence_reference}`));
         if(bid.comparable){const button=node('button','secondary-button','Voorstel voorbereiden');button.type='button';button.addEventListener('click',()=>prepareProcurementAward(comparison,bid,item));item.append(button);}panel.append(item);
       }
       if(!comparison.items.length)panel.append(node('p','','Nog geen biedingen vastgelegd.'));
@@ -922,14 +922,14 @@
     parent.querySelector('.award-proposal')?.remove();const box=node('div','award-proposal'),notice=node('output');notice.setAttribute('role','status');box.append(notice);let call=request;if(typeof window!=='undefined'&&window.FoundlyProcurementTransport&&!comparison.order_id)parent.append(window.FoundlyProcurementTransport.create({document,request,initialMode:transportMode,build:wrapped=>{call=wrapped;return box;}}));else parent.append(box);
     try{
       const order=Boolean(comparison.order_id),basePath=order?`/api/procurement/orders/${encodeURIComponent(comparison.order_id)}`:`/api/procurement/rfqs/${encodeURIComponent(comparison.rfq_id)}`,preview=allocations?await call(basePath+(allocationMode==='INCREMENTAL'?'/incremental-allocation-preview':'/allocation-preview'),{method:'POST',body:JSON.stringify({allocations})}):await call(basePath+(order?'/approval-preview':`/award-preview?bid_id=${encodeURIComponent(bid.id)}`)),form=node('form'),label=node('label','',order?'Waarom deze order?':allocations?'Waarom deze artikelverdeling?':'Waarom deze bieding?'),reason=node('textarea'),submit=node('button','primary-button','Ter goedkeuring vastleggen');reason.required=true;reason.maxLength=1000;label.append(reason);submit.type='submit';
-      box.prepend(node('p','',`Totaal: ${new Intl.NumberFormat('nl-NL',{style:'currency',currency:preview.currency}).format(preview.value_cents/100)}`));for(const line of preview.allocation_lines||[])box.append(node('p','',`${line.item_id}: ${line.quantity} × ${(line.unit_price_cents/100).toFixed(2)} ${preview.currency} · ${line.supplier_id} · ${line.evidence_reference}`));
+      box.prepend(node('p','',`Totaal: ${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{style:'currency',currency:preview.currency}).format(preview.value_cents/100)}`));for(const line of preview.allocation_lines||[])box.append(node('p','',`${line.item_id}: ${line.quantity} × ${(line.unit_price_cents/100).toFixed(2)} ${preview.currency} · ${line.supplier_id} · ${line.evidence_reference}`));
       if(preview.allocation_kind==='ITEM_INCREMENTAL'){box.append(node('p','',`Eerder goedgekeurd: ${(preview.previously_approved_cents/100).toFixed(2)} ${preview.currency} · cumulatieve beoordelingsgrondslag: ${(preview.approval_basis_cents/100).toFixed(2)} ${preview.currency}`));for(const line of preview.remaining_lines)box.append(node('p','',`${line.item_id}: eerder ${line.previously_approved_quantity}, nu ${line.selected_quantity}, hierna resterend ${line.remaining_quantity}`));}
       box.prepend(node('p','',`Verplichte beoordelingsvolgorde: ${preview.approval_steps.join(' → ')}. Dit legt een intern voorstel vast.`));form.append(label,submit);box.append(form);const key=crypto.randomUUID();
       form.addEventListener('submit',async event=>{event.preventDefault();submit.disabled=true;try{await call(basePath+(order?'/approvals':'/awards'),{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({...(!order?(allocations?{allocations,...(allocationMode==='INCREMENTAL'?{allocation_mode:'INCREMENTAL'}:{})}:{bid_id:bid.id}):{}),preview_fingerprint:preview.preview_fingerprint,reason:reason.value,confirm:true})});form.remove();notice.textContent='Voorstel vastgelegd. Open Voorstellen en beoordelingen om verder te gaan.';}catch(error){notice.textContent=friendlyError(error);submit.disabled=false;}});
     }catch(error){notice.textContent=friendlyError(error);}
   }
   function appendAwardReview(record,cell,content) {
-    const details=node('details'),summary=node('summary','','Voorstel en beoordelingen');details.append(summary,node('p','',`${new Intl.NumberFormat('nl-NL',{style:'currency',currency:record.currency}).format(record.value_cents/100)} · ${record.reason} · Herkomst: ${record.evidence_reference||(['ITEM_SPLIT','ITEM_INCREMENTAL'].includes(record.allocation_kind)?'Per artikel vastgelegd':'—')}`));
+    const details=node('details'),summary=node('summary','','Voorstel en beoordelingen');details.append(summary,node('p','',`${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{style:'currency',currency:record.currency}).format(record.value_cents/100)} · ${record.reason} · Herkomst: ${record.evidence_reference||(['ITEM_SPLIT','ITEM_INCREMENTAL'].includes(record.allocation_kind)?'Per artikel vastgelegd':'—')}`));
     if(record.allocation_kind==='ITEM_INCREMENTAL')details.append(node('p','',`Cumulatieve beoordelingsgrondslag: ${(record.approval_basis_cents/100).toFixed(2)} ${record.currency}; eerder goedgekeurd ${(record.previously_approved_cents/100).toFixed(2)} ${record.currency}`));
     for(const line of record.bid_lines||record.allocation_lines||[])details.append(node('p','',`${line.item_id} · ${line.quantity} × ${(line.unit_price_cents/100).toFixed(2)} ${record.currency}${line.supplier_id?' · '+line.supplier_id+' · '+line.evidence_reference:''}`));
     for(const review of record.reviews||[])details.append(node('p','',`${review.actor_id}: ${review.decision} · ${review.reason}`));
@@ -1083,7 +1083,7 @@
     function values(){return Object.fromEntries([...fields].map(([name,input])=>[name,['to','cc'].includes(name)?input.value.split(',').map(value=>value.trim()).filter(Boolean):input.value]));}
     function stop(){if(timer)clearTimeout(timer);timer=null;}
     function schedule(){stop();if(alive()&&details.open)timer=setTimeout(tick,2000);}
-    function draw(){if(!model)return;status.textContent=model.active?`${model.holder_name} bewerkt dit concept · sessie geldig tot ${new Date(model.expires_at).toLocaleTimeString('nl-NL')}`:'Er is geen actieve bewerkingssessie.';
+    function draw(){if(!model)return;status.textContent=model.active?`${model.holder_name} bewerkt dit concept · sessie geldig tot ${new Date(model.expires_at).toLocaleTimeString((globalThis.FoundlyI18n?.locale||'nl-NL'))}`:'Er is geen actieve bewerkingssessie.';
       preview.textContent=model.working_copy?`Gedeelde werktekst · ${model.working_copy_saved?'komt overeen met de opgeslagen conceptrevisie':'nog niet als concept opgeslagen'}${model.working_copy_current?'':' · hoort bij een eerdere conceptrevisie'}\n${model.working_copy.title||''}\n${model.working_copy.content||''}`:'Er is nog geen gedeelde werktekst.';
       if(token&&(!model.active||model.grant_id!==grant)){lock();notice.textContent='Je sessie is verlopen of overgenomen. Je lokale tekst blijft hieronder staan; bekijk de actuele werktekst voordat je opnieuw overneemt.';}
       const signature=JSON.stringify([model.active,model.grant_id,model.can_write,Boolean(token)]);if(signature===controlsSignature)return;controlsSignature=signature;replaceChildren(controls,[]);if(!model.can_write)return;
@@ -1401,7 +1401,7 @@
       const rows=result.items||[],table=node('table'),head=node('thead'),body=node('tbody'),headRow=node('tr');
       for(const title of ['Record','Status',...(state.workspaceId==='calendar'?['Tijdstip']:[]),'Bijgewerkt','Actie'])headRow.append(node('th','',title));head.append(headRow);table.append(head,body);
       for(const record of rows){
-        const tr=node('tr');tr.append(node('td','',record.title||record.name||record.id),node('td','',record.status||record.delivery_state||'—'),node('td','',record.updated_at?new Date(record.updated_at).toLocaleString('nl-NL'):'—'));
+        const tr=node('tr');tr.append(node('td','',record.title||record.name||record.id),node('td','',record.status||record.delivery_state||'—'),node('td','',record.updated_at?new Date(record.updated_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')):'—'));
         if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
         const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
         edit.addEventListener('click',()=>{if(recurrenceFields){let rule;try{rule=window.FoundlyCalendarRecurrence.normalize(record.recurrence);}catch(error){notice.textContent=friendlyError(error);return;}recurrenceFields.frequency.value=rule?.frequency||'';recurrenceFields.count.value=String(rule?.count||1);recurrenceFields.interval.value=String(rule?.interval||1);recurrenceFields.refresh();}editing=record;const packConflict=Boolean(record.industry_field_pack_id&&record.industry_field_pack_id!==contract.industry_id);for(const [name,{input}] of industryInputs){input.value=packConflict?'':String(record.industry_fields?.[name]??'');input.disabled=packConflict;}notice.textContent=packConflict?'Bewaarde branchevelden blijven behouden. Herstel het oorspronkelijke pakket om ze te bewerken.':'';for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
@@ -1428,7 +1428,7 @@
   }
 
   function updateNotice() {
-    const observed = state.snapshot?.observed_at ? new Date(state.snapshot.observed_at).toLocaleString('nl-NL') : 'onbekend';
+    const observed = state.snapshot?.observed_at ? new Date(state.snapshot.observed_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'onbekend';
     const activeFilters = [byId('dateFrom').value, byId('dateTo').value, byId('sourceFilter').value, byId('statusFilter').value].filter(Boolean).length;
     const compare = byId('comparePeriod').checked ? ' · periodevergelijking opgeslagen in dashboardcontext' : '';
     byId('workspaceNotice').className = 'workspace-notice success';
@@ -1606,6 +1606,7 @@
   }
 
   async function boot() {
+    await globalThis.FoundlyI18n?.ready;
     bindEvents();
     try {
       const navigation = await request('/api/workspaces'); state.navigation = navigation.workspaces || []; renderNavigation();
@@ -1623,5 +1624,6 @@
     }
   }
 
+  document.addEventListener('foundly:locale',()=>{if(state.navigation?.length)renderNavigation();});
   boot();
 })();

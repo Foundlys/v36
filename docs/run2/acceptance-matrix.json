@@ -770,16 +770,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-057",
@@ -788,16 +785,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-058",
@@ -806,16 +800,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-059",
@@ -824,16 +815,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-060",
@@ -842,16 +830,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-061",
@@ -860,16 +845,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-062",
@@ -878,16 +860,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-063",
@@ -896,16 +875,13 @@
       "source_section": 52,
       "status": "FAIL",
       "evidence": [
-        "index.html",
-        "foundly-workspace.html",
-        "crm.html",
-        "automotive.html",
-        "analysis.html",
-        "finance.html",
-        "identity-login.html"
+        "zero/localization.test.js",
+        "zero/localization-api.test.js",
+        "docs/run2/localization-inventory.json",
+        "docs/run2/localization-dynamic-inventory.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
+      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
     },
     {
       "id": "R2-064",
@@ -1563,7 +1539,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "NONE",
-      "note": "Full local npm test passes including 61 ZERO unit/HTTP tests and 14 corpus cases."
+      "note": "Full local npm test passes including 69 ZERO unit/HTTP tests and 14 corpus cases."
     },
     {
       "id": "R2-113",
@@ -1576,7 +1552,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "NONE",
-      "note": "Full local npm test passes including 61 ZERO unit/HTTP tests and 14 corpus cases."
+      "note": "Full local npm test passes including 69 ZERO unit/HTTP tests and 14 corpus cases."
     },
     {
       "id": "R2-114",
@@ -1589,7 +1565,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "CI 147 passed the previous checkpoint; this later voice checkpoint still requires its own remote CI."
+      "note": "CI 148 passed the previous voice/cross-module checkpoint; the new localization checkpoint requires its own remote CI."
     },
     {
       "id": "R2-115",
@@ -1725,7 +1701,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-24T11:37:44.267184+00:00",
+  "updated_at": "2026-09-24T12:24:31.734230+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }

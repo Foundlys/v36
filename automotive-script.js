@@ -25,11 +25,11 @@ function safeExternalUrl(value) {
 }
 
 function formatEur(value) {
-  return Number.isFinite(Number(value)) ? new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value)) : 'Onbekend';
+  return (typeof value==='number'||typeof value==='string'&&value.trim()!=='')&&Number.isFinite(Number(value)) ? new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value)) : (globalThis.FoundlyI18n?.t('common.unknown')||'Onbekend');
 }
 
 function formatNumber(value, suffix = '') {
-  return Number.isFinite(Number(value)) ? `${new Intl.NumberFormat('nl-NL').format(Number(value))}${suffix}` : '—';
+  return (typeof value==='number'||typeof value==='string'&&value.trim()!=='')&&Number.isFinite(Number(value)) ? `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL')).format(Number(value))}${suffix}` : '—';
 }
 
 function label(value) {
@@ -119,7 +119,7 @@ function renderOverview() {
     ['Source coverage', (data.source_coverage || []).length, true, 'Bronnen met records']
   ];
   $('#automotiveOverviewGrid').innerHTML = metrics.map(([name, value, available, note]) => `<article><span>${escapeHtml(name)}</span><strong class="${available ? '' : 'unavailable'}">${escapeHtml(overviewValue(value, available))}</strong><small>${escapeHtml(note)}</small></article>`).join('');
-  $('#automotiveObserved').textContent = data.observed_at ? new Intl.DateTimeFormat('nl-NL', { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(data.observed_at)) : 'Observatietijd onbekend';
+  $('#automotiveObserved').textContent = data.observed_at ? new Intl.DateTimeFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(data.observed_at)) : 'Observatietijd onbekend';
   $('#inventoryOperationState').textContent = data.inventory_risk?.available ? `${data.inventory_risk.records} persistente voorraadrecords · ${data.inventory_risk.at_risk} met expliciet hoog risico.` : 'Geen werkelijke voorraadrecords beschikbaar; Foundly toont geen demo-inventaris.';
   renderProviders(data.provider_health || []);
 }
@@ -403,4 +403,4 @@ $$('.detail-tabs button').forEach(button => button.addEventListener('click', () 
   renderDetailContent();
 }));
 
-Promise.allSettled([loadStatus(), loadToday()]);
+Promise.resolve(globalThis.FoundlyI18n?.ready).then(()=>Promise.allSettled([loadStatus(), loadToday()]));

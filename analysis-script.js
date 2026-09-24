@@ -19,16 +19,16 @@ async function api(path, options = {}) {
 function formatDate(value) {
   if (!value) return 'Onbekend';
   const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? 'Onbekend' : new Intl.DateTimeFormat('nl-NL', { dateStyle: 'short', timeStyle: 'medium' }).format(date);
+  return Number.isNaN(date.getTime()) ? 'Onbekend' : new Intl.DateTimeFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { dateStyle: 'short', timeStyle: 'medium' }).format(date);
 }
 
 function formatMetric(metric) {
-  if (!metric?.available) return { value: 'Geen brondata', meta: metric?.unavailable_reason || 'NO_VERIFIED_SOURCE_DATA' };
+  if (!metric?.available||metric.value===null||metric.value===undefined||metric.value===''||!Number.isFinite(Number(metric.value))) return { value: globalThis.FoundlyI18n?.t('common.no_data')||'Geen brondata', meta: metric?.unavailable_reason || 'NO_VERIFIED_SOURCE_DATA' };
   const number = Number(metric.value);
-  if (metric.unit === 'CENTS') return { value: new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(number / 100), meta: `${metric.drilldown.source_count} bronrecords` };
-  if (metric.unit === 'PERCENT') return { value: `${new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(number)}%`, meta: `${metric.drilldown.source_count} bronrecords` };
-  if (metric.unit === 'RATIO') return { value: `${new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(number)}×`, meta: `${metric.drilldown.source_count} bronrecords` };
-  return { value: `${new Intl.NumberFormat('nl-NL', { maximumFractionDigits: 2 }).format(number)} ${metric.unit === 'DAYS' ? 'dagen' : metric.unit === 'SECONDS' ? 'sec.' : ''}`.trim(), meta: `${metric.drilldown.source_count} bronrecords` };
+  if (metric.unit === 'CENTS') return { value: new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(number / 100), meta: `${metric.drilldown.source_count} bronrecords` };
+  if (metric.unit === 'PERCENT') return { value: `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(number)}%`, meta: `${metric.drilldown.source_count} bronrecords` };
+  if (metric.unit === 'RATIO') return { value: `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(number)}×`, meta: `${metric.drilldown.source_count} bronrecords` };
+  return { value: `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(number)} ${metric.unit === 'DAYS' ? 'dagen' : metric.unit === 'SECONDS' ? 'sec.' : ''}`.trim(), meta: `${metric.drilldown.source_count} bronrecords` };
 }
 
 function query() {
@@ -116,6 +116,7 @@ function renderAutomation() {
 }
 
 async function load() {
+  await globalThis.FoundlyI18n?.ready;
   const generation=++state.loadGeneration;
   const notice = $('#analysisNotice');
   notice.className = 'notice';

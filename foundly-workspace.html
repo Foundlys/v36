@@ -7,6 +7,9 @@
   <title>Foundly OS Workspace</title>
   <link rel="stylesheet" href="/foundly-workspace.css">
   <link rel="stylesheet" href="/foundly-shell.css">
+  <script src="/foundly-static-copy.js" defer></script>
+  <script src="/foundly-locales.js" defer></script>
+  <script src="/foundly-i18n.js" defer></script>
   <script src="/foundly-shell.js" defer></script>
   <script src="/workflow-authoring.js" defer></script>
   <script src="/workflow-draft-session.js" defer></script>
@@ -41,7 +44,7 @@
     </a>
     <button class="GlobalSearch" id="globalSearchButton" type="button" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K"><span>⌕</span> Zoek in Foundly <kbd>⌘ K</kbd></button>
     <nav id="globalNav" class="global-nav" aria-label="Foundly workspaces"><span class="LoadingState">Navigatie laden…</span></nav>
-    <div class="sidebar-runtime"><span id="sidebarStatusLight"></span><strong id="sidebarStatus">CONTROLEREN</strong><small>v6.0.0 · één Core</small></div>
+    <div class="sidebar-runtime"><span id="sidebarStatusLight"></span><strong id="sidebarStatus" data-i18n-text="{&quot;0&quot;:&quot;static.1b6a441e&quot;}">CONTROLEREN</strong><small>v6.0.0 · één Core</small></div>
   </aside>
 
   <main class="FoundlyWorkspaceShell" id="workspaceMain">
@@ -52,7 +55,8 @@
         <p id="workspaceDescription">Tenant-scoped Foundly-capabilities worden gecontroleerd.</p>
       </div>
       <div class="header-actions">
-        <span class="ConnectionBadge" id="workspaceRuntime">CONTROLEREN</span>
+        <label><span data-i18n="common.language">Interfacetaal</span><select data-ui-locale></select></label>
+        <span class="ConnectionBadge" id="workspaceRuntime" data-i18n-text="{&quot;0&quot;:&quot;static.1b6a441e&quot;}">CONTROLEREN</span>
         <button class="secondary-button" id="refreshWorkspace" type="button">Vernieuwen</button>
       </div>
     </header>
@@ -132,7 +136,7 @@
     <section class="workspace-section" id="sectionContext" hidden>
       <article class="ChartPanel section-context-panel">
         <p class="eyebrow" id="contextEyebrow">WORKSPACE SECTION</p>
-        <h2 id="contextTitle">Onderdeel</h2>
+        <h2 id="contextTitle" data-i18n-text="{&quot;0&quot;:&quot;static.d3f9db21&quot;}">Onderdeel</h2>
         <p id="contextDescription"></p>
         <div id="contextContent" class="context-content"></div>
       </article>

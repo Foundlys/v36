@@ -26,8 +26,8 @@ async function financeRequest(path,options={}){
 }
 $('#financeTransport').addEventListener('change',()=>{if([state.scenarioView,state.closeView].some(view=>view?.isConnected&&!view.canLeave())){$('#financeTransport').value=financeTransport;return;}financeTransport=$('#financeTransport').value;});
 
-function money(value) { if(typeof value!=='number'||!Number.isFinite(value))return 'Niet beschikbaar';return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value || 0) / 100); }
-function formatDate(value) { if (!value) return '—'; const date = new Date(value); return Number.isNaN(date.getTime()) ? '—' : new Intl.DateTimeFormat('nl-NL', { dateStyle: 'medium' }).format(date); }
+function money(value) { if(typeof value!=='number'||!Number.isFinite(value))return 'Niet beschikbaar';return new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value || 0) / 100); }
+function formatDate(value) { if (!value) return '—'; const date = new Date(value); return Number.isNaN(date.getTime()) ? '—' : new Intl.DateTimeFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { dateStyle: 'medium', ...(/^\d{4}-\d{2}-\d{2}$/.test(String(value))?{timeZone:'UTC'}:{}) }).format(date); }
 function filters() {
   const params = new URLSearchParams();
   if ($('#financeEntity').value) params.set('legal_entity_id', $('#financeEntity').value);
@@ -83,7 +83,7 @@ function renderForecast() {
     rows.push(['Goedgekeurd budget', money(budget.budget_cents)], ['Werkelijk', money(budget.actual_cents)], ['Verschil', money(budget.variance_cents)]);
   } else rows.push(['Budget', budget?.reason || 'Geen goedgekeurd budget ingeladen']);
   if (forecast?.available) {
-    rows.push(['Forecast beginsaldo', new Intl.NumberFormat('nl-NL',{style:'currency',currency:forecast.currency||'EUR'}).format(forecast.opening_cash_cents/100)], [`Forecast ${forecast.horizon_days} dagen`, new Intl.NumberFormat('nl-NL',{style:'currency',currency:forecast.currency||'EUR'}).format(forecast.closing_cash_cents/100)], ['Aannames', forecast.assumptions?.length || 0]);
+    rows.push(['Forecast beginsaldo', new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{style:'currency',currency:forecast.currency||'EUR'}).format(forecast.opening_cash_cents/100)], [`Forecast ${forecast.horizon_days} dagen`, new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{style:'currency',currency:forecast.currency||'EUR'}).format(forecast.closing_cash_cents/100)], ['Aannames', forecast.assumptions?.length || 0]);
   } else rows.push(['Cashforecast', forecast?.reason || 'Geen forecast ingeladen']);
   $('#financeForecast').innerHTML = rows.map(([label, value]) => `<div class="stack-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join('');
   if(forecast?.available&&window.FoundlyFinanceCashScenarios){const generation=state.loadGeneration;state.scenarioView=window.FoundlyFinanceCashScenarios.create({document,request:financeRequest,forecastId:forecast.forecast_id,isActive:()=>state.loadGeneration===generation});$('#financeForecast').append(state.scenarioView);}
@@ -112,6 +112,7 @@ function renderJournal() {
 }
 
 async function load(refreshEntities = false) {
+  await globalThis.FoundlyI18n?.ready;
   if([state.scenarioView,state.closeView].some(view=>view?.isConnected&&!view.canLeave())){$('#financeEntity').value=state.loading?.selected_entity_id||'';return;}
   const generation=++state.loadGeneration;
   const notice = $('#financeNotice');
