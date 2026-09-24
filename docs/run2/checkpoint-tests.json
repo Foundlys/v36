@@ -1,0 +1,59 @@
+{
+  "recorded_at": "2026-09-24T10:59:28.750711+00:00",
+  "foundation_source": {
+    "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
+    "modifications": [
+      "zero-evaluation/provider-network-fixture.js",
+      "zero-evaluation/workflow-provider-fixture.js",
+      "workflow-language-api-test.js"
+    ],
+    "additional_unconnected_tests": [
+      "zero/agents.test.js"
+    ]
+  },
+  "full_suite": {
+    "command": "npm test",
+    "exit_code": 0,
+    "scope": "full existing Run 1 regression plus ZERO foundation and then-present agent unit tests",
+    "live_provider_evidence": false,
+    "browser_evidence": false
+  },
+  "later_targeted": [
+    "35 ZERO tests passed",
+    "1 real HTTP intent/no-write test passed",
+    "jarvis-production-regression-test.js passed",
+    "calendar-event-preparation-api-test.js passed",
+    "workflow-language-api-test.js passed"
+  ],
+  "logs": [
+    {
+      "name": "foundation-regression.log",
+      "sha256": "94e7527341b4d8e6cbdd2d208b3e2e70ac352da95128b8e611c2bb3575230301",
+      "bytes": 55592,
+      "pass_lines": 125,
+      "status": "FAIL_CALENDAR_FIXTURE_DNS"
+    },
+    {
+      "name": "foundation-regression-fixed.log",
+      "sha256": "3a30707a87840a55cacd37311ec7ff6971d644647294006c25dc77e8be40eafe",
+      "bytes": 84678,
+      "pass_lines": 235,
+      "status": "PASS"
+    },
+    {
+      "name": "agent-intent-regression.log",
+      "sha256": "673be5f7fd9e1fc6d375760e1ba64611273c6366ff84b9dc9d5e6dc979cd1c35",
+      "bytes": 1375,
+      "pass_lines": 2,
+      "status": "PASS"
+    },
+    {
+      "name": "agent-tests.log",
+      "sha256": "4daa0e0eb0d30257e1277877d92ff08543fec471f20d5eefc6bee90912cc5bff",
+      "bytes": 3372,
+      "pass_lines": 0,
+      "status": "PASS"
+    }
+  ],
+  "run_2_status": "IN_PROGRESS_NOT_PASS"
+}

@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "contract": "docs/run2/AUTHORITATIVE_CONTRACT.md",
+  "evidence_policy": "A deterministic/fixture pass proves the asserted property only. Provider quality, voice realism and rendered browser acceptance need separate live evidence.",
+  "cases": [
+    {"id":"auth-zero", "category":"permissions", "description":"Anonymous access to ZERO is denied"},
+    {"id":"composition-tools", "category":"tool-selection", "description":"Disabled CRM tools are unavailable"},
+    {"id":"conversation-isolation", "category":"memory", "description":"Another signed-in user cannot retrieve a conversation"},
+    {"id":"preference-isolation", "category":"personalization", "description":"Two users retain independent locale and address preferences"},
+    {"id":"locale-validation", "category":"localization", "description":"An unsupported official locale is rejected explicitly"},
+    {"id":"no-model-truth", "category":"degraded-operation", "description":"Model-dependent answer without a provider is reported as unavailable"},
+    {"id":"memory-api", "category":"layered-memory", "description":"Explicit user memory retains provenance and current owner"},
+    {"id":"memory-isolation", "category":"layered-memory", "description":"User memory is absent from another user's retrieval"},
+    {"id":"memory-delete", "category":"retention", "description":"Explicit deletion removes remembered content from retrieval"},
+    {"id":"memory-readonly", "category":"permissions", "description":"Read-only user cannot write organizational knowledge"},
+    {"id":"stack-discovery", "category":"stack-discovery", "description":"Read-only discovery returns evidence states and uncertainty"},
+    {"id":"model-registry", "category":"routing", "description":"Unconfigured models are explicitly distinguished from configured providers"},
+    {"id":"voice-profile", "category":"voice-contract", "description":"Personal male/female and mode settings are retained"},
+    {"id":"encrypted-restart", "category":"recovery", "description":"Preferences survive the actual encrypted server restart"}
+  ],
+  "additional_required_evidence": [
+    "Real multi-turn cognition, social tone, humor and causal reasoning across eight locales",
+    "All nine modules and hard automotive/cross-module business tasks",
+    "Provider fallback, model quality, trace verification, cost and p50/p95/p99",
+    "Adversarial injection, poisoning, stale approvals, permission revocation and runaway prevention",
+    "Every user-facing surface across all eight locales",
+    "Male/female voice across all modes/locales with independent listening and interruption evidence",
+    "Full rendered browser, accessibility and responsive acceptance",
+    "Scenario-coherent automotive demo through production contracts"
+  ]
+}

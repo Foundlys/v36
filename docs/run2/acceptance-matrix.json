@@ -1,0 +1,1016 @@
+{
+  "schema_version": 1,
+  "run": 2,
+  "authority": "AUTHORITATIVE_CONTRACT.md",
+  "authority_sha256": "370f8066897c20310c742c56dfb5fabd5aa5d934d4702884c31b152ced6263d9",
+  "locked_at": "2026-09-24T10:15:13.132672+00:00",
+  "allowed_states": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "UNVERIFIED"
+  ],
+  "pass_rule": "All material requirements require applicable production-path evidence. A narrow test cannot establish a broader PASS. External blockers never waive independent code defects. Full contract detail remains authoritative.",
+  "requirements": [
+    {
+      "id": "R2-001",
+      "group": "ZERO COGNITION",
+      "requirement": "natural conversation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-002",
+      "group": "ZERO COGNITION",
+      "requirement": "intent resolution",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-003",
+      "group": "ZERO COGNITION",
+      "requirement": "ambiguity handling",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-004",
+      "group": "ZERO COGNITION",
+      "requirement": "long-context continuity",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-005",
+      "group": "ZERO COGNITION",
+      "requirement": "personalization",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-006",
+      "group": "ZERO COGNITION",
+      "requirement": "social intelligence",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-007",
+      "group": "ZERO COGNITION",
+      "requirement": "professional contextual humor",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-008",
+      "group": "ZERO COGNITION",
+      "requirement": "multilingual reasoning",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-009",
+      "group": "ZERO COGNITION",
+      "requirement": "multi-step planning",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-010",
+      "group": "ZERO COGNITION",
+      "requirement": "causal/business reasoning",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-011",
+      "group": "ZERO COGNITION",
+      "requirement": "uncertainty awareness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-012",
+      "group": "ZERO COGNITION",
+      "requirement": "contradiction detection",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-013",
+      "group": "ZERO COGNITION",
+      "requirement": "proactive intelligence",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-014",
+      "group": "ZERO COGNITION",
+      "requirement": "outcome-oriented recommendations",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-015",
+      "group": "MEMORY",
+      "requirement": "session memory",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-016",
+      "group": "MEMORY",
+      "requirement": "task memory",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-017",
+      "group": "MEMORY",
+      "requirement": "user memory",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-018",
+      "group": "MEMORY",
+      "requirement": "organization memory",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-019",
+      "group": "MEMORY",
+      "requirement": "workflow memory",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-020",
+      "group": "MEMORY",
+      "requirement": "semantic knowledge",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-021",
+      "group": "MEMORY",
+      "requirement": "Industry Pack knowledge",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-022",
+      "group": "MEMORY",
+      "requirement": "outcome memory",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-023",
+      "group": "MEMORY",
+      "requirement": "provenance",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-024",
+      "group": "MEMORY",
+      "requirement": "freshness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-025",
+      "group": "MEMORY",
+      "requirement": "permission isolation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-026",
+      "group": "MEMORY",
+      "requirement": "cross-user isolation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-027",
+      "group": "MEMORY",
+      "requirement": "cross-tenant isolation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-028",
+      "group": "CONTEXT",
+      "requirement": "dynamic context assembly",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-029",
+      "group": "CONTEXT",
+      "requirement": "relevance awareness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-030",
+      "group": "CONTEXT",
+      "requirement": "permission awareness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-031",
+      "group": "CONTEXT",
+      "requirement": "freshness awareness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-032",
+      "group": "CONTEXT",
+      "requirement": "source awareness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-033",
+      "group": "CONTEXT",
+      "requirement": "latency awareness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-034",
+      "group": "CONTEXT",
+      "requirement": "cost awareness",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-035",
+      "group": "MODEL / AGENTS",
+      "requirement": "model/provider registry",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-036",
+      "group": "MODEL / AGENTS",
+      "requirement": "routing",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-037",
+      "group": "MODEL / AGENTS",
+      "requirement": "fallback/degradation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-038",
+      "group": "MODEL / AGENTS",
+      "requirement": "specialist orchestration",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-039",
+      "group": "MODEL / AGENTS",
+      "requirement": "agent permission boundaries",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-040",
+      "group": "MODEL / AGENTS",
+      "requirement": "retry limits",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-041",
+      "group": "MODEL / AGENTS",
+      "requirement": "runaway prevention",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-042",
+      "group": "MODEL / AGENTS",
+      "requirement": "economic controls",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-043",
+      "group": "RESEARCH",
+      "requirement": "governed current research",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-044",
+      "group": "RESEARCH",
+      "requirement": "provenance",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-045",
+      "group": "RESEARCH",
+      "requirement": "contradiction handling",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-046",
+      "group": "RESEARCH",
+      "requirement": "injection resistance appropriate to Run 2",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-047",
+      "group": "RESEARCH",
+      "requirement": "controlled knowledge activation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-048",
+      "group": "RESEARCH",
+      "requirement": "controlled regulation/domain refresh",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-049",
+      "group": "STACK DISCOVERY V1",
+      "requirement": "heterogeneous discovery",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-050",
+      "group": "STACK DISCOVERY V1",
+      "requirement": "evidence states",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-051",
+      "group": "STACK DISCOVERY V1",
+      "requirement": "conflict handling",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-052",
+      "group": "STACK DISCOVERY V1",
+      "requirement": "uncertainty handling",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-053",
+      "group": "STACK DISCOVERY V1",
+      "requirement": "unsafe environment handling",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-054",
+      "group": "STACK DISCOVERY V1",
+      "requirement": "human clarification boundaries",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-055",
+      "group": "STACK DISCOVERY V1",
+      "requirement": "no fabricated architecture",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-056",
+      "group": "LOCALIZATION",
+      "requirement": "nl-NL",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-057",
+      "group": "LOCALIZATION",
+      "requirement": "English",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-058",
+      "group": "LOCALIZATION",
+      "requirement": "de-DE",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-059",
+      "group": "LOCALIZATION",
+      "requirement": "fr-FR",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-060",
+      "group": "LOCALIZATION",
+      "requirement": "es-ES",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-061",
+      "group": "LOCALIZATION",
+      "requirement": "da-DK",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-062",
+      "group": "LOCALIZATION",
+      "requirement": "nb-NO",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-063",
+      "group": "LOCALIZATION",
+      "requirement": "sv-SE",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-064",
+      "group": "VOICE",
+      "requirement": "natural human quality",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-065",
+      "group": "VOICE",
+      "requirement": "male",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-066",
+      "group": "VOICE",
+      "requirement": "female",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-067",
+      "group": "VOICE",
+      "requirement": "Executive",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-068",
+      "group": "VOICE",
+      "requirement": "Conversational",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-069",
+      "group": "VOICE",
+      "requirement": "Briefing",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-070",
+      "group": "VOICE",
+      "requirement": "multilingual pronunciation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-071",
+      "group": "VOICE",
+      "requirement": "contextual prosody",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-072",
+      "group": "VOICE",
+      "requirement": "business tone",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-073",
+      "group": "VOICE",
+      "requirement": "streaming",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-074",
+      "group": "VOICE",
+      "requirement": "latency",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-075",
+      "group": "VOICE",
+      "requirement": "barge-in",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-076",
+      "group": "VOICE",
+      "requirement": "continuity",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-077",
+      "group": "VOICE",
+      "requirement": "names/brands",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-078",
+      "group": "VOICE",
+      "requirement": "industry terminology",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-079",
+      "group": "VOICE",
+      "requirement": "numbers/currencies/dates",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-080",
+      "group": "VOICE",
+      "requirement": "approval confirmations",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-081",
+      "group": "VOICE",
+      "requirement": "no obvious TTS cadence",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-082",
+      "group": "DEMO",
+      "requirement": "Demo Universe Engine V1",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-083",
+      "group": "DEMO",
+      "requirement": "Automotive Demo Universe V1",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-084",
+      "group": "DEMO",
+      "requirement": "scenario coherence",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-085",
+      "group": "DEMO",
+      "requirement": "production contracts used",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-086",
+      "group": "DEMO",
+      "requirement": "provenance classification",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-087",
+      "group": "DEMO",
+      "requirement": "anomalies/failures",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-088",
+      "group": "INDUSTRY KNOWLEDGE",
+      "requirement": "Automotive knowledge/data foundations",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-089",
+      "group": "INDUSTRY KNOWLEDGE",
+      "requirement": "Customer Truth separation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-090",
+      "group": "INDUSTRY KNOWLEDGE",
+      "requirement": "external intelligence provenance",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-091",
+      "group": "INDUSTRY KNOWLEDGE",
+      "requirement": "derived intelligence separation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-092",
+      "group": "INDUSTRY KNOWLEDGE",
+      "requirement": "geography/time semantics",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-093",
+      "group": "CROSS-MODULE ZERO",
+      "requirement": "difficult representative multi-module scenarios",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-094",
+      "group": "CROSS-MODULE ZERO",
+      "requirement": "permission enforcement",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-095",
+      "group": "CROSS-MODULE ZERO",
+      "requirement": "tool discovery",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-096",
+      "group": "CROSS-MODULE ZERO",
+      "requirement": "evidence-backed outputs",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-097",
+      "group": "EVALUATION",
+      "requirement": "permanent ZERO evaluation framework",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-098",
+      "group": "EVALUATION",
+      "requirement": "versioned corpus",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-099",
+      "group": "EVALUATION",
+      "requirement": "regression evaluation",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-100",
+      "group": "EVALUATION",
+      "requirement": "adversarial coverage",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-101",
+      "group": "UX",
+      "requirement": "frozen main dashboard preserved",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-102",
+      "group": "UX",
+      "requirement": "non-frozen touched surfaces quality",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-103",
+      "group": "UX",
+      "requirement": "psychological usability",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-104",
+      "group": "UX",
+      "requirement": "accessibility",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-105",
+      "group": "UX",
+      "requirement": "responsive behavior",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-106",
+      "group": "UX",
+      "requirement": "localization layout integrity",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-107",
+      "group": "OPERABILITY / ECONOMICS",
+      "requirement": "truthful provider state",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-108",
+      "group": "OPERABILITY / ECONOMICS",
+      "requirement": "telemetry",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-109",
+      "group": "OPERABILITY / ECONOMICS",
+      "requirement": "retry/runaway controls",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-110",
+      "group": "OPERABILITY / ECONOMICS",
+      "requirement": "economically controllable routing",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-111",
+      "group": "OPERABILITY / ECONOMICS",
+      "requirement": "documentation updated",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-112",
+      "group": "REGRESSION / CI",
+      "requirement": "targeted Run-2 tests",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-113",
+      "group": "REGRESSION / CI",
+      "requirement": "complete relevant regression",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-114",
+      "group": "REGRESSION / CI",
+      "requirement": "CI",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-115",
+      "group": "REGRESSION / CI",
+      "requirement": "no material unresolved code-controlled Run-2 defect",
+      "source_section": 52,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-116",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Permission-aware universal search across authorized sources",
+      "source_section": 30,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-117",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Role-, urgency- and risk-aware attention intelligence",
+      "source_section": 31,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-118",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Provenance-aware data-quality detection and governed remediation",
+      "source_section": 32,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-119",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Versioned and auditable configuration change and rollback",
+      "source_section": 39,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-120",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Business/Personal data and commercial separation",
+      "source_section": 41,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-121",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Evidence-backed connector readiness",
+      "source_section": 42,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-122",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Customer source-of-truth routing",
+      "source_section": 43,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-123",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "All enumerated Run-2 security adversarial scenarios",
+      "source_section": 45,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-124",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Representative p50/p95/p99 latency and cost measurement",
+      "source_section": 46,
+      "status": "UNVERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "R2-125",
+      "group": "ADDITIONAL CONTRACT GATES",
+      "requirement": "Run 3\u20137 boundaries preserved",
+      "source_section": 51,
+      "status": "UNVERIFIED",
+      "evidence": []
+    }
+  ]
+}

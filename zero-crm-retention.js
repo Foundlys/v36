@@ -12,11 +12,14 @@ function internalKind(result){
   if(tools.length&&tools.every(tool=>PLATFORM_TOOLS.has(tool))&&['analysis_data','finance_data','knowledge_data','automation_data'].some(key=>result[key]))return 'PLATFORM';
   return null;
 }
-function isSourceRead(result){return isCrmRead(result)||Boolean(internalKind(result));}
+function isSourceRead(result){return isCrmRead(result)||Boolean(internalKind(result))||Boolean(result?.zero_context_reference);}
 function retainInternal(result,message){
   return {ok:result.ok,status:result.status,modules:[...(result.modules||[])],actions:[],syncs:[],web:{used:false,sources:[],error:null},voice_mode:result.voice_mode,answer:NOTICE,display_text:NOTICE,spoken_text:NOTICE,ui_commands:[],plan:{goal:'Actuele broninformatie opnieuw opvragen',steps:['read_current_sources'],tools:[...(result.plan?.tools||[])]},read_reference:result.read_reference||{kind:internalKind(result),module:result.modules?.[0],message_hash:hash(message)},verification:{read_only:true,current_source_recalculation_required:true,source_result_retained:false}};
 }
 function retain(result,message){
+  if(result?.zero_context_reference)return {...result,answer:NOTICE,display_text:NOTICE,spoken_text:NOTICE,ui_commands:[],
+    zero_context_reference:{...result.zero_context_reference,message_hash:result.zero_context_reference.message_hash||hash(message)},
+    verification:{...result.verification,current_source_recalculation_required:true,source_result_retained:false}};
   if(result?.procurement_action_reference)return require('./procurement-zero').retain(result);
   if(result?.marketing_action_reference)return require('./marketing-zero').retain(result);
   if(result?.finance_action_reference)return require('./finance-zero').retain(result);

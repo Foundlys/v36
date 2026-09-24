@@ -1,4 +1,5 @@
 'use strict';
+require('./zero-evaluation/provider-network-fixture');
 // Isolated HTTP fixture only. No real provider request or credential is used.
 const fs=require('node:fs'),original=global.fetch;
 global.fetch=async(input,options={})=>{
