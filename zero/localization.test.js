@@ -27,6 +27,12 @@ test('actual login handlers localize errors in eight locales without displaying 
 test('login-selected interface language is persisted only after successful sign-in, independently of conversation language',async()=>{
  const requests=[],f=browserFixture('nl-NL',async(path,init)=>{requests.push({path,body:JSON.parse(init.body)});return {ok:true,json:async()=>({})};});f.loadLogin();f.nodes.identityLocale.value='sv-SE';await f.nodes.identityLocale.fire('change');assert.equal(requests.length,0);await f.nodes.identityForm.fire('submit');assert.deepEqual(requests.map(r=>r.path),['/api/identity/login','/api/zero/preferences']);assert.deepEqual(requests[1].body,{ui_locale:'sv-SE'});assert.equal(f.context.location.redirect,'/');
 });
+test('visible sign-in errors and field validation follow subsequent locale changes without a second request',async()=>{
+ let requests=0;const f=browserFixture('nl-NL',async()=>{requests++;return {ok:false,status:401,json:async()=>({code:'identity_credentials_invalid'})};});f.loadLogin();await f.nodes.identityForm.fire('submit');await f.nodes.identityPassword.fire('invalid');f.nodes.identityLocale.value='fr-FR';await f.nodes.identityLocale.fire('change');assert.equal(requests,1);assert.equal(f.nodes.identityNotice.textContent,catalog.messages['fr-FR']['identity.credentials_invalid']);assert.equal(f.nodes.identityPassword.validationMessage,catalog.messages['fr-FR']['common.required']);
+});
+test('ZERO greeting uses the conversation language while preserving the interface preference and literal name',()=>{
+ const source=fs.readFileSync(require.resolve('../index-script.js'),'utf8'),start=source.indexOf('function greetingText('),end=source.indexOf('\nfunction ',start+1),f=browserFixture('en-GB');f.context.ZERO={preferences:{language:'de-DE',timezone:'UTC',preferred_address:'Élodie <name>'}};vm.runInContext(source.slice(start,end),f.context);const greeting=f.context.greetingText();assert.match(greeting,/Élodie <name>/);assert.match(greeting,/Wie kann ich helfen/);assert.equal(f.context.FoundlyI18n.locale,'en-GB');
+});
 test('late initial preference reads cannot overwrite a newer explicit locale choice',async()=>{
  let release;const f=browserFixture('nl-NL',()=>new Promise(r=>release=r),'/');f.context.FoundlyI18n.setLocale('fr-FR');release({ok:true,json:async()=>({preferences:{ui_locale:'de-DE'}})});await f.context.FoundlyI18n.ready;assert.equal(f.context.FoundlyI18n.locale,'fr-FR');
 });

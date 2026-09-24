@@ -117,7 +117,7 @@ async function load(refreshEntities = false) {
   const generation=++state.loadGeneration;
   const notice = $('#financeNotice');
   notice.className = 'notice';
-  notice.textContent = 'Financiële administratie laden…';
+  notice.textContent = (globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.3a5084e9"):'Financiële administratie laden…');
   try {
     const loaded=await window.FoundlyFinanceLoading.load(api,filters());if(generation!==state.loadGeneration)return;
     state.loading=loaded;Object.assign(state,{status:loaded.status,entities:loaded.entities,dashboard:loaded.dashboard,reports:loaded.reports});renderEntities();

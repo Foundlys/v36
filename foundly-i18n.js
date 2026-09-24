@@ -18,6 +18,7 @@
   const document=root.document,anonymous=root.location.pathname==='/login';
   let initial='nl-NL';if(anonymous)for(const language of root.navigator.languages||[root.navigator.language]){try{initial=normalize(language);break;}catch{try{initial=normalize(language?.split('-')[0]);break;}catch{}}}
   const api=create(initial),allowedAttributes=['aria-label','title','placeholder','alt'],bindings=new WeakMap();
+  api.forLocale=value=>create(value);
   function paint(owner,target,slot,key,read,write,format=value=>value){
     const currentTarget=typeof target==='function'?target:()=>target;
     if(!currentTarget())return;let state=bindings.get(owner);if(!state){state=new Map();bindings.set(owner,state);}const previous=state.get(slot);
@@ -37,7 +38,8 @@
   let localeRevision=0;
   const change=api.setLocale;api.setLocale=function(value){change(value);localeRevision++;api.translate();document.dispatchEvent(new CustomEvent('foundly:locale',{detail:{locale:api.locale}}));return api.locale;};
   api.bind=function(node,key,attribute){node.setAttribute(attribute?'data-i18n-'+attribute:'data-i18n',key);bindings.get(node)?.delete(attribute||'text');if(attribute)paint(node,node,attribute,key,()=>node.getAttribute(attribute),value=>node.setAttribute(attribute,value));else paint(node,()=>node.firstChild||node,'text',key,()=>node.textContent,value=>node.textContent=value);return node;};
-  api.error=function(code,status){const known={'identity_credentials_invalid':'identity.credentials_invalid','identity_invitation_invalid':'identity.invitation_invalid','identity_password_invalid':'identity.password_invalid','identity_auth_required':'identity.auth_required','auth_invalid':'identity.auth_required'};return api.t(known[code]||(status===429?'common.rate_limited':status===403?'common.access_denied':'common.request_failed'));};
+  api.errorKey=function(code,status){const known={'identity_credentials_invalid':'identity.credentials_invalid','identity_invitation_invalid':'identity.invitation_invalid','identity_password_invalid':'identity.password_invalid','identity_auth_required':'identity.auth_required','auth_invalid':'identity.auth_required'};return known[code]||(status===429?'common.rate_limited':status===403?'common.access_denied':'common.request_failed');};
+  api.error=function(code,status){return api.t(api.errorKey(code,status));};
   api.installLocaleControl=function(selector){
     selector.replaceChildren(...catalog.locales.map((locale,i)=>{const option=document.createElement('option');option.value=locale;option.textContent=catalog.names[i];return option;}));selector.value=api.locale;
     const notice=document.createElement('output');notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');selector.after(notice);

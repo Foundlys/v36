@@ -2,79 +2,79 @@
   "schema_version": 1,
   "corpus_version": "1.0.0",
   "corpus_sha256": "48c2df5c448802cc61c65b81b90b4a90f0e21a88124da08f5305c34a2c3da7b2",
-  "recorded_at": "2026-09-24T12:24:32.842Z",
-  "head": "b2d91cd858a07795ab8a1e1b099c962919028836",
+  "recorded_at": "2026-09-24T12:55:14.025Z",
+  "head": "f9644bc908922d3d4192ba23d9b7be27d38c4da7",
   "environment": "ISOLATED_REAL_HTTP_NO_MODEL_PROVIDER",
   "results": [
     {
       "id": "auth-zero",
       "status": "PASS",
-      "latency_ms": 3.0187809999997626
+      "latency_ms": 3.3966589999999997
     },
     {
       "id": "composition-tools",
       "status": "PASS",
-      "latency_ms": 6.786065999999664
+      "latency_ms": 7.343556000000262
     },
     {
       "id": "conversation-isolation",
       "status": "PASS",
-      "latency_ms": 28.606105999999727
+      "latency_ms": 35.491111000000274
     },
     {
       "id": "preference-isolation",
       "status": "PASS",
-      "latency_ms": 9.493102999999792
+      "latency_ms": 12.744437999999718
     },
     {
       "id": "locale-validation",
       "status": "PASS",
-      "latency_ms": 2.761402999999973
+      "latency_ms": 2.7303860000001805
     },
     {
       "id": "no-model-truth",
       "status": "PASS",
-      "latency_ms": 29.192237000000205
+      "latency_ms": 27.147071999999753
     },
     {
       "id": "memory-api",
       "status": "PASS",
-      "latency_ms": 5.245489999999791
+      "latency_ms": 4.8389579999998205
     },
     {
       "id": "memory-isolation",
       "status": "PASS",
-      "latency_ms": 2.850116000000071
+      "latency_ms": 2.7738220000001093
     },
     {
       "id": "memory-delete",
       "status": "PASS",
-      "latency_ms": 9.683324999999968
+      "latency_ms": 8.698433000000023
     },
     {
       "id": "memory-readonly",
       "status": "PASS",
-      "latency_ms": 2.7891550000003917
+      "latency_ms": 3.2941139999998086
     },
     {
       "id": "stack-discovery",
       "status": "PASS",
-      "latency_ms": 154.80896799999982
+      "latency_ms": 153.87276599999996
     },
     {
       "id": "model-registry",
       "status": "PASS",
-      "latency_ms": 2.922896999999921
+      "latency_ms": 1.950854000000163
     },
     {
       "id": "voice-profile",
       "status": "PASS",
-      "latency_ms": 3.464050000000043
+      "latency_ms": 3.6855530000002545
     },
     {
       "id": "encrypted-restart",
       "status": "PASS",
-      "latency_ms": 196.87640499999998
+      "latency_ms": 198.95462399999997
     }
   ],
   "summary": {
@@ -124,9 +124,9 @@
     "analysis-models-loading-test.js": "26d76ec7ea1f9454447e507f96a165ef320c511e775ae6a2c3f84b4b256c1f3c",
     "analysis-models-test.js": "4a5f86661120bdd534d69aeea82ecc9828081dfd1a25da139d1f43fbd2c0c03e",
     "analysis-models.js": "3534a9406b2b575571c575a461fc1e920a9044d0934f88490d90ef42165e806a",
-    "analysis-script.js": "8943716a986a6cfa2cb1adaa8f07ef0ee9482896ccac5284fb5a3dfd34466e78",
+    "analysis-script.js": "0719ea21e8f2a796701271a9d2eb510de0b8f2bedfb32053b52ec0d9491b5947",
     "analysis-zero-routing-api-test.js": "14aca1e491f29f52daa208fa1a0f5225ce80528a038c482e9ba31b00d381dd25",
-    "analysis.html": "b5c319f377ec5bedef381d6bd798040b5f8c3558f57475b900e1eec5c7f782d6",
+    "analysis.html": "81e59953be64e22a53118eac623f104b1378d9fdf6e65c65f5102159369c3569",
     "automation-owned-action.js": "7946547dec1a745479c9b169a64a9290f9fe0d1142ab28c53d939ecd54d1669e",
     "automotive-api-regression-test.js": "b70c4e1b67f6664aabd253982af95e0535fdd4f97f8d70cd82be78a496a152ae",
     "automotive-api.js": "04d10bb0c3bc0a074d70e0c459a8c80b297593b14dc97a5f2c8265702fea2c4c",
@@ -136,7 +136,7 @@
     "automotive-provider-contract-test.js": "329970409b47230409a31ce4625304c30eab555a9fc9dfeef7e9721abb848571",
     "automotive-script.js": "ea4c57c80b14765e12d0471543614aa36542307a513bbfe4a523f650d8a9d7c4",
     "automotive.css": "c9bb74bba5b576bb43934677f98626374117d0a8aed5b3fc6f330c0bae58f661",
-    "automotive.html": "2003ee0340f8e83cf18ffd36eeee39259831454039da5c22b50728bdd0649b71",
+    "automotive.html": "5c8188c78a4a27db2a77b3d2661f92375f8201672b219cc91859bd228f283f10",
     "business-domain-api.js": "44b67773f2be841cb1742007ab5c4e32a90d954ceb0fa12c5fb5aae9d6b10b35",
     "business-domains-test.js": "1369a3d2b1135c203b4f3323a990ccb91cfd6aa24c8a5e47d5dc7a65caad2194",
     "business-domains.js": "799e950cdb51cc755be753f2e5660796035c59cd9887002f217b37789af1961e",
@@ -282,7 +282,7 @@
     "crm-current-principal-api-test.js": "b8ff7274e66d5161cdeec5010defb56677b9c90cb65f6281d1414e1eb0287cbd",
     "crm-objects-api-test.js": "790ce075a8a90bdf85b0ddd68c4bb3055283fbc6b3821b88108c55abe12ac0e0",
     "crm-objects-client-test.js": "823dd64e765c3d0e7e15a44bd3fbc26a50297ae00c6e4cd2e435db7c68081e97",
-    "crm-objects-client.js": "ad233c3a330ab8dcb18676f72445494da0bfff5e66e2da5a8494a28b30acb991",
+    "crm-objects-client.js": "cba1b0e95fb6f43379e145e65bdcdfc10626e5535e5c1e834bd25b80c1484d28",
     "crm-objects-test.js": "284b38025902ba9a4eff5aad4bd05e037a00c28aabbd621824d6d3912194ea5c",
     "crm-objects.js": "c8c19ab253add7427772dae181cca8c2622cfb5c0971ca721e80dd99c03cb80e",
     "crm-script.js": "3a3ab3b3752fec3cf08bb381847240ae6292086d457472508c7a3b2b7fb3e14c",
@@ -290,7 +290,7 @@
     "crm-standalone.js": "c591badf960255c70a36a942c735c39ef8a481609b9cbd4f7ba8d0a504219130",
     "crm-zero-replay-api-test.js": "63bee4c16e2225164e4cffb6302812c5591fd3831e436f3143291583403e2b03",
     "crm.css": "035516aef0c0bb07d23af1f1847a03491ccf5a1140856532f1c4ee73acd870d3",
-    "crm.html": "b4ab3a90776aebbdfcbcd3cf9e6a684edc713b52ae606a25ec3c069b845ed708",
+    "crm.html": "633e7712b4270b67da6959547bc7ff1a59f4264bc56db1a2ca933935f3684ac0",
     "customer-spatial-api-test.js": "31adb3a07fe660916a533467c8af961b273ff7c61c6184d2d345860f36330441",
     "customer-spatial-model.js": "aecebff33457f50b7d939d853141de6eb744a31deb95a612e1602da4f84707ed",
     "customer-spatial-runtime-test.js": "8e8e44d68d24294e4cf057b73b11fc4a0a69af8b0054a64e2dbf291ff0cdb177",
@@ -315,25 +315,25 @@
     "finance-period-closing-client.js": "c1a975af0b5a9d2a6802168d37eb86c1a1d18faca9767aaa58930b388f16d052",
     "finance-period-closing-test.js": "53ffb4a3ac68dfb7ecf7433d204f4ba7b4a5d0714493a6591be4046734161341",
     "finance-period-closing.js": "0dbadbd73ae817a6ae4839620b6730c834fdad8425acb4bc6336bd5bd9f04974",
-    "finance-script.js": "71b041d793c57d7364fafd5e22fefbdbfb31b9c9a11e1021e8d7287df6c7b7b0",
+    "finance-script.js": "30f0c439bf7e2722aec437d1faaf96aafd8958e2dea6648e48551d512f261c5a",
     "finance-zero.js": "de6560fb16bd7c309f6292a5b891ddc1c5c0e426c79baf4cb90d7a0b05e13019",
-    "finance.html": "7c61dd1c576699659c6164719d49b0d37a51dc5eab10ddad40ef9699a71b1a56",
-    "foundly-i18n.js": "ab6d5bab87f28e25246c4d4cc868dfd8daf2710769ae6db45d233ef6cada0520",
-    "foundly-locales.js": "65e13329e7808d3fcd0a47034370cb4276080f01d45fa86e8efc2b817ba2502c",
+    "finance.html": "3d9dc2116c2790d2cb2aae4c48d201280bc419b8eab44afabd47443bac2b11a9",
+    "foundly-i18n.js": "7a0286ee3a84bfa0c7339f35586c3f2507c7d68f8f231e5f373f916182f6938b",
+    "foundly-locales.js": "a0d93b9555096163b875dfeb84f56f74e9758324b98a4b10ba67b82ab602af19",
     "foundly-masterbuild-regression-test.js": "2f8da2ed741507d57559dda3894c1cd5f6bb2f31388343f02ad794c6606df884",
     "foundly-registry.js": "98055c90eddc39aa7932db307bc12c7c19e233f04d9050e627fcb4b6c754ba93",
     "foundly-shell.css": "08987262831818f8d387cda57c2f0f505fd095999c6322e8fb6b40a52cbfdd18",
     "foundly-shell.js": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
-    "foundly-static-copy.js": "523172d45b799fe6710acd969957483e2981b49c7fb61428f28553475a42a579",
+    "foundly-static-copy.js": "4aaa2d2bcd849ab5016ca1f386b2fd946bda0ccb0540ec88c0d44fee41f6bd67",
     "foundly-workspace.css": "ede376f47c5825e8095016a50f40418348e8e0eb378008ae73d25b57dbfcb1cc",
-    "foundly-workspace.html": "8d9ab646f0a83bd49a58a2a9089c0ad1034265c51f411d0ec4a467b80d262e29",
-    "foundly-workspace.js": "fd20b6c696ce0acece16a12ce663f3db2477aed46e2f2ea4eb14b46b9f03c41c",
+    "foundly-workspace.html": "777a877c2317aa6f814bbb301f804c705aa275a371221baf6349079b14e0aa31",
+    "foundly-workspace.js": "342533ad0e9e05f5c0eff8b17975d8bd1732c88b931f82f87e3353337a58f3ee",
     "full-platform-e2e-test.js": "d8a5372c90a0ba9307d05d8605803e8aa03fb6f0db256407a92fa5d1aed25bbf",
     "identity-login.css": "be38d03f7ee9fc440475eca5c090ceb7ec99ed0cff1338d4395b9fbc5fa8b001",
     "identity-login.html": "a40fff4c8fe837b0f48f4b966cba26d7a474352ebc31608a34a5fbb10e44b288",
-    "identity-login.js": "4fb56d9cb8d2dc2e46d2132e667c6ac161bc0306b06709307a66b0effd2d0971",
-    "index-script.js": "76530ea15d6d3a5eb0c3cc7976b5d894af575e0719728a1573d06e02890d858f",
-    "index.html": "12cb047613598cde53d28ace2e3486d1d3665579bf5f646891c4471dba36f8bd",
+    "identity-login.js": "75a3ecebb7ef506bacd540aed589ad9580403d28b8d7687c69247dfa92bdb9ce",
+    "index-script.js": "d5e43ee2ce455b58ec3fff98086e56aaecbb16f9c1d0bc43aac1cc56ef052536",
+    "index.html": "61902bbd183c130c9e9a22f940967b129320930d01332d07c116d84d8ca28512",
     "industry-field-api-test.js": "76ee1cda1bf682d49d5cf8c6ae86a4f4cbaa095b4ccf7ac5bedcd8080efc8695",
     "industry-field-contract.js": "b7f1c9abc73983447921baffeaafdd1a16540b10d17e4093355a3202f0f1e527",
     "industry-kpis.js": "962d6c714c0843945647572541c50d6da966f8385d4c8508aaf2fee01f95c67c",
@@ -365,7 +365,7 @@
     "marketing-metrics-test.js": "767b84bc26e82b8a549cb3bb81e7a383958f394d82f9a819725ffe97a8c60e58",
     "marketing-metrics.js": "b8b3de6829748fa4eaf6810d865f8e628b0f6d53ad5b8313e7e9f119e51bc05c",
     "marketing-zero-client-test.js": "da17129f7e350491408cc3d7ecb8bd169b3f7dea0f63f3adbb8294511c6ef7bc",
-    "marketing-zero-client.js": "e45cc8c7e0a6bafef1f81ad92c55215a583a8e5fa3718e2e30b76ce1f85694b2",
+    "marketing-zero-client.js": "4a63cc38f7bbd0de99538f2220c93a75ac85de240bdc241e774856e653b58278",
     "marketing-zero.js": "194779eb25abe5d1e3721a722856e807390f0a633d7a272932835fcecd9b259b",
     "module-access-contracts-test.js": "81120fcbcec634b72474d5a5422f0163bdf021d5e3e3d151ba26aa0782789dee",
     "module-access-contracts.js": "ca6e8ddefad4342f1e01a3d0121a7201a8a802535e879103b4f92b0874589e5d",
@@ -386,7 +386,7 @@
     "procurement-allocations.js": "ab0b634b1eacc1c4d648db7aa708f7974d73d772e471e6f6eed564cd75b3c015",
     "procurement-clarifications-api-test.js": "06b9f16001f6ba2bdb6754c520f711466120df1a7c3ed2348786cfa108dce538",
     "procurement-clarifications-client-test.js": "c5ba1cad9916e672bd59bb1bcdbec2467570038fca92245bae111f23a5176daa",
-    "procurement-clarifications-client.js": "491cb8ed59d6a7de5ca8785d151a39e8a798887779a570d46b9c9435712e9bff",
+    "procurement-clarifications-client.js": "d82e4e7de568f90767d1abfefc50df242d483191a9f881cdf831a859a3885c2b",
     "procurement-clarifications-test.js": "6ec233bc0b596415f6add5a2c11de184de893af04dbe028fbe898358519cc5a3",
     "procurement-clarifications.js": "b749def69c72416ad29e5dfd091769c68555a84f2e5801e9714d858e2a425813",
     "procurement-economics-outcomes-api-test.js": "8eaf118460e73a24a95e4e56e573a2e62dad0d8fd9e9629965eeef5879b6d29a",
@@ -404,7 +404,7 @@
     "procurement-reviews.js": "6526ea70ea7d313a9035b3063f3455a23ccf8e85582d50743a047cc9936856d8",
     "procurement-sourcing-test.js": "a736cfeac3a4eba2edc11f3215296986fb874bbbd00a86fd332f4c0156111c2a",
     "procurement-sourcing.js": "95a3ddaab7082ed9d6bb896d58afaf5e96e5c7151e34d17c6423ffd4bd9312ee",
-    "procurement-zero-client.js": "0003e0acaa100d72fdf5de52490143e1d488920d407e154deba97af35aba5584",
+    "procurement-zero-client.js": "3be20bd283493748dd1405b1bbcbc91fb1b39fc0b0d87e3aee9d1680f2c467e5",
     "procurement-zero.js": "4c599887521d55eecd47ab28fa8143d7defb467e9481f0f3a17e3597c1b05295",
     "production-audit.js": "5eb2897e9b682dfbc71ef209fecd60c9ac395e2b9290d33737bdc1ebfd2111e6",
     "production-security-test.js": "124b25c9c3207ebdc73dd9e9a59c85c20ef8a005c25a0d8a6b6c6b90d4d46fdc",
@@ -424,7 +424,7 @@
     "sales-outcomes.js": "6087ac21c9b6b06a02491f0be078502c9e7ed8cdb2582c353f0b5fc96552185a",
     "sales-pipeline-api-test.js": "6f58160fc70f4bc5c01c53b4fad66834ff76ab210ce53e4c8477b7d791466db7",
     "sales-pipeline-client-test.js": "6557c4a7ffc9cab0550f91f64d6e82e74246c92c4567e86bff3f21444215baa8",
-    "sales-pipeline-client.js": "055e67fa5100ede586a557cd3592c0e8375069fb89c184778a3b768d5e554182",
+    "sales-pipeline-client.js": "c003b090420cc3f40b466191f0f8ac11bfbd7b4681b24bf31f0a9b4c741e9eaf",
     "sales-pipeline-test.js": "cc097eac8cdedb814bb8fa5749f330ec5223c65b8ca891c14f0f8599cf06b311",
     "sales-pipeline.js": "ea1a050eb53f89ae73927026e74ed0fb4e8b54f8f318835a36a4501b23ade005",
     "sales-quotas-api-test.js": "76923f1f369b91f37e362e98f23dccbe336db939ece38e6d12d532401176417a",
@@ -499,7 +499,7 @@
     "workflow-drafts-test.js": "2da63bc2c8b34640b07e23f05618d2f3ab27417f22748c4b0e2b072d00888d57",
     "workflow-drafts.js": "b926666b7a512610006ed66415d7414aba47eca930c68c1034798a1febefbbf1",
     "workflow-editor-test.js": "118ac01d17404aa30354b86144bdb234bf8ea85e72ccedbc10a8582e1362ce8a",
-    "workflow-editor.js": "09b868d5c298db52113db8a98b75f5f34ef791bfef12180ccdf91e7f7fd0cec7",
+    "workflow-editor.js": "7dfd16f25de3af0158064bb36f649eea83f4498012108d8681d71d8ab4ea2e14",
     "workflow-execution-test.js": "2c1ac923751dd212844f0bdf4e28019d4ef86d8b1c36c6e9a1487a3812b2a227",
     "workflow-execution.js": "db809cdf1562c6e67ea385b98f8cd09bd4f24a88a037a7a4be420017d6d01701",
     "workflow-generator-test.js": "fc8f75039301992b085385a0a62fd642e323a5e1ae501cc7df4c59d8cc67fb36",
@@ -541,11 +541,12 @@
     "zero-confirmation.js": "cd1292837b0817bdc10d4a53677b7ba5ec533558d9d5d2abac1931231516eecf",
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "347ec3fc7d570d2c26ca0372339e29c764ebf0568aca4029c008aa005b24ded3",
+    "zero-evaluation/apply-reviewed-localization.js": "2fb17c6803d43b7f73292e6b68cec519d2cac11a4265e274e5d30d8658dd126d",
     "zero-evaluation/context-provider-fixture.js": "326be4413fb4ff1018f8551d5e7d3b035cba9495cd2e77b3d4bdb2af787aa393",
     "zero-evaluation/corpus.v1.json": "48c2df5c448802cc61c65b81b90b4a90f0e21a88124da08f5305c34a2c3da7b2",
     "zero-evaluation/discovery-provider-fixture.js": "6cfaa701b3cf285250392d1ad75e9d15a64ef59ff26ef53400e95b02def2377f",
     "zero-evaluation/fixture.js": "5326b57aaf0eb8503a4574d5300605231730aa933c6a6085a3bdfadb069b1e6b",
-    "zero-evaluation/localization-dynamic-inventory.js": "c90b06a2ecbd24123c6a8576622267db81fdc835d53f892c0a9e06c0236b92c5",
+    "zero-evaluation/localization-dynamic-inventory.js": "a36803ae9dc19054a2c3e557e31f305fb7d4c42ca346cebc04fc4cb32fe20d88",
     "zero-evaluation/provider-network-fixture.js": "a8aa96e76e5cbf9cd6b0f6ca3ed52afc618e09e0316c8c6ea0f52b9768d03945",
     "zero-evaluation/run.js": "bb58c753c65c77bde6debfd42f98b1592f19be0a1c3c842eeb59c36bbb8a94c5",
     "zero-evaluation/voice-provider-fixture.js": "99e61d04d7bf026997c8774195f02839855e142a173f3c62379329f86de2fff6",
@@ -572,7 +573,8 @@
     "zero/knowledge.js": "0fd97785f6eb0c312926638578ed2bf36efc317bda1c115db7c4cc07ba12f9eb",
     "zero/knowledge.test.js": "1276863d5031db30514a8ba50863a31e04082a64d1481862cab62f804237f35c",
     "zero/localization-api.test.js": "cfb1aeed8710c60f6476350079c8e8271baa3203d0fd7e63b844f2bfa11e4ef1",
-    "zero/localization.test.js": "2f1f6353d8edf5fc517df779b293af40bc23233e8bc7d4bb4fd4986f78a4913e",
+    "zero/localization-authoring.test.js": "bfa862c46f853c2729fe84dea6e2ffe323471b34eb53d5819c446a25a6783352",
+    "zero/localization.test.js": "30d13679be8919c503595f88914fca8701969d7d7e347ad7d1156dfcd616146d",
     "zero/memory.js": "5d7800a9b9002e038c4471ef749b02f0f75042d05c8a3852a3a7b32e36652f84",
     "zero/memory.test.js": "43079f76ad6a7363c68ceeec87a86efbce11ead92ea067f20bec153673b6f5de",
     "zero/native-agents.js": "07fd7b90e2cd71338c72b5fe6aa4f6f0b553b5bc45cb3f2b4a557ec9941bac0d",

@@ -18,7 +18,7 @@
     const select=(container,label,options)=>{const wrapper=make('label',label),input=make('select');for(const [value,text]of options){const option=make('option',text);option.value=value;input.append(option);}wrapper.append(input);container.append(wrapper);return input;};
     const button=(container,label,handler)=>{const b=make('button',label);b.type='button';b.addEventListener('click',handler);container.append(b);return b;};
     const name=field(form,'Workflownaam'),version=field(form,'Versie','number','1');name.required=true;name.maxLength=200;version.required=true;version.min='1';
-    const trigger=select(form,'Trigger',spec.triggers.map(t=>[t,t.replaceAll('_',' ')]));trigger.value='custom_event';
+    const trigger=select(form,(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.a5ea0da3"):'Trigger'),spec.triggers.map(t=>[t,t.replaceAll('_',' ')]));trigger.value='custom_event';
     const automatic=field(form,'Automatisch uitvoeren voor nieuwe passende events of op het geplande tijdstip','checkbox');
     const at=field(form,'Gepland tijdstip met UTC-offset (bijv. 2026-09-30T09:00:00+02:00)'),eventName=field(form,'Expliciete eventnaam (verplicht bij een automatische eigen trigger)');
     const syncTrigger=()=>{at.parentElement.hidden=trigger.value!=='schedule';at.required=trigger.value==='schedule';eventName.parentElement.hidden=trigger.value==='schedule';};trigger.addEventListener('change',syncTrigger);syncTrigger();
@@ -29,7 +29,7 @@
     function renumber(){steps.forEach((step,index)=>{step.legend.textContent=`Stap ${index+1}`;step.up.disabled=index===0;step.down.disabled=index===steps.length-1;list.append(step.box);});add.disabled=steps.length>=spec.max_steps;}
     function addStep(saved){
       const step={},box=make('fieldset'),legend=make('legend'),settings=make('div');step.box=box;step.legend=legend;box.append(legend);
-      const type=select(box,'Actie',[...spec.actions.map(a=>[a.type,a.label]),...(spec.branching&&level<3?[['branch','Vertakking — als waar / anders']]:[])]);box.append(settings);if(saved)type.value=saved.type;let values={},attempts,delay;
+      const type=select(box,(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.93439839"):'Actie'),[...spec.actions.map(a=>[a.type,a.label]),...(spec.branching&&level<3?[['branch','Vertakking — als waar / anders']]:[])]);box.append(settings);if(saved)type.value=saved.type;let values={},attempts,delay;
       const renderFields=()=>{settings.replaceChildren();values={};const definition=spec.actions.find(a=>a.type===type.value);if(type.value==='branch'){attempts=delay=null;return;}for(const item of definition.fields){const input=field(settings,item.label,item.multiline?'textarea':item.type||'text',item.type==='number'?'1':'');input.required=Boolean(item.required);if(item.type==='number'){input.min=String(item.min);input.max=String(item.max);}else input.maxLength=item.max;values[item.key]=input;}attempts=field(settings,'Maximum aantal pogingen','number','1');attempts.min='1';attempts.max='5';attempts.disabled=!definition.retryable;delay=field(settings,'Eerste retrywachttijd in seconden','number','10');delay.min='1';delay.max='3600';delay.disabled=!definition.retryable;};type.addEventListener('change',renderFields);renderFields();
       const conditional=field(box,'Alleen uitvoeren wanneer de conditie waar is','checkbox'),conditions=make('div');box.append(conditions);
       function conditionNode(container,savedNode={},depth=0){

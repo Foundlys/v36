@@ -15,6 +15,8 @@ SURFACES = ['index.html', 'foundly-workspace.html', 'crm.html', 'analysis.html',
 VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link',
         'meta', 'param', 'source', 'track', 'wbr'}
 LOCALES = ['nl-NL', 'en-GB', 'de-DE', 'fr-FR', 'es-ES', 'da-DK', 'nb-NO', 'sv-SE']
+INVARIANTS = {'FOUNDLY', 'FOUNDLY OS', 'ZERO', 'Foundly', 'Foundly CRM', 'CRM',
+              'F', 'A', 'House of Cars', 'BPM', 'SSE'}
 LOOKUP = json.loads(subprocess.check_output(
     ['node', '-e', "console.log(JSON.stringify(require('./foundly-locales').staticLookup))"], cwd=ROOT))
 
@@ -28,9 +30,13 @@ class Inventory(HTMLParser):
         attrs = dict(attrs)
         for name in ['aria-label', 'title', 'placeholder', 'alt']:
             if attrs.get(name):
+                invariant = attrs[name] in INVARIANTS or (
+                    name == 'placeholder' and attrs[name] in {'NL', 'pipeline_value'})
                 self.copy.append({'line': self.getpos()[0], 'tag': tag,
                                   'id': attrs.get('id'), 'attribute': name,
-                                  'text': attrs[name], 'key': attrs.get('data-i18n-' + name)})
+                                  'text': attrs[name], 'key': attrs.get('data-i18n-' + name),
+                                  'invariant': invariant,
+                                  'invariant_reason': 'Brand, acronym or canonical identifier example' if invariant else None})
         if tag == 'script' and attrs.get('src', '').startswith('/'):
             self.scripts.append(attrs['src'][1:])
         if tag not in VOID:
@@ -52,10 +58,11 @@ class Inventory(HTMLParser):
         key = next((a.get('data-i18n') for _, a in reversed(self.stack) if a.get('data-i18n')), None)
         if not key and LOOKUP.get(text) in json.loads(attrs.get('data-i18n-text', '{}')).values():
             key = LOOKUP[text]
-        invariant = text in {'FOUNDLY', 'FOUNDLY OS', 'ZERO'} or (
-            tag == 'option' and attrs.get('value') in LOCALES)
+        invariant = text in INVARIANTS or (
+            tag == 'option' and attrs.get('value') in LOCALES) or text == '⌘ K'
         self.copy.append({'line': self.getpos()[0], 'tag': tag, 'id': attrs.get('id'),
-                          'text': text, 'key': key, 'invariant': invariant})
+                          'text': text, 'key': key, 'invariant': invariant,
+                          'invariant_reason': 'Brand, acronym, native language name or keyboard shortcut' if invariant else None})
 
 
 def inventory():

@@ -98,5 +98,28 @@
     "frozen_main_inline_css_equal_to_main_baseline": true,
     "browser": "ENVIRONMENT_UNVERIFIED: repeated supported-browser localhost check still ERR_BLOCKED_BY_CLIENT",
     "native_speaker_and_voice_quality": "UNVERIFIED"
+  },
+  "localization_surfaces_checkpoint": {
+    "recorded_at": "2026-09-24T13:00:01.986192+00:00",
+    "full_npm_test_exit_code": 0,
+    "unit_http_tests": 73,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "log_sha256": "4a4055416d5891a1c3752ff54b95325b4f731cb890e4af001c7fcc345387a9bf",
+    "log_bytes": 89287,
+    "source_manifest": "evaluation-current.json",
+    "static_structure_check": "localization-structure-check.json",
+    "static_catalog_bindings": 698,
+    "remaining_dynamic_candidates": 1020,
+    "remaining_static_business_default": 1,
+    "ci_149": {
+      "head": "6cdefb660b7ba48138741a3390f83f67a0b64d96",
+      "tree": "17debd712763f0374a9a149a264673be87b97893",
+      "status": "SUCCESS",
+      "scope": "preceding localization foundation"
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED"
   }
 }

@@ -1,7 +1,7 @@
 'use strict';
 (function(root){
  function create({document,request,build,isActive=()=>true,initialMode='native'}){
-  const host=document.createElement('section'),label=document.createElement('label'),select=document.createElement('select');label.textContent='Bediening';
+  const host=document.createElement('section'),label=document.createElement('label'),select=document.createElement('select');label.textContent=(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.ef06fd08"):'Bediening');
   for(const [value,title]of [['native','Native Procurement'],['zero','ZERO']]){const option=document.createElement('option');option.value=value;option.textContent=title;select.append(option);}select.value=initialMode==='zero'?'zero':'native';label.append(select);host.append(label);
   let mode=select.value,view;const conversation=root.crypto.randomUUID(),active=()=>host.isConnected&&isActive();
   const wrapped=async(path,options={})=>{

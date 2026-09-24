@@ -513,7 +513,7 @@
       summary.append(
         detailFact('Lifecycle', connector.connection_state), detailFact('Configuration', connector.configuration_state),
         detailFact('Authentication', connector.authentication_state), detailFact('Probe', connector.probe_state),
-        detailFact('Sync', connector.sync_state), detailFact('Records', connector.records),
+        detailFact('Sync', connector.sync_state), detailFact((globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.593ef94d"):'Records'), connector.records),
         detailFact('Last probe', connector.last_probe ? new Date(connector.last_probe).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'),
         detailFact('Latency', Number.isFinite(connector.latency) ? `${connector.latency} ms` : '—'), detailFact('Freshness', connector.freshness)
       );
@@ -571,7 +571,7 @@
         detailFact('Callback', connector.callback_contract?.required ? connector.callback_contract.route : 'NOT APPLICABLE'),
         node('p', 'panel-copy', `Required scopes: ${(connector.required_scopes || []).join(', ') || 'Geen expliciete scopes in het huidige contract.'}`)
       ]);
-      const data = panel('DATA', [detailFact('Records', connector.records), detailFact('Freshness', connector.freshness), detailFact('Tenant scope', connector.tenant_scope), node('p', 'panel-copy', 'Records worden alleen geteld vanuit de bestaande tenant-scoped persistence- en provenanceketen.')]);
+      const data = panel('DATA', [detailFact((globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.593ef94d"):'Records'), connector.records), detailFact('Freshness', connector.freshness), detailFact('Tenant scope', connector.tenant_scope), node('p', 'panel-copy', 'Records worden alleen geteld vanuit de bestaande tenant-scoped persistence- en provenanceketen.')]);
       const syncPanel = panel('SYNC', [detailFact('Sync state', connector.sync_state), detailFact('Last sync', connector.last_sync ? new Date(connector.last_sync).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'), node('p', 'panel-copy', connector.connection_state === 'CONNECTED' ? 'Een handmatige sync is beschikbaar via SETUP.' : 'Sync blijft uitgeschakeld totdat de connector werkelijk CONNECTED is.')]);
       const eventsPanel = panel('EVENTS', [node('div', 'EmptyState NoDataState', 'Geen afzonderlijke connector-events zijn in dit registryantwoord opgenomen. Providerpogingen blijven in de bestaande audit- en attempt stores.')]);
       const errors = panel('ERRORS', [connector.safe_error ? node('p', 'connector-safe-error', connector.safe_error) : node('div', 'EmptyState NoDataState', 'Geen veilige providerfout geregistreerd.')]);
@@ -668,7 +668,7 @@
     try {
       const [catalog,current]=await Promise.all([request('/api/composition/catalog'),request('/api/composition')]);
       if(state.activeSection!=='CAPABILITIES')return;
-      const form=node('form','domain-record-form'),industryLabel=node('label','','Branche'),industry=node('select'),bundleLabel=node('label','','Pakket'),bundle=node('select'),groups=node('div','composition-modules');
+      const form=node('form','domain-record-form'),industryLabel=node('label','',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.fd7fc200"):'Branche')),industry=node('select'),bundleLabel=node('label','','Pakket'),bundle=node('select'),groups=node('div','composition-modules');
       for(const pack of Object.values(catalog.industries))if(pack.production){const option=node('option','',pack.industry_id==='GENERAL'?'Algemeen':pack.industry_id);option.value=pack.industry_id;industry.append(option);}
       industry.value=current.resolution.industry_id;industryLabel.append(industry);
       const custom=node('option','','Eigen samenstelling');custom.value='';bundle.append(custom);
@@ -740,7 +740,7 @@
       if(!workflowSections.includes(section)){
         const defaults=section==='APPROVALS'?{status:'AWAITING_APPROVAL'}:section==='FAILURES'?{status:'ERROR,BLOCKED,DEAD_LETTER,RECOVERY_READY,RUNNING'}:section==='RETRIES'?{retried:'true'}:{},filters={...defaults,...query,limit:'50'};
         page=await request('/api/automation/runs?'+new URLSearchParams(filters));if(token!==state.automationQueryToken)return;data.runs=page.items;const composition=await request('/api/composition');if(token!==state.automationQueryToken)return;data.can_manage=page.can_manage&&composition.resolution.capabilities.includes('automation:workflows');data.retryable_actions=page.retryable_actions;data.can_approve=data.can_manage&&composition.resolution.capabilities.includes('automation:approvals');
-        const form=node('form','domain-record-form'),search=node('input'),label=node('label','','Zoek op run, workflow, event, stap of foutmelding'),status=node('select'),statusLabel=node('label','','Uitvoerstatus'),find=node('button','secondary-button','Zoeken');search.value=query.q||'';search.maxLength=200;label.append(search);
+        const form=node('form','domain-record-form'),search=node('input'),label=node('label','','Zoek op run, workflow, event, stap of foutmelding'),status=node('select'),statusLabel=node('label','','Uitvoerstatus'),find=node('button','secondary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.23d150c5"):'Zoeken'));search.value=query.q||'';search.maxLength=200;label.append(search);
         for(const value of ['', 'RUNNING','PLANNED','SUCCEEDED','ERROR','BLOCKED','AWAITING_APPROVAL','WAITING_TIME','WAITING_RETRY','DEAD_LETTER','RECOVERY_READY']){const option=node('option','',value||'Alle statussen');option.value=value;status.append(option);}status.value=query.status||'';statusLabel.append(status);find.type='submit';form.append(label,statusLabel,find);form.addEventListener('submit',event=>{event.preventDefault();renderAutomationSection(section,content,{q:search.value.trim(),...(status.value?{status:status.value}:{}),offset:'0'});});result.push(form,node('p','',`${page.total} toegankelijke uitvoeringen · vanaf ${page.offset+1}`));
         const navigation=node('div');for(const [title,offset]of [['Vorige',page.offset>=50?page.offset-50:null],['Volgende',page.next_offset]]){const button=node('button','secondary-button',title);button.type='button';button.disabled=offset===null;button.addEventListener('click',()=>renderAutomationSection(section,content,{...query,offset:String(offset)}));navigation.append(button);}result.push(navigation);
       }
@@ -749,7 +749,7 @@
         chooser.append(node('option','','Nieuw concept'));chooser.firstChild.value='';for(const draft of drafts.items){const option=node('option','',`${draft.draft.name||'Naamloos concept'} · revisie ${draft.revision}`);option.value=draft.id;chooser.append(option);}label.append(chooser);open.type='button';
         const show=draft=>{const editor=window.FoundlyWorkflowEditor.create({document,spec:data.editor_contract,request,draft,zeroRequest:async(action,turnId)=>{if(!editor.isConnected||!content.isConnected||state.workspaceId!=='automation'||state.activeSection!==section)throw Error('De workflowweergave is niet meer actief.');const response=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:action.operation==='SAVE'?'Bewaar het expliciet bevestigde workflowconcept':'Bereid het gekozen workflowconcept voor',conversation_id:state.conversationId,turn_id:turnId,preferred_module:'automation',client_context:{automation_action:action}})});if(!editor.isConnected||!content.isConnected||state.workspaceId!=='automation'||state.activeSection!==section)throw Error('De workflowweergave is niet meer actief.');state.conversationId=response.conversation_id||state.conversationId;return response.automation_data;},onSaved:()=>renderAutomationSection(section,content)});editorBox.replaceChildren(editor);};show();
         open.addEventListener('click',()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}try{show(drafts.items.find(row=>row.id===chooser.value)||null);message.textContent='';}catch(error){message.textContent=error.message;}});
-        const template=node('button','secondary-button','Branchesjabloon kiezen');template.type='button';
+        const template=node('button','secondary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.6fd8b6ae"):'Branchesjabloon kiezen'));template.type='button';
         template.addEventListener('click',async()=>{if(editorBox.querySelector('form')?.dataset.unsaved==='true'){message.textContent='Bewaar eerst je huidige invoer, of bewaar deze als nieuw concept.';return;}template.disabled=true;try{await chooseIndustryPreset('automation','workflow',selected=>{show({draft:selected.draft});message.textContent='Sjabloon geopend als nieuw concept. Bewaar het concept of controleer de workflowversie voordat je deze opslaat.';});}catch(error){message.textContent=friendlyError(error);}finally{template.disabled=false;}});
         const language=window.FoundlyWorkflowGenerator.create({document,spec:data.editor_contract,zeroRequest:async(action,turnId)=>{
           const active=()=>language.isConnected&&content.isConnected&&state.workspaceId==='automation'&&state.activeSection===section;if(!active())throw Error('De workflowweergave is niet meer actief.');
@@ -803,7 +803,7 @@
     try{
       for(const field of contract.runFields(workflow)){
         if(field.fixed){form.append(node('p','',field.path+' volgt de uitvoerreferentie en de huidige workflowcontext.'));continue;}
-        const holder=node('fieldset'),legend=node('legend','',field.path),typeLabel=node('label','','Invoertype'),type=node('select'),valueLabel=node('label','','Waarde'),value=node('input');value.maxLength=12000;
+        const holder=node('fieldset'),legend=node('legend','',field.path),typeLabel=node('label','','Invoertype'),type=node('select'),valueLabel=node('label','',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.cfbf51fd"):'Waarde')),value=node('input');value.maxLength=12000;
         for(const [id,label]of [['absent','Niet meegeven'],['text','Tekst'],['number','Getal'],['boolean','Boolean (true / false)'],['null','Leeg (null)']]){const option=node('option','',label);option.value=id;type.append(option);}type.value='absent';typeLabel.append(type);valueLabel.append(value);holder.append(legend,typeLabel,valueLabel);form.append(holder);
         const sync=()=>{valueLabel.hidden=['absent','null'].includes(type.value);value.disabled=valueLabel.hidden;value.required=['number','boolean'].includes(type.value);};type.addEventListener('change',sync);sync();fields[field.path]={type,value};
       }
@@ -911,7 +911,7 @@
         for(const line of comparison.requested_lines||[]){const group=node('fieldset');group.append(node('legend','',`${line.item_id} · ${line.description} · gevraagd: ${line.quantity}`));
           for(const bid of comparison.items.filter(row=>row.reasons.every(reason=>reason==='INCOMPLETE_SCOPE'))){const offered=bid.lines.find(item=>item.item_id===line.item_id);if(!offered)continue;const label=node('label','',`${bid.title} · ${(offered.unit_price_cents/100).toFixed(2)} ${comparison.currency} per stuk`),input=node('input');input.type='number';input.min='0';input.max=String(offered.quantity);input.step='1';input.value='0';input.name=`allocation_${line.item_id}_${bid.id}`;label.append(input);group.append(label);choices.push({input,bid_id:bid.id,item_id:line.item_id});}allocationForm.append(group);
         }
-        const allocationTransport=node('select'),transportLabel=node('label','','Bediening');for(const [value,title]of [['native','Native Procurement'],['zero','ZERO']]){const option=node('option','',title);option.value=value;allocationTransport.append(option);}allocationTransport.value='native';transportLabel.append(allocationTransport);allocationForm.append(transportLabel);
+        const allocationTransport=node('select'),transportLabel=node('label','',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.ef06fd08"):'Bediening'));for(const [value,title]of [['native','Native Procurement'],['zero','ZERO']]){const option=node('option','',title);option.value=value;allocationTransport.append(option);}allocationTransport.value='native';transportLabel.append(allocationTransport);allocationForm.append(transportLabel);
         const prepare=node('button','secondary-button','Verdeling controleren');prepare.type='submit';allocationForm.append(prepare);allocationForm.addEventListener('input',()=>replaceChildren(allocationResult,[]));
         allocationForm.addEventListener('submit',event=>{event.preventDefault();const allocations=choices.filter(row=>Number(row.input.value)>0).map(({input,bid_id,item_id})=>({bid_id,item_id,quantity:Number(input.value)}));prepareProcurementAward(comparison,null,allocationResult,allocations,allocationMode.value,allocationTransport.value);});panel.append(allocationForm,allocationResult);
       }
@@ -1185,11 +1185,11 @@
       }
     };
     const appendSharing=()=>{
-      const selected=new Map(model.collaborators.map(member=>[member.id,member.display_name])),chosen=node('div'),search=node('input'),label=node('label','','Medebewerker zoeken'),searchButton=node('button','secondary-button','Zoeken'),results=node('div');
+      const selected=new Map(model.collaborators.map(member=>[member.id,member.display_name])),chosen=node('div'),search=node('input'),label=node('label','','Medebewerker zoeken'),searchButton=node('button','secondary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.23d150c5"):'Zoeken')),results=node('div');
       search.type='search';search.maxLength=100;searchButton.type='button';label.append(search);
       const redraw=()=>{
         replaceChildren(chosen,[]);
-        for(const [id,name] of selected){const row=node('p','',name+' '),remove=node('button','secondary-button','Verwijderen');remove.type='button';remove.setAttribute('aria-label',`${name} verwijderen`);remove.addEventListener('click',()=>{selected.delete(id);redraw();});row.append(remove);chosen.append(row);}
+        for(const [id,name] of selected){const row=node('p','',name+' '),remove=node('button','secondary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.f69c8424"):'Verwijderen'));remove.type='button';remove.setAttribute('aria-label',`${name} verwijderen`);remove.addEventListener('click',()=>{selected.delete(id);redraw();});row.append(remove);chosen.append(row);}
         if(!selected.size)chosen.append(node('p','','Alleen de eigenaar en bevoegde beheerders hebben toegang.'));
       };
       let shareSignature=null,shareKey=null;
@@ -1287,7 +1287,7 @@
   }
 
   async function renderCommunicationInbox(content){
-    const token=state.inboxQueryToken=(state.inboxQueryToken||0)+1,form=node('form'),search=node('input'),folder=node('select'),read=node('select'),direction=node('select'),submit=node('button','primary-button','Zoeken'),notice=node('p'),results=node('div'),mailbox=node('section');let requestVersion=0,currentOffset=0;
+    const token=state.inboxQueryToken=(state.inboxQueryToken||0)+1,form=node('form'),search=node('input'),folder=node('select'),read=node('select'),direction=node('select'),submit=node('button','primary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.23d150c5"):'Zoeken')),notice=node('p'),results=node('div'),mailbox=node('section');let requestVersion=0,currentOffset=0;
     const alive=()=>content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='messages'&&state.inboxQueryToken===token;
     search.type='search';search.maxLength=100;submit.type='submit';notice.setAttribute('role','status');
     for(const [input,choices] of [[folder,[['inbox','Inbox'],['archived','Mijn archief'],['all','Alle bewaarde berichten']]],[read,[['all','Elke leesstatus'],['unknown','Leesstatus onbekend'],['unread','Door mij als ongelezen gemarkeerd'],['read','Door mij als gelezen gemarkeerd']]],[direction,[['all','Elke richting'],['INBOUND','Inkomend'],['OUTBOUND','Uitgaand']]]])for(const [value,text] of choices){const option=node('option','',text);option.value=value;input.append(option);}
@@ -1377,7 +1377,7 @@
         }form.append(group);
       }
       let editing=null;
-      const save=node('button','primary-button','Opslaan');save.type='submit';form.append(save,notice);
+      const save=node('button','primary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.414388eb"):'Opslaan'));save.type='submit';form.append(save,notice);
       notice.setAttribute('role','status');
       form.addEventListener('submit',async event=>{
         event.preventDefault();save.disabled=true;
@@ -1403,7 +1403,7 @@
       for(const record of rows){
         const tr=node('tr');tr.append(node('td','',record.title||record.name||record.id),node('td','',record.status||record.delivery_state||'—'),node('td','',record.updated_at?new Date(record.updated_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')):'—'));
         if(state.workspaceId==='calendar'){const time=node('td','',[record.start_at||record.due_at||record.delivered_at,record.end_at,record.timezone].filter(Boolean).join(' · '));tr.insertBefore(time,tr.lastChild);}
-        const cell=node('td'),edit=node('button','secondary-button','Bewerken');edit.type='button';
+        const cell=node('td'),edit=node('button','secondary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.970b0aa8"):'Bewerken'));edit.type='button';
         edit.addEventListener('click',()=>{if(recurrenceFields){let rule;try{rule=window.FoundlyCalendarRecurrence.normalize(record.recurrence);}catch(error){notice.textContent=friendlyError(error);return;}recurrenceFields.frequency.value=rule?.frequency||'';recurrenceFields.count.value=String(rule?.count||1);recurrenceFields.interval.value=String(rule?.interval||1);recurrenceFields.refresh();}editing=record;const packConflict=Boolean(record.industry_field_pack_id&&record.industry_field_pack_id!==contract.industry_id);for(const [name,{input}] of industryInputs){input.value=packConflict?'':String(record.industry_fields?.[name]??'');input.disabled=packConflict;}notice.textContent=packConflict?'Bewaarde branchevelden blijven behouden. Herstel het oorspronkelijke pakket om ze te bewerken.':'';for(const [name,input] of fields)input.value=record[name]===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(record[name]/100):name==='lines'?record[name].map(line=>entity==='rfqs'?`${line.item_id} | ${line.description} | ${line.quantity}`:`${line.item_id} | ${line.quantity} | ${(line.unit_price_cents/100).toFixed(2)} | ${line.delivery_days??''}`).join('\n'):Array.isArray(record[name])?record[name].join(','):String(record[name]);save.textContent='Wijziging opslaan';fields.values().next().value?.focus();});
         if(state.workspaceId==='communication'&&entity==='templates'){appendTemplateDraft(record,cell,content);appendZeroCommunication(record,cell,content,'template');}
         if(state.workspaceId==='communication'&&entity==='messages')appendMessageDraftActions(record,cell,content);
@@ -1503,7 +1503,7 @@
     const data=await request('/api/composition/industry-presets?'+new URLSearchParams({module:moduleId}));
     const choices=data.items.filter(item=>item.kind===kind&&item.can_prepare);
     if(!choices.length)return toast(data.unavailable.length?'Branchesjablonen zijn momenteel niet beschikbaar.':'Geen passend branchesjabloon voor je huidige toegang.');
-    const dialog=node('dialog'),form=node('form'),label=node('label','','Branchesjabloon'),select=node('select'),use=node('button','primary-button','Overnemen'),cancel=node('button','secondary-button','Annuleren');
+    const dialog=node('dialog'),form=node('form'),label=node('label','','Branchesjabloon'),select=node('select'),use=node('button','primary-button','Overnemen'),cancel=node('button','secondary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.35de0a19"):'Annuleren'));
     for(const item of choices){const option=node('option','',`${item.name} · versie ${item.version}`);option.value=item.id;select.append(option);}
     label.append(select);use.type='submit';cancel.type='button';form.append(label,node('p','','Je kunt het sjabloon aanpassen voordat je het opslaat. Er wordt niets uitgevoerd.'),use,cancel);dialog.append(form);document.body.append(dialog);
     const close=()=>{dialog.close();dialog.remove();};cancel.addEventListener('click',close);dialog.addEventListener('cancel',event=>{event.preventDefault();close();});

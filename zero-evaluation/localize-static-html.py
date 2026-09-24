@@ -56,7 +56,7 @@ class Binder(HTMLParser):
 
     def handle_data(self, data):
         index = self.child()
-        if not self.stack or any(r['tag'] in {'script', 'style'} or 'data-i18n' in r['attrs'] for r in self.stack):
+        if not self.stack or any(r['tag'] in {'script', 'style', 'textarea'} or 'data-i18n' in r['attrs'] for r in self.stack):
             return
         source = ' '.join(data.split())
         key = LOOKUP.get(source)
@@ -81,7 +81,7 @@ class Binder(HTMLParser):
                 continue
             suffix = '/>' if raw.endswith('/>') else '>'
             updated = raw[:-len(suffix)] + ''.join(' ' + k + '="' + html.escape(v, quote=True) + '"' for k, v in row['extra'].items()) + suffix
-            source = source[:row['start']] + updated + source[row['start'] + len(raw):]
+            source = source[:row['start']] + updated + source[row['start'] + len(row['raw']):]
         return source
 
 

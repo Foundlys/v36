@@ -773,10 +773,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-057",
@@ -788,10 +790,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-058",
@@ -803,10 +807,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-059",
@@ -818,10 +824,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-060",
@@ -833,10 +841,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-061",
@@ -848,10 +858,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-062",
@@ -863,10 +875,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-063",
@@ -878,10 +892,12 @@
         "zero/localization.test.js",
         "zero/localization-api.test.js",
         "docs/run2/localization-inventory.json",
-        "docs/run2/localization-dynamic-inventory.json"
+        "docs/run2/localization-dynamic-inventory.json",
+        "zero/localization-authoring.test.js",
+        "docs/run2/localization-structure-check.json"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Per-user UI locale, login/navigation, main static copy and 69 main dynamic call sites implemented. Complete dynamic/module/backend/generated copy remains materially incomplete; no browser/native-speaker acceptance."
+      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-064",
@@ -1565,7 +1581,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "CI 148 passed the previous voice/cross-module checkpoint; the new localization checkpoint requires its own remote CI."
+      "note": "CI 149 passed published localization-foundation head 6cdefb660b7ba48138741a3390f83f67a0b64d96. The subsequent seven-surface extension requires its own CI."
     },
     {
       "id": "R2-115",

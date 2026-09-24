@@ -1,0 +1,49 @@
+{
+  "base_commit": "f9644bc908922d3d4192ba23d9b7be27d38c4da7",
+  "scope": "HTML token structure and existing attributes/data unchanged; only catalog bindings and explicit equivalent option values added. Not browser, visual or dynamic coverage.",
+  "files": [
+    {
+      "file": "index.html",
+      "status": "PASS",
+      "sha256": "61902bbd183c130c9e9a22f940967b129320930d01332d07c116d84d8ca28512",
+      "explicit_option_values_preserved": 0
+    },
+    {
+      "file": "foundly-workspace.html",
+      "status": "PASS",
+      "sha256": "777a877c2317aa6f814bbb301f804c705aa275a371221baf6349079b14e0aa31",
+      "explicit_option_values_preserved": 0
+    },
+    {
+      "file": "crm.html",
+      "status": "PASS",
+      "sha256": "633e7712b4270b67da6959547bc7ff1a59f4264bc56db1a2ca933935f3684ac0",
+      "explicit_option_values_preserved": 35
+    },
+    {
+      "file": "analysis.html",
+      "status": "PASS",
+      "sha256": "81e59953be64e22a53118eac623f104b1378d9fdf6e65c65f5102159369c3569",
+      "explicit_option_values_preserved": 0
+    },
+    {
+      "file": "finance.html",
+      "status": "PASS",
+      "sha256": "3d9dc2116c2790d2cb2aae4c48d201280bc419b8eab44afabd47443bac2b11a9",
+      "explicit_option_values_preserved": 0
+    },
+    {
+      "file": "automotive.html",
+      "status": "PASS",
+      "sha256": "5c8188c78a4a27db2a77b3d2661f92375f8201672b219cc91859bd228f283f10",
+      "explicit_option_values_preserved": 0
+    },
+    {
+      "file": "identity-login.html",
+      "status": "PASS",
+      "sha256": "a40fff4c8fe837b0f48f4b966cba26d7a474352ebc31608a34a5fbb10e44b288",
+      "explicit_option_values_preserved": 0
+    }
+  ],
+  "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf"
+}

@@ -120,7 +120,7 @@ async function load() {
   const generation=++state.loadGeneration;
   const notice = $('#analysisNotice');
   notice.className = 'notice';
-  notice.textContent = 'Canonical analytics laden…';
+  notice.textContent = (globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.d6dbf78b"):'Canonical analytics laden…');
   try {
     const params = query();
     const loaded=await window.FoundlyAnalysisLoading.load(api,params,KPI_ORDER);if(generation!==state.loadGeneration)return;
