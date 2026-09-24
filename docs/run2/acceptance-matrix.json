@@ -1798,7 +1798,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 179–186 passed their exact published checkpoints, including full npm test. CI 186 covers custom-object head db0e687. The later shared workspace source checkpoint passes 387 ZERO tests, 14 corpus cases and native workspace regressions; its published CI is pending. Historical CI 166 remains failed and repaired."
+      "note": "CI 179–186 passed their exact checkpoints. CI 187 failed on a code-controlled Procurement fixture port collision (EADDRINUSE); the fixture now uses OS-assigned ports without removing assertions. Full local npm test passes with 398 ZERO tests and 14 corpus cases; latest published-head CI is pending. Historical failures remain recorded."
     },
     {
       "id": "R2-115",
@@ -1918,10 +1918,13 @@
         "zero/crm-objects-integrity.test.js",
         "zero/crm-objects-integrity-api.test.js",
         "zero/workspace-source-integrity.test.js",
-        "zero/workspace-source-integrity-api.test.js"
+        "zero/workspace-source-integrity-api.test.js",
+        "zero/workspace-dashboard-recovery-api.test.js",
+        "zero/workspace-dashboard-authority-api.test.js",
+        "zero/workspace-dashboard-recovery-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Partial security regression covers current-permission writes/replay, atomic rollback, durable events and native source checks. Shared workspace stale reads, private data retention, cached export and detached controls are repaired; native member HTTP and encrypted restart verify revoked export access. All enumerated Run-2 adversarial scenarios remain unaccepted."
+      "note": "Partial security regression covers current-permission writes/replay, atomic rollback, durable events and source checks. Native workspace receipts and body-wait capability revocation are now tested with real member HTTP and encrypted restart. The fixture-port CI failure is repaired, not waived. All enumerated Run-2 adversarial scenarios remain unaccepted."
     },
     {
       "id": "R2-124",
@@ -1948,7 +1951,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-24T23:12:51.275954+00:00",
+  "updated_at": "2026-09-24T23:28:52.890846+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }

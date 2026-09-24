@@ -810,7 +810,16 @@ function sourceAppliesToModule(source,module){if(!module||['all','home','data','
 async function canonicalRegistries(c,statuses=null){const resolved=statuses||await universalStatuses(c),profiles=CONNECTOR_RUNTIME.profiles(),recordsBySource=tenantSourceCounts(c),connectorRows=buildConnectorRegistry({registry:Object.fromEntries(Object.entries(CONNECTOR_REGISTRY).filter(([,spec])=>connectorVisible(spec,COMPOSITION,c,platformPrincipal()))),profiles,statuses:resolved.list,recordsBySource,redact:value=>redactJarvisText(value,160),variablePresent:name=>Boolean(cleanEnv(name))}),collections=tenantRecordCollections(c),internalCounts={foundly_core:collections.length,canonical_events:PLATFORM_CORE.eventsForProjection(c,platformPrincipal()).length,foundly_knowledge:arr(records,key(c,'platform:knowledge')).length,foundly_automotive_history:collections.filter(row=>row.scope.startsWith('automotive:')).length,foundly_crm:collections.filter(row=>row.scope.startsWith('crm:')||row.scope==='crm').length,foundly_inventory:collections.filter(row=>row.scope==='voorraad').length},sourceRows=buildSourceRegistry({connectors:connectorRows,recordsBySource,internalCounts});return {connectors:connectorRows,sources:sourceRows,recordsBySource,statuses:resolved}}
 function workspaceCapabilities(c){if(COMPOSITION.profile(c)){const state=COMPOSITION.resolve(c,platformPrincipal());return [...state.visible_modules,'core','data','knowledge','learning','connectors','settings',...(state.industry_id==='AUTOMOTIVE'&&state.visible_modules.includes('procurement')?['automotive']:[])]}const configured=env('FOUNDLY_ENABLED_CAPABILITIES').split(',').map(value=>value.trim()).filter(Boolean),profiles=arr(records,key(c,'platform:tenant_profiles')),latest=profiles.at(-1);return [...new Set([...(latest?.capabilities||[]),...configured])];}
 function dashboardStorageKey(c,workspaceId,scope='PERSONAL',principal=platformPrincipal(),qualifier=''){const normalized=String(scope||'PERSONAL').toUpperCase(),identity=normalized==='TEAM'?qualifier||principal.team_ids?.[0]||'default-team':normalized==='ROLE'?qualifier||principal.roles?.[0]||'USER':principal.id;return key(c,`workspace-dashboard:${workspaceId}:${normalized}:${identity}`)}
-function workspaceDashboardState(c,workspaceId,scope,principal,qualifier){const row=(memory.get(dashboardStorageKey(c,workspaceId,scope,principal,qualifier))||[]).at(-1);return {saved:row&&!row.reset_to_preset?row:null,revision:Number(row?.revision||0)}}
+function workspaceDashboardState(c,workspaceId,scope,principal,qualifier){const row=(memory.get(dashboardStorageKey(c,workspaceId,scope,principal,qualifier))||[]).at(-1);return {saved:row&&!row.reset_to_preset?publicWorkspaceDashboard(row):null,revision:Number(row?.revision||0)}}
+function publicWorkspaceDashboard(row){const {_write_receipt,...publicRow}=row;return publicRow;}
+function workspaceDashboardRequest(req,actor,input,storageKey){
+  const id=req.headers['idempotency-key'];if(id===undefined)return {receipt:null,replay:null};
+  if(typeof id!=='string'||!/^[A-Za-z0-9_.:-]{8,180}$/.test(id))throw Object.assign(Error('Ongeldige dashboardverzoekidentiteit'),{statusCode:422,code:'dashboard_request_invalid'});
+  const hash=crypto.createHash('sha256').update(JSON.stringify({version:1,method:req.method,actor_id:actor.id,storage_key:storageKey,expected_revision:req.headers['if-match']??null,input})).digest('hex');
+  const previous=(memory.get(storageKey)||[]).find(row=>row._write_receipt?.id===id&&row._write_receipt.actor_id===actor.id);
+  if(previous&&previous._write_receipt.hash!==hash)throw Object.assign(Error('Dashboardverzoekidentiteit heeft andere inhoud'),{statusCode:409,code:'dashboard_request_conflict'});
+  return {receipt:{id,actor_id:actor.id,hash},replay:previous?publicWorkspaceDashboard(previous):null};
+}
 function dashboardPrecondition(req,revision){
   const header=req.headers['if-match'];
   if(header===undefined){if(revision===0)return;throw Object.assign(new Error('Laad het dashboard opnieuw voordat je deze wijziging opslaat.'),{statusCode:428,code:'dashboard_revision_required'})}
@@ -1636,17 +1645,20 @@ async function handleFoundlyOsApi(req,res,u){
     }
     if(req.method==='PUT'||req.method==='POST'){
       try{
-        const input=await body(req),normalized=normalizeDashboard(workspaceId,input,actor.id),scope=normalized.scope,scopeQualifier=dashboardQualifier(scope,u,input),admin=actor.roles.some(role=>['ADMIN','SUPER_ADMIN','FOUNDER'].includes(String(role).toUpperCase()));
+        const input=await body(req);
+        assertCompositionRoute(u.pathname,COMPOSITION,c,actor,req.method);assertCoreRoute(u.pathname,req.method,COMPOSITION,c,actor);
+        const normalized=normalizeDashboard(workspaceId,input,actor.id),scope=normalized.scope,scopeQualifier=dashboardQualifier(scope,u,input),admin=actor.roles.some(role=>['ADMIN','SUPER_ADMIN','FOUNDER'].includes(String(role).toUpperCase()));
         authorizeDashboard(actor,scope,scopeQualifier,'write');
         if(scope==='TEAM'&&!scopeQualifier)return json(res,422,{ok:false,code:'dashboard_team_required',error:'Team-id is verplicht voor een teamdashboard'});
         if(scope==='TEAM'&&!admin&&!actor.team_ids.includes(scopeQualifier))return json(res,403,{ok:false,code:'dashboard_team_forbidden',error:'Dashboard kan alleen met een eigen team worden gedeeld'});
+        const storageKey=dashboardStorageKey(c,workspaceId,scope,actor,scopeQualifier),write=workspaceDashboardRequest(req,actor,input,storageKey);
+        if(write.replay)return json(res,200,{ok:true,dashboard:write.replay,persisted:true,idempotent_replay:true,request_id:write.receipt.id,current_revision:workspaceDashboardState(c,workspaceId,scope,actor,scopeQualifier).revision});
         const {saved:current,revision}=workspaceDashboardState(c,workspaceId,scope,actor,scopeQualifier);
         dashboardPrecondition(req,revision);
         const now=new Date().toISOString(),saved={...normalized,id:current?.id||normalized.id,revision:revision+1,created_at:current?.created_at||now,updated_at:now,updated_by:actor.id,persisted:true};
-        const storageKey=dashboardStorageKey(c,workspaceId,scope,actor,scopeQualifier);
-        mutateWorkspaceDashboard(c,storageKey,()=>{const rows=arr(memory,storageKey);rows.push(saved);if(rows.length>50)rows.splice(0,rows.length-50);
+        mutateWorkspaceDashboard(c,storageKey,()=>{const rows=arr(memory,storageKey);rows.push({...saved,...(write.receipt?{_write_receipt:write.receipt}:{})});if(rows.length>50)rows.splice(0,rows.length-50);
           PLATFORM_CORE.audit(c,actor,current?'UPDATE':'CREATE','workspace_dashboard',saved.id,{workspace_id:workspaceId,scope,revision:saved.revision,widget_count:saved.widgets.length});});
-        return json(res,current?200:201,{ok:true,dashboard:saved,persisted:true});
+        return json(res,current?200:201,{ok:true,dashboard:saved,persisted:true,...(write.receipt?{request_id:write.receipt.id,current_revision:saved.revision}:{})});
       }catch(error){return json(res,error.statusCode||400,{ok:false,code:error.code||'dashboard_invalid',error:redactJarvisText(error.message,300)})}
     }
     if(req.method==='DELETE'){

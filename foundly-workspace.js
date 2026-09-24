@@ -20,7 +20,8 @@
     recordQuery: ''
   };
 
-  let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0;
+  let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0,dashboardWrite=null;
+  const dashboardControlState=new Map();
   const liveMessages=new WeakMap(),liveBindings=new Set();
   const i18n=()=>globalThis.FoundlyI18n;
   const copy=(key,params={})=>i18n()?.message(key.startsWith('common.')||key.startsWith('module.')||key.startsWith('analysis.')?key:'workspace.page.'+key,params)||key;
@@ -39,7 +40,7 @@
   const stateText=value=>knownStates.has(value)?copy('analysis.page.state.'+value.toLowerCase()):value===null||value===undefined||value===''?unknown():String(value);
   const sourceRows=()=>Array.isArray(state.snapshot?.sources)?state.snapshot.sources:[];
   function retireWorkspace(error){
-    accessGeneration++;workspaceLoad++;registryLoad++;zeroTurn++;dashboardSession.beginLoad(dashboardSelectionKey());
+    accessGeneration++;workspaceLoad++;registryLoad++;zeroTurn++;dashboardWrite=null;lockDashboard(false);dashboardSession.beginLoad(dashboardSelectionKey());
     document.title='Foundly OS';
     Object.assign(state,{workspace:null,dashboard:null,snapshot:null,sources:[],connectors:[],navigation:[],editing:false,draggedWidget:null,conversationId:null,communicationZeroToken:(state.communicationZeroToken||0)+1});
     for(const id of ['dashboardGrid','recordHead','recordRows','sourceMatrix','sourceRegistryGrid','connectorGrid','globalSearchResults','contextContent','metricDialogContent','connectorDetail','zeroActions','globalNav','workspaceTabs'])replaceChildren(byId(id));
@@ -169,7 +170,7 @@
     window.setTimeout(() => element.remove(), 5000);
   }
 
-function friendlyError(error) {
+  function friendlyError(error) {
     if(error?.status===401)return copy('session_required');
     if(error?.status===403)return copy('common.access_denied');
     if(error?.status===404)return copy('source_missing');
@@ -178,7 +179,7 @@ function friendlyError(error) {
     return copy('common.request_failed');
   }
 
-function formatMetric(metric) {
+  function formatMetric(metric) {
     if(!metric||metric.available!==true||metric.value===null||metric.value===undefined||metric.value==='')return unknown();
     const value=metric.value;
     if(metric.unit==='CURRENCY_CENTS')return live(()=>i18n().currencyCents(value,metric.currency));
@@ -273,7 +274,7 @@ function formatMetric(metric) {
     const cards = widgets.map((widget, index) => {
       const metric = state.snapshot?.metrics?.[widget.metric] || { available: false, source: 'NO_MEASURED_VALUE', freshness: 'UNKNOWN' };
       const card = node('article', `KPICard w-${widget.w || 4} h-${widget.h || 3}`);
-      card.draggable = state.editing;
+      card.draggable = state.editing&&!dashboardWrite;
       card.dataset.widgetId = widget.id;
       card.tabIndex = state.editing ? -1 : 0;
       card.setAttribute('role', 'button');
@@ -287,14 +288,14 @@ function formatMetric(metric) {
       const down = node('button', '', '↓'); down.type = 'button'; writeText(down,copy('move_back'),'title');
       const size = node('button', '', widget.w >= 8 ? '−' : '+'); size.type = 'button'; writeText(size,copy('resize'),'title');
       const remove = node('button', '', '×'); remove.type = 'button'; writeText(remove,copy('remove_widget'),'title');
-      up.addEventListener('click', () => {if(card.isConnected&&state.editing)moveWidget(index, -1);});
-      down.addEventListener('click', () => {if(card.isConnected&&state.editing)moveWidget(index, 1);});
-      size.addEventListener('click', () => {if(card.isConnected&&state.editing)resizeWidget(index);});
-      remove.addEventListener('click', () => {if(card.isConnected&&state.editing)removeWidget(index);});
+      up.addEventListener('click', () => {if(card.isConnected&&state.editing&&!dashboardWrite)moveWidget(index, -1);});
+      down.addEventListener('click', () => {if(card.isConnected&&state.editing&&!dashboardWrite)moveWidget(index, 1);});
+      size.addEventListener('click', () => {if(card.isConnected&&state.editing&&!dashboardWrite)resizeWidget(index);});
+      remove.addEventListener('click', () => {if(card.isConnected&&state.editing&&!dashboardWrite)removeWidget(index);});
       tools.append(up, down, size, remove); card.append(tools);
-      card.addEventListener('dragstart', () => { if(card.isConnected&&state.editing)state.draggedWidget = widget.id; });
+      card.addEventListener('dragstart', () => { if(card.isConnected&&state.editing&&!dashboardWrite)state.draggedWidget = widget.id; });
       card.addEventListener('dragover', event => { if (state.editing) event.preventDefault(); });
-      card.addEventListener('drop', event => { event.preventDefault(); if(card.isConnected&&state.editing)reorderWidget(state.draggedWidget, widget.id); });
+      card.addEventListener('drop', event => { event.preventDefault(); if(card.isConnected&&state.editing&&!dashboardWrite)reorderWidget(state.draggedWidget, widget.id); });
       card.addEventListener('click', event => { if (card.isConnected&&!event.target.closest('.widget-tools')) openMetricDrilldown(widget, metric); });
       card.addEventListener('keydown', event => { if ((event.key === 'Enter' || event.key === ' ') && !state.editing&&card.isConnected) { event.preventDefault(); openMetricDrilldown(widget, metric); } });
       return card;
@@ -1470,7 +1471,8 @@ function formatMetric(metric) {
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}
   }
 
-function updateNotice() {
+  function updateNotice() {
+    if(dashboardWrite){writeText(byId('workspaceNotice'),copy('write_unconfirmed'));return;}
     if(!state.snapshot)return;
     const activeFilters=[byId('dateFrom').value,byId('dateTo').value,byId('sourceFilter').value,byId('statusFilter').value].filter(Boolean).length;
     const observed=state.snapshot.observed_at,compare=byId('comparePeriod').checked;
@@ -1480,7 +1482,7 @@ function updateNotice() {
     writeText(byId('sidebarStatus'),copy('runtime_observed'));byId('sidebarStatusLight').className='ok';
   }
 
-async function reloadRegistries() {
+  async function reloadRegistries() {
     const ticket=++registryLoad;
     try{
       const [sources,connectors]=await Promise.all([request('/api/source-registry'),request('/api/connector-registry')]);
@@ -1503,10 +1505,10 @@ async function reloadRegistries() {
   }
 
   async function loadWorkspaceData() {
-    const load=++workspaceLoad,ticket=dashboardSession.beginLoad(dashboardSelectionKey());
+    const load=++workspaceLoad,pending=dashboardWrite,ticket=pending?null:dashboardSession.beginLoad(dashboardSelectionKey());
     try{
-    const scope = byId('dashboardScope').value || 'PERSONAL';
-    const qualifier = byId('dashboardQualifier').value.trim(), params = new URLSearchParams({ scope });
+    const scope = pending?.draft.scope||byId('dashboardScope').value||'PERSONAL';
+    const qualifier = pending?(pending.draft.team_id||pending.draft.role||''):byId('dashboardQualifier').value.trim(), params = new URLSearchParams({ scope });
     if (scope === 'TEAM' && qualifier) params.set('team_id', qualifier);
     if (scope === 'ROLE' && qualifier) params.set('role', qualifier);
     const [definition, dashboard, snapshot] = await Promise.all([
@@ -1514,9 +1516,11 @@ async function reloadRegistries() {
       request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${params}`),
       request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/snapshot`)
     ]);
-    if(load!==workspaceLoad||!dashboardSession.finishLoad(ticket))return;
+    if(load!==workspaceLoad||pending&&dashboardWrite!==pending||!pending&&!dashboardSession.finishLoad(ticket))return;
     if(!definition?.workspace||!dashboard?.dashboard||!snapshot||snapshot.workspace_id!==state.workspaceId)throw Error('workspace_observation_invalid');
-    state.workspace = definition.workspace; state.dashboard = dashboard.dashboard; state.snapshot = snapshot;
+    state.workspace=definition.workspace;state.snapshot=snapshot;
+    if(pending){renderDashboard();renderRecords();renderSources();lockDashboard(true);writeText(byId('workspaceNotice'),copy('write_unconfirmed'));return;}
+    state.dashboard=dashboard.dashboard;
     for(const id of ['editDashboard','exportWorkspace','industryDashboardPreset'])byId(id).disabled=false;
     byId('industryDashboardPreset').hidden = !state.workspace.industry_dashboard_presets;
     writeText(byId('workspaceEyebrow'),state.workspace.eyebrow);
@@ -1533,20 +1537,44 @@ async function reloadRegistries() {
     const payload={...state.dashboard,scope,filters:{from:byId('dateFrom').value||null,to:byId('dateTo').value||null,compare:byId('comparePeriod').checked,source:byId('sourceFilter').value||null,status:byId('statusFilter').value||null}};
     if(scope==='TEAM')payload.team_id=qualifier;if(scope==='ROLE')payload.role=qualifier;return payload;
   }
+  function lockDashboard(locked){
+    const ids=['editDashboard','addWidget','industryDashboardPreset','dashboardScope','dashboardQualifier','dateFrom','dateTo','comparePeriod','sourceFilter','statusFilter'];
+    if(locked){for(const control of [...ids.map(byId),...byId('dashboardGrid').querySelectorAll('button')]){if(!dashboardControlState.has(control))dashboardControlState.set(control,control.disabled);control.disabled=true;}}
+    else {for(const [control,disabled]of dashboardControlState)control.disabled=disabled;dashboardControlState.clear();}
+    for(const card of byId('dashboardGrid').children)card.draggable=Boolean(state.editing&&!locked);
+    byId('saveDashboard').disabled=!state.dashboard||dashboardSession.saving||(!dashboardWrite&&!state.editing);
+  }
   async function saveDashboard() {
-    let ticket;
-    try {
-      const payload=dashboardDraft();ticket=dashboardSession.beginSave(dashboardSelectionKey(),payload);if(!ticket)return;
-      byId('saveDashboard').disabled=true;const query=new URLSearchParams({scope:payload.scope});if(payload.scope==='TEAM')query.set('team_id',payload.team_id);if(payload.scope==='ROLE')query.set('role',payload.role);
-      const result=await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${query}`,{method:'PUT',headers:{'if-match':String(ticket.draft.revision)},body:JSON.stringify(ticket.draft)});
-      const completion=dashboardSession.finishSave(ticket,result.dashboard,dashboardDraft(),dashboardSelectionKey());if(!completion.applied)return;
-      state.dashboard=completion.dashboard;toggleEditing(completion.dirty);renderDashboard();toast(completion.dirty?copy('saved_draft'):copy('saved'));
-    }catch(error){dashboardSession.failSave(ticket);toast(friendlyError(error),true);}
-    finally{byId('saveDashboard').disabled=!state.editing||dashboardSession.saving;}
+    if(!state.dashboard||dashboardSession.saving)return;
+    let ticket,pending=dashboardWrite;
+    try{
+      if(!pending){
+        const draft=JSON.parse(JSON.stringify(dashboardDraft())),key=dashboardSelectionKey(),query=new URLSearchParams({scope:draft.scope});
+        if(draft.scope==='TEAM')query.set('team_id',draft.team_id);if(draft.scope==='ROLE')query.set('role',draft.role);
+        pending={draft,key,epoch:accessGeneration,path:`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${query}`,requestId:'workspace-'+crypto.randomUUID()};
+        pending.options={method:'PUT',headers:{'if-match':String(draft.revision),'idempotency-key':pending.requestId},body:JSON.stringify(draft)};
+      }
+      ticket=dashboardSession.beginSave(pending.key,pending.draft);if(!ticket)return;dashboardWrite=pending;lockDashboard(true);
+      writeText(byId('workspaceNotice'),copy('write_pending'));
+      const result=await request(pending.path,pending.options);
+      if(dashboardWrite!==pending||pending.epoch!==accessGeneration)return;
+      const saved=result?.dashboard;
+      if(result?.request_id!==pending.requestId||!saved||saved.id!==pending.draft.id||saved.workspace_id!==state.workspaceId||saved.scope!==pending.draft.scope||!Number.isSafeInteger(saved.revision)||saved.revision!==pending.draft.revision+1||!Array.isArray(saved.widgets))throw Error('workspace_dashboard_acknowledgement_invalid');
+      const completion=dashboardSession.finishSave(ticket,saved,pending.draft,pending.key);if(!completion.applied)return;
+      dashboardWrite=null;lockDashboard(false);state.dashboard=completion.dashboard;applyDashboardFilters();toggleEditing(false);renderDashboard();
+      writeText(byId('workspaceNotice'),copy('saved'));toast(copy('saved'));
+      if(Number.isSafeInteger(result.current_revision)&&result.current_revision>saved.revision){try{await loadWorkspaceData();}catch(error){if(state.dashboard)writeText(byId('workspaceNotice'),copy('saved_refresh_failed'));}}
+    }catch(error){
+      dashboardSession.failSave(ticket);
+      if(pending?.epoch!==accessGeneration||error.stale)return;
+      if(dashboardWrite!==pending){if(!dashboardWrite&&state.dashboard)writeText(byId('workspaceNotice'),friendlyError(error));return;}
+      if(error.status>=400&&error.status<500&&![408,429].includes(error.status)){dashboardWrite=null;lockDashboard(false);writeText(byId('workspaceNotice'),friendlyError(error));}
+      else writeText(byId('workspaceNotice'),copy('write_unconfirmed'));
+    }finally{if(state.dashboard)lockDashboard(Boolean(dashboardWrite));}
   }
 
   function toggleEditing(force) {
-    if(!state.dashboard)return;
+    if(!state.dashboard||dashboardWrite)return;
     state.editing = typeof force === 'boolean' ? force : !state.editing;
     writeText(byId('editDashboard'),state.editing?copy('editing_close'):copy('editing_open'));
     byId('addWidget').disabled = !state.editing; byId('saveDashboard').disabled = !state.editing||dashboardSession.saving; renderDashboard();
@@ -1564,6 +1592,7 @@ async function reloadRegistries() {
   }
 
   function openWidgetDialog() {
+    if(!state.dashboard||dashboardWrite)return;
     const active = new Set(state.dashboard.widgets.map(item => item.metric));
     const options = (state.workspace.default_widgets || []).filter(item => !active.has(item.metric)).map(item => {
       const option = node('option', '', item.label); option.value = item.metric; return option;
@@ -1575,6 +1604,7 @@ async function reloadRegistries() {
 
   function addWidget(event) {
     event.preventDefault();
+    if(!state.dashboard||dashboardWrite)return;
     const metric = byId('widgetMetric').value, definition = state.workspace.default_widgets.find(item => item.metric === metric);
     if (!definition) return;
     state.dashboard.widgets.push({ ...definition, id: `${state.workspaceId}-${metric}-${Date.now()}` });
@@ -1595,7 +1625,7 @@ async function reloadRegistries() {
     replaceChildren(byId('globalSearchResults'), items.length ? items : [node('div', 'EmptyState NoDataState', copy('search_empty'))]);
   }
 
-async function exportRows() {
+  async function exportRows() {
     try{
       const snapshot=await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/snapshot`);
       if(snapshot?.workspace_id!==state.workspaceId||!Array.isArray(snapshot.rows))throw Error('workspace_observation_invalid');
@@ -1608,7 +1638,7 @@ async function exportRows() {
     }catch(error){if(!error.stale)toast(friendlyError(error),true);}
   }
 
-async function askZero(event) {
+  async function askZero(event) {
     event.preventDefault();
     const input=byId('zeroInput'),message=input.value.trim();if(!message||input.disabled||!state.workspace)return;
     const ticket=++zeroTurn,epoch=accessGeneration,output=byId('zeroOutput');writeText(output,copy('zero_busy'));input.disabled=true;

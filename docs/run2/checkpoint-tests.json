@@ -2536,6 +2536,126 @@
     "dynamic_candidates": 707,
     "workspace_direct_candidates": 365,
     "audit_note": "Conservative direct-expression audit is not localization completeness. Its lexical helper detection initially lost indirect text writes; the DOM helper retains an explicit no-i18n textContent fallback, restoring detection. The temporary undercount of 422 is not accepted evidence.",
+    "current_ci": {
+      "number": 187,
+      "id": 36071730975,
+      "job_id": 107873992359,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "cb5bf3c1d1cd659163bf9cf69582e1d3d70fc726",
+      "tree": "03b0d42132f4a6aebcea6058a1dc0d669a726583",
+      "full_npm_test": "FAIL",
+      "cause": "procurement-economics-outcomes-api-test.js randomly chose occupied TCP port 46496; listen EADDRINUSE before fixture startup. Code-controlled fixture collision, not waived or relabelled as an external blocker.",
+      "repair": "Use PORT=0 and existing IPC listening observer to identify the actual server-bound port on each restart; all assertions retained."
+    }
+  },
+  "workspace_dashboard_recovery_checkpoint": {
+    "recorded_at": "2026-09-24T23:28:52.890846+00:00",
+    "prior_published_head": "cb5bf3c1d1cd659163bf9cf69582e1d3d70fc726",
+    "prior_published_tree": "03b0d42132f4a6aebcea6058a1dc0d669a726583",
+    "prior_ci": {
+      "number": 187,
+      "id": 36071730975,
+      "job_id": 107873992359,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "cb5bf3c1d1cd659163bf9cf69582e1d3d70fc726",
+      "tree": "03b0d42132f4a6aebcea6058a1dc0d669a726583",
+      "full_npm_test": "FAIL",
+      "cause": "procurement-economics-outcomes-api-test.js randomly chose occupied TCP port 46496; listen EADDRINUSE before fixture startup. Code-controlled fixture collision, not waived or relabelled as an external blocker.",
+      "repair": "Use PORT=0 and existing IPC listening observer to identify the actual server-bound port on each restart; all assertions retained."
+    },
+    "source_sha256": {
+      "server.js": "4e966bb47f9ace2bb22a5b6c74c1e345d40d082bae29ae01025b76a739a5f20d",
+      "foundly-workspace.js": "b643f2524d196040e626544a4439e2aff76bcab175efb91c0908557e0ceb7f6e",
+      "foundly-locales.js": "762be4f1dac83b70ae697d3b7c20643cd9db8dc94d74e82bc564eb60e97c49a9",
+      "procurement-economics-outcomes-api-test.js": "f8373cc61c50c3d2bac5c00d0656619014d86267b3345f0c423a45ca5d491964",
+      "zero-evaluation/workspace-page-fixture.js": "ad1c894291b54a623f7b913db3a52baecebd562f71dbd33fdd68dc57d8c3c35a",
+      "zero/workspace-dashboard-recovery-api.test.js": "6a214ae092ab44d98637ff7998c9d2366485a68a45df1e34d600468a9ff1b7cb",
+      "zero/workspace-dashboard-recovery-client.test.js": "2521ed27bcf71c535fcba5f5f2ccb0d3db8e5b21fb63309eb6bf9f52de5c732f",
+      "zero/workspace-dashboard-authority-api.test.js": "1f899222bae76c23024a5030c5223fd91a80d5f26d47da95778be1579d1851be"
+    },
+    "logs": {
+      "run2-workspace-save-native-before.log": {
+        "exit_code": 1,
+        "sha256": "376da06a5c4a23320575c80df550d5179df58c74bb9e17c281bbcd5870b9f3fb",
+        "bytes": 2823
+      },
+      "run2-workspace-save-native-before-confirmed.log": {
+        "exit_code": 1,
+        "sha256": "d0abdd5fd62ce588ad6e4afd0028c7cb503cfc6b3e8437303ad9d92c6aa82e17",
+        "bytes": 2951
+      },
+      "run2-workspace-save-client-before.log": {
+        "exit_code": 1,
+        "sha256": "42cdcba4ad66846317dd31e77dbffcd08ddaf0ba251a9d6ab764f0298bae5b21",
+        "bytes": 2744
+      },
+      "run2-workspace-body-before.log": {
+        "exit_code": 1,
+        "sha256": "977d44e488885abb3cf6a9caf3090910115276bd596e9ccbb30bb1f239bd49bd",
+        "bytes": 3112
+      },
+      "run2-workspace-save-targeted-final.log": {
+        "exit_code": 0,
+        "sha256": "aeb505ce9dec6089552b6add7c785388e16b3cc579f6fcbd3de3095ec10d3e92",
+        "bytes": 3692
+      },
+      "run2-workspace-save-authority-final.log": {
+        "exit_code": 0,
+        "sha256": "fd3ee94bd204217c8e53255b6db3d59964720b1ab586228291de92d2bf444c0a",
+        "bytes": 1495
+      },
+      "run2-workspace-save-client-final.log": {
+        "exit_code": 0,
+        "sha256": "6e74ac85df810214243c222af182249c36ff0a92931a771c8cf345a92cbf383d",
+        "bytes": 861
+      },
+      "run2-procurement-ci-port-fix.log": {
+        "exit_code": 0,
+        "sha256": "8c3f9aa33e89f8228e9636164e55bc5fc31698db583d6c975b795ba8bdd0a6cf",
+        "bytes": 340
+      },
+      "run2-workspace-save-full-regression.log": {
+        "exit_code": 0,
+        "sha256": "4952eccfed2a123d175a70d37e8ca10af13cefddabce6bc48bdbce03d7c6e86e",
+        "bytes": 127710
+      },
+      "run2-ci187-workspace.log": {
+        "exit_code": 1,
+        "sha256": "45e6a0e84ce566335a46d49d13882c724a278d9eec9f5d22b589fb5c7bdbfbeb",
+        "bytes": 91715
+      }
+    },
+    "new_tests": 11,
+    "full_zero_tests": 398,
+    "full_zero_pass": 398,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "full_local_regression": {
+      "command": "npm test",
+      "exit_code": 0,
+      "scope": "Full existing regression and 398 ZERO tests plus 14 corpus cases. Final body-wait authority guard received separate native/controller checks and the final full ZERO phase; native workspace concurrency/persistence were rerun after that guard. Published exact-tree CI remains required."
+    },
+    "native_regressions": [
+      "node workspace-dashboard-session-test.js",
+      "node workspace-dashboard-concurrency-test.js",
+      "node workspace-dashboard-persistence-test.js",
+      "node procurement-economics-outcomes-api-test.js"
+    ],
+    "native_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "before_fix": "Seven genuine failing-before checks cover missing native request replay (including failed-persist recovery), accepted malformed identities, mutable uncertain controller requests, missing acknowledgement handling, pending editing, and module revocation during authenticated body wait. Initial native test used the preset template scope instead of explicit PERSONAL; that 403 was fixture setup and is not counted as a defect.",
+    "scope": "Shared workspace dashboard saves freeze original path/body/revision/request key through uncertainty and locale changes. Inputs and widget actions lock; duplicate submissions do not write. Explicit refresh rechecks current native scope without replacing an uncertain draft. A valid native request acknowledgement is mandatory; definitive rejection releases correction and a new identity. Native receipts are actor/view/body/precondition-bound, replay the original observed result without another mutation, and recheck current route/capability/scope authority after body await. Native response exposes current revision so a later dashboard version is loaded after historical replay. Lost committed response and encrypted restart are verified through the actual controller against real member HTTP.",
+    "storage_change": "Optional private _write_receipt metadata on the existing encrypted dashboard revision rows, committed atomically with layout/audit. Metadata is excluded from returned dashboard objects. Existing rows and keyless clients remain valid. Retention stays the existing 50 revisions per dashboard view; evicted or legacy outcomes are not certified as replayable. Stale revision preconditions fail closed. No new bucket, destructive migration or production write.",
+    "ci_repair": "CI 187 failure retained verbatim with hash. Procurement economics/outcomes HTTP fixture now uses OS-assigned ports and IPC discovery rather than a guessed random port. Existing semantic and adversarial assertions are unchanged and pass.",
+    "remaining": "Shared workspace section/domain/connector-detail copy, generated/backend localization and native snapshot currency/completeness/current-access-through-async-read evidence remain open. Browser-reload client retry recovery, every-trigger automation dispatch and wider cognition/adversarial/performance/demo/voice/browser/native-speaker acceptance remain unaccepted.",
+    "evidence_limit": "Production controller with minimal DOM; native member HTTP, actual persistence-failure injection and encrypted restart; full local regression. No live provider, browser or full Run-2 acceptance inferred.",
+    "dynamic_candidates": 707,
     "current_ci": "PENDING_PUBLICATION"
   }
 }
