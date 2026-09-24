@@ -18,7 +18,7 @@
   const document=root.document,anonymous=root.location.pathname==='/login';
   let initial='nl-NL';if(!anonymous)try{initial=normalize(document.documentElement.lang);}catch{}
   if(anonymous)for(const language of root.navigator.languages||[root.navigator.language]){try{initial=normalize(language);break;}catch{try{initial=normalize(language?.split('-')[0]);break;}catch{}}}
-  const api=create(initial),allowedAttributes=['aria-label','title','placeholder','alt'],bindings=new WeakMap();
+  const api=create(initial),allowedAttributes=['aria-label','title','placeholder','alt'],bindings=new WeakMap(),parameters=new WeakMap(),messages=new WeakMap();
   api.forLocale=value=>create(value);
   function paint(owner,target,slot,key,read,write,format=value=>value){
     const currentTarget=typeof target==='function'?target:()=>target;
@@ -26,19 +26,31 @@
     // Native renderers may replace a placeholder with customer content. An old
     // static label must never overwrite that content on a later locale change.
     if(previous&&previous.key===key&&(previous.target!==currentTarget()||previous.value!==read()))return;
-    const value=format(api.t(key));write(value);state.set(slot,{key,target:currentTarget(),value});
+    const value=format(api.t(key,parameters.get(owner)?.get(slot)||{}));write(value);state.set(slot,{key,target:currentTarget(),value});
   }
   const selector='[data-i18n],[data-i18n-text],'+allowedAttributes.map(a=>'[data-i18n-'+a+']').join(',');
   api.translate=function(container=document){const nodes=Array.from(container.querySelectorAll(selector));if(container.matches?.(selector))nodes.unshift(container);
     for(const node of nodes){
-      const key=node.getAttribute('data-i18n');if(key)paint(node,()=>node.firstChild||node,'text',key,()=>node.textContent,value=>node.textContent=value);
+      const key=node.getAttribute('data-i18n');if(key){const target=()=>node.firstChild||node;paint(node,target,'text',key,()=>target().textContent,value=>target().textContent=value);}
       const direct=node.getAttribute('data-i18n-text');if(direct){const keys=JSON.parse(direct);for(const [index,key]of Object.entries(keys)){const text=node.childNodes?.[Number(index)];if(text?.nodeType!==3)continue;const prefix=text.textContent.match(/^\s*/)[0],suffix=text.textContent.match(/\s*$/)[0];paint(node,text,'direct:'+index,key,()=>text.textContent,value=>text.textContent=value,value=>prefix+value+suffix);}}
       for(const attr of allowedAttributes){const k=node.getAttribute('data-i18n-'+attr);if(k)paint(node,node,attr,k,()=>node.getAttribute(attr),value=>node.setAttribute(attr,value));}}
     for(const selector of document.querySelectorAll('[data-ui-locale]'))selector.value=api.locale;
     document.documentElement.lang=api.locale;};
   let localeRevision=0;
   const change=api.setLocale;api.setLocale=function(value){change(value);localeRevision++;api.translate();document.dispatchEvent(new CustomEvent('foundly:locale',{detail:{locale:api.locale}}));return api.locale;};
-  api.bind=function(node,key,attribute){node.setAttribute(attribute?'data-i18n-'+attribute:'data-i18n',key);bindings.get(node)?.delete(attribute||'text');if(attribute)paint(node,node,attribute,key,()=>node.getAttribute(attribute),value=>node.setAttribute(attribute,value));else paint(node,()=>node.firstChild||node,'text',key,()=>node.textContent,value=>node.textContent=value);return node;};
+  api.bind=function(node,key,attribute,params={}){
+    if(attribute&&!allowedAttributes.includes(attribute))throw Error('translation_attribute_unsupported');
+    const slot=attribute||'text';let values=parameters.get(node);if(!values){values=new Map();parameters.set(node,values);}values.set(slot,Object.freeze({...params}));
+    node.setAttribute(attribute?'data-i18n-'+attribute:'data-i18n',key);if(!attribute)node.removeAttribute('data-i18n-text');bindings.get(node)?.delete(slot);
+    if(attribute)paint(node,node,attribute,key,()=>node.getAttribute(attribute),value=>node.setAttribute(attribute,value));else{const target=()=>node.firstChild||node;paint(node,target,'text',key,()=>target().textContent,value=>target().textContent=value);}return node;
+  };
+  // Only an explicit descriptor created by this instance can become a live
+  // binding. Ordinary strings and customer-shaped objects remain literal.
+  api.message=function(key,params={}){const values=Object.freeze({...params}),message=Object.freeze({toString:()=>api.t(key,values)});messages.set(message,{key,params:values});return message;};
+  api.renderText=function(node,value){const message=messages.get(value);if(message)return api.bind(node,message.key,undefined,message.params);
+    node.removeAttribute('data-i18n');node.removeAttribute('data-i18n-text');bindings.get(node)?.delete('text');parameters.get(node)?.delete('text');node.textContent=String(value??'');return node;};
+  api.renderAttribute=function(node,attribute,value){if(!allowedAttributes.includes(attribute))throw Error('translation_attribute_unsupported');const message=messages.get(value);if(message)return api.bind(node,message.key,attribute,message.params);
+    node.removeAttribute('data-i18n-'+attribute);bindings.get(node)?.delete(attribute);parameters.get(node)?.delete(attribute);node.setAttribute(attribute,String(value??''));return node;};
   api.errorKey=function(code,status){const known={'identity_credentials_invalid':'identity.credentials_invalid','identity_invitation_invalid':'identity.invitation_invalid','identity_password_invalid':'identity.password_invalid','identity_auth_required':'identity.auth_required','auth_invalid':'identity.auth_required'};return known[code]||(status===429?'common.rate_limited':status===403?'common.access_denied':'common.request_failed');};
   api.error=function(code,status){return api.t(api.errorKey(code,status));};
   api.installLocaleControl=function(selector){

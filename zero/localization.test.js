@@ -7,20 +7,57 @@ test('explicit catalogs preserve all supported locales, parameters, pluralisatio
  assert.equal(en.t('common.record_count',{count:1}),'1 record');assert.equal(en.t('common.record_count',{count:0}),'0 records');assert.throws(()=>en.t('zero.time'),/parameter_required/);assert.throws(()=>en.setLocale('xx-XX'),/locale_unsupported/);assert.equal(en.t('absent'),'⟦absent:en-GB⟧');assert.deepEqual(en.missingKeys(),['absent']);
 });
 class Element{
- constructor(tag='div'){Object.assign(this,{tag,attrs:{},handlers:{},children:[],value:'',textContent:'',validity:{},disabled:false});}
+ constructor(tag='div'){Object.assign(this,{tag,attrs:{},handlers:{},children:[],childNodes:[],value:'',validity:{},disabled:false,nodeType:1,isConnected:true});}
+ get firstChild(){return this.childNodes[0]||null;}get textContent(){return this.childNodes.map(node=>node.textContent||'').join('');}set textContent(value){this.children=[];this.childNodes=String(value)?[{nodeType:3,textContent:String(value)}]:[];}
  setAttribute(k,v){this.attrs[k]=String(v);}getAttribute(k){return this.attrs[k]??null;}removeAttribute(k){delete this.attrs[k];}
  matches(selector){return selector.split(',').some(s=>Object.hasOwn(this.attrs,s.trim().slice(1,-1)));}
  addEventListener(k,f){(this.handlers[k]??=[]).push(f);}async fire(k,event={}){for(const f of this.handlers[k]||[])await f({preventDefault(){},target:this,...event});}
- append(...nodes){this.children.push(...nodes);}replaceChildren(...nodes){this.children=nodes;}after(node){this.following=node;}setCustomValidity(text){this.validationMessage=text;}
+ append(...nodes){this.children.push(...nodes);this.childNodes.push(...nodes);}replaceChildren(...nodes){this.children=[];this.childNodes=[];this.append(...nodes);}after(node){this.following=node;}setCustomValidity(text){this.validationMessage=text;}
+ all(){return [this,...this.children.flatMap(node=>node.all())];}
 }
 function browserFixture(locale='fr-FR',fetch=async()=>({ok:false,status:401,json:async()=>({code:'identity_credentials_invalid',error:'RAW_DUTCH_SECRET'})}),path='/login',htmlLocale='nl'){
- const nodes={},document=new Element('document');document.documentElement={lang:htmlLocale};document.createElement=tag=>new Element(tag);document.getElementById=id=>nodes[id]??=new Element();document.querySelectorAll=selector=>Object.values(nodes).filter(n=>n.matches(selector));document.dispatchEvent=event=>document.fire(event.type,event);
+ const nodes={},document=new Element('document');document.documentElement={lang:htmlLocale};document.createElement=tag=>new Element(tag);document.getElementById=id=>nodes[id]??=new Element();document.querySelectorAll=selector=>[...new Set(Object.values(nodes).flatMap(node=>node.all()))].filter(n=>n.matches(selector));document.dispatchEvent=event=>document.fire(event.type,event);
  for(const id of ['identityForm','identityUsername','identityPassword','identitySubmit','identityNotice','identityLocale','identityTitle','identityDescription','usernameLabel'])document.getElementById(id);
  const customer=document.getElementById('customer');customer.textContent='Aanmelden';
  const context={document,navigator:{languages:[locale]},location:{pathname:path,hash:'',assign(value){this.redirect=value;}},history:{replaceState(){}},fetch,URLSearchParams,Intl,CustomEvent:class{constructor(type,options){this.type=type;Object.assign(this,options);}}};
  vm.createContext(context);for(const file of ['foundly-static-copy.js','foundly-locales.js','foundly-i18n.js'])vm.runInContext(fs.readFileSync(require.resolve('../'+file),'utf8'),context);
  return {context,nodes,loadLogin(){vm.runInContext(fs.readFileSync(require.resolve('../identity-login.js'),'utf8'),context);}};
 }
+test('explicit dynamic descriptors update labels and attributes without translating customer text or replacing form controls',()=>{
+ const f=browserFixture('en-GB'),i=f.context.FoundlyI18n,node=f.nodes.dynamic=new Element('button'),input=f.nodes.unsaved=new Element('input'),params={count:1234};input.value='Aanmelden <unsaved customer value>';
+ i.renderText(node,i.message('common.record_count',params));i.renderAttribute(node,'aria-label',i.message('common.save'));params.count=99;
+ assert.equal(node.textContent,'1,234 records');i.setLocale('de-DE');assert.equal(node.textContent,i.t('common.record_count',{count:1234}));assert.equal(node.getAttribute('aria-label'),i.t('common.save'));assert.equal(input.value,'Aanmelden <unsaved customer value>');
+ i.renderText(node,'Aanmelden');i.renderAttribute(node,'aria-label','Customer label');i.setLocale('fr-FR');assert.equal(node.textContent,'Aanmelden');assert.equal(node.getAttribute('aria-label'),'Customer label');
+ const literal={key:'common.save',params:{},toString:()=>'<literal customer object>'};i.renderText(node,literal);i.setLocale('sv-SE');assert.equal(node.textContent,'<literal customer object>');
+ i.renderText(node,i.message('common.save'));node.textContent='Customer replacement';i.setLocale('es-ES');assert.equal(node.textContent,'Customer replacement');
+ i.renderText(node,i.message('common.save'));assert.equal(node.textContent,i.t('common.save'));assert.throws(()=>i.renderAttribute(input,'value',i.message('common.save')),/attribute_unsupported/);assert.equal(input.value,'Aanmelden <unsaved customer value>');
+ const label=f.nodes.liveLabel=new Element('label');i.renderText(label,i.message('crm.pipeline.stage_name'));label.append(input);const originalText=label.firstChild;
+ for(const locale of catalog.locales){i.setLocale(locale);assert.equal(label.firstChild,originalText);assert.equal(label.firstChild.textContent,i.t('crm.pipeline.stage_name'));assert.equal(label.childNodes[1],input);assert.equal(input.value,'Aanmelden <unsaved customer value>');}
+});
+test('actual Finance closing controls follow eight locale changes while preserving review, confirmation and uncertain-request payload',async()=>{
+ for(const locale of locales){
+  const f=browserFixture(locale),i=f.context.FoundlyI18n,period={id:'period-literal',name:'Aanmelden <customer name>',start_date:'2026-09-01',end_date:'2026-09-30',status:'OPEN'},calls=[],closes=[];let lose=true;
+  f.context.crypto={randomUUID:()=> 'finance-confirmation-request'};
+  vm.runInContext(fs.readFileSync(require.resolve('../finance-period-closing-client'),'utf8'),f.context);
+  const request=async(path,options={})=>{calls.push(path);if(path.includes('/records/'))return {items:[period],total:1,next_cursor:null};if(path.endsWith('/close-preview'))return {ready:true,source_hash:'a'.repeat(64),currency:'EUR',totals:{debit_cents_exact:'900719925474099300',credit_cents_exact:'900719925474099300'},blockers:[]};closes.push(JSON.parse(options.body));if(lose){lose=false;throw Error('RAW_BACKEND_TEXT');}return {period,closing:{id:'literal-receipt'},deduplicated:true};};
+  const box=f.nodes.finance=f.context.FoundlyFinancePeriodClosing.create({document:f.context.document,request});await box.ready;
+  const byKey=key=>box.all().find(node=>node.getAttribute('data-i18n')==='finance.close.'+key),select=byKey('period').children[0],reason=byKey('reason').children[0],confirm=byKey('confirm').children[0],submit=byKey('submit');
+  assert.equal(byKey('title').textContent,i.t('finance.close.title'));assert.ok(select.children[1].textContent.includes(period.name));assert.equal(select.children[1].value,period.id);
+  await submit.fire('click');assert.equal(closes.length,0);select.value=period.id;await select.fire('change');reason.value='Letterlijke reden <keep>';await reason.fire('input');await byKey('review').fire('click');confirm.checked=true;
+  const before=calls.length;
+  for(const next of locales){i.setLocale(next);assert.equal(calls.length,before);assert.equal(reason.value,'Letterlijke reden <keep>');assert.equal(confirm.checked,true);assert.equal(select.value,period.id);assert.equal(byKey('reason').children[0],reason);assert.equal(submit.textContent,i.t('finance.close.submit'));assert.ok(byKey('totals').textContent.includes('900719925474099300'));assert.ok(select.children[1].textContent.includes(i.t('finance.close.open')));}
+  await submit.fire('click');assert.equal(closes.length,1);assert.equal(byKey('uncertain').textContent,i.t('finance.close.uncertain'));assert.equal(reason.value,'Letterlijke reden <keep>');
+  i.setLocale(locale);assert.equal(byKey('uncertain').textContent,i.t('finance.close.uncertain'));await byKey('clear').fire('click');assert.equal(select.value,period.id);assert.equal(closes.length,1);
+  await submit.fire('click');assert.deepEqual(closes[0],closes[1]);assert.equal(closes.length,2);assert.equal(closes[1].reason,'Letterlijke reden <keep>');assert.equal(byKey('verified').textContent,i.t('finance.close.verified'));assert.equal(box.canLeave(),true);assert.ok(byKey('closed').textContent.includes(period.name));assert.equal(box.all().some(node=>node.tag==='img'||node.tag==='script'),false);assert.deepEqual(Array.from(i.missingKeys()),[]);
+ }
+});
+test('Finance locale errors hide raw backend copy and known blocker labels preserve record IDs',async()=>{
+ const f=browserFixture('de-DE'),i=f.context.FoundlyI18n;f.context.crypto={randomUUID:()=> 'unused'};vm.runInContext(fs.readFileSync(require.resolve('../finance-period-closing-client'),'utf8'),f.context);
+ let forbidden=false;const request=async path=>{if(path.includes('/records/'))return {items:[{id:'p1',name:'Name',start_date:'2026-01-01',end_date:'2026-01-31',status:'OPEN'}],total:1,next_cursor:null};if(forbidden)throw Object.assign(Error('RAW_DUTCH_PROVIDER'),{status:403});return {ready:false,source_hash:'b'.repeat(64),currency:'EUR',totals:{debit_cents_exact:'0',credit_cents_exact:'0'},blockers:[{code:'DRAFT_INVOICES',record_ids:['Letterlijke-id <literal>']}]};};
+ const box=f.nodes.finance=f.context.FoundlyFinancePeriodClosing.create({document:f.context.document,request});await box.ready;const key=name=>box.all().find(node=>node.getAttribute('data-i18n')==='finance.close.'+name);const select=key('period').children[0];select.value='p1';await select.fire('change');await key('review').fire('click');assert.ok(key('blocker').textContent.includes(i.t('finance.close.draft_invoices')));
+ i.setLocale('sv-SE');assert.ok(key('blocker').textContent.includes(i.t('finance.close.draft_invoices')));assert.ok(key('blocker').textContent.includes('Letterlijke-id <literal>'));
+ forbidden=true;await key('review').fire('click');const status=box.all().find(node=>node.tag==='output');assert.equal(status.textContent,i.t('common.access_denied'));i.setLocale('en-GB');assert.equal(status.textContent,i.t('common.access_denied'));assert.ok(!box.textContent.includes('RAW_DUTCH_PROVIDER'));
+});
 test('actual login handlers localize errors in eight locales without displaying backend text or changing customer data',async()=>{
  for(const locale of locales){const f=browserFixture(locale);f.loadLogin();f.nodes.identityUsername.value='alice';f.nodes.identityPassword.value='private';await f.nodes.identityForm.fire('submit');assert.equal(f.nodes.identityNotice.textContent,catalog.messages[locale]['identity.credentials_invalid']);assert.equal(f.nodes.customer.textContent,'Aanmelden');assert.equal(f.context.location.redirect,undefined);assert.equal(f.context.document.documentElement.lang,locale);assert.equal(f.nodes.identitySubmit.disabled,false);}
 });

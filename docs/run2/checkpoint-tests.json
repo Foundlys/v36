@@ -198,6 +198,47 @@
     "static_unresolved_items": 0,
     "remaining_dynamic_candidates": 1019,
     "generated_profile_defaults": "CODE_CONTROLLED_OPEN",
+    "current_ci": {
+      "run": 152,
+      "id": 36007232508,
+      "head": "f1af87cfab4c2dcadb7e504a52aea2b6c1a6871c",
+      "tree": "2c1cd8ab04b083e2a88d37ce9d82a36c308cef41",
+      "status": "SUCCESS"
+    },
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
+  },
+  "dynamic_locale_binding_checkpoint": {
+    "recorded_at": "2026-09-24T13:53:53.967398+00:00",
+    "source_sha256": {
+      "foundly-i18n.js": "aac6496e0ba9516bc49e2f6e808d44d0c0203c5fffc39579834aad71ad19565e",
+      "foundly-locales.js": "1a7d43f7acce0b501503d761f24ea7c64146a2fbcc94b6af91a5254b4a512779",
+      "finance-period-closing-client.js": "7decd08bc4d5213fe21c020c0be68ed7832955b4cdb9e687f0fea0bac89bef84",
+      "zero/localization.test.js": "09e107001e3bbd47e47bed9b4a435be4ea35e36eeda933e3d372bd3be8a02cf3"
+    },
+    "unit_http_tests": 85,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "finance_core_http_client_regressions": "PASS",
+    "targeted_logs": {
+      "dynamic-bindings-tests.log": {
+        "exit_code": 0,
+        "sha256": "a3f9f1131fd29fcbd83fbec2fcec49a5438340d8eeb9631435304391ab279cb4",
+        "bytes": 1803
+      },
+      "dynamic-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "6bd3b9f799e3cda9a56281d2e315f246ccfd48ede0a2ef03a137fc342b1b4fdf",
+        "bytes": 10291
+      },
+      "dynamic-finance-regression.log": {
+        "exit_code": 0,
+        "sha256": "eafc8d53be7072246df55a463a781da393f920783bec7f0833a8e970af6a7595",
+        "bytes": 709
+      }
+    },
+    "remaining_dynamic_candidates": 1006,
+    "scope": "Explicit branded dynamic message bindings preserve nested inputs, literal customer data, IDs, selection and confirmation on locale change. Finance period-close labels, local validation, known blockers, dates, current review and receipt copy use all eight catalogs. Unknown backend errors are localized without reflecting raw text. The uncertain-result notice is retained through the outer error handler. Existing current-source and exact native retry contracts remain enforced.",
+    "browser": "ENVIRONMENT_UNVERIFIED: supported cloud browser again rejected isolated native localhost preview with ERR_BLOCKED_BY_CLIENT after connection restoration. No alternate route or browser bypass attempted.",
     "current_ci": "PENDING_PUBLICATION",
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
   }

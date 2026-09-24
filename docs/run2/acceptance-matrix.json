@@ -779,7 +779,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-057",
@@ -797,7 +797,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-058",
@@ -815,7 +815,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-059",
@@ -833,7 +833,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-060",
@@ -851,7 +851,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-061",
@@ -869,7 +869,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-062",
@@ -887,7 +887,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-063",
@@ -905,7 +905,7 @@
         "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline creation has explicit localized stages and safe same-page retry. Dynamic text bindings preserve nested inputs and literal customer data; native Finance period-close controls and states follow live locale changes. The conservative audit still finds 1,006 candidates; other active views, generated profile defaults, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-064",
@@ -1589,7 +1589,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "CI 151 passed startup/standalone localization head f5718d43afe7d325264dfe7d568b2dc3bfd6f9a7. The subsequent typed pipeline extension requires its own CI."
+      "note": "CI 152 passed typed pipeline head f1af87cfab4c2dcadb7e504a52aea2b6c1a6871c. The subsequent dynamic binding/Finance locale extension requires its own CI."
     },
     {
       "id": "R2-115",
