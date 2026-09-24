@@ -13,8 +13,8 @@ class Element{
  addEventListener(k,f){(this.handlers[k]??=[]).push(f);}async fire(k,event={}){for(const f of this.handlers[k]||[])await f({preventDefault(){},target:this,...event});}
  append(...nodes){this.children.push(...nodes);}replaceChildren(...nodes){this.children=nodes;}after(node){this.following=node;}setCustomValidity(text){this.validationMessage=text;}
 }
-function browserFixture(locale='fr-FR',fetch=async()=>({ok:false,status:401,json:async()=>({code:'identity_credentials_invalid',error:'RAW_DUTCH_SECRET'})}),path='/login'){
- const nodes={},document=new Element('document');document.documentElement={lang:'nl'};document.createElement=tag=>new Element(tag);document.getElementById=id=>nodes[id]??=new Element();document.querySelectorAll=selector=>Object.values(nodes).filter(n=>n.matches(selector));document.dispatchEvent=event=>document.fire(event.type,event);
+function browserFixture(locale='fr-FR',fetch=async()=>({ok:false,status:401,json:async()=>({code:'identity_credentials_invalid',error:'RAW_DUTCH_SECRET'})}),path='/login',htmlLocale='nl'){
+ const nodes={},document=new Element('document');document.documentElement={lang:htmlLocale};document.createElement=tag=>new Element(tag);document.getElementById=id=>nodes[id]??=new Element();document.querySelectorAll=selector=>Object.values(nodes).filter(n=>n.matches(selector));document.dispatchEvent=event=>document.fire(event.type,event);
  for(const id of ['identityForm','identityUsername','identityPassword','identitySubmit','identityNotice','identityLocale','identityTitle','identityDescription','usernameLabel'])document.getElementById(id);
  const customer=document.getElementById('customer');customer.textContent='Aanmelden';
  const context={document,navigator:{languages:[locale]},location:{pathname:path,hash:'',assign(value){this.redirect=value;}},history:{replaceState(){}},fetch,URLSearchParams,Intl,CustomEvent:class{constructor(type,options){this.type=type;Object.assign(this,options);}}};
@@ -35,6 +35,15 @@ test('ZERO greeting uses the conversation language while preserving the interfac
 });
 test('late initial preference reads cannot overwrite a newer explicit locale choice',async()=>{
  let release;const f=browserFixture('nl-NL',()=>new Promise(r=>release=r),'/');f.context.FoundlyI18n.setLocale('fr-FR');release({ok:true,json:async()=>({preferences:{ui_locale:'de-DE'}})});await f.context.FoundlyI18n.ready;assert.equal(f.context.FoundlyI18n.locale,'fr-FR');
+});
+test('authenticated HTML preference is available synchronously before dynamic controls are created',async()=>{
+ let release;const f=browserFixture('en-GB',()=>new Promise(resolve=>release=resolve),'/crm','sv-SE');assert.equal(f.context.FoundlyI18n.locale,'sv-SE');assert.equal(f.context.FoundlyI18n.t('common.save'),'Spara');release({ok:true,json:async()=>({preferences:{ui_locale:'sv-SE'}})});await f.context.FoundlyI18n.ready;assert.equal(f.context.FoundlyI18n.locale,'sv-SE');
+});
+test('streamed locale markup preserves UTF-8 and every unrelated byte across chunk boundaries',async()=>{
+ const {Readable}=require('node:stream'),{htmlLanguageStream}=require('../static-response');
+ const original='<!doctype html><html data-lang="literal" lang="nl"><body>Élodie — Ångström 🦊 <input value="DE"></body></html>',expected=Buffer.from(original.replace(' lang="nl"',' lang="de-DE"')),input=Buffer.from(original);
+ for(const size of [1,2,7,65536]){const chunks=[];for(let index=0;index<input.length;index+=size)chunks.push(input.subarray(index,index+size));const output=[];for await(const chunk of Readable.from(chunks).pipe(htmlLanguageStream('de-DE')))output.push(chunk);assert.deepEqual(Buffer.concat(output),expected);}
+ assert.throws(()=>htmlLanguageStream('en-GB" onclick="alert(1)'),/Invalid HTML locale/);
 });
 test('explicit static text bindings preserve nested inputs, canonical options and replacement customer text',()=>{
  const f=browserFixture('en-GB'),label=f.nodes.setting=new Element('label'),key=catalog.staticLookup['Man'];

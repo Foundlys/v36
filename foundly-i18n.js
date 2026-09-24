@@ -16,7 +16,8 @@
   }
   if(!root?.document)return {create,normalize,locales:catalog.locales};
   const document=root.document,anonymous=root.location.pathname==='/login';
-  let initial='nl-NL';if(anonymous)for(const language of root.navigator.languages||[root.navigator.language]){try{initial=normalize(language);break;}catch{try{initial=normalize(language?.split('-')[0]);break;}catch{}}}
+  let initial='nl-NL';if(!anonymous)try{initial=normalize(document.documentElement.lang);}catch{}
+  if(anonymous)for(const language of root.navigator.languages||[root.navigator.language]){try{initial=normalize(language);break;}catch{try{initial=normalize(language?.split('-')[0]);break;}catch{}}}
   const api=create(initial),allowedAttributes=['aria-label','title','placeholder','alt'],bindings=new WeakMap();
   api.forLocale=value=>create(value);
   function paint(owner,target,slot,key,read,write,format=value=>value){

@@ -121,5 +121,44 @@
     "current_ci": "PENDING_PUBLICATION",
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED"
+  },
+  "localization_startup_standalone_checkpoint": {
+    "recorded_at": "2026-09-24T13:18:35.732602+00:00",
+    "source_sha256": {
+      "Dockerfile.crm": "64e0b7b637ed21111a251c759cdf1b99b213e57e26c824cee79f9333aeea32a3",
+      "crm-standalone.js": "d775a6b069dae5bfda95f7a7643ef86c4ef06cfb7cf01cd5fe90d8b429548fb4",
+      "crm-standalone-regression-test.js": "3db4e248336430e178fbbbb22f4e22a42c57bd1dda16d1aaee9671847b9d2f4c",
+      "foundly-i18n.js": "9280920a816b734920a594aa0dffc76b0a8ab523270b5a332d1f73df561f475a",
+      "server.js": "dfda203d08c5bfa531ee2adbb9a8e5a88c99f892c8c35b71ee77f9c314d4eff4",
+      "static-response.js": "57f6d703edeff4bb1799ca270d7e04637b6482ca2c3ac6e0daabb4038676e7f9",
+      "zero/localization.test.js": "74469b5d3a3a1fb168d4b3fffd9faa79515c246a043afab52b95016ef2179859",
+      "zero/localization-api.test.js": "843ef150b936cdfcccad4bfb9c09b72e44117c98753217004c9d94d78603c377"
+    },
+    "targeted_tests": {
+      "localization-startup-tests.log": {
+        "exit_code": 0,
+        "sha256": "bc1b2f027782399748148f155fbcfc5e68c8ae3f50c486c6c1cc5d47c74defd6",
+        "bytes": 1548
+      },
+      "standalone-localization-regression.log": {
+        "exit_code": 0,
+        "sha256": "dd0abc69da76b75556dd5eba6275fd0adc98ab3572387cccc977d9fb1b9b5b58",
+        "bytes": 774
+      },
+      "localized-static-response-regression.log": {
+        "exit_code": 0,
+        "sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+        "bytes": 168
+      }
+    },
+    "localization_unit_http_tests": 12,
+    "ci_150": {
+      "head": "b8232812d9e8bc75995626d74fa0af1b8102c4e2",
+      "tree": "eb0c1fa1a5eedc37fc9b162cde748d47954ea641",
+      "status": "SUCCESS",
+      "scope": "preceding seven-surface localization checkpoint"
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
   }
 }

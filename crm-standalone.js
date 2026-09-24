@@ -7,6 +7,8 @@ const crypto=require('crypto');
 const {URL}=require('url');
 const {FoundlyCrmCore,ENTITY_DEFINITIONS}=require('./crm-core');
 const VERSION=require('./package.json').version;
+const UI_LOCALES=require('./foundly-locales').locales;
+const {serveStaticFile}=require('./static-response');
 const ROOT=__dirname,PORT=Math.max(1,Number(process.env.PORT||process.env.FOUNDLY_CRM_PORT||3300)),DATA_DIR=path.resolve(process.env.FOUNDLY_CRM_DATA_DIR||path.join(ROOT,'crm-data-runtime')),STATE_FILE=path.join(DATA_DIR,'foundly-crm.enc.json');
 fs.mkdirSync(DATA_DIR,{recursive:true,mode:0o700});
 
@@ -71,9 +73,28 @@ async function crmApi(req,res,url){
   throw Object.assign(new Error('CRM-route niet gevonden'),{statusCode:404,code:'crm_route_not_found'});
 }
 
+// The shared UI preference client is independent of a configured ZERO model.
+// Service mode has one configured actor per process; it does not manufacture
+// multi-user identities from request headers or preference bodies.
+async function uiPreferences(req,res){
+  const identity=()=>JSON.stringify([context().tenant_id,context().dealer_id,principal().id]);
+  const initial=identity();
+  if(!['GET','PUT'].includes(req.method))return json(res,405,{ok:false,code:'method_not_allowed'});
+  let input;if(req.method==='PUT'){
+    input=await readJson(req);
+    if(!authorized(req)||identity()!==initial)return json(res,401,{ok:false,code:'auth_invalid'});
+    if(!input||Array.isArray(input)||Object.keys(input).length!==1||!UI_LOCALES.includes(input.ui_locale))return json(res,400,{ok:false,code:'ui_locale_invalid'});
+  }
+  const key=storeKey(context(),'ui:preferences'),owner=principal().id,previous=stores.get(key),rows=previous||[];
+  if(input){const wasDirty=dirty;stores.set(key,[...rows.filter(row=>row.owner_id!==owner),{owner_id:owner,ui_locale:input.ui_locale}]);dirty=true;try{persist(true);}catch(error){if(previous)stores.set(key,previous);else stores.delete(key);dirty=wasDirty;throw error;}}
+  const saved=(stores.get(key)||[]).find(row=>row.owner_id===owner);
+  return json(res,200,{ok:true,preferences:{ui_locale:saved?.ui_locale||'nl-NL'}});
+}
+function uiLocale(){return (stores.get(storeKey(context(),'ui:preferences'))||[]).find(row=>row.owner_id===principal().id)?.ui_locale||'nl-NL';}
+const UI_ASSETS=new Set(['crm.css','crm-objects-client.js','crm-script.js','foundly-static-copy.js','foundly-locales.js','foundly-i18n.js','foundly-shell.js','foundly-shell.css']);
 function isPublic(pathname){return pathname==='/api/health'||pathname==='/api/ready'||/^\/api\/crm\/webhooks\/[A-Za-z0-9_.:-]{1,80}$/.test(pathname)}
-function serveFile(res,file,mime){res.writeHead(200,baseHeaders({'content-type':mime,'cache-control':'no-cache'}));fs.createReadStream(path.join(ROOT,file)).pipe(res)}
-const server=http.createServer(async(req,res)=>{const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);try{if(!rateAllowed(req))return json(res,429,{ok:false,code:'rate_limited',error:'Te veel verzoeken'});if(url.pathname==='/api/health')return json(res,200,{ok:true,service:'foundly-crm',version:VERSION,standalone:true});if(url.pathname==='/api/ready'){const result=readiness();return json(res,result.ready?200:503,{ok:result.ready,...result})}if(!isPublic(url.pathname)&&!authorized(req)){res.writeHead(401,baseHeaders({'content-type':'application/json; charset=utf-8','www-authenticate':'Bearer realm="Foundly CRM"'}));return res.end(JSON.stringify({ok:false,code:authConfigured()?'auth_invalid':'auth_not_configured',error:'Authenticatie vereist'}))}if(url.pathname.startsWith('/api/crm'))return await crmApi(req,res,url);if(url.pathname==='/api/zero/status')return json(res,200,{ok:true,assistant:'ZERO',enabled:false,optional:true,reason:'Configureer ZERO via Foundly OS-integratie'});if(url.pathname==='/api/zero/turn')return json(res,503,{ok:false,code:'zero_optional_not_configured',error:'ZERO is optioneel en niet geconfigureerd in deze zelfstandige CRM-service'});if((url.pathname==='/'||url.pathname==='/crm'||url.pathname==='/crm.html')&&req.method==='GET')return serveFile(res,'crm.html','text/html; charset=utf-8');if(url.pathname==='/crm.css'&&req.method==='GET')return serveFile(res,'crm.css','text/css; charset=utf-8');if(url.pathname==='/crm-objects-client.js'&&req.method==='GET')return serveFile(res,'crm-objects-client.js','application/javascript; charset=utf-8');if(url.pathname==='/crm-script.js'&&req.method==='GET')return serveFile(res,'crm-script.js','application/javascript; charset=utf-8');return json(res,404,{ok:false,code:'not_found',error:'Niet gevonden'})}catch(error){const status=Number(error.statusCode)||500;return json(res,status,{ok:false,code:error.code||'crm_internal_error',error:status<500?String(error.message).slice(0,500):'Interne CRM-fout',details:status<500?error.details||null:null})}});
+function serveFile(res,file,mime){const personal=file==='crm.html';return serveStaticFile(res,path.join(ROOT,file),baseHeaders({'content-type':mime,'cache-control':personal?'no-store':'no-cache'}),personal?{htmlLanguage:uiLocale()}:{});}
+const server=http.createServer(async(req,res)=>{const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);try{if(!rateAllowed(req))return json(res,429,{ok:false,code:'rate_limited',error:'Te veel verzoeken'});if(url.pathname==='/api/health')return json(res,200,{ok:true,service:'foundly-crm',version:VERSION,standalone:true});if(url.pathname==='/api/ready'){const result=readiness();return json(res,result.ready?200:503,{ok:result.ready,...result})}if(!isPublic(url.pathname)&&!authorized(req)){res.writeHead(401,baseHeaders({'content-type':'application/json; charset=utf-8','www-authenticate':'Bearer realm="Foundly CRM"'}));return res.end(JSON.stringify({ok:false,code:authConfigured()?'auth_invalid':'auth_not_configured',error:'Authenticatie vereist'}))}if(url.pathname==='/api/zero/preferences')return await uiPreferences(req,res);if(url.pathname==='/api/workspaces'&&req.method==='GET'){const {principal:actor}=CRM.context(context(),principal());CRM.assertRead(actor);return json(res,200,{ok:true,workspaces:[{id:'crm',route:'/crm',name:'CRM'}]});}if(url.pathname.startsWith('/api/crm'))return await crmApi(req,res,url);if(url.pathname==='/api/zero/status')return json(res,200,{ok:true,assistant:'ZERO',enabled:false,optional:true,reason:'Configureer ZERO via Foundly OS-integratie'});if(url.pathname==='/api/zero/turn')return json(res,503,{ok:false,code:'zero_optional_not_configured',error:'ZERO is optioneel en niet geconfigureerd in deze zelfstandige CRM-service'});if((url.pathname==='/'||url.pathname==='/crm'||url.pathname==='/crm.html')&&req.method==='GET')return serveFile(res,'crm.html','text/html; charset=utf-8');if(req.method==='GET'&&UI_ASSETS.has(url.pathname.slice(1)))return serveFile(res,url.pathname.slice(1),url.pathname.endsWith('.css')?'text/css; charset=utf-8':'application/javascript; charset=utf-8');return json(res,404,{ok:false,code:'not_found',error:'Niet gevonden'})}catch(error){const status=Number(error.statusCode)||500;return json(res,status,{ok:false,code:error.code||'crm_internal_error',error:status<500?String(error.message).slice(0,500):'Interne CRM-fout',details:status<500?error.details||null:null})}});
 server.listen(PORT,'0.0.0.0',()=>console.log(`Foundly CRM v${VERSION} standalone online op poort ${PORT}`));
 setInterval(()=>{try{persist()}catch(error){console.error('[CRM PERSIST ERROR]',String(error.code||'persistence_failed'))}},2000).unref();
 for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>{try{persist(true)}finally{process.exit(0)}});
