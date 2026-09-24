@@ -2263,6 +2263,73 @@
     "remaining": "The current automation form still submits only action type/title. Source-backed target/assignee/field/stage authoring is the next open gap. Generated/backend localization, browser-reload retry recovery and all broader unaccepted Run-2 gates remain open.",
     "evidence_limit": "Native unit/HTTP/current-capability/encrypted-restart plus actual minimal-DOM stage controller tests. Not rendered browser, assistive technology, native-speaker, live provider/voice or broad cognition acceptance.",
     "dynamic_candidates": 781,
+    "current_ci": {
+      "number": 184,
+      "id": 36066034226,
+      "job_id": 107855892262,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "fee57ffcbc3083bc8f0366704b09fc2106a13011",
+      "tree": "ebbec6350c4b5e6cb95f749b8b26159273ac33c1",
+      "full_npm_test": "PASS"
+    }
+  },
+  "crm_automation_authoring_checkpoint": {
+    "recorded_at": "2026-09-24T22:23:07.699770+00:00",
+    "prior_published_head": "fee57ffcbc3083bc8f0366704b09fc2106a13011",
+    "prior_published_tree": "ebbec6350c4b5e6cb95f749b8b26159273ac33c1",
+    "prior_ci": {
+      "number": 184,
+      "id": 36066034226,
+      "job_id": 107855892262,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "fee57ffcbc3083bc8f0366704b09fc2106a13011",
+      "tree": "ebbec6350c4b5e6cb95f749b8b26159273ac33c1",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "crm-automation-editor.js": "67aa444a6f198df73b19e9654bf208e50a0046512c02f2bf688482ee2187c657",
+      "crm-script.js": "ee1e820a28ff0dec6059000d089c3185e362ad525bb5c5fe46b42f01edf64ea6",
+      "crm.html": "72e290fad3d9998439d186426f093421b5ef67c32a0b6df6d1c0b8895fb1a7d7",
+      "crm-standalone.js": "a427ab7c918b572248549d43a653573562b843af915cb290a3c25c1f1309857c",
+      "server.js": "47d340caab8a57648b0d2ec9f248216144daa7d3f15bcce8a1b501b8d07fc15c",
+      "Dockerfile.crm": "c26ef9da0cd7d0b3923f05bc88a9d271f17daf445c5eda9e761e4e5aae37916d",
+      "foundly-locales.js": "de8700cdc0ddc6af7de416725ed5c3f0c13fb0309fa1f765bb332b693312e85c",
+      "zero-evaluation/crm-form-fixture.js": "73c85ab53c156371d62f3d59317ddb69a06ff0fb2c5c15f5090e671571afd32a",
+      "zero/crm-automation-editor.test.js": "829f71c0a6dd7d8ac74a68bc87a3d56919f0e38b4fe9d1dbcb78414eb36c6510",
+      "zero/crm-automation-authoring.test.js": "7130a23e4db0c247fc5305d4d5139c146c249268de1c5ebaf9397be4760a1fa7"
+    },
+    "logs": {
+      "run2-crm-automation-authoring-targeted-final.log": {
+        "exit_code": 0,
+        "sha256": "af8f4e8afe9b43fd623d4eac2599355b380e5325385a5158a463304374ce571e",
+        "bytes": 2013
+      },
+      "run2-crm-automation-authoring-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "19c4f21b33414d7bec5532f0d34871940bc31d8138ef00c0b01593dc53cc09b4",
+        "bytes": 41932
+      },
+      "run2-crm-automation-authoring-native-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 10,
+    "full_zero_tests": 353,
+    "full_zero_pass": 353,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "scope": "The actual CRM automation form now authors typed automatic actions using native source choices for active CRM users and pipeline-bound stages, and explicit scalar/unknown values for allowed fields. Source choices page in bounded requests, retain literal names and reject malformed/missing paging evidence. All owned labels bind to eight locales without resetting fields or re-reading sources. Frozen requests retain full action identity through lost response and replay. Current denial clears private choices and invalidates late reads/responses; actual submit and auxiliary source controls lock together. Main/standalone serve and package the new editor.",
+    "remaining": "CRM custom-object UI and broader shared-workspace/generated/backend localization remain open. Current automation triggers still use the existing stage/evaluation/signed-webhook entrypoints; this authoring checkpoint does not establish background scheduling/dispatch for every declared trigger. Browser-reload retry recovery and the wider Run-2 contract remain unaccepted.",
+    "evidence_limit": "Actual form with native CRM writes and execution plus minimal-DOM source/lifecycle tests, real native HTTP/standalone packaging regression. Not browser layout/accessibility/native-speaker or every-trigger/live-provider acceptance.",
+    "dynamic_candidates": 781,
     "current_ci": "PENDING_PUBLICATION"
   }
 }

@@ -346,3 +346,14 @@ Unknown monetary/probability input stays null; malformed and out-of-range values
 Eleven new tests, all 343 ZERO tests, 14/14 corpus cases and native CRM regressions pass. Real HTTP demonstrates target-capability revocation, no surviving partial tasks, exact receipts and encrypted restart. The collision test now uses another real authorized source, retaining its original conflict/rollback assertion. The conservative locale inventory remains 781 candidates.
 
 Source-backed action authoring remains the next open gap: the existing form still submits only type/title, so this native checkpoint is not complete UI acceptance. Generated/backend localization, browser-reload recovery and the wider Run-2 contract remain unaccepted. No main/production mutation or Run 3.
+
+
+### Continuation: source-backed CRM action authoring, 24 September 2026
+
+CI 184 passed native-effect head `fee57ffcbc3083bc8f0366704b09fc2106a13011`, tree `ebbec6350c4b5e6cb95f749b8b26159273ac33c1`, including full npm test. The actual automation form now authors complete typed internal actions. Native source choices select active CRM users, pipelines and matching stages; allowed field controls distinguish actual numbers, text, dates and an explicit cleared value. Source pages are bounded and malformed pagination is unavailable rather than silently complete. No opaque ID entry is required for assignees or stages.
+
+All owned labels bind explicitly to eight locales, preserving literal source names, selected identities and authored values without additional requests. The existing exact-request save contract now includes full action configuration. Save/retry controls lock the actual submit and auxiliary source controls together. Current denial retires source choices and pending writes; late responses cannot restore private observations. Historical untyped definitions are not silently upgraded.
+
+Ten new permanent tests, all 353 ZERO tests, 14/14 foundation corpus cases and native CRM regressions pass. Production form tests save through the real native core, lose/retry a committed response and then execute the configured assignment. Main and standalone HTML dependencies are served and packaged. The conservative direct-copy audit remains 781 candidates across 47 scripts.
+
+CRM custom-object screens and shared-workspace/generated/backend localization remain open. Automation event entrypoints remain the existing stage/evaluation/signed-webhook paths; every-trigger background scheduling is not established by this checkpoint. Browser-reload recovery, real browser/accessibility/native-speaker acceptance and the wider Run-2 gates remain open. No main/production change or Run 3.
