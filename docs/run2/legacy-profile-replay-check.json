@@ -1,0 +1,21 @@
+{
+  "base_commit": "e8142578eb2185a915c37d895c567937f20a9970",
+  "baseline_source_sha256": "951a72d4d3c94e4d7579cc6299dbf54195141c271828cfe72ffb1c5e8c2ae774",
+  "current_source_sha256": "bd0c3862f4551c6ec5699d2d907bf8cb894236f005d377e163aef83b9cb6a826",
+  "recorded_at": "2026-09-24T14:20:18.066Z",
+  "scope": "Actual Run-1 native CRM core creates a profile in an isolated in-memory adapter; current core replays the same default idempotency request. No external writes or production data.",
+  "cases": [
+    {
+      "business_locale": "default-nl-NL",
+      "original_idempotency_replay": "PASS",
+      "stored_records_unchanged": true,
+      "persistence_writes_on_replay": 0
+    },
+    {
+      "business_locale": "en-US",
+      "original_idempotency_replay": "PASS",
+      "stored_records_unchanged": true,
+      "persistence_writes_on_replay": 0
+    }
+  ]
+}

@@ -11,6 +11,15 @@
     return {get locale(){return locale;},setLocale(value){locale=normalize(value);missing.clear();return locale;},t,
       number(value,options={}){return valid(value)?new Intl.NumberFormat(locale,options).format(value):t('common.unknown');},
       currency(value,currency){return valid(value)&&/^[A-Z]{3}$/.test(currency||'')?new Intl.NumberFormat(locale,{style:'currency',currency}).format(value):t('common.unknown');},
+      currencyCents(value,currency){
+        // Native Finance amounts are exact hundredths. Keep the integer and
+        // fraction separate so division through Number cannot round a cent.
+        if(!/^[A-Z]{3}$/.test(currency||'')||!(typeof value==='bigint'||Number.isSafeInteger(value)||typeof value==='string'&&/^-?\d{1,40}$/.test(value)))return t('common.unknown');
+        const cents=BigInt(value),negative=cents<0n,absolute=negative?-cents:cents,whole=absolute/100n;
+        const parts=new Intl.NumberFormat(locale,{style:'currency',currency,minimumFractionDigits:2,maximumFractionDigits:2}).formatToParts(negative?(whole===0n?-0:-whole):whole);
+        const fraction=new Intl.NumberFormat(locale,{minimumIntegerDigits:2,useGrouping:false}).format(absolute%100n);
+        return parts.map(part=>part.type==='fraction'?fraction:part.value).join('');
+      },
       date(value,{timeZone='UTC',...options}={}){if(value===null||value===undefined||value==='')return t('common.unknown');const date=new Date(value);return Number.isFinite(date.getTime())?new Intl.DateTimeFormat(locale,{timeZone,...options}).format(date):t('common.unknown');},
       missingKeys(){return [...missing];}};
   }
@@ -51,7 +60,7 @@
     node.removeAttribute('data-i18n');node.removeAttribute('data-i18n-text');bindings.get(node)?.delete('text');parameters.get(node)?.delete('text');node.textContent=String(value??'');return node;};
   api.renderAttribute=function(node,attribute,value){if(!allowedAttributes.includes(attribute))throw Error('translation_attribute_unsupported');const message=messages.get(value);if(message)return api.bind(node,message.key,attribute,message.params);
     node.removeAttribute('data-i18n-'+attribute);bindings.get(node)?.delete(attribute);parameters.get(node)?.delete(attribute);node.setAttribute(attribute,String(value??''));return node;};
-  api.errorKey=function(code,status){const known={'identity_credentials_invalid':'identity.credentials_invalid','identity_invitation_invalid':'identity.invitation_invalid','identity_password_invalid':'identity.password_invalid','identity_auth_required':'identity.auth_required','auth_invalid':'identity.auth_required'};return known[code]||(status===429?'common.rate_limited':status===403?'common.access_denied':'common.request_failed');};
+  api.errorKey=function(code,status){const known={'identity_credentials_invalid':'identity.credentials_invalid','identity_invitation_invalid':'identity.invitation_invalid','identity_password_invalid':'identity.password_invalid','identity_auth_required':'identity.auth_required','auth_invalid':'identity.auth_required'};return (Object.hasOwn(known,code)?known[code]:null)||(status===429?'common.rate_limited':status===403?'common.access_denied':'common.request_failed');};
   api.error=function(code,status){return api.t(api.errorKey(code,status));};
   api.installLocaleControl=function(selector){
     selector.replaceChildren(...catalog.locales.map((locale,i)=>{const option=document.createElement('option');option.value=locale;option.textContent=catalog.names[i];return option;}));selector.value=api.locale;

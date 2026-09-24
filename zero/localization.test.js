@@ -1,6 +1,10 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const {create,locales}=require('../foundly-i18n'),catalog=require('../foundly-locales');
+test('exact native cent formatting retains large amounts, zero and negative sub-unit signs in every locale',()=>{
+ const en=create('en-GB');assert.equal(en.currencyCents(9007199254740991,'EUR'),'€90,071,992,547,409.91');assert.equal(en.currencyCents('900719925474099300','USD'),'US$9,007,199,254,740,993.00');assert.equal(en.currencyCents(-1,'EUR'),'-€0.01');assert.equal(en.currencyCents(0,'EUR'),'€0.00');
+ for(const locale of locales){const i=create(locale);for(const value of [null,undefined,'',false,0.5,Number.MAX_SAFE_INTEGER+1,'1e4'])assert.equal(i.currencyCents(value,'EUR'),i.t('common.unknown'));const parts=new Intl.NumberFormat(locale,{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).formatToParts(0);const decimal=parts.find(p=>p.type==='decimal').value;assert.ok(i.currencyCents(9007199254740991,'EUR').includes(decimal+'91'));assert.ok(i.currencyCents(-1,'EUR').includes(decimal+'01'));assert.equal(i.currencyCents(1,'invalid'),i.t('common.unknown'));}
+});
 test('explicit catalogs preserve all supported locales, parameters, pluralisation and unknown-value semantics',()=>{
  const keys=Object.keys(catalog.messages['nl-NL']);for(const locale of locales){const i=create(locale);assert.deepEqual(Object.keys(catalog.messages[locale]),keys);for(const key of keys){const parameters=text=>[...new Set(String(text).match(/\{[a-z_][a-z_0-9]*\}/g)||[])].sort();const original=parameters(catalog.messages['nl-NL'][key]);assert.deepEqual(parameters(catalog.messages[locale][key]),original,key+' parameters in '+locale);const params=Object.fromEntries(original.map(name=>[name.slice(1,-1),'<customer text>']));assert.ok(i.t(key,{...params,count:2,time:'12:00',date:'DATE',zone:'UTC'}));}assert.equal(i.number(null),i.t('common.unknown'));assert.equal(i.currency(0,null),i.t('common.unknown'));assert.equal(i.number('1234'),i.t('common.unknown'));assert.equal(i.date(null),i.t('common.unknown'));assert.match(i.t('common.record_count',{count:2}),/2/);assert.equal(i.missingKeys().length,0);}
  const en=create('en-GB');assert.equal(en.number(1234.5),'1,234.5');assert.equal(create('de-DE').number(1234.5),'1.234,5');assert.equal(en.currency(12.5,'GBP'),'£12.50');assert.equal(en.date('2026-01-01T00:00:00Z',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}),'31/12/2025');
@@ -25,6 +29,7 @@ function browserFixture(locale='fr-FR',fetch=async()=>({ok:false,status:401,json
 }
 test('explicit dynamic descriptors update labels and attributes without translating customer text or replacing form controls',()=>{
  const f=browserFixture('en-GB'),i=f.context.FoundlyI18n,node=f.nodes.dynamic=new Element('button'),input=f.nodes.unsaved=new Element('input'),params={count:1234};input.value='Aanmelden <unsaved customer value>';
+ for(const code of ['constructor','__proto__','toString'])assert.equal(i.errorKey(code,500),'common.request_failed');
  i.renderText(node,i.message('common.record_count',params));i.renderAttribute(node,'aria-label',i.message('common.save'));params.count=99;
  assert.equal(node.textContent,'1,234 records');i.setLocale('de-DE');assert.equal(node.textContent,i.t('common.record_count',{count:1234}));assert.equal(node.getAttribute('aria-label'),i.t('common.save'));assert.equal(input.value,'Aanmelden <unsaved customer value>');
  i.renderText(node,'Aanmelden');i.renderAttribute(node,'aria-label','Customer label');i.setLocale('fr-FR');assert.equal(node.textContent,'Aanmelden');assert.equal(node.getAttribute('aria-label'),'Customer label');
@@ -57,6 +62,33 @@ test('Finance locale errors hide raw backend copy and known blocker labels prese
  const box=f.nodes.finance=f.context.FoundlyFinancePeriodClosing.create({document:f.context.document,request});await box.ready;const key=name=>box.all().find(node=>node.getAttribute('data-i18n')==='finance.close.'+name);const select=key('period').children[0];select.value='p1';await select.fire('change');await key('review').fire('click');assert.ok(key('blocker').textContent.includes(i.t('finance.close.draft_invoices')));
  i.setLocale('sv-SE');assert.ok(key('blocker').textContent.includes(i.t('finance.close.draft_invoices')));assert.ok(key('blocker').textContent.includes('Letterlijke-id <literal>'));
  forbidden=true;await key('review').fire('click');const status=box.all().find(node=>node.tag==='output');assert.equal(status.textContent,i.t('common.access_denied'));i.setLocale('en-GB');assert.equal(status.textContent,i.t('common.access_denied'));assert.ok(!box.textContent.includes('RAW_DUTCH_PROVIDER'));
+});
+test('actual cash scenario UI uses native outcome codes and changes locale without losing assumptions or recalculating',async()=>{
+ const {FoundlyFinanceCore}=require('../finance-core'),{CapabilityResolver}=require('../capability-resolver'),{guardDomain}=require('../composition-runtime');
+ for(const locale of locales){
+  const f=browserFixture(locale),i=f.context.FoundlyI18n,rows=new Map(),ctx={tenant_id:'cash-localization',dealer_id:'default'},admin={id:'admin',roles:['ADMIN','SUPER_ADMIN']},reader={id:'reader',roles:['VIEWER']};let writes=0,sequence=0,deny=false;
+  const adapter={bucket(ctx,key){if(!rows.has(key))rows.set(key,[]);return rows.get(key);},persist(){writes++;},id:()=> 'cash-'+(++sequence),now:()=>new Date('2026-09-22T00:00:00Z'),emit(){},audit(){}};
+  const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['finance'],expected_revision:0});const core=new FoundlyFinanceCore(adapter),finance=guardDomain(core,'finance',()=>resolver);core.migrate(ctx,admin);
+  const entity=core.createLegalEntity(ctx,admin,{name:'Literal entity',legal_form:'BV',currency:'USD'}),plan=core.createCashForecast(ctx,admin,{legal_entity_id:entity.id,as_of:'2026-09-01',horizon_days:30,opening_cash_cents:10000,entries:[{date:'2026-09-10',amount_cents:-1000}]});
+  const before=JSON.stringify(plan),writesBefore=writes,calls=[];vm.runInContext(fs.readFileSync(require.resolve('../finance-cash-scenarios-client'),'utf8'),f.context);
+  const request=async(path,options)=>{assert.equal(path,'/api/finance/forecast-scenarios');const input=JSON.parse(options.body);calls.push(input);if(deny)throw Object.assign(Error('RAW_PRIVATE_BACKEND'),{status:403});return finance.forecastScenario(ctx,reader,input);};
+  const box=f.nodes.cash=f.context.FoundlyFinanceCashScenarios.create({document:f.context.document,request,forecastId:plan.id});await box.ready;
+  const key=name=>box.all().find(node=>node.getAttribute('data-i18n')==='finance.cash.'+name),opening=key('opening').children[0],horizon=key('horizon').children[0],date=key('entry_date').children[0],form=box.children.find(node=>node.tag==='div');
+  opening.value='0';await form.fire('input');const literalDate=date.value;
+  for(const next of locales){i.setLocale(next);assert.equal(calls.length,1);assert.equal(opening.value,'0');assert.equal(horizon.value,'30');assert.equal(date.value,literalDate);assert.equal(key('opening').children[0],opening);assert.equal(key('changed').textContent,i.t('finance.cash.changed'));}
+  await key('calculate').fire('click');assert.equal(calls.length,2);assert.equal(calls[1].changes.opening_cash_cents,0);assert.match(calls[1].expected_source_hash,/^[a-f0-9]{64}$/);assert.equal(key('possible_cash_shortfall').textContent,i.t('finance.cash.possible_cash_shortfall'));assert.equal(key('no_cash_accounts').textContent,i.t('finance.cash.no_cash_accounts'));
+  for(const next of locales){i.setLocale(next);assert.equal(calls.length,2);assert.equal(key('baseline').textContent,i.t('finance.cash.baseline',{amount:i.currencyCents(9000,'USD')}));assert.equal(key('scenario').textContent,i.t('finance.cash.scenario',{amount:i.currencyCents(-1000,'USD')}));assert.equal(opening.value,'0');}
+  assert.equal(writes,writesBefore);assert.equal(JSON.stringify(core.collection(ctx,'cash_forecasts')[0]),before);assert.deepEqual(Array.from(i.missingKeys()),[]);
+  horizon.value='0';await key('calculate').fire('click');assert.equal(calls.length,2);assert.equal(key('horizon_invalid').textContent,i.t('finance.cash.horizon_invalid'));
+  deny=true;await key('reset').fire('click');assert.equal(key('opening'),undefined);assert.equal(key('baseline'),undefined);assert.equal(box.all().find(node=>node.tag==='output').textContent,i.t('common.access_denied'));assert.ok(!box.textContent.includes('RAW_PRIVATE_BACKEND'));
+ }
+});
+test('cash editor refuses a source above its display bound without exposing partial editable assumptions',async()=>{
+ const f=browserFixture('en-GB');vm.runInContext(fs.readFileSync(require.resolve('../finance-cash-scenarios-client'),'utf8'),f.context);let requests=0;
+ const request=async()=>{requests++;return {source_hash:'bounded',baseline:{opening_cash_cents:0,horizon_days:30,entries:Array.from({length:201},(_,entry_index)=>({entry_index,date:'2026-09-01T00:00:00Z',amount_cents:1})),excluded_entries:[]}};};
+ const box=f.nodes.cash=f.context.FoundlyFinanceCashScenarios.create({document:f.context.document,request,forecastId:'large-forecast'});await box.ready;
+ assert.equal(box.all().some(node=>node.tag==='input'),false);assert.equal(box.all().some(node=>node.getAttribute('data-i18n')==='finance.cash.calculate'),false);assert.equal(box.all().find(node=>node.tag==='output').textContent,f.context.FoundlyI18n.t('finance.cash.too_many'));
+ f.context.FoundlyI18n.setLocale('de-DE');assert.equal(requests,1);assert.equal(box.all().find(node=>node.tag==='output').textContent,f.context.FoundlyI18n.t('finance.cash.too_many'));
 });
 test('actual login handlers localize errors in eight locales without displaying backend text or changing customer data',async()=>{
  for(const locale of locales){const f=browserFixture(locale);f.loadLogin();f.nodes.identityUsername.value='alice';f.nodes.identityPassword.value='private';await f.nodes.identityForm.fire('submit');assert.equal(f.nodes.identityNotice.textContent,catalog.messages[locale]['identity.credentials_invalid']);assert.equal(f.nodes.customer.textContent,'Aanmelden');assert.equal(f.context.location.redirect,undefined);assert.equal(f.context.document.documentElement.lang,locale);assert.equal(f.nodes.identitySubmit.disabled,false);}

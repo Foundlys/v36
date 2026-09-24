@@ -239,7 +239,13 @@
     "remaining_dynamic_candidates": 1006,
     "scope": "Explicit branded dynamic message bindings preserve nested inputs, literal customer data, IDs, selection and confirmation on locale change. Finance period-close labels, local validation, known blockers, dates, current review and receipt copy use all eight catalogs. Unknown backend errors are localized without reflecting raw text. The uncertain-result notice is retained through the outer error handler. Existing current-source and exact native retry contracts remain enforced.",
     "browser": "ENVIRONMENT_UNVERIFIED: supported cloud browser again rejected isolated native localhost preview with ERR_BLOCKED_BY_CLIENT after connection restoration. No alternate route or browser bypass attempted.",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "run": 153,
+      "id": 36009048534,
+      "head": "af604602ef94f5f4b6425616a7713ecd90080a99",
+      "tree": "fca67e510830088580a3743b4bbe6b782ec987a0",
+      "status": "SUCCESS"
+    },
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
   },
   "crm_profile_locale_checkpoint": {
@@ -277,7 +283,76 @@
       }
     },
     "scope": "Native profile stage defaults use an explicitly validated eight-locale selection. Browser submission snapshots its interface locale and payload, guards duplicate submits, locks inputs after uncertainty and reuses one native idempotency key on explicit retry. A later UI locale change cannot change that request. Existing stored and edited stage names remain literal and untouched by replay. Core restart/replay, invalid locale, current permission, real HTTP and standalone package routes are covered. No new durable browser reload recovery or atomic CRM transaction is claimed.",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "run": 154,
+      "id": 36010286448,
+      "head": "02fb2d70b97fda8e3002559bdf96978e17f3390d",
+      "tree": "40f76e8e867ddc14005408ce7c2616b55f1b0cf9",
+      "status": "SUCCESS"
+    },
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
+  },
+  "cash_scenario_locale_checkpoint": {
+    "recorded_at": "2026-09-24T14:23:43.644369+00:00",
+    "source_sha256": {
+      "finance-cash-scenarios.js": "009b288db4bce3ec05858737c758f70b7a1fa3960cb031ddbd09222c0ac2ecee",
+      "finance-cash-scenarios-client.js": "6bd06463892c20288efc9af3e1e5c04476732c9bf239e92f76075c18b944bc48",
+      "finance-cash-scenarios-test.js": "3d94474d86e484bf724e3200b3ac669ac9a39449bc9f63687fd6af799b5b7c6f",
+      "foundly-i18n.js": "832fb5c7d25d6ac98bcd3fa62c9994d9b91e0bdfb27784b9d2b04bc53379f147",
+      "foundly-locales.js": "5157aaf9ceae1fd64f0fbc81686d0f0f3313450dbcac110a4df689df64f7ea4f",
+      "crm-core.js": "bd0c3862f4551c6ec5699d2d907bf8cb894236f005d377e163aef83b9cb6a826",
+      "crm-script.js": "21021dccebf63c46c95f1dbcc139254547f172ec7ca2a594f8d286d72367a16b",
+      "crm-standalone-regression-test.js": "9c61fba1f4721b969c70e74225c303264e3de682ea1b3bcd91dadc38f5244ff0",
+      "zero/localization.test.js": "4349b397304c4a9dc977b8bc94c25ff49db3a4b78c197bb651f461105cd69355",
+      "zero/crm-profile-localization.test.js": "feb0c3966eccd282bed6b968f29787115c3af4153477eb20f61aaba197d17883"
+    },
+    "logs": {
+      "cash-localization-tests.log": {
+        "exit_code": 0,
+        "sha256": "a5498ad0e704e21e850ce342714001b53728dd39e04a3e6400b3b737e7698ad7",
+        "bytes": 2054
+      },
+      "cash-native-regression.log": {
+        "exit_code": 0,
+        "sha256": "a844ec6992c8052c5116f5feb5bf5e41e268dd83c63492416a3b8ad8874086bb",
+        "bytes": 678
+      },
+      "cash-native-codes-regression.log": {
+        "exit_code": 0,
+        "sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+        "bytes": 267
+      },
+      "cash-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "2dc0f4b5fdc2f731a5e0beb5cc23689cbda9a108c8a3e37c1e977fe743178ce0",
+        "bytes": 11057
+      },
+      "cash-profile-locale-tests.log": {
+        "exit_code": 0,
+        "sha256": "899a541faa769d52bb5dc45c43c0a17083ef148025706571a0f986f1cf7738c5",
+        "bytes": 2699
+      },
+      "cash-profile-crm-regression.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "targeted_locale_tests": 21,
+    "native_finance_core_http_client_regressions": "PASS",
+    "native_crm_core_http_standalone_regressions": "PASS",
+    "previous_full_zero_suite": {
+      "tests": 91,
+      "pass": 91,
+      "corpus_pass": 14,
+      "corpus_total": 14,
+      "scope": "Cash locale/precision implementation before the subsequent CRM presentation-vs-business locale compatibility correction and additional editor-limit test. Final code has focused checks above and awaits its own full CI."
+    },
+    "scope": "Native cash outcome/recommendation codes allow deterministic eight-locale presentation while retaining legacy descriptive fields. Dynamic labels, exact cent amounts, source IDs and assumptions retain ownership across locale changes without extra API calls. Source overflow shows no partial editable assumptions; reset failure clears stale editor/results. Unknown customer/provider content remains literal; errors use catalog labels. Money formatting keeps BigInt whole and fraction parts separate, including negative sub-unit amounts and large exact cent strings.",
+    "crm_compatibility": "defaults_locale selects generated label language separately from existing crm_config.locale. The browser snapshots defaults_locale; personal interface language does not rewrite business locale. Existing regional configuration such as en-US, and separate pt-BR business/sv-SE presentation, remain intact. Unspecified legacy business metadata retains its previous accepted shape and idempotency signature.",
+    "current_ci": "PENDING_PUBLICATION",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "legacy_native_profile_evidence": "legacy-profile-replay-check.json",
+    "cash_validation": "Whole-day horizon validated at 1–730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
   }
 }

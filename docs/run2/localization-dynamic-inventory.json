@@ -1991,7 +1991,7 @@
     },
     {
       "file": "crm-script.js",
-      "sha256": "c11638635ed58638b64633a5ecec80b5f022ae833acb0d7c617963db6c241cbf",
+      "sha256": "21021dccebf63c46c95f1dbcc139254547f172ec7ca2a594f8d286d72367a16b",
       "items": [
         {
           "line": 32,
@@ -2170,8 +2170,8 @@
         },
         {
           "line": 107,
-          "start": 31611,
-          "end": 31644,
+          "start": 31620,
+          "end": 31653,
           "context": "textContent",
           "text": "ZERO analyseert de CRM-context…",
           "parameters": [],
@@ -2179,8 +2179,8 @@
         },
         {
           "line": 118,
-          "start": 36402,
-          "end": 36564,
+          "start": 36411,
+          "end": 36573,
           "context": "textContent",
           "text": "Laatst gecontroleerd {p0} · alleen vastgelegde CRM-data",
           "parameters": [
@@ -2190,8 +2190,8 @@
         },
         {
           "line": 118,
-          "start": 36660,
-          "end": 36678,
+          "start": 36669,
+          "end": 36687,
           "context": "textContent",
           "text": "NIET BESCHIKBAAR",
           "parameters": [],
@@ -2482,108 +2482,8 @@
     },
     {
       "file": "finance-cash-scenarios-client.js",
-      "sha256": "afb1e02324b81bb119bff6b7e529b561f501e1dc0bff13b12d3319018d0e45b8",
-      "items": [
-        {
-          "line": 4,
-          "start": 311,
-          "end": 346,
-          "context": "element_text",
-          "text": "Kasplanning: scenario vergelijken",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 4,
-          "start": 355,
-          "end": 481,
-          "context": "element_text",
-          "text": "Vergelijk expliciete aannames met één actuele kasplanning. Dit wijzigt geen brongegevens en voert geen financiële actie uit.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 10,
-          "start": 1515,
-          "end": 1546,
-          "context": "element_text",
-          "text": "Scenario beginsaldo in centen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 10,
-          "start": 1595,
-          "end": 1627,
-          "context": "element_text",
-          "text": "Scenario horizon in hele dagen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 11,
-          "start": 1844,
-          "end": 1984,
-          "context": "textContent",
-          "text": "Deze bron heeft meer dan 200 regels. De volledige vergelijking is beschikbaar via de scenario-API; de editor toont geen gedeeltelijk plan.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 13,
-          "start": 2198,
-          "end": 2266,
-          "context": "textContent",
-          "text": "Actuele bron geladen. Bedragen buiten het venster tellen niet mee.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 2283,
-          "end": 2303,
-          "context": "element_text",
-          "text": "Scenario berekenen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 17,
-          "start": 3973,
-          "end": 4073,
-          "context": "element_text",
-          "text": "Alleen vastgelegde administratie; volledigheid, provideruitkomst en causaliteit zijn niet bewezen.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 17,
-          "start": 4177,
-          "end": 4265,
-          "context": "textContent",
-          "text": "Hypothetische vergelijking; brongegevens en financiële administratie zijn ongewijzigd.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 20,
-          "start": 4291,
-          "end": 4315,
-          "context": "element_text",
-          "text": "Scenario-invoer wissen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 21,
-          "start": 4407,
-          "end": 4475,
-          "context": "textContent",
-          "text": "Wis eerst de scenario-invoer voordat je een andere selectie laadt.",
-          "parameters": [],
-          "rich_text": false
-        }
-      ]
+      "sha256": "6bd06463892c20288efc9af3e1e5c04476732c9bf239e92f76075c18b944bc48",
+      "items": []
     },
     {
       "file": "finance-loading.js",
