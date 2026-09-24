@@ -5,6 +5,7 @@
   // Explicit catalog entries only. Business records and provider text are never
   // translated by DOM inspection or substituted by a language fallback.
   const rows={
+    "crm.dashboard.currency_unknown":["Valuta niet vermeld","Currency not specified","Währung nicht angegeben","Devise non précisée","Moneda no especificada","Valuta ikke angivet","Valuta ikke oppgitt","Valuta inte angiven"],
     "finance.page.kpi.revenue":["Omzet", "Revenue", "Umsatz", "Chiffre d’affaires", "Ingresos", "Omsætning", "Omsetning", "Omsättning"],
     "finance.page.kpi.gross_margin":["Brutomarge", "Gross margin", "Bruttomarge", "Marge brute", "Margen bruto", "Bruttoavance", "Bruttomargin", "Bruttomarginal"],
     "finance.page.kpi.operating_result":["Operationeel resultaat", "Operating result", "Betriebsergebnis", "Résultat d’exploitation", "Resultado operativo", "Driftsresultat", "Driftsresultat", "Rörelseresultat"],

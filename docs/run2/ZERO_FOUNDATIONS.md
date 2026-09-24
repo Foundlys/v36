@@ -216,3 +216,14 @@ Finance page entity options, KPIs, posted-source labels, P&L, aging, budget/fore
 Four additional locale/ownership tests bring the Finance controller checks to 13; all 202 ZERO tests and 14/14 foundation corpus cases pass. Seven targeted workspace/loading/scenario/closing controller and real local HTTP suites pass. The obsolete escape-helper-name regression now checks actual literal DOM account text and exact/unknown amounts, preserving the original safety requirement. Catalog aliases and expected localized empty-state labels were verified before this checkpoint; no test is skipped.
 
 The conservative audit lists 796 candidates overall. Finance has six internal exceptions classified into localized errors and one no-runtime fallback; other surfaces and generated/backend copy remain open. The next direct presentation gap is CRM page rendering. Full-surface locale, browser, accessibility, native-speaker, voice and wider Run-2 gates remain unaccepted. Main and production are unchanged; Run 3 has not started.
+
+
+### Continuation: CRM numeric source truth, 24 September 2026
+
+CI 171 passed Finance source head `b9815a7c1f0b9e8b6261555dabe699fef22dea7d`. Finance locale head `3aa5ab9c81205a9418a749ecb2f08850bb02034c`, tree `f471c663654068ea51981602d02b120b08c1f738`, has CI 172 (`36048311519`) still running at this checkpoint. An interrupted read-only git fetch was retried successfully; local and published histories are preserved and merged without reset or force update.
+
+Three before-fix tests reproduced truthy/string/boolean metric coercion, invented EUR currency for a metric without currency, and native historical null ratios being compared as zero. The formatter now requires typed observations, preserves explicit currency and exact two-decimal source presentation, and formats percentage/duration units in all eight locales. Missing currency is stated explicitly instead of assigning a currency.
+
+Native period comparison retains null when either ratio value is unavailable and rejects nonfinite differences. Legitimate count changes from observed zero remain intact. Native observed zero ratios still compare to zero, and percentage change from zero remains undefined. Five new permanent tests, all 207 ZERO tests, 14/14 foundation corpus cases and existing CRM core/API/standalone regressions pass.
+
+This is a bounded source-truth correction before CRM dashboard localization. Remaining dashboard/chart currency and source-state presentation, other views, generated/backend copy and broader Run-2 gates remain open. The conservative inventory still lists 796 candidates. No acceptance criterion is waived, no production mutation/main merge occurred, and Run 3 has not started.
