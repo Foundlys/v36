@@ -6,7 +6,7 @@
     let locale=normalize(value);const missing=new Set();
     function t(key,params={}){let text=catalog.messages[locale][key];if(text&&typeof text==='object'){if(!Number.isFinite(params.count))throw Error('plural_count_required');text=text[new Intl.PluralRules(locale).select(params.count)]||text.other;}
       if(typeof text!=='string'){missing.add(key);return '⟦'+key+':'+locale+'⟧';}
-      return text.replace(/\{([a-z_][a-z_0-9]*)\}/g,(_,name)=>{if(!Object.hasOwn(params,name))throw Error('translation_parameter_required:'+name);return name==='count'?new Intl.NumberFormat(locale).format(params[name]):String(params[name]);});}
+      return text.replace(/\{([a-z_][a-z_0-9]*)\}/g,(_,name)=>{if(!Object.hasOwn(params,name))throw Error('translation_parameter_required:'+name);return name==='count'&&typeof params[name]==='number'?new Intl.NumberFormat(locale).format(params[name]):String(params[name]);});}
     const valid=value=>typeof value==='number'&&Number.isFinite(value);
     return {get locale(){return locale;},setLocale(value){locale=normalize(value);missing.clear();return locale;},t,
       number(value,options={}){return valid(value)?new Intl.NumberFormat(locale,options).format(value):t('common.unknown');},

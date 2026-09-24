@@ -1936,5 +1936,72 @@
     "evidence_limit": "Actual controllers and native CRM writes with a minimal DOM. Legacy innerHTML drag targets are mounted from the native board because the fixture does not parse HTML. No browser, responsive, accessibility, native-speaker or page-reload recovery proof. Remaining CRM source rendering/provisioning and broader Run-2 gates remain open.",
     "dynamic_candidates": 786,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_source_rendering_checkpoint": {
+    "recorded_at": "2026-09-24T21:27:38.777824+00:00",
+    "prior_published_head": "9e6c9279c65c6b1a1da0c911bc28f5e2017eb88a",
+    "prior_published_tree": "f29a31cee15a90649071c0c486038ec93cf24270",
+    "prior_ci": {
+      "number": 180,
+      "id": 36059922270,
+      "conclusion": "success"
+    },
+    "source_sha256": {
+      "crm-core.js": "4affc38dc5e3a2f32ff7397a0c5a919574f07b1650647b4c92fb169f1762e07e",
+      "crm-script.js": "f23c289938a040f6e8b2472b9c071d5fd31f8ae3aba41acadada267811b24cf6",
+      "foundly-i18n.js": "cf553f0281f6adc618a8ace6a097f6c25b2ab84669e2ac59737fffbc1fc50788",
+      "foundly-locales.js": "d12de6e72ad744155f965076537fe6d3230ef8b1d0346d4ea2e28d4e7e04ef53",
+      "zero/localization.test.js": "8c47a54d10e177e4e27ffec7d4110d7527cd369b73c1d525549cd3e53b968a36",
+      "zero/crm-source-rendering.test.js": "2cde95bc5e8ed7eb891cbf3bdd5efb95e0000de99b5f9fc4dc84c2b72918294a",
+      "zero/crm-pipeline-observation.test.js": "76c47f7aa47ab49a5fab9b9509896cd47fe8854acc99e19dac51364ddfdd3590"
+    },
+    "logs": {
+      "run2-crm-source-rendering-before.log": {
+        "exit_code": 1,
+        "sha256": "f1fce517c2b0dc1f3adc83d988d28cd1a963cfe19e4a5c0be575fd966b0e52c6",
+        "bytes": 7697
+      },
+      "run2-crm-count-format-before.log": {
+        "exit_code": 1,
+        "sha256": "34ac00883e225456b4297c184c0c7485ed1204ba0630273b3b3b135d4c84f1fa",
+        "bytes": 943
+      },
+      "run2-crm-schema-before.log": {
+        "exit_code": 1,
+        "sha256": "4d735fb3b451cf666c544b1c2911c043670200973a0a7b1ec1648b28ed6001c4",
+        "bytes": 974
+      },
+      "run2-crm-source-rendering-final.log": {
+        "exit_code": 0,
+        "sha256": "71be29a7a1437405bb0ff48907bed7036deb72298f8f40a37044281b9cf2cc52",
+        "bytes": 6453
+      },
+      "run2-crm-source-rendering-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "1021dac203ee5bc13706eb392e6a1ab45bea246cdc17a3098f31cce2e45aad86",
+        "bytes": 36686
+      },
+      "run2-crm-source-rendering-native-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 12,
+    "targeted_tests": 58,
+    "targeted_pass": 58,
+    "full_zero_tests": 306,
+    "full_zero_pass": 306,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "before_fix": "Nine initial source/native cases, a separate double-count-format case and missing-schema case failed. The new editor fixture was then mounted in the DOM for placeholder updates; it initially did not expose its inputs to document queries. That fixture limitation was repaired without changing product expectations.",
+    "scope": "Record, pipeline, customer, automation, editor and schema source presentation now uses owned eight-locale bindings and literal source data. Missing arrays and typed values stay unknown; genuine zeros and explicit currencies survive. Native pipeline groups different currencies and reports bounded-query coverage; incomplete totals stay unavailable. Count interpolation formats actual numbers once and preserves explicitly formatted/unknown descriptors; plural messages still require numeric counts. Existing access and exact-retry controls remain.",
+    "evidence_limit": "Minimal DOM and native/API fixture evidence, not browser/layout, screen reader, native-speaker or live provider proof. Full-surface locale acceptance remains FAIL. Compound provisioning, remaining generated/backend copy, automation actions and durable notifications stay open.",
+    "dynamic_candidates": 781,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }

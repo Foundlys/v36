@@ -781,107 +781,39 @@
     },
     {
       "file": "crm-script.js",
-      "sha256": "1061fa595337afd40930a6f064eba9bd1735a0142c2766dd6ebeb19a96527b6a",
+      "sha256": "f23c289938a040f6e8b2472b9c071d5fd31f8ae3aba41acadada267811b24cf6",
       "items": [
         {
-          "line": 70,
-          "start": 13588,
-          "end": 14052,
-          "context": "innerHTML",
-          "text": "<article><h3>{p0} domeincollecties</h3><p>Tenantisolatie, RBAC, audit, revisions en idempotency.</p></article><article><h3>{p1} widgettypen</h3><p>{p2}</p></article><article><h3>Externe writes beschermd</h3><p>{p3}</p></article>",
-          "parameters": [
-            "Object.keys(state.schema.entities||{}).length",
-            "(state.schema.dashboard_widget_types||[]).length",
-            "(state.schema.dashboard_widget_types||[]).map(escapeHtml).join(' · ')",
-            "escapeHtml(state.schema.contracts?.external_writes||'Alleen na autorisatie')"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 144,
-          "start": 29229,
-          "end": 29265,
+          "line": 159,
+          "start": 30827,
+          "end": 30863,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM dashboard response unavailable",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 169,
-          "start": 34672,
-          "end": 34705,
+          "line": 205,
+          "start": 37311,
+          "end": 37344,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM action response unavailable",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 206,
-          "start": 42200,
-          "end": 42258,
-          "context": "textContent",
-          "text": "Geen echte {p0} beschikbaar.",
-          "parameters": [
-            "ENTITY_LABELS[entity]||entity"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 208,
-          "start": 43261,
-          "end": 43304,
-          "context": "toast",
-          "text": "Bewaar eerst de openstaande eigen velden.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 209,
-          "start": 44405,
-          "end": 45730,
-          "context": "innerHTML",
-          "text": "<section><h3>Identiteit</h3><p><strong>{p0}</strong><br>{p1} {p2}</p></section><section><h3>Lifecycle</h3><p>Status: {p3} · Score: {p4}</p></section><section><h3>Relaties</h3><p>{p5} deals · {p6} taken · {p7} afspraken · {p8} documenten</p></section><section><h3>Tijdlijn</h3>{p9}</section><section><h3>Wijzigingshistorie</h3>{p10}</section><section><h3>Toestemming</h3><p>{p11}</p></section>",
-          "parameters": [
-            "escapeHtml(s.name)",
-            "escapeHtml(s.email||'')",
-            "escapeHtml(s.phone||'')",
-            "escapeHtml(s.status||'—')",
-            "escapeHtml(s.score??'—')",
-            "data.deals.length",
-            "data.tasks.length",
-            "data.appointments.length",
-            "data.documents.length",
-            "data.timeline.length?data.timeline.slice(0,30).map(row=>`<article><strong>${escapeHtml(titleize(row.timeline_type))}</strong> · ${escapeHtml(formatDate(row.occurred_at||row.scheduled_at||row.created_at))}<p>${escapeHtml(row.summary||row.title||row.content||row.status||'')}</p></article>`).join(''):'<p>Geen vastgelegde tijdlijnitems.</p>'",
-            "data.history?.length?data.history.slice(0,20).map(row=>`<article><strong>${escapeHtml(row.action)}</strong> · ${escapeHtml(formatDate(row.created_at))}<p>${escapeHtml(titleize(row.entity))}</p></article>`).join(''):'<p>Geen toegankelijke wijzigingshistorie.</p>'",
-            "data.consents.length?data.consents.map(row=>`${escapeHtml(row.purpose)}: ${escapeHtml(row.status)}`).join('<br>'):'Geen toestemmingsrecord beschikbaar.'"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 217,
-          "start": 46964,
-          "end": 46997,
+          "line": 274,
+          "start": 50180,
+          "end": 50213,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM record response unavailable",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 223,
-          "start": 48267,
-          "end": 48340,
-          "context": "textContent",
-          "text": "{p0} · {p1}",
-          "parameters": [
-            "record?'Bewerk':'Nieuw'",
-            "ENTITY_LABELS[entity]||titleize(entity)"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 257,
-          "start": 55946,
-          "end": 55977,
+          "line": 317,
+          "start": 59999,
+          "end": 60030,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM ZERO response unavailable",
           "parameters": [],

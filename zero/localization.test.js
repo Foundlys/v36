@@ -1,6 +1,9 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const {create,locales}=require('../foundly-i18n'),catalog=require('../foundly-locales');
+test('count interpolation formats numeric quantities once and preserves explicit formatted or unknown values',()=>{
+ for(const locale of locales){const i=create(locale),formatted=new Intl.NumberFormat(locale).format(1234);for(const value of [1234,formatted,{toString:()=>formatted}])assert.ok(i.t('crm.dashboard.fetched',{count:value}).includes(formatted));assert.ok(i.t('crm.dashboard.fetched',{count:i.t('common.unknown')}).includes(i.t('common.unknown')));assert.throws(()=>i.t('common.record_count',{count:formatted}),/plural_count_required/);}
+});
 test('exact native cent formatting retains large amounts, zero and negative sub-unit signs in every locale',()=>{
  const en=create('en-GB');assert.equal(en.currencyCents(9007199254740991,'EUR'),'€90,071,992,547,409.91');assert.equal(en.currencyCents('900719925474099300','USD'),'US$9,007,199,254,740,993.00');assert.equal(en.currencyCents(-1,'EUR'),'-€0.01');assert.equal(en.currencyCents(0,'EUR'),'€0.00');
  for(const locale of locales){const i=create(locale);for(const value of [null,undefined,'',false,0.5,Number.MAX_SAFE_INTEGER+1,'1e4'])assert.equal(i.currencyCents(value,'EUR'),i.t('common.unknown'));const parts=new Intl.NumberFormat(locale,{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).formatToParts(0);const decimal=parts.find(p=>p.type==='decimal').value;assert.ok(i.currencyCents(9007199254740991,'EUR').includes(decimal+'91'));assert.ok(i.currencyCents(-1,'EUR').includes(decimal+'01'));assert.equal(i.currencyCents(1,'invalid'),i.t('common.unknown'));}
