@@ -1479,5 +1479,76 @@
     "evidence_limit": "Native CRM core/API/standalone contracts and bounded formatter evidence do not establish full dashboard localization, other CRM chart currency semantics, browser/layout, native-speaker or cognitive quality. Dashboard rendering/source-count/state gaps remain the next open work.",
     "dynamic_candidates": 796,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_dashboard_locale_checkpoint": {
+    "recorded_at": "2026-09-24T19:55:09.447472+00:00",
+    "prior_published_head": "d5c9acfe9dace9803fc1d839e5183a0c06e49a77",
+    "prior_published_tree": "235e8b6a7899048ba94623ab3fd4c85efd6592ee",
+    "prior_ci": [
+      {
+        "number": 172,
+        "id": 36048311519,
+        "head": "3aa5ab9c81205a9418a749ecb2f08850bb02034c",
+        "conclusion": "success"
+      },
+      {
+        "number": 173,
+        "id": 36049275202,
+        "head": "d5c9acfe9dace9803fc1d839e5183a0c06e49a77",
+        "conclusion": "success"
+      }
+    ],
+    "source_sha256": {
+      "crm-script.js": "74f8a07faa9fe6b2ca30f25572e1a01c3a804fe7121d5fcae633691543277e56",
+      "crm.css": "085c3b2ac6f0b5aba18640b9a3196407edb55987ce52dcf8e066f4d18ad05c22",
+      "foundly-locales.js": "730c59ffca469604d27e95c595e085e5694833c3fd0507363ea6f4f5baed6899",
+      "zero-evaluation/crm-dashboard-fixture.js": "d24a79d310820f6ac9b24ec5ea4b0ba0e7b8eea86e753aebe77ffed255fb3443",
+      "zero/crm-dashboard-localization.test.js": "b7877bb1011c12aa03af4497f5c32892f701b2097ec0e1dce4b5a7df8e4c46c2"
+    },
+    "logs": {
+      "run2-crm-dashboard-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "eaa6302b88720b046d6c87c286a239e84612c01f03b4b9801453bc6b941903d8",
+        "bytes": 1751
+      },
+      "run2-crm-dashboard-guards.log": {
+        "exit_code": 0,
+        "sha256": "f928c4d8312eb4727c00ef8dd3f72ed9c886f1b176deda06ca2bbf226ef6a006",
+        "bytes": 314
+      },
+      "run2-crm-dashboard-localization.log": {
+        "exit_code": 0,
+        "sha256": "fa39dc1fd85da0fdb8ec926c43bd89fd0bb2efa28e8642de4ff8d2d23f960d19",
+        "bytes": 1658
+      },
+      "run2-crm-dashboard-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "47d11a9be2acf6e232ded9c0411979158283ac671ba2642b2eee7f1d7c1097b1",
+        "bytes": 27259
+      },
+      "run2-crm-dashboard-native.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 13,
+    "full_zero_tests": 220,
+    "full_zero_pass": 220,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0,
+      "limit": "Final delta-unit labels added after this run are covered by the final full ZERO run; current published CI is pending."
+    },
+    "reproduced_defects": [
+      "A denied dashboard refresh retained earlier private rows.",
+      "A late summary could restore rows after a newer denied load."
+    ],
+    "scope": "Dashboard metrics, tables, charts, tooltips, editing labels and request feedback bind explicitly to all eight locales. Numeric availability, empty versus missing lists, source counts and currency remain distinct. Observed zero has zero-height bars; source chart rows never mix money with lead counts, and mixed currencies or malformed/negative values use literal tables. Comparison percentage points and percentage changes remain distinct. Native source text/IDs stay inert and literal. Locale changes preserve card identity, drafts/layout and issue no requests. Denied reads clear dashboard observations and prevent late summaries, status observations or saves from repopulating them; pending saves reject duplicates. Detached edit controls cannot mutate a replacement layout.",
+    "evidence_limit": "Production-controller DOM fixture with bootstrap deferred; not browser/layout, assistive-technology, native-speaker, live provider or cognitive acceptance. Other CRM views and backend/generated copy remain open. Review found native saveDashboard changes prior defaults before target ownership/revision validation; atomic failure/replay and client retry recovery are the next code-controlled gap, not accepted by the existing native regressions.",
+    "dynamic_candidates": 789,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }

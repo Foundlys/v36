@@ -1296,3 +1296,6 @@ dialog::backdrop {
 .pipeline-stage-row legend { color: var(--muted); padding: 0 4px; }
 .pipeline-stage-row button { justify-self: start; }
 @media (max-width: 640px) { .pipeline-stage-row { grid-template-columns: 1fr; } }
+
+/* An observed zero must not be drawn as a positive bar. */
+.widget .spark i.bar-0{height:0;border:0;box-shadow:none}

@@ -227,3 +227,16 @@ Three before-fix tests reproduced truthy/string/boolean metric coercion, invente
 Native period comparison retains null when either ratio value is unavailable and rejects nonfinite differences. Legitimate count changes from observed zero remain intact. Native observed zero ratios still compare to zero, and percentage change from zero remains undefined. Five new permanent tests, all 207 ZERO tests, 14/14 foundation corpus cases and existing CRM core/API/standalone regressions pass.
 
 This is a bounded source-truth correction before CRM dashboard localization. Remaining dashboard/chart currency and source-state presentation, other views, generated/backend copy and broader Run-2 gates remain open. The conservative inventory still lists 796 candidates. No acceptance criterion is waived, no production mutation/main merge occurred, and Run 3 has not started.
+
+
+### Continuation: CRM dashboard presentation and stale-source guards, 24 September 2026
+
+CI 172 and 173 passed their published Finance locale and CRM observation heads. Latest prior source head `d5c9acfe9dace9803fc1d839e5183a0c06e49a77` has tree `235e8b6a7899048ba94623ab3fd4c85efd6592ee`; both local and published histories remain preserved.
+
+Two failing-before tests reproduced retained private dashboard rows after denial and late summary restoration. Dashboard/status/save generations now clear revoked observations and reject late replies; pending saves reject duplicates and detached old editing controls cannot mutate a newer layout. Native routes, layout/filter payloads, source IDs and business text are unchanged.
+
+Dashboard metrics, tables, charts, tooltips, editing labels, comparison units and request feedback use explicit live eight-locale bindings. Locale changes preserve cards, authored inputs and layout without I/O. Missing lists/counts/amounts remain unknown, source currency is never invented, and observed zero draws no positive bar. Source charts use one measurement field, preserving zero rather than substituting lead counts; mixed currencies and malformed/negative values use explicit tables. Percentage-point differences and percentage changes remain distinct.
+
+Thirteen new checks, all 220 ZERO tests, 14/14 foundation corpus cases and targeted native CRM regressions pass. Final comparison-unit labels were added after the native regression run and are covered by the final full ZERO run. This fixture executes the production controller with bootstrap deferred; it does not establish browser pixels, responsive layout, assistive-technology or native-speaker acceptance. The conservative inventory lists 789 candidates. No full locale gate is promoted.
+
+Review also found the next code-controlled defect: native `saveDashboard` changes existing defaults before validating the target's ownership/revision. Atomic rejection/replay and client save retry recovery need direct tests and repair before proceeding to the other CRM views. Existing native success regressions do not accept that gap. No production mutation, main merge, credential change or Run-3 work occurred.

@@ -795,10 +795,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-057",
@@ -832,10 +833,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-058",
@@ -869,10 +871,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-059",
@@ -906,10 +909,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-060",
@@ -943,10 +947,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-061",
@@ -980,10 +985,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-062",
@@ -1017,10 +1023,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-063",
@@ -1054,10 +1061,11 @@
         "zero/automotive-search-localization.test.js",
         "zero/automotive-detail-localization.test.js",
         "zero/finance-page-localization.test.js",
-        "zero/crm-observation-truth.test.js"
+        "zero/crm-observation-truth.test.js",
+        "zero/crm-dashboard-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded Analysis, Automotive and Finance presentation plus strict CRM metric formats support eight locales. CRM dashboard/chart states, other views and generated/backend copy remain open; the conservative audit lists 796 candidates. Full-surface and native-speaker/layout acceptance remain incomplete."
+      "note": "Bounded Analysis, Automotive, Finance and CRM dashboard presentation supports eight locales. Other CRM views and generated/backend copy remain open; the conservative audit lists 789 candidates. Controller fixtures do not prove browser/layout or native-speaker quality. Full-surface locale acceptance remains FAIL."
     },
     {
       "id": "R2-064",
@@ -1742,7 +1750,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 167–171 passed their published checkpoints. CI 172 is running for Finance locale head. The later CRM observation checkpoint passes 207 ZERO tests, 14 corpus cases and full native CRM core/API/standalone regressions; its own published CI is pending. Historical CI 166 remains failed and repaired."
+      "note": "CI 167–173 passed their respective published checkpoints. The newer CRM dashboard checkpoint passes 220 ZERO tests, 14 corpus cases and native CRM regressions; its own published CI is pending. Historical CI 166 remains failed and repaired. Newly identified dashboard save atomicity/retry gaps remain code-controlled work."
     },
     {
       "id": "R2-115",
@@ -1878,7 +1886,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-24T19:35:27.852894+00:00",
+  "updated_at": "2026-09-24T19:55:09.447472+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }
