@@ -1,0 +1,9 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),{fixture}=require('../zero-evaluation/fixture');
+test('native CRM HTTP dashboard rejection and replay preserve newer default, audit and encrypted restart state',async()=>{
+ const f=await fixture();try{const input={name:'Literal original HTTP dashboard',widgets:[{id:'literal_leads',type:'KPI',metric:'leads',x:0,y:0,w:4,h:2}],share_mode:'PRIVATE',is_default:true},headers={'idempotency-key':'dashboard-http-original'};const first=await f.request('/api/crm/dashboard','POST',input,null,headers);assert.equal(first.status,201);const second=await f.request('/api/crm/dashboard','POST',{...input,name:'Literal newer HTTP dashboard'},null,{'idempotency-key':'dashboard-http-newer'});assert.equal(second.status,201);const before=await f.request('/api/crm/audit_events?limit=200');assert.equal(before.status,200);
+ let replay=await f.request('/api/crm/dashboard','POST',input,null,headers);assert.equal(replay.status,201);assert.equal(replay.body.dashboard.idempotent_replay,true);assert.equal(replay.body.dashboard.id,first.body.dashboard.id);assert.equal((await f.request('/api/crm/dashboard')).body.dashboard.id,second.body.dashboard.id);
+ const rejected=await f.request('/api/crm/dashboard','PATCH',{...input,id:first.body.dashboard.id},null,{'idempotency-key':'dashboard-http-stale','if-match':'"0"'});assert.equal(rejected.status,409);assert.equal(rejected.body.code,'crm_revision_conflict');assert.deepEqual((await f.request('/api/crm/audit_events?limit=200')).body,before.body);
+ await f.stop();await f.start();assert.equal((await f.request('/api/crm/dashboard')).body.dashboard.id,second.body.dashboard.id);replay=await f.request('/api/crm/dashboard','POST',input,null,headers);assert.equal(replay.body.dashboard.idempotent_replay,true);assert.deepEqual((await f.request('/api/crm/audit_events?limit=200')).body,before.body);
+ }finally{await f.close();}
+});

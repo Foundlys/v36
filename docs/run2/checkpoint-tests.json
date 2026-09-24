@@ -1550,5 +1550,77 @@
     "evidence_limit": "Production-controller DOM fixture with bootstrap deferred; not browser/layout, assistive-technology, native-speaker, live provider or cognitive acceptance. Other CRM views and backend/generated copy remain open. Review found native saveDashboard changes prior defaults before target ownership/revision validation; atomic failure/replay and client retry recovery are the next code-controlled gap, not accepted by the existing native regressions.",
     "dynamic_candidates": 789,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_dashboard_save_checkpoint": {
+    "recorded_at": "2026-09-24T20:07:19.756019+00:00",
+    "prior_published_head": "60fea937deca0ea1aea1da1f77341fa68f505561",
+    "prior_published_tree": "325bcc7f083e83a6cacd04f8b77c2e0622419f5c",
+    "prior_ci": {
+      "number": 174,
+      "id": 36051463698,
+      "conclusion": "success"
+    },
+    "source_sha256": {
+      "crm-core.js": "dbd0458e0a659684fe28930ae326870ef6a75ea3b4d54e9e50e7a479283c0000",
+      "crm-script.js": "081e879149b68ccf9e61247b6b760d1092b61d9afffb56799d7520ce12a3f8d0",
+      "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
+      "foundly-locales.js": "ed3baa2aa273d634a837b0317577a7ed46d737a26121da547fffb0e38c9e9037",
+      "zero-evaluation/crm-dashboard-fixture.js": "9f46e116820e979fbe85098f6990da189181774d2688fab2e9a0eea3927e119f",
+      "zero-evaluation/crm-save-fixture.js": "db1863c01b41e65e721c9fc6f683787cbb2fa2632846ef118aad84f50ee12e51",
+      "zero/crm-dashboard-save.test.js": "ff2c3ae8b55ce3a7cb5f3bf2c2ababf64f248154b931acb25eb41d46cb48d4bb",
+      "zero/crm-dashboard-retry.test.js": "a0c22f4468b5b37914a357cdcb7ec5fb0cf2d35e97ece10b586153a471124a0c",
+      "zero/crm-dashboard-save-api.test.js": "72a22cf8e36285d32721f40080d32ff09763b7d4d5f8308cec5a339744c2e4a5"
+    },
+    "logs": {
+      "run2-crm-save-initial-fixture-invalid.log": {
+        "exit_code": 1,
+        "sha256": "a393e8acf86d463d80681816982811339247d33a179e77db89e18e77232c54f7",
+        "bytes": 7376
+      },
+      "run2-crm-save-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "8b09455a265aeefb282ad8db649295bfa5c19426281e208658da308bb0cc4900",
+        "bytes": 37845
+      },
+      "run2-crm-save-core.log": {
+        "exit_code": 0,
+        "sha256": "fa85b0d4ad1b196671f723ec071a0326b9daab9d7868822270454ac1e6ca7073",
+        "bytes": 855
+      },
+      "run2-crm-save-retry.log": {
+        "exit_code": 0,
+        "sha256": "7641d0dbfe56d4ad9397786718e97d78fd5639decf94b0632b4a9c074e6faa0f",
+        "bytes": 1610
+      },
+      "run2-crm-save-http.log": {
+        "exit_code": 0,
+        "sha256": "5a5af0b190c7382030045d20bed88b6cadd8da190920030ae775bd25ed879fc8",
+        "bytes": 239
+      },
+      "run2-crm-save-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "13d97487fc836ad6ec8bb71a80b9ef4faef5e742f743398b9098af3940165cff",
+        "bytes": 28887
+      },
+      "run2-crm-save-native.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "before_fix": "The initial fixture used invalid empty required widgets; it was corrected to native valid widgets. Six subsequent failing-before tests reproduce actual rejection/replay/persistence/permission/default-flag defects. Both logs are preserved.",
+    "new_tests": 13,
+    "full_zero_tests": 233,
+    "full_zero_pass": 233,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "scope": "Native dashboard save validates before changing other defaults, rechecks current target permissions on replay, and commits layout/default/audit/idempotency state once using the existing synchronous encrypted adapter transaction helper. Failed persistence restores touched buckets; notifications occur only after commit. Legacy generic create/update receipt signatures remain compatible. Replays do not demote newer defaults, rewrite audit or persist again. Native HTTP rejection/replay is verified across encrypted restart. The production controller freezes body/revision/key for unconfirmed saves across locale changes, blocks duplicate/edit overlap, verifies current access on explicit pending refresh and releases definitive validation failures for correction. Confirmed writes remain distinct from later status failures.",
+    "evidence_limit": "Bounded native dashboard save and UI recovery evidence does not establish all CRM mutations, all cross-module event delivery or all Run-2 atomicity. Other CRM views still have source-state, localization and request-lifecycle gaps. DOM fixtures do not establish browser/layout, native-speaker or live-provider acceptance.",
+    "dynamic_candidates": 790,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }
