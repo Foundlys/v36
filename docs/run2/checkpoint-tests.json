@@ -350,9 +350,63 @@
     },
     "scope": "Native cash outcome/recommendation codes allow deterministic eight-locale presentation while retaining legacy descriptive fields. Dynamic labels, exact cent amounts, source IDs and assumptions retain ownership across locale changes without extra API calls. Source overflow shows no partial editable assumptions; reset failure clears stale editor/results. Unknown customer/provider content remains literal; errors use catalog labels. Money formatting keeps BigInt whole and fraction parts separate, including negative sub-unit amounts and large exact cent strings.",
     "crm_compatibility": "defaults_locale selects generated label language separately from existing crm_config.locale. The browser snapshots defaults_locale; personal interface language does not rewrite business locale. Existing regional configuration such as en-US, and separate pt-BR business/sv-SE presentation, remain intact. Unspecified legacy business metadata retains its previous accepted shape and idempotency signature.",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "run": 155,
+      "id": 36012721761,
+      "head": "74a19c58503eaf484524b50df39fd3de600acc66",
+      "tree": "30c2ebde90dc0ca5b7f4f11e419196116a55745d",
+      "status": "SUCCESS"
+    },
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "legacy_native_profile_evidence": "legacy-profile-replay-check.json",
     "cash_validation": "Whole-day horizon validated at 1–730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
+  },
+  "integration_locale_checkpoint": {
+    "recorded_at": "2026-09-24T14:47:25.073630+00:00",
+    "source_sha256": {
+      "index-script.js": "48e4309462785eefa3652aa737e3a0b7a62e0fdafd96dc8a57baf4ea05e5b7fe",
+      "foundly-locales.js": "752570c7e20d03bd96b7a707c6bbe27364537a2a67df8fb9c843ca4b751f58c4",
+      "zero/localization.test.js": "f4eed5d91d89c43018b9fc2376e625ab223b760dff6ad1b65b14e274174f0c4c",
+      "zero/integration-localization.test.js": "9a1999ef7cfca23c304c1e6792e77528cf7a4fae4e6f8aea513bbfaaf5f8558e",
+      "zero-evaluation/dom-fixture.js": "03ad30b1d83aa84b6fcc4df7226edcf4ea6291328b500ff879e75dc0773d2919"
+    },
+    "logs": {
+      "integration-localization.log": {
+        "exit_code": 0,
+        "sha256": "5c03057f9b1315c40dfd2a87cf2e1bd088c413f6c7e82112862b1f3815ea93b7",
+        "bytes": 2924
+      },
+      "integration-native-regression.log": {
+        "exit_code": 0,
+        "sha256": "e340c54e69b00e09bacf02974409f17d7e8fc4766d564b019e2d609afd9ef303",
+        "bytes": 1471
+      },
+      "integration-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "c929326a35292d3266549f29d2bc24d675aad804ea6ec7e6ad9bdad99ec4e337",
+        "bytes": 11937
+      }
+    },
+    "targeted_locale_tests": 23,
+    "full_zero_tests": 98,
+    "full_zero_pass": 98,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regressions": [
+      "connector-current-principal-api-test.js",
+      "provider-access-api-test.js",
+      "oauth-production-regression-test.js",
+      "jarvis-client-regression-test.js"
+    ],
+    "native_regressions_result": "PASS",
+    "scope": "Existing main-dashboard integration cards, controls, prompts, status summaries, transport errors and explicit self-check results use eight-locale catalog bindings. Locale changes preserve literal provider names, categories, IDs, credentials, endpoints, schemas and active controls and perform no API request. Stale older renders are ignored; TEST duplicate clicks dispatch once. Profile/add cancellation at any prompt performs no write. Existing native routes, payload keys, current permissions and dedicated OAuth flows are retained. Provider-owned descriptions and credential schema labels remain literal. Unknown counts remain unknown. Self-check still has its existing explicit native worker action; locale change never repeats it.",
+    "main_dashboard_inline_css_equal_to_run1": true,
+    "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "dynamic_candidates": 972,
+    "main_dashboard_dynamic_candidates": 25,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "test_limitation": "Controller state/ownership is tested with a minimal DOM and actual frontend functions. Native backend permission/OAuth regressions use their existing isolated fixtures. This is not browser rendering, live provider or perceived-language-quality evidence.",
+    "current_ci": "PENDING_PUBLICATION"
   }
 }

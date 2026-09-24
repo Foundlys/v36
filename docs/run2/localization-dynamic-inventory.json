@@ -6529,7 +6529,7 @@
     },
     {
       "file": "index-script.js",
-      "sha256": "d5e43ee2ce455b58ec3fff98086e56aaecbb16f9c1d0bc43aac1cc56ef052536",
+      "sha256": "48e4309462785eefa3652aa737e3a0b7a62e0fdafd96dc8a57baf4ea05e5b7fe",
       "items": [
         {
           "line": 7,
@@ -6546,8 +6546,8 @@
         },
         {
           "line": 22,
-          "start": 9547,
-          "end": 9613,
+          "start": 9445,
+          "end": 9511,
           "context": "prompt",
           "text": "Welke actuele zoekdata wil je via Foundly AI Search onderzoeken?",
           "parameters": [],
@@ -6555,314 +6555,102 @@
         },
         {
           "line": 22,
-          "start": 9673,
-          "end": 9705,
+          "start": 9571,
+          "end": 9603,
           "context": "textContent",
           "text": "Foundly zoekt live op het web…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 29,
-          "start": 10607,
-          "end": 10713,
-          "context": "alert",
-          "text": "{p0}: Google OAuth is al gekoppeld. Gebruik TEST om deze service te controleren.",
-          "parameters": [
-            "connectorBy(id)?.name||id"
-          ],
+          "line": 28,
+          "start": 10794,
+          "end": 10824,
+          "context": "error_message_requires_control_flow_review",
+          "text": "integration_response_invalid",
+          "parameters": [],
           "rich_text": false
         },
         {
-          "line": 46,
-          "start": 11964,
-          "end": 12038,
+          "line": 28,
+          "start": 10898,
+          "end": 10926,
+          "context": "error_message_requires_control_flow_review",
+          "text": "integration_request_failed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 45,
+          "start": 12252,
+          "end": 12339,
           "context": "prompt",
           "text": "{p0} · {p1}{p2}",
           "parameters": [
             "p.naam||id",
             "f.label||f.key",
-            "f.required===false?' (optioneel)':''"
+            "f.required===false?integrationText('optional'):''"
           ],
           "rich_text": false
         },
         {
-          "line": 51,
-          "start": 12184,
-          "end": 12214,
+          "line": 46,
+          "start": 12435,
+          "end": 12476,
           "context": "prompt",
-          "text": "{p0} · Base/API URL",
+          "text": "{p0} · {p1}",
           "parameters": [
-            "p.naam||id"
+            "p.naam||id",
+            "integrationText(key)"
           ],
           "rich_text": false
         },
         {
-          "line": 53,
-          "start": 12401,
-          "end": 12442,
+          "line": 61,
+          "start": 13814,
+          "end": 13855,
           "context": "prompt",
-          "text": "{p0} · OAuth authorization URL",
+          "text": "{p0} · {p1}",
           "parameters": [
-            "p.naam||id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 54,
-          "start": 12516,
-          "end": 12549,
-          "context": "prompt",
-          "text": "{p0} · OAuth token URL",
-          "parameters": [
-            "p.naam||id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 55,
-          "start": 12616,
-          "end": 12677,
-          "context": "prompt",
-          "text": "{p0} · OAuth scopes (spatie gescheiden, optioneel)",
-          "parameters": [
-            "p.naam||id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 63,
-          "start": 13464,
-          "end": 13497,
-          "context": "alert",
-          "text": "Verbinden mislukt: {p0}",
-          "parameters": [
-            "e.message"
+            "p.naam||id",
+            "integrationText(key)"
           ],
           "rich_text": false
         },
         {
           "line": 65,
-          "start": 13597,
-          "end": 13627,
+          "start": 14113,
+          "end": 14248,
           "context": "prompt",
-          "text": "{p0} · Base/API URL",
+          "text": "{p0} · {p1}\n(public / basic / bearer / api_key_header / oauth2_authorization_code / webhook)",
           "parameters": [
-            "p.naam||id"
+            "p.naam||id",
+            "integrationText('auth_strategy')"
           ],
           "rich_text": false
         },
         {
-          "line": 65,
-          "start": 13682,
-          "end": 13716,
-          "context": "prompt",
-          "text": "{p0} · Health/test path",
-          "parameters": [
-            "p.naam||id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 65,
-          "start": 13753,
-          "end": 13787,
-          "context": "prompt",
-          "text": "{p0} · Sync/search path",
-          "parameters": [
-            "p.naam||id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 65,
-          "start": 13824,
-          "end": 13937,
-          "context": "prompt",
-          "text": "{p0} · auth strategy\n(public / basic / bearer / api_key_header / oauth2_authorization_code / webhook)",
-          "parameters": [
-            "p.naam||id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 65,
-          "start": 14401,
-          "end": 14429,
-          "context": "alert",
-          "text": "Profiel fout: {p0}",
-          "parameters": [
-            "e.message"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 90,
-          "start": 16427,
-          "end": 16455,
-          "context": "alert",
-          "text": "Test mislukt: {p0}",
-          "parameters": [
-            "e.message"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 94,
-          "start": 16541,
-          "end": 16636,
-          "context": "alert",
-          "text": "OpenAI is een AI/search-service. Gebruik AI WEB SEARCH of stel een opdracht aan Foundly Core.",
+          "line": 167,
+          "start": 25175,
+          "end": 25201,
+          "context": "error_message_requires_control_flow_review",
+          "text": "integration_check_failed",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 95,
-          "start": 16702,
-          "end": 16775,
-          "context": "alert",
-          "text": "{p0}: dit is een live service zonder bulk-sync.",
-          "parameters": [
-            "connectorBy(id)?.name||id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 97,
-          "start": 17060,
-          "end": 17149,
-          "context": "alert",
-          "text": "{p0}: sync geslaagd · {p1} records verwerkt",
-          "parameters": [
-            "connectorBy(id)?.name||id",
-            "Number(j.ingested||0)"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 98,
-          "start": 17169,
-          "end": 17197,
-          "context": "alert",
-          "text": "Sync mislukt: {p0}",
-          "parameters": [
-            "e.message"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 111,
-          "start": 19090,
-          "end": 19161,
-          "context": "innerHTML",
-          "text": "<div class=\"answer\" style=\"grid-column:1/-1\">Integraties laden…</div>",
-          "parameters": [],
-          "rich_text": true
-        },
-        {
-          "line": 111,
-          "start": 19582,
-          "end": 19683,
-          "context": "innerHTML",
-          "text": "<b>{p0}/{p1}</b> daadwerkelijk verbonden · <b>{p2}</b> geconfigureerd",
-          "parameters": [
-            "sj.connected",
-            "sj.total",
-            "sj.configured"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 111,
-          "start": 20037,
-          "end": 20208,
-          "context": "textContent",
-          "text": "Universal Connector Runtime actief. Nieuwe API, OAuth-, feed- of webhookkoppelingen kunnen via PROFIEL + VERBIND worden toegevoegd zonder Foundly-code opnieuw te bouwen.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 111,
-          "start": 20258,
-          "end": 20368,
-          "context": "innerHTML",
-          "text": "<div class=\"answer\" style=\"grid-column:1/-1\">Integraties konden niet worden geladen: {p0}</div>",
-          "parameters": [
-            "esc(e.message)"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 120,
-          "start": 21026,
-          "end": 21046,
-          "context": "confirm",
-          "text": "{p0} ontkoppelen?",
-          "parameters": [
-            "id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 131,
-          "start": 21731,
-          "end": 21787,
-          "context": "prompt",
-          "text": "Nieuwe connector · technische ID (bijv. mijn_provider)",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 131,
-          "start": 21879,
-          "end": 21901,
-          "context": "prompt",
-          "text": "Naam van de provider",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 131,
-          "start": 22061,
-          "end": 22156,
-          "context": "prompt",
-          "text": "Authenticatie: public / api_key_header / bearer / basic / oauth2_authorization_code / webhook",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 131,
-          "start": 22215,
-          "end": 22257,
-          "context": "prompt",
-          "text": "Base/API URL (mag leeg als nog onbekend)",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 131,
-          "start": 23209,
-          "end": 23312,
-          "context": "alert",
-          "text": "{p0} toegevoegd. Gebruik PROFIEL om endpoints in te stellen en VERBIND om credentials te koppelen.",
-          "parameters": [
-            "naam"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 142,
-          "start": 25700,
-          "end": 25770,
+          "line": 187,
+          "start": 29379,
+          "end": 29449,
           "context": "textContent",
           "text": "AUTOMOTIVE HOOFDONDERDEEL · FOUNDLY INTELLIGENCE · BRONGEBONDEN DATA",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 147,
-          "start": 27544,
-          "end": 29043,
+          "line": 192,
+          "start": 31423,
+          "end": 32922,
           "context": "innerHTML",
           "text": "<div class=\"grid\"><div class=\"card\"><h3>{p0} AI</h3><p>Foundly-engine die alleen beschikbare interne historie, geverifieerde providerdata en brongebonden intelligence gebruikt. Niet-verbonden bronnen worden niet als actief gepresenteerd.</p><button class=\"action\" id=\"ask\">VRAAG {p1} AI</button><div class=\"answer\" id=\"answer\">Klaar voor opdrachten.</div></div><div class=\"card\"><h3>FOUNDLY DATA LAYER</h3><p>Rol: <b>normalisatie, cache en persistentie</b><br>Records: <b>{p2}</b><br>Lokale opslag: <b>{p3}</b></p></div><div class=\"card\"><h3>WERKELIJKE BRONNEN</h3><p>Live providerprobes: <b>{p4}</b><br>{p5}<br>Geconfigureerd, niet live: <b>{p6}</b><br>Interne historie: <b>{p7}</b> · Afgeleide intelligence: <b>{p8}</b></p></div>{p9}</div><div class=\"subGrid\" style=\"margin-top:10px\">{p10}</div>",
           "parameters": [
@@ -6881,9 +6669,9 @@
           "rich_text": true
         },
         {
-          "line": 148,
-          "start": 29085,
-          "end": 29119,
+          "line": 193,
+          "start": 32964,
+          "end": 32998,
           "context": "prompt",
           "text": "Wat wil je vragen aan {p0}?",
           "parameters": [
@@ -6892,9 +6680,9 @@
           "rich_text": false
         },
         {
-          "line": 150,
-          "start": 29399,
-          "end": 29626,
+          "line": 195,
+          "start": 33278,
+          "end": 33505,
           "context": "innerHTML",
           "text": "OAuth: <b>{p0}</b> · {p1} · AI Search: <b>{p2}</b>",
           "parameters": [
@@ -6905,58 +6693,27 @@
           "rich_text": true
         },
         {
-          "line": 151,
-          "start": 29912,
-          "end": 29945,
+          "line": 196,
+          "start": 33791,
+          "end": 33824,
           "context": "confirm",
           "text": "Google ontkoppelen van Foundly?",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 156,
-          "start": 30610,
-          "end": 30670,
-          "context": "textContent",
-          "text": "Foundly voert systeemcontrole en echte providerprobes uit…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 156,
-          "start": 31307,
-          "end": 31943,
-          "context": "textContent",
-          "text": "FOUNDLY v{p0} · readiness {p1} · providerprobes {p2}/{p3} live · {p4} geconfigureerd · encryptie {p5} · persistence {p6} · Zero Core {p7} · worker {p8} · taken {p9} · auto-sync {p10}{p11} · browserchecks apart vereist: microfoon, wake-word, WebRTC en audio",
-          "parameters": [
-            "d.version",
-            "rr.ok&&ready.ready?'GEREED':'GEBLOKKEERD'",
-            "st.connected",
-            "st.total",
-            "st.configured",
-            "d.encryption?.configured?'ACTIEF':'NIET ACTIEF'",
-            "ready.checks?.storage_writable&&ready.checks?.persistent_mount?'ACTIEF':'NIET BEWEZEN'",
-            "zero.ok?'PASS':'PARTIAL'",
-            "wr.ok?'UITGEVOERD':'FOUT'",
-            "w.processed?.length||0",
-            "w.auto_sync?.filter?.(x=>x.ok)?.length||0",
-            "failed.length?' · blokkades '+[...new Set(failed)].join(', '):''"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 161,
-          "start": 32824,
-          "end": 32850,
+          "line": 206,
+          "start": 35445,
+          "end": 35471,
           "context": "textContent",
           "text": "Zero voert opdracht uit…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 220,
-          "start": 67749,
-          "end": 67818,
+          "line": 265,
+          "start": 70370,
+          "end": 70439,
           "context": "textContent",
           "text": "ZERO · {p0}",
           "parameters": [
@@ -6965,9 +6722,9 @@
           "rich_text": false
         },
         {
-          "line": 220,
-          "start": 69344,
-          "end": 69479,
+          "line": 265,
+          "start": 71965,
+          "end": 72100,
           "context": "element_text",
           "text": " · {p0} · {p1}",
           "parameters": [
@@ -6977,9 +6734,9 @@
           "rich_text": false
         },
         {
-          "line": 225,
-          "start": 72604,
-          "end": 72642,
+          "line": 270,
+          "start": 75225,
+          "end": 75263,
           "context": "textContent",
           "text": "{p0}%",
           "parameters": [
@@ -6988,9 +6745,9 @@
           "rich_text": false
         },
         {
-          "line": 232,
-          "start": 77190,
-          "end": 77225,
+          "line": 277,
+          "start": 79811,
+          "end": 79846,
           "context": "error_message_requires_control_flow_review",
           "text": "Vereiste control ontbreekt: {p0}",
           "parameters": [
@@ -6999,18 +6756,18 @@
           "rich_text": false
         },
         {
-          "line": 235,
-          "start": 79998,
-          "end": 80028,
+          "line": 280,
+          "start": 82619,
+          "end": 82649,
           "context": "error_message_requires_control_flow_review",
           "text": "Statusroute niet beschikbaar",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 235,
-          "start": 80718,
-          "end": 80769,
+          "line": 280,
+          "start": 83339,
+          "end": 83390,
           "context": "textContent",
           "text": "{p0} LIVE",
           "parameters": [
@@ -7019,9 +6776,9 @@
           "rich_text": false
         },
         {
-          "line": 238,
-          "start": 83402,
-          "end": 83475,
+          "line": 283,
+          "start": 86023,
+          "end": 86096,
           "context": "toast",
           "text": "{p0} gekoppeld{p1}",
           "parameters": [
@@ -7031,9 +6788,9 @@
           "rich_text": false
         },
         {
-          "line": 238,
-          "start": 83628,
-          "end": 83697,
+          "line": 283,
+          "start": 86249,
+          "end": 86318,
           "context": "toast",
           "text": "{p0} koppeling fout: {p1}",
           "parameters": [
@@ -7043,9 +6800,9 @@
           "rich_text": false
         },
         {
-          "line": 242,
-          "start": 84896,
-          "end": 84919,
+          "line": 287,
+          "start": 87517,
+          "end": 87540,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [

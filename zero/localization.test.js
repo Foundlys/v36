@@ -10,23 +10,7 @@ test('explicit catalogs preserve all supported locales, parameters, pluralisatio
  const en=create('en-GB');assert.equal(en.number(1234.5),'1,234.5');assert.equal(create('de-DE').number(1234.5),'1.234,5');assert.equal(en.currency(12.5,'GBP'),'£12.50');assert.equal(en.date('2026-01-01T00:00:00Z',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}),'31/12/2025');
  assert.equal(en.t('common.record_count',{count:1}),'1 record');assert.equal(en.t('common.record_count',{count:0}),'0 records');assert.throws(()=>en.t('zero.time'),/parameter_required/);assert.throws(()=>en.setLocale('xx-XX'),/locale_unsupported/);assert.equal(en.t('absent'),'⟦absent:en-GB⟧');assert.deepEqual(en.missingKeys(),['absent']);
 });
-class Element{
- constructor(tag='div'){Object.assign(this,{tag,attrs:{},handlers:{},children:[],childNodes:[],value:'',validity:{},disabled:false,nodeType:1,isConnected:true});}
- get firstChild(){return this.childNodes[0]||null;}get textContent(){return this.childNodes.map(node=>node.textContent||'').join('');}set textContent(value){this.children=[];this.childNodes=String(value)?[{nodeType:3,textContent:String(value)}]:[];}
- setAttribute(k,v){this.attrs[k]=String(v);}getAttribute(k){return this.attrs[k]??null;}removeAttribute(k){delete this.attrs[k];}
- matches(selector){return selector.split(',').some(s=>Object.hasOwn(this.attrs,s.trim().slice(1,-1)));}
- addEventListener(k,f){(this.handlers[k]??=[]).push(f);}async fire(k,event={}){for(const f of this.handlers[k]||[])await f({preventDefault(){},target:this,...event});}
- append(...nodes){this.children.push(...nodes);this.childNodes.push(...nodes);}replaceChildren(...nodes){this.children=[];this.childNodes=[];this.append(...nodes);}after(node){this.following=node;}setCustomValidity(text){this.validationMessage=text;}
- all(){return [this,...this.children.flatMap(node=>node.all())];}
-}
-function browserFixture(locale='fr-FR',fetch=async()=>({ok:false,status:401,json:async()=>({code:'identity_credentials_invalid',error:'RAW_DUTCH_SECRET'})}),path='/login',htmlLocale='nl'){
- const nodes={},document=new Element('document');document.documentElement={lang:htmlLocale};document.createElement=tag=>new Element(tag);document.getElementById=id=>nodes[id]??=new Element();document.querySelectorAll=selector=>[...new Set(Object.values(nodes).flatMap(node=>node.all()))].filter(n=>n.matches(selector));document.dispatchEvent=event=>document.fire(event.type,event);
- for(const id of ['identityForm','identityUsername','identityPassword','identitySubmit','identityNotice','identityLocale','identityTitle','identityDescription','usernameLabel'])document.getElementById(id);
- const customer=document.getElementById('customer');customer.textContent='Aanmelden';
- const context={document,navigator:{languages:[locale]},location:{pathname:path,hash:'',assign(value){this.redirect=value;}},history:{replaceState(){}},fetch,URLSearchParams,Intl,CustomEvent:class{constructor(type,options){this.type=type;Object.assign(this,options);}}};
- vm.createContext(context);for(const file of ['foundly-static-copy.js','foundly-locales.js','foundly-i18n.js'])vm.runInContext(fs.readFileSync(require.resolve('../'+file),'utf8'),context);
- return {context,nodes,loadLogin(){vm.runInContext(fs.readFileSync(require.resolve('../identity-login.js'),'utf8'),context);}};
-}
+const {Element,browserFixture}=require('../zero-evaluation/dom-fixture');
 test('explicit dynamic descriptors update labels and attributes without translating customer text or replacing form controls',()=>{
  const f=browserFixture('en-GB'),i=f.context.FoundlyI18n,node=f.nodes.dynamic=new Element('button'),input=f.nodes.unsaved=new Element('input'),params={count:1234};input.value='Aanmelden <unsaved customer value>';
  for(const code of ['constructor','__proto__','toString'])assert.equal(i.errorKey(code,500),'common.request_failed');

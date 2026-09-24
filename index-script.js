@@ -15,120 +15,165 @@ function focusOn(id){focus=MODULES[id]?id:null;if(focus){pulseRoute(focus);neura
 function connectorBy(id){return (window.__foundlyConnectorStatus?.connectors||[]).find(x=>x.id===id)||null}
 function googleSummary(){const ids=['google_ads','ga4','search_console','google_calendar'];const rows=ids.map(id=>connectorBy(id)).filter(Boolean);return {connected:rows.filter(x=>x.connected).length,configured:rows.filter(x=>x.configured).length,rows,openai:Boolean(window.__foundlyConnectorStatus?.openai_search?.configured)}}
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]||c))}
-async function googleStatusRefresh(){try{const r=await fetch('/api/google/status');const j=await r.json();if(!r.ok)throw new Error(j.error||'Google status mislukt');return j}catch(e){return {error:e.message,services:{},oauth_configured:false,token_stored:false,openai_search:{configured:false}}}}
-async function providerStatus(id){try{const pid=['instagram','facebook_pages'].includes(id)?'meta':id;const r=await fetch(`/api/connect/${pid}/status`);const j=await r.json();if(!r.ok)throw new Error(j.error||`${pid} status mislukt`);return j}catch(e){return {id,configured:false,connected:false,error:e.message}}}
+async function googleStatusRefresh(){try{return await integrationRequest('/api/google/status')}catch(error){return {error:String(integrationFailure(error)),services:{},oauth_configured:false,token_stored:false,openai_search:{configured:false}}}}
+async function providerStatus(id){try{const pid=['instagram','facebook_pages'].includes(id)?'meta':id;return await integrationRequest(`/api/connect/${pid}/status`)}catch(error){return {id,configured:false,connected:false,error:String(integrationFailure(error))}}}
 function specialProvider(id){if(['meta','instagram','facebook_pages'].includes(id))return 'meta';if(['linkedin','tiktok','wix'].includes(id))return id;return null}
 function nativeManaged(id){return ['whatsapp','email','voice','dms'].includes(id)}
 async function runWebSearch(){const q=prompt('Welke actuele zoekdata wil je via Foundly AI Search onderzoeken?');if(!q)return;const out=$('#googleOutput');out.textContent='Foundly zoekt live op het web…';try{const r=await fetch('/api/search/web',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({query:q})});const j=await r.json();if(!r.ok)throw new Error(j.error||'Zoeken mislukt');out.textContent=(j.text||'Geen antwoord')+(j.sources?.length?'\n\nBRONNEN\n'+j.sources.slice(0,8).map(x=>'• '+(x.title||x.url)+' — '+x.url).join('\n'):'')}catch(e){out.textContent='Fout: '+e.message}}
-async function runtimeProfile(id){const r=await fetch(`/api/connector-runtime/profile/${encodeURIComponent(id)}`);const j=await r.json();if(!r.ok)throw new Error(j.error||'Profiel laden mislukt');return j.profile}
+// Integration labels are explicit catalog bindings. Provider names, technical
+// IDs, credential keys and server-owned schema labels remain literal data.
+function integrationText(key,params={}){return FoundlyI18n.t('integrations.'+key,params)}
+function integrationElement(tag,className,key,params={}){const node=document.createElement(tag);if(className)node.className=className;if(key)FoundlyI18n.bind(node,'integrations.'+key,undefined,params);return node}
+function integrationFailure(error){return FoundlyI18n.message('integrations.failed',{reason:FoundlyI18n.message(FoundlyI18n.errorKey(error?.code,error?.status))})}
+async function integrationRequest(url,init){const response=await fetch(url,init);let body;try{body=await response.json()}catch{throw Object.assign(new Error('integration_response_invalid'),{status:response.status})}if(!response.ok)throw Object.assign(new Error('integration_request_failed'),{code:body.code,status:response.status});return body}
+async function runtimeProfile(id){return (await integrationRequest(`/api/connector-runtime/profile/${encodeURIComponent(id)}`)).profile}
 async function connectConnector(id){
   try{
-    // Google services share the already configured Foundly Google OAuth flow.
     if(['google_ads','ga4','search_console','google_calendar'].includes(id)){
       const gs=await googleStatusRefresh();
-      if(gs.token_stored){alert(`${connectorBy(id)?.name||id}: Google OAuth is al gekoppeld. Gebruik TEST om deze service te controleren.`);return renderIntegrations()}
+      if(gs.token_stored){alert(integrationText('google_linked',{name:connectorBy(id)?.name||id}));return renderIntegrations()}
       location.href='/api/google/connect?return_to=/?open=integraties';return;
     }
     // OpenAI is server-side by design. Never collect production secrets in a browser prompt.
-    if(id==='openai'){
-      const st=connectorBy('openai');
-      alert(st?.configured?'OpenAI is al via Railway geconfigureerd. Gebruik TEST om de API-key live te verifieren.':'OpenAI moet veilig via Railway Variables worden ingesteld met OPENAI_API_KEY. Foundly vraagt API-secrets niet meer in de browser.');
-      return;
-    }
-    // Providers with dedicated OAuth routes use their provider flow, not the generic runtime wizard.
+    if(id==='openai'){alert(integrationText(connectorBy('openai')?.configured?'openai_configured':'openai_setup'));return}
     const dedicated=specialProvider(id);if(dedicated){location.href=`/api/connect/${dedicated}?return_to=/?open=integraties`;return}
     const p=await runtimeProfile(id);
     if(p.auth_strategy==='public'){
-      const r=await fetch(`/api/connector-runtime/config/${encodeURIComponent(id)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({credentials:{}})});if(!r.ok)throw new Error((await r.json()).error||'Activeren mislukt');await testConnector(id);return renderIntegrations();
+      await integrationRequest(`/api/connector-runtime/config/${encodeURIComponent(id)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({credentials:{}})});await testConnector(id);return renderIntegrations();
     }
     const creds={};
-    for(const f of (p.credential_fields||[])){
-      const v=prompt(`${p.naam||id} · ${f.label||f.key}${f.required===false?' (optioneel)':''}`,'');
-      if(v===null)return;
-      if(v)creds[f.key]=v;
-    }
-    const profile_overrides={};
-    if(!p.base_url&&id!=='email'){const v=prompt(`${p.naam||id} · Base/API URL`,'');if(v===null)return;if(v)profile_overrides.base_url=v}
+    for(const f of p.credential_fields||[]){const value=prompt(`${p.naam||id} · ${f.label||f.key}${f.required===false?integrationText('optional'):''}`,'');if(value===null)return;if(value)creds[f.key]=value}
+    const field=(key,value='')=>prompt(`${p.naam||id} · ${integrationText(key)}`,value),profile_overrides={};
+    if(!p.base_url&&id!=='email'){const value=field('base_url');if(value===null)return;if(value)profile_overrides.base_url=value}
     if(p.auth_strategy==='oauth2_authorization_code'&&(!p.oauth?.authorization_url||!p.oauth?.token_url)){
-      const a=prompt(`${p.naam||id} · OAuth authorization URL`,p.oauth?.authorization_url||'');if(a===null)return;
-      const t=prompt(`${p.naam||id} · OAuth token URL`,p.oauth?.token_url||'');if(t===null)return;
-      const sc=prompt(`${p.naam||id} · OAuth scopes (spatie gescheiden, optioneel)`,Array.isArray(p.oauth?.scope)?p.oauth.scope.join(' '):(p.oauth?.scope||''));if(sc===null)return;
-      profile_overrides.oauth={...(p.oauth||{}),authorization_url:a||'',token_url:t||'',scope:sc||''};
+      const authorization=field('authorization_url',p.oauth?.authorization_url||'');if(authorization===null)return;
+      const token=field('token_url',p.oauth?.token_url||'');if(token===null)return;
+      const scope=field('scopes',Array.isArray(p.oauth?.scope)?p.oauth.scope.join(' '):(p.oauth?.scope||''));if(scope===null)return;
+      profile_overrides.oauth={...(p.oauth||{}),authorization_url:authorization,token_url:token,scope};
     }
-    const r=await fetch(`/api/connector-runtime/config/${encodeURIComponent(id)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({credentials:creds,profile_overrides})});
-    const j=await r.json();if(!r.ok)throw new Error(j.error||'Opslaan mislukt');
-    const effective={...p,...profile_overrides};
-    if(effective.auth_strategy==='oauth2_authorization_code')location.href=`/api/connector-runtime/oauth/${encodeURIComponent(id)}/start?return_to=/?open=integraties`;
+    await integrationRequest(`/api/connector-runtime/config/${encodeURIComponent(id)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({credentials:creds,profile_overrides})});
+    if(({...p,...profile_overrides}).auth_strategy==='oauth2_authorization_code')location.href=`/api/connector-runtime/oauth/${encodeURIComponent(id)}/start?return_to=/?open=integraties`;
     else{await testConnector(id);await renderIntegrations()}
-  }catch(e){alert(`Verbinden mislukt: ${e.message}`)}
+  }catch(error){alert(String(integrationFailure(error)))}
 }
-async function editConnectorProfile(id){try{const p=await runtimeProfile(id);const base=prompt(`${p.naam||id} · Base/API URL`,p.base_url||'');if(base===null)return;const hp=prompt(`${p.naam||id} · Health/test path`,p.health?.path||'');const sp=prompt(`${p.naam||id} · Sync/search path`,p.sync?.path||'');const auth=prompt(`${p.naam||id} · auth strategy\n(public / basic / bearer / api_key_header / oauth2_authorization_code / webhook)`,p.auth_strategy||'api_key_header');const body={base_url:base,health:{...(p.health||{}),path:hp||''},sync:{...(p.sync||{}),path:sp||''},auth_strategy:auth||p.auth_strategy};const r=await fetch(`/api/connector-runtime/profile/${encodeURIComponent(id)}`,{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(!r.ok)throw new Error(j.error||'Profiel opslaan mislukt');await renderIntegrations()}catch(e){alert(`Profiel fout: ${e.message}`)}}
+async function editConnectorProfile(id){
+  try{
+    const p=await runtimeProfile(id),field=(key,value)=>prompt(`${p.naam||id} · ${integrationText(key)}`,value);
+    const base=field('base_url',p.base_url||'');if(base===null)return;
+    const health=field('health_path',p.health?.path||'');if(health===null)return;
+    const sync=field('sync_path',p.sync?.path||'');if(sync===null)return;
+    const auth=prompt(`${p.naam||id} · ${integrationText('auth_strategy')}\n(public / basic / bearer / api_key_header / oauth2_authorization_code / webhook)`,p.auth_strategy||'api_key_header');if(auth===null)return;
+    const body={base_url:base,health:{...(p.health||{}),path:health},sync:{...(p.sync||{}),path:sync},auth_strategy:auth||p.auth_strategy};
+    await integrationRequest(`/api/connector-runtime/profile/${encodeURIComponent(id)}`,{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(body)});await renderIntegrations();
+  }catch(error){alert(String(integrationFailure(error)))}
+}
+function integrationTestMessage(name,connected,error,googleLinked=false){return (connected?`${name}: ${integrationText('live')}`:integrationText(googleLinked?'google_not_live':'not_live',{name}))+(error?' · '+error:'')}
 async function testConnector(id,quiet=false){
   try{
     if(['google_ads','ga4','search_console','google_calendar'].includes(id)){
-      const j=await googleStatusRefresh(), ok=Boolean(j.services?.[id]), err=j.errors?.[id];
-      if(!quiet)alert(ok?`${connectorBy(id)?.name||id}: LIVE VERBONDEN`:`${connectorBy(id)?.name||id}: Google OAuth gekoppeld, service nog niet live${err?' · '+err:''}`);
-      return {id,connected:ok,error:err||null};
+      const status=await googleStatusRefresh(),connected=Boolean(status.services?.[id]),error=status.errors?.[id]||status.error||null;
+      if(!quiet)alert(integrationTestMessage(connectorBy(id)?.name||id,connected,error,Boolean(status.token_stored)));return {id,connected,error};
     }
-    if(id==='openai'){
-      const r=await fetch('/api/connectors'),j=await r.json();if(!r.ok)throw new Error(j.error||'Status mislukt');const c=(j.connectors||[]).find(x=>x.id==='openai')||{};
-      if(!quiet)alert(c.connected?'OpenAI / ChatGPT: LIVE VERBONDEN':`OpenAI / ChatGPT: nog niet live${c.error?' · '+c.error:''}`);return c;
+    if(id==='openai'||nativeManaged(id)){
+      const result=await integrationRequest('/api/connectors'),connector=(result.connectors||[]).find(row=>row.id===id)||{};
+      if(!quiet)alert(integrationTestMessage(connector.name||id,connector.connected,connector.error));return connector;
     }
     const dedicated=specialProvider(id);
     if(dedicated){
-      const j=await providerStatus(dedicated);let ok=Boolean(j.connected),err=j.error||null;
-      if(id==='instagram')ok=Boolean(j.services?.instagram);
-      if(id==='facebook_pages')ok=Boolean(j.connected&&Number(j.pages||0)>0);
-      if(!quiet)alert(ok?`${connectorBy(id)?.name||id}: LIVE VERBONDEN`:`${connectorBy(id)?.name||id}: nog niet live${err?' · '+err:''}`);
-      return {id,connected:ok,error:err,status:j};
+      const status=await providerStatus(dedicated);let connected=Boolean(status.connected),error=status.error||null;
+      if(id==='instagram')connected=Boolean(status.services?.instagram);
+      if(id==='facebook_pages')connected=Boolean(status.connected&&Number(status.pages||0)>0);
+      if(!quiet)alert(integrationTestMessage(connectorBy(id)?.name||id,connected,error));return {id,connected,error,status};
     }
-    if(nativeManaged(id)){
-      const r=await fetch('/api/connectors'),j=await r.json();if(!r.ok)throw new Error(j.error||'Status mislukt');const c=(j.connectors||[]).find(x=>x.id===id)||{};
-      if(!quiet)alert(c.connected?`${c.name||id}: LIVE VERBONDEN`:`${c.name||id}: nog niet live${c.error?' · '+c.error:''}`);return c;
-    }
-    const r=await fetch(`/api/connector-runtime/test/${encodeURIComponent(id)}`,{method:'POST'}),j=await r.json();if(!r.ok)throw new Error(j.error||'Test mislukt');if(!quiet)alert(j.connector?.connected?`${j.connector.name||id}: LIVE VERBONDEN`:`${j.connector?.name||id}: nog niet live${j.connector?.error?' · '+j.connector.error:''}`);return j.connector
-  }catch(e){if(!quiet)alert(`Test mislukt: ${e.message}`);return null}
+    const result=await integrationRequest(`/api/connector-runtime/test/${encodeURIComponent(id)}`,{method:'POST'}),connector=result.connector;
+    if(!quiet)alert(integrationTestMessage(connector?.name||id,connector?.connected,connector?.error));return connector;
+  }catch(error){if(!quiet)alert(String(integrationFailure(error)));return null}
 }
 async function syncConnector(id){
   try{
-    if(id==='openai'){alert('OpenAI is een AI/search-service. Gebruik AI WEB SEARCH of stel een opdracht aan Foundly Core.');return}
-    if(['whatsapp','email','voice'].includes(id)){alert(`${connectorBy(id)?.name||id}: dit is een live service zonder bulk-sync.`);return}
-    const r=await fetch(`/api/integration-sync/${encodeURIComponent(id)}`,{method:'POST',headers:{'content-type':'application/json'},body:'{}'}),j=await r.json();if(!r.ok)throw new Error(j.error||'Sync mislukt');
-    await loadSystemStatus();await renderIntegrations();alert(`${connectorBy(id)?.name||id}: sync geslaagd · ${Number(j.ingested||0)} records verwerkt`)
-  }catch(e){alert(`Sync mislukt: ${e.message}`)}
+    if(id==='openai'){alert(integrationText('openai_no_sync'));return}
+    if(['whatsapp','email','voice'].includes(id)){alert(integrationText('no_bulk_sync',{name:connectorBy(id)?.name||id}));return}
+    const result=await integrationRequest(`/api/integration-sync/${encodeURIComponent(id)}`,{method:'POST',headers:{'content-type':'application/json'},body:'{}'});
+    await loadSystemStatus();await renderIntegrations();alert(integrationText('synced',{name:connectorBy(id)?.name||id,records:integrationNumber(result.ingested)}));
+  }catch(error){alert(String(integrationFailure(error)))}
 }
 function integrationCard(x){
-  const id=esc(x.id),name=esc(x.name||x.naam||x.id),auth=esc(x.auth_strategy||x.auth||'configurable'),status=x.connected?'LIVE VERBONDEN':(x.configured?'GECONFIGUREERD · NOG NIET LIVE':'NIET GECONFIGUREERD');
-  const statusClass=x.connected?'live':(x.configured?'configured':'offline');
-  const isGoogle=['google_ads','ga4','search_console','google_calendar'].includes(x.id),isOpenAI=x.id==='openai',isDedicated=Boolean(specialProvider(x.id));
-  const connectLabel=x.connected?'VERBONDEN':(isGoogle&&x.configured?'GOOGLE OAUTH':'VERBIND');
-  const dedicatedSync=isGoogle||isDedicated;
-  const syncDisabled=(isOpenAI||['whatsapp','email','voice'].includes(x.id)||!x.connected||(!dedicatedSync&&!x.sync?.path))?'disabled title="Sync is voor deze connector niet beschikbaar of nog niet geconfigureerd"':'';
-  const profileDisabled=(isGoogle||isOpenAI||isDedicated)?'disabled title="Beheerd via centrale veilige configuratie"':'';
-  const disconnectDisabled=(isOpenAI||!x.configured)?'disabled title="Niet van toepassing of nog niet geconfigureerd"':'';
-  return `<div class="subCard integrationCard" data-connector="${id}"><b>${name}</b><span class="connectorStatus ${statusClass}">${status}</span><span style="opacity:.65">${auth}${x.error?' · '+esc(x.error):''}</span><div class="connectorActions"><button class="miniAction" data-connect="${id}">${connectLabel}</button><button class="miniAction" data-test="${id}">TEST</button><button class="miniAction" data-sync="${id}" ${syncDisabled}>SYNC</button><button class="miniAction" data-profile="${id}" ${profileDisabled}>PROFIEL</button><button class="miniAction danger" data-disconnect="${id}" ${disconnectDisabled}>ONTKOPPEL</button></div></div>`
+  const card=integrationElement('div','subCard integrationCard');card.setAttribute('data-connector',x.id);
+  const name=integrationElement('b');name.textContent=x.name||x.naam||x.id;card.append(name);
+  card.append(integrationElement('span','connectorStatus '+(x.connected?'live':x.configured?'configured':'offline'),x.connected?'live':x.configured?'configured':'unconfigured'));
+  const auth=integrationElement('span');auth.setAttribute('style','opacity:.65');
+  if(x.auth_strategy||x.auth)auth.textContent=x.auth_strategy||x.auth;else FoundlyI18n.bind(auth,'integrations.auth_configurable');
+  if(x.error)auth.append(document.createTextNode(' · '+x.error));card.append(auth);
+  const google=['google_ads','ga4','search_console','google_calendar'].includes(x.id),openai=x.id==='openai',dedicated=Boolean(specialProvider(x.id)),actions=integrationElement('div','connectorActions');
+  const action=(attribute,key,disabled=false,title)=>{const button=integrationElement('button','miniAction'+(attribute==='disconnect'?' danger':''),key);button.setAttribute('data-'+attribute,x.id);if(disabled){button.disabled=true;if(title)FoundlyI18n.bind(button,'integrations.'+title,'title')}actions.append(button);return button};
+  const connect=action('connect',x.connected?'connected':'connect');if(!x.connected&&google&&x.configured)FoundlyI18n.renderText(connect,'GOOGLE OAUTH');
+  action('test','test');action('sync','sync',openai||['whatsapp','email','voice'].includes(x.id)||!x.connected||(!(google||dedicated)&&!x.sync?.path),'sync_unavailable');
+  action('profile','profile',google||openai||dedicated,'profile_managed');action('disconnect','disconnect',openai||!x.configured,'disconnect_unavailable');
+  card.append(actions);return card;
 }
-async function renderIntegrations(){const grid=$('#integrationGrid'),summary=$('#integrationSummary'),out=$('#integrationOutput');if(!grid)return;grid.innerHTML='<div class="answer" style="grid-column:1/-1">Integraties laden…</div>';try{const [pr,sr]=await Promise.all([fetch('/api/connector-runtime/profiles'),fetch('/api/connectors')]);const pj=await pr.json(),sj=await sr.json();if(!pr.ok)throw new Error(pj.error||'Registry mislukt');if(!sr.ok)throw new Error(sj.error||'Status mislukt');const sm=new Map((sj.connectors||[]).map(x=>[x.id,x]));const rows=(pj.profiles||[]).map(p=>({...p,...(sm.get(p.id)||{}),name:p.naam||p.name}));summary.innerHTML=`<b>${sj.connected}/${sj.total}</b> daadwerkelijk verbonden · <b>${sj.configured}</b> geconfigureerd`;const groups={};for(const x of rows){const cat=x.category||x.categorie||'overig';(groups[cat]||(groups[cat]=[])).push(x)}grid.innerHTML=Object.entries(groups).sort((a,b)=>a[0].localeCompare(b[0])).map(([cat,items])=>`<div class="integrationCategory">${esc(cat).replaceAll('_',' ')}</div>${items.map(integrationCard).join('')}`).join('');out.textContent='Universal Connector Runtime actief. Nieuwe API, OAuth-, feed- of webhookkoppelingen kunnen via PROFIEL + VERBIND worden toegevoegd zonder Foundly-code opnieuw te bouwen.';await loadSystemStatus()}catch(e){grid.innerHTML=`<div class="answer" style="grid-column:1/-1">Integraties konden niet worden geladen: ${esc(e.message)}</div>`;out.textContent=e.message}}
-async function handleIntegrationClick(e){
-  const b=e.target.closest('button');if(!b||b.disabled)return;
-  const id=b.dataset.connect||b.dataset.test||b.dataset.sync||b.dataset.profile||b.dataset.disconnect;if(!id)return;
-  if(b.dataset.connect)return connectConnector(id);
-  if(b.dataset.profile)return editConnectorProfile(id);
-  if(b.dataset.test){const old=b.textContent;b.textContent=(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.ddcf0a24"):'TESTEN…');await testConnector(id);b.textContent=old;return renderIntegrations()}
-  if(b.dataset.sync)return syncConnector(id);
-  if(b.dataset.disconnect){
-    if(!confirm(`${id} ontkoppelen?`))return;
-    const dedicated=specialProvider(id),isGoogle=['google_ads','ga4','search_console','google_calendar'].includes(id);
-    const url=isGoogle?'/api/google/disconnect':(dedicated?`/api/connect/${dedicated}/disconnect`:`/api/connector-runtime/config/${encodeURIComponent(id)}`);
-    const method=(isGoogle||dedicated)?'POST':'DELETE';
-    const r=await fetch(url,{method,headers:{'content-type':'application/json'},body:method==='POST'?'{}':undefined});
-    if(!r.ok){const j=await r.json().catch(()=>({}));return alert(j.error||'Ontkoppelen mislukt')}
-    await loadSystemStatus();return renderIntegrations();
-  }
+function integrationNumber(value){return FoundlyI18n.message(Number.isFinite(value)?'integrations.count':'common.unknown',Number.isFinite(value)?{count:value}:{})}
+function integrationSummary(node,status){
+  const ratio=integrationElement('b'),configured=integrationElement('b');FoundlyI18n.bind(ratio,'integrations.ratio',undefined,{connected:integrationNumber(status.connected),total:integrationNumber(status.total)});FoundlyI18n.renderText(configured,integrationNumber(status.configured));
+  FoundlyI18n.renderText(node,'');node.replaceChildren(ratio,document.createTextNode(' '+integrationText('summary_connected')+' '),configured,document.createTextNode(' '+integrationText('summary_configured')));
+  node.setAttribute('data-i18n-text',JSON.stringify({1:'integrations.summary_connected',3:'integrations.summary_configured'}));FoundlyI18n.translate(node);
 }
-
-
-async function addRuntimeConnector(){try{const id=(prompt('Nieuwe connector · technische ID (bijv. mijn_provider)','')||'').trim().toLowerCase().replace(/[^a-z0-9_-]+/g,'_');if(!id)return;const naam=prompt('Naam van de provider',id)||id;const categorie=prompt((globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.6c59dc2c"):'Categorie'),'custom')||'custom';const auth_strategy=prompt('Authenticatie: public / api_key_header / bearer / basic / oauth2_authorization_code / webhook','api_key_header')||'api_key_header';const base_url=prompt('Base/API URL (mag leeg als nog onbekend)','')||'';let credential_fields=[];if(auth_strategy==='basic')credential_fields=[{key:'username',label:'Username'},{key:'password',label:'Password'}];else if(auth_strategy==='oauth2_authorization_code')credential_fields=[{key:'client_id',label:'Client ID'},{key:'client_secret',label:'Client secret'}];else if(auth_strategy!=='public'&&auth_strategy!=='webhook')credential_fields=[{key:'api_key',label:'API key / token'}];const body={id,naam,categorie,auth_strategy,connection_mode:auth_strategy.includes('oauth')?'oauth2':'credentials',base_url,credential_fields,health:{path:'',method:'GET'},sync:{path:'',method:'GET'},capabilities:['connect','test','sync','tenant_credentials','data_ingest']};const r=await fetch('/api/connector-runtime/profiles',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}),j=await r.json();if(!r.ok)throw new Error(j.error||'Connector toevoegen mislukt');await renderIntegrations();alert(`${naam} toegevoegd. Gebruik PROFIEL om endpoints in te stellen en VERBIND om credentials te koppelen.`)}catch(e){alert(e.message)}}
+async function renderIntegrations(){
+  const grid=$('#integrationGrid'),summary=$('#integrationSummary'),out=$('#integrationOutput');if(!grid)return;
+  const token={};grid.integrationRequest=token;const current=()=>grid.isConnected&&grid.integrationRequest===token&&$('#integrationGrid')===grid;
+  const loading=integrationElement('div','answer','loading');loading.setAttribute('style','grid-column:1/-1');grid.replaceChildren(loading);
+  FoundlyI18n.renderText(summary,'');FoundlyI18n.bind(summary,'integrations.loading');out.setAttribute('role','status');out.setAttribute('aria-live','polite');
+  try{
+    const [profiles,status]=await Promise.all([integrationRequest('/api/connector-runtime/profiles'),integrationRequest('/api/connectors')]);if(!current())return;
+    const statuses=new Map((status.connectors||[]).map(x=>[x.id,x])),rows=(profiles.profiles||[]).map(p=>({...p,...(statuses.get(p.id)||{}),name:p.naam||p.name}));integrationSummary(summary,status);
+    const groups=new Map();for(const row of rows){const category=row.category||row.categorie||null;if(!groups.has(category))groups.set(category,[]);groups.get(category).push(row)}
+    const cards=[];for(const [category,items] of [...groups].sort((a,b)=>String(a[0]||'').localeCompare(String(b[0]||'')))){const heading=integrationElement('div','integrationCategory');if(category)heading.textContent=String(category).replaceAll('_',' ');else FoundlyI18n.bind(heading,'integrations.other');cards.push(heading,...items.map(integrationCard))}grid.replaceChildren(...cards);
+    FoundlyI18n.bind(out,'integrations.runtime_help');await loadSystemStatus();
+  }catch(error){if(!current())return;const failure=integrationElement('div','answer');failure.setAttribute('style','grid-column:1/-1');FoundlyI18n.renderText(failure,integrationFailure(error));grid.replaceChildren(failure);FoundlyI18n.bind(summary,'common.unknown');FoundlyI18n.renderText(out,integrationFailure(error))}
+}
+async function handleIntegrationClick(event){
+  const button=event.target.closest('button');if(!button||button.disabled)return;
+  const id=button.dataset.connect||button.dataset.test||button.dataset.sync||button.dataset.profile||button.dataset.disconnect;if(!id)return;
+  button.disabled=true;
+  try{
+    if(button.dataset.connect)return await connectConnector(id);
+    if(button.dataset.profile)return await editConnectorProfile(id);
+    if(button.dataset.test){FoundlyI18n.bind(button,'integrations.testing');await testConnector(id);if(button.isConnected)FoundlyI18n.bind(button,'integrations.test');return await renderIntegrations()}
+    if(button.dataset.sync)return await syncConnector(id);
+    if(button.dataset.disconnect){
+      if(!confirm(integrationText('disconnect_confirm',{name:connectorBy(id)?.name||id})))return;
+      const dedicated=specialProvider(id),google=['google_ads','ga4','search_console','google_calendar'].includes(id);
+      const url=google?'/api/google/disconnect':dedicated?`/api/connect/${dedicated}/disconnect`:`/api/connector-runtime/config/${encodeURIComponent(id)}`,method=google||dedicated?'POST':'DELETE';
+      await integrationRequest(url,{method,headers:{'content-type':'application/json'},body:method==='POST'?'{}':undefined});await loadSystemStatus();return await renderIntegrations();
+    }
+  }catch(error){alert(String(integrationFailure(error)))}finally{button.disabled=false}
+}
+async function addRuntimeConnector(){
+  try{
+    const id=(prompt(integrationText('new_id'),'')||'').trim().toLowerCase().replace(/[^a-z0-9_-]+/g,'_');if(!id)return;
+    const name=prompt(integrationText('provider_name'),id);if(name===null)return;
+    const category=prompt(integrationText('category'),'custom');if(category===null)return;
+    const auth=prompt(integrationText('auth_strategy')+': public / api_key_header / bearer / basic / oauth2_authorization_code / webhook','api_key_header');if(auth===null)return;
+    const base=prompt(integrationText('base_url'),'');if(base===null)return;
+    const auth_strategy=auth||'api_key_header';let credential_fields=[];
+    if(auth_strategy==='basic')credential_fields=[{key:'username',label:'Username'},{key:'password',label:'Password'}];else if(auth_strategy==='oauth2_authorization_code')credential_fields=[{key:'client_id',label:'Client ID'},{key:'client_secret',label:'Client secret'}];else if(auth_strategy!=='public'&&auth_strategy!=='webhook')credential_fields=[{key:'api_key',label:'API key / token'}];
+    const body={id,naam:name||id,categorie:category||'custom',auth_strategy,connection_mode:auth_strategy.includes('oauth')?'oauth2':'credentials',base_url:base,credential_fields,health:{path:'',method:'GET'},sync:{path:'',method:'GET'},capabilities:['connect','test','sync','tenant_credentials','data_ingest']};
+    await integrationRequest('/api/connector-runtime/profiles',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});await renderIntegrations();alert(integrationText('added',{name:body.naam}));
+  }catch(error){alert(String(integrationFailure(error)))}
+}
+async function integrationSelfCheck(){
+  const out=$('#integrationOutput'),button=$('#integrationSelfCheck');if(!out||button?.disabled)return;if(button)button.disabled=true;
+  FoundlyI18n.bind(out,'integrations.checking');
+  try{
+    const read=async(url,allowUnavailable=false)=>{const response=await fetch(url),body=await response.json();if(!response.ok&&!(allowUnavailable&&response.status===503))throw Object.assign(new Error('integration_check_failed'),{code:body.code,status:response.status});return {ok:response.ok,body}};
+    const [diagnostics,status,readiness,zero]=await Promise.all([read('/api/diagnostics/config'),read('/api/integrations/status'),read('/api/ready',true),read('/api/zero/self-check')]);
+    // This existing explicit system-check action also runs the native worker.
+    // A locale change only repaints its result; it never repeats this request.
+    const workerResponse=await fetch('/api/workers/tick',{method:'POST',headers:{'content-type':'application/json'},body:'{}'}),worker=await workerResponse.json();
+    const state=key=>FoundlyI18n.message('integrations.'+key),failed=[...new Set([...(readiness.body.failed||[]),...(zero.body.failed||[])])];
+    if(!out.isConnected||$('#integrationOutput')!==out)return;
+    FoundlyI18n.bind(out,'integrations.check_result',undefined,{version:diagnostics.body.version??FoundlyI18n.message('common.unknown'),ready:state(readiness.ok&&readiness.body.ready?'ready':'blocked'),connected:integrationNumber(status.body.connected),total:integrationNumber(status.body.total),configured:integrationNumber(status.body.configured),encryption:state(diagnostics.body.encryption?.configured?'active':'inactive'),persistence:state(readiness.body.checks?.storage_writable&&readiness.body.checks?.persistent_mount?'active':'unproven'),zero:state(zero.body.ok?'pass':'partial'),worker:state(workerResponse.ok?'executed':'error'),tasks:integrationNumber(worker.processed?.length),sync:integrationNumber(worker.auto_sync?.filter?.(row=>row.ok)?.length),failures:failed.length?FoundlyI18n.message('integrations.check_failures',{items:failed.join(', ')}):''});
+  }catch(error){if(out.isConnected&&$('#integrationOutput')===out)FoundlyI18n.renderText(out,integrationFailure(error))}finally{if(button)button.disabled=false}
+}
 const AUTOMOTIVE_SOURCE_GROUPS=[
   ['ACTIVE SOURCES',[['rdw','RDW'],['ecb_fx','ECB'],['openai','OpenAI'],['openai_realtime','OpenAI Realtime']]],
   ['MARKETPLACE SOURCES',[['mobile_de','mobile.de'],['marktplaats','Marktplaats'],['autoscout24','AutoScout24']]],
@@ -143,7 +188,7 @@ async function openModule(id){
   let extra='';
   if(id==='inkoop')extra+=automotiveSourcePanel(registrySources);
   if(id==='google')extra=`<div class="card" style="grid-column:1/-1"><h3>GOOGLE LIVE DATA LAAG</h3><p id="googleStateText">Status laden…</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="action" id="googleConnect">VERBIND GOOGLE</button><button class="action" id="googleRefresh">CONTROLEER KOPPELING</button><button class="action" id="googleSearch">AI WEB SEARCH</button><button class="action" id="googleDisconnect">ONTKOPPEL</button></div><div class="answer" id="googleOutput">Google Ads, GA4, Search Console, Calendar en Foundly AI Search worden hier live gekoppeld.</div></div>`;
-  if(id==='integraties')extra=`<div class="card" style="grid-column:1/-1"><h3>FOUNDLY INTEGRATION CONTROL CENTER</h3><p id="integrationSummary">Integraties laden…</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="action" data-quick-oauth="google">VERBIND GOOGLE</button><button class="action" data-quick-oauth="meta">VERBIND META</button><button class="action" data-quick-oauth="linkedin">VERBIND LINKEDIN</button><button class="action" data-quick-oauth="tiktok">VERBIND TIKTOK</button><button class="action" data-quick-oauth="wix">VERBIND WIX</button><button class="action" id="integrationRefresh">CONTROLEER ALLES</button><button class="action" id="integrationSelfCheck">SELF CHECK</button><button class="action" id="integrationAdd">+ NIEUWE CONNECTOR</button></div><div id="integrationGrid" class="subGrid"></div><div class="answer" id="integrationOutput">Elke integratie heeft VERBIND, TEST, SYNC, PROFIEL en ONTKOPPEL. Nieuwe providers kunnen runtime worden toegevoegd zonder nieuwe Foundly-build.</div></div>`;
+  if(id==='integraties')extra=`<div class="card" style="grid-column:1/-1"><h3 data-i18n="integrations.title">FOUNDLY INTEGRATION CONTROL CENTER</h3><p id="integrationSummary" data-i18n="integrations.loading">Integraties laden…</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="action" data-quick-oauth="google">VERBIND GOOGLE</button><button class="action" data-quick-oauth="meta">VERBIND META</button><button class="action" data-quick-oauth="linkedin">VERBIND LINKEDIN</button><button class="action" data-quick-oauth="tiktok">VERBIND TIKTOK</button><button class="action" data-quick-oauth="wix">VERBIND WIX</button><button class="action" id="integrationRefresh" data-i18n="integrations.refresh">CONTROLEER ALLES</button><button class="action" id="integrationSelfCheck" data-i18n="integrations.self_check">SELF CHECK</button><button class="action" id="integrationAdd" data-i18n="integrations.add">+ NIEUWE CONNECTOR</button></div><div id="integrationGrid" class="subGrid"></div><div class="answer" id="integrationOutput" data-i18n="integrations.runtime_help">Elke integratie heeft VERBIND, TEST, SYNC, PROFIEL en ONTKOPPEL. Nieuwe providers kunnen runtime worden toegevoegd zonder nieuwe Foundly-build.</div></div>`;
   $('#layerBody').innerHTML=`<div class="grid"><div class="card"><h3>${m.naam} AI</h3><p>Foundly-engine die alleen beschikbare interne historie, geverifieerde providerdata en brongebonden intelligence gebruikt. Niet-verbonden bronnen worden niet als actief gepresenteerd.</p><button class="action" id="ask">VRAAG ${m.naam} AI</button><div class="answer" id="answer">Klaar voor opdrachten.</div></div><div class="card"><h3>FOUNDLY DATA LAYER</h3><p>Rol: <b>normalisatie, cache en persistentie</b><br>Records: <b>${Number(sourceState.foundly_data_layer.records||0)}</b><br>Lokale opslag: <b>${sourceState.local_persistence.writable?(sourceState.local_persistence.separate_mount?'PERSISTENT VOLUME':'SCHRIJFBAAR · VOLUME NIET BEWEZEN'):'NIET BESCHIKBAAR'}</b></p></div><div class="card"><h3>WERKELIJKE BRONNEN</h3><p>Live providerprobes: <b>${live.length}</b><br>${live.length?`Bronnen: <b>${esc(sourceNames)}</b>`:'Geen externe provider voor deze engine bevestigd.'}<br>Geconfigureerd, niet live: <b>${configured.length}</b><br>Interne historie: <b>${Number(sourceState.historical_internal_data.records||0)+Number(sourceState.historical_internal_data.memory_records||0)}</b> · Afgeleide intelligence: <b>${Number(sourceState.derived_intelligence.records||0)+Number(sourceState.derived_intelligence.decision_records||0)}</b></p></div>${extra}</div><div class="subGrid" style="margin-top:10px">${m.sub.map(s=>`<div class="subCard"><b>${s}</b><span>subagent · beschikbare bronnen: ${esc(sourceLabel)}</span></div>`).join('')}</div>`;
   $('#ask').onclick=()=>{const q=prompt(`Wat wil je vragen aan ${m.naam}?`);if(q)askModule(id,q)};
   if(id==='google'){
@@ -152,8 +197,8 @@ async function openModule(id){
   }
   if(id==='integraties'){
     $('#integrationGrid').addEventListener('click',handleIntegrationClick);
-    document.querySelectorAll('[data-quick-oauth]').forEach(b=>b.onclick=()=>{const p=b.dataset.quickOauth;location.href=p==='google'?'/api/google/connect?return_to=/?open=integraties':`/api/connect/${p}?return_to=/?open=integraties`});
-    $('#integrationRefresh').onclick=renderIntegrations;$('#integrationSelfCheck').onclick=async()=>{const out=$('#integrationOutput');out.textContent='Foundly voert systeemcontrole en echte providerprobes uit…';try{const [dr,sr,rr,jr]=await Promise.all([fetch('/api/diagnostics/config'),fetch('/api/integrations/status'),fetch('/api/ready'),fetch('/api/zero/self-check')]);const d=await dr.json(),st=await sr.json(),ready=await rr.json(),zero=await jr.json();if(!dr.ok)throw new Error(d.error||'Diagnose mislukt');if(!sr.ok)throw new Error(st.error||'Integratiestatus mislukt');if(!jr.ok)throw new Error(zero.error||'Zero self-check mislukt');const wr=await fetch('/api/workers/tick',{method:'POST',headers:{'content-type':'application/json'},body:'{}'}),w=await wr.json();const failed=[...(ready.failed||[]),...(zero.failed||[])];out.textContent=`FOUNDLY v${d.version} · readiness ${rr.ok&&ready.ready?'GEREED':'GEBLOKKEERD'} · providerprobes ${st.connected}/${st.total} live · ${st.configured} geconfigureerd · encryptie ${d.encryption?.configured?'ACTIEF':'NIET ACTIEF'} · persistence ${ready.checks?.storage_writable&&ready.checks?.persistent_mount?'ACTIEF':'NIET BEWEZEN'} · Zero Core ${zero.ok?'PASS':'PARTIAL'} · worker ${wr.ok?'UITGEVOERD':'FOUT'} · taken ${w.processed?.length||0} · auto-sync ${w.auto_sync?.filter?.(x=>x.ok)?.length||0}${failed.length?' · blokkades '+[...new Set(failed)].join(', '):''} · browserchecks apart vereist: microfoon, wake-word, WebRTC en audio`; }catch(e){out.textContent='SELF CHECK FOUT: '+e.message}};$('#integrationAdd').onclick=addRuntimeConnector;await renderIntegrations();
+    document.querySelectorAll('[data-quick-oauth]').forEach(button=>{const provider=button.dataset.quickOauth;FoundlyI18n.bind(button,'integrations.connect_provider',undefined,{name:provider.toUpperCase()});button.onclick=()=>{location.href=provider==='google'?'/api/google/connect?return_to=/?open=integraties':`/api/connect/${provider}?return_to=/?open=integraties`}});
+    FoundlyI18n.translate($('#layerBody'));$('#integrationRefresh').onclick=renderIntegrations;$('#integrationSelfCheck').onclick=integrationSelfCheck;$('#integrationAdd').onclick=addRuntimeConnector;await renderIntegrations();
   }
 }
 
