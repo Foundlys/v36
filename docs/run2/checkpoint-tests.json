@@ -461,6 +461,67 @@
     "main_dashboard_candidates": 22,
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED",
-    "current_ci": "PENDING_PUBLICATION"
+    "current_ci": {
+      "run": 157,
+      "id": 36017190346,
+      "head": "6ca6de62a32520085a4710f681afaa2841463253",
+      "tree": "cbdaa997a7d17713a4233eb24ba00b07b69c5095",
+      "status": "SUCCESS"
+    }
+  },
+  "spatial_locale_checkpoint": {
+    "recorded_at": "2026-09-24T15:17:02.045759+00:00",
+    "source_sha256": {
+      "foundly-locales.js": "06d1e543f06a682f1532a2d315c3791f2f8ae8d4119037268836b3ac0d671da6",
+      "customer-spatial-runtime.js": "d9b3ca5e11a104f01e1684c4251bc5def662571cc55a1ae29277d4d02c3c4088",
+      "customer-spatial-scene.js": "00546bf1755e13f65f24e066f6cd51e2c82785c514dc70858d4160729733dd23",
+      "zero-evaluation/dom-fixture.js": "342ebc9f06f5445ea47fa95e75d50e9bf2e6603fb3fca329541f7a33b5f1fd92",
+      "zero/spatial-localization.test.js": "5ff0df5ca57a110dd50d81c9ebf80187d35a4f3bc6023c90554258740152a611"
+    },
+    "logs": {
+      "spatial-localization.log": {
+        "exit_code": 0,
+        "sha256": "2bc1c040c612e69e196345ba64ad1bc1404b9fc9f3bbdbae5674b5c336a8b908",
+        "bytes": 2586
+      },
+      "spatial-locale-existing-regression.log": {
+        "exit_code": 0,
+        "sha256": "8f446fa0a25ae2f296c0122954ed90cd39b23cdb7c1d66f87e811fc9e88ba097",
+        "bytes": 703
+      },
+      "spatial-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "865065bc815c402d1d6962ea1286d89a50def2d4c979321e7ccfe281cc7a4c1f",
+        "bytes": 12847
+      },
+      "spatial-label-fit-check.log": {
+        "exit_code": 0,
+        "sha256": "6d31b7799bb420e71a5fed8d91a90206c7ad3c9e6eaf975ce5002728013e3439",
+        "bytes": 741,
+        "scope": "Final caption maxWidth bounds: scene geometry regression and three spatial localization/controller/texture-allocation tests; not actual font/pixel measurement."
+      }
+    },
+    "targeted_locale_tests": 20,
+    "full_zero_tests": 105,
+    "full_zero_pass": 105,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "existing_spatial_regression": "PASS: 2560 real-resolver profiles, reference geometry, pause/manual/resume and current access revalidation, real HTTP assets and permission contracts",
+    "scope": "The active customer spatial runtime now localizes explicit module/capability labels, sidebar/search, accessibility text, status/rotation controls and owned canvas captions. Provider brands and native event messages remain literal. Locale changes preserve canonical graph/IDs/hrefs, world positions, camera pose, focus, search input/results and native source request count. They update label textures only, preserving geometry buffer references and restoring old textures if new allocation fails. Current native permission and source revalidation remains unchanged.",
+    "frozen_baseline": {
+      "main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+      "spatial_css_sha256": "af296b6f212ae3812fea4e17d6e2e5fcece0e1fa53cc5f0c532ddbc4da51e3ea",
+      "spatial_css_equal_to_run1": true,
+      "canonical_spatial_model_equal_to_run1": true,
+      "scene_layout_equal_to_run1": true,
+      "scene_layout_sha256": "a43e0db23c2a84be677b0f83686b3019ac95da4f355223a83ca93c72b43d59b9"
+    },
+    "test_limit": "Minimal DOM and actual CPU geometry/controller tests plus a text-texture allocation fixture; no real WebGL pixels, visual fitting, responsive browser, assistive-technology or native-speaker acceptance. The 105-test ZERO run and native spatial suite cover this source checkpoint; the previous full npm/CI success belongs to the preceding Google checkpoint. The final maxWidth caption bounds were added after these test logs; the follow-up syntax/scene-focused check is recorded separately.",
+    "dynamic_candidates": 940,
+    "main_index_script_candidates": 22,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "current_ci": "PENDING_PUBLICATION",
+    "label_fitting": "Canvas maxWidth bounds localized captions inside their existing label shapes without changing positions, shape dimensions, fonts, shaders or CSS. Pixel/browser fitting remains unverified."
   }
 }

@@ -7,6 +7,7 @@ class Element{
  setAttribute(k,v){this.attrs[k]=String(v);}getAttribute(k){return this.attrs[k]??null;}removeAttribute(k){delete this.attrs[k];}
  matches(selector){return selector.split(',').some(s=>Object.hasOwn(this.attrs,s.trim().slice(1,-1)));}
  addEventListener(k,f){(this.handlers[k]??=[]).push(f);}async fire(k,event={}){for(const f of this.handlers[k]||[])await f({preventDefault(){},target:this,...event});}
+ removeEventListener(k,f){this.handlers[k]=(this.handlers[k]||[]).filter(handler=>handler!==f);}
  append(...nodes){for(const node of nodes){node.parentNode=this;node.isConnected=this.isConnected;this.childNodes.push(node);if(node.nodeType===1)this.children.push(node);}}replaceChildren(...nodes){for(const node of this.childNodes){node.parentNode=null;node.isConnected=false;}this.children=[];this.childNodes=[];this.append(...nodes);}after(node){this.following=node;}setCustomValidity(text){this.validationMessage=text;}
  get dataset(){return Object.fromEntries(Object.entries(this.attrs).filter(([key])=>key.startsWith('data-')).map(([key,value])=>[key.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),value]));}
  closest(tag){return this.tag===tag?this:this.parentNode?.closest?.(tag)||null;}
