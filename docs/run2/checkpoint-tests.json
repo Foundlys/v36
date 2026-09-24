@@ -55,5 +55,14 @@
       "status": "PASS"
     }
   ],
-  "run_2_status": "IN_PROGRESS_NOT_PASS"
+  "run_2_status": "IN_PROGRESS_NOT_PASS",
+  "research_discovery_checkpoint": {
+    "recorded_at": "2026-09-24T11:19:58.470185+00:00",
+    "unit_http_tests": 51,
+    "full_npm_test_exit_code": 0,
+    "ci_146": "FAILED_WORKFLOW_INSPECTION_NATURAL_READ_GATE",
+    "fix": "Preserve explicit INSPECT_RUN; gate only preparation/mutation inference",
+    "live_provider_and_browser_acceptance": "UNVERIFIED",
+    "log_sha256": "b16cf766f3536cd65fd47ba834e4bd41bb70bfee935890c085b863a8af3589ec"
+  }
 }

@@ -10,16 +10,20 @@ function registryFromEnvironment(env=process.env){
     let parsed;try{parsed=JSON.parse(env.FOUNDLY_ZERO_MODEL_REGISTRY);}catch{C.fail('zero_model_registry_invalid');}
     if(!Array.isArray(parsed)||!parsed.length||parsed.length>12)C.fail('zero_model_registry_invalid');return parsed;
   }
-  return [{id:'primary',provider:'openai_compatible',model:env.FOUNDLY_AI_MODEL||'gpt-5.6',
+  const registry=[{id:'primary',provider:'openai_compatible',model:env.FOUNDLY_AI_MODEL||'gpt-5.6',
     base_url:env.FOUNDLY_AI_BASE_URL||'https://api.openai.com/v1',
     credential_env:env.FOUNDLY_AI_API_KEY?'FOUNDLY_AI_API_KEY':'OPENAI_API_KEY',protocols:['responses','chat'],
     tasks:['conversation','reasoning','generation','verification'],quality:1,privacy:['INTERNAL','CONFIDENTIAL'],
     max_input_bytes:128000,max_output_tokens:4096,timeout_ms:Number(env.FOUNDLY_REQUEST_TIMEOUT_MS)||12000}];
+  registry.push({id:'web-research',provider:'openai',model:env.FOUNDLY_SEARCH_MODEL||env.FOUNDLY_AI_MODEL||'gpt-5.6',
+    base_url:'https://api.openai.com/v1',credential_env:env.OPENAI_API_KEY||env.FOUNDLY_AI_BASE_URL&&env.FOUNDLY_AI_BASE_URL.replace(/\/$/,'')!=='https://api.openai.com/v1'?'OPENAI_API_KEY':'FOUNDLY_AI_API_KEY',protocols:['responses'],
+    tasks:['research'],privacy:['INTERNAL','CONFIDENTIAL'],web_search:true,max_input_bytes:32000,max_output_tokens:4096,timeout_ms:Number(env.FOUNDLY_REQUEST_TIMEOUT_MS)||12000});
+  return registry;
 }
 function validateModels(config){
   const seen=new Set();
   return config.map(input=>{
-    C.keys(input,['id','provider','model','base_url','credential_env','protocols','tasks','quality','privacy','max_input_bytes','max_output_tokens','timeout_ms','input_usd_per_million','output_usd_per_million','priority']);
+    C.keys(input,['id','provider','model','base_url','credential_env','protocols','tasks','quality','privacy','max_input_bytes','max_output_tokens','timeout_ms','input_usd_per_million','output_usd_per_million','priority','web_search','web_search_usd_per_call']);
     const id=C.identifier(input.id,80);if(seen.has(id))C.fail('zero_duplicate_model');seen.add(id);
     let url;try{url=new URL(input.base_url);}catch{C.fail('zero_model_url_invalid');}
     if(url.protocol!=='https:'||url.username||url.password||url.search||url.hash||url.hostname==='localhost'||/^(127\.|10\.|192\.168\.|169\.254\.)/.test(url.hostname))C.fail('zero_model_url_invalid');
@@ -27,7 +31,9 @@ function validateModels(config){
     const protocols=input.protocols||['responses'];if(!Array.isArray(protocols)||!protocols.length||protocols.length>3||protocols.some(x=>!PROTOCOLS.includes(x)))C.fail('zero_model_protocol_invalid');
     const tasks=input.tasks||['conversation','reasoning','generation'];if(!Array.isArray(tasks)||!tasks.length||tasks.some(x=>!['conversation','reasoning','generation','verification','research'].includes(x)))C.fail('zero_model_task_invalid');
     const privacy=input.privacy||['INTERNAL'];if(!Array.isArray(privacy)||!privacy.length||privacy.some(x=>!['INTERNAL','CONFIDENTIAL','RESTRICTED'].includes(x)))C.fail('zero_model_privacy_invalid');
-    for(const key of ['quality','input_usd_per_million','output_usd_per_million'])if(input[key]!==undefined&&(typeof input[key]!=='number'||!Number.isFinite(input[key])||input[key]<0))C.fail('zero_model_config_invalid');
+    for(const key of ['quality','input_usd_per_million','output_usd_per_million','web_search_usd_per_call'])if(input[key]!==undefined&&(typeof input[key]!=='number'||!Number.isFinite(input[key])||input[key]<0))C.fail('zero_model_config_invalid');
+    if(input.web_search!==undefined&&typeof input.web_search!=='boolean')C.fail('zero_model_config_invalid');
+    if(input.web_search&&(url.href.replace(/\/$/,'')!=='https://api.openai.com/v1'||protocols.length!==1||protocols[0]!=='responses'))C.fail('zero_research_adapter_unsupported');
     return {...input,id,model:C.string(input.model,120),provider:C.identifier(input.provider||'compatible',80),base_url:url.href.replace(/\/$/,''),protocols:[...new Set(protocols)],tasks,privacy,
       quality:input.quality??1,priority:integer(input.priority,0,0,100),max_input_bytes:integer(input.max_input_bytes,64000,1000,1000000),
       max_output_tokens:integer(input.max_output_tokens,2048,64,32000),timeout_ms:integer(input.timeout_ms,12000,100,120000)};
@@ -51,39 +57,40 @@ class ModelRouter{
       pricing_configured:model.input_usd_per_million!==undefined&&model.output_usd_per_million!==undefined}));
     return{ok:true,version:this.version,available:models.some(x=>x.state==='CONFIGURED_UNVERIFIED'),availability_verified:false,models,policy:{...this.policy}};
   }
-  reserve(ctx,actor,workflow,model,inputBytes){
+  reserve(ctx,actor,workflow,model,inputBytes,research=false){
     const identity=C.scope(ctx,actor),today=this.now().toISOString().slice(0,10),rows=this.adapter.bucket(ctx,USAGE);
     const current=rows.filter(x=>C.sameScope(x,ctx)&&x.day===today),tokens=inputBytes+model.max_output_tokens;
-    const priced=model.input_usd_per_million!==undefined&&model.output_usd_per_million!==undefined;
-    const cost=priced?(inputBytes*model.input_usd_per_million+model.max_output_tokens*model.output_usd_per_million)/1e6:null;
+    const priced=model.input_usd_per_million!==undefined&&model.output_usd_per_million!==undefined&&(!research||model.web_search_usd_per_call!==undefined);
+    const cost=priced?(inputBytes*model.input_usd_per_million+model.max_output_tokens*model.output_usd_per_million)/1e6+(research?model.web_search_usd_per_call:0):null;
     if(current.length>=this.policy.daily_requests||current.reduce((s,x)=>s+x.charged_tokens,0)+tokens>this.policy.daily_tokens)C.fail('zero_tenant_budget_exhausted',429);
     if(workflow&&current.filter(x=>x.workflow_id===workflow&&x.owner_id===actor.id).length>=this.policy.workflow_requests)C.fail('zero_workflow_budget_exhausted',429);
     if(this.policy.daily_usd!==null&&(!priced||current.some(x=>x.charged_usd===null)||current.reduce((s,x)=>s+x.charged_usd,0)+cost>this.policy.daily_usd))C.fail(priced?'zero_money_budget_exhausted':'zero_model_price_required',429);
     const row={id:crypto.randomUUID(),...identity,workflow_id:workflow||null,day:today,at:this.now().toISOString(),config_version:this.version,
-      model_id:model.id,status:'RESERVED',reserved_tokens:tokens,charged_tokens:tokens,reserved_usd:cost,charged_usd:cost,
+      model_id:model.id,research,tool_calls:research?null:0,status:'RESERVED',reserved_tokens:tokens,charged_tokens:tokens,reserved_usd:cost,charged_usd:cost,
       actual_tokens:null,actual_usd:null,latency_ms:null,usage_verified:false};
     return scopedMutation(this.adapter,ctx,[USAGE],()=>{for(let i=rows.length-1;i>=0;i--)if(rows[i].day<today)rows.splice(i,1);rows.push(row);return row;});
   }
-  finish(ctx,row,{status,usage,latency,code}){
+  finish(ctx,row,{status,usage,latency,code,tool_calls}){
     const input=Number(usage?.input_tokens??usage?.prompt_tokens),output=Number(usage?.output_tokens??usage?.completion_tokens);
     const verified=Number.isSafeInteger(input)&&Number.isSafeInteger(output)&&input>=0&&output>=0;
-    const model=this.models.find(x=>x.id===row.model_id),priced=model.input_usd_per_million!==undefined&&model.output_usd_per_million!==undefined;
+    const model=this.models.find(x=>x.id===row.model_id),priced=model.input_usd_per_million!==undefined&&model.output_usd_per_million!==undefined&&(!row.research||model.web_search_usd_per_call!==undefined&&Number.isInteger(tool_calls));
     return scopedMutation(this.adapter,ctx,[USAGE],()=>{
-      Object.assign(row,{status,latency_ms:latency,code:code||null,usage_verified:verified,
-        actual_tokens:verified?input+output:null,actual_usd:verified&&priced?(input*model.input_usd_per_million+output*model.output_usd_per_million)/1e6:null});
+      Object.assign(row,{status,latency_ms:latency,code:code||null,usage_verified:verified,tool_calls:row.research?(Number.isInteger(tool_calls)?tool_calls:null):0,
+        actual_tokens:verified?input+output:null,actual_usd:verified&&priced?(input*model.input_usd_per_million+output*model.output_usd_per_million)/1e6+(row.research?tool_calls*model.web_search_usd_per_call:0):null});
       // Unknown usage remains fully charged. Provider outages cannot turn retries
       // into free, unlimited budget. A confirmed usage record can release excess.
-      if(verified){row.charged_tokens=input+output;row.charged_usd=row.actual_usd;}
+      if(verified)row.charged_tokens=input+output;if(row.actual_usd!==null)row.charged_usd=row.actual_usd;
     });
   }
-  async transport(model,protocol,{system,input,signal}){
+  async transport(model,protocol,{system,input,signal,research=false}){
     const headers={'content-type':'application/json'};let endpoint,payload;
     if(protocol==='anthropic'){
       endpoint='/messages';headers['x-api-key']=this.credential(model);headers['anthropic-version']='2023-06-01';
       payload={model:model.model,system,messages:[{role:'user',content:input}],max_tokens:model.max_output_tokens};
     }else{
       headers.authorization=`Bearer ${this.credential(model)}`;
-      if(protocol==='responses'){endpoint='/responses';payload={model:model.model,instructions:system,input,max_output_tokens:model.max_output_tokens,store:false};}
+      if(protocol==='responses'){endpoint='/responses';payload={model:model.model,instructions:system,input,max_output_tokens:model.max_output_tokens,store:false};
+        if(research)Object.assign(payload,{tools:[{type:'web_search'}],max_tool_calls:1,include:['web_search_call.action.sources']});}
       else{endpoint='/chat/completions';payload={model:model.model,messages:[{role:'system',content:system},{role:'user',content:input}],max_completion_tokens:model.max_output_tokens,store:false};}
     }
     const url=model.base_url+endpoint;if(this.validateUrl)await this.validateUrl(url);
@@ -101,14 +108,21 @@ class ModelRouter{
       text=data.choices?.[0]?.message?.content;
     }
     if(typeof text!=='string'||!text.trim()||Buffer.byteLength(text)>256000)throw Object.assign(Error('Empty or oversized model result'),{code:'zero_provider_result_invalid',usage:data.usage});
-    return{text,usage:data.usage};
+    const sources=[],calls=(data.output||[]).filter(x=>x.type==='web_search_call');
+    if(research){
+      for(const item of calls)for(const s of item.action?.sources||[])sources.push(s);
+      for(const item of data.output||[])for(const part of item.content||[])for(const a of part.annotations||[])if(a.type==='url_citation')sources.push(a);
+      if(!sources.length||!calls.length||calls.length>1||calls.some(x=>x.status&&x.status!=='completed'))throw Object.assign(Error('Research evidence missing'),{code:'zero_research_unverified',usage:data.usage});
+    }
+    return{text,usage:data.usage,sources:research?sources:undefined,tool_calls:research?calls.length:0};
   }
   async generate({ctx,actor,system,input,task='conversation',privacy='INTERNAL',workflow_id,signal,check=()=>{}}){
     C.scope(ctx,actor);check();C.string(system,40000);C.string(input,1000000);
     if(workflow_id)C.identifier(workflow_id);
     const inputBytes=Buffer.byteLength(system)+Buffer.byteLength(input),scopeKey=ctx.tenant_id+':'+ctx.dealer_id;
     if((this.inflight.get(scopeKey)||0)>=this.policy.concurrency)return{ok:false,state:'CONCURRENCY_LIMIT',text:'',attempts:[]};
-    const eligible=this.models.filter(m=>this.credential(m)&&m.tasks.includes(task)&&m.privacy.includes(privacy)&&inputBytes<=m.max_input_bytes)
+    const research=task==='research';
+    const eligible=this.models.filter(m=>this.credential(m)&&m.tasks.includes(task)&&m.privacy.includes(privacy)&&inputBytes<=m.max_input_bytes&&(!research||m.web_search))
       .sort((a,b)=>a.priority-b.priority||b.quality-a.quality||((a.input_usd_per_million??Infinity)-(b.input_usd_per_million??Infinity)));
     if(!eligible.length)return{ok:false,state:'NO_ELIGIBLE_MODEL',text:'',attempts:[],config_version:this.version};
     this.inflight.set(scopeKey,(this.inflight.get(scopeKey)||0)+1);const attempts=[];
@@ -118,19 +132,19 @@ class ModelRouter{
         for(const protocol of model.protocols){
           if(attempts.length>=this.policy.max_attempts||signal?.aborted)break;
           C.scope(ctx,actor);check();let row;
-          try{row=this.reserve(ctx,actor,workflow_id,model,inputBytes);}catch(error){if(error.statusCode!==429)throw error;return{ok:false,state:'BUDGET_EXHAUSTED',code:error.code,text:'',attempts,config_version:this.version};}
+          try{row=this.reserve(ctx,actor,workflow_id,model,inputBytes,research);}catch(error){if(error.statusCode!==429)throw error;return{ok:false,state:'BUDGET_EXHAUSTED',code:error.code,text:'',attempts,config_version:this.version};}
           const started=performance.now(),controller=new AbortController();
           const abort=()=>controller.abort(signal?.reason);signal?.addEventListener('abort',abort,{once:true});
           let timer;
           try{
             const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Object.assign(Error('Model timed out'),{code:'zero_provider_timeout'}));},model.timeout_ms);});
-            const result=await Promise.race([this.transport(model,protocol,{system,input,signal:controller.signal}),timeout]);
+            const result=await Promise.race([this.transport(model,protocol,{system,input,signal:controller.signal,research}),timeout]);
             C.scope(ctx,actor);check();if(signal?.aborted)C.fail('zero_cancelled',409);
-            const latency=performance.now()-started;this.finish(ctx,row,{status:'SUCCEEDED',usage:result.usage,latency});
+            const latency=performance.now()-started;this.finish(ctx,row,{status:'SUCCEEDED',usage:result.usage,latency,tool_calls:result.tool_calls});
             attempts.push({model_id:model.id,protocol,status:'SUCCEEDED',latency_ms:latency,usage_verified:row.usage_verified});
             this.failures.delete(circuitKey);
             return{ok:true,state:'SUCCEEDED',text:result.text,model_id:model.id,config_version:this.version,attempts,
-              usage:{tokens:row.actual_tokens,cost_usd:row.actual_usd,verified:row.usage_verified},fallback_used:attempts.length>1};
+              usage:{tokens:row.actual_tokens,cost_usd:row.actual_usd,verified:row.usage_verified,tool_calls:row.tool_calls},sources:result.sources,fallback_used:attempts.length>1};
           }catch(error){
             const latency=performance.now()-started;this.finish(ctx,row,{status:'FAILED',usage:error.usage,latency,code:error.code||'zero_provider_error'});
             attempts.push({model_id:model.id,protocol,status:'FAILED',code:error.code||'zero_provider_error',latency_ms:latency});
