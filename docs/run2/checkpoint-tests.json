@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-24T10:59:28.750711+00:00",
+  "recorded_at": "2026-09-24T18:44:12.054382+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -359,7 +359,7 @@
     },
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "legacy_native_profile_evidence": "legacy-profile-replay-check.json",
-    "cash_validation": "Whole-day horizon validated at 1\u2013730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
+    "cash_validation": "Whole-day horizon validated at 1–730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
   },
   "integration_locale_checkpoint": {
     "recorded_at": "2026-09-24T14:47:25.073630+00:00",
@@ -1099,6 +1099,66 @@
     "analysis_cohort_direct_candidates": 0,
     "analysis_loading_internal_error_candidates": 1,
     "evidence_limit": "All full-surface locale gates remain FAIL/CODE_CONTROLLED. Static audits and controller/native tests do not establish browser pixels, accessibility, native-speaker quality, real voice/provider quality, cognitive quality or demo universes.",
+    "current_ci": {
+      "run_number": 167,
+      "run_id": 36041048581,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "published_commit": "6afe2d58688fc0b6cb244a231a7ddaf290cc7ba6",
+    "published_tree": "040132e639d0b56143b4e64d45236aacf472a1c4"
+  },
+  "automotive_status_locale_checkpoint": {
+    "recorded_at": "2026-09-24T18:44:12.054382+00:00",
+    "source_sha256": {
+      "automotive-script.js": "2edca52dc5d6f257d41f4a7f8e9701ff995ffded4141da882e0bc98880428302",
+      "foundly-locales.js": "576e83580f55dec6a9c5540ba8c12a05106d209285f6979b561b8a73a3300183",
+      "zero/automotive-status-localization.test.js": "990f9372ebc4ab44b4a95e35c70c15c88553651c1c49cf613edd025fe6507431",
+      "zero-evaluation/automotive-page-fixture.js": "563087a09223443fab31823898e238c56d0f5bf8f0a3b2c0058db168d60bc530"
+    },
+    "logs": {
+      "run2-automotive-status-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "28cea91071109d00cc657a96dae5f6a8fba36f5eb66f5c5eb21112a40d1b6c3a",
+        "bytes": 1811
+      },
+      "run2-automotive-status-localization.log": {
+        "exit_code": 0,
+        "sha256": "9a107c8ab09c765e469185064d0ba0bf62c5768996209babab10b5d4d562bb05",
+        "bytes": 1181
+      },
+      "run2-automotive-status-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "06d9f0fd1a303da84025d89c38e1128d684a561098ece1adbffd499fb20d57fe",
+        "bytes": 22123
+      },
+      "run2-automotive-native-regressions.log": {
+        "exit_code": 0,
+        "sha256": "e62377c071d476a4b1608f94cced37ee88de758380a79dcc87bf353aa9b5462b",
+        "bytes": 1812
+      }
+    },
+    "new_controller_tests": 8,
+    "full_zero_tests": 176,
+    "full_zero_pass": 176,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "commands": [
+        "node automotive-core-regression-test.js",
+        "node automotive-api-regression-test.js",
+        "node foundly-masterbuild-regression-test.js"
+      ],
+      "exit_code": 0
+    },
+    "scope": "Explicit eight-locale Automotive provider/overview/status labels, native counts and UTC observations. Literal dealer/provider identity, authored queries and existing native routes remain unchanged. Missing observations do not become zero; duplicate observations and nonboolean flags do not establish connection proof.",
+    "reproduced_defects": [
+      "Configured marketplace credentials were presented as Market ready before successful probe/search evidence. Successful observed search is now stated separately from configuration and registry connection proof.",
+      "Denied status reload retained private dealer/inventory observations. Denial now clears prior Automotive observations, results/details and dependent answers and rejects late search/detail/opportunity/ZERO responses. Closing a detail rejects its pending read."
+    ],
+    "dynamic_candidates": 814,
+    "automotive_direct_candidates": 16,
+    "evidence_limit": "Controller and deterministic native tests are not live provider, browser/layout, accessibility, native-speaker or complete localization acceptance. Automotive search/detail copy and other Run-2 code gaps remain.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

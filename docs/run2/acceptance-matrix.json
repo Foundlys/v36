@@ -790,10 +790,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-057",
@@ -822,10 +823,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-058",
@@ -854,10 +856,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-059",
@@ -886,10 +889,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-060",
@@ -918,10 +922,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-061",
@@ -950,10 +955,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-062",
@@ -982,10 +988,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-063",
@@ -1014,10 +1021,11 @@
         "docs/run2/checkpoint-tests.json",
         "zero/analysis-model-history-localization.test.js",
         "zero/analysis-page-localization.test.js",
-        "zero/analysis-cohort-localization.test.js"
+        "zero/analysis-cohort-localization.test.js",
+        "zero/automotive-status-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Explicit static/dashboard/module-overlay, callback and Analysis page/action/model/revision/cohort bindings cover bounded surfaces across all eight locales. 818 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
+      "note": "Explicit static/dashboard/module-overlay, callback, Analysis and Automotive status/overview bindings cover bounded surfaces across all eight locales. 814 conservative dynamic candidates and additional generated/backend copy remain; full-surface and native-speaker/layout acceptance are incomplete."
     },
     {
       "id": "R2-064",
@@ -1695,14 +1703,14 @@
       "group": "REGRESSION / CI",
       "requirement": "CI",
       "source_section": 52,
-      "status": "FAIL",
+      "status": "UNVERIFIED",
       "evidence": [
         "docs/run2/checkpoint-tests.json",
         "docs/run2/evaluation-current.json",
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 161\u2013165 passed earlier published checkpoints. CI 166 failed a UI-source literal assertion. The assertion is replaced with production-renderer behavior checks and the full local npm regression passes (168 ZERO tests, 14 corpus checks). Successful CI on the repaired published checkpoint is still required."
+      "note": "CI 167 passed repaired published cohort checkpoint 6afe2d58688fc0b6cb244a231a7ddaf290cc7ba6. Historical CI 166 remains failed; its renderer regression was repaired and full local npm test passed. The later Automotive status checkpoint passes 176 ZERO tests, 14 corpus checks and native Automotive/masterbuild regressions; its own published CI is pending."
     },
     {
       "id": "R2-115",
@@ -1828,7 +1836,7 @@
     {
       "id": "R2-125",
       "group": "ADDITIONAL CONTRACT GATES",
-      "requirement": "Run 3\u20137 boundaries preserved",
+      "requirement": "Run 3–7 boundaries preserved",
       "source_section": 51,
       "status": "PASS",
       "evidence": [
@@ -1838,7 +1846,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-24T18:24:14.325777+00:00",
+  "updated_at": "2026-09-24T18:44:12.054382+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }

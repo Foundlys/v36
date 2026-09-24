@@ -2,6 +2,7 @@
 
 const app = {
   status: null,
+  statusGeneration: 0, accessGeneration: 0, accessAllowed: true, searchGeneration: 0, todayGeneration: 0, detailGeneration: 0, searchPending: false, zeroPending: false,
   overview: null,
   search: null,
   results: [],
@@ -43,7 +44,7 @@ function vehicleName(candidate = {}) {
 function toast(message, type = 'info') {
   const node = document.createElement('div');
   node.className = `toast ${type}`;
-  node.textContent = message;
+  autoRender(node, message);
   $('#toastRegion').append(node);
   setTimeout(() => node.remove(), 5200);
 }
@@ -60,94 +61,75 @@ async function api(path, options = {}) {
   return payload;
 }
 
-function providerState(provider) {
-  if (provider.connection_state) return provider.connection_state;
-  if (provider.state) return provider.state;
-  if (provider.probe === 'PASS') return 'LIVE';
-  if (provider.authenticated) return 'CONFIGURED';
-  if (provider.configured) return 'CONFIGURED';
-  return 'UNAVAILABLE';
+const autoCopy=(key,fallback,params={})=>globalThis.FoundlyI18n?FoundlyI18n.message('automotive.status.'+key,params):String(fallback).replace(/\{([a-z_]+)\}/g,(_,name)=>String(params[name]??''));
+const autoLive=read=>Object.freeze({toString:read}),autoUnknown=()=>globalThis.FoundlyI18n?FoundlyI18n.message('common.unknown'):'Onbekend',autoNoData=()=>globalThis.FoundlyI18n?FoundlyI18n.message('common.no_data'):'Geen brondata';
+function autoRender(node,value){if(globalThis.FoundlyI18n)FoundlyI18n.renderText(node,value);else node.textContent=String(value??'');return node;}
+function autoElement(tag,value='',className){const node=autoRender(document.createElement(tag),value);if(className)node.className=className;return node;}
+const autoCount=value=>Number.isSafeInteger(value)&&value>=0,autoNumber=value=>autoLive(()=>autoCount(value)?new Intl.NumberFormat(globalThis.FoundlyI18n?.locale||'nl-NL').format(value):String(autoUnknown())),autoValue=value=>autoCopy('value','{value}',{value});
+const autoTime=value=>autoLive(()=>typeof value==='string'&&value.trim()&&Number.isFinite(Date.parse(value))?new Intl.DateTimeFormat(globalThis.FoundlyI18n?.locale||'nl-NL',{dateStyle:'short',timeStyle:'medium',timeZone:'UTC'}).format(new Date(value)):String(autoUnknown()));
+const autoError=error=>globalThis.FoundlyI18n?FoundlyI18n.message(error.status===401?'identity.auth_required':FoundlyI18n.errorKey(error.code,error.status)):error.message;
+const AUTO_STATES=['CONNECTED','AWAITING_ACCESS','AUTHENTICATED','CONFIGURED','UNCONFIGURED','UNAVAILABLE','LIVE','CACHED','STALE','ERROR','DEGRADED','EXPIRED','DISCONNECTED','AUTHORIZING','PROBING','SYNCING','UNKNOWN','SEARCH_OBSERVED'];
+const autoState=state=>AUTO_STATES.includes(state)?autoCopy('state.'+state.toLowerCase(),state):autoUnknown();
+function registryVerified(row){return row.connection_state==='CONNECTED'&&['AUTHENTICATED','AUTHENTICATED_PUBLIC'].includes(row.authentication_state)&&row.probe_state==='PASS'&&(row.sync_state==='PASS'||row.authentication_state==='AUTHENTICATED_PUBLIC'||['openai','voice','openai_realtime'].includes(row.connector_id));}
+function searchObserved(row){return row?.authenticated===true&&row.configured===true&&row.adapter_available===true&&row.probe==='PASS'&&row.real_search==='PASS'&&typeof row.last_attempt_at==='string'&&Number.isFinite(Date.parse(row.last_attempt_at));}
+function providerState(provider){
+ if(provider.connection_state)return provider.connection_state==='CONNECTED'&&!registryVerified(provider)?'UNKNOWN':AUTO_STATES.includes(provider.connection_state)?provider.connection_state:'UNKNOWN';
+ if(provider.state)return provider.state==='LIVE'&&!(provider.success===true&&provider.called===true)?'UNKNOWN':AUTO_STATES.includes(provider.state)?provider.state:'UNKNOWN';
+ if(searchObserved(provider))return 'SEARCH_OBSERVED';if(provider.authenticated===true)return 'AUTHENTICATED';if(provider.configured===true)return 'CONFIGURED';if(provider.configured===false)return 'UNCONFIGURED';return 'UNKNOWN';
 }
-
-function providerExplanation(provider) {
-  if (provider.connection_state === 'CONNECTED') return `${formatNumber(provider.records || 0)} records · probe ${provider.probe_state || 'PASS'}`;
-  if (provider.connection_state === 'AWAITING_ACCESS') return 'Adapter beschikbaar · legitieme provider- of partnertoegang vereist';
-  if (provider.connection_state === 'AUTHENTICATED') return 'Authenticatie aanwezig · vereiste probe of initiële sync nog niet bewezen';
-  if (provider.connection_state === 'CONFIGURED') return 'Configuratie aanwezig · providerautorisatie nog niet bewezen';
-  if (provider.connection_state === 'UNCONFIGURED') return 'Connectorcontract beschikbaar · configuratie ontbreekt';
-  if (provider.safe_error) return provider.safe_error;
-  if (provider.state === 'LIVE' || provider.probe === 'PASS') return `${formatNumber(provider.records_normalized || 0)} records genormaliseerd · ${formatNumber(provider.latency_ms, ' ms')}`;
-  if (provider.state === 'CACHED' || provider.state === 'STALE') return `${formatNumber(provider.records_from_cache || 0)} echte cache-records · live refresh faalde`;
-  if (provider.error?.code) return provider.error.code;
-  if (provider.provider === 'rdw' && provider.authenticated) return 'Publieke vehicle-truth adapter gereed';
-  if (provider.authenticated) return 'Authenticatie aanwezig · probe nog niet uitgevoerd';
-  if (provider.configured) return 'Configuratie aanwezig · authenticatie ontbreekt';
-  return provider.adapter_available === false ? 'Adapter bewust niet actief zonder toegang' : 'Providerconfiguratie ontbreekt';
+function providerExplanation(provider){
+ const state=providerState(provider);
+ if(state==='CONNECTED')return autoCopy('verified_records','Records: {value} · geslaagde probe',{value:autoNumber(provider.records)});
+ if(state==='AWAITING_ACCESS')return autoCopy('access_required','Adapter beschikbaar · legitieme provider- of partnertoegang vereist');
+ if(state==='AUTHENTICATED')return autoCopy('auth_only','Authenticatie aanwezig · vereiste probe of initiële sync nog niet bewezen');
+ if(state==='CONFIGURED')return autoCopy('configured_only','Configuratie aanwezig · providerautorisatie nog niet bewezen');
+ if(state==='UNCONFIGURED')return autoCopy('unconfigured','Connectorcontract beschikbaar · configuratie ontbreekt');
+ if(state==='SEARCH_OBSERVED')return autoCopy('search_observed','Geslaagde zoekopdracht waargenomen: {time} UTC',{time:autoTime(provider.last_attempt_at)});
+ if(state==='LIVE')return autoCopy('normalized','Genormaliseerde records: {value} · {latency} ms',{value:autoNumber(provider.records_normalized),latency:autoNumber(provider.latency_ms)});
+ if(state==='CACHED'||state==='STALE')return autoCopy('cached','Cache-records: {value} · laatste live aanvraag mislukt',{value:autoNumber(provider.records_from_cache)});
+ if(provider.safe_error||provider.error?.code)return autoCopy('provider_error','Providercontrole mislukt.');
+ return provider.adapter_available===false?autoCopy('adapter_inactive','Adapter niet actief zonder toegang'):autoCopy('evidence_missing','Providerbewijs niet beschikbaar.');
 }
-
-function renderProviders(providers = []) {
-  const required = ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc', 'ecb_fx', 'openai'];
-  const ordered = required.map(id => providers.find(provider => (provider.connector_id || provider.provider) === id)).filter(Boolean);
-  $('#providerGrid').innerHTML = ordered.map(provider => {
-    const state = providerState(provider);
-    return `<article class="provider-card">
-      <div class="provider-head"><strong>${escapeHtml(provider.name || provider.provider || provider.connector_id)}</strong><span class="state-pill ${escapeHtml(state.toLowerCase())}">${escapeHtml(state)}</span></div>
-      <p>${escapeHtml(providerExplanation(provider))}</p>
-    </article>`;
-  }).join('') || '<div class="empty-state small"><p>Providerstatus is niet beschikbaar.</p></div>';
+function renderProviders(providers){
+ const required=['rdw','mobile_de','marktplaats','autoscout24','vwe','autotelex','rdc','ecb_fx','openai'],host=$('#providerGrid'),rows=Array.isArray(providers)?providers:[];host.replaceChildren();
+ for(const id of required){const matches=rows.filter(row=>(row.connector_id||row.provider)===id);if(!matches.length)continue;const provider=matches[0],state=matches.length===1?providerState(provider):'UNKNOWN',card=autoElement('article','','provider-card'),head=autoElement('div','','provider-head');head.append(autoElement('strong',provider.name||provider.provider||provider.connector_id),autoElement('span',autoState(state),'state-pill '+state.toLowerCase()));card.append(head,autoElement('p',matches.length===1?providerExplanation(provider):autoCopy('conflict','Tegenstrijdige providerwaarnemingen; status onbekend.')));host.append(card);}
+ if(!host.children.length){const empty=autoElement('div','','empty-state small');empty.append(autoElement('p',autoCopy('unavailable','Providerstatus is niet beschikbaar.')));host.append(empty);}
 }
-
-function overviewValue(value, available = true) {
-  return available ? String(value) : 'Geen data';
+function overviewValue(value,available){return available===true?autoValue(autoNumber(value)):available===false?autoNoData():autoUnknown();}
+function renderOverview(){
+ const data=app.overview;if(!data)return;const rows=data.provider_health,ids=Array.isArray(rows)?rows.map(row=>row.connector_id||row.provider):[],known=Array.isArray(rows)&&ids.every(id=>typeof id==='string'&&id)&&new Set(ids).size===ids.length,connected=known?rows.filter(registryVerified).length:null;
+ const scores=Array.isArray(data.top_buy_scores)?data.top_buy_scores.map(row=>row.score).filter(value=>typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=100):[],topScore=scores.length?Math.max(...scores):null,count=value=>Array.isArray(value)?value.length:null;
+ const metrics=[
+  ['provider_health','Providerstatus',autoCopy('coverage','{connected} / {total}',{connected:autoNumber(connected),total:autoNumber(known?rows.length:null)}),'connector_registry','Connector Registry'],
+  ['today','Kansen van vandaag',autoValue(autoNumber(count(data.today_opportunities))),'marketplace_data','Marketplace-brondata'],
+  ['top_scores','Hoogste Buy Scores',topScore===null?autoUnknown():autoValue(autoLive(()=>new Intl.NumberFormat(globalThis.FoundlyI18n?.locale||'nl-NL',{maximumFractionDigits:2}).format(topScore))),'scoring','Scoring op basis van bewijs'],
+  ['searches','Recente zoekopdrachten',autoValue(autoNumber(count(data.recent_searches))),'tenant_history','Tenanthistorie'],
+  ['movement','Marktbeweging',overviewValue(data.market_movement?.value,data.market_movement?.available),'no_series','Geen bewezen marktreeks'],
+  ['risk','Voorraadrisico',overviewValue(data.inventory_risk?.at_risk,data.inventory_risk?.available),'persisted_inventory','Bewaarde voorraad'],
+  ['stale','Oude voorraad',overviewValue(data.stale_stock?.records,data.stale_stock?.available),'ninety_days','Ouder dan 90 dagen'],
+  ['recommendations','Recente ZERO-aanbevelingen',autoValue(autoNumber(count(data.recent_zero_recommendations))),'persisted_only','Alleen bewaarde aanbevelingen'],
+  ['freshness','Actualiteit van data',autoValue(autoNumber(Array.isArray(data.data_freshness)?data.data_freshness.filter(row=>['AVAILABLE','LIVE_REFERENCE'].includes(row.status)).length:null)),'source_registry','Source Registry'],
+  ['source_coverage','Brondekking',autoValue(autoNumber(count(data.source_coverage))),'with_records','Bronnen met records']
+ ];
+ const host=$('#automotiveOverviewGrid');host.replaceChildren();for(const [key,name,value,noteKey,note]of metrics){const card=autoElement('article'),missing=key==='provider_health'&&!known||String(value)===String(autoUnknown())||String(value)===String(autoNoData());card.append(autoElement('span',autoCopy(key,name)),autoElement('strong',value,missing?'unavailable':''),autoElement('small',autoCopy(noteKey,note)));host.append(card);}
+ autoRender($('#automotiveObserved'),autoCopy('observed','Waargenomen: {time} UTC',{time:autoTime(data.observed_at)}));
+ autoRender($('#inventoryOperationState'),data.inventory_risk?.available===true?autoCopy('inventory_records','{records} bewaarde voorraadrecords · {risk} met expliciet hoog risico.',{records:autoNumber(data.inventory_risk.records),risk:autoNumber(data.inventory_risk.at_risk)}):data.inventory_risk?.available===false?autoCopy('no_inventory','Geen werkelijke voorraadrecords beschikbaar; Foundly toont geen demo-inventaris.'):autoCopy('inventory_unknown','Voorraadwaarnemingen zijn niet beschikbaar.'));renderProviders(data.provider_health);
 }
-
-function renderOverview() {
-  const data = app.overview;
-  if (!data) return;
-  const connected = (data.provider_health || []).filter(row => row.connection_state === 'CONNECTED').length;
-  const topScore = (data.top_buy_scores || []).map(row => Number(row.score)).filter(Number.isFinite).sort((a, b) => b - a)[0];
-  const metrics = [
-    ['Provider health', `${connected} / ${(data.provider_health || []).length}`, true, 'Connector Registry'],
-    ["Today's opportunities", (data.today_opportunities || []).length, true, 'Echte marketplace-data'],
-    ['Top Buy Scores', topScore, Number.isFinite(topScore), 'Evidence-backed scoring'],
-    ['Recent searches', (data.recent_searches || []).length, true, 'Tenant history'],
-    ['Market movement', null, Boolean(data.market_movement?.available), data.market_movement?.reason || 'Geen schijntrend'],
-    ['Inventory risk', data.inventory_risk?.at_risk, Boolean(data.inventory_risk?.available), 'Persistente voorraad'],
-    ['Stale stock', data.stale_stock?.records, Boolean(data.stale_stock?.available), 'Ouder dan 90 dagen'],
-    ['Recent ZERO recommendations', (data.recent_zero_recommendations || []).length, true, 'Persisted only'],
-    ['Data freshness', (data.data_freshness || []).filter(row => ['AVAILABLE', 'LIVE_REFERENCE'].includes(row.status)).length, true, 'Source Registry'],
-    ['Source coverage', (data.source_coverage || []).length, true, 'Bronnen met records']
-  ];
-  $('#automotiveOverviewGrid').innerHTML = metrics.map(([name, value, available, note]) => `<article><span>${escapeHtml(name)}</span><strong class="${available ? '' : 'unavailable'}">${escapeHtml(overviewValue(value, available))}</strong><small>${escapeHtml(note)}</small></article>`).join('');
-  $('#automotiveObserved').textContent = data.observed_at ? new Intl.DateTimeFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(data.observed_at)) : 'Observatietijd onbekend';
-  $('#inventoryOperationState').textContent = data.inventory_risk?.available ? `${data.inventory_risk.records} persistente voorraadrecords · ${data.inventory_risk.at_risk} met expliciet hoog risico.` : 'Geen werkelijke voorraadrecords beschikbaar; Foundly toont geen demo-inventaris.';
-  renderProviders(data.provider_health || []);
+function renderSystemStatus(){
+ const status=app.status;if(!status)return;autoRender($('#footerVersion'),autoCopy('version','Foundly {version} · Automotive-schema {schema}',{version:status.version??autoUnknown(),schema:status.schema_version??autoUnknown()}));autoRender($('#partnerName'),status.dealer_profile?.display_name||autoCopy('dealer_unknown','Dealer onbekend'));
+ const providers=Array.isArray(status.providers)?status.providers:[],configured=providers.some(provider=>provider.configured===true),observed=providers.some(provider=>provider.category==='MARKETPLACE'&&searchObserved(provider));
+ $('#railStatusLight').className='status-light '+(observed?'ok':configured?'partial':'error');autoRender($('#railStatusText'),observed?autoCopy('search_status','Zoekopdracht waargenomen'):configured?autoCopy('configured_status','Toegang geconfigureerd'):autoCopy('limited','Beperkte brondata'));if(!app.overview)renderProviders(status.providers);
 }
-
-function renderSystemStatus() {
-  const status = app.status;
-  if (!status) return;
-  $('#footerVersion').textContent = `Foundly ${status.version} · Automotive schema ${status.schema_version}`;
-  const profile = status.dealer_profile || {};
-  $('#partnerName').textContent = profile.display_name || 'House of Cars';
-  const readyProviders = (status.providers || []).filter(provider => provider.authenticated).length;
-  const marketplaceReady = (status.providers || []).some(provider => provider.category === 'MARKETPLACE' && provider.authenticated);
-  $('#railStatusLight').className = `status-light ${marketplaceReady ? 'ok' : readyProviders ? 'partial' : 'error'}`;
-  $('#railStatusText').textContent = marketplaceReady ? 'Market ready' : 'Data limited';
-  if (!app.overview) renderProviders(status.providers || []);
+function invalidateAutomotiveAccess(){
+ app.accessGeneration++;app.accessAllowed=false;app.searchPending=app.zeroPending=false;app.search=null;app.results=[];app.analyses.clear();app.selectedId=null;
+ for(const id of ['vehicleGrid','criteriaPanel','todayList','detailContent','detailImage','detailProvider','detailTitle','detailSubtitle','zeroAnswer'])$('#'+id).replaceChildren();
+ autoRender($('#resultCount'),autoUnknown());autoRender($('#detailScore').querySelector('strong'),autoUnknown());$('#sourceLink').removeAttribute('href');$('#sourceLink').hidden=true;$('#vehicleDetail').hidden=true;$('#criteriaPanel').hidden=true;$('#searchButton').disabled=true;$('#zeroQuery').disabled=true;$('#zeroForm button').disabled=true;
 }
-
-async function loadStatus() {
-  try {
-    [app.status, app.overview] = await Promise.all([api('/api/automotive/status'), api('/api/automotive/overview')]);
-    renderSystemStatus();
-    renderOverview();
-  } catch (error) {
-    $('#railStatusLight').className = 'status-light error';
-    $('#railStatusText').textContent = 'Unavailable';
-    $('#providerGrid').innerHTML = `<div class="empty-state small"><h3>Status niet beschikbaar</h3><p>${escapeHtml(error.message)}</p></div>`;
-    toast(`Providerstatus: ${error.message}`, 'error');
-  }
+async function loadStatus(){
+ const token=++app.statusGeneration,access=app.accessGeneration;
+ try{const [status,overview]=await Promise.all([api('/api/automotive/status'),api('/api/automotive/overview')]);if(token!==app.statusGeneration||access!==app.accessGeneration)return;app.status=status;app.overview=overview;app.accessAllowed=true;$('#searchButton').disabled=app.searchPending;$('#zeroQuery').disabled=$('#zeroForm button').disabled=app.zeroPending;renderSystemStatus();renderOverview();}
+ catch(error){if(token!==app.statusGeneration||access!==app.accessGeneration)return;app.status=app.overview=null;$('#automotiveOverviewGrid').replaceChildren();autoRender($('#partnerName'),autoCopy('dealer_unknown','Dealer onbekend'));autoRender($('#footerVersion'),autoCopy('unavailable','Providerstatus is niet beschikbaar.'));autoRender($('#automotiveObserved'),autoUnknown());autoRender($('#inventoryOperationState'),autoCopy('inventory_unknown','Voorraadwaarnemingen zijn niet beschikbaar.'));if([401,403].includes(error.status))invalidateAutomotiveAccess();$('#railStatusLight').className='status-light error';autoRender($('#railStatusText'),autoCopy('unavailable_short','Niet beschikbaar'));
+  const host=$('#providerGrid');host.replaceChildren();const card=autoElement('div','','empty-state small');card.append(autoElement('h3',autoCopy('unavailable','Providerstatus is niet beschikbaar.')),autoElement('p',autoError(error)));host.append(card);toast(autoCopy('load_error','Providerstatus: {reason}',{reason:autoError(error)}),'error');}
 }
 
 const criteriaLabels = {
@@ -212,7 +194,7 @@ function renderResults() {
   bindVehicleButtons($('#vehicleGrid'));
 }
 
-async function enrichResults() {
+async function enrichResults(generation=app.searchGeneration,access=app.accessGeneration) {
   const candidates = app.results.slice(0, 24);
   const analyses = await Promise.all(candidates.map(async candidate => {
     try {
@@ -220,6 +202,7 @@ async function enrichResults() {
       return [candidate.canonical_listing_id, payload.analysis];
     } catch { return [candidate.canonical_listing_id, null]; }
   }));
+  if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
   for (const [id, analysis] of analyses) if (analysis) app.analyses.set(id, analysis);
   app.results.sort((left, right) => (analysisFor(right.canonical_listing_id)?.buy_score?.score ?? -1) - (analysisFor(left.canonical_listing_id)?.buy_score?.score ?? -1));
   renderResults();
@@ -232,10 +215,12 @@ function setSearchLoading(loading) {
 }
 
 async function runSearch(query) {
+  if(!app.accessAllowed)return;const generation=++app.searchGeneration,access=app.accessGeneration;app.searchPending=true;
   setSearchLoading(true);
   $('#searchState').textContent = 'Provider-query actief';
   try {
     const search = await api('/api/automotive/search', { method: 'POST', body: JSON.stringify({ query }) });
+    if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
     app.search = search;
     app.results = search.results || [];
     app.analyses.clear();
@@ -243,14 +228,16 @@ async function runSearch(query) {
     $('#correlationState').textContent = search.correlation_id ? `Trace ${search.correlation_id.slice(0, 12)}` : 'Trace voltooid';
     $('#searchState').textContent = `${label(search.status)} · ${app.results.length} listings`;
     renderResults();
-    await enrichResults();
+    await enrichResults(generation,access);
+    if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
     if (!app.results.length) toast('De query is uitgevoerd; er zijn geen echte passende marketplace-listings.', search.status === 'unavailable' ? 'error' : 'info');
   } catch (error) {
+    if(generation!==app.searchGeneration||access!==app.accessGeneration)return;
     app.results = [];
     $('#searchState').textContent = 'Query mislukt';
     $('#vehicleGrid').innerHTML = `<div class="empty-state"><h3>Zoekopdracht niet voltooid</h3><p>${escapeHtml(error.message)}</p></div>`;
     toast(error.message, 'error');
-  } finally { setSearchLoading(false); }
+  } finally { if(generation===app.searchGeneration&&access===app.accessGeneration){app.searchPending=false;setSearchLoading(false);} }
 }
 
 function metric(title, value, note) {
@@ -321,10 +308,12 @@ function renderDetailContent() {
 }
 
 async function showVehicle(id) {
+  if(!app.accessAllowed)return;const generation=++app.detailGeneration,access=app.accessGeneration;
   try {
     let analysis = analysisFor(id);
     if (!analysis) {
       const payload = await api(`/api/automotive/vehicles/${encodeURIComponent(id)}/analysis`);
+      if(generation!==app.detailGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
       analysis = payload.analysis;
       app.analyses.set(id, analysis);
     }
@@ -342,7 +331,7 @@ async function showVehicle(id) {
     renderDetailContent();
     $('#vehicleDetail').hidden = false;
     $('#vehicleDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch (error) { toast(`Voertuiganalyse: ${error.message}`, 'error'); }
+  } catch (error) { if(generation===app.detailGeneration&&access===app.accessGeneration)toast(`Voertuiganalyse: ${error.message}`, 'error'); }
 }
 
 function renderToday(payload) {
@@ -357,12 +346,14 @@ function renderToday(payload) {
 }
 
 async function loadToday() {
+  if(!app.accessAllowed)return;const generation=++app.todayGeneration,access=app.accessGeneration;
   $('#todayList').innerHTML = '<div class="loading-grid"><span class="loading-ring" aria-label="Kansen worden berekend"></span></div>';
-  try { renderToday(await api('/api/automotive/opportunities/today?limit=3')); }
-  catch (error) { $('#todayList').innerHTML = `<div class="empty-state small"><h3>Kansen niet beschikbaar</h3><p>${escapeHtml(error.message)}</p></div>`; }
+  try { const payload=await api('/api/automotive/opportunities/today?limit=3');if(generation===app.todayGeneration&&access===app.accessGeneration&&app.accessAllowed)renderToday(payload); }
+  catch (error) { if(generation!==app.todayGeneration||access!==app.accessGeneration)return;$('#todayList').innerHTML = `<div class="empty-state small"><h3>Kansen niet beschikbaar</h3><p>${escapeHtml(error.message)}</p></div>`; }
 }
 
 async function askZero(message) {
+  if(!app.accessAllowed||app.zeroPending)return;app.zeroPending=true;const access=app.accessGeneration;
   const input = $('#zeroQuery'), button = $('#zeroForm button');
   input.disabled = true;
   button.disabled = true;
@@ -370,6 +361,7 @@ async function askZero(message) {
   try {
     app.zeroTurn++;
     const payload = await api('/api/zero/turn', { method: 'POST', body: JSON.stringify({ message, conversation_id: app.zeroConversationId, turn_id: `automotive-ui-${Date.now()}-${app.zeroTurn}` }) });
+    if(access!==app.accessGeneration||!app.accessAllowed)return;
     $('#zeroAnswer').textContent = payload.display_text || payload.answer || 'ZERO leverde geen tekstantwoord.';
     const context = payload.automotive_data?.context;
     if (context?.ranked?.length) {
@@ -379,9 +371,10 @@ async function askZero(message) {
     }
     input.value = '';
   } catch (error) {
+    if(access!==app.accessGeneration)return;
     $('#zeroAnswer').textContent = `ZERO kon de opdracht niet afronden: ${error.message}`;
     toast(error.message, 'error');
-  } finally { input.disabled = false; button.disabled = false; input.focus(); }
+  } finally { if(access===app.accessGeneration){app.zeroPending=false;input.disabled = false; button.disabled = false; input.focus();} }
 }
 
 $('#automotiveSearchForm').addEventListener('submit', event => {
@@ -396,7 +389,7 @@ $('#zeroForm').addEventListener('submit', event => {
 });
 $('#refreshStatus').addEventListener('click', loadStatus);
 $('#refreshToday').addEventListener('click', loadToday);
-$('#closeDetail').addEventListener('click', () => { $('#vehicleDetail').hidden = true; });
+$('#closeDetail').addEventListener('click', () => { app.detailGeneration++;$('#vehicleDetail').hidden = true; });
 $$('.detail-tabs button').forEach(button => button.addEventListener('click', () => {
   app.activeTab = button.dataset.tab;
   $$('.detail-tabs button').forEach(tab => tab.setAttribute('aria-selected', String(tab === button)));

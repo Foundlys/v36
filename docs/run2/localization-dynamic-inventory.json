@@ -50,55 +50,12 @@
     },
     {
       "file": "automotive-script.js",
-      "sha256": "ea4c57c80b14765e12d0471543614aa36542307a513bbfe4a523f650d8a9d7c4",
+      "sha256": "2edca52dc5d6f257d41f4a7f8e9701ff995ffded4141da882e0bc98880428302",
       "items": [
         {
-          "line": 130,
-          "start": 7948,
-          "end": 8020,
-          "context": "textContent",
-          "text": "Foundly {p0} · Automotive schema {p1}",
-          "parameters": [
-            "status.version",
-            "status.schema_version"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 147,
-          "start": 8973,
-          "end": 8986,
-          "context": "textContent",
-          "text": "Unavailable",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 148,
-          "start": 9023,
-          "end": 9129,
-          "context": "innerHTML",
-          "text": "<div class=\"empty-state small\"><h3>Status niet beschikbaar</h3><p>{p0}</p></div>",
-          "parameters": [
-            "escapeHtml(error.message)"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 149,
-          "start": 9141,
-          "end": 9175,
-          "context": "toast",
-          "text": "Providerstatus: {p0}",
-          "parameters": [
-            "error.message"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 171,
-          "start": 10203,
-          "end": 10624,
+          "line": 153,
+          "start": 16202,
+          "end": 16623,
           "context": "innerHTML",
           "text": "<dl>{p0}</dl>\n    <div class=\"provider-execution\">{p1}</div>",
           "parameters": [
@@ -108,9 +65,9 @@
           "rich_text": true
         },
         {
-          "line": 208,
-          "start": 13279,
-          "end": 13540,
+          "line": 190,
+          "start": 19278,
+          "end": 19539,
           "context": "innerHTML",
           "text": "<div class=\"empty-state\"><span class=\"empty-orbit\" aria-hidden=\"true\"></span><h3>{p0}</h3><p>{p1}</p></div>",
           "parameters": [
@@ -120,27 +77,27 @@
           "rich_text": true
         },
         {
-          "line": 231,
-          "start": 14618,
-          "end": 14726,
+          "line": 214,
+          "start": 20774,
+          "end": 20882,
           "context": "innerHTML",
           "text": "<div class=\"loading-grid\"><span class=\"loading-ring\" aria-label=\"Providers worden doorzocht\"></span></div>",
           "parameters": [],
           "rich_text": true
         },
         {
-          "line": 236,
-          "start": 14825,
-          "end": 14848,
+          "line": 220,
+          "start": 21104,
+          "end": 21127,
           "context": "textContent",
           "text": "Provider-query actief",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 244,
-          "start": 15253,
-          "end": 15311,
+          "line": 229,
+          "start": 21632,
+          "end": 21690,
           "context": "textContent",
           "text": "{p0} · {p1} listings",
           "parameters": [
@@ -150,27 +107,27 @@
           "rich_text": false
         },
         {
-          "line": 247,
-          "start": 15396,
-          "end": 15471,
+          "line": 233,
+          "start": 21892,
+          "end": 21967,
           "context": "toast",
           "text": "De query is uitgevoerd; er zijn geen echte passende marketplace-listings.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 250,
-          "start": 15604,
-          "end": 15619,
+          "line": 237,
+          "start": 22180,
+          "end": 22195,
           "context": "textContent",
           "text": "Query mislukt",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 251,
-          "start": 15655,
-          "end": 15758,
+          "line": 238,
+          "start": 22231,
+          "end": 22334,
           "context": "innerHTML",
           "text": "<div class=\"empty-state\"><h3>Zoekopdracht niet voltooid</h3><p>{p0}</p></div>",
           "parameters": [
@@ -179,9 +136,9 @@
           "rich_text": true
         },
         {
-          "line": 333,
-          "start": 22192,
-          "end": 22306,
+          "line": 322,
+          "start": 29064,
+          "end": 29178,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -191,9 +148,9 @@
           "rich_text": false
         },
         {
-          "line": 335,
-          "start": 22407,
-          "end": 22676,
+          "line": 324,
+          "start": 29279,
+          "end": 29548,
           "context": "textContent",
           "text": "{p0} · {p1} · {p2} · {p3}",
           "parameters": [
@@ -205,9 +162,9 @@
           "rich_text": false
         },
         {
-          "line": 345,
-          "start": 23330,
-          "end": 23365,
+          "line": 334,
+          "start": 30270,
+          "end": 30305,
           "context": "toast",
           "text": "Voertuiganalyse: {p0}",
           "parameters": [
@@ -216,9 +173,9 @@
           "rich_text": false
         },
         {
-          "line": 351,
-          "start": 23530,
-          "end": 23720,
+          "line": 340,
+          "start": 30470,
+          "end": 30660,
           "context": "innerHTML",
           "text": "<div class=\"empty-state small\"><h3>Geen evidence-backed Top 3</h3><p>{p0}</p></div>",
           "parameters": [
@@ -227,18 +184,18 @@
           "rich_text": true
         },
         {
-          "line": 360,
-          "start": 24629,
-          "end": 24733,
+          "line": 350,
+          "start": 31668,
+          "end": 31772,
           "context": "innerHTML",
           "text": "<div class=\"loading-grid\"><span class=\"loading-ring\" aria-label=\"Kansen worden berekend\"></span></div>",
           "parameters": [],
           "rich_text": true
         },
         {
-          "line": 362,
-          "start": 24862,
-          "end": 24968,
+          "line": 352,
+          "start": 32083,
+          "end": 32189,
           "context": "innerHTML",
           "text": "<div class=\"empty-state small\"><h3>Kansen niet beschikbaar</h3><p>{p0}</p></div>",
           "parameters": [
@@ -247,18 +204,18 @@
           "rich_text": true
         },
         {
-          "line": 369,
-          "start": 25158,
-          "end": 25193,
+          "line": 360,
+          "start": 32483,
+          "end": 32518,
           "context": "textContent",
           "text": "ZERO analyseert de tenantcontext…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 382,
-          "start": 25935,
-          "end": 25989,
+          "line": 375,
+          "start": 33370,
+          "end": 33424,
           "context": "textContent",
           "text": "ZERO kon de opdracht niet afronden: {p0}",
           "parameters": [
