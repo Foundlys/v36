@@ -1882,5 +1882,59 @@
     "evidence_limit": "Generated internal task effects and observed outcomes are covered. Other internal assign/field/stage actions still require implementation and report PARTIAL; external actions remain AWAITING_EXPLICIT_AUTHORIZATION. Durable cross-module notification delivery and compound provisioning remain open. Client archive/stage exact retry and remaining CRM view localization are next. No full adversarial, locale or wider Run-2 acceptance is claimed.",
     "dynamic_candidates": 787,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_action_retry_checkpoint": {
+    "recorded_at": "2026-09-24T21:11:28.589101+00:00",
+    "prior_published_head": "1726af627dc106a2c5525d2311695b9f475d2aaa",
+    "prior_published_tree": "aad99a8ef998e089a485b1492fc1feae662d0404",
+    "prior_ci": {
+      "number": 179,
+      "id": 36059156968,
+      "status": "in_progress",
+      "latest_completed_ci": 178
+    },
+    "source_sha256": {
+      "crm-script.js": "1061fa595337afd40930a6f064eba9bd1735a0142c2766dd6ebeb19a96527b6a",
+      "crm.html": "6a93faedfd9ddd579d2a520f69725db54b18ab54f5f57a0b9b552bf633cabcc9",
+      "foundly-locales.js": "83fa9a279af68d60afcc8bde7f81175d0b680d6d76d9bf017b43f715b843e5d7",
+      "zero-evaluation/crm-action-fixture.js": "344bf26f15de5e6ceccdc3a27a4ca2c0806d9e7b9d5baf61ea26fa8e284c2c88",
+      "zero/crm-action-retry.test.js": "ec48a367e0151d72921802881c13d97dde333ce5fe68c66c0fdc429d7892e6be"
+    },
+    "logs": {
+      "run2-crm-action-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "d61a023c91718ff32a74d7e1a9da443f6469933a719ae086437bcbf9b1fdb883",
+        "bytes": 3820
+      },
+      "run2-crm-action-final.log": {
+        "exit_code": 0,
+        "sha256": "5839f4d9e45ed1725903e31e6c295e947cc941a3059d522390855b7a1519d3de",
+        "bytes": 3681
+      },
+      "run2-crm-action-zero.log": {
+        "exit_code": 0,
+        "sha256": "cf4d98cb26c538e3b1043ec22ec92450d8fdde78dd694a70745f852556e4694d",
+        "bytes": 35314
+      },
+      "run2-crm-action-native.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 12,
+    "full_zero_tests": 294,
+    "full_zero_pass": 294,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "before_fix": "Four failing tests reproduce changed archive/stage retry keys and duplicate overlapping requests.",
+    "scope": "Archive and drag/drop stage actions freeze original path/body/revision/key/event and reject overlapping submissions or replacement targets. Persistent eight-locale source-labelled feedback keeps an explicit retry button after source refresh removes the archived row or navigation changes the selected entity. Exact committed replay creates no extra audit or task effects. Missing/malformed response evidence remains unconfirmed; definitive 4xx permits correction. Confirmed writes remain distinct from refresh failures. Permission denial clears private requests/notices and stale replies/buttons cannot restore or resubmit them.",
+    "evidence_limit": "Actual controllers and native CRM writes with a minimal DOM. Legacy innerHTML drag targets are mounted from the native board because the fixture does not parse HTML. No browser, responsive, accessibility, native-speaker or page-reload recovery proof. Remaining CRM source rendering/provisioning and broader Run-2 gates remain open.",
+    "dynamic_candidates": 786,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }
