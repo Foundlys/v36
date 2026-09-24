@@ -394,3 +394,14 @@ The actual shared controller freezes method/path/body/revision/key, locks contro
 Eleven new tests, all 398 ZERO tests, 14/14 corpus cases and full local npm test pass. The final body-wait guard also has separate native/controller and native workspace concurrency/persistence checks. Exact published-tree CI remains pending. Receipt retention remains the existing 50 revisions per view; unkeyed historical or evicted writes do not gain invented recovery evidence. No new bucket or destructive migration is introduced.
 
 Native workspace snapshot currency/completeness and current access through asynchronous reads remain open, alongside section/domain/connector-detail and specialist/generated/backend localization. The conservative copy inventory remains 707 candidates. Browser-reload retry recovery, every-trigger automation dispatch and the wider Run-2 cognition, adversarial, performance, demo, voice, browser/accessibility and native-speaker gates remain unaccepted. No main/production change or Run 3.
+
+
+### Continuation: native workspace snapshot authority
+
+CI 188 passed dashboard recovery head `ac17373d08cad2ec866b73c70ecf46dbc0992394`, tree `8811816a95986c98df99d233cf5e10a5da7fb777`, including full npm test. CI 187 remains recorded as failed; the port-allocation defect was repaired without removing assertions.
+
+Two native HTTP failures then reproduced private workspace data returned after module revocation or source ownership reassignment during provider observation. Snapshots now await transport before rechecking current composition/core permission and synchronously projecting current native records, ownership and registry values. Partial-composition behavior is retained. A home snapshot shares one transport observation; no unmeasured performance claim is made.
+
+Two formatter regressions are also covered: explicit native identity/role/profile values remain literal text, while negative, fractional or unsafe counts remain unknown. Actual zero and exact signed monetary values remain valid. Four new tests, all 402 ZERO tests, 14/14 corpus cases and native masterbuild/business/composition regressions pass. The provider barrier uses the real native fetch boundary but an isolated unverified readiness response; it is not live provider evidence. A guessed nonexistent granularity test command is recorded separately as a command-selection error and replaced by the actual composition API/matrix tests.
+
+Registry knowledge counts, source completeness and native currency metadata remain the next concrete source-integrity gaps to reproduce. The conservative locale inventory remains 707 candidates, including 365 in the shared controller. Full localization and broader Run-2 cognition, adversarial, performance, demo, voice, browser/accessibility and native-speaker gates remain unaccepted. No storage schema change, main/production mutation or Run 3.

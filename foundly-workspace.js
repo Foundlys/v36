@@ -185,8 +185,9 @@
     if(metric.unit==='CURRENCY_CENTS')return live(()=>i18n().currencyCents(value,metric.currency));
     if(metric.unit==='CURRENCY')return live(()=>i18n().currency(value,metric.currency));
     if(metric.unit==='STATUS')return stateText(value);
-    if(metric.unit==='VERSION')return typeof value==='string'?value:unknown();
+    if(['VERSION','IDENTITY','ROLES','PROFILE'].includes(metric.unit))return typeof value==='string'?value:unknown();
     if(typeof value!=='number'||!Number.isFinite(value))return unknown();
+    if(['COUNT','EVENTS','SOURCES','CONNECTORS','RECORDS','VEHICLES','EVENTS_PER_HOUR','CONNECTED_PROVIDERS','REAL_OPPORTUNITIES','SEARCHES','PERSISTED_RECOMMENDATIONS','CAMPAIGNS','ACTIVITIES','ROLLUPS','VERSIONS','DEPENDENCIES','RUNS','CONNECTED_CHANNELS','CAPABILITIES'].includes(metric.unit)&&(!Number.isSafeInteger(value)||value<0))return unknown();
     if(metric.unit==='PERCENT')return live(()=>i18n().number(value/100,{style:'percent',maximumFractionDigits:2}));
     if(metric.unit==='RATIO')return live(()=>i18n().number(value,{maximumFractionDigits:2})+'×');
     return live(()=>i18n().number(value,{maximumFractionDigits:2}));

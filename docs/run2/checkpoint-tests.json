@@ -2656,6 +2656,104 @@
     "remaining": "Shared workspace section/domain/connector-detail copy, generated/backend localization and native snapshot currency/completeness/current-access-through-async-read evidence remain open. Browser-reload client retry recovery, every-trigger automation dispatch and wider cognition/adversarial/performance/demo/voice/browser/native-speaker acceptance remain unaccepted.",
     "evidence_limit": "Production controller with minimal DOM; native member HTTP, actual persistence-failure injection and encrypted restart; full local regression. No live provider, browser or full Run-2 acceptance inferred.",
     "dynamic_candidates": 707,
+    "current_ci": {
+      "number": 188,
+      "id": 36073103076,
+      "job_id": 107878278505,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "ac17373d08cad2ec866b73c70ecf46dbc0992394",
+      "tree": "8811816a95986c98df99d233cf5e10a5da7fb777",
+      "full_npm_test": "PASS"
+    }
+  },
+  "workspace_snapshot_authority_checkpoint": {
+    "recorded_at": "2026-09-24T23:42:31.630095+00:00",
+    "prior_published_head": "ac17373d08cad2ec866b73c70ecf46dbc0992394",
+    "prior_published_tree": "8811816a95986c98df99d233cf5e10a5da7fb777",
+    "prior_ci": {
+      "number": 188,
+      "id": 36073103076,
+      "job_id": 107878278505,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "ac17373d08cad2ec866b73c70ecf46dbc0992394",
+      "tree": "8811816a95986c98df99d233cf5e10a5da7fb777",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "server.js": "566fa0a58ded691b3cf8715d2d211b887a7e8ebc2d6caeb29bc607e708daabd2",
+      "foundly-workspace.js": "666818c3ced864f4211f785e1355dfe5a4d7bf14fac9e9cda831027804a3ae14",
+      "zero-evaluation/workspace-provider-wait-fixture.js": "d2643d14d32a3195931e49aaacdc590ba56d67f0aabe927b92ced8c210c73e18",
+      "zero/workspace-snapshot-authority-api.test.js": "f6dd4d3e09c291771d3d3f0ef2b3de5058fe8c20d90374ca3551f03de2f5631d",
+      "zero/workspace-source-integrity.test.js": "a285a541293db988316e240913bf2bd0abb395676c6ee7983314e0c47527da93"
+    },
+    "logs": {
+      "run2-workspace-snapshot-before.log": {
+        "exit_code": 1,
+        "sha256": "e09489cd4e6090b27641d6dab2971ebbb85413b01d12d62daec4de9de1b0fae8",
+        "bytes": 6989
+      },
+      "run2-workspace-metric-kinds-before.log": {
+        "exit_code": 1,
+        "sha256": "ba79dc4dbdea19f6563d95ba7730d5c9dc6edee33287eb2981e14f45bca8f3f5",
+        "bytes": 2119
+      },
+      "run2-workspace-snapshot-targeted.log": {
+        "exit_code": 0,
+        "sha256": "f57178f3e0cf64288462afb0277fe71db09d2198ccfa09f6dee951c373876172",
+        "bytes": 367
+      },
+      "run2-workspace-snapshot-final-targeted.log": {
+        "exit_code": 0,
+        "sha256": "0a49809ff52fe4fac9cc60775a1dbb4c0fb2173e44c6354d48c95db7408c1112",
+        "bytes": 2920
+      },
+      "run2-workspace-snapshot-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "583567af6706f3843062e6dc49c93bf13d50afd69609fafbdba25cba7fac63f0",
+        "bytes": 47640
+      },
+      "run2-workspace-snapshot-masterbuild.log": {
+        "exit_code": 0,
+        "sha256": "5b8a2db243a3a4e4d5eded58a443715b098b6b3b73f8a39cc922345b77fa1219",
+        "bytes": 932
+      },
+      "run2-workspace-snapshot-composition.log": {
+        "exit_code": 0,
+        "sha256": "7a98873eea8dad50dd441c5ece5353a6614100a1999954bd7afefbc2ff7549cc",
+        "bytes": 3978
+      },
+      "run2-workspace-snapshot-granularity.log": {
+        "exit_code": 1,
+        "sha256": "038ee9acd7a7f4464ff73f86aefcc8a4e71f64c170f80c3123079aecbc8f5423",
+        "bytes": 782
+      }
+    },
+    "new_tests": 4,
+    "full_zero_tests": 402,
+    "full_zero_pass": 402,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regressions": [
+      "node foundly-masterbuild-regression-test.js",
+      "node business-workspaces-regression-test.js",
+      "node composition-api-test.js",
+      "node composition-matrix-test.js"
+    ],
+    "native_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "before_fix": "Two native HTTP tests reproduced private source disclosure after module entitlement revocation and record ownership reassignment during actual native provider observation awaits. Two controller formatter tests reproduced hidden native text metrics and invalid count values presented as quantities. All four fail before and pass after the corrections.",
+    "scope": "Workspace snapshots await transport before synchronous current-authority projection. Composition/core route checks are repeated after transport, then native records, ownership, metrics and registry values are read together without another asynchronous gap. Partial-composition snapshots preserve their native scope path. The home snapshot shares one transport observation. Explicit IDENTITY/ROLES/PROFILE/VERSION values remain literal text; known count units require nonnegative safe integers, preserving actual zero and signed monetary values.",
+    "storage_change": "None. Existing schemas, encrypted storage and production configuration are unchanged.",
+    "evidence_limit": "Native authenticated member HTTP with actual composition and ownership mutations. An isolated fetch barrier holds the real native provider request; the existing readiness fixture returns an explicitly unverified 401. No live key, network/provider acceptance, browser/accessibility/native-speaker acceptance or measured performance improvement is claimed. The wrongly guessed composition-granularity-api-test.js command failed MODULE_NOT_FOUND; it is a command-selection mistake, not product defect evidence, and was replaced by the actual composition API and matrix regressions.",
+    "remaining": "Current-scope registry knowledge counts and native workspace metric completeness/currency remain open for native reproduction. Shared workspace section/domain/connector-detail and generated/backend localization, browser-reload retry recovery, every-trigger automation dispatch and broader cognition/adversarial/performance/demo/voice acceptance remain unaccepted.",
+    "dynamic_candidates": 707,
+    "workspace_direct_candidates": 365,
     "current_ci": "PENDING_PUBLICATION"
   }
 }

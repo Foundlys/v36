@@ -31,3 +31,9 @@ test('detached dashboard controls cannot mutate a newer rendered layout',async()
 test('a failed current workspace observation cannot leave runtime-live status or previous private records',async()=>{
  const f=fixture();await f.ui.loadWorkspaceData();f.fail();await assert.rejects(f.ui.loadWorkspaceData());assert.equal(f.ui.state.snapshot,null);assert.ok(!f.nodes.workspaceRuntime.textContent.includes('LIVE'));assert.equal(f.nodes.recordRows.children.length,0);
 });
+test('workspace native text metrics retain explicit identity, role and profile values',()=>{
+ const f=fixture();for(const unit of ['IDENTITY','ROLES','PROFILE','VERSION'])assert.equal(String(f.ui.formatMetric({available:true,unit,value:'Literal native <img> value'})),'Literal native <img> value');
+});
+test('workspace invalid counts remain unknown without suppressing real zero or signed monetary values',()=>{
+ const f=fixture();for(const unit of ['COUNT','EVENTS','SOURCES','CONNECTORS','RECORDS','VEHICLES'])for(const value of [-1,.5,Number.MAX_SAFE_INTEGER+1])assert.equal(String(f.ui.formatMetric({available:true,unit,value})),f.i.t('common.unknown'));assert.equal(String(f.ui.formatMetric({available:true,unit:'COUNT',value:0})),'0');assert.equal(String(f.ui.formatMetric({available:true,unit:'CURRENCY_CENTS',currency:'USD',value:-123})),f.i.currencyCents(-123,'USD'));
+});
