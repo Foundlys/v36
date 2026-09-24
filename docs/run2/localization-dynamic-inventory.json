@@ -50,41 +50,24 @@
     },
     {
       "file": "automotive-script.js",
-      "sha256": "95ab70845da746696755055b201be1065d35d396f95d572968a6913065804669",
+      "sha256": "c1955d697de3c8d1ba168a668d1bc4c22304f892f3a87695b27b3a21acd5215f",
       "items": [
         {
-          "line": 186,
-          "start": 25214,
-          "end": 25250,
+          "line": 172,
+          "start": 23946,
+          "end": 23982,
           "context": "error_message_requires_control_flow_review",
           "text": "Invalid Automotive search response",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 272,
-          "start": 33158,
-          "end": 33272,
-          "context": "textContent",
-          "text": "{p0} · {p1}",
-          "parameters": [
-            "candidate.identity?.provider || 'provider'",
-            "candidate.listing?.freshness?.classification || 'UNAVAILABLE'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 274,
-          "start": 33373,
-          "end": 33642,
-          "context": "textContent",
-          "text": "{p0} · {p1} · {p2} · {p3}",
-          "parameters": [
-            "formatEur(candidate.commercial?.gross_price_eur)",
-            "formatNumber(candidate.vehicle?.mileage_km, ' km')",
-            "candidate.vehicle?.build_year || 'jaar onbekend'",
-            "[candidate.seller?.city, candidate.seller?.country].filter(Boolean).join(', ') || 'locatie onbekend'"
-          ],
+          "line": 237,
+          "start": 35840,
+          "end": 35878,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Invalid Automotive analysis response",
+          "parameters": [],
           "rich_text": false
         }
       ]

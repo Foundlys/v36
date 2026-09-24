@@ -111,10 +111,13 @@ test('actual ZERO telemetry follows the speech event independently of translated
  const context={ZERO_STATE_ALIAS:{},ZERO:{enabled:true,realtimeConnected:true,clientRealtimeReported:true},$:()=>null,document:{querySelector:()=>null},neuralRuntime:null,reportClientEvent:(...args)=>events.push(args)};vm.createContext(context);vm.runInContext(source.slice(start,end),context);
  context.setZeroState('LISTENING','Écoute…',{speech_started:true});assert.deepEqual(events,[['SPEECH_STARTED','webrtc']]);context.setZeroState('LISTENING','Other presentation text');assert.equal(events.length,1);
 });
-test('actual financial, CRM and vehicle presentation preserves calendar dates and does not fabricate zero from missing values',()=>{
+test('actual financial, CRM and vehicle presentation preserves calendar dates and does not fabricate zero from missing values',async()=>{
  const extract=(file,name)=>{const source=fs.readFileSync(require.resolve('../'+file),'utf8'),start=source.indexOf('function '+name+'('),end=source.indexOf('\nfunction ',start+1);assert.ok(start>=0&&end>start);return source.slice(start,end);};
  const context={FoundlyI18n:create('en-GB'),Intl:{...Intl,NumberFormat:Intl.NumberFormat,DateTimeFormat:function(locale,options){return new Intl.DateTimeFormat(locale,{timeZone:'America/New_York',...options});}}};vm.createContext(context);
  vm.runInContext(extract('finance-script.js','money')+extract('finance-script.js','formatDate'),context);assert.equal(context.money(123450),'€1,235');assert.equal(context.formatDate('2026-01-01'),'1 Jan 2026');
  vm.runInContext(extract('crm-script.js','formatMetric'),context);assert.equal(context.formatMetric({available:true,value:null,unit:'currency'}).available,false);assert.equal(context.formatMetric({available:true,value:0,unit:'currency'}).available,true);
- vm.runInContext(extract('automotive-script.js','formatEur')+extract('automotive-script.js','formatNumber'),context);for(const value of [null,undefined,'',false,' '])assert.equal(context.formatEur(value),'Unknown');assert.equal(context.formatNumber(0),'0');context.FoundlyI18n.setLocale('de-DE');assert.equal(context.formatNumber(1234.5),'1.234,5');
+ const vehicle=require('../zero-evaluation/automotive-page-fixture').fixture();await vehicle.context.loadStatus();await vehicle.context.loadToday();
+ const card=value=>vehicle.context.vehicleCard({vehicle:{mileage_km:0},commercial:{gross_price_eur:value}});
+ for(const value of [null,undefined,'',false,' ',true,NaN,Infinity])assert.equal(card(value).all().find(node=>node.className==='vehicle-price').textContent,'Unknown');
+ assert.ok(card(0).textContent.includes('€0'));const mileage=vehicle.context.vehicleCard({vehicle:{mileage_km:1234.5}});vehicle.nodes.vehicleGrid.replaceChildren(mileage);vehicle.i.setLocale('de-DE');assert.equal(mileage.all().find(node=>node.getAttribute('data-i18n')==='automotive.search.mileage').parentNode.children[1].textContent,'1.234,5');
 });

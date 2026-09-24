@@ -181,3 +181,16 @@ Search criteria, vehicle cards, opportunity ranking and ZERO request framing now
 Before-fix tests reproduced denied search retaining prior criteria/detail data and missing result arrays becoming zero. Both are repaired. Denials during search, enrichment, opportunities or details clear previous observations and invalidate pending callbacks. Pending searches and ZERO turns reject duplicates. Seven new controller tests, the combined 15 Automotive tests, all 183 ZERO tests, 14/14 foundation corpus cases and existing Automotive HTTP/masterbuild regressions pass. The Swedish unknown-state assertion was corrected to the catalog’s grammatical state form; no acceptance check was removed.
 
 The conservative audit now lists 801 candidates, including three direct Automotive expressions; remaining detail template copy is not fully captured by this audit. Vehicle detail rendering is the next open gap. Full localization and the wider Run-2 exit contract remain incomplete. No production mutation, main merge or Run-3 work occurred.
+
+
+### Continuation: Automotive detail evidence, 24 September 2026
+
+CI 169 (`36044567009`) passed search head `5cdac9e44cb2a3b7526712a9246a2c0f13ca3999`, tree `71d8b550c92fb5881a0186184ae71d58a7ccc20f`.
+
+The six vehicle-detail tabs and header now use explicit eight-locale DOM bindings for labels, known evidence enums, score components, costs, missing fields, risks, safe source links, numeric values and UTC observations. Source IDs, names, references, custom fields and rule versions remain literal. Selecting a new detail clears prior displayed data, and an older pending selection cannot replace the newer one.
+
+Before-fix tests reproduced an unavailable numeric Buy Score still displayed as available and a string false displayed as affirmative provider verification. Corrected renderers require typed evidence, retain actual zero/negative values and distinguish absent collections from observed empty lists. Six new tests exercise all six tabs in all eight locales, literal markup, unsafe links, missing/boolean/nonfinite values, source isolation and stale detail reads.
+
+A broader test initially failed because it extracted removed standalone formatter functions. It now executes the actual vehicle-card renderer with the same calendar/missing-value/zero/decimal acceptance, plus stricter malformed-value cases. The native HTTP regression replaces a helper-name assertion with rendering real native analysis and checking inert source text, unsafe URL omission and strict verification flags. All 189 ZERO tests, 14/14 foundation corpus cases, 21 combined Automotive controller checks and native core/HTTP/masterbuild regressions pass. The original failed run is retained in the evidence manifest.
+
+The conservative audit lists 800 candidates overall. Two Automotive candidates are internal malformed-response exceptions classified into localized errors; backend narrative/native-speaker/layout acceptance remains separate and open. The Finance page is the next direct presentation gap. No acceptance requirement is waived, no production mutation/main merge occurred, and Run 3 has not started.

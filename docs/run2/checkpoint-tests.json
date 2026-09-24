@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-24T18:54:23.234198+00:00",
+  "recorded_at": "2026-09-24T19:05:52.765993+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -1163,7 +1163,9 @@
       "run_number": 168,
       "run_id": 36043387312,
       "job_id": 107780829745,
-      "job_conclusion": "success"
+      "job_conclusion": "success",
+      "status": "completed",
+      "conclusion": "success"
     },
     "published_commit": "7bea53370d118eb9fa557db8998b9274b53e3f79",
     "published_tree": "e8eb7265718837ac9f8458cd9df789c27c300ca4"
@@ -1220,6 +1222,76 @@
     "dynamic_candidates": 801,
     "automotive_direct_candidates": 3,
     "evidence_limit": "Remaining vehicle detail templates and generated/backend copy are open. Native deterministic tests are not browser/layout, native-speaker or live provider evidence. All full-surface locale gates and other code-controlled Run-2 defects remain open.",
+    "current_ci": {
+      "run_number": 169,
+      "run_id": 36044567009,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "published_commit": "5cdac9e44cb2a3b7526712a9246a2c0f13ca3999",
+    "published_tree": "71d8b550c92fb5881a0186184ae71d58a7ccc20f"
+  },
+  "automotive_detail_locale_checkpoint": {
+    "recorded_at": "2026-09-24T19:05:52.765993+00:00",
+    "source_sha256": {
+      "automotive-script.js": "c1955d697de3c8d1ba168a668d1bc4c22304f892f3a87695b27b3a21acd5215f",
+      "foundly-locales.js": "c822b1670d9ad4b720c2f219ac8816856f105ba99fb30580823576224a04ed8b",
+      "zero/automotive-detail-localization.test.js": "e64f261e4210cb648385ee619b14600a94af2dac5c99158fddf2862a3e990508",
+      "zero-evaluation/automotive-page-fixture.js": "6765575422e9c61627867ceaf44d1b79f0fc5fb50f7999ae0f2a112fde2f06bf",
+      "automotive-api-regression-test.js": "187896fe62e929e10e6e8ad45489f863bed942c1ac7b80a9773c0c5c6bfc643f",
+      "zero/localization.test.js": "fe113f41de1d68902391c9618a7a8d754a94f5288106837a29e44c3d14bb49ec"
+    },
+    "logs": {
+      "run2-automotive-detail-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "b4d558ff40e2574758b424c3339c4de6dfcf646f36359e3be70b40ee4d8f47cb",
+        "bytes": 1671
+      },
+      "run2-automotive-detail-localization.log": {
+        "exit_code": 0,
+        "sha256": "4d509b2de0ec1476fe6fd7c69a946ad06da8dfc672d5ee8cc3968d9030fb3e49",
+        "bytes": 2639
+      },
+      "run2-automotive-detail-before-regression-repair.log": {
+        "exit_code": 1,
+        "sha256": "23516b43b75f82a44f499f23f2d4492a6c412d0520395cea832a140392425ed6",
+        "bytes": 23633
+      },
+      "run2-automotive-detail-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "452b284e4a6926abe6c53eafe953edfb4192b70353cd1d318fda760ca7a85740",
+        "bytes": 23563
+      },
+      "run2-automotive-detail-native.log": {
+        "exit_code": 0,
+        "sha256": "bf337e9d684c03c1b1ccbbdd9076697f656336b33d1f49e85cf93a4fad1ced42",
+        "bytes": 1812
+      }
+    },
+    "new_controller_tests": 6,
+    "combined_automotive_tests": 21,
+    "full_zero_tests": 189,
+    "full_zero_pass": 189,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "commands": [
+        "node automotive-api-regression-test.js",
+        "node automotive-core-regression-test.js",
+        "node foundly-masterbuild-regression-test.js"
+      ],
+      "exit_code": 0
+    },
+    "scope": "Six Automotive detail tabs and header: explicit eight-locale labels, native numeric/enum formatting, component/field/risk labels, observation time in UTC, inert source identities, safe links and selected-state preservation. No locale change performs source I/O or mutates native analysis.",
+    "reproduced_defects": [
+      "Unavailable Buy Score with a populated numeric field still appeared as a score. Details now require boolean availability and a finite score in range.",
+      "String false was rendered as affirmative provider verification. Only boolean true/false establish the displayed native observation; other values stay unknown."
+    ],
+    "regression_repair": "The broad localization check failed after obsolete standalone formatter extraction. It now executes the real vehicle-card renderer and retains missing-value, zero and localized decimal checks, adding nonfinite and boolean coverage. The native HTTP regression similarly replaces the escape-helper-name requirement with actual native analysis rendering, inert markup and safe-link/strict-boolean behavior checks. No tests are skipped.",
+    "dynamic_candidates": 800,
+    "automotive_direct_candidates": 2,
+    "automotive_candidates_limit": "Both remaining direct candidates are internal malformed-response exceptions displayed only through safe localized error classification. This audit does not establish complete backend or native-speaker localization.",
+    "evidence_limit": "Controller tests and deterministic native API fixtures do not establish browser/layout, accessibility, native-speaker, real provider/voice, cognitive or Demo Universe acceptance. Wider Run-2 code defects remain open.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

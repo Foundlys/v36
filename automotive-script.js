@@ -16,25 +16,12 @@ sessionStorage.setItem('foundly-automotive-zero-conversation', app.zeroConversat
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
-const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
 
 function safeExternalUrl(value) {
   try {
     const url = new URL(String(value));
     return ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password ? url.toString() : null;
   } catch { return null; }
-}
-
-function formatEur(value) {
-  return (typeof value==='number'||typeof value==='string'&&value.trim()!=='')&&Number.isFinite(Number(value)) ? new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(value)) : (globalThis.FoundlyI18n?.t('common.unknown')||'Onbekend');
-}
-
-function formatNumber(value, suffix = '') {
-  return (typeof value==='number'||typeof value==='string'&&value.trim()!=='')&&Number.isFinite(Number(value)) ? `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL')).format(Number(value))}${suffix}` : '—';
-}
-
-function label(value) {
-  return String(value ?? 'UNKNOWN').replaceAll('_', ' ').toLowerCase().replace(/(^|\s)\S/g, letter => letter.toUpperCase());
 }
 
 function vehicleName(candidate = {}) {
@@ -167,7 +154,6 @@ function vehicleCard(candidate){
  const specs=autoElement('div','','vehicle-specs');for(const [key,name,value]of [['year','Bouwjaar',autoCount(candidate.vehicle?.build_year)?String(candidate.vehicle.build_year):autoUnknown()],['mileage','Kilometers',autoValue(autoDecimal(candidate.vehicle?.mileage_km))],['fuel','Brandstof',searchEnum(candidate.vehicle?.fuel)]]){const item=autoElement('div');item.append(autoElement('span',searchCopy(key,name)),autoElement('strong',value));specs.append(item);}
  body.append(titleRow,autoElement('p',autoValue(autoMoney(candidate.commercial?.gross_price_eur)),'vehicle-price'),autoElement('p',[candidate.seller?.city,candidate.seller?.country].filter(Boolean).join(', ')||searchCopy('location_unknown','Locatie onbekend'),'vehicle-location'),specs,vehicleButton(candidate,searchCopy('open','Open bewijs')));card.append(image,body);return card;
 }
-function bindVehicleButtons(root=document){root.querySelectorAll('[data-vehicle-id]').forEach(button=>button.addEventListener('click',()=>showVehicle(button.dataset.vehicleId)));root.querySelectorAll('.vehicle-image img, .detail-image img').forEach(image=>image.addEventListener('error',()=>image.remove(),{once:true}));}
 function renderResults(){
  const known=Array.isArray(app.search?.results),host=$('#vehicleGrid');autoRender($('#resultCount'),known?autoValue(autoNumber(app.results.length)):autoUnknown());
  if(!app.results.length){const title=app.search?.status==='unavailable'?searchCopy('providers_unavailable','Geen marketplace-provider bereikbaar'):known?searchCopy('no_matches','Geen passende echte listings'):searchCopy('results_unknown','Zoekresultaten niet beschikbaar');host.replaceChildren(autoEmpty(title,searchCopy('no_inventory','Pas criteria aan of configureer een officiële marketplace-provider. Er wordt geen demo-inventaris ingevuld.')));return;}
@@ -190,98 +176,68 @@ async function runSearch(query){
  }finally{if(generation===app.searchGeneration&&access===app.accessGeneration){app.searchPending=false;setSearchLoading(false);}}
 }
 
-function metric(title, value, note) {
-  return `<article class="metric-card"><span>${escapeHtml(title)}</span><strong>${escapeHtml(value)}</strong><small>${escapeHtml(note || '')}</small></article>`;
+const detailCopy=(key,fallback,params={})=>globalThis.FoundlyI18n?FoundlyI18n.message('automotive.detail.'+key,params):String(fallback).replace(/\{([a-z_]+)\}/g,(_,name)=>String(params[name]??''));
+const detailEnums=['HIGH','MEDIUM','LOW','FACT','ESTIMATE','CALCULATION','NEEDS_INPUT','ESTIMATED','NOT_APPLICABLE'];
+function detailEnum(value){const code=typeof value==='string'?value.toUpperCase():'';return detailEnums.includes(code)?detailCopy('enum.'+code.toLowerCase(),code):searchEnum(value);}
+const detailFields={purchase_price:'purchase',bpm:'bpm',transport_eur:'transport',registration_eur:'registration',inspection_eur:'inspection',handling_eur:'handling',other_eur:'other',purchase_price_eur:'purchase',fx_rate_to_eur:'fx_rate',co2_g_km:'co2',first_registration:'first_registration',valid_first_registration:'valid_registration'};
+function detailField(value){return Object.hasOwn(detailFields,value)?detailCopy('field.'+detailFields[value],value):value;}
+const detailScoreValue=value=>autoFinite(value)&&value>=0&&value<=100?autoDecimal(value):autoUnknown();
+function metric(title,value,note){const node=autoElement('article','','metric-card');node.append(autoElement('span',title),autoElement('strong',value),autoElement('small',note||''));return node;}
+function detailGrid(...nodes){const grid=autoElement('div','','metric-grid');grid.append(...nodes);return grid;}
+function whyContent(analysis){
+ const score=analysis.buy_score||{},components=Array.isArray(score.components)?score.components:[];
+ if(score.available!==true)return autoEmpty(detailCopy('score_unavailable','Buy Score niet beschikbaar'),score.reason&&score.reason!=='Minimaal drie evidence-backed componenten vereist'?score.reason:detailCopy('insufficient_components','Minimaal drie onderbouwde componenten vereist.'),true);
+ const names={'Acquisition Advantage':'acquisition_advantage','Expected Margin':'expected_margin','Supply Scarcity':'supply_scarcity','Dealer Fit':'dealer_fit','Data Confidence':'data_confidence','Risk':'risk'};
+ return detailGrid(...components.map(item=>metric(Object.hasOwn(names,item.name)?detailCopy('component.'+names[item.name],item.name):item.name,detailCopy('score_value','{value}/100',{value:detailScoreValue(item.score)}),detailCopy('weight','Zekerheid: {confidence} · gewicht {weight}',{confidence:detailEnum(item.confidence),weight:autoDecimal(item.weight)}))));
 }
-
-function whyContent(analysis) {
-  const score = analysis.buy_score || {}, components = score.components || [];
-  if (!score.available) return `<div class="empty-state small"><h3>Buy Score niet beschikbaar</h3><p>${escapeHtml(score.reason || 'Onvoldoende evidence-backed componenten.')}</p></div>`;
-  return `<div class="metric-grid">${components.map(component => metric(component.name, `${component.score}/100`, `${component.confidence} confidence · gewicht ${component.weight}`)).join('')}</div>`;
+function marketContent(analysis){
+ const signals=analysis.market_signals||{},comparable=analysis.comparables||{},root=autoElement('div'),value=signals.price_position?.value;
+ root.append(detailGrid(
+  metric(detailCopy('nl_comparables','Nederlandse vergelijkbare listings'),autoValue(autoNumber(comparable.comparable_count)),detailCopy('confidence','Zekerheid: {value}',{value:detailEnum(comparable.confidence)})),
+  metric(detailCopy('median_price','Mediane vraagprijs'),autoValue(autoMoney(comparable.price_distribution_eur?.median)),detailCopy('percentiles','p25 {low} · p75 {high}',{low:autoMoney(comparable.price_distribution_eur?.p25),high:autoMoney(comparable.price_distribution_eur?.p75)})),
+  metric(detailCopy('scarcity','Schaarste van listings'),detailEnum(signals.listing_scarcity?.value),detailCopy('matched','{count} vergelijkbare Nederlandse listings',{count:autoNumber(comparable.comparable_count)})),
+  metric(detailCopy('price_position','Prijspositie'),autoValue(autoFinite(value)?autoDecimal(value/100,{style:'percent'}):autoUnknown()),detailCopy('versus_median','Ten opzichte van de Nederlandse listingmediaan'))
+ ),autoElement('div',detailCopy('sales_warning','Werkelijke verkoopvraag blijft {type}: marketplace-aanbod bewijst geen gerealiseerde verkopen.',{type:detailEnum(signals.actual_sales_demand?.type)}),'today-warning'));return root;
 }
-
-function marketContent(analysis) {
-  const signals = analysis.market_signals || {}, comparable = analysis.comparables || {};
-  return `<div class="metric-grid">
-    ${metric('Nederlandse comparables', formatNumber(comparable.comparable_count), `${comparable.confidence || 'UNAVAILABLE'} confidence`)}
-    ${metric('Mediaan vraagprijs', formatEur(comparable.price_distribution_eur?.median), `p25 ${formatEur(comparable.price_distribution_eur?.p25)} · p75 ${formatEur(comparable.price_distribution_eur?.p75)}`)}
-    ${metric('Listing scarcity', label(signals.listing_scarcity?.value || 'UNKNOWN'), signals.listing_scarcity?.evidence || 'Geen voldoende bronset')}
-    ${metric('Prijspositie', signals.price_position?.value === null || signals.price_position?.value === undefined ? 'Onbekend' : `${signals.price_position.value}%`, 'Ten opzichte van de NL listingmediaan')}
-  </div><div class="today-warning">Actual sales demand blijft ${escapeHtml(signals.actual_sales_demand?.type || 'UNKNOWN')}: marketplace-aanbod is geen bewijs van gerealiseerde verkopen.</div>`;
+function economicsContent(analysis){
+ const economics=analysis.economics||{},margin=economics.expected_gross_margin_range||{},root=autoElement('div');root.append(detailGrid(
+  metric(detailCopy('all_in','Totale inkoopkosten'),autoValue(autoMoney(economics.all_in_acquisition_eur)),detailEnum(economics.status)),
+  metric(detailCopy('retail_median','Verwachte verkoopmediaan'),autoValue(autoMoney(economics.expected_retail_range?.expected_eur)),detailEnum(economics.expected_retail_range?.type)),
+  metric(detailCopy('margin','Geschatte marge'),autoValue(autoMoney(margin.expected_eur)),detailCopy('range','{low} – {high}',{low:autoMoney(margin.low_eur),high:autoMoney(margin.high_eur)})),
+  metric(detailCopy('bpm_estimate','Geschatte BPM'),autoValue(autoMoney(economics.bpm?.estimated_payable_bpm_eur)),economics.bpm?.rule_version||detailCopy('not_calculable','Niet berekenbaar'))
+ ));const list=autoElement('ul','','evidence-list');for(const item of Array.isArray(economics.breakdown)?economics.breakdown:[]){const row=autoElement('li');row.append(autoElement('span',detailCopy('component_type','{component} · {type}',{component:detailField(item.component),type:detailEnum(item.type)})),autoElement('strong',autoValue(autoMoney(item.value_eur))));list.append(row);}root.append(list);
+ if(Array.isArray(economics.missing_fields)&&economics.missing_fields.length)root.append(autoElement('div',detailCopy('missing','Nog nodig: {fields}',{fields:autoLive(()=>economics.missing_fields.map(value=>String(detailField(value))).join(', '))}),'today-warning'));return root;
 }
-
-function economicsContent(analysis) {
-  const economics = analysis.economics || {}, margin = economics.expected_gross_margin_range || {};
-  return `<div class="metric-grid">
-    ${metric('All-in acquisition', formatEur(economics.all_in_acquisition_eur), economics.status || 'UNKNOWN')}
-    ${metric('Retail mediaan', formatEur(economics.expected_retail_range?.expected_eur), economics.expected_retail_range?.type || 'UNKNOWN')}
-    ${metric('Marge estimate', formatEur(margin.expected_eur), `${formatEur(margin.low_eur)} – ${formatEur(margin.high_eur)}`)}
-    ${metric('BPM estimate', formatEur(economics.bpm?.estimated_payable_bpm_eur), economics.bpm?.rule_version || 'Niet berekenbaar')}
-  </div>
-  <ul class="evidence-list">${(economics.breakdown || []).map(item => `<li><span>${escapeHtml(label(item.component))} · ${escapeHtml(item.type)}</span><strong>${escapeHtml(formatEur(item.value_eur))}</strong></li>`).join('')}</ul>
-  ${economics.missing_fields?.length ? `<div class="today-warning">Nog nodig: ${escapeHtml(economics.missing_fields.join(', '))}</div>` : ''}`;
+function comparablesContent(analysis){
+ const rows=analysis.comparables?.listings;if(!Array.isArray(rows))return autoEmpty(detailCopy('comparables_unknown','Vergelijkingsdata niet beschikbaar'),autoNoData(),true);
+ if(!rows.length)return autoEmpty(detailCopy('no_comparables','Geen verdedigbare vergelijkbare listings'),detailCopy('no_replacement','Foundly toont geen vervangende marktwaarde.'),true);
+ const host=autoElement('div','','table-wrap'),table=autoElement('table','','detail-table'),head=autoElement('thead'),header=autoElement('tr'),body=autoElement('tbody');for(const [key,label]of [['provider','Provider'],['price','Prijs'],['km','Km'],['year','Jaar'],['match','Match'],['freshness','Actualiteit'],['source','Bron']])header.append(autoElement('th',detailCopy(key,label)));head.append(header);
+ for(const row of rows){const tr=autoElement('tr');for(const value of [row.provider||autoUnknown(),autoValue(autoMoney(row.price_eur)),autoValue(autoDecimal(row.mileage_km)),autoCount(row.build_year)?String(row.build_year):autoUnknown(),detailCopy('score_value','{value}/100',{value:detailScoreValue(row.similarity_score)}),autoState(row.freshness?.classification)])tr.append(autoElement('td',value));const source=safeExternalUrl(row.source_url),cell=autoElement('td',source?'':autoUnknown());if(source)cell.append(detailLink(source,detailCopy('listing','Listing')));tr.append(cell);body.append(tr);}table.append(head,body);host.append(table);return host;
 }
-
-function comparablesContent(analysis) {
-  const rows = analysis.comparables?.listings || [];
-  if (!rows.length) return '<div class="empty-state small"><h3>Geen verdedigbare comparables</h3><p>Foundly toont geen vervangende marktwaarde.</p></div>';
-  return `<div class="table-wrap"><table class="detail-table"><thead><tr><th>Provider</th><th>Prijs</th><th>Km</th><th>Jaar</th><th>Match</th><th>Freshness</th><th>Bron</th></tr></thead><tbody>${rows.map(row => {
-    const source = safeExternalUrl(row.source_url);
-    return `<tr><td>${escapeHtml(row.provider)}</td><td>${escapeHtml(formatEur(row.price_eur))}</td><td>${escapeHtml(formatNumber(row.mileage_km))}</td><td>${escapeHtml(row.build_year || '—')}</td><td>${escapeHtml(`${row.similarity_score}/100`)}</td><td>${escapeHtml(row.freshness?.classification || 'UNAVAILABLE')}</td><td>${source ? `<a href="${escapeHtml(source)}" target="_blank" rel="noopener noreferrer">Listing</a>` : '—'}</td></tr>`;
-  }).join('')}</tbody></table></div>`;
+function risksContent(analysis){
+ const risks=analysis.risks;if(!Array.isArray(risks))return autoEmpty(detailCopy('risks_unknown','Risicowaarnemingen niet beschikbaar'),autoNoData(),true);
+ if(!risks.length)return autoEmpty(detailCopy('no_risks','Geen expliciete datarisico’s gemarkeerd'),detailCopy('inspection_note','Dit vervangt geen fysieke, technische of juridische voertuiginspectie.'),true);
+ const known=['VIN_UNKNOWN','VAT_SEMANTICS_UNKNOWN','LISTING_STALE','INSUFFICIENT_NL_COMPARABLES','ECONOMICS_INPUT_MISSING'],list=autoElement('ul','','risk-list');for(const risk of risks){const row=autoElement('li');row.append(autoElement('span','','risk-dot '+(risk.severity==='HIGH'?'high':'')),autoElement('strong',known.includes(risk.code)?detailCopy('risk.'+risk.code.toLowerCase(),risk.code):risk.code),autoElement('span',detailEnum(risk.severity)));list.append(row);}return list;
 }
-
-function risksContent(analysis) {
-  const risks = analysis.risks || [];
-  return risks.length ? `<ul class="risk-list">${risks.map(risk => `<li><span class="risk-dot ${risk.severity === 'HIGH' ? 'high' : ''}"></span><strong>${escapeHtml(label(risk.code))}</strong><span>${escapeHtml(risk.severity)}</span></li>`).join('')}</ul>` : '<div class="empty-state small"><h3>Geen expliciete datarisico’s gemarkeerd</h3><p>Dit vervangt geen fysieke, technische of juridische voertuiginspectie.</p></div>';
+function detailLink(url,value){const link=autoElement('a',value);link.href=url;link.target='_blank';link.rel='noopener noreferrer';return link;}
+function sourceContent(analysis){
+ const candidate=analysis.candidate||{},source=safeExternalUrl(candidate.identity?.source_url),list=autoElement('ul','','source-list'),verified=candidate.provenance?.provider_verified;
+ for(const [key,name,value]of [
+  ['provider','Provider',candidate.identity?.provider||autoUnknown()],['listing_id','Provider listing-ID',candidate.identity?.provider_listing_id||autoUnknown()],
+  ['seller','Aanbieder',candidate.seller?.name||detailCopy('not_supplied','Niet geleverd')],['location','Locatie',[candidate.seller?.city,candidate.seller?.country].filter(Boolean).join(', ')||detailCopy('not_supplied','Niet geleverd')],
+  ['verified','Providergeverifieerd',verified===true?detailCopy('yes','JA'):verified===false?detailCopy('no','NEE'):autoUnknown()],['transformation','Transformatie',candidate.provenance?.transformation_version||autoUnknown()],['raw_reference','Ruwe bronreferentie',candidate.provenance?.raw_source_reference||autoUnknown()],
+  ['observed','Waarneming',detailCopy('utc','{time} UTC',{time:autoTime(analysis.observed_at)})]
+ ]){const row=autoElement('li');row.append(autoElement('span',detailCopy(key,name)),autoElement('strong',value));list.append(row);}
+ const row=autoElement('li'),value=autoElement('strong',source?'':detailCopy('no_url','Geen veilige URL geleverd'));if(source)value.append(detailLink(source,detailCopy('open_listing','Open providerlisting')));row.append(autoElement('span',detailCopy('source','Bron')),value);list.append(row);return list;
 }
-
-function sourceContent(analysis) {
-  const candidate = analysis.candidate || {}, source = safeExternalUrl(candidate.identity?.source_url);
-  return `<ul class="source-list">
-    <li><span>Provider</span><strong>${escapeHtml(candidate.identity?.provider || 'UNKNOWN')}</strong></li>
-    <li><span>Provider listing-ID</span><strong>${escapeHtml(candidate.identity?.provider_listing_id || 'UNKNOWN')}</strong></li>
-    <li><span>Aanbieder</span><strong>${escapeHtml(candidate.seller?.name || 'Niet geleverd')}</strong></li>
-    <li><span>Locatie</span><strong>${escapeHtml([candidate.seller?.city, candidate.seller?.country].filter(Boolean).join(', ') || 'Niet geleverd')}</strong></li>
-    <li><span>Provider verified</span><strong>${candidate.provenance?.provider_verified ? 'JA' : 'NEE'}</strong></li>
-    <li><span>Transformation</span><strong>${escapeHtml(candidate.provenance?.transformation_version || 'UNKNOWN')}</strong></li>
-    <li><span>Raw reference</span><strong>${escapeHtml(candidate.provenance?.raw_source_reference || 'UNKNOWN')}</strong></li>
-    <li><span>Bron</span><strong>${source ? `<a href="${escapeHtml(source)}" target="_blank" rel="noopener noreferrer">Open providerlisting</a>` : 'Geen veilige URL geleverd'}</strong></li>
-  </ul>`;
-}
-
-function renderDetailContent() {
-  const analysis = analysisFor(app.selectedId);
-  if (!analysis) return;
-  const renderers = { why: whyContent, market: marketContent, economics: economicsContent, comparables: comparablesContent, risks: risksContent, source: sourceContent };
-  $('#detailContent').innerHTML = (renderers[app.activeTab] || whyContent)(analysis);
-}
-
-async function showVehicle(id) {
-  if(!app.accessAllowed)return;const generation=++app.detailGeneration,access=app.accessGeneration;
-  try {
-    let analysis = analysisFor(id);
-    if (!analysis) {
-      const payload = await api(`/api/automotive/vehicles/${encodeURIComponent(id)}/analysis`);
-      if(generation!==app.detailGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
-      analysis = payload.analysis;
-      app.analyses.set(id, analysis);
-    }
-    app.selectedId = id;
-    const candidate = analysis.candidate;
-    $('#detailProvider').textContent = `${candidate.identity?.provider || 'provider'} · ${candidate.listing?.freshness?.classification || 'UNAVAILABLE'}`;
-    $('#detailTitle').textContent = vehicleName(candidate);
-    $('#detailSubtitle').textContent = `${formatEur(candidate.commercial?.gross_price_eur)} · ${formatNumber(candidate.vehicle?.mileage_km, ' km')} · ${candidate.vehicle?.build_year || 'jaar onbekend'} · ${[candidate.seller?.city, candidate.seller?.country].filter(Boolean).join(', ') || 'locatie onbekend'}`;
-    $('#detailScore').querySelector('strong').textContent = analysis.buy_score?.score ?? '—';
-    const source = safeExternalUrl(candidate.identity?.source_url);
-    $('#sourceLink').hidden = !source;
-    if (source) $('#sourceLink').href = source;
-    $('#detailImage').innerHTML = candidate.vehicle?.images?.length ? `<img src="/api/automotive/images/${encodeURIComponent(id)}/0" alt="${escapeHtml(vehicleName(candidate))}">` : '';
-    bindVehicleButtons($('#vehicleDetail'));
-    renderDetailContent();
-    $('#vehicleDetail').hidden = false;
-    $('#vehicleDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch (error) { if(generation===app.detailGeneration&&access===app.accessGeneration){searchDenied(error,access);toast(searchCopy('detail_error','Voertuiganalyse: {reason}',{reason:autoError(error)}),'error');} }
+function renderDetailContent(){const analysis=analysisFor(app.selectedId);if(!analysis){$('#detailContent').replaceChildren();return;}const renderers={why:whyContent,market:marketContent,economics:economicsContent,comparables:comparablesContent,risks:risksContent,source:sourceContent};$('#detailContent').replaceChildren((renderers[app.activeTab]||whyContent)(analysis));}
+function clearVehicleDetail(){app.selectedId=null;for(const id of ['detailContent','detailImage','detailProvider','detailTitle','detailSubtitle'])$('#'+id).replaceChildren();autoRender($('#detailScore').querySelector('strong'),autoUnknown());$('#sourceLink').removeAttribute('href');$('#sourceLink').hidden=true;$('#vehicleDetail').hidden=true;}
+async function showVehicle(id){
+ if(!app.accessAllowed)return;const generation=++app.detailGeneration,access=app.accessGeneration;clearVehicleDetail();
+ try{let analysis=analysisFor(id);if(!analysis){const payload=await api(`/api/automotive/vehicles/${encodeURIComponent(id)}/analysis`);if(generation!==app.detailGeneration||access!==app.accessGeneration||!app.accessAllowed)return;analysis=payload.analysis;if(!analysis?.candidate)throw Object.assign(new Error('Invalid Automotive analysis response'),{code:'automotive_response_invalid'});app.analyses.set(id,analysis);}
+  app.selectedId=id;const candidate=analysis.candidate;autoRender($('#detailProvider'),searchCopy('provider_state','{provider} · {state}',{provider:candidate.identity?.provider||autoUnknown(),state:autoState(candidate.listing?.freshness?.classification)}));autoRender($('#detailTitle'),vehicleName(candidate));autoRender($('#detailSubtitle'),detailCopy('subtitle','{price} · {mileage} km · {year} · {location}',{price:autoMoney(candidate.commercial?.gross_price_eur),mileage:autoDecimal(candidate.vehicle?.mileage_km),year:autoCount(candidate.vehicle?.build_year)?String(candidate.vehicle.build_year):detailCopy('year_unknown','Jaar onbekend'),location:[candidate.seller?.city,candidate.seller?.country].filter(Boolean).join(', ')||searchCopy('location_unknown','Locatie onbekend')}));autoRender($('#detailScore').querySelector('strong'),displayScore(analysis.buy_score));
+  const source=safeExternalUrl(candidate.identity?.source_url);$('#sourceLink').hidden=!source;if(source)$('#sourceLink').href=source;const image=vehicleImage({...candidate,canonical_listing_id:id},'detail-image');$('#detailImage').replaceChildren(...image.childNodes);renderDetailContent();$('#vehicleDetail').hidden=false;$('#vehicleDetail').scrollIntoView({behavior:'smooth',block:'start'});
+ }catch(error){if(generation===app.detailGeneration&&access===app.accessGeneration){searchDenied(error,access);toast(searchCopy('detail_error','Voertuiganalyse: {reason}',{reason:autoError(error)}),'error');}}
 }
 
 function renderToday(payload){

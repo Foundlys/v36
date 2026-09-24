@@ -83,7 +83,7 @@ function turn(conversationId, turnId, message) {
     const workspaceJs = fs.readFileSync(path.join(__dirname, 'automotive-script.js'), 'utf8');
     const workspaceCss = fs.readFileSync(path.join(__dirname, 'automotive.css'), 'utf8');
     for (const token of ['Foundly Automotive Intelligence', 'House of Cars', 'Development Partner Preview', 'Zoekresultaten', 'Vandaag inkopen', 'Why buy', 'Market', 'Economics', 'Comparables', 'Risks', 'Source & provenance', '/automotive-script.js', '/automotive.css']) assert(workspaceHtml.includes(token), `Automotive workspace mist ${token}`);
-    for (const token of ['/api/automotive/status', '/api/automotive/search', '/api/automotive/opportunities/today', '/api/automotive/vehicles/', '/api/zero/turn', 'escapeHtml', 'provider_executions', 'freshness']) assert(workspaceJs.includes(token), `Automotive client mist ${token}`);
+    for (const token of ['/api/automotive/status', '/api/automotive/search', '/api/automotive/opportunities/today', '/api/automotive/vehicles/', '/api/zero/turn', 'provider_executions', 'freshness']) assert(workspaceJs.includes(token), `Automotive client mist ${token}`);
     for (const token of [':root', '.provider-grid', '.vehicle-grid', '.detail-panel', '.zero-dock', '@media (max-width: 680px)', '@media (prefers-reduced-motion: reduce)']) assert(workspaceCss.includes(token), `Automotive styling mist ${token}`);
     assert(!/style\s*=/.test(workspaceHtml + workspaceJs), 'Automotive workspace mag geen inline styles gebruiken');
     assert(!/\bprompt\s*\(/.test(workspaceJs), 'Automotive workspace mag geen native prompt-dialog gebruiken');
@@ -176,6 +176,15 @@ function turn(conversationId, turnId, message) {
     assert.equal(result.body.analysis.buy_score.available, true);
     assert.equal(result.body.analysis.buy_score.opaque_model, false);
     assert(result.body.analysis.buy_score.components.every(component => component.evidence && component.provenance));
+    const ui = require('./zero-evaluation/automotive-page-fixture').fixture();
+    await ui.context.loadStatus(); await ui.context.loadToday();
+    Object.assign(ui.analysis, result.body.analysis);
+    await ui.context.showVehicle(candidateId);
+    assert.equal(ui.nodes.detailScore.querySelector('strong').textContent, ui.i.number(result.body.analysis.buy_score.score));
+    const unsafeSource = ui.context.sourceContent({ candidate: { identity: { provider: '<img src=x onerror=alert(1)>', source_url: 'javascript:alert(1)' }, provenance: { provider_verified: 'false' } } });
+    assert(unsafeSource.textContent.includes('<img src=x onerror=alert(1)>'), 'Source identity remains literal');
+    assert(!unsafeSource.all().some(node => ['img', 'script', 'a'].includes(node.tag)), 'External text is inert and unsafe URLs are omitted');
+    assert.equal(unsafeSource.children[4].children[1].textContent, ui.i.t('common.unknown'), 'String flags cannot prove provider verification');
 
     const conversationId = 'automotive-conversation-0001';
     result = await turn(conversationId, 'automotive-turn-0001', query);
