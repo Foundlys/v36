@@ -2330,6 +2330,127 @@
     "remaining": "CRM custom-object UI and broader shared-workspace/generated/backend localization remain open. Current automation triggers still use the existing stage/evaluation/signed-webhook entrypoints; this authoring checkpoint does not establish background scheduling/dispatch for every declared trigger. Browser-reload retry recovery and the wider Run-2 contract remain unaccepted.",
     "evidence_limit": "Actual form with native CRM writes and execution plus minimal-DOM source/lifecycle tests, real native HTTP/standalone packaging regression. Not browser layout/accessibility/native-speaker or every-trigger/live-provider acceptance.",
     "dynamic_candidates": 781,
+    "current_ci": {
+      "number": 185,
+      "id": 36067299877,
+      "job_id": 107859934727,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "95e6e8189c5156ee924679997fd0d8a38db004d1",
+      "tree": "8388563a20409e7a9f3193431cbcb918d40ddb9d",
+      "full_npm_test": "PASS"
+    }
+  },
+  "crm_custom_objects_checkpoint": {
+    "recorded_at": "2026-09-24T22:53:30.643181+00:00",
+    "prior_published_head": "95e6e8189c5156ee924679997fd0d8a38db004d1",
+    "prior_published_tree": "8388563a20409e7a9f3193431cbcb918d40ddb9d",
+    "prior_ci": {
+      "number": 185,
+      "id": 36067299877,
+      "job_id": 107859934727,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "95e6e8189c5156ee924679997fd0d8a38db004d1",
+      "tree": "8388563a20409e7a9f3193431cbcb918d40ddb9d",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "crm-objects.js": "e45a31b46e399efa0408b639f9a6a01817a851b25e80dc464e288078079fa0fb",
+      "crm-objects-client.js": "fb517645e36dd80b217662ae75d20c2eb5bdecc40dfbbed6eb10accc19fc9c3f",
+      "crm-objects-client-test.js": "75f6049a87de6ea3515db63d0f54d608f72cf2b5b1b85ff90194846224e5569b",
+      "foundly-locales.js": "d03224a998d309bc96abcd1e92abea50b1a647cfbb220e073cde0dadbcbe63a6",
+      "zero-evaluation/crm-objects-fixture.js": "f90e2b15cd1ed33aabee9aff6b4e2893aec69dff28ab16b0ae51e30d70920b7d",
+      "zero/crm-objects-integrity.test.js": "89049cd96ec1c4755a9d0d7f8c968829224eace7b3993d560587e0f195be6c44",
+      "zero/crm-objects-integrity-api.test.js": "5361337584c81703335821b7266fdffb69456e3b0d17c0730bf19715a6092875",
+      "zero/crm-objects-localization.test.js": "e2577e8bb760041cde034447f9065b813279f7b3b73c8b7601e68eab432aca03"
+    },
+    "logs": {
+      "run2-crm-objects-integrity-before.log": {
+        "exit_code": 1,
+        "sha256": "0b5eea0d161b436764322a86b649a4a81003a9a221076d4a95c0340865bd4b19",
+        "bytes": 4329
+      },
+      "run2-crm-objects-integrity-reproduced-before.log": {
+        "exit_code": 1,
+        "sha256": "d01ca1653f8b1aa8038fa31c7b9748765ae632e26b265f9866f426afc147ce39",
+        "bytes": 4569
+      },
+      "run2-crm-objects-integrity-before-valid.log": {
+        "exit_code": 1,
+        "sha256": "07b2854a526f0ae8bdf2d180267b81717c712a6bb82fc34b374f49eaed5ce701",
+        "bytes": 3182
+      },
+      "run2-crm-objects-integrity-before-confirmed.log": {
+        "exit_code": 1,
+        "sha256": "849c654b525dfedc31e16d22f07cecc6cb214c0d05a66579676666f1d0d37531",
+        "bytes": 3079
+      },
+      "run2-crm-objects-access-before.log": {
+        "exit_code": 1,
+        "sha256": "86bae53b141286854325b5aa495013ccb8762a114aac7f8365ae61afae13e748",
+        "bytes": 1790
+      },
+      "run2-crm-objects-grants-before.log": {
+        "exit_code": 1,
+        "sha256": "a7ec30aafcfeab6d775d6abd2c757945def35b05724d72d50e3b9984a18e471d",
+        "bytes": 1309
+      },
+      "run2-crm-objects-targeted-final.log": {
+        "exit_code": 0,
+        "sha256": "5f6446403f5af32238c9a68fa0c6c4a080cc5980790dd5525e53124561c96d84",
+        "bytes": 1663
+      },
+      "run2-crm-objects-native-final.log": {
+        "exit_code": 0,
+        "sha256": "9058ac0c137eaf3743524d42e9db94b2eb87e0036d660015b5c15056a250a053",
+        "bytes": 278
+      },
+      "run2-crm-objects-api-final.log": {
+        "exit_code": 0,
+        "sha256": "fc93d723f78f67ca71fad6fd184dabc0f090094f64096b75688cee839f9b9781",
+        "bytes": 222
+      },
+      "run2-crm-objects-client-localized.log": {
+        "exit_code": 0,
+        "sha256": "506f323730c6ff3e959150c1c295c7a163ce6a059df5a7645fbf5eb43e6f9cd0",
+        "bytes": 257
+      },
+      "run2-crm-objects-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "2f6a254c742eedbc8081f33be4c228d036ca570374c6aba88eb9b91f2270a773",
+        "bytes": 43482
+      },
+      "run2-crm-objects-crm-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 14,
+    "full_zero_tests": 367,
+    "full_zero_pass": 367,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regressions": [
+      "npm run test:crm",
+      "node crm-objects-test.js",
+      "node crm-objects-api-test.js",
+      "node crm-objects-client-test.js"
+    ],
+    "native_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "before_fix": "Seven genuine failing-before checks cover skipped access refresh with dirty input, changed uncertain write requests, fabricated EUR, late export after denial, retained private editors after catalog access loss, non-replayable native access changes and lost explicit grants during linked-source history checks. Initial missing adapter.audit, missing required:false and label-DOM lookup errors are fixture setup failures, not product-defect evidence. All are retained in separate logs.",
+    "scope": "CRM custom-object schema/record/access/archive/history/related framing and classified feedback use explicit eight-locale bindings; literal business names/values, code identifiers, confirmation state and original request bodies remain unchanged. Exact negative native money uses shared currencyCents formatting; new money inputs never assume EUR. Current explicit refresh rechecks editor sources and retires revoked private views and pending writes; late exports and replies cannot restore them. Unconfirmed writes freeze and retry their original method/path/body, check acknowledgements and retain current permission gates. Native access request hashes permit same-principal exact replay without a second revision; HTTP encrypted restart and role revocation are verified. Native linked-source checks preserve existing explicit grants.",
+    "storage_change": "A last_access_request_hash metadata field is written inside existing encrypted native object definition/record transactions. Existing rows and prior versions remain intact; no destructive migration or production write.",
+    "remaining": "Shared-workspace and specialist/generated/backend localization remain open. Browser-reload durable retry recovery, every-trigger automation dispatch, broad cognition/adversarial/performance/demo/voice and real browser/accessibility/native-speaker gates remain unaccepted.",
+    "evidence_limit": "Native engine, actual HTTP/encrypted restart and actual controller with minimal DOM. No rendered-browser, human linguistic, live-provider or full Run-2 acceptance inferred.",
+    "dynamic_candidates": 736,
+    "custom_objects_direct_candidates": 0,
     "current_ci": "PENDING_PUBLICATION"
   }
 }

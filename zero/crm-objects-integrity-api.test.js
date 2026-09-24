@@ -1,0 +1,9 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),{fixture}=require('../zero-evaluation/fixture');
+test('native CRM object access receipt survives encrypted restart and current role revocation still denies replay',async()=>{
+ const f=await fixture();try{
+  assert.equal((await f.request('/api/composition','PUT',{entitlements:['crm'],expected_revision:0})).status,200);const account=await f.enroll('objects-http-manager',['MANAGER']);let cookie=account.cookie;const definition={key:'object_http',name:'Literal HTTP object',version:1,fields:[{key:'title',label:'Literal title',type:'TEXT',required:true}]};assert.equal((await f.request('/api/crm/objects/object-http','PUT',{definition,expected_revision:0},cookie)).status,200);assert.equal((await f.request('/api/crm/objects/object-http/records/record-http','PUT',{schema_revision:1,expected_revision:0,values:{title:'Literal private HTTP value'}},cookie)).status,200);
+  const route='/api/crm/objects/records/record-http/access',input={team_id:'literal_team',expected_revision:1,confirm:true,reason:'Literal explicit access reason'},first=await f.request(route,'PATCH',input,cookie);assert.equal(first.status,200);assert.equal(first.body.revision,2);await f.stop();await f.start();const replay=await f.request(route,'PATCH',input,cookie);assert.equal(replay.status,200,JSON.stringify(replay.body));assert.equal(replay.body.deduplicated,true);assert.equal(replay.body.revision,2);
+  assert.equal((await f.request('/api/identity/users/'+account.member.id,'PUT',{roles:['VIEWER'],expected_revision:account.member.revision,confirm:true,reason:'Current native object access acceptance'})).status,200);cookie=await f.login(account);assert.equal((await f.request(route,'PATCH',input,cookie)).status,403);await f.stop();await f.start();assert.equal((await f.request(route,'PATCH',input,cookie)).status,403);
+ }finally{await f.close();}
+});
