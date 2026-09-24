@@ -2451,6 +2451,91 @@
     "evidence_limit": "Native engine, actual HTTP/encrypted restart and actual controller with minimal DOM. No rendered-browser, human linguistic, live-provider or full Run-2 acceptance inferred.",
     "dynamic_candidates": 736,
     "custom_objects_direct_candidates": 0,
+    "current_ci": {
+      "number": 186,
+      "id": 36070248103,
+      "job_id": 107869274151,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "db0e68701f648afb57bdf35868f9e0946f86dd55",
+      "tree": "973e2a27fbee6dde3a3cdccc0260ac8e7a8c6f79",
+      "full_npm_test": "PASS"
+    }
+  },
+  "workspace_source_checkpoint": {
+    "recorded_at": "2026-09-24T23:12:51.275954+00:00",
+    "prior_published_head": "db0e68701f648afb57bdf35868f9e0946f86dd55",
+    "prior_published_tree": "973e2a27fbee6dde3a3cdccc0260ac8e7a8c6f79",
+    "prior_ci": {
+      "number": 186,
+      "id": 36070248103,
+      "job_id": 107869274151,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "db0e68701f648afb57bdf35868f9e0946f86dd55",
+      "tree": "973e2a27fbee6dde3a3cdccc0260ac8e7a8c6f79",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "foundly-workspace.js": "29934842ebdbab14c5552d28fa3c8d7b06f184ccce830b76068665d0f072b72a",
+      "foundly-locales.js": "32ae786abe09f6614f84c91f89a9d7408d193b6469041b2e0fbd167d0ff51e57",
+      "zero-evaluation/workspace-page-fixture.js": "231e5b4904b3078eeb26ee132b6fb56eda8214947d7ef8b99a4f47600c1faa6d",
+      "zero/workspace-source-integrity.test.js": "66b449280b25008ec42d04b306a0ff92d1242fc1c7b30a62f238f168be010019",
+      "zero/workspace-source-localization.test.js": "580d04c30d779d22b4bbe52de093aa9788c1848dabcda98a7c4f56d6ee639dd0",
+      "zero/workspace-source-integrity-api.test.js": "6bee1ed7de1c074be2ecf6a8c86a4cdd57602491235e0042f33cba6f51e5e17a"
+    },
+    "logs": {
+      "run2-workspace-source-before.log": {
+        "exit_code": 1,
+        "sha256": "57d88e10520196cd81034ce61daaf30cd2215bd8fbb3da45184c9534a07458b1",
+        "bytes": 9849
+      },
+      "run2-workspace-source-targeted.log": {
+        "exit_code": 0,
+        "sha256": "586f300d9de763674c18936fef014cd34d121b560d9966ebd1a183abd93af9af",
+        "bytes": 1182
+      },
+      "run2-workspace-source-tests.log": {
+        "exit_code": 0,
+        "sha256": "035f67f24f9ce3589c4592dbda6bf23741f6631c78796fd8c8706eb1498e5b78",
+        "bytes": 2290
+      },
+      "run2-workspace-source-api.log": {
+        "exit_code": 0,
+        "sha256": "98a1dcd424d4d18b15824455b64a530896f026efe18f5ef20e78528fcd673bd0",
+        "bytes": 282
+      },
+      "run2-workspace-source-zero.log": {
+        "exit_code": 0,
+        "sha256": "6e59b8e9cf1bb5cf6fa5b0194d8731ac8321b4bfa7503e4ba8b5eccb7a584dc2",
+        "bytes": 45803
+      }
+    },
+    "new_tests": 20,
+    "full_zero_tests": 387,
+    "full_zero_pass": 387,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regressions": [
+      "node workspace-dashboard-session-test.js",
+      "node workspace-dashboard-concurrency-test.js",
+      "node workspace-dashboard-persistence-test.js",
+      "node business-workspaces-regression-test.js"
+    ],
+    "native_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "before_fix": "Ten genuine failing-before tests reproduce fabricated currency/rounding and null amounts, invented zero/provenance, empty source coverage replaced by unrelated registry data, retained private observations after denied or failed loads, late registry/ZERO restoration, cached export without current authority, and detached editing controls mutating a newer layout.",
+    "scope": "Bounded shared workspace dashboard/source observations and feedback use 80 explicit eight-locale keys and live typed formatting. Literal source names/IDs and values remain literal; exact money requires explicit currency, unknowns remain unknown, observed empty coverage stays empty and UTC timestamps are explicit. Locale changes preserve nodes, drafts and filter values without network requests. Access denial retires private state, dialogs, pending read epochs and late results. Current native snapshot permission precedes export release; formula-shaped source strings are escaped in CSV. Real member HTTP verifies export denial after capability revocation and encrypted restart.",
+    "storage_change": "None. Native workspace storage, schema, permissions and production configuration are unchanged.",
+    "remaining": "Shared workspace section/definition text, specialist/domain forms, connector details, generated/backend localization and native snapshot completeness/currency metadata remain open. Shared workspace uncertain dashboard write recovery is the next concrete integrity gap; existing revision conflicts do not prove exact replay after response loss. Browser-reload retries, every-trigger automation dispatch and wider cognition/adversarial/performance/demo/voice gates remain unaccepted.",
+    "evidence_limit": "Actual production controller with minimal DOM plus real native member HTTP and encrypted restart. No browser/layout/assistive-technology/native-speaker/live-provider acceptance inferred. Historical business-workspaces regression labels describing accessibility are static-source checks only.",
+    "dynamic_candidates": 707,
+    "workspace_direct_candidates": 365,
+    "audit_note": "Conservative direct-expression audit is not localization completeness. Its lexical helper detection initially lost indirect text writes; the DOM helper retains an explicit no-i18n textContent fallback, restoring detection. The temporary undercount of 422 is not accepted evidence.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

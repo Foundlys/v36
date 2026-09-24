@@ -20,6 +20,37 @@
     recordQuery: ''
   };
 
+  let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0;
+  const liveMessages=new WeakMap(),liveBindings=new Set();
+  const i18n=()=>globalThis.FoundlyI18n;
+  const copy=(key,params={})=>i18n()?.message(key.startsWith('common.')||key.startsWith('module.')||key.startsWith('analysis.')?key:'workspace.page.'+key,params)||key;
+  function live(read){const value=Object.freeze({toString:()=>String(read())});liveMessages.set(value,read);return value;}
+  function writeText(element,value,attribute){
+    for(const binding of liveBindings)if(binding.element===element&&binding.attribute===attribute)liveBindings.delete(binding);
+    const paint=text=>attribute?i18n()?.renderAttribute(element,attribute,text)||element.setAttribute(attribute,String(text)):i18n()?.renderText(element,text)||(element.textContent=String(text??''));
+    const read=liveMessages.get(value);if(!read){paint(value);return element;}
+    const binding={element,attribute,read,last:null};binding.paint=()=>{const text=String(read());paint(text);binding.last=attribute?element.getAttribute(attribute):element.textContent;};binding.paint();liveBindings.add(binding);return element;
+  }
+  document.addEventListener('foundly:locale',()=>{for(const binding of liveBindings){const {element,attribute,last}=binding;if(!element.isConnected){liveBindings.delete(binding);continue;}if((attribute?element.getAttribute(attribute):element.textContent)!==last){liveBindings.delete(binding);continue;}binding.paint();}});
+  const unknown=()=>copy('common.unknown'),number=value=>live(()=>i18n().number(value)),count=value=>Number.isSafeInteger(value)&&value>=0?number(value):unknown();
+  const time=value=>live(()=>typeof value==='string'&&value?i18n().date(value,{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'}):String(unknown()));
+  const boolean=value=>value===true?copy('yes'):value===false?copy('no'):unknown();
+  const knownStates=new Set(['UNKNOWN','UNCONFIGURED','CONFIGURED','AUTHORIZING','AUTHENTICATED','PROBING','SYNCING','CONNECTED','DEGRADED','ERROR','EXPIRED','DISCONNECTED','REALTIME','NEAR_REALTIME','BATCH','STALE','CONFIGURED_UNVERIFIED','NOT_AVAILABLE']);
+  const stateText=value=>knownStates.has(value)?copy('analysis.page.state.'+value.toLowerCase()):value===null||value===undefined||value===''?unknown():String(value);
+  const sourceRows=()=>Array.isArray(state.snapshot?.sources)?state.snapshot.sources:[];
+  function retireWorkspace(error){
+    accessGeneration++;workspaceLoad++;registryLoad++;zeroTurn++;dashboardSession.beginLoad(dashboardSelectionKey());
+    document.title='Foundly OS';
+    Object.assign(state,{workspace:null,dashboard:null,snapshot:null,sources:[],connectors:[],navigation:[],editing:false,draggedWidget:null,conversationId:null,communicationZeroToken:(state.communicationZeroToken||0)+1});
+    for(const id of ['dashboardGrid','recordHead','recordRows','sourceMatrix','sourceRegistryGrid','connectorGrid','globalSearchResults','contextContent','metricDialogContent','connectorDetail','zeroActions','globalNav','workspaceTabs'])replaceChildren(byId(id));
+    for(const id of ['metricDialog','connectorDialog','widgetDialog','searchDialog'])byId(id)?.close?.();
+    for(const id of ['workspaceTitle','workspaceDescription','workspaceEyebrow','contextEyebrow','contextTitle','contextDescription','connectorDialogTitle','metricDialogTitle','recordsTitle','recordCount','connectorCount','sourceRegistryCount','provisionerOutput','zeroOutput'])writeText(byId(id),unknown());
+    for(const id of ['sourceFilter','statusFilter','connectorCategory','connectorIndustry','connectorCapability','connectorAuth','connectorTenant','connectorState','sourceRegistryCategory','sourceRegistryCapability','sourceRegistryType','sourceRegistryStatus'])fillSelect(byId(id),[]);
+    for(const id of ['saveDashboard','addWidget','industryDashboardPreset','editDashboard','exportWorkspace'])byId(id).disabled=true;
+    byId('recordEmpty').hidden=false;byId('workspaceNotice').className='workspace-notice error';writeText(byId('workspaceNotice'),friendlyError(error));
+    writeText(byId('workspaceRuntime'),copy('runtime_unavailable'));byId('workspaceRuntime').className='ConnectionBadge error';writeText(byId('sidebarStatus'),copy('check_required'));byId('sidebarStatusLight').className='error';
+  }
+
   const SECTION_COPY = Object.freeze({
     EVENT_PREPARATION:['Afspraak voorbereiden','Van beschrijving naar gecontroleerde afspraakvelden en afzonderlijke bevestiging.'],
     OVERVIEW: ['Command dashboard', 'Werkelijke tenantdata, actuele bronstatus en operationele signalen voor deze workspace.'],
@@ -98,7 +129,9 @@
   function node(tag, className, text) {
     const element = document.createElement(tag);
     if (className) element.className = className;
-    if (text !== undefined && text !== null) element.textContent = String(text);
+    if (text !== undefined && text !== null) {
+      if(i18n())writeText(element,text);else element.textContent=String(text);
+    }
     return element;
   }
 
@@ -109,12 +142,13 @@
 
   function badge(value, extra = 'ConnectionBadge') {
     const normalized = String(value || 'UNKNOWN').toLowerCase().replace(/[^a-z0-9_-]+/g, '_');
-    return node('span', `${extra} ${normalized}`, value || 'UNKNOWN');
+    return node('span', `${extra} ${normalized}`, stateText(value));
   }
 
   async function request(path, options = {}) {
     const headers = { accept: 'application/json', ...(options.headers || {}) };
     if (options.body && !headers['content-type']) headers['content-type'] = 'application/json';
+    const epoch=accessGeneration;
     const response = await fetch(path, { credentials: 'same-origin', ...options, headers });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
@@ -122,8 +156,10 @@
       error.status = response.status;
       error.code = data.code || 'request_failed';
       error.data = data;
+      if([401,403].includes(response.status)&&epoch===accessGeneration)retireWorkspace(error);
       throw error;
     }
+    if(epoch!==accessGeneration)throw Object.assign(Error('workspace_observation_retired'),{stale:true});
     return data;
   }
 
@@ -133,27 +169,31 @@
     window.setTimeout(() => element.remove(), 5000);
   }
 
-  function friendlyError(error) {
-    if (error?.status === 403) return 'Je hebt geen toestemming voor deze actie.';
-    if (error?.status === 401) return 'De sessie is niet geautoriseerd.';
-    return String(error?.message || 'De actie kon niet worden voltooid.').slice(0, 280);
+function friendlyError(error) {
+    if(error?.status===401)return copy('session_required');
+    if(error?.status===403)return copy('common.access_denied');
+    if(error?.status===404)return copy('source_missing');
+    if([409,412,428].includes(error?.status))return copy('revision_conflict');
+    if(error?.status===429)return copy('common.rate_limited');
+    return copy('common.request_failed');
   }
 
-  function formatMetric(metric) {
-    if (!metric || metric.available === false || metric.value === null || metric.value === undefined) return 'Geen data';
-    const value = metric.value;
-    if (metric.unit === 'CURRENCY_CENTS' && Number.isFinite(Number(value))) {
-      return new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: metric.currency||'EUR', maximumFractionDigits: 0 }).format(Number(value) / 100);
-    }
-    if (metric.unit === 'PERCENT' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(Number(value))}%`;
-    if (metric.unit === 'RATIO' && Number.isFinite(Number(value))) return `${new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(Number(value))}×`;
-    if (typeof value === 'number') return new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { maximumFractionDigits: 2 }).format(value);
-    return String(value);
+function formatMetric(metric) {
+    if(!metric||metric.available!==true||metric.value===null||metric.value===undefined||metric.value==='')return unknown();
+    const value=metric.value;
+    if(metric.unit==='CURRENCY_CENTS')return live(()=>i18n().currencyCents(value,metric.currency));
+    if(metric.unit==='CURRENCY')return live(()=>i18n().currency(value,metric.currency));
+    if(metric.unit==='STATUS')return stateText(value);
+    if(metric.unit==='VERSION')return typeof value==='string'?value:unknown();
+    if(typeof value!=='number'||!Number.isFinite(value))return unknown();
+    if(metric.unit==='PERCENT')return live(()=>i18n().number(value/100,{style:'percent',maximumFractionDigits:2}));
+    if(metric.unit==='RATIO')return live(()=>i18n().number(value,{maximumFractionDigits:2})+'×');
+    return live(()=>i18n().number(value,{maximumFractionDigits:2}));
   }
 
   function renderNavigation() {
     const links = state.navigation.map(item => {
-      const link = node('a', '', globalThis.FoundlyI18n?globalThis.FoundlyI18n.t('module.'+(item.id==='home'?'core':item.id)):item.short_label || item.label);
+      const link = node('a', '', copy('module.'+(item.id==='home'?'core':item.id)));
       link.href = item.route;
       if (item.id === state.workspaceId) link.setAttribute('aria-current', 'page');
       return link;
@@ -186,7 +226,7 @@
   function creativeWorkCanLeave(){return !(state.creativeHistoryViews||[]).some(view=>view.isConnected&&!view.canLeave());}
   function selectSection(section, button) {
     if(!creativeWorkCanLeave())return;
-    state.activeSection = section;state.communicationZeroToken=(state.communicationZeroToken||0)+1;const zeroActions=byId('zeroActions');if(zeroActions)replaceChildren(zeroActions,[]);
+    state.activeSection = section;zeroTurn++;state.communicationZeroToken=(state.communicationZeroToken||0)+1;const zeroActions=byId('zeroActions');if(zeroActions)replaceChildren(zeroActions,[]);
     for (const tab of byId('workspaceTabs').querySelectorAll('button')) {
       const selected = tab === button;
       tab.classList.toggle('active', selected);
@@ -211,19 +251,17 @@
 
   function openMetricDrilldown(widget, metric) {
     if (state.editing) return;
-    byId('metricDialogTitle').textContent = widget.label;
+    if(!state.snapshot||!state.dashboard)return;
+    writeText(byId('metricDialogTitle'),widget.label);
     const list = node('dl');
     const facts = [
-      ['Waarde', formatMetric(metric)],
-      ['Beschikbaar', metric?.available === false ? 'Nee' : 'Ja'],
-      ['Eenheid', metric?.unit || 'VALUE'],
-      ['Bron', metric?.source || 'SOURCE UNKNOWN'],
-      ['Freshness', metric?.freshness || 'UNKNOWN'],
-      ['Geobserveerd', state.snapshot?.observed_at ? new Date(state.snapshot.observed_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'Onbekend'],
-      ['Workspace', state.workspace?.label || state.workspaceId]
+      [copy('value'),formatMetric(metric)],[copy('available'),boolean(metric?.available)],
+      [copy('unit'),metric?.unit||unknown()],[copy('source'),metric?.source||unknown()],
+      [copy('freshness'),stateText(metric?.freshness)],[copy('observed_utc'),time(state.snapshot?.observed_at)],
+      [copy('workspace'),state.workspace?.label||state.workspaceId]
     ];
     for (const [label, value] of facts) list.append(node('dt', '', label), node('dd', '', value));
-    const note = node('p', 'panel-copy', metric?.detail ? String(metric.detail) : 'Deze drilldown toont uitsluitend de actuele server-side metric, bron en freshness. Er worden geen afgeleide of synthetische waarden toegevoegd.');
+    const note = node('p', 'panel-copy', metric?.detail ? String(metric.detail) : copy('metric_detail_note'));
     replaceChildren(byId('metricDialogContent'), [list, note]);
     byId('metricDialog').showModal();
   }
@@ -239,29 +277,29 @@
       card.dataset.widgetId = widget.id;
       card.tabIndex = state.editing ? -1 : 0;
       card.setAttribute('role', 'button');
-      card.setAttribute('aria-label', `${widget.label} drilldown openen`);
+      writeText(card,copy('open_metric',{label:widget.label}),'aria-label');
       card.append(node('h3', '', widget.label));
-      card.append(node('strong', metric.available === false ? 'metric-value metric-unavailable' : 'metric-value', formatMetric(metric)));
-      const meta = node('span', 'metric-meta', metric.available === false ? 'Geen werkelijke waarde beschikbaar' : `${metric.unit || 'VALUE'} · ${metric.freshness || 'UNKNOWN'}`);
-      card.append(meta, node('span', 'widget-source', metric.source || 'SOURCE UNKNOWN'));
+      card.append(node('strong', metric.available !== true ? 'metric-value metric-unavailable' : 'metric-value', formatMetric(metric)));
+      const meta = node('span', 'metric-meta', metric.available !== true ? copy('metric_unavailable') : live(()=>`${metric.unit||String(unknown())} · ${stateText(metric.freshness)}`));
+      card.append(meta, node('span', 'widget-source', metric.source || unknown()));
       const tools = node('div', 'widget-tools');
-      const up = node('button', '', '↑'); up.type = 'button'; up.title = 'Naar voren';
-      const down = node('button', '', '↓'); down.type = 'button'; down.title = 'Naar achteren';
-      const size = node('button', '', widget.w >= 8 ? '−' : '+'); size.type = 'button'; size.title = 'Formaat wijzigen';
-      const remove = node('button', '', '×'); remove.type = 'button'; remove.title = 'Widget verwijderen';
-      up.addEventListener('click', () => moveWidget(index, -1));
-      down.addEventListener('click', () => moveWidget(index, 1));
-      size.addEventListener('click', () => resizeWidget(index));
-      remove.addEventListener('click', () => removeWidget(index));
+      const up = node('button', '', '↑'); up.type = 'button'; writeText(up,copy('move_forward'),'title');
+      const down = node('button', '', '↓'); down.type = 'button'; writeText(down,copy('move_back'),'title');
+      const size = node('button', '', widget.w >= 8 ? '−' : '+'); size.type = 'button'; writeText(size,copy('resize'),'title');
+      const remove = node('button', '', '×'); remove.type = 'button'; writeText(remove,copy('remove_widget'),'title');
+      up.addEventListener('click', () => {if(card.isConnected&&state.editing)moveWidget(index, -1);});
+      down.addEventListener('click', () => {if(card.isConnected&&state.editing)moveWidget(index, 1);});
+      size.addEventListener('click', () => {if(card.isConnected&&state.editing)resizeWidget(index);});
+      remove.addEventListener('click', () => {if(card.isConnected&&state.editing)removeWidget(index);});
       tools.append(up, down, size, remove); card.append(tools);
-      card.addEventListener('dragstart', () => { state.draggedWidget = widget.id; });
+      card.addEventListener('dragstart', () => { if(card.isConnected&&state.editing)state.draggedWidget = widget.id; });
       card.addEventListener('dragover', event => { if (state.editing) event.preventDefault(); });
-      card.addEventListener('drop', event => { event.preventDefault(); reorderWidget(state.draggedWidget, widget.id); });
-      card.addEventListener('click', event => { if (!event.target.closest('.widget-tools')) openMetricDrilldown(widget, metric); });
-      card.addEventListener('keydown', event => { if ((event.key === 'Enter' || event.key === ' ') && !state.editing) { event.preventDefault(); openMetricDrilldown(widget, metric); } });
+      card.addEventListener('drop', event => { event.preventDefault(); if(card.isConnected&&state.editing)reorderWidget(state.draggedWidget, widget.id); });
+      card.addEventListener('click', event => { if (card.isConnected&&!event.target.closest('.widget-tools')) openMetricDrilldown(widget, metric); });
+      card.addEventListener('keydown', event => { if ((event.key === 'Enter' || event.key === ' ') && !state.editing&&card.isConnected) { event.preventDefault(); openMetricDrilldown(widget, metric); } });
       return card;
     });
-    replaceChildren(grid, cards.length ? cards : [node('div', 'EmptyState NoDataState', 'Dit dashboard bevat nog geen widgets.')]);
+    replaceChildren(grid, cards.length ? cards : [node('div', 'EmptyState NoDataState', copy('widgets_empty'))]);
   }
 
   function moveWidget(index, delta) {
@@ -342,26 +380,31 @@
     const safeRows = filtered.slice(0, 250);
     const fields = recordDisplayFields(safeRows.length ? safeRows : raw);
     const header = node('tr');
-    for (const field of fields) header.append(node('th', '', field.replaceAll('_', ' ')));
+    for (const field of fields) header.append(node('th','',['name','title','status','provider','amount_cents','currency','updated_at','created_at','occurred_at','event_name','entity_type','confidence'].includes(field)?copy('field.'+field):field==='source'?copy('source'):field==='freshness'?copy('freshness'):field==='connection_state'?copy('field.status'):field));
     replaceChildren(byId('recordHead'), fields.length ? [header] : []);
     const rows = safeRows.map(row => {
       const tr = node('tr');
       for (const field of fields) {
         let value = row[field];
-        if (field.endsWith('_cents') && Number.isFinite(Number(value))) value = new Intl.NumberFormat((globalThis.FoundlyI18n?.locale||'nl-NL'), { style: 'currency', currency: 'EUR' }).format(Number(value) / 100);
-        tr.append(node('td', '', value === null || value === undefined || value === '' ? '—' : String(value).slice(0, 300)));
+        if(field.endsWith('_cents'))value=live(()=>i18n().currencyCents(row[field],row.currency));
+        else if(field.endsWith('_at')||field==='date')value=time(value);
+        else if(typeof value==='number')value=number(value);
+        else if(typeof value==='boolean')value=boolean(value);
+        else value=value===null||value===undefined||value===''?unknown():String(value).slice(0,300);
+        tr.append(node('td','',value));
       }
       return tr;
     });
     replaceChildren(byId('recordRows'), rows);
     byId('recordEmpty').hidden = rows.length > 0;
-    byId('recordCount').textContent = `${rows.length} / ${raw.length} RECORDS`;
-    byId('recordsTitle').textContent = `${state.workspace?.short_label || 'Workspace'} records`;
+    writeText(byId('recordCount'),Array.isArray(state.snapshot?.rows)?live(()=>copy('records_count',{shown:i18n().number(rows.length),total:i18n().number(raw.length)})):copy('records_unavailable'));
+    writeText(byId('recordsTitle'),copy('records_title',{name:state.workspace?.short_label||state.workspaceId}));
+    writeText(byId('recordEmpty'),Array.isArray(state.snapshot?.rows)?copy('records_empty'):copy('records_unavailable'));
   }
 
   function renderSources() {
     const sourceFilter = byId('sourceFilter').value, statusFilter = byId('statusFilter').value;
-    const available = (state.snapshot?.sources?.length ? state.snapshot.sources : state.sources).filter(source => {
+    const available = sourceRows().filter(source => {
       if (sourceFilter && source.source_id !== sourceFilter) return false;
       if (statusFilter && ![source.connection_status, source.freshness_status].includes(statusFilter)) return false;
       return true;
@@ -370,17 +413,17 @@
       const row = node('article', 'source-row');
       row.append(node('strong', '', source.display_name || source.name || source.source_id));
       row.append(badge(source.connection_status || source.freshness_status, 'FreshnessBadge'));
-      const categories = (source.categories || []).slice(0, 3).join(' · ') || 'UNCATEGORIZED';
-      row.append(node('p', '', `${categories} · ${Number(source.records_available || 0)} records · ${source.provenance_supported === false ? 'geen provenancecontract' : 'provenance actief'}`));
+      const categories = (source.categories || []).slice(0, 3).join(' · ') || copy('uncategorized');
+      row.append(node('p','',live(()=>copy('source_summary',{categories:String(categories),count:String(count(source.records_available)),provenance:String(source.provenance_supported===true?copy('provenance_present'):source.provenance_supported===false?copy('provenance_absent'):unknown())}))));
       return row;
     });
-    replaceChildren(byId('sourceMatrix'), rows.length ? rows : [node('div', 'EmptyState NoDataState', 'Geen bronnen voor deze workspace beschikbaar.')]);
+    replaceChildren(byId('sourceMatrix'), rows.length ? rows : [node('div', 'EmptyState NoDataState', Array.isArray(state.snapshot?.sources)?copy('sources_empty'):copy('sources_unavailable'))]);
   }
 
   function fillSelect(select, values, current = '') {
-    const first = select.firstElementChild?.cloneNode(true) || node('option', '', 'Alle');
+    const first = node('option','',copy('all'));first.value='';
     replaceChildren(select, [first, ...[...new Set(values.filter(Boolean))].sort().map(value => {
-      const option = node('option', '', String(value).replaceAll('_', ' ')); option.value = value; return option;
+      const option = node('option', '', stateText(value)); option.value = value; return option;
     })]);
     if ([...select.options].some(option => option.value === current)) select.value = current;
   }
@@ -413,7 +456,7 @@
       if (filters.state && connector.connection_state !== filters.state) return false;
       return true;
     });
-    byId('connectorCount').textContent = `${connectors.length} / ${state.connectors.length} CONNECTORS`;
+    writeText(byId('connectorCount'),live(()=>copy('connectors_count',{shown:i18n().number(connectors.length),total:i18n().number(state.connectors.length)})));
     const cards = connectors.map(connector => {
       const card = node('article', `ConnectorCard ${connector.connection_state === 'AWAITING_ACCESS' ? 'AwaitingAccessState' : ['DEGRADED', 'ERROR'].includes(connector.connection_state) ? 'DegradedState' : ''}`);
       const head = node('div', 'connector-card-head'), title = node('div');
@@ -423,17 +466,17 @@
       for (const category of (connector.category || []).slice(0, 4)) categories.append(node('span', '', category.replaceAll('_', ' ')));
       card.append(categories);
       const facts = node('div', 'connector-facts');
-      for (const [label, value] of [['Config', connector.configuration_state], ['Authentication', connector.authentication_state], ['Probe', connector.probe_state], ['Last probe', connector.last_probe ? new Date(connector.last_probe).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'], ['Latency', Number.isFinite(connector.latency) ? `${connector.latency} ms` : '—'], ['Sync', connector.sync_state], ['Freshness', connector.freshness], ['Records', connector.records]]) {
-        const fact = node('div'); fact.append(node('span', '', label), node('strong', '', value ?? '—')); facts.append(fact);
+      for(const [label,value] of [[copy('configuration'),stateText(connector.configuration_state)],[copy('authentication'),stateText(connector.authentication_state)],[copy('probe'),stateText(connector.probe_state)],[copy('last_probe'),time(connector.last_probe)],[copy('latency'),live(()=>typeof connector.latency==='number'&&Number.isFinite(connector.latency)&&connector.latency>=0?i18n().number(connector.latency)+' ms':String(unknown()))],[copy('sync'),stateText(connector.sync_state)],[copy('freshness'),stateText(connector.freshness)],[copy('records'),count(connector.records)]]){
+        const fact=node('div');fact.append(node('span','',label),node('strong','',value));facts.append(fact);
       }
       card.append(facts);
-      if (connector.requires_partner_approval && connector.connection_state !== 'CONNECTED') card.append(node('p', 'connector-warning', 'Legitieme provider- of partnergoedkeuring is vereist. Foundly fabriceert geen toegang.'));
-      if (connector.safe_error) card.append(node('p', 'connector-safe-error', `Veilige foutcode: ${connector.safe_error}`));
-      const actions = node('div', 'connector-card-actions'), inspect = node('button', '', connector.setup_action === 'INSPECT' ? 'Inspecteren' : 'Instellen');
+      if (connector.requires_partner_approval && connector.connection_state !== 'CONNECTED') card.append(node('p', 'connector-warning', copy('external_approval')));
+      if (connector.safe_error) card.append(node('p', 'connector-safe-error', copy('safe_error',{code:connector.safe_error})));
+      const actions = node('div', 'connector-card-actions'), inspect = node('button', '', connector.setup_action==='INSPECT'?copy('inspect'):copy('setup'));
       inspect.type = 'button'; inspect.addEventListener('click', () => openConnector(connector.connector_id)); actions.append(inspect); card.append(actions);
       return card;
     });
-    replaceChildren(byId('connectorGrid'), cards.length ? cards : [node('div', 'EmptyState NoDataState', 'Geen connectors voldoen aan deze filters.')]);
+    replaceChildren(byId('connectorGrid'), cards.length ? cards : [node('div', 'EmptyState NoDataState', copy('connectors_empty'))]);
   }
 
   function populateConnectorFilters() {
@@ -474,19 +517,19 @@
       if (filters.status && source.connection_status !== filters.status) return false;
       return true;
     });
-    byId('sourceRegistryCount').textContent = `${sources.length} / ${state.sources.length} SOURCES`;
+    writeText(byId('sourceRegistryCount'),live(()=>copy('sources_count',{shown:i18n().number(sources.length),total:i18n().number(state.sources.length)})));
     const cards = sources.map(source => {
       const card = node('article', 'SourceRegistryCard'), header = node('header'), title = node('div');
       title.append(node('h3', '', source.display_name), node('span', '', `${source.source_id} · ${source.provider_id}`));
       header.append(title, badge(source.connection_status));
       const facts = node('div', 'source-registry-facts');
-      facts.append(node('span', '', `Probe ${source.probe_status}`), node('span', '', `Sync ${source.sync_status}`), node('span', '', `Freshness ${source.freshness_status}`), node('span', '', `${Number(source.records_available || 0)} records`));
+      facts.append(node('span', '', live(()=>copy('probe_value',{value:String(stateText(source.probe_status))}))), node('span', '', live(()=>copy('sync_value',{value:String(stateText(source.sync_status))}))), node('span', '', live(()=>copy('freshness_value',{value:String(stateText(source.freshness_status))}))), node('span', '', live(()=>copy('records_total',{count:String(count(source.records_available))}))));
       const categories = node('div', 'connector-categories');
       for (const category of (source.categories || []).slice(0, 4)) categories.append(node('span', '', category.replaceAll('_', ' ')));
-      card.append(header, node('p', '', source.description), categories, facts, node('p', '', source.provenance_supported ? 'Provenancecontract actief · tenant-scoped' : 'Geen provenancecontract'));
+      card.append(header, node('p', '', source.description), categories, facts, node('p', '', source.provenance_supported===true?copy('provenance_present'):source.provenance_supported===false?copy('provenance_absent'):unknown()));
       return card;
     });
-    replaceChildren(byId('sourceRegistryGrid'), cards.length ? cards : [node('div', 'EmptyState NoDataState', 'Geen bronnen voldoen aan deze filters.')]);
+    replaceChildren(byId('sourceRegistryGrid'), cards.length ? cards : [node('div', 'EmptyState NoDataState', copy('sources_filtered_empty'))]);
   }
 
   function detailFact(label, value) {
@@ -1427,20 +1470,25 @@
     } catch(error){replaceChildren(content,[node('div','ErrorState',friendlyError(error))]);}
   }
 
-  function updateNotice() {
-    const observed = state.snapshot?.observed_at ? new Date(state.snapshot.observed_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'onbekend';
-    const activeFilters = [byId('dateFrom').value, byId('dateTo').value, byId('sourceFilter').value, byId('statusFilter').value].filter(Boolean).length;
-    const compare = byId('comparePeriod').checked ? ' · periodevergelijking opgeslagen in dashboardcontext' : '';
-    byId('workspaceNotice').className = 'workspace-notice success';
-    byId('workspaceNotice').textContent = `Tenant-scoped runtime geladen · geobserveerd ${observed} · ${activeFilters ? `${activeFilters} actieve record-/bronfilters` : 'geen actieve filters'}${compare} · waarden zijn persisted, provider-verified of expliciet niet beschikbaar.`;
-    byId('workspaceRuntime').textContent = 'RUNTIME LIVE'; byId('workspaceRuntime').className = 'ConnectionBadge live';
-    byId('sidebarStatus').textContent = 'RUNTIME LIVE'; byId('sidebarStatusLight').className = 'ok';
+function updateNotice() {
+    if(!state.snapshot)return;
+    const activeFilters=[byId('dateFrom').value,byId('dateTo').value,byId('sourceFilter').value,byId('statusFilter').value].filter(Boolean).length;
+    const observed=state.snapshot.observed_at,compare=byId('comparePeriod').checked;
+    byId('workspaceNotice').className='workspace-notice success';
+    writeText(byId('workspaceNotice'),live(()=>copy('observation_notice',{time:String(time(observed)),count:i18n().number(activeFilters),comparison:String(compare?copy('comparison_context'):'')})));
+    writeText(byId('workspaceRuntime'),copy('runtime_observed'));byId('workspaceRuntime').className='ConnectionBadge live';
+    writeText(byId('sidebarStatus'),copy('runtime_observed'));byId('sidebarStatusLight').className='ok';
   }
 
-  async function reloadRegistries() {
-    const [sources, connectors] = await Promise.all([request('/api/source-registry'), request('/api/connector-registry')]);
-    state.sources = sources.sources || []; state.connectors = connectors.connectors || [];
-    populateConnectorFilters(); populateSourceRegistryFilters(); populateWorkspaceFilters(); renderSources(); renderConnectors(); renderSourceRegistry(); renderSearchResults(byId('globalSearchInput').value || '');
+async function reloadRegistries() {
+    const ticket=++registryLoad;
+    try{
+      const [sources,connectors]=await Promise.all([request('/api/source-registry'),request('/api/connector-registry')]);
+      if(ticket!==registryLoad)return;
+      if(!Array.isArray(sources?.sources)||!Array.isArray(connectors?.connectors))throw Error('workspace_registry_observation_invalid');
+      state.sources=sources.sources;state.connectors=connectors.connectors;
+      populateConnectorFilters();populateSourceRegistryFilters();populateWorkspaceFilters();renderSources();renderConnectors();renderSourceRegistry();renderSearchResults(byId('globalSearchInput').value||'');
+    }catch(error){if(ticket===registryLoad&&!error.stale)retireWorkspace(error);throw error;}
   }
 
   function applyDashboardFilters() {
@@ -1455,7 +1503,8 @@
   }
 
   async function loadWorkspaceData() {
-    const ticket=dashboardSession.beginLoad(dashboardSelectionKey());
+    const load=++workspaceLoad,ticket=dashboardSession.beginLoad(dashboardSelectionKey());
+    try{
     const scope = byId('dashboardScope').value || 'PERSONAL';
     const qualifier = byId('dashboardQualifier').value.trim(), params = new URLSearchParams({ scope });
     if (scope === 'TEAM' && qualifier) params.set('team_id', qualifier);
@@ -1465,15 +1514,18 @@
       request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${params}`),
       request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/snapshot`)
     ]);
-    if(!dashboardSession.finishLoad(ticket))return;
+    if(load!==workspaceLoad||!dashboardSession.finishLoad(ticket))return;
+    if(!definition?.workspace||!dashboard?.dashboard||!snapshot||snapshot.workspace_id!==state.workspaceId)throw Error('workspace_observation_invalid');
     state.workspace = definition.workspace; state.dashboard = dashboard.dashboard; state.snapshot = snapshot;
+    for(const id of ['editDashboard','exportWorkspace','industryDashboardPreset'])byId(id).disabled=false;
     byId('industryDashboardPreset').hidden = !state.workspace.industry_dashboard_presets;
-    byId('workspaceEyebrow').textContent = state.workspace.eyebrow;
-    byId('workspaceTitle').textContent = state.workspace.label;
-    byId('workspaceDescription').textContent = state.workspace.description;
+    writeText(byId('workspaceEyebrow'),state.workspace.eyebrow);
+    writeText(byId('workspaceTitle'),state.workspace.label);
+    writeText(byId('workspaceDescription'),state.workspace.description);
     document.title = `${state.workspace.label} · Foundly OS`;
     populateWorkspaceFilters(); applyDashboardFilters(); renderTabs(); renderDashboard(); renderRecords(); renderSources(); updateNotice();
     const requestedSection=new URLSearchParams(location.search).get('section'),initialSection=state.workspaceId==='communication'&&new URLSearchParams(location.search).has('draft')&&state.workspace.sections.includes('DRAFTS')?'DRAFTS':state.workspace.sections.includes(requestedSection)?requestedSection:state.workspace.sections[0],initialIndex=state.workspace.sections.indexOf(initialSection),firstTab=byId('workspaceTabs').querySelectorAll('button')[initialIndex];if(firstTab)selectSection(initialSection,firstTab);
+    }catch(error){if(load===workspaceLoad&&!error.stale)retireWorkspace(error);throw error;}
   }
 
   function dashboardDraft() {
@@ -1488,14 +1540,15 @@
       byId('saveDashboard').disabled=true;const query=new URLSearchParams({scope:payload.scope});if(payload.scope==='TEAM')query.set('team_id',payload.team_id);if(payload.scope==='ROLE')query.set('role',payload.role);
       const result=await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/dashboard?${query}`,{method:'PUT',headers:{'if-match':String(ticket.draft.revision)},body:JSON.stringify(ticket.draft)});
       const completion=dashboardSession.finishSave(ticket,result.dashboard,dashboardDraft(),dashboardSelectionKey());if(!completion.applied)return;
-      state.dashboard=completion.dashboard;toggleEditing(completion.dirty);renderDashboard();toast(completion.dirty?'Opgeslagen. Je latere bewerkingen staan nog lokaal; kies opnieuw Opslaan.':'Dashboard tenant- en gebruikersgebonden opgeslagen.');
+      state.dashboard=completion.dashboard;toggleEditing(completion.dirty);renderDashboard();toast(completion.dirty?copy('saved_draft'):copy('saved'));
     }catch(error){dashboardSession.failSave(ticket);toast(friendlyError(error),true);}
     finally{byId('saveDashboard').disabled=!state.editing||dashboardSession.saving;}
   }
 
   function toggleEditing(force) {
+    if(!state.dashboard)return;
     state.editing = typeof force === 'boolean' ? force : !state.editing;
-    byId('editDashboard').textContent = state.editing ? 'Bewerken sluiten' : 'Dashboard aanpassen';
+    writeText(byId('editDashboard'),state.editing?copy('editing_close'):copy('editing_open'));
     byId('addWidget').disabled = !state.editing; byId('saveDashboard').disabled = !state.editing||dashboardSession.saving; renderDashboard();
   }
 
@@ -1516,7 +1569,7 @@
       const option = node('option', '', item.label); option.value = item.metric; return option;
     });
     replaceChildren(byId('widgetMetric'), options);
-    if (!options.length) return toast('Alle beschikbare widgets staan al op dit dashboard.');
+    if (!options.length) return toast(copy('widgets_all'));
     byId('widgetDialog').showModal();
   }
 
@@ -1530,39 +1583,42 @@
 
   function renderSearchResults(query = '') {
     const q = query.trim().toLowerCase(), results = [];
-    for (const workspace of state.navigation) if (!q || `${workspace.label} ${workspace.short_label}`.toLowerCase().includes(q)) results.push({ type: 'Workspace', name: workspace.label, href: workspace.route });
-    for (const source of state.sources.slice(0, 200)) if (q && `${source.display_name} ${(source.categories || []).join(' ')}`.toLowerCase().includes(q)) results.push({ type: 'Source', name: source.display_name, href: `/connectors?q=${encodeURIComponent(source.source_id)}` });
-    for (const connector of state.connectors.slice(0, 200)) if (q && `${connector.name} ${connector.provider} ${(connector.capabilities || []).join(' ')}`.toLowerCase().includes(q)) results.push({ type: 'Connector', name: connector.name, connectorId: connector.connector_id });
+    for (const workspace of state.navigation) if (!q || `${workspace.label} ${workspace.short_label}`.toLowerCase().includes(q)) results.push({ type: copy('workspace'), name: workspace.label, href: workspace.route });
+    for (const source of state.sources.slice(0, 200)) if (q && `${source.display_name} ${(source.categories || []).join(' ')}`.toLowerCase().includes(q)) results.push({ type: copy('source_kind'), name: source.display_name, href: `/connectors?q=${encodeURIComponent(source.source_id)}` });
+    for (const connector of state.connectors.slice(0, 200)) if (q && `${connector.name} ${connector.provider} ${(connector.capabilities || []).join(' ')}`.toLowerCase().includes(q)) results.push({ type: copy('connector_kind'), name: connector.name, connectorId: connector.connector_id });
     const items = results.slice(0, 30).map(result => {
       if (result.connectorId) {
         const button = node('button'); button.type = 'button'; button.append(node('span', '', result.name), node('small', '', result.type)); button.addEventListener('click', () => { byId('searchDialog').close(); openConnector(result.connectorId); }); return button;
       }
       const link = node('a'); link.href = result.href; link.append(node('span', '', result.name), node('small', '', result.type)); return link;
     });
-    replaceChildren(byId('globalSearchResults'), items.length ? items : [node('div', 'EmptyState NoDataState', 'Geen workspace, bron of connector gevonden.')]);
+    replaceChildren(byId('globalSearchResults'), items.length ? items : [node('div', 'EmptyState NoDataState', copy('search_empty'))]);
   }
 
-  function exportRows() {
-    const rows = Array.isArray(state.snapshot?.rows) ? state.snapshot.rows : [];
-    if (!rows.length) return toast('Er zijn geen werkelijke records om te exporteren.', true);
-    const fields = recordDisplayFields(rows); if (!fields.length) return toast('Geen veilige exportvelden beschikbaar.', true);
-    const quote = value => `"${String(value ?? '').replaceAll('"', '""').replace(/[\r\n]+/g, ' ')}"`;
-    const csv = [fields.map(quote).join(','), ...rows.map(row => fields.map(field => quote(row[field])).join(','))].join('\r\n');
-    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })), link = document.createElement('a');
-    link.href = url; link.download = `foundly-${state.workspaceId}-${new Date().toISOString().slice(0, 10)}.csv`; link.click(); URL.revokeObjectURL(url);
+async function exportRows() {
+    try{
+      const snapshot=await request(`/api/workspaces/${encodeURIComponent(state.workspaceId)}/snapshot`);
+      if(snapshot?.workspace_id!==state.workspaceId||!Array.isArray(snapshot.rows))throw Error('workspace_observation_invalid');
+      const rows=snapshot.rows;if(!rows.length)return toast(copy('export_empty'));
+      const fields=recordDisplayFields(rows);if(!fields.length)return toast(copy('export_no_fields'),true);
+      const quote=value=>{let text=String(value??'');if(typeof value==='string'&&/^[\s]*[=+@-]/.test(text))text="'"+text;return '"'+text.replaceAll('"','""').replace(/[\r\n]+/g,' ')+'"';};
+      const csv=[fields.map(quote).join(','),...rows.map(row=>fields.map(field=>quote(row[field])).join(','))].join('\r\n');
+      const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),link=document.createElement('a');
+      link.href=url;link.download=`foundly-${state.workspaceId}-${new Date().toISOString().slice(0,10)}.csv`;link.click();URL.revokeObjectURL(url);
+    }catch(error){if(!error.stale)toast(friendlyError(error),true);}
   }
 
-  async function askZero(event) {
+async function askZero(event) {
     event.preventDefault();
-    const input = byId('zeroInput'), message = input.value.trim(); if (!message) return;
-    const output = byId('zeroOutput'); output.textContent = 'ZERO analyseert de gedeelde tenantcontext…'; input.disabled = true;
-    try {
-      const result = await request('/api/zero/turn', { method: 'POST', body: JSON.stringify({ message, conversation_id: state.conversationId, preferred_module: state.workspace.module_id, client_context: { workspace_id: state.workspaceId, section: state.activeSection } }) });
-      state.conversationId = result.conversation_id || state.conversationId;
-      output.textContent = result.display_text || result.text || result.answer || 'ZERO heeft de opdracht verwerkt; er is geen tekstresultaat beschikbaar.';
-      input.value = '';
-    } catch (error) { output.textContent = friendlyError(error); }
-    finally { input.disabled = false; input.focus(); }
+    const input=byId('zeroInput'),message=input.value.trim();if(!message||input.disabled||!state.workspace)return;
+    const ticket=++zeroTurn,epoch=accessGeneration,output=byId('zeroOutput');writeText(output,copy('zero_busy'));input.disabled=true;
+    try{
+      const result=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message,conversation_id:state.conversationId,preferred_module:state.workspace.module_id,client_context:{workspace_id:state.workspaceId,section:state.activeSection}})});
+      if(ticket!==zeroTurn||epoch!==accessGeneration)return;
+      state.conversationId=result.conversation_id||state.conversationId;writeText(output,result.display_text||result.text||result.answer||copy('zero_no_text'));
+      if(input.value.trim()===message)input.value='';
+    }catch(error){if(ticket===zeroTurn&&epoch===accessGeneration&&!error.stale)writeText(output,friendlyError(error));}
+    finally{input.disabled=false;input.focus();}
   }
 
   async function submitProvisioner(event) {
@@ -1579,7 +1635,7 @@
   }
 
   function bindEvents() {
-    byId('refreshWorkspace').addEventListener('click', async () => { try { await Promise.all([loadWorkspaceData(), reloadRegistries()]); toast('Workspace vernieuwd.'); } catch (error) { toast(friendlyError(error), true); } });
+    byId('refreshWorkspace').addEventListener('click', async () => { try { await Promise.all([loadWorkspaceData(), reloadRegistries()]); toast(copy('refreshed')); } catch (error) { toast(friendlyError(error), true); } });
     byId('recordSearch').addEventListener('input', event => { state.recordQuery = event.target.value; renderRecords(); });
     byId('editDashboard').addEventListener('click', () => toggleEditing());
     byId('addWidget').addEventListener('click', openWidgetDialog);
