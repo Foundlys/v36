@@ -978,6 +978,56 @@
     "analysis_history_direct_candidates": 0,
     "evidence_limit": "Controller fixtures and native regression do not establish rendered layout, accessibility, native-speaker quality, provider coverage or cognitive quality. Other UI surfaces/backend copy and all full-surface locale acceptance remain open.",
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "current_ci": "SUCCESS",
+    "published_commit": "d3f8784fbe84fa6c0444ec5385f7ba943c20da6e",
+    "published_tree": "7ded5c8de2dfda2813a3937f3b6f0911995bea40",
+    "ci_run": 165,
+    "ci_run_id": 36037141183
+  },
+  "analysis_page_locale_checkpoint": {
+    "recorded_at": "2026-09-24T18:08:16.250721+00:00",
+    "source_sha256": {
+      "analysis-script.js": "3b2de16cb6a2cbeb6c8d564b48a8b758bbba4c459edd64cf113b2a90dd763e5a",
+      "foundly-locales.js": "80c88cfa9e4f738a4e79465fc792af749aa10a749acdd7fe197f44aeb0b77c8b",
+      "zero/analysis-page-localization.test.js": "e4a222ed95f12b878ece1d0e4c4abcdffe0bbd1634e3a76a40be577c53f9989e"
+    },
+    "logs": {
+      "run2-analysis-page-before-denied-fix.log": {
+        "exit_code": 1,
+        "sha256": "b0182098219c6753f54a2a5e2472db9bff2776478142af6f034d6f5ee9363490",
+        "bytes": 1409
+      },
+      "run2-analysis-page-localization.log": {
+        "exit_code": 0,
+        "sha256": "4c473953829fb2f01ab91b1b9004ef36b2f6bbb20b7ac81d02bdfd5b028fa306",
+        "bytes": 1368
+      },
+      "run2-analysis-page-zero.log": {
+        "exit_code": 0,
+        "sha256": "cbf0e144502b75be8c258f2451ce09b034989866d2a95478722d7b11301b8929",
+        "bytes": 20208
+      }
+    },
+    "new_controller_tests": 10,
+    "full_zero_tests": 162,
+    "full_zero_pass": 162,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "Eight-locale Analysis KPI/funnel/event/history/source/automation panels, loading/error/partial states, ZERO pending feedback and native event export. Explicit DOM bindings preserve classes, filters, identities and authored/source content. Locale changes cause no source read, event-stream reconnect, ZERO replay or export. Dates identify UTC; counts distinguish observed zero from missing/malformed values. KPI minor units do not invent an EUR currency absent from the native response.",
+    "reproduced_defect": "A denied Analysis page reload left private event and aggregate observations visible. Before-fix test retained the literal-private-event HTML. The failure path now clears all source panels, old ZERO content and cached snapshots. Late page reads, ZERO replies, export downloads and closed-stream callbacks cannot restore access-denied observations. Partial denied reads clear affected observations and disable event-dependent controls while independent authorized components remain available.",
+    "native_regression": {
+      "commands": [
+        "node analysis-loading-test.js",
+        "node analysis-loading-api-test.js",
+        "node smoke-test.js",
+        "node foundly-masterbuild-regression-test.js"
+      ],
+      "exit_code": 0
+    },
+    "dynamic_candidates": 831,
+    "analysis_page_direct_candidates": 0,
+    "evidence_limit": "Declared-response DOM fixtures do not establish rendered browser layout, accessibility, native-speaker review, live provider state or voice/cognitive quality. Core/capability behavior remains exercised by separate existing native suites. Cohort rendering and numerous other surfaces/backend messages remain open.",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "current_ci": "PENDING_PUBLICATION"
   }
 }
