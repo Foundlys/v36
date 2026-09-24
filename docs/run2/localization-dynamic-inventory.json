@@ -781,7 +781,7 @@
     },
     {
       "file": "crm-script.js",
-      "sha256": "8da1c0a7b052d8323b972de5cb75eb44d3f9c5f91ef08c4bf467dd0f99cfa9ff",
+      "sha256": "c0f5ef13af65886d5824344148b8d544ad14a773f4a34472e83e7250bd2e05c5",
       "items": [
         {
           "line": 170,
@@ -803,8 +803,8 @@
         },
         {
           "line": 292,
-          "start": 51933,
-          "end": 51966,
+          "start": 52053,
+          "end": 52086,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM record response unavailable",
           "parameters": [],
@@ -812,8 +812,8 @@
         },
         {
           "line": 340,
-          "start": 62900,
-          "end": 62931,
+          "start": 63020,
+          "end": 63051,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM ZERO response unavailable",
           "parameters": [],

@@ -668,6 +668,7 @@ function ingestInternalPlatformEvent(c,event,source){
 const CRM_CORE=guardDomain(new FoundlyCrmCore({
   bucket:(c,scope)=>arr(records,key(c,scope)),
   persist:()=>persistCore(true),
+  authorizeAutomationAccess:(c,actor,entity,operation)=>{if(COMPOSITION.profile(c))COMPOSITION.assertCapability(c,actor,require('./module-access-contracts').ENTITY_CAPABILITIES.crm[entity],operation);},
   publish:(c,event)=>{const result=PLATFORM_CORE.ingestEvent(c,{id:event.canonical.actor_id||'crm-event-dispatch',roles:[],permissions:['events:write']},event.canonical,{idempotencyKey:event.event_id});if(!result.deduplicated)addEvent(c,event.type,event.message,{...event.meta,event_id:event.event_id});return result;},
   enqueue:(c,task)=>addTask(c,task),
   id,

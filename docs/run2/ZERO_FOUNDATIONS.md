@@ -333,3 +333,16 @@ Automatic delivery uses backoff, at most five attempts and batches of fifty. Aut
 Ten new tests, all 332 ZERO tests, 14/14 corpus cases, native CRM core/API/standalone and access regressions pass. Actual main HTTP and standalone encrypted restarts preserve event identity and source facts. One initial HTTP test omitted an explicit page limit; that test-pagination correction is not product-defect evidence. Adapter outage simulations are distinguished from real HTTP evidence.
 
 Internal automation assign/field/stage effects remain the next recorded code gap. Generated/backend localization, browser-reload durable retry recovery and broader cognitive, adversarial, performance, voice and demo acceptance remain open. The locale inventory is unchanged at 781 conservative candidates. No wider gate is waived, main and production remain unchanged, and Run 3 has not started.
+
+
+### Continuation: verified native CRM automation effects, 24 September 2026
+
+CI 183 passed exact durable-event head `37ef9abaa9ab92211c8c94fe52b10e835a72e64a`, tree `fdb7684d3eb11e7c83371fa996564afed364c223`, including full npm test. Eight failing-before native checks then demonstrated absent assign/field/stage execution, missing write/target checks, stale stage acknowledgement and unknown numeric input becoming zero. A ninth check reproduced task ownership taken from an untrusted event payload.
+
+Explicit `AUTOMATIC_INTERNAL` action definitions now bind the triggering native CRM record, recheck current write and source access, and execute assignment, allowed business-field changes and same-pipeline stage transitions inside the existing compound transaction. Assignees are verified active CRM user records; their existence does not imply an external identity-provider account. Effects, tasks, audits, events and immutable receipts commit together. Follow-up tasks use the native write path and current source ownership. Replays recheck source references and composition capabilities. Stage effects do not recursively trigger another automation cascade. The stage endpoint returns the final native revision and requested stage; the actual drag/retry controller handles a verified follow-on stage without repeating effects.
+
+Unknown monetary/probability input stays null; malformed and out-of-range values reject instead of becoming zero. Historical untyped action definitions remain planned, and prior execution receipts never rerun under the new implementation. External sends retain their explicit authorization/verified-transport gate.
+
+Eleven new tests, all 343 ZERO tests, 14/14 corpus cases and native CRM regressions pass. Real HTTP demonstrates target-capability revocation, no surviving partial tasks, exact receipts and encrypted restart. The collision test now uses another real authorized source, retaining its original conflict/rollback assertion. The conservative locale inventory remains 781 candidates.
+
+Source-backed action authoring remains the next open gap: the existing form still submits only type/title, so this native checkpoint is not complete UI acceptance. Generated/backend localization, browser-reload recovery and the wider Run-2 contract remain unaccepted. No main/production mutation or Run 3.

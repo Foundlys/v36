@@ -2185,6 +2185,84 @@
     "storage_change": "New auxiliary encrypted per-tenant crm:event_outbox bucket, lazily created by existing adapter. No destructive schema migration or production mutation; no reconstruction of historically lost events.",
     "remaining": "Internal automation assign/field/stage execution, generated/backend localization, browser-reload retry recovery, representative cognitive/adversarial/performance corpus and wider Run-2 gates remain open. Event-ingestion receipt does not prove completion of every subscriber or historical event delivery.",
     "evidence_limit": "Deterministic outage/ack/persistence adapter tests plus real main and standalone HTTP/encrypted restart. No live external provider, browser/accessibility/native-speaker/voice or full Run-2 acceptance inferred.",
+    "current_ci": {
+      "number": 183,
+      "id": 36064827972,
+      "job_id": 107852044364,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "37ef9abaa9ab92211c8c94fe52b10e835a72e64a",
+      "tree": "fdb7684d3eb11e7c83371fa996564afed364c223",
+      "full_npm_test": "PASS"
+    }
+  },
+  "crm_internal_effects_checkpoint": {
+    "recorded_at": "2026-09-24T22:10:15.590207+00:00",
+    "prior_published_head": "37ef9abaa9ab92211c8c94fe52b10e835a72e64a",
+    "prior_published_tree": "fdb7684d3eb11e7c83371fa996564afed364c223",
+    "prior_ci": {
+      "number": 183,
+      "id": 36064827972,
+      "job_id": 107852044364,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "37ef9abaa9ab92211c8c94fe52b10e835a72e64a",
+      "tree": "fdb7684d3eb11e7c83371fa996564afed364c223",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "crm-core.js": "0f079c3a997dcbb96fdbac85c13b4b63a89756502b2e93a85ae399f5680126c0",
+      "crm-automation-actions.js": "3604b543ed1d5ac02f6623dabbe02333e1adde665e95d6bcb6a4b71c35143780",
+      "crm-script.js": "c0f5ef13af65886d5824344148b8d544ad14a773f4a34472e83e7250bd2e05c5",
+      "server.js": "17c46f8c99d076c0d7af858e1777ed0279a24ac5c87bd157d807459134171413",
+      "Dockerfile.crm": "b05983313e5551a48fde26782ec1e49beaa4778a727982cffde9a39584ef2a41",
+      "zero/crm-automation-effects.test.js": "dc3dbd3ec5ce5dfab2630aa97cc7eb97a7004602f1163bc0930b8ad53ff6745b",
+      "zero/crm-automation-effects-api.test.js": "a7e110362a20f96d9bceb5779606cda93b0261a04c4c3b0ee73ced3d0596e916",
+      "zero/crm-action-retry.test.js": "41b899bf64b165e4a12f0187c636fb87f2b3136f79d7242a31731bc3da82e0d8",
+      "zero/crm-stage-atomicity.test.js": "c3814838e7627f694277da55d683ba60aac22a7a0f301b439e1d73a431fef533"
+    },
+    "logs": {
+      "run2-crm-automation-effects-before.log": {
+        "exit_code": 1,
+        "sha256": "41bb55188b96be34c1aced58cc3aea91eabc81cd0a5deae615a4b3004215442d",
+        "bytes": 8050
+      },
+      "run2-crm-task-source-before.log": {
+        "exit_code": 1,
+        "sha256": "f42c7f30479702750daa9668d7f3a5d42286d8ebd510c4ff81effcfa4d7b7f6e",
+        "bytes": 1079
+      },
+      "run2-crm-effects-controls-final.log": {
+        "exit_code": 0,
+        "sha256": "d77bcc665c977b02bfe9801f434fd8d3a82608fdbca05baa0b4ae10f3b27fcd5",
+        "bytes": 4138
+      },
+      "run2-crm-effects-zero-first.log": {
+        "exit_code": 0,
+        "sha256": "2fb7976f460f7618661ea67ed5f9dcd122b44b49c9197507e6ea91c97b521db6",
+        "bytes": 40788
+      },
+      "run2-crm-effects-native-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 11,
+    "full_zero_tests": 343,
+    "full_zero_pass": 343,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "before_fix": "Eight failing-before native tests reproduce absent assign/field/stage effects, missing native write checks, missing target/field validation, stale stage-result revision and unknown numbers coerced to zero. A ninth failure proves untrusted event owner claims were used for follow-up task assignment. The event-collision fixture now references another real authorized source instead of an invented missing source; its original collision/rollback assertion remains.",
+    "scope": "Explicit AUTOMATIC_INTERNAL actions bind the triggering native record and verify current native/composition authority. Assignment reads an active CRM user, stage changes read a stage and its matching pipeline, field updates restrict mutable business fields. Effects, tasks, audits, events and receipt commit atomically; failures roll back. No recursive automation cascade is implied. Stage results and exact retry receipts return final source revision plus requested_stage_id; actual controller accepts verified follow-on stage results. Task creation now passes native write policy and reads source ownership instead of trusting event record fields; replay rechecks source/target/capability access. Native monetary and probability validation preserves null and rejects malformed/out-of-range data rather than inventing zero.",
+    "compatibility": "Historical untyped assignment/field/stage definitions remain planned. Existing immutable execution receipts are not rerun. Explicit authoring is required to opt into new writes; no historical completion claim. External message/email/webhook remain awaiting explicit authorization and verified transport.",
+    "remaining": "The current automation form still submits only action type/title. Source-backed target/assignee/field/stage authoring is the next open gap. Generated/backend localization, browser-reload retry recovery and all broader unaccepted Run-2 gates remain open.",
+    "evidence_limit": "Native unit/HTTP/current-capability/encrypted-restart plus actual minimal-DOM stage controller tests. Not rendered browser, assistive technology, native-speaker, live provider/voice or broad cognition acceptance.",
+    "dynamic_candidates": 781,
     "current_ci": "PENDING_PUBLICATION"
   }
 }

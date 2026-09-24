@@ -9,6 +9,9 @@ test('CRM archive blocks overlapping submission while its reply is pending',asyn
 test('CRM stage drag retries its exact committed target and event without duplicate effects',async()=>{
  const f=await fixture();f.lose();await f.drop();const before=f.calls.length;for(const locale of locales)f.i.setLocale(locale);assert.equal(f.calls.length,before);await f.drop();assert.deepEqual(f.writes[1],f.writes[0]);assert.equal(f.native.core.list(f.native.ctx,f.native.actor,'tasks').total,1);assert.equal(f.native.core.get(f.native.ctx,f.native.actor,'deals',f.deal.id).stage_history.length,1);
 });
+test('CRM stage acknowledgement accepts a verified automatic follow-on stage and retains its final source revision',async()=>{
+ const f=await fixture(),{core,ctx,actor}=f.native;core.create(ctx,actor,'automations',{name:'Literal automatic follow-on stage',trigger:{type:'stage_change'},actions:[{type:'stage_change',execution_mode:'AUTOMATIC_INTERNAL',target_entity:'deals',stage_id:f.first.id}]});f.lose();await f.drop();await f.nodes.pipelineActionNotice.querySelector('button').onclick();assert.deepEqual(f.writes[1],f.writes[0]);assert.equal(f.nodes.pipelineActionNotice.querySelector('button'),null);const record=core.get(ctx,actor,'deals',f.deal.id);assert.equal(record.stage_id,f.first.id);assert.equal(record.revision,3);assert.equal(record.stage_history.length,2);assert.equal(core.list(ctx,actor,'tasks').total,1);
+});
 test('CRM stage drag blocks overlapping drops while its reply is pending',async()=>{
  const f=await fixture(),release=f.hold(),pending=f.drop();await release.started;await f.drop();release();await pending;assert.equal(f.writes.length,1);
 });
