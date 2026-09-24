@@ -74,7 +74,13 @@ async function call(route, authenticated = true) {
     assert(!/style\s*=/.test(analysisHtml + financeHtml + analysisScript + financeScript), 'Business workspaces moeten zonder inline styles werken');
     assert(!/\bprompt\s*\(/.test(analysisScript + financeScript), 'Business workspaces mogen niet op native prompt-dialogen steunen');
     assert(!/\b(?:12500|45000|Example Customer|Demo Revenue|Fake KPI)\b/i.test(analysisHtml + financeHtml + analysisScript + financeScript + css), 'Business UI mag geen fake bedrijfswaarden bevatten');
-    assert(/escapeHtml/.test(financeScript), 'Finance template text must remain HTML-escaped');
+    const financePresentation=require('./zero-evaluation/finance-page-fixture').fixture();
+    await financePresentation.context.load();
+    const account=financePresentation.nodes.financePnl.children[0].children[0];
+    assert.equal(account.textContent,'4000 · Literal private <img> account');
+    assert.equal(account.children.length,0,'Finance source text must remain inert');
+    assert.equal(financePresentation.context.money(null),financePresentation.i.t('common.unknown'));
+    assert.equal(financePresentation.context.money(-1),financePresentation.i.currencyCents(-1,'EUR'));
     // Exercise the actual Analysis renderer: translated empty-source states and
     // literal DOM text are behavioral contracts, not a particular helper name.
     const presentation=require('./zero-evaluation/analysis-page-fixture').fixture();

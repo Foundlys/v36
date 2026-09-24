@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-24T19:16:02.082333+00:00",
+  "recorded_at": "2026-09-24T19:26:56.417977+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -1359,6 +1359,65 @@
     "dynamic_candidates": 806,
     "finance_direct_candidates": 17,
     "evidence_limit": "This is a source/access repair checkpoint before complete Finance page localization. Conservative candidate count includes new internal exceptions. Controller fixtures and structural/CSP checks are not browser, accessibility, responsive, native-speaker or live provider acceptance. Wider Run-2 code gaps remain open.",
+    "current_ci": {
+      "run_number": 171,
+      "run_id": 36047055303,
+      "status": "in_progress",
+      "conclusion": null
+    },
+    "published_commit": "b9815a7c1f0b9e8b6261555dabe699fef22dea7d",
+    "published_tree": "a8eeeadba055dad432c745e1152b36b1bcf0d41b"
+  },
+  "finance_page_locale_checkpoint": {
+    "recorded_at": "2026-09-24T19:26:56.417977+00:00",
+    "source_sha256": {
+      "finance-script.js": "63ce836f0b74cadc002ea55977b8b60534272363d8e65f74e4dd6b3ee72be0fd",
+      "foundly-locales.js": "bd56728d69bf40e19d82ee3faa8fbd6425453b06fd4df0e93633e31c182ae063",
+      "zero/finance-page-localization.test.js": "87c70d167a67bef66621f9f4891454c6a465da8954ff7b57e5c5ee17e5a09adc",
+      "business-workspaces-regression-test.js": "865b4a39bde16fc2c1b3089f071522c26ec8946ec97ef838e3d33d9f3d122c5c"
+    },
+    "logs": {
+      "run2-finance-page-localization.log": {
+        "exit_code": 0,
+        "sha256": "26f88c30e9624a077698a30eac3c320c9c20b2cc0a2b8053148da06d33ac8ff7",
+        "bytes": 1699
+      },
+      "run2-finance-page-zero.log": {
+        "exit_code": 0,
+        "sha256": "b44af9b3b032e83ef4d81e44f2228a0fc29f44630e5da7435e7a5b390f9971bd",
+        "bytes": 25154
+      },
+      "run2-finance-page-native.log": {
+        "exit_code": 0,
+        "sha256": "c17c12913ce006004f80ed00ed9a511fc2c4031f46c426ef69df2a2bd9b2d1eb",
+        "bytes": 1372
+      }
+    },
+    "new_controller_tests": 4,
+    "finance_controller_tests": 13,
+    "full_zero_tests": 202,
+    "full_zero_pass": 202,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "commands": [
+        "node business-workspaces-regression-test.js",
+        "node finance-loading-test.js",
+        "node finance-loading-api-test.js",
+        "node finance-cash-scenarios-client-test.js",
+        "node finance-period-closing-client-test.js",
+        "node finance-cash-scenarios-api-test.js",
+        "node finance-period-closing-api-test.js"
+      ],
+      "exit_code": 0
+    },
+    "scope": "Explicit eight-locale Finance page bindings for entity options, KPI names, posted source classification, profit/loss rows, aging, budget/forecast, compliance rules, journal enums, exact cents, dates, UTC observation time, loading/error states, ZERO progress and export feedback. Native source identities, authored inputs, selected IDs, editor nodes and confirmation state remain stable through locale changes; no locale change issues requests.",
+    "additional_guards": "Unknown KPI availability is not truthy; malformed export content cannot produce a CSV. Current access invalidation also clears reachable-state presentation. Journal type uses the native status when no separate entry_type is supplied. Missing source references stay unknown.",
+    "regression_update": "Replaced the obsolete Finance escape-helper-name assertion with actual renderer checks for literal external account text, unknown null amounts and exact negative cents. CSP, native routes, data and all existing accounting/confirmation/retry requirements remain.",
+    "dynamic_candidates": 796,
+    "finance_direct_candidates": 7,
+    "finance_candidates_limit": "Six internal exceptions are displayed through safe localized error classification; one Dutch fallback is used only when the localization runtime is absent. Generated/backend copy still needs broader review.",
+    "evidence_limit": "This bounded page/controller acceptance does not establish full-surface localization, browser pixels, accessibility, responsive/native-speaker quality, real voice/provider quality, cognition or demo universes. All broader genuine code gaps remain open.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

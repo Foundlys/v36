@@ -205,3 +205,14 @@ Before continuing Finance page localization, two reproduced source defects are f
 Finance display preserves cents rather than rounding source amounts to whole euros. Strict typed observations distinguish absent lists, malformed/nonfinite values, genuine zero and boolean availability/durability. Native routes, legal-entity/date filters, CSV bytes, backend permissions and accounting mutations are unchanged. Nine page tests and all 198 ZERO tests plus 14/14 foundation corpus cases pass. Seven targeted loading/controller/HTTP/workspace regressions passed the source-guard change; final missing-journal/P&L-list presentation is additionally covered in the full ZERO run and awaits the new published CI. Structural tests calling their result accessible/responsive are not treated as browser or assistive-technology evidence.
 
 Finance owned labels and the wider localization scope remain the next open gap. The conservative audit lists 806 candidates, including new internal exceptions; this is not a full-surface localization pass. No production mutation, main merge or Run-3 work occurred.
+
+
+### Continuation: Finance page locale bindings, 24 September 2026
+
+Finance source head `b9815a7c1f0b9e8b6261555dabe699fef22dea7d`, tree `a8eeeadba055dad432c745e1152b36b1bcf0d41b`, has CI 171 (`36047055303`) still running at this checkpoint. CI 170 remains the latest completed successful broad run.
+
+Finance page entity options, KPIs, posted-source labels, P&L, aging, budget/forecast, compliance, journal states and request feedback now use explicit live bindings in all eight locales. Exact native cents, source currency and UTC financial observations retain their meaning. Native source text and IDs, filters, authored questions, editor identity, confirmation state and CSV bytes remain unchanged. Locale changes issue no requests. Unknowns remain distinct from observed zero and empty lists; malformed export content does not create a file. Access invalidation also clears the prior API-reachable presentation.
+
+Four additional locale/ownership tests bring the Finance controller checks to 13; all 202 ZERO tests and 14/14 foundation corpus cases pass. Seven targeted workspace/loading/scenario/closing controller and real local HTTP suites pass. The obsolete escape-helper-name regression now checks actual literal DOM account text and exact/unknown amounts, preserving the original safety requirement. Catalog aliases and expected localized empty-state labels were verified before this checkpoint; no test is skipped.
+
+The conservative audit lists 796 candidates overall. Finance has six internal exceptions classified into localized errors and one no-runtime fallback; other surfaces and generated/backend copy remain open. The next direct presentation gap is CRM page rendering. Full-surface locale, browser, accessibility, native-speaker, voice and wider Run-2 gates remain unaccepted. Main and production are unchanged; Run 3 has not started.
