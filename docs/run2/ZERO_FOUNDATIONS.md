@@ -170,3 +170,14 @@ Automotive status, provider observations and overview labels now use explicit bi
 Two before-fix controller checks reproduced false marketplace readiness and retained private dealer/inventory data after access denial. Corrected status failure handling clears those observations, result/detail panels and dependent answers. Late status, search, enrichment, detail, opportunity and ZERO replies cannot repopulate views after current access is denied; closing a pending detail prevents reopening. Eight controller checks, all 176 ZERO tests, 14/14 foundation corpus cases and the existing Automotive core/HTTP/masterbuild suites pass. Native provider transports are deterministic fixtures, not live acceptance.
 
 The conservative direct-copy inventory lists 814 candidates, including 16 in the Automotive controller. Search/results/detail presentation remains the next open gap. Full localization, browser/layout, accessibility, voice, cognitive, demo and broader Run-2 gates remain open. Main, production and the frozen dashboard geometry are unchanged; Run 3 has not started.
+
+
+### Continuation: Automotive search and opportunities, 24 September 2026
+
+The full CI 168 test job (`107780829745`, run `36043387312`) passed Automotive status head `7bea53370d118eb9fa557db8998b9274b53e3f79`, tree `e8eb7265718837ac9f8458cd9df789c27c300ca4`.
+
+Search criteria, vehicle cards, opportunity ranking and ZERO request framing now have live eight-locale bindings, including known native enum labels, numbers, currency and loading accessibility labels. Business identity, native payloads, authored queries, provider IDs and model answers remain literal. Unknown source states do not become verified; unavailable card scores do not become numbers. Native zero remains zero, and locale changes do not issue requests or replace cards.
+
+Before-fix tests reproduced denied search retaining prior criteria/detail data and missing result arrays becoming zero. Both are repaired. Denials during search, enrichment, opportunities or details clear previous observations and invalidate pending callbacks. Pending searches and ZERO turns reject duplicates. Seven new controller tests, the combined 15 Automotive tests, all 183 ZERO tests, 14/14 foundation corpus cases and existing Automotive HTTP/masterbuild regressions pass. The Swedish unknown-state assertion was corrected to the catalog’s grammatical state form; no acceptance check was removed.
+
+The conservative audit now lists 801 candidates, including three direct Automotive expressions; remaining detail template copy is not fully captured by this audit. Vehicle detail rendering is the next open gap. Full localization and the wider Run-2 exit contract remain incomplete. No production mutation, main merge or Run-3 work occurred.

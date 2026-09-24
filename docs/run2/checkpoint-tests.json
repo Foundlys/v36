@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-24T18:44:12.054382+00:00",
+  "recorded_at": "2026-09-24T18:54:23.234198+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -1159,6 +1159,67 @@
     "dynamic_candidates": 814,
     "automotive_direct_candidates": 16,
     "evidence_limit": "Controller and deterministic native tests are not live provider, browser/layout, accessibility, native-speaker or complete localization acceptance. Automotive search/detail copy and other Run-2 code gaps remain.",
+    "current_ci": {
+      "run_number": 168,
+      "run_id": 36043387312,
+      "job_id": 107780829745,
+      "job_conclusion": "success"
+    },
+    "published_commit": "7bea53370d118eb9fa557db8998b9274b53e3f79",
+    "published_tree": "e8eb7265718837ac9f8458cd9df789c27c300ca4"
+  },
+  "automotive_search_locale_checkpoint": {
+    "recorded_at": "2026-09-24T18:54:23.234198+00:00",
+    "source_sha256": {
+      "automotive-script.js": "95ab70845da746696755055b201be1065d35d396f95d572968a6913065804669",
+      "foundly-locales.js": "2cb3d7bcc59b4008a65e52e5c55ddf34ac2e59ff09df9f85b67b38dd5911a6bf",
+      "zero/automotive-search-localization.test.js": "b7d98d0575ed90262ede9aff52f616619be4fb8910a57fbe19d996c00cc3b4cb",
+      "zero-evaluation/automotive-page-fixture.js": "828d025a74b6faf0ba3bec1d5f523c1d52a13bb40e9c6e95aaec52e3c404d169"
+    },
+    "logs": {
+      "run2-automotive-search-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "72bcfeb8ec575586b39de11eef47948bdd226d545ba1f0b4ee8904a88dded883",
+        "bytes": 1869
+      },
+      "run2-automotive-search-localization.log": {
+        "exit_code": 0,
+        "sha256": "b5c0d56a16fa105ae8e333aa052ae41d43e4b3e45a41725014491ecce5c79ca4",
+        "bytes": 1977
+      },
+      "run2-automotive-search-zero.log": {
+        "exit_code": 0,
+        "sha256": "74407197f7fb2a56e55c050789dce5f90a9b1b738d882e783d3374cae3e558f2",
+        "bytes": 22907
+      },
+      "run2-automotive-search-native.log": {
+        "exit_code": 0,
+        "sha256": "75c231a1579113c2d83d0ae6a8fff61f08973506ef39262866c3fe751db18c03",
+        "bytes": 1234
+      }
+    },
+    "new_controller_tests": 7,
+    "combined_automotive_tests": 15,
+    "full_zero_tests": 183,
+    "full_zero_pass": 183,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "commands": [
+        "node automotive-api-regression-test.js",
+        "node foundly-masterbuild-regression-test.js"
+      ],
+      "exit_code": 0
+    },
+    "scope": "Eight-locale search criteria/results, vehicle cards, provider execution states, opportunity ranking, loading/empty/error states and ZERO request framing. Existing native routes/payloads, business records and authored questions remain intact; locale changes do no I/O and retain node identity.",
+    "reproduced_defects": [
+      "Denied search retained source criteria and vehicle detail. Denial observed during search, enrichment, opportunities or detail now clears previous Automotive observations and prevents late replies from restoring them.",
+      "Missing search results became an observed zero. Malformed or absent result arrays now remain unknown; actual empty arrays preserve zero."
+    ],
+    "additional_guards": "Pending searches and ZERO turns reject duplicates. Search entry invalidates pending old detail reads. Missing or unavailable Buy Scores in result/opportunity cards remain unknown; literal model names are no longer title-cased.",
+    "dynamic_candidates": 801,
+    "automotive_direct_candidates": 3,
+    "evidence_limit": "Remaining vehicle detail templates and generated/backend copy are open. Native deterministic tests are not browser/layout, native-speaker or live provider evidence. All full-surface locale gates and other code-controlled Run-2 defects remain open.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

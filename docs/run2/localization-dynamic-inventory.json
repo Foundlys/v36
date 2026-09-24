@@ -50,95 +50,21 @@
     },
     {
       "file": "automotive-script.js",
-      "sha256": "2edca52dc5d6f257d41f4a7f8e9701ff995ffded4141da882e0bc98880428302",
+      "sha256": "95ab70845da746696755055b201be1065d35d396f95d572968a6913065804669",
       "items": [
         {
-          "line": 153,
-          "start": 16202,
-          "end": 16623,
-          "context": "innerHTML",
-          "text": "<dl>{p0}</dl>\n    <div class=\"provider-execution\">{p1}</div>",
-          "parameters": [
-            "fields.map(([key, value]) => `<div><dt>${escapeHtml(criteriaLabels[key] || label(key))}</dt><dd>${escapeHtml(criteriaValue(key, value))}</dd></div>`).join('')",
-            "(search.provider_executions || []).map(provider => `<span class=\"state-pill ${escapeHtml(provider.state.toLowerCase())}\">${escapeHtml(provider.provider)} · ${escapeHtml(provider.state)}</span>`).join('')"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 190,
-          "start": 19278,
-          "end": 19539,
-          "context": "innerHTML",
-          "text": "<div class=\"empty-state\"><span class=\"empty-orbit\" aria-hidden=\"true\"></span><h3>{p0}</h3><p>{p1}</p></div>",
-          "parameters": [
-            "escapeHtml(state)",
-            "escapeHtml(providerText || 'Pas criteria aan of configureer een officiële marketplace-provider. Er wordt geen demo-inventaris ingevuld.')"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 214,
-          "start": 20774,
-          "end": 20882,
-          "context": "innerHTML",
-          "text": "<div class=\"loading-grid\"><span class=\"loading-ring\" aria-label=\"Providers worden doorzocht\"></span></div>",
-          "parameters": [],
-          "rich_text": true
-        },
-        {
-          "line": 220,
-          "start": 21104,
-          "end": 21127,
-          "context": "textContent",
-          "text": "Provider-query actief",
+          "line": 186,
+          "start": 25214,
+          "end": 25250,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Invalid Automotive search response",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 229,
-          "start": 21632,
-          "end": 21690,
-          "context": "textContent",
-          "text": "{p0} · {p1} listings",
-          "parameters": [
-            "label(search.status)",
-            "app.results.length"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 233,
-          "start": 21892,
-          "end": 21967,
-          "context": "toast",
-          "text": "De query is uitgevoerd; er zijn geen echte passende marketplace-listings.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 237,
-          "start": 22180,
-          "end": 22195,
-          "context": "textContent",
-          "text": "Query mislukt",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 238,
-          "start": 22231,
-          "end": 22334,
-          "context": "innerHTML",
-          "text": "<div class=\"empty-state\"><h3>Zoekopdracht niet voltooid</h3><p>{p0}</p></div>",
-          "parameters": [
-            "escapeHtml(error.message)"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 322,
-          "start": 29064,
-          "end": 29178,
+          "line": 272,
+          "start": 33158,
+          "end": 33272,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -148,9 +74,9 @@
           "rich_text": false
         },
         {
-          "line": 324,
-          "start": 29279,
-          "end": 29548,
+          "line": 274,
+          "start": 33373,
+          "end": 33642,
           "context": "textContent",
           "text": "{p0} · {p1} · {p2} · {p3}",
           "parameters": [
@@ -158,68 +84,6 @@
             "formatNumber(candidate.vehicle?.mileage_km, ' km')",
             "candidate.vehicle?.build_year || 'jaar onbekend'",
             "[candidate.seller?.city, candidate.seller?.country].filter(Boolean).join(', ') || 'locatie onbekend'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 334,
-          "start": 30270,
-          "end": 30305,
-          "context": "toast",
-          "text": "Voertuiganalyse: {p0}",
-          "parameters": [
-            "error.message"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 340,
-          "start": 30470,
-          "end": 30660,
-          "context": "innerHTML",
-          "text": "<div class=\"empty-state small\"><h3>Geen evidence-backed Top 3</h3><p>{p0}</p></div>",
-          "parameters": [
-            "escapeHtml(payload.explanation || payload.reason || 'Er zijn geen echte marketplace-records beschikbaar.')"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 350,
-          "start": 31668,
-          "end": 31772,
-          "context": "innerHTML",
-          "text": "<div class=\"loading-grid\"><span class=\"loading-ring\" aria-label=\"Kansen worden berekend\"></span></div>",
-          "parameters": [],
-          "rich_text": true
-        },
-        {
-          "line": 352,
-          "start": 32083,
-          "end": 32189,
-          "context": "innerHTML",
-          "text": "<div class=\"empty-state small\"><h3>Kansen niet beschikbaar</h3><p>{p0}</p></div>",
-          "parameters": [
-            "escapeHtml(error.message)"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 360,
-          "start": 32483,
-          "end": 32518,
-          "context": "textContent",
-          "text": "ZERO analyseert de tenantcontext…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 375,
-          "start": 33370,
-          "end": 33424,
-          "context": "textContent",
-          "text": "ZERO kon de opdracht niet afronden: {p0}",
-          "parameters": [
-            "error.message"
           ],
           "rich_text": false
         }

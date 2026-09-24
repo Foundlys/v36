@@ -38,7 +38,7 @@ function label(value) {
 }
 
 function vehicleName(candidate = {}) {
-  return [candidate.vehicle?.make, candidate.vehicle?.model, candidate.vehicle?.variant, candidate.vehicle?.trim].filter(Boolean).join(' ') || 'Naam niet geleverd';
+  return [candidate.vehicle?.make, candidate.vehicle?.model, candidate.vehicle?.variant, candidate.vehicle?.trim].filter(Boolean).join(' ') || searchCopy('name_missing','Naam niet geleverd');
 }
 
 function toast(message, type = 'info') {
@@ -124,6 +124,7 @@ function invalidateAutomotiveAccess(){
  app.accessGeneration++;app.accessAllowed=false;app.searchPending=app.zeroPending=false;app.search=null;app.results=[];app.analyses.clear();app.selectedId=null;
  for(const id of ['vehicleGrid','criteriaPanel','todayList','detailContent','detailImage','detailProvider','detailTitle','detailSubtitle','zeroAnswer'])$('#'+id).replaceChildren();
  autoRender($('#resultCount'),autoUnknown());autoRender($('#detailScore').querySelector('strong'),autoUnknown());$('#sourceLink').removeAttribute('href');$('#sourceLink').hidden=true;$('#vehicleDetail').hidden=true;$('#criteriaPanel').hidden=true;$('#searchButton').disabled=true;$('#zeroQuery').disabled=true;$('#zeroForm button').disabled=true;
+ app.status=app.overview=null;$('#automotiveOverviewGrid').replaceChildren();$('#providerGrid').replaceChildren();autoRender($('#partnerName'),autoCopy('dealer_unknown','Dealer onbekend'));autoRender($('#footerVersion'),autoUnknown());autoRender($('#automotiveObserved'),autoUnknown());autoRender($('#inventoryOperationState'),autoCopy('inventory_unknown','Voorraadwaarnemingen zijn niet beschikbaar.'));autoRender($('#correlationState'),autoUnknown());autoRender($('#searchState'),autoError({status:403}));$('#railStatusLight').className='status-light error';autoRender($('#railStatusText'),autoCopy('unavailable_short','Niet beschikbaar'));
 }
 async function loadStatus(){
  const token=++app.statusGeneration,access=app.accessGeneration;
@@ -132,112 +133,61 @@ async function loadStatus(){
   const host=$('#providerGrid');host.replaceChildren();const card=autoElement('div','','empty-state small');card.append(autoElement('h3',autoCopy('unavailable','Providerstatus is niet beschikbaar.')),autoElement('p',autoError(error)));host.append(card);toast(autoCopy('load_error','Providerstatus: {reason}',{reason:autoError(error)}),'error');}
 }
 
-const criteriaLabels = {
-  make: 'Merk', model: 'Model', variant: 'Variant', trim: 'Uitvoering', year_min: 'Vanaf', year_max: 'Tot',
-  mileage_min_km: 'Km vanaf', mileage_max_km: 'Km maximaal', purchase_price_min_eur: 'Prijs vanaf',
-  purchase_price_max_eur: 'Inkoop maximaal', country: 'Land', fuel: 'Brandstof', transmission: 'Transmissie',
-  drivetrain: 'Aandrijving', power_min_kw: 'Vermogen vanaf', options: 'Opties'
-};
-
-function criteriaValue(key, value) {
-  if (key.includes('price')) return formatEur(value);
-  if (key.includes('mileage')) return formatNumber(value, ' km');
-  if (key === 'power_min_kw') return formatNumber(value, ' kW');
-  if (Array.isArray(value)) return value.join(', ');
-  return label(value);
+const searchCopy=(key,fallback,params={})=>globalThis.FoundlyI18n?FoundlyI18n.message('automotive.search.'+key,params):String(fallback).replace(/\{([a-z_]+)\}/g,(_,name)=>String(params[name]??''));
+function autoAttr(node,key,value){if(globalThis.FoundlyI18n)FoundlyI18n.renderAttribute(node,key,value);else node.setAttribute(key,String(value));}
+const autoFinite=value=>typeof value==='number'&&Number.isFinite(value),autoDecimal=(value,options={})=>autoLive(()=>autoFinite(value)?new Intl.NumberFormat(globalThis.FoundlyI18n?.locale||'nl-NL',{maximumFractionDigits:2,...options}).format(value):String(autoUnknown())),autoMoney=value=>autoDecimal(value,{style:'currency',currency:'EUR',maximumFractionDigits:0});
+const SEARCH_ENUMS=['PETROL','DIESEL','ELECTRIC','HYBRID','PLUGIN_HYBRID','LPG','HYDROGEN','AUTOMATIC','MANUAL','AWD','RWD','FWD','COMPLETED','PARTIAL','INSUFFICIENT_EVIDENCE'];
+function searchEnum(value){const code=typeof value==='string'?value.toUpperCase():'';if(AUTO_STATES.includes(code))return autoState(code);return SEARCH_ENUMS.includes(code)?searchCopy('enum.'+code.toLowerCase(),code):typeof value==='string'&&value?value:autoUnknown();}
+function autoEmpty(title,body,small=false){const node=autoElement('div','','empty-state'+(small?' small':''));node.append(autoElement('h3',title),autoElement('p',body));return node;}
+function autoLoading(message){const node=autoElement('div','','loading-grid'),ring=autoElement('span','','loading-ring');autoAttr(ring,'aria-label',message);node.append(ring);return node;}
+function searchDenied(error,access){if([401,403].includes(error.status)&&access===app.accessGeneration){invalidateAutomotiveAccess();return true;}return false;}
+const criteriaLabels={make:'Merk',model:'Model',variant:'Variant',trim:'Uitvoering',year_min:'Vanaf',year_max:'Tot',mileage_min_km:'Km vanaf',mileage_max_km:'Km maximaal',purchase_price_min_eur:'Prijs vanaf',purchase_price_max_eur:'Inkoop maximaal',country:'Land',fuel:'Brandstof',transmission:'Transmissie',drivetrain:'Aandrijving',power_min_kw:'Vermogen vanaf',options:'Opties'};
+function criteriaValue(key,value){
+ if(['purchase_price_min_eur','purchase_price_max_eur'].includes(key))return autoValue(autoMoney(value));
+ if(['mileage_min_km','mileage_max_km','power_min_kw'].includes(key))return searchCopy('unit','{value} {unit}',{value:autoDecimal(value),unit:key==='power_min_kw'?'kW':'km'});
+ if(['fuel','transmission','drivetrain'].includes(key))return searchEnum(value);
+ if(['year_min','year_max'].includes(key))return autoCount(value)?String(value):autoUnknown();
+ if(Array.isArray(value))return value.join(', ');return value;
 }
-
-function renderCriteria(search) {
-  const fields = Object.entries(search.criteria || {}).filter(([, value]) => value !== null && value !== undefined && value !== '' && (!Array.isArray(value) || value.length));
-  $('#criteriaPanel').hidden = false;
-  $('#criteriaPanel').innerHTML = `<dl>${fields.map(([key, value]) => `<div><dt>${escapeHtml(criteriaLabels[key] || label(key))}</dt><dd>${escapeHtml(criteriaValue(key, value))}</dd></div>`).join('')}</dl>
-    <div class="provider-execution">${(search.provider_executions || []).map(provider => `<span class="state-pill ${escapeHtml(provider.state.toLowerCase())}">${escapeHtml(provider.provider)} · ${escapeHtml(provider.state)}</span>`).join('')}</div>`;
+function renderCriteria(search){
+ const panel=$('#criteriaPanel'),list=autoElement('dl'),execution=autoElement('div','','provider-execution');
+ const fields=Object.entries(search.criteria||{}).filter(([,value])=>value!==null&&value!==undefined&&value!==''&&(!Array.isArray(value)||value.length));
+ for(const [key,value]of fields){const row=autoElement('div');row.append(autoElement('dt',Object.hasOwn(criteriaLabels,key)?searchCopy('field.'+key,criteriaLabels[key]):key),autoElement('dd',criteriaValue(key,value)));list.append(row);}
+ for(const provider of Array.isArray(search.provider_executions)?search.provider_executions:[]){const state=providerState(provider);execution.append(autoElement('span',searchCopy('provider_state','{provider} · {state}',{provider:provider.provider||autoUnknown(),state:autoState(state)}),'state-pill '+state.toLowerCase()));}
+ panel.replaceChildren(list,execution);panel.hidden=false;
 }
-
-function analysisFor(id) { return app.analyses.get(id) || null; }
-
-function vehicleCard(candidate) {
-  const analysis = analysisFor(candidate.canonical_listing_id), score = analysis?.buy_score?.score;
-  const freshness = candidate.listing?.freshness?.classification || 'UNAVAILABLE';
-  const location = [candidate.seller?.city, candidate.seller?.country].filter(Boolean).join(', ') || 'Locatie onbekend';
-  const image = candidate.vehicle?.images?.length ? `<img src="/api/automotive/images/${encodeURIComponent(candidate.canonical_listing_id)}/0" alt="${escapeHtml(vehicleName(candidate))}" loading="lazy">` : '';
-  return `<article class="vehicle-card">
-    <div class="vehicle-image">${image}<span class="freshness ${escapeHtml(freshness.toLowerCase())}">${escapeHtml(freshness)}</span><span class="provider-label">${escapeHtml(candidate.identity?.provider || 'provider')}</span></div>
-    <div class="vehicle-body">
-      <div class="vehicle-title-row"><h3 title="${escapeHtml(vehicleName(candidate))}">${escapeHtml(vehicleName(candidate))}</h3><span class="mini-score" title="Foundly Buy Score">${score ?? '—'}</span></div>
-      <p class="vehicle-price">${escapeHtml(formatEur(candidate.commercial?.gross_price_eur))}</p>
-      <p class="vehicle-location">${escapeHtml(location)}</p>
-      <div class="vehicle-specs">
-        <div><span>Bouwjaar</span><strong>${escapeHtml(candidate.vehicle?.build_year || '—')}</strong></div>
-        <div><span>Kilometers</span><strong>${escapeHtml(formatNumber(candidate.vehicle?.mileage_km))}</strong></div>
-        <div><span>Brandstof</span><strong>${escapeHtml(label(candidate.vehicle?.fuel || '—'))}</strong></div>
-      </div>
-      <button type="button" data-vehicle-id="${escapeHtml(candidate.canonical_listing_id)}">Open evidence</button>
-    </div>
-  </article>`;
+function analysisFor(id){return app.analyses.get(id)||null;}
+function displayScore(score){return score?.available===true&&autoFinite(score.score)&&score.score>=0&&score.score<=100?autoValue(autoDecimal(score.score)):autoUnknown();}
+function vehicleImage(candidate,className){const host=autoElement('div','',className);if(Array.isArray(candidate.vehicle?.images)&&candidate.vehicle.images.length){const image=autoElement('img');image.src='/api/automotive/images/'+encodeURIComponent(candidate.canonical_listing_id)+'/0';autoAttr(image,'alt',vehicleName(candidate));image.loading='lazy';image.addEventListener('error',()=>image.remove(),{once:true});host.append(image);}return host;}
+function vehicleButton(candidate,value,className){const button=autoElement('button',value,className);button.type='button';button.setAttribute('data-vehicle-id',candidate.canonical_listing_id);button.addEventListener('click',()=>showVehicle(candidate.canonical_listing_id));return button;}
+function vehicleCard(candidate){
+ const card=autoElement('article','','vehicle-card'),image=vehicleImage(candidate,'vehicle-image'),raw=candidate.listing?.freshness?.classification,freshness=['LIVE','CACHED','STALE','UNAVAILABLE'].includes(raw)?raw:'UNKNOWN';
+ image.append(autoElement('span',autoState(freshness),'freshness '+freshness.toLowerCase()),autoElement('span',candidate.identity?.provider||autoUnknown(),'provider-label'));
+ const body=autoElement('div','','vehicle-body'),titleRow=autoElement('div','','vehicle-title-row'),title=autoElement('h3',vehicleName(candidate)),score=autoElement('span',displayScore(analysisFor(candidate.canonical_listing_id)?.buy_score),'mini-score');autoAttr(title,'title',vehicleName(candidate));autoAttr(score,'title','Foundly Buy Score');titleRow.append(title,score);
+ const specs=autoElement('div','','vehicle-specs');for(const [key,name,value]of [['year','Bouwjaar',autoCount(candidate.vehicle?.build_year)?String(candidate.vehicle.build_year):autoUnknown()],['mileage','Kilometers',autoValue(autoDecimal(candidate.vehicle?.mileage_km))],['fuel','Brandstof',searchEnum(candidate.vehicle?.fuel)]]){const item=autoElement('div');item.append(autoElement('span',searchCopy(key,name)),autoElement('strong',value));specs.append(item);}
+ body.append(titleRow,autoElement('p',autoValue(autoMoney(candidate.commercial?.gross_price_eur)),'vehicle-price'),autoElement('p',[candidate.seller?.city,candidate.seller?.country].filter(Boolean).join(', ')||searchCopy('location_unknown','Locatie onbekend'),'vehicle-location'),specs,vehicleButton(candidate,searchCopy('open','Open bewijs')));card.append(image,body);return card;
 }
-
-function bindVehicleButtons(root = document) {
-  root.querySelectorAll('[data-vehicle-id]').forEach(button => button.addEventListener('click', () => showVehicle(button.dataset.vehicleId)));
-  root.querySelectorAll('.vehicle-image img, .detail-image img').forEach(image => image.addEventListener('error', () => image.remove(), { once: true }));
+function bindVehicleButtons(root=document){root.querySelectorAll('[data-vehicle-id]').forEach(button=>button.addEventListener('click',()=>showVehicle(button.dataset.vehicleId)));root.querySelectorAll('.vehicle-image img, .detail-image img').forEach(image=>image.addEventListener('error',()=>image.remove(),{once:true}));}
+function renderResults(){
+ const known=Array.isArray(app.search?.results),host=$('#vehicleGrid');autoRender($('#resultCount'),known?autoValue(autoNumber(app.results.length)):autoUnknown());
+ if(!app.results.length){const title=app.search?.status==='unavailable'?searchCopy('providers_unavailable','Geen marketplace-provider bereikbaar'):known?searchCopy('no_matches','Geen passende echte listings'):searchCopy('results_unknown','Zoekresultaten niet beschikbaar');host.replaceChildren(autoEmpty(title,searchCopy('no_inventory','Pas criteria aan of configureer een officiële marketplace-provider. Er wordt geen demo-inventaris ingevuld.')));return;}
+ host.replaceChildren(...app.results.slice(0,24).map(vehicleCard));
 }
-
-function renderResults() {
-  $('#resultCount').textContent = app.results.length ? String(app.results.length) : '0';
-  if (!app.results.length) {
-    const state = app.search?.status === 'unavailable' ? 'Geen marketplace-provider bereikbaar' : 'Geen passende echte listings';
-    const providerText = (app.search?.provider_executions || []).map(item => `${item.provider}: ${item.state}${item.error?.code ? ` (${item.error.code})` : ''}`).join(' · ');
-    $('#vehicleGrid').innerHTML = `<div class="empty-state"><span class="empty-orbit" aria-hidden="true"></span><h3>${escapeHtml(state)}</h3><p>${escapeHtml(providerText || 'Pas criteria aan of configureer een officiële marketplace-provider. Er wordt geen demo-inventaris ingevuld.')}</p></div>`;
-    return;
-  }
-  $('#vehicleGrid').innerHTML = app.results.slice(0, 24).map(vehicleCard).join('');
-  bindVehicleButtons($('#vehicleGrid'));
+async function enrichResults(generation=app.searchGeneration,access=app.accessGeneration){
+ const candidates=app.results.slice(0,24),analyses=await Promise.all(candidates.map(async candidate=>{try{const payload=await api(`/api/automotive/vehicles/${encodeURIComponent(candidate.canonical_listing_id)}/analysis`);return [candidate.canonical_listing_id,payload.analysis];}catch(error){searchDenied(error,access);return [candidate.canonical_listing_id,null];}}));
+ if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
+ for(const [id,analysis]of analyses)if(analysis)app.analyses.set(id,analysis);
+ const score=candidate=>{const value=analysisFor(candidate.canonical_listing_id)?.buy_score;return value?.available===true&&autoFinite(value.score)&&value.score>=0&&value.score<=100?value.score:-1;};app.results.sort((left,right)=>score(right)-score(left));renderResults();
 }
-
-async function enrichResults(generation=app.searchGeneration,access=app.accessGeneration) {
-  const candidates = app.results.slice(0, 24);
-  const analyses = await Promise.all(candidates.map(async candidate => {
-    try {
-      const payload = await api(`/api/automotive/vehicles/${encodeURIComponent(candidate.canonical_listing_id)}/analysis`);
-      return [candidate.canonical_listing_id, payload.analysis];
-    } catch { return [candidate.canonical_listing_id, null]; }
-  }));
-  if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
-  for (const [id, analysis] of analyses) if (analysis) app.analyses.set(id, analysis);
-  app.results.sort((left, right) => (analysisFor(right.canonical_listing_id)?.buy_score?.score ?? -1) - (analysisFor(left.canonical_listing_id)?.buy_score?.score ?? -1));
-  renderResults();
-}
-
-function setSearchLoading(loading) {
-  $('#searchButton').disabled = loading;
-  $('#searchButton').querySelector('span').textContent = loading ? 'Providers zoeken' : 'Analyseer markt';
-  if (loading) $('#vehicleGrid').innerHTML = '<div class="loading-grid"><span class="loading-ring" aria-label="Providers worden doorzocht"></span></div>';
-}
-
-async function runSearch(query) {
-  if(!app.accessAllowed)return;const generation=++app.searchGeneration,access=app.accessGeneration;app.searchPending=true;
-  setSearchLoading(true);
-  $('#searchState').textContent = 'Provider-query actief';
-  try {
-    const search = await api('/api/automotive/search', { method: 'POST', body: JSON.stringify({ query }) });
-    if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
-    app.search = search;
-    app.results = search.results || [];
-    app.analyses.clear();
-    renderCriteria(search);
-    $('#correlationState').textContent = search.correlation_id ? `Trace ${search.correlation_id.slice(0, 12)}` : 'Trace voltooid';
-    $('#searchState').textContent = `${label(search.status)} · ${app.results.length} listings`;
-    renderResults();
-    await enrichResults(generation,access);
-    if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
-    if (!app.results.length) toast('De query is uitgevoerd; er zijn geen echte passende marketplace-listings.', search.status === 'unavailable' ? 'error' : 'info');
-  } catch (error) {
-    if(generation!==app.searchGeneration||access!==app.accessGeneration)return;
-    app.results = [];
-    $('#searchState').textContent = 'Query mislukt';
-    $('#vehicleGrid').innerHTML = `<div class="empty-state"><h3>Zoekopdracht niet voltooid</h3><p>${escapeHtml(error.message)}</p></div>`;
-    toast(error.message, 'error');
-  } finally { if(generation===app.searchGeneration&&access===app.accessGeneration){app.searchPending=false;setSearchLoading(false);} }
+function setSearchLoading(loading){$('#searchButton').disabled=loading||!app.accessAllowed;autoRender($('#searchButton').querySelector('span'),loading?searchCopy('searching','Providers zoeken'):searchCopy('analyse','Analyseer markt'));if(loading)$('#vehicleGrid').replaceChildren(autoLoading(searchCopy('search_loading','Providers worden doorzocht')));}
+async function runSearch(query){
+ if(!app.accessAllowed||app.searchPending)return;const generation=++app.searchGeneration,access=app.accessGeneration;app.searchPending=true;app.search=null;app.results=[];app.analyses.clear();app.selectedId=null;app.detailGeneration++;$('#vehicleDetail').hidden=true;$('#detailContent').replaceChildren();$('#criteriaPanel').replaceChildren();$('#criteriaPanel').hidden=true;autoRender($('#resultCount'),autoUnknown());autoRender($('#correlationState'),autoUnknown());setSearchLoading(true);autoRender($('#searchState'),searchCopy('active','Provider-query actief'));
+ try{const search=await api('/api/automotive/search',{method:'POST',body:JSON.stringify({query})});if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;
+  if(!Array.isArray(search.results))throw Object.assign(new Error('Invalid Automotive search response'),{code:'automotive_response_invalid'});
+  app.search=search;app.results=search.results;renderCriteria(search);autoRender($('#correlationState'),typeof search.correlation_id==='string'&&search.correlation_id?searchCopy('trace','Trace {id}',{id:search.correlation_id.slice(0,12)}):searchCopy('trace_done','Trace voltooid'));autoRender($('#searchState'),searchCopy('result_state','{state} · {count} listings',{state:searchEnum(search.status),count:autoNumber(app.results.length)}));renderResults();await enrichResults(generation,access);
+  if(generation!==app.searchGeneration||access!==app.accessGeneration||!app.accessAllowed)return;if(!app.results.length)toast(searchCopy('empty_query','De query is uitgevoerd; er zijn geen echte passende marketplace-listings.'),search.status==='unavailable'?'error':'info');
+ }catch(error){if(generation!==app.searchGeneration||access!==app.accessGeneration)return;if(searchDenied(error,access)){toast(autoError(error),'error');return;}app.search=null;app.results=[];autoRender($('#searchState'),searchCopy('failed','Query mislukt'));$('#vehicleGrid').replaceChildren(autoEmpty(searchCopy('incomplete','Zoekopdracht niet voltooid'),autoError(error)));toast(autoError(error),'error');
+ }finally{if(generation===app.searchGeneration&&access===app.accessGeneration){app.searchPending=false;setSearchLoading(false);}}
 }
 
 function metric(title, value, note) {
@@ -331,50 +281,26 @@ async function showVehicle(id) {
     renderDetailContent();
     $('#vehicleDetail').hidden = false;
     $('#vehicleDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch (error) { if(generation===app.detailGeneration&&access===app.accessGeneration)toast(`Voertuiganalyse: ${error.message}`, 'error'); }
+  } catch (error) { if(generation===app.detailGeneration&&access===app.accessGeneration){searchDenied(error,access);toast(searchCopy('detail_error','Voertuiganalyse: {reason}',{reason:autoError(error)}),'error');} }
 }
 
-function renderToday(payload) {
-  const opportunities = payload.opportunities || [];
-  if (!opportunities.length) {
-    $('#todayList').innerHTML = `<div class="empty-state small"><h3>Geen evidence-backed Top 3</h3><p>${escapeHtml(payload.explanation || payload.reason || 'Er zijn geen echte marketplace-records beschikbaar.')}</p></div>`;
-    return;
-  }
-  for (const item of opportunities) app.analyses.set(item.candidate.canonical_listing_id, item);
-  $('#todayList').innerHTML = opportunities.map(item => `<button class="today-item" type="button" data-vehicle-id="${escapeHtml(item.candidate.canonical_listing_id)}"><span class="today-rank">${escapeHtml(item.rank)}</span><span class="today-copy"><strong>${escapeHtml(vehicleName(item.candidate))}</strong><span>${escapeHtml(formatEur(item.candidate.commercial?.gross_price_eur))} · ${escapeHtml(item.candidate.identity.provider)} · ${escapeHtml(item.candidate.listing.freshness.classification)}</span></span><span class="today-score">${escapeHtml(item.buy_score.score)}</span></button>`).join('') + (payload.warning ? `<div class="today-warning">${escapeHtml(payload.warning)}</div>` : '');
-  bindVehicleButtons($('#todayList'));
+function renderToday(payload){
+ const host=$('#todayList'),known=Array.isArray(payload.opportunities),opportunities=known?payload.opportunities:[];
+ if(!opportunities.length){host.replaceChildren(autoEmpty(known?searchCopy('no_top','Geen onderbouwde Top 3'):searchCopy('today_unavailable','Kansen niet beschikbaar'),payload.reason==='NO_REAL_MARKETPLACE_DATA'?searchCopy('no_records','Er zijn geen echte geverifieerde marketplace-listings beschikbaar.'):payload.explanation||payload.reason||searchCopy('insufficient','Er is onvoldoende bronbewijs voor een aanbeveling.'),true));return;}
+ const rows=opportunities.map(item=>{const candidate=item.candidate||{};app.analyses.set(candidate.canonical_listing_id,item);const button=vehicleButton(candidate,'','today-item'),copy=autoElement('span','','today-copy');copy.append(autoElement('strong',vehicleName(candidate)),autoElement('span',searchCopy('today_summary','{price} · {provider} · {freshness}',{price:autoMoney(candidate.commercial?.gross_price_eur),provider:candidate.identity?.provider||autoUnknown(),freshness:autoState(candidate.listing?.freshness?.classification)})));button.append(autoElement('span',autoValue(autoNumber(item.rank)),'today-rank'),copy,autoElement('span',displayScore(item.buy_score),'today-score'));return button;});
+ if(payload.warning)rows.push(autoElement('div',payload.personalisation==='UNCONFIGURED'?searchCopy('no_profile','Dealerprofiel ontbreekt; aanbevelingen bevatten geen dealerspecifieke voorkeuren.'):payload.warning,'today-warning'));host.replaceChildren(...rows);
 }
-
-async function loadToday() {
-  if(!app.accessAllowed)return;const generation=++app.todayGeneration,access=app.accessGeneration;
-  $('#todayList').innerHTML = '<div class="loading-grid"><span class="loading-ring" aria-label="Kansen worden berekend"></span></div>';
-  try { const payload=await api('/api/automotive/opportunities/today?limit=3');if(generation===app.todayGeneration&&access===app.accessGeneration&&app.accessAllowed)renderToday(payload); }
-  catch (error) { if(generation!==app.todayGeneration||access!==app.accessGeneration)return;$('#todayList').innerHTML = `<div class="empty-state small"><h3>Kansen niet beschikbaar</h3><p>${escapeHtml(error.message)}</p></div>`; }
+async function loadToday(){
+ if(!app.accessAllowed)return;const generation=++app.todayGeneration,access=app.accessGeneration;$('#todayList').replaceChildren(autoLoading(searchCopy('today_loading','Kansen worden berekend')));
+ try{const payload=await api('/api/automotive/opportunities/today?limit=3');if(generation===app.todayGeneration&&access===app.accessGeneration&&app.accessAllowed)renderToday(payload);}
+ catch(error){if(generation!==app.todayGeneration||access!==app.accessGeneration)return;searchDenied(error,access);$('#todayList').replaceChildren(autoEmpty(searchCopy('today_unavailable','Kansen niet beschikbaar'),autoError(error),true));}
 }
-
-async function askZero(message) {
-  if(!app.accessAllowed||app.zeroPending)return;app.zeroPending=true;const access=app.accessGeneration;
-  const input = $('#zeroQuery'), button = $('#zeroForm button');
-  input.disabled = true;
-  button.disabled = true;
-  $('#zeroAnswer').textContent = 'ZERO analyseert de tenantcontext…';
-  try {
-    app.zeroTurn++;
-    const payload = await api('/api/zero/turn', { method: 'POST', body: JSON.stringify({ message, conversation_id: app.zeroConversationId, turn_id: `automotive-ui-${Date.now()}-${app.zeroTurn}` }) });
-    if(access!==app.accessGeneration||!app.accessAllowed)return;
-    $('#zeroAnswer').textContent = payload.display_text || payload.answer || 'ZERO leverde geen tekstantwoord.';
-    const context = payload.automotive_data?.context;
-    if (context?.ranked?.length) {
-      for (const analysis of context.ranked) app.analyses.set(analysis.candidate.canonical_listing_id, analysis);
-      if (context.selected_candidate_id) app.selectedId = context.selected_candidate_id;
-      renderResults();
-    }
-    input.value = '';
-  } catch (error) {
-    if(access!==app.accessGeneration)return;
-    $('#zeroAnswer').textContent = `ZERO kon de opdracht niet afronden: ${error.message}`;
-    toast(error.message, 'error');
-  } finally { if(access===app.accessGeneration){app.zeroPending=false;input.disabled = false; button.disabled = false; input.focus();} }
+async function askZero(message){
+ if(!app.accessAllowed||app.zeroPending)return;app.zeroPending=true;const access=app.accessGeneration,input=$('#zeroQuery'),button=$('#zeroForm button');input.disabled=button.disabled=true;autoRender($('#zeroAnswer'),searchCopy('zero_loading','ZERO analyseert de tenantcontext…'));
+ try{app.zeroTurn++;const payload=await api('/api/zero/turn',{method:'POST',body:JSON.stringify({message,conversation_id:app.zeroConversationId,turn_id:`automotive-ui-${Date.now()}-${app.zeroTurn}`})});if(access!==app.accessGeneration||!app.accessAllowed)return;
+  autoRender($('#zeroAnswer'),payload.display_text||payload.answer||searchCopy('zero_empty','ZERO leverde geen tekstantwoord.'));const context=payload.automotive_data?.context;if(Array.isArray(context?.ranked)&&context.ranked.length){for(const analysis of context.ranked)app.analyses.set(analysis.candidate.canonical_listing_id,analysis);if(context.selected_candidate_id)app.selectedId=context.selected_candidate_id;renderResults();}input.value='';
+ }catch(error){if(access!==app.accessGeneration)return;if(error.status===401)invalidateAutomotiveAccess();autoRender($('#zeroAnswer'),searchCopy('zero_error','ZERO kon de opdracht niet afronden: {reason}',{reason:autoError(error)}));toast(autoError(error),'error');
+ }finally{if(access===app.accessGeneration){app.zeroPending=false;input.disabled=button.disabled=false;input.focus();}}
 }
 
 $('#automotiveSearchForm').addEventListener('submit', event => {
