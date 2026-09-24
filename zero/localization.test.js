@@ -114,7 +114,7 @@ test('actual ZERO telemetry follows the speech event independently of translated
 test('actual financial, CRM and vehicle presentation preserves calendar dates and does not fabricate zero from missing values',async()=>{
  const extract=(file,name)=>{const source=fs.readFileSync(require.resolve('../'+file),'utf8'),start=source.indexOf('function '+name+'('),end=source.indexOf('\nfunction ',start+1);assert.ok(start>=0&&end>start);return source.slice(start,end);};
  const context={FoundlyI18n:create('en-GB'),Intl:{...Intl,NumberFormat:Intl.NumberFormat,DateTimeFormat:function(locale,options){return new Intl.DateTimeFormat(locale,{timeZone:'America/New_York',...options});}}};vm.createContext(context);
- vm.runInContext(extract('finance-script.js','money')+extract('finance-script.js','formatDate'),context);assert.equal(context.money(123450),'€1,235');assert.equal(context.formatDate('2026-01-01'),'1 Jan 2026');
+ vm.runInContext(extract('finance-script.js','money')+extract('finance-script.js','formatDate'),context);assert.equal(context.money(123450),'€1,234.50');assert.equal(context.money(-1),'-€0.01');assert.equal(context.formatDate('2026-01-01'),'1 Jan 2026');
  vm.runInContext(extract('crm-script.js','formatMetric'),context);assert.equal(context.formatMetric({available:true,value:null,unit:'currency'}).available,false);assert.equal(context.formatMetric({available:true,value:0,unit:'currency'}).available,true);
  const vehicle=require('../zero-evaluation/automotive-page-fixture').fixture();await vehicle.context.loadStatus();await vehicle.context.loadToday();
  const card=value=>vehicle.context.vehicleCard({vehicle:{mileage_km:0},commercial:{gross_price_eur:value}});

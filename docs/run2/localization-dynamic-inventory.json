@@ -1011,7 +1011,7 @@
     },
     {
       "file": "finance-loading.js",
-      "sha256": "f56ad1d1363ed043804d370e2af0e94c5316c643a4d8329a42aef573abacfe45",
+      "sha256": "07fa03a3e50a91d4523bdad6e3a22dd81561d6b71edba06f51c47fee6c4f2157",
       "items": [
         {
           "line": 4,
@@ -1031,12 +1031,57 @@
     },
     {
       "file": "finance-script.js",
-      "sha256": "30f0c439bf7e2722aec437d1faaf96aafd8958e2dea6648e48551d512f261c5a",
+      "sha256": "d28c0baf32fb2c60cc70fa9b3192e171de693783f4b8ea1d11daf09ab1bc6c8f",
       "items": [
         {
-          "line": 43,
-          "start": 3595,
-          "end": 3758,
+          "line": 20,
+          "start": 1429,
+          "end": 1460,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access is unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 23,
+          "start": 1662,
+          "end": 1686,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access changed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 27,
+          "start": 2208,
+          "end": 2232,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access changed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 28,
+          "start": 2592,
+          "end": 2616,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access changed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 51,
+          "start": 5694,
+          "end": 5704,
+          "context": "textContent",
+          "text": "Onbekend",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 62,
+          "start": 6449,
+          "end": 6612,
           "context": "innerHTML",
           "text": "<option value=\"\">Alle entiteiten</option>{p0}",
           "parameters": [
@@ -1045,9 +1090,9 @@
           "rich_text": true
         },
         {
-          "line": 49,
-          "start": 4170,
-          "end": 4218,
+          "line": 68,
+          "start": 7024,
+          "end": 7072,
           "context": "innerHTML",
           "text": "<div class=\"empty\">{p0}</div>",
           "parameters": [
@@ -1056,29 +1101,36 @@
           "rich_text": true
         },
         {
-          "line": 64,
-          "start": 5495,
-          "end": 5549,
+          "line": 83,
+          "start": 8473,
+          "end": 8527,
           "context": "innerHTML",
           "text": "<div class=\"empty\">Geen agingdata beschikbaar.</div>",
           "parameters": [],
           "rich_text": true
         },
         {
-          "line": 108,
-          "start": 8738,
-          "end": 8765,
+          "line": 83,
+          "start": 8681,
+          "end": 8691,
           "context": "textContent",
-          "text": "{p0} ENTRIES",
-          "parameters": [
-            "entries.length"
-          ],
+          "text": "Onbekend",
+          "parameters": [],
           "rich_text": false
         },
         {
-          "line": 126,
-          "start": 10571,
-          "end": 10624,
+          "line": 150,
+          "start": 14717,
+          "end": 14756,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance authentication is unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 155,
+          "start": 15583,
+          "end": 15636,
           "context": "innerHTML",
           "text": "<div class=\"empty\">{p0}</div>",
           "parameters": [
@@ -1087,47 +1139,47 @@
           "rich_text": true
         },
         {
-          "line": 126,
-          "start": 10656,
-          "end": 10674,
+          "line": 155,
+          "start": 15668,
+          "end": 15686,
           "context": "textContent",
           "text": "NIET BESCHIKBAAR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 126,
-          "start": 10711,
-          "end": 10729,
+          "line": 155,
+          "start": 15723,
+          "end": 15741,
           "context": "textContent",
           "text": "NIET BESCHIKBAAR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 135,
-          "start": 11571,
-          "end": 11615,
+          "line": 166,
+          "start": 16660,
+          "end": 16714,
           "context": "textContent",
           "text": "Finance niet beschikbaar: {p0}",
           "parameters": [
-            "error.message"
+            "financeErrorText(error)"
           ],
           "rich_text": false
         },
         {
-          "line": 147,
-          "start": 11996,
-          "end": 12037,
+          "line": 180,
+          "start": 17280,
+          "end": 17321,
           "context": "textContent",
           "text": "ZERO controleert geboekte journaaldata…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 169,
-          "start": 13552,
-          "end": 13651,
+          "line": 206,
+          "start": 19540,
+          "end": 19639,
           "context": "textContent",
           "text": "{p0} tenant-scoped journaalrecords geëxporteerd; autorisatie en audit zijn vastgelegd.",
           "parameters": [
@@ -1136,13 +1188,13 @@
           "rich_text": false
         },
         {
-          "line": 172,
-          "start": 13763,
-          "end": 13805,
+          "line": 210,
+          "start": 19894,
+          "end": 19946,
           "context": "textContent",
           "text": "Finance-export mislukt: {p0}",
           "parameters": [
-            "error.message"
+            "financeErrorText(error)"
           ],
           "rich_text": false
         }

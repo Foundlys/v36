@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-24T19:05:52.765993+00:00",
+  "recorded_at": "2026-09-24T19:16:02.082333+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -1292,6 +1292,73 @@
     "automotive_direct_candidates": 2,
     "automotive_candidates_limit": "Both remaining direct candidates are internal malformed-response exceptions displayed only through safe localized error classification. This audit does not establish complete backend or native-speaker localization.",
     "evidence_limit": "Controller tests and deterministic native API fixtures do not establish browser/layout, accessibility, native-speaker, real provider/voice, cognitive or Demo Universe acceptance. Wider Run-2 code defects remain open.",
+    "current_ci": {
+      "run_number": 170,
+      "run_id": 36045888013,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "published_commit": "a7e1c88584f0ae88d5924aa6ae28a6ffdf6b331b",
+    "published_tree": "207e096de95f87d1e1a9518135168284fc28efaa"
+  },
+  "finance_source_checkpoint": {
+    "recorded_at": "2026-09-24T19:16:02.082333+00:00",
+    "source_sha256": {
+      "finance-script.js": "d28c0baf32fb2c60cc70fa9b3192e171de693783f4b8ea1d11daf09ab1bc6c8f",
+      "finance-loading.js": "07fa03a3e50a91d4523bdad6e3a22dd81561d6b71edba06f51c47fee6c4f2157",
+      "zero/finance-page-localization.test.js": "36f5a4dbc103a402ab5b36f3ea998032c4ee9796b344bfd0530068f1459e8f6c",
+      "zero-evaluation/finance-page-fixture.js": "93a6b41ccea4c691e846eca03f6cd17de913d602ae8affe3f1640603e8467cb4",
+      "zero/localization.test.js": "25c5c909e2fcd4aa5c83095b287e875fbe7ba33ba84994b2ead9cdab8e04db79"
+    },
+    "logs": {
+      "run2-finance-page-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "5fcdc1372ee515c9f0d938bffdcdd020d170c5cacc4bdf18208c7bc46e3ce638",
+        "bytes": 1976
+      },
+      "run2-finance-source-guards.log": {
+        "exit_code": 0,
+        "sha256": "e7802a66ae16aca8341f31c30565af3a05f4e06bed273ad6ab88cd3f292e95a1",
+        "bytes": 1174
+      },
+      "run2-finance-source-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "7cd2cb4619da26e85cdceb94717d949998df0dcad08e859da1ac17a8adc2f08e",
+        "bytes": 24624
+      },
+      "run2-finance-source-native.log": {
+        "exit_code": 0,
+        "sha256": "791e94af607df347bdee2b58d0ff1f23bcb63372703f1c5002009806a53faa82",
+        "bytes": 1372
+      }
+    },
+    "new_controller_tests": 9,
+    "full_zero_tests": 198,
+    "full_zero_pass": 198,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "commands": [
+        "node finance-loading-test.js",
+        "node finance-loading-api-test.js",
+        "node finance-cash-scenarios-client-test.js",
+        "node finance-period-closing-client-test.js",
+        "node finance-cash-scenarios-api-test.js",
+        "node finance-period-closing-api-test.js",
+        "node business-workspaces-regression-test.js"
+      ],
+      "exit_code": 0,
+      "scope": "Native suite passed source-guard implementation before the final absent-journal/P&L-list display check; that bounded final change is included in all 198 ZERO tests and will be checked by the new published CI."
+    },
+    "scope": "Finance current-access and report-access generations, source-state clearing, native child-controller permission/confirmation boundaries, duplicate pending requests, exact euro cents and strict missing/boolean observations.",
+    "reproduced_defects": [
+      "Denied Finance refresh retained private account/journal rows and mounted source-backed editor content. Current denial now clears cached/displayed data, deactivates editors and rejects late source reads, ZERO replies and CSV downloads.",
+      "Missing aging buckets were summed as zero and claimed no overdue balance. Missing, invalid or overflowing amounts and missing source collections now remain unknown; genuine empty arrays and zero remain distinct."
+    ],
+    "additional_evidence": "Amounts retain exact cents (including negative one cent and maximum safe integer), instead of rounding to whole euros. Durable/forecast flags require boolean true. Dirty confirmation/draft state remains intact while access is unchanged; an explicit refresh checks current composition and applies actual revocation. Period controls require the three existing native capabilities, without widening backend rights. Native source bytes, action request IDs, exact retry and confirmation contracts remain unchanged.",
+    "dynamic_candidates": 806,
+    "finance_direct_candidates": 17,
+    "evidence_limit": "This is a source/access repair checkpoint before complete Finance page localization. Conservative candidate count includes new internal exceptions. Controller fixtures and structural/CSP checks are not browser, accessibility, responsive, native-speaker or live provider acceptance. Wider Run-2 code gaps remain open.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }
