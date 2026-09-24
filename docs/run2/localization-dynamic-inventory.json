@@ -1991,7 +1991,7 @@
     },
     {
       "file": "crm-script.js",
-      "sha256": "99bc0b610bbc3f6ba644004444735cd488819f0192ff93f102a137ca5da2fd11",
+      "sha256": "c11638635ed58638b64633a5ecec80b5f022ae833acb0d7c617963db6c241cbf",
       "items": [
         {
           "line": 32,
@@ -2169,29 +2169,18 @@
           "rich_text": false
         },
         {
-          "line": 94,
-          "start": 29623,
-          "end": 29697,
-          "context": "toast",
-          "text": "{p0}: configuratie ingericht, zonder demodata",
-          "parameters": [
-            "result.profile.business_name"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 97,
-          "start": 30279,
-          "end": 30312,
+          "line": 107,
+          "start": 31611,
+          "end": 31644,
           "context": "textContent",
           "text": "ZERO analyseert de CRM-context…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 108,
-          "start": 35070,
-          "end": 35232,
+          "line": 118,
+          "start": 36402,
+          "end": 36564,
           "context": "textContent",
           "text": "Laatst gecontroleerd {p0} · alleen vastgelegde CRM-data",
           "parameters": [
@@ -2200,9 +2189,9 @@
           "rich_text": false
         },
         {
-          "line": 108,
-          "start": 35328,
-          "end": 35346,
+          "line": 118,
+          "start": 36660,
+          "end": 36678,
           "context": "textContent",
           "text": "NIET BESCHIKBAAR",
           "parameters": [],

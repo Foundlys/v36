@@ -241,5 +241,43 @@
     "browser": "ENVIRONMENT_UNVERIFIED: supported cloud browser again rejected isolated native localhost preview with ERR_BLOCKED_BY_CLIENT after connection restoration. No alternate route or browser bypass attempted.",
     "current_ci": "PENDING_PUBLICATION",
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
+  },
+  "crm_profile_locale_checkpoint": {
+    "recorded_at": "2026-09-24T14:04:06.180995+00:00",
+    "source_sha256": {
+      "crm-core.js": "eaec9d234b9e7a9d48216ef41a9384354bb8d2a1e88aa7eff25f9ba2ac3a17dc",
+      "crm-script.js": "c11638635ed58638b64633a5ecec80b5f022ae833acb0d7c617963db6c241cbf",
+      "crm-standalone-regression-test.js": "4c44c155a74459ea670310e28a47c52d023d8a87693f96bf545c41e9c0e57c14",
+      "foundly-locales.js": "d46cf4c8af39e7010a6a1b93b1d51f029d090b053333b7678a17bac950d6666e",
+      "zero/crm-profile-localization.test.js": "8f5375fdb7b8a522c4bcf81a59a7368488643fc1b6e2fc4adb7397c005f12ee0"
+    },
+    "focused_locale_tests": 18,
+    "native_crm_regressions": "PASS",
+    "standalone_localized_profile": "PASS",
+    "logs": {
+      "profile-localization-tests.log": {
+        "exit_code": 0,
+        "sha256": "8d3278f373a1fa38adb30d175edc52bd2e6122e43dbf75bfb690939b8bcc3744",
+        "bytes": 2331
+      },
+      "profile-core-regression.log": {
+        "exit_code": 0,
+        "sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "bytes": 506
+      },
+      "profile-crm-regression.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      },
+      "profile-standalone-regression.log": {
+        "exit_code": 0,
+        "sha256": "dd0abc69da76b75556dd5eba6275fd0adc98ab3572387cccc977d9fb1b9b5b58",
+        "bytes": 774
+      }
+    },
+    "scope": "Native profile stage defaults use an explicitly validated eight-locale selection. Browser submission snapshots its interface locale and payload, guards duplicate submits, locks inputs after uncertainty and reuses one native idempotency key on explicit retry. A later UI locale change cannot change that request. Existing stored and edited stage names remain literal and untouched by replay. Core restart/replay, invalid locale, current permission, real HTTP and standalone package routes are covered. No new durable browser reload recovery or atomic CRM transaction is claimed.",
+    "current_ci": "PENDING_PUBLICATION",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
   }
 }
