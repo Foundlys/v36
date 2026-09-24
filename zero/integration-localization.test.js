@@ -43,7 +43,7 @@ test('Google status distinguishes configured AI from a live service and preserve
   const f=googleFixture();let calls=0,fail=false;
   f.context.fetch=async(url)=>{calls++;assert.equal(url,'/api/google/status');return {ok:!fail,status:fail?403:200,json:async()=>fail?{error:'RAW_SERVER_SECRET'}:{token_stored:true,services:{google_ads:true,ga4:false,search_console:false,google_calendar:false},openai_search:{configured:true}}}};
   await f.context.refreshGooglePanel();const labels=f.nodes.googleStateText.children;
-  for(const locale of locales){f.i.setLocale(locale);assert.equal(labels[0].textContent,f.i.t('google.linked'));assert.equal(labels[1].textContent,f.i.t('google.live'));assert.equal(labels[2].textContent,f.i.t('google.off'));assert.equal(labels[5].textContent,f.i.t('google.configured'));assert.equal(calls,1);}
+  for(const locale of locales){f.i.setLocale(locale);assert.equal(labels[0].textContent,f.i.t('google.linked'));assert.equal(labels[1].textContent,f.i.t('google.live'));assert.equal(labels[2].textContent,f.i.t('google.off'));assert.equal(labels[5].textContent,f.i.t('google.configured'));assert.ok(f.nodes.googleStateText.textContent.includes(f.i.t('google.ai_search_label')));assert.equal(calls,1);}
   fail=true;await f.context.refreshGooglePanel();for(const locale of locales){f.i.setLocale(locale);assert.ok(f.nodes.googleStateText.children.every(node=>node.textContent===f.i.t('common.unknown')));assert.ok(f.nodes.googleOutput.textContent.includes(f.i.t('common.access_denied')));assert.doesNotMatch(f.nodes.googleOutput.textContent,/RAW_SERVER_SECRET/);assert.equal(calls,2);}
 });
 test('Google search cancellation and duplicate clicks do not dispatch and a failed disconnect does not report success',async()=>{

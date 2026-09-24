@@ -5,6 +5,22 @@
   // Explicit catalog entries only. Business records and provider text are never
   // translated by DOM inspection or substituted by a language fallback.
   const rows={
+    "graphics.low":["LAAG", "LOW", "NIEDRIG", "FAIBLE", "BAJA", "LAV", "LAV", "LÅG"],
+    "graphics.balanced":["GEBALANCEERD", "BALANCED", "AUSGEWOGEN", "ÉQUILIBRÉE", "EQUILIBRADA", "AFBALANCERET", "BALANSERT", "BALANSERAD"],
+    "graphics.high":["HOOG", "HIGH", "HOCH", "ÉLEVÉE", "ALTA", "HØJ", "HØY", "HÖG"],
+    "graphics.ultra":["ULTRA", "ULTRA", "ULTRA", "ULTRA", "ULTRA", "ULTRA", "ULTRA", "ULTRA"],
+    "graphics.unavailable":["WEBGL NIET BESCHIKBAAR", "WEBGL UNAVAILABLE", "WEBGL NICHT VERFÜGBAR", "WEBGL INDISPONIBLE", "WEBGL NO DISPONIBLE", "WEBGL IKKE TILGÆNGELIG", "WEBGL IKKE TILGJENGELIG", "WEBGL INTE TILLGÄNGLIG"],
+    "graphics.quality":["{label}{auto}", "{label}{auto}", "{label}{auto}", "{label}{auto}", "{label}{auto}", "{label}{auto}", "{label}{auto}", "{label}{auto}"],
+    "graphics.legend_label":["{label}", "{label}", "{label}", "{label}", "{label}", "{label}", "{label}", "{label}"],
+    "graphics.auto_suffix":[" · AUTO", " · AUTO", " · AUTO", " · AUTO", " · AUTO", " · AUTO", " · AUTO", " · AUTO"],
+    "graphics.metrics":["{fps} FPS · {particles} DEELTJES · {ribbons} LINTEN", "{fps} FPS · {particles} PARTICLES · {ribbons} RIBBONS", "{fps} FPS · {particles} PARTIKEL · {ribbons} BÄNDER", "{fps} FPS · {particles} PARTICULES · {ribbons} RUBANS", "{fps} FPS · {particles} PARTÍCULAS · {ribbons} CINTAS", "{fps} FPS · {particles} PARTIKLER · {ribbons} BÅND", "{fps} FPS · {particles} PARTIKLER · {ribbons} BÅND", "{fps} FPS · {particles} PARTIKLAR · {ribbons} BAND"],
+    "graphics.manual":["HANDMATIGE 3D-ROTATIE", "MANUAL 3D ROTATION", "MANUELLE 3D-ROTATION", "ROTATION 3D MANUELLE", "ROTACIÓN 3D MANUAL", "MANUEL 3D-ROTATION", "MANUELL 3D-ROTASJON", "MANUELL 3D-ROTATION"],
+    "graphics.motion":["AUTO 3D-VERKENNING · SLEEP OM TE DRAAIEN", "AUTO 3D EXPLORATION · DRAG TO ROTATE", "AUTOMATISCHE 3D-ANSICHT · ZUM DREHEN ZIEHEN", "EXPLORATION 3D AUTO · GLISSEZ POUR TOURNER", "EXPLORACIÓN 3D AUTO · ARRASTRA PARA GIRAR", "AUTO 3D-UDFORSKNING · TRÆK FOR AT ROTERE", "AUTO 3D-UTFORSKING · DRA FOR Å ROTERE", "AUTO 3D-UTFORSKNING · DRA FÖR ATT ROTERA"],
+
+    "google.ai_search_label":[" · AI-webzoeken: ", " · AI web search: ", " · KI-Websuche: ", " · Recherche web par IA : ", " · Búsqueda web con IA: ", " · AI-websøgning: ", " · KI-nettsøk: ", " · AI-webbsökning: "],
+    "callback.verified":["{name}: bevestigde verbindingen: {count}.", "{name}: confirmed connections: {count}.", "{name}: bestätigte Verbindungen: {count}.", "{name} : connexions confirmées : {count}.", "{name}: conexiones confirmadas: {count}.", "{name}: bekræftede forbindelser: {count}.", "{name}: bekreftede tilkoblinger: {count}.", "{name}: bekräftade anslutningar: {count}."],
+    "callback.unconfirmed":["De koppeling met {name} is niet bevestigd. Controleer de status.", "The connection to {name} is unconfirmed. Check the status.", "Die Verbindung zu {name} ist nicht bestätigt. Prüfen Sie den Status.", "La connexion à {name} n’est pas confirmée. Vérifiez le statut.", "La conexión con {name} no está confirmada. Comprueba el estado.", "Forbindelsen til {name} er ikke bekræftet. Kontrollér status.", "Tilkoblingen til {name} er ikke bekreftet. Kontroller statusen.", "Anslutningen till {name} är inte bekräftad. Kontrollera statusen."],
+
     "overlay.eyebrow":["AUTOMOTIVE HOOFDONDERDEEL · FOUNDLY INTELLIGENCE · BRONGEBONDEN DATA", "AUTOMOTIVE MODULE · FOUNDLY INTELLIGENCE · SOURCE-LINKED DATA", "AUTOMOBILMODUL · FOUNDLY INTELLIGENCE · QUELLENBEZOGENE DATEN", "MODULE AUTOMOBILE · FOUNDLY INTELLIGENCE · DONNÉES SOURCÉES", "MÓDULO DE AUTOMOCIÓN · FOUNDLY INTELLIGENCE · DATOS CON FUENTES", "BILMODUL · FOUNDLY INTELLIGENCE · KILDEBASEREDE DATA", "BILMODUL · FOUNDLY INTELLIGENCE · KILDEBASERTE DATA", "BILMODUL · FOUNDLY INTELLIGENCE · KÄLLBASERADE DATA"],
     "overlay.ask":["VRAAG {module} AI", "ASK {module} AI", "{module} AI FRAGEN", "INTERROGER L’IA {module}", "PREGUNTAR A LA IA DE {module}", "SPØRG {module} AI", "SPØR {module} AI", "FRÅGA {module} AI"],
     "overlay.ai":["{module} AI", "{module} AI", "{module} AI", "IA {module}", "IA DE {module}", "{module} AI", "{module} AI", "{module} AI"],

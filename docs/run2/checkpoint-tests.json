@@ -804,6 +804,12 @@
         "exit_code": 0,
         "sha256": "9870f023efeaebf9fd3ab8144d9ad09af5cce6c80acddfe0c473bdd262747079",
         "bytes": 678
+      },
+      "run2-module-full-regression.log": {
+        "exit_code": 0,
+        "sha256": "ece7152c43324cc6bab558f3971ac4a73c879b304483c7e78c62dbada74a3a54",
+        "bytes": 97334,
+        "scope": "Complete npm test, including existing Run-1 regression, native API/permission/persistence tests, 135 ZERO tests and 14 foundation corpus cases; declared fixtures are not live-provider/browser/voice evidence."
       }
     },
     "focused_tests": 6,
@@ -811,7 +817,7 @@
     "full_zero_pass": 135,
     "corpus_pass": 14,
     "corpus_total": 14,
-    "full_regression": "RUNNING_AFTER_STATIC_FIXTURE_UPDATES",
+    "full_regression": "PASS",
     "scope": "Eleven module overlays, 149 distinct sublabels, source details, Automotive registry, native CRM navigation and Google/integration controls. Locale updates preserve nodes, source names, answers, conversation language and native routes without additional reads or actions. Unknown, malformed, denied, partial, contradictory, duplicate and overflowing observations are not turned into zero or verified providers. Older, closed or replaced views reject late responses. Loading status cannot overwrite an active answer.",
     "reproduction": "Against 9124ff3, an offline engine-status request rendered Records: 0 and Live providerprobes: 0. New controller tests demonstrate unknown on failures and zero only on observed zero.",
     "smoke_fixture_update": "Prior static HTML-string button assertion failed after native DOM construction. Smoke now executes the real module controller and verifies actual button tags and callable handlers; existing static controls and backend contracts stay asserted. The dynamic source headings are likewise verified in the rendered controller DOM. The masterbuild source-registry check also executes the real panel and asserts all four groups, required providers and the /automotive destination instead of requiring untranslated English literals.",
@@ -821,6 +827,57 @@
     "dynamic_candidates": 930,
     "main_index_script_candidates": 12,
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "current_ci": {
+      "run": 162,
+      "id": 36033145353,
+      "head": "ca626f3055ed23ab1c84778ab22c302c847f5815",
+      "tree": "269bb478caa80dfa07d0f4b73f34e463fbbf1165",
+      "status": "IN_PROGRESS"
+    },
+    "full_npm_test_exit_code": 0,
+    "tested_tree": "269bb478caa80dfa07d0f4b73f34e463fbbf1165",
+    "published_head": "ca626f3055ed23ab1c84778ab22c302c847f5815"
+  },
+  "callback_graphics_checkpoint": {
+    "recorded_at": "2026-09-24T17:22:51.244354+00:00",
+    "source_sha256": {
+      "index-script.js": "77699df1eed9d01b7a37a0c34ff495326be45992f23abfb463d6c434a2b29d0a",
+      "foundly-locales.js": "1dc60406533ff80fe1857e7add4cfb8d2e80d7fbf61936e66c18aac296ab4c9c",
+      "jarvis-client-regression-test.js": "3163d1fd4f8c469668c2bef6d9e216a4a995aa7a43b10a83cec69349e3eda152",
+      "zero/integration-localization.test.js": "c4e51b583df0762a1abbda8be9cec01ebe8b84f87f9d6031bf169ee93914d848",
+      "zero/callback-localization.test.js": "65000ff8c8025df1b56569026e0fc320c61dbe18cfedaa13603a84dcb5aac072",
+      "zero/graphics-label-localization.test.js": "69eb6d12c266f19e16a5f277b69f260e1e159ac2feb624bcfc0c9bf81309d697"
+    },
+    "logs": {
+      "run2-dashboard-final-targeted.log": {
+        "exit_code": 0,
+        "sha256": "686e48a354270efa26556c58277517afe0598d3ff26d5e778d2d7f102d4128cf",
+        "bytes": 2142
+      },
+      "run2-dashboard-final-zero.log": {
+        "exit_code": 0,
+        "sha256": "e068d46109705309a91186ac03bdb25de5b32abfc7cd33bfa7c5cbfa48da99ae",
+        "bytes": 17563
+      },
+      "run2-dashboard-final-smoke.log": {
+        "exit_code": 0,
+        "sha256": "ddffcc39602b77a0f2007193d4593a7a22e4e479f5cde9c7b6c590e25ae40c1a",
+        "bytes": 376
+      }
+    },
+    "targeted_tests": 16,
+    "full_zero_tests": 141,
+    "full_zero_pass": 141,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "OAuth callback feedback requires fresh native connected/probe_ok booleans and handles contradictory service observations. URL flags and bootstrap counts are never provider success or ingestion evidence. Raw callback messages are not shown. One requested overlay opening replaces duplicate scheduling, unrelated query parameters and hash survive cleanup, and newer navigation cannot be overwritten. Google AI-search framing and fallback graphics/legend labels have explicit eight-locale bindings without control or renderer changes.",
+    "reproduced_defect": "Prior source accepted ?google=connected&bootstrap=999999 as GOOGLE connected and 999999 records ingested with no observed provider evidence.",
+    "native_regression": "Existing smoke, Jarvis client and speech/audio/visual suites pass. Client fixture now supports actual text-node append for the live-bound fallback legend; all renderer/audio failure-isolation assertions remain intact.",
+    "full_regression": "Complete npm test already PASS on module tree 269bb478caa80dfa07d0f4b73f34e463fbbf1165. This later callback/graphics tree has targeted/native/ZERO success and awaits its own CI; preceding full result is not claimed for changed files.",
+    "dynamic_candidates": 926,
+    "main_index_script_candidates": 8,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

@@ -6263,52 +6263,30 @@
     },
     {
       "file": "index-script.js",
-      "sha256": "58895f5711ae19895c6e7b2e105ab7206504096648171e0cf24fdc1583fa5a7d",
+      "sha256": "77699df1eed9d01b7a37a0c34ff495326be45992f23abfb463d6c434a2b29d0a",
       "items": [
         {
-          "line": 7,
-          "start": 6409,
-          "end": 6475,
-          "context": "textContent",
-          "text": "{p0} FPS · {p1} PARTICLES · {p2} RIBBONS",
-          "parameters": [
-            "m.fps",
-            "m.particles",
-            "m.filaments"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 45,
-          "start": 12025,
-          "end": 12041,
-          "context": "element_text",
-          "text": " · AI Search: ",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 58,
-          "start": 13668,
-          "end": 13698,
+          "line": 72,
+          "start": 14613,
+          "end": 14643,
           "context": "error_message_requires_control_flow_review",
           "text": "integration_response_invalid",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 58,
-          "start": 13772,
-          "end": 13800,
+          "line": 72,
+          "start": 14717,
+          "end": 14745,
           "context": "error_message_requires_control_flow_review",
           "text": "integration_request_failed",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 75,
-          "start": 15126,
-          "end": 15213,
+          "line": 89,
+          "start": 16071,
+          "end": 16158,
           "context": "prompt",
           "text": "{p0} · {p1}{p2}",
           "parameters": [
@@ -6319,9 +6297,9 @@
           "rich_text": false
         },
         {
-          "line": 76,
-          "start": 15309,
-          "end": 15350,
+          "line": 90,
+          "start": 16254,
+          "end": 16295,
           "context": "prompt",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -6331,9 +6309,9 @@
           "rich_text": false
         },
         {
-          "line": 91,
-          "start": 16688,
-          "end": 16729,
+          "line": 105,
+          "start": 17633,
+          "end": 17674,
           "context": "prompt",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -6343,9 +6321,9 @@
           "rich_text": false
         },
         {
-          "line": 95,
-          "start": 16987,
-          "end": 17122,
+          "line": 109,
+          "start": 17932,
+          "end": 18067,
           "context": "prompt",
           "text": "{p0} · {p1}\n(public / basic / bearer / api_key_header / oauth2_authorization_code / webhook)",
           "parameters": [
@@ -6355,46 +6333,22 @@
           "rich_text": false
         },
         {
-          "line": 197,
-          "start": 28071,
-          "end": 28097,
+          "line": 211,
+          "start": 29016,
+          "end": 29042,
           "context": "error_message_requires_control_flow_review",
           "text": "integration_check_failed",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 423,
-          "start": 93900,
-          "end": 93935,
+          "line": 437,
+          "start": 94809,
+          "end": 94844,
           "context": "error_message_requires_control_flow_review",
           "text": "Vereiste control ontbreekt: {p0}",
           "parameters": [
             "id"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 463,
-          "start": 102423,
-          "end": 102496,
-          "context": "toast",
-          "text": "{p0} gekoppeld{p1}",
-          "parameters": [
-            "id.toUpperCase()",
-            "boot?' · '+boot+' records ingeladen':''"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 463,
-          "start": 102649,
-          "end": 102718,
-          "context": "toast",
-          "text": "{p0} koppeling fout: {p1}",
-          "parameters": [
-            "id.toUpperCase()",
-            "p.get('message')||'onbekend'"
           ],
           "rich_text": false
         }

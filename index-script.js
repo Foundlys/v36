@@ -4,12 +4,26 @@ const $=s=>document.querySelector(s), clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const BACKEND_MODULE={social:'social_media',google:'google_ads'};function backendModule(id){return BACKEND_MODULE[id]||id}
 const CLIENT_RUNTIME={renderer:'NOT_STARTED',audio:'NOT_STARTED',zero_handlers:'NOT_REGISTERED',jarvis_handlers:'LEGACY_ALIAS',failures:[]};globalThis.__FOUNDLY_CLIENT_RUNTIME=CLIENT_RUNTIME;
 function clientSubsystemFailure(subsystem,error){const message=String(error?.message||error||'onbekende fout').replace(/[A-Za-z0-9_-]{32,}/g,'[redacted]').slice(0,240);CLIENT_RUNTIME.failures.push({subsystem,code:String(error?.name||'Error').slice(0,48),message});if(CLIENT_RUNTIME.failures.length>12)CLIENT_RUNTIME.failures.shift();console.error(`[FOUNDLY ${subsystem}]`,message)}
-function initializeNeuralRuntime(){if(globalThis.FoundlyCustomerSpatialRuntime){try{const runtime=new FoundlyCustomerSpatialRuntime($('#neuralField'));CLIENT_RUNTIME.renderer='RUNNING';return runtime}catch(error){CLIENT_RUNTIME.renderer='FAILED_ISOLATED';clientSubsystemFailure('RENDERER',error);return null}}if(!globalThis.FoundlyNeuralRuntime){CLIENT_RUNTIME.renderer='UNAVAILABLE';return null}try{const runtime=new FoundlyNeuralRuntime($('#neuralField'),{regions:globalThis.FOUNDLY_RUNTIME_PROFILE?.neural_regions,modules:MODULES,onQuality:q=>{const el=$('#visualQuality');if(el)el.textContent=q.available===false?'WEBGL NIET BESCHIKBAAR':`${q.name}${q.auto?' · AUTO':''}`},onMetrics:m=>{const el=$('#renderMetrics');if(el)el.textContent=`${m.fps} FPS · ${m.particles} PARTICLES · ${m.filaments} RIBBONS`;const motion=$('#viewMotion');if(motion)motion.textContent=m.manual_active?'HANDMATIGE 3D-ROTATIE':'AUTO 3D-VERKENNING · SLEEP OM TE DRAAIEN'}});CLIENT_RUNTIME.renderer=runtime?.available?'RUNNING':'FALLBACK';return runtime}catch(error){CLIENT_RUNTIME.renderer='FAILED_ISOLATED';clientSubsystemFailure('RENDERER',error);$('#neuralField')?.classList.add('hidden');return null}}
+function initializeNeuralRuntime(){if(globalThis.FoundlyCustomerSpatialRuntime){try{const runtime=new FoundlyCustomerSpatialRuntime($('#neuralField'));CLIENT_RUNTIME.renderer='RUNNING';return runtime}catch(error){CLIENT_RUNTIME.renderer='FAILED_ISOLATED';clientSubsystemFailure('RENDERER',error);return null}}if(!globalThis.FoundlyNeuralRuntime){CLIENT_RUNTIME.renderer='UNAVAILABLE';return null}try{const runtime=new FoundlyNeuralRuntime($('#neuralField'),{regions:globalThis.FOUNDLY_RUNTIME_PROFILE?.neural_regions,modules:MODULES,onQuality:q=>{renderGraphicsQuality(q)},onMetrics:m=>{renderGraphicsMetrics(m)}});CLIENT_RUNTIME.renderer=runtime?.available?'RUNNING':'FALLBACK';return runtime}catch(error){CLIENT_RUNTIME.renderer='FAILED_ISOLATED';clientSubsystemFailure('RENDERER',error);$('#neuralField')?.classList.add('hidden');return null}}
 const neuralRuntime=initializeNeuralRuntime();
 let focus=null;
 const ids=Object.keys(MODULES),visualReferenceCapture=['localhost','127.0.0.1','::1'].includes(location.hostname)&&new URLSearchParams(location.search).has('visualTime');
 if(visualReferenceCapture)$('#initGate')?.classList.add('hidden');
-function buildModuleControls(){if(globalThis.FoundlyCustomerSpatialRuntime)return;const main=$('#mainCount'),sub=$('#subCount'),links=$('#linkCount'),legend=$('#legend');if(main)main.textContent=ids.length;if(sub)sub.textContent=ids.reduce((sum,id)=>sum+MODULES[id].sub.length,0);if(links)links.textContent='420';if(legend){legend.innerHTML=ids.map(id=>`<button data-open="${id}" style="--module:${MODULES[id].kleur}"><i></i>${MODULES[id].naam}</button>`).join('');document.querySelectorAll('#legend [data-open]').forEach(button=>button.onclick=()=>openModule(button.dataset.open))}}buildModuleControls();
+function renderGraphicsQuality(q={}){
+  const label=['LOW','BALANCED','HIGH','ULTRA'].includes(q.name)?zeroCopy('graphics.'+q.name.toLowerCase(),q.name):q.name?String(q.name):zeroCopy('common.unknown','ONBEKEND');
+  zeroRenderText($('#visualQuality'),q.available===false?zeroCopy('graphics.unavailable','WEBGL NIET BESCHIKBAAR'):zeroCopy('graphics.quality','{label}{auto}',{label,auto:q.auto===true?zeroCopy('graphics.auto_suffix',' · AUTO'):''}));
+}
+function renderGraphicsMetrics(m={}){
+  zeroRenderText($('#renderMetrics'),zeroCopy('graphics.metrics','{fps} FPS · {particles} DEELTJES · {ribbons} LINTEN',{fps:dashboardNumber(m.fps),particles:dashboardNumber(m.particles),ribbons:dashboardNumber(m.filaments)}));
+  zeroRenderText($('#viewMotion'),m.manual_active===true?zeroCopy('graphics.manual','HANDMATIGE 3D-ROTATIE'):m.manual_active===false?zeroCopy('graphics.motion','AUTO 3D-VERKENNING · SLEEP OM TE DRAAIEN'):zeroCopy('common.unknown','ONBEKEND'));
+}
+function buildModuleControls(){
+  if(globalThis.FoundlyCustomerSpatialRuntime)return;
+  for(const [id,count]of Object.entries({mainCount:ids.length,subCount:ids.reduce((sum,id)=>sum+MODULES[id].sub.length,0),linkCount:420}))zeroRenderText($('#'+id),zeroCopy('dashboard.value','{value}',{value:dashboardNumber(count)}));
+  const legend=$('#legend');if(!legend)return;
+  const buttons=ids.map(id=>{const button=document.createElement('button');button.setAttribute('data-open',id);button.setAttribute('style','--module:'+MODULES[id].kleur);button.append(document.createElement('i'));appendZeroPart(button,zeroCopyPart('graphics.legend_label','{label}',{label:globalThis.FoundlyI18n?moduleLabel(id):MODULES[id].naam}));button.onclick=()=>openModule(id);return button});legend.replaceChildren(...buttons);
+}
+buildModuleControls();
 function pulseRoute(id){if(MODULES[id])neuralRuntime?.route(id,.85)}
 function focusOn(id){focus=MODULES[id]?id:null;if(focus){pulseRoute(focus);neuralRuntime?.focus(focus)}else neuralRuntime?.focusCore?.();document.querySelectorAll('[data-open]').forEach(button=>button.classList.toggle('active',button.dataset.open===focus))}
 function connectorBy(id){return (window.__foundlyConnectorStatus?.connectors||[]).find(x=>x.id===id)||null}
@@ -42,7 +56,7 @@ async function refreshGooglePanel(){
   FoundlyI18n.renderText(node,'OAuth: ');node.append(label(status.token_stored,'linked','unlinked'));
   for(const [id,name] of Object.entries({google_ads:'Google Ads',ga4:'GA4',search_console:'Search Console',google_calendar:'Google Calendar'}))node.append(document.createTextNode(' · '+name+': '),label(status.services?.[id],'live','off'));
   // The status endpoint observes key presence here, not a successful AI probe.
-  node.append(document.createTextNode(' · AI Search: '),label(status.openai_search?.configured,'configured','not_configured'));
+  const searchLabelIndex=node.childNodes.length;node.append(document.createTextNode(''),label(status.openai_search?.configured,'configured','not_configured'));FoundlyI18n.bindText(node,searchLabelIndex,'google.ai_search_label');
   if(out?.isConnected&&$('#googleOutput')===out&&out.searchRequest===searchRequest){if(status.failure)FoundlyI18n.renderText(out,status.failure);else if(status.error)FoundlyI18n.renderText(out,status.error)}
 }
 async function disconnectGooglePanel(){
@@ -394,7 +408,7 @@ function showZeroResult(j){
   body.append(grid);
 }
 function cssEscape(value){return globalThis.CSS?.escape?CSS.escape(String(value)):String(value).replace(/[^A-Za-z0-9_-]/g,'')}
-const UICommandBus={async dispatch(cmd,result){if(!cmd||!cmd.type)return;if(cmd.type==='OPEN_ENGINE'&&['analysis','finance'].includes(cmd.target)){location.href=`/${cmd.target}`;return}else if(cmd.type==='OPEN_ENGINE'&&MODULES[cmd.target])await openModule(cmd.target);else if(cmd.type==='CLOSE_ENGINE'){$('#layer').classList.add('hidden');focusOn(null)}else if(cmd.type==='OPEN_CONNECTOR'){await openModule('integraties');const card=document.querySelector(`[data-connector="${cssEscape(cmd.target)}"]`);card?.scrollIntoView({behavior:'smooth',block:'center'});card?.animate?.([{boxShadow:'0 0 0 rgba(255,157,61,0)'},{boxShadow:'0 0 30px rgba(255,157,61,.7)'},{boxShadow:'0 0 0 rgba(255,157,61,0)'}],{duration:1500})}else if(cmd.type==='FOCUS_NODE'&&MODULES[cmd.target])focusOn(cmd.target);else if(['CENTER_GRAPH','FOCUS_CORE','RESET_CAMERA','SHOW_BACK','ZOOM_IN','ZOOM_OUT','ROTATE_VIEW'].includes(cmd.type)){if(cmd.type==='CENTER_GRAPH')focusOn(null);else neuralRuntime?.cameraCommand?.(cmd)}else if(['SHOW_RESULTS','SHOW_REPORT','SHOW_TASK','SHOW_VEHICLE'].includes(cmd.type))showZeroResult(result);else if(cmd.type==='SCROLL_TO'){const target=document.querySelector(`[data-connector="${cssEscape(cmd.target||'')}"]`);target?.scrollIntoView({behavior:'smooth',block:'center'})}else if(['SET_ZERO_STATE','SET_JARVIS_STATE'].includes(cmd.type)&&cmd.state==='STANDBY')setTimeout(()=>endZeroConversation(false),600);else if(cmd.type==='SHOW_NOTIFICATION')toast(cmd.message||'Zero-melding')},async apply(commands,result){for(const cmd of commands)await this.dispatch(cmd,result)}};
+const UICommandBus={async dispatch(cmd,result){if(!cmd||!cmd.type)return;if(cmd.type==='OPEN_ENGINE'&&['analysis','finance'].includes(cmd.target)){location.href=`/${cmd.target}`;return}else if(cmd.type==='OPEN_ENGINE'&&MODULES[cmd.target])await openModule(cmd.target);else if(cmd.type==='CLOSE_ENGINE'){closeModule()}else if(cmd.type==='OPEN_CONNECTOR'){await openModule('integraties');const card=document.querySelector(`[data-connector="${cssEscape(cmd.target)}"]`);card?.scrollIntoView({behavior:'smooth',block:'center'});card?.animate?.([{boxShadow:'0 0 0 rgba(255,157,61,0)'},{boxShadow:'0 0 30px rgba(255,157,61,.7)'},{boxShadow:'0 0 0 rgba(255,157,61,0)'}],{duration:1500})}else if(cmd.type==='FOCUS_NODE'&&MODULES[cmd.target])focusOn(cmd.target);else if(['CENTER_GRAPH','FOCUS_CORE','RESET_CAMERA','SHOW_BACK','ZOOM_IN','ZOOM_OUT','ROTATE_VIEW'].includes(cmd.type)){if(cmd.type==='CENTER_GRAPH')focusOn(null);else neuralRuntime?.cameraCommand?.(cmd)}else if(['SHOW_RESULTS','SHOW_REPORT','SHOW_TASK','SHOW_VEHICLE'].includes(cmd.type))showZeroResult(result);else if(cmd.type==='SCROLL_TO'){const target=document.querySelector(`[data-connector="${cssEscape(cmd.target||'')}"]`);target?.scrollIntoView({behavior:'smooth',block:'center'})}else if(['SET_ZERO_STATE','SET_JARVIS_STATE'].includes(cmd.type)&&cmd.state==='STANDBY')setTimeout(()=>endZeroConversation(false),600);else if(cmd.type==='SHOW_NOTIFICATION')toast(cmd.message||'Zero-melding')},async apply(commands,result){for(const cmd of commands)await this.dispatch(cmd,result)}};
 async function route(raw,voice=false){const text=String(raw||'').trim();if(!text)return;$('#command').value='';try{const j=await executeZeroTurn(text);if(voice&&ZERO.fallback)fallbackSpeak(j);else if(ZERO.realtimeConnected)requestRealtimeSpeech(j,j.voice_mode);return j}catch(e){setZeroState('ERROR',e.message);if(voice&&ZERO.fallback)fallbackSpeak(`De opdracht is niet uitgevoerd. ${e.message}`);throw e}}
 async function submitTextCommand(){const input=$('#command'),button=$('#send'),text=input.value.trim();if(!text){setZeroState('ERROR',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.message("static.cd30a575"):'Voer een opdracht in.'));input.focus();return}button.disabled=true;button.textContent=(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.79cdac60"):'BEZIG…');try{await route(text,false)}catch(e){showZeroResult({ok:false,status:'error',voice_mode:'ERROR',answer:`De opdracht is niet uitgevoerd: ${e.message}`,actions:[],syncs:[],web:{sources:[]}})}finally{button.disabled=false;button.textContent=(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.a0b7e062"):'UITVOEREN')}}
 function renderPreferenceValues(p=ZERO.preferences){for(const [id,value] of Object.entries({masterValue:p.master_volume,voiceValue:p.voice_volume,musicValue:p.ambience_volume,sfxValue:p.sfx_volume}))zeroRenderText($('#'+id),zeroCopy('audio.percent','{value}',{value:audioPercent(value)}))}
@@ -460,8 +474,26 @@ async function loadDashboardSummary(){
     if(stamp&&$('#summaryObservedAt')===stamp)zeroRenderText(stamp,zeroCopy('common.unknown','ONBEKEND'));
   }
 }loadDashboardSummary();setInterval(loadDashboardSummary,30000);
-(function oauthFeedback(){const p=new URLSearchParams(location.search),boot=Number(p.get('bootstrap')||0);for(const id of ['google','meta','linkedin','tiktok','wix']){if(p.get(id)==='connected')setTimeout(async()=>{toast(`${id.toUpperCase()} gekoppeld${boot?' · '+boot+' records ingeladen':''}`);await loadSystemStatus();if(p.get('open')==='integraties')await renderIntegrations();refreshEvents()},300);if(p.get(id)==='error')setTimeout(()=>toast(`${id.toUpperCase()} koppeling fout: ${p.get('message')||'onbekend'}`),300)}if(p.has('open'))setTimeout(()=>openModule(p.get('open')),150);if([...p.keys()].some(k=>['google','meta','linkedin','tiktok','wix','message','bootstrap'].includes(k)))setTimeout(()=>history.replaceState({},'',location.pathname+(p.get('open')?'?open='+encodeURIComponent(p.get('open')):'')),1200)})();
-const __qs=new URLSearchParams(location.search);if(__qs.get('open')==='integraties'){setTimeout(()=>openModule('integraties'),250)}
+function scheduleOAuthFeedback(){
+  const search=location.search,path=location.pathname,params=new URLSearchParams(search),providers=['google','meta','linkedin','tiktok','wix'],callbacks=providers.filter(id=>['connected','error'].includes(params.get(id))),open=params.get('open');
+  if(open&&Object.hasOwn(MODULES,open))setTimeout(()=>openModule(open),150);
+  if(callbacks.length)setTimeout(async()=>{
+    // Callback URL flags describe navigation, not verified provider state or an
+    // ingested record count. Only a current native observation can confirm it.
+    let refreshed=false;try{await loadSystemStatus();refreshed=true}catch{}
+    const observed=refreshed?window.__foundlyConnectorStatus:null;
+    for(const id of callbacks){
+      const related=id==='google'?['google_ads','ga4','search_console','google_calendar']:id==='meta'?['meta','instagram','facebook_pages']:[id];
+      const rows=observed?.available===true&&Array.isArray(observed.connectors)?observed.connectors.filter(row=>row&&related.includes(row.id)):null;
+      const confirmed=rows?related.filter(service=>{const matches=rows.filter(row=>row.id===service);return matches.length&&matches.every(row=>row.connected===true&&row.probe_ok===true)}):null,unique=confirmed?new Set(confirmed):null;
+      const key=params.get(id)==='connected'&&unique?.size?'callback.verified':'callback.unconfirmed';
+      toast(zeroCopy(key,'',{name:id.toUpperCase(),count:unique?.size||0}));
+    }
+    refreshEvents();
+  },300);
+  if([...params.keys()].some(key=>[...providers,'message','bootstrap'].includes(key)))setTimeout(()=>{if(location.search!==search||location.pathname!==path)return;for(const key of [...providers,'message','bootstrap'])params.delete(key);const query=params.toString();history.replaceState({},'',path+(query?'?'+query:'')+(location.hash||''));},1200);
+}
+scheduleOAuthFeedback();
 // Real operating-system event stream. Visual pulses are emitted only for new persisted events.
 let lastVisualEventId=null;
 async function refreshEvents(){
