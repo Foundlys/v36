@@ -5,6 +5,19 @@
   // Explicit catalog entries only. Business records and provider text are never
   // translated by DOM inspection or substituted by a language fallback.
   const rows={
+    "dashboard.value":["{value}","{value}","{value}","{value}","{value}","{value}","{value}","{value}"],
+    "dashboard.event":["{time} · {message}","{time} · {message}","{time} · {message}","{time} · {message}","{time} · {message}","{time} · {message}","{time} · {message}","{time} · {message}"],
+    "dashboard.core_ok":["OK","OK","OK","OK","OK","OK","OK","OK"],
+    "dashboard.worker.idle":["IN RUST","IDLE","IM LEERLAUF","AU REPOS","INACTIVO","I TOMGANG","I TOMGANG","I VILOLÄGE"],
+    "dashboard.worker.running":["ACTIEF","RUNNING","AKTIV","ACTIF","ACTIVO","AKTIV","AKTIV","AKTIVT"],
+    "dashboard.worker.degraded":["BEPERKT","DEGRADED","EINGESCHRÄNKT","DÉGRADÉ","DEGRADADO","BEGRÆNSET","BEGRENSET","BEGRÄNSAT"],
+    "dashboard.worker.error":["FOUT","ERROR","FEHLER","ERREUR","ERROR","FEJL","FEIL","FEL"],
+    "dashboard.worker.not_run":["NIET GESTART","NOT STARTED","NICHT GESTARTET","NON DÉMARRÉ","SIN INICIAR","IKKE STARTET","IKKE STARTET","INTE STARTAT"],
+    "dashboard.memory_durable":["DUURZAAM","DURABLE","DAUERHAFT","DURABLE","DURADERA","VARIG","VARIG","BESTÄNDIG"],
+    "dashboard.memory_cache":["LOKALE CACHE","LOCAL CACHE","LOKALER CACHE","CACHE LOCAL","CACHÉ LOCAL","LOKAL CACHE","LOKAL HURTIGBUFFER","LOKAL CACHE"],
+    "dashboard.memory_unproven":["NIET BEWEZEN","UNPROVEN","NICHT BELEGT","NON CONFIRMÉ","SIN CONFIRMAR","IKKE BEKRÆFTET","IKKE BEKREFTET","INTE BEKRÄFTAT"],
+    "dashboard.connected_count":["VERBONDEN · {count}","CONNECTED · {count}","VERBUNDEN · {count}","CONNEXIONS · {count}","CONEXIONES · {count}","FORBINDELSER · {count}","TILKOBLINGER · {count}","ANSLUTNINGAR · {count}"],
+    "dashboard.activity_unavailable":["Activiteit niet beschikbaar","Activity unavailable","Aktivität nicht verfügbar","Activité indisponible","Actividad no disponible","Aktivitet er ikke tilgængelig","Aktivitet er utilgjengelig","Aktivitet är inte tillgänglig"],
     "audio.uninitialized":["NIET GEÏNITIALISEERD","NOT INITIALISED","NICHT INITIALISIERT","NON INITIALISÉ","SIN INICIALIZAR","IKKE INITIALISERET","IKKE INITIALISERT","INTE INITIALISERAT"],
     "audio.running":["ACTIEF","RUNNING","AKTIV","ACTIF","ACTIVO","AKTIV","AKTIV","AKTIVT"],
     "audio.suspended":["GEPAUZEERD","SUSPENDED","PAUSIERT","SUSPENDU","SUSPENDIDO","SAT PÅ PAUSE","SATT PÅ PAUSE","PAUSAT"],

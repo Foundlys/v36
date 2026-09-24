@@ -674,6 +674,56 @@
     "main_index_script_candidates": 18,
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "current_ci": {
+      "run": 160,
+      "id": 36025591817,
+      "head": "38be0861f167f0728c63d5eabb5308db50ef2c72",
+      "tree": "9c1cf3e7863de0f037313f1ac7660c29d4b99000",
+      "status": "SUCCESS"
+    }
+  },
+  "dashboard_locale_checkpoint": {
+    "recorded_at": "2026-09-24T16:26:21.565772+00:00",
+    "source_sha256": {
+      "foundly-locales.js": "cab718f4e0c2a4500c110de95404b4c2de7ed67d27271a71fd07184ea0c2015a",
+      "index-script.js": "85c46a9605a755a416b5757a2c42c017c86d2506e3fef4ddca3b7b1429af9455",
+      "zero/dashboard-localization.test.js": "e520e534dee7bb2b75952b1b2079d91164608338f3acb1169b6e4e54169b1836"
+    },
+    "logs": {
+      "dashboard-localization.log": {
+        "exit_code": 0,
+        "sha256": "ac819eb21b529da6773c0a9303e668124a3843284c966b82ceab30a8d0585aa7",
+        "bytes": 3052,
+        "scope": "24 focused locale tests, including seven new status/summary/activity controller cases"
+      },
+      "dashboard-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "1b481c245848138e82daecc90dbfe5377ff8ada6f2b7a531df1a55fcc3d09b5a",
+        "bytes": 15872,
+        "scope": "All 128 ZERO tests plus 14/14 foundation corpus cases"
+      },
+      "dashboard-native-regression.log": {
+        "exit_code": 0,
+        "sha256": "ddffcc39602b77a0f2007193d4593a7a22e4e479f5cde9c7b6c590e25ae40c1a",
+        "bytes": 376,
+        "scope": "Existing smoke, native client and speech/audio/visual regressions; real local HTTP and declared device/transport fixtures, not browser or real voice quality"
+      }
+    },
+    "targeted_locale_tests": 24,
+    "new_controller_tests": 7,
+    "full_zero_tests": 128,
+    "full_zero_pass": 128,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "System core/worker/memory/connector observations and summary counts/timestamps now have explicit live presentation bindings across eight locales. Unknown and contradictory readings remain unknown; real zero remains zero. Cached connector aggregate counts no longer invent zero or 100 from a failed/missing source. Source names and activity messages remain literal. Timestamps use the account timezone with an unknown result for invalid dates/timezones. Interface locale changes read no source, apply no preferences and replay no visual event.",
+    "freshness_and_denial": "A newer failed/denied status or summary read clears prior source data and freshness; older responses and detached views cannot restore it. Failed/invalid activity reads clear old rows and the visual-event cursor. Restoring a read does not replay historical events as new activity. Current successful native responses and request paths remain unchanged.",
+    "evidence_limit": "Minimal DOM/controller state checks plus existing native HTTP/client regressions. No browser pixels, live responsiveness, accessibility or native-speaker acceptance. Backend source-generation/copy and other module surfaces remain separate open gates.",
+    "frozen_main_inline_css_equal_to_run1": true,
+    "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "dynamic_candidates": 933,
+    "main_index_script_candidates": 15,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

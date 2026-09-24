@@ -6263,7 +6263,7 @@
     },
     {
       "file": "index-script.js",
-      "sha256": "f917c3d4d8757eaf3370f539368479b723c550d15d962a3848211c37e6c0499b",
+      "sha256": "85c46a9605a755a416b5757a2c42c017c86d2506e3fef4ddca3b7b1429af9455",
       "items": [
         {
           "line": 7,
@@ -6416,29 +6416,9 @@
           "rich_text": false
         },
         {
-          "line": 397,
-          "start": 93027,
-          "end": 93057,
-          "context": "error_message_requires_control_flow_review",
-          "text": "Statusroute niet beschikbaar",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 397,
-          "start": 93747,
-          "end": 93798,
-          "context": "textContent",
-          "text": "{p0} LIVE",
-          "parameters": [
-            "window.__foundlyConnectorStatus.connected"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 400,
-          "start": 96431,
-          "end": 96504,
+          "line": 434,
+          "start": 98734,
+          "end": 98807,
           "context": "toast",
           "text": "{p0} gekoppeld{p1}",
           "parameters": [
@@ -6448,26 +6428,14 @@
           "rich_text": false
         },
         {
-          "line": 400,
-          "start": 96657,
-          "end": 96726,
+          "line": 434,
+          "start": 98960,
+          "end": 99029,
           "context": "toast",
           "text": "{p0} koppeling fout: {p1}",
           "parameters": [
             "id.toUpperCase()",
             "p.get('message')||'onbekend'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 404,
-          "start": 97925,
-          "end": 97948,
-          "context": "textContent",
-          "text": "{p0} · {p1}",
-          "parameters": [
-            "at",
-            "ev.message"
           ],
           "rich_text": false
         }
