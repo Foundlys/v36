@@ -64,5 +64,22 @@
     "fix": "Preserve explicit INSPECT_RUN; gate only preparation/mutation inference",
     "live_provider_and_browser_acceptance": "UNVERIFIED",
     "log_sha256": "b16cf766f3536cd65fd47ba834e4bd41bb70bfee935890c085b863a8af3589ec"
+  },
+  "voice_cross_module_checkpoint": {
+    "recorded_at": "2026-09-24T11:37:44.266585+00:00",
+    "unit_http_tests": 61,
+    "full_npm_test_exit_code": 0,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "log_sha256": "cc7cccf26799b5e60e10887c1d8171b31bc001e6e2050afbf4bda1fe05b2b188",
+    "log_bytes": 87838,
+    "ci_147": {
+      "head": "b03c831d8a2e7a78701a48e04a6b11a6c2f53b56",
+      "status": "SUCCESS",
+      "scope": "previous research/discovery checkpoint, not the subsequent voice changes"
+    },
+    "browser": "ENVIRONMENT_UNVERIFIED: supported cloud browser rejected localhost with ERR_BLOCKED_BY_CLIENT",
+    "live_voice": "UNVERIFIED: no listening or physical microphone acceptance",
+    "dashboard_change": "Only required per-user language, voice and mode controls in the existing Audio/privacy panel; no layout or visual redesign"
   }
 }

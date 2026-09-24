@@ -1,131 +1,131 @@
 # Run 2 acceptance matrix
 
-Authority SHA-256: `370f8066897c20310c742c56dfb5fabd5aa5d934d4702884c31b152ced6263d9`. All detailed obligations in AUTHORITATIVE_CONTRACT.md remain binding. No acceptance waiver is implied by grouping.
+Authority SHA-256: `370f8066897c20310c742c56dfb5fabd5aa5d934d4702884c31b152ced6263d9`. All detailed obligations in AUTHORITATIVE_CONTRACT.md remain binding. **IN PROGRESS — NOT ACCEPTED.**
 
-| ID | Group | Requirement | Status | Evidence |
-| --- | --- | --- | --- | --- |
-| R2-001 | ZERO COGNITION | natural conversation | UNVERIFIED | Pending |
-| R2-002 | ZERO COGNITION | intent resolution | UNVERIFIED | Pending |
-| R2-003 | ZERO COGNITION | ambiguity handling | UNVERIFIED | Pending |
-| R2-004 | ZERO COGNITION | long-context continuity | UNVERIFIED | Pending |
-| R2-005 | ZERO COGNITION | personalization | UNVERIFIED | Pending |
-| R2-006 | ZERO COGNITION | social intelligence | UNVERIFIED | Pending |
-| R2-007 | ZERO COGNITION | professional contextual humor | UNVERIFIED | Pending |
-| R2-008 | ZERO COGNITION | multilingual reasoning | UNVERIFIED | Pending |
-| R2-009 | ZERO COGNITION | multi-step planning | UNVERIFIED | Pending |
-| R2-010 | ZERO COGNITION | causal/business reasoning | UNVERIFIED | Pending |
-| R2-011 | ZERO COGNITION | uncertainty awareness | UNVERIFIED | Pending |
-| R2-012 | ZERO COGNITION | contradiction detection | UNVERIFIED | Pending |
-| R2-013 | ZERO COGNITION | proactive intelligence | UNVERIFIED | Pending |
-| R2-014 | ZERO COGNITION | outcome-oriented recommendations | UNVERIFIED | Pending |
-| R2-015 | MEMORY | session memory | UNVERIFIED | Pending |
-| R2-016 | MEMORY | task memory | UNVERIFIED | Pending |
-| R2-017 | MEMORY | user memory | UNVERIFIED | Pending |
-| R2-018 | MEMORY | organization memory | UNVERIFIED | Pending |
-| R2-019 | MEMORY | workflow memory | UNVERIFIED | Pending |
-| R2-020 | MEMORY | semantic knowledge | UNVERIFIED | Pending |
-| R2-021 | MEMORY | Industry Pack knowledge | UNVERIFIED | Pending |
-| R2-022 | MEMORY | outcome memory | UNVERIFIED | Pending |
-| R2-023 | MEMORY | provenance | UNVERIFIED | Pending |
-| R2-024 | MEMORY | freshness | UNVERIFIED | Pending |
-| R2-025 | MEMORY | permission isolation | UNVERIFIED | Pending |
-| R2-026 | MEMORY | cross-user isolation | UNVERIFIED | Pending |
-| R2-027 | MEMORY | cross-tenant isolation | UNVERIFIED | Pending |
-| R2-028 | CONTEXT | dynamic context assembly | UNVERIFIED | Pending |
-| R2-029 | CONTEXT | relevance awareness | UNVERIFIED | Pending |
-| R2-030 | CONTEXT | permission awareness | UNVERIFIED | Pending |
-| R2-031 | CONTEXT | freshness awareness | UNVERIFIED | Pending |
-| R2-032 | CONTEXT | source awareness | UNVERIFIED | Pending |
-| R2-033 | CONTEXT | latency awareness | UNVERIFIED | Pending |
-| R2-034 | CONTEXT | cost awareness | UNVERIFIED | Pending |
-| R2-035 | MODEL / AGENTS | model/provider registry | UNVERIFIED | Pending |
-| R2-036 | MODEL / AGENTS | routing | UNVERIFIED | Pending |
-| R2-037 | MODEL / AGENTS | fallback/degradation | UNVERIFIED | Pending |
-| R2-038 | MODEL / AGENTS | specialist orchestration | UNVERIFIED | Pending |
-| R2-039 | MODEL / AGENTS | agent permission boundaries | UNVERIFIED | Pending |
-| R2-040 | MODEL / AGENTS | retry limits | UNVERIFIED | Pending |
-| R2-041 | MODEL / AGENTS | runaway prevention | UNVERIFIED | Pending |
-| R2-042 | MODEL / AGENTS | economic controls | UNVERIFIED | Pending |
-| R2-043 | RESEARCH | governed current research | UNVERIFIED | Pending |
-| R2-044 | RESEARCH | provenance | UNVERIFIED | Pending |
-| R2-045 | RESEARCH | contradiction handling | UNVERIFIED | Pending |
-| R2-046 | RESEARCH | injection resistance appropriate to Run 2 | UNVERIFIED | Pending |
-| R2-047 | RESEARCH | controlled knowledge activation | UNVERIFIED | Pending |
-| R2-048 | RESEARCH | controlled regulation/domain refresh | UNVERIFIED | Pending |
-| R2-049 | STACK DISCOVERY V1 | heterogeneous discovery | UNVERIFIED | Pending |
-| R2-050 | STACK DISCOVERY V1 | evidence states | UNVERIFIED | Pending |
-| R2-051 | STACK DISCOVERY V1 | conflict handling | UNVERIFIED | Pending |
-| R2-052 | STACK DISCOVERY V1 | uncertainty handling | UNVERIFIED | Pending |
-| R2-053 | STACK DISCOVERY V1 | unsafe environment handling | UNVERIFIED | Pending |
-| R2-054 | STACK DISCOVERY V1 | human clarification boundaries | UNVERIFIED | Pending |
-| R2-055 | STACK DISCOVERY V1 | no fabricated architecture | UNVERIFIED | Pending |
-| R2-056 | LOCALIZATION | nl-NL | UNVERIFIED | Pending |
-| R2-057 | LOCALIZATION | English | UNVERIFIED | Pending |
-| R2-058 | LOCALIZATION | de-DE | UNVERIFIED | Pending |
-| R2-059 | LOCALIZATION | fr-FR | UNVERIFIED | Pending |
-| R2-060 | LOCALIZATION | es-ES | UNVERIFIED | Pending |
-| R2-061 | LOCALIZATION | da-DK | UNVERIFIED | Pending |
-| R2-062 | LOCALIZATION | nb-NO | UNVERIFIED | Pending |
-| R2-063 | LOCALIZATION | sv-SE | UNVERIFIED | Pending |
-| R2-064 | VOICE | natural human quality | UNVERIFIED | Pending |
-| R2-065 | VOICE | male | UNVERIFIED | Pending |
-| R2-066 | VOICE | female | UNVERIFIED | Pending |
-| R2-067 | VOICE | Executive | UNVERIFIED | Pending |
-| R2-068 | VOICE | Conversational | UNVERIFIED | Pending |
-| R2-069 | VOICE | Briefing | UNVERIFIED | Pending |
-| R2-070 | VOICE | multilingual pronunciation | UNVERIFIED | Pending |
-| R2-071 | VOICE | contextual prosody | UNVERIFIED | Pending |
-| R2-072 | VOICE | business tone | UNVERIFIED | Pending |
-| R2-073 | VOICE | streaming | UNVERIFIED | Pending |
-| R2-074 | VOICE | latency | UNVERIFIED | Pending |
-| R2-075 | VOICE | barge-in | UNVERIFIED | Pending |
-| R2-076 | VOICE | continuity | UNVERIFIED | Pending |
-| R2-077 | VOICE | names/brands | UNVERIFIED | Pending |
-| R2-078 | VOICE | industry terminology | UNVERIFIED | Pending |
-| R2-079 | VOICE | numbers/currencies/dates | UNVERIFIED | Pending |
-| R2-080 | VOICE | approval confirmations | UNVERIFIED | Pending |
-| R2-081 | VOICE | no obvious TTS cadence | UNVERIFIED | Pending |
-| R2-082 | DEMO | Demo Universe Engine V1 | UNVERIFIED | Pending |
-| R2-083 | DEMO | Automotive Demo Universe V1 | UNVERIFIED | Pending |
-| R2-084 | DEMO | scenario coherence | UNVERIFIED | Pending |
-| R2-085 | DEMO | production contracts used | UNVERIFIED | Pending |
-| R2-086 | DEMO | provenance classification | UNVERIFIED | Pending |
-| R2-087 | DEMO | anomalies/failures | UNVERIFIED | Pending |
-| R2-088 | INDUSTRY KNOWLEDGE | Automotive knowledge/data foundations | UNVERIFIED | Pending |
-| R2-089 | INDUSTRY KNOWLEDGE | Customer Truth separation | UNVERIFIED | Pending |
-| R2-090 | INDUSTRY KNOWLEDGE | external intelligence provenance | UNVERIFIED | Pending |
-| R2-091 | INDUSTRY KNOWLEDGE | derived intelligence separation | UNVERIFIED | Pending |
-| R2-092 | INDUSTRY KNOWLEDGE | geography/time semantics | UNVERIFIED | Pending |
-| R2-093 | CROSS-MODULE ZERO | difficult representative multi-module scenarios | UNVERIFIED | Pending |
-| R2-094 | CROSS-MODULE ZERO | permission enforcement | UNVERIFIED | Pending |
-| R2-095 | CROSS-MODULE ZERO | tool discovery | UNVERIFIED | Pending |
-| R2-096 | CROSS-MODULE ZERO | evidence-backed outputs | UNVERIFIED | Pending |
-| R2-097 | EVALUATION | permanent ZERO evaluation framework | UNVERIFIED | Pending |
-| R2-098 | EVALUATION | versioned corpus | UNVERIFIED | Pending |
-| R2-099 | EVALUATION | regression evaluation | UNVERIFIED | Pending |
-| R2-100 | EVALUATION | adversarial coverage | UNVERIFIED | Pending |
-| R2-101 | UX | frozen main dashboard preserved | UNVERIFIED | Pending |
-| R2-102 | UX | non-frozen touched surfaces quality | UNVERIFIED | Pending |
-| R2-103 | UX | psychological usability | UNVERIFIED | Pending |
-| R2-104 | UX | accessibility | UNVERIFIED | Pending |
-| R2-105 | UX | responsive behavior | UNVERIFIED | Pending |
-| R2-106 | UX | localization layout integrity | UNVERIFIED | Pending |
-| R2-107 | OPERABILITY / ECONOMICS | truthful provider state | UNVERIFIED | Pending |
-| R2-108 | OPERABILITY / ECONOMICS | telemetry | UNVERIFIED | Pending |
-| R2-109 | OPERABILITY / ECONOMICS | retry/runaway controls | UNVERIFIED | Pending |
-| R2-110 | OPERABILITY / ECONOMICS | economically controllable routing | UNVERIFIED | Pending |
-| R2-111 | OPERABILITY / ECONOMICS | documentation updated | UNVERIFIED | Pending |
-| R2-112 | REGRESSION / CI | targeted Run-2 tests | UNVERIFIED | Pending |
-| R2-113 | REGRESSION / CI | complete relevant regression | UNVERIFIED | Pending |
-| R2-114 | REGRESSION / CI | CI | UNVERIFIED | Pending |
-| R2-115 | REGRESSION / CI | no material unresolved code-controlled Run-2 defect | UNVERIFIED | Pending |
-| R2-116 | ADDITIONAL CONTRACT GATES | Permission-aware universal search across authorized sources | UNVERIFIED | Pending |
-| R2-117 | ADDITIONAL CONTRACT GATES | Role-, urgency- and risk-aware attention intelligence | UNVERIFIED | Pending |
-| R2-118 | ADDITIONAL CONTRACT GATES | Provenance-aware data-quality detection and governed remediation | UNVERIFIED | Pending |
-| R2-119 | ADDITIONAL CONTRACT GATES | Versioned and auditable configuration change and rollback | UNVERIFIED | Pending |
-| R2-120 | ADDITIONAL CONTRACT GATES | Business/Personal data and commercial separation | UNVERIFIED | Pending |
-| R2-121 | ADDITIONAL CONTRACT GATES | Evidence-backed connector readiness | UNVERIFIED | Pending |
-| R2-122 | ADDITIONAL CONTRACT GATES | Customer source-of-truth routing | UNVERIFIED | Pending |
-| R2-123 | ADDITIONAL CONTRACT GATES | All enumerated Run-2 security adversarial scenarios | UNVERIFIED | Pending |
-| R2-124 | ADDITIONAL CONTRACT GATES | Representative p50/p95/p99 latency and cost measurement | UNVERIFIED | Pending |
-| R2-125 | ADDITIONAL CONTRACT GATES | Run 3–7 boundaries preserved | UNVERIFIED | Pending |
+| ID | Group | Requirement | Status | Classification | Evidence and remaining work |
+| --- | --- | --- | --- | --- | --- |
+| R2-001 | ZERO COGNITION | natural conversation | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-002 | ZERO COGNITION | intent resolution | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-003 | ZERO COGNITION | ambiguity handling | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-004 | ZERO COGNITION | long-context continuity | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-005 | ZERO COGNITION | personalization | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-006 | ZERO COGNITION | social intelligence | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-007 | ZERO COGNITION | professional contextual humor | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-008 | ZERO COGNITION | multilingual reasoning | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-009 | ZERO COGNITION | multi-step planning | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-010 | ZERO COGNITION | causal/business reasoning | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-011 | ZERO COGNITION | uncertainty awareness | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-012 | ZERO COGNITION | contradiction detection | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-013 | ZERO COGNITION | proactive intelligence | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-014 | ZERO COGNITION | outcome-oriented recommendations | FAIL | CODE_CONTROLLED | Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete. `zero/cognition.js`, `zero/intent-api.test.js`, `zero/cross-module-api.test.js` |
+| R2-015 | MEMORY | session memory | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-016 | MEMORY | task memory | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-017 | MEMORY | user memory | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-018 | MEMORY | organization memory | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-019 | MEMORY | workflow memory | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-020 | MEMORY | semantic knowledge | FAIL | CODE_CONTROLLED | Semantic layer stores assertions; no verified semantic retrieval index. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-021 | MEMORY | Industry Pack knowledge | FAIL | CODE_CONTROLLED | Industry memory storage exists; deep Automotive knowledge coverage is incomplete. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-022 | MEMORY | outcome memory | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-023 | MEMORY | provenance | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-024 | MEMORY | freshness | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-025 | MEMORY | permission isolation | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-026 | MEMORY | cross-user isolation | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-027 | MEMORY | cross-tenant isolation | PASS | NONE | Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality. `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-028 | CONTEXT | dynamic context assembly | PASS | NONE | Bounded lexical production retrieval with current permissions, dates and source revalidation verified. `zero/context.js`, `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-029 | CONTEXT | relevance awareness | FAIL | CODE_CONTROLLED | Lexical scoring is bounded; representative natural-language/semantic relevance evaluation is incomplete. `zero/context.js`, `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-030 | CONTEXT | permission awareness | PASS | NONE | Bounded lexical production retrieval with current permissions, dates and source revalidation verified. `zero/context.js`, `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-031 | CONTEXT | freshness awareness | PASS | NONE | Bounded lexical production retrieval with current permissions, dates and source revalidation verified. `zero/context.js`, `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-032 | CONTEXT | source awareness | PASS | NONE | Bounded lexical production retrieval with current permissions, dates and source revalidation verified. `zero/context.js`, `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-033 | CONTEXT | latency awareness | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Bounded context exists; representative latency distributions have not been measured. `zero/context.js`, `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-034 | CONTEXT | cost awareness | FAIL | CODE_CONTROLLED | Byte/token bounds exist; full task-level cost optimization acceptance is incomplete. `zero/context.js`, `zero/memory.test.js`, `zero/context-api.test.js` |
+| R2-035 | MODEL / AGENTS | model/provider registry | PASS | NONE | Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-036 | MODEL / AGENTS | routing | PASS | NONE | Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-037 | MODEL / AGENTS | fallback/degradation | PASS | NONE | Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-038 | MODEL / AGENTS | specialist orchestration | PASS | NONE | Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-039 | MODEL / AGENTS | agent permission boundaries | PASS | NONE | Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-040 | MODEL / AGENTS | retry limits | PASS | NONE | Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-041 | MODEL / AGENTS | runaway prevention | PASS | NONE | Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-042 | MODEL / AGENTS | economic controls | FAIL | CODE_CONTROLLED | Request/token budgets exist; verified hard spend ceilings for research and Realtime are incomplete. `zero/router.test.js`, `zero/agents.test.js`, `zero/agents-api.test.js` |
+| R2-043 | RESEARCH | governed current research | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Governance and source metadata contracts verified; live source accuracy and adversarial content acceptance remain open. `zero/research.test.js`, `zero/knowledge-api.test.js` |
+| R2-044 | RESEARCH | provenance | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Governance and source metadata contracts verified; live source accuracy and adversarial content acceptance remain open. `zero/research.test.js`, `zero/knowledge-api.test.js` |
+| R2-045 | RESEARCH | contradiction handling | FAIL | CODE_CONTROLLED | Reviewed reference conflicts are explicit; automated research contradiction assessment is incomplete. `zero/research.test.js`, `zero/knowledge-api.test.js` |
+| R2-046 | RESEARCH | injection resistance appropriate to Run 2 | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Governance and source metadata contracts verified; live source accuracy and adversarial content acceptance remain open. `zero/research.test.js`, `zero/knowledge-api.test.js` |
+| R2-047 | RESEARCH | controlled knowledge activation | PASS | NONE | Quarantine, exact-hash review, explicit activation, expiry and rollback pass actual HTTP and persistence checks. `zero/research.test.js`, `zero/knowledge-api.test.js` |
+| R2-048 | RESEARCH | controlled regulation/domain refresh | PASS | NONE | Regulation-specific authority, primary-source, jurisdiction and effective-date gates pass; factual source validity still requires operator review. `zero/research.test.js`, `zero/knowledge-api.test.js` |
+| R2-049 | STACK DISCOVERY V1 | heterogeneous discovery | FAIL | CODE_CONTROLLED | OpenAPI, native configuration and declarations exist; heterogeneous installed-system/identity/data discovery coverage remains incomplete. `zero/stack.test.js`, `zero/discovery.test.js`, `zero/discovery-api.test.js` |
+| R2-050 | STACK DISCOVERY V1 | evidence states | PASS | NONE | Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states. `zero/stack.test.js`, `zero/discovery.test.js`, `zero/discovery-api.test.js` |
+| R2-051 | STACK DISCOVERY V1 | conflict handling | PASS | NONE | Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states. `zero/stack.test.js`, `zero/discovery.test.js`, `zero/discovery-api.test.js` |
+| R2-052 | STACK DISCOVERY V1 | uncertainty handling | PASS | NONE | Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states. `zero/stack.test.js`, `zero/discovery.test.js`, `zero/discovery-api.test.js` |
+| R2-053 | STACK DISCOVERY V1 | unsafe environment handling | PASS | NONE | Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states. `zero/stack.test.js`, `zero/discovery.test.js`, `zero/discovery-api.test.js` |
+| R2-054 | STACK DISCOVERY V1 | human clarification boundaries | PASS | NONE | Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states. `zero/stack.test.js`, `zero/discovery.test.js`, `zero/discovery-api.test.js` |
+| R2-055 | STACK DISCOVERY V1 | no fabricated architecture | PASS | NONE | Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states. `zero/stack.test.js`, `zero/discovery.test.js`, `zero/discovery-api.test.js` |
+| R2-056 | LOCALIZATION | nl-NL | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-057 | LOCALIZATION | English | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-058 | LOCALIZATION | de-DE | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-059 | LOCALIZATION | fr-FR | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-060 | LOCALIZATION | es-ES | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-061 | LOCALIZATION | da-DK | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-062 | LOCALIZATION | nb-NO | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-063 | LOCALIZATION | sv-SE | FAIL | CODE_CONTROLLED | Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete. `index.html`, `foundly-workspace.html`, `crm.html`, `automotive.html`, `analysis.html`, `finance.html`, `identity-login.html` |
+| R2-064 | VOICE | natural human quality | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-065 | VOICE | male | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-066 | VOICE | female | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-067 | VOICE | Executive | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-068 | VOICE | Conversational | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-069 | VOICE | Briefing | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-070 | VOICE | multilingual pronunciation | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-071 | VOICE | contextual prosody | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-072 | VOICE | business tone | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-073 | VOICE | streaming | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-074 | VOICE | latency | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-075 | VOICE | barge-in | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-076 | VOICE | continuity | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-077 | VOICE | names/brands | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-078 | VOICE | industry terminology | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-079 | VOICE | numbers/currencies/dates | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-080 | VOICE | approval confirmations | PASS | NONE | Exact multilingual approval phrases share client/server rules; real input transcription supplies stable deduplicated native turns. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-081 | VOICE | no obvious TTS cadence | UNVERIFIED | ENVIRONMENT_UNVERIFIED | 48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance. `zero/voice.test.js`, `zero/voice-api.test.js`, `zero/voice-client.test.js`, `zero/voice-turns.test.js` |
+| R2-082 | DEMO | Demo Universe Engine V1 | FAIL | CODE_CONTROLLED | Reusable scenario seed engine and the required deep Automotive universe have not been implemented.  |
+| R2-083 | DEMO | Automotive Demo Universe V1 | FAIL | CODE_CONTROLLED | Reusable scenario seed engine and the required deep Automotive universe have not been implemented.  |
+| R2-084 | DEMO | scenario coherence | FAIL | CODE_CONTROLLED | Reusable scenario seed engine and the required deep Automotive universe have not been implemented.  |
+| R2-085 | DEMO | production contracts used | FAIL | CODE_CONTROLLED | Reusable scenario seed engine and the required deep Automotive universe have not been implemented.  |
+| R2-086 | DEMO | provenance classification | FAIL | CODE_CONTROLLED | Reusable scenario seed engine and the required deep Automotive universe have not been implemented.  |
+| R2-087 | DEMO | anomalies/failures | FAIL | CODE_CONTROLLED | Reusable scenario seed engine and the required deep Automotive universe have not been implemented.  |
+| R2-088 | INDUSTRY KNOWLEDGE | Automotive knowledge/data foundations | FAIL | CODE_CONTROLLED | Structured Automotive knowledge depth, history and reference coverage remain incomplete. `automotive-core.js`, `zero/knowledge.js` |
+| R2-089 | INDUSTRY KNOWLEDGE | Customer Truth separation | UNVERIFIED | CODE_CONTROLLED | Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete. `automotive-core.js`, `zero/knowledge.js` |
+| R2-090 | INDUSTRY KNOWLEDGE | external intelligence provenance | UNVERIFIED | CODE_CONTROLLED | Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete. `automotive-core.js`, `zero/knowledge.js` |
+| R2-091 | INDUSTRY KNOWLEDGE | derived intelligence separation | UNVERIFIED | CODE_CONTROLLED | Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete. `automotive-core.js`, `zero/knowledge.js` |
+| R2-092 | INDUSTRY KNOWLEDGE | geography/time semantics | UNVERIFIED | CODE_CONTROLLED | Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete. `automotive-core.js`, `zero/knowledge.js` |
+| R2-093 | CROSS-MODULE ZERO | difficult representative multi-module scenarios | FAIL | CODE_CONTROLLED | No completed difficult Automotive/multi-module business-quality corpus. `zero/cross-module-api.test.js`, `zero/native-agents.js` |
+| R2-094 | CROSS-MODULE ZERO | permission enforcement | PASS | NONE | Native current-principal module checks, post-read verification and revocation denial pass actual HTTP. `zero/cross-module-api.test.js`, `zero/native-agents.js` |
+| R2-095 | CROSS-MODULE ZERO | tool discovery | PASS | NONE | Server-owned tool catalog exposes only currently authorized native specialists. `zero/cross-module-api.test.js`, `zero/native-agents.js` |
+| R2-096 | CROSS-MODULE ZERO | evidence-backed outputs | UNVERIFIED | CODE_CONTROLLED | One actual ZERO turn gathers multiple native sources; difficult business-quality and Automotive corpus is incomplete. `zero/cross-module-api.test.js`, `zero/native-agents.js` |
+| R2-097 | EVALUATION | permanent ZERO evaluation framework | PASS | NONE | Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance. `zero-evaluation/corpus.v1.json`, `docs/run2/evaluation-current.json`, `docs/run2/checkpoint-tests.json` |
+| R2-098 | EVALUATION | versioned corpus | PASS | NONE | Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance. `zero-evaluation/corpus.v1.json`, `docs/run2/evaluation-current.json`, `docs/run2/checkpoint-tests.json` |
+| R2-099 | EVALUATION | regression evaluation | PASS | NONE | Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance. `zero-evaluation/corpus.v1.json`, `docs/run2/evaluation-current.json`, `docs/run2/checkpoint-tests.json` |
+| R2-100 | EVALUATION | adversarial coverage | FAIL | CODE_CONTROLLED | Permission, injection boundary and failure cases exist; all enumerated adversarial evaluation dimensions are not covered. `zero-evaluation/corpus.v1.json`, `docs/run2/evaluation-current.json`, `docs/run2/checkpoint-tests.json` |
+| R2-101 | UX | frozen main dashboard preserved | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance. `docs/run2/checkpoint-tests.json` |
+| R2-102 | UX | non-frozen touched surfaces quality | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance. `docs/run2/checkpoint-tests.json` |
+| R2-103 | UX | psychological usability | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance. `docs/run2/checkpoint-tests.json` |
+| R2-104 | UX | accessibility | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance. `docs/run2/checkpoint-tests.json` |
+| R2-105 | UX | responsive behavior | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance. `docs/run2/checkpoint-tests.json` |
+| R2-106 | UX | localization layout integrity | FAIL | CODE_CONTROLLED | Full translated UI does not yet exist, so localized layout integrity cannot pass. `docs/run2/checkpoint-tests.json` |
+| R2-107 | OPERABILITY / ECONOMICS | truthful provider state | PASS | NONE | Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested. `zero/router.test.js`, `zero/discovery.test.js`, `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-108 | OPERABILITY / ECONOMICS | telemetry | PASS | NONE | Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested. `zero/router.test.js`, `zero/discovery.test.js`, `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-109 | OPERABILITY / ECONOMICS | retry/runaway controls | PASS | NONE | Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested. `zero/router.test.js`, `zero/discovery.test.js`, `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-110 | OPERABILITY / ECONOMICS | economically controllable routing | FAIL | CODE_CONTROLLED | Routing budgets and telemetry exist; complete hard monetary control including live research/audio is not verified. `zero/router.test.js`, `zero/discovery.test.js`, `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-111 | OPERABILITY / ECONOMICS | documentation updated | PASS | NONE | Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested. `zero/router.test.js`, `zero/discovery.test.js`, `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-112 | REGRESSION / CI | targeted Run-2 tests | PASS | NONE | Full local npm test passes including 61 ZERO unit/HTTP tests and 14 corpus cases. `docs/run2/checkpoint-tests.json`, `docs/run2/evaluation-current.json` |
+| R2-113 | REGRESSION / CI | complete relevant regression | PASS | NONE | Full local npm test passes including 61 ZERO unit/HTTP tests and 14 corpus cases. `docs/run2/checkpoint-tests.json`, `docs/run2/evaluation-current.json` |
+| R2-114 | REGRESSION / CI | CI | UNVERIFIED | ENVIRONMENT_UNVERIFIED | CI 147 passed the previous checkpoint; this later voice checkpoint still requires its own remote CI. `docs/run2/checkpoint-tests.json`, `docs/run2/evaluation-current.json` |
+| R2-115 | REGRESSION / CI | no material unresolved code-controlled Run-2 defect | FAIL | CODE_CONTROLLED | Material code-controlled requirements remain open; Run 2 is not accepted. `docs/run2/checkpoint-tests.json`, `docs/run2/evaluation-current.json` |
+| R2-116 | ADDITIONAL CONTRACT GATES | Permission-aware universal search across authorized sources | FAIL | CODE_CONTROLLED | Existing per-domain/canonical search is not yet one permission-aware universal retrieval surface. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-117 | ADDITIONAL CONTRACT GATES | Role-, urgency- and risk-aware attention intelligence | FAIL | CODE_CONTROLLED | Unified role/risk/urgency attention ranking with non-suppressible critical items is not implemented. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-118 | ADDITIONAL CONTRACT GATES | Provenance-aware data-quality detection and governed remediation | FAIL | CODE_CONTROLLED | Unified provenance-aware duplicate/contradiction/staleness/invalid-value assessment is not implemented. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-119 | ADDITIONAL CONTRACT GATES | Versioned and auditable configuration change and rollback | UNVERIFIED | CODE_CONTROLLED | Existing workflow/reference revisions have rollback; complete Run 2 configuration change acceptance is open. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-120 | ADDITIONAL CONTRACT GATES | Business/Personal data and commercial separation | UNVERIFIED | ENVIRONMENT_UNVERIFIED | No Personal data integration is introduced; full commercial/data boundary acceptance remains open. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-121 | ADDITIONAL CONTRACT GATES | Evidence-backed connector readiness | PASS | NONE | Configuration presence and observed connection are kept distinct; provider failures are not successful empty results. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-122 | ADDITIONAL CONTRACT GATES | Customer source-of-truth routing | FAIL | CODE_CONTROLLED | External references cannot replace customer records; complete heterogeneous authority mappings remain incomplete. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-123 | ADDITIONAL CONTRACT GATES | All enumerated Run-2 security adversarial scenarios | FAIL | CODE_CONTROLLED | Partial security regression is extensive but all enumerated Run 2 adversarial scenarios are not yet covered. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-124 | ADDITIONAL CONTRACT GATES | Representative p50/p95/p99 latency and cost measurement | UNVERIFIED | ENVIRONMENT_UNVERIFIED | Per-case timings exist; representative p50/p95/p99 business workload and live cost measurements do not. `docs/run2/ZERO_FOUNDATIONS.md` |
+| R2-125 | ADDITIONAL CONTRACT GATES | Run 3–7 boundaries preserved | PASS | NONE | No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed. `docs/run2/ZERO_FOUNDATIONS.md` |

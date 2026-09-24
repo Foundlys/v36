@@ -2,79 +2,79 @@
   "schema_version": 1,
   "corpus_version": "1.0.0",
   "corpus_sha256": "48c2df5c448802cc61c65b81b90b4a90f0e21a88124da08f5305c34a2c3da7b2",
-  "recorded_at": "2026-09-24T11:20:01.082Z",
-  "head": "132c181818898275a58a30b230fb8c5b5258c4cc",
+  "recorded_at": "2026-09-24T11:36:20.066Z",
+  "head": "04190bea59e14357bfc0f42e5968bb7ee6804f12",
   "environment": "ISOLATED_REAL_HTTP_NO_MODEL_PROVIDER",
   "results": [
     {
       "id": "auth-zero",
       "status": "PASS",
-      "latency_ms": 3.0400030000000697
+      "latency_ms": 2.9714850000000297
     },
     {
       "id": "composition-tools",
       "status": "PASS",
-      "latency_ms": 6.519767000000229
+      "latency_ms": 7.2491839999997865
     },
     {
       "id": "conversation-isolation",
       "status": "PASS",
-      "latency_ms": 26.439919999999802
+      "latency_ms": 27.44509999999991
     },
     {
       "id": "preference-isolation",
       "status": "PASS",
-      "latency_ms": 8.959925999999996
+      "latency_ms": 9.052850999999919
     },
     {
       "id": "locale-validation",
       "status": "PASS",
-      "latency_ms": 2.6481830000002446
+      "latency_ms": 2.6394399999999223
     },
     {
       "id": "no-model-truth",
       "status": "PASS",
-      "latency_ms": 21.927300999999716
+      "latency_ms": 25.932244999999966
     },
     {
       "id": "memory-api",
       "status": "PASS",
-      "latency_ms": 4.391845999999987
+      "latency_ms": 4.4716849999999795
     },
     {
       "id": "memory-isolation",
       "status": "PASS",
-      "latency_ms": 2.3356330000001435
+      "latency_ms": 2.521852999999737
     },
     {
       "id": "memory-delete",
       "status": "PASS",
-      "latency_ms": 6.459726000000046
+      "latency_ms": 7.514603000000079
     },
     {
       "id": "memory-readonly",
       "status": "PASS",
-      "latency_ms": 2.9181390000003375
+      "latency_ms": 3.651331999999911
     },
     {
       "id": "stack-discovery",
       "status": "PASS",
-      "latency_ms": 150.9521319999999
+      "latency_ms": 152.91603099999975
     },
     {
       "id": "model-registry",
       "status": "PASS",
-      "latency_ms": 2.726270999999997
+      "latency_ms": 2.577526999999918
     },
     {
       "id": "voice-profile",
       "status": "PASS",
-      "latency_ms": 3.539013000000068
+      "latency_ms": 3.3567689999999857
     },
     {
       "id": "encrypted-restart",
       "status": "PASS",
-      "latency_ms": 193.67796799999996
+      "latency_ms": 142.27966799999967
     }
   ],
   "summary": {
@@ -329,8 +329,8 @@
     "identity-login.css": "3f807322ef8e212daae91ae79e55860aa170547ea0f3f52c71dda7f32e04d8e5",
     "identity-login.html": "da113ce1271351c4cc7368c5cb0de096ba2058a15c8278ca54744afb4968eb94",
     "identity-login.js": "127d342aea8cd2f8a36943f8e9038a61381dd5612bd58843262f4a1d5dbbc52a",
-    "index-script.js": "d225600048205fbf7086a409fb1807db1592a277068c38d0b1604e4c716ad835",
-    "index.html": "bdf650a2ed433ba9c5a9ac61dbd1286e2fda0f1eaf7d442cc600b516466c112b",
+    "index-script.js": "670b247c040cddc2883f21626059f31315ad599c62b5ebfe0211af90f1a4a172",
+    "index.html": "4d77197278c9561b4c8b9710ac2cbce8ba5dac05b3925891a21bd705c64174ae",
     "industry-field-api-test.js": "76ee1cda1bf682d49d5cf8c6ae86a4f4cbaa095b4ccf7ac5bedcd8080efc8695",
     "industry-field-contract.js": "b7f1c9abc73983447921baffeaafdd1a16540b10d17e4093355a3202f0f1e527",
     "industry-kpis.js": "962d6c714c0843945647572541c50d6da966f8385d4c8508aaf2fee01f95c67c",
@@ -447,10 +447,10 @@
     "scoped-mutation.js": "941bdf57101c7e0ead479753b91d4480e27c8882f86b034cb46e4f79f9143ef6",
     "second-industry-integration-test.js": "f331436dcd5fe286ba2b244635ec0cad6cc04a77d229bf2428a6af391caf4444",
     "second-industry-proof-test.js": "d2a91175453de9af5f0625712fed6a842e48ded731bd46151ad760f47b94d140",
-    "server.js": "06fc6f182bf02afbeccc143ddcdca3ac012a21a09ea43d5b0408f6ef8b9d7d4d",
+    "server.js": "2ebf3cf6877bd9468a4288a1486451eee20ea531f782513bb8077e6e065ab172",
     "smoke-test.js": "01e5d14dce9aa8b218028c97b3ecc03d0bcae3be1005c2f73e9adeab6e3b64fc",
     "speech-audio-visual-regression-test.js": "228fce656c30b2c508c38b82f1cd3f90b0eab45aea8b0a94ba18c7ff4dba3715",
-    "speech-formatter.js": "87b9d76f35027bf96b24db999dd499f03cac4c8d00cb396945f30be0a3458732",
+    "speech-formatter.js": "dcba8849663504320f1279f9fbc4ba04380ef57d44bcbc5cf071fc5b044beb4d",
     "static-response-api-test.js": "eed61efe11341a6f74e20622a79ade43f3cf489da9043e11ee14544a67aa2e31",
     "static-response.js": "139e116d6c308f470cd33fc46344d39322fa12388ec4256751bd913d1a6174ac",
     "tenant-identities-test.js": "b1d4d1e045e35997e387b1422e4c833c9383ae0582c3db66cf73ae030c358b5b",
@@ -535,6 +535,7 @@
     "workspace-section-model.js": "8cca6633495bfd876cd8a09b1cf8de023da95de42917cdde2dd3a013f895951b",
     "workspace-system.js": "4d054fafe7e38ec7218c8a056fc6d7a328a48071f7afc010ca569eb14a723ed3",
     "zero-audio.js": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
+    "zero-confirmation.js": "cd1292837b0817bdc10d4a53677b7ba5ec533558d9d5d2abac1931231516eecf",
     "zero-crm-retention-test.js": "deca52121ab4fc1b7101b9c507b33be1d3ac8578ae56a3041fa58c77207fca21",
     "zero-crm-retention.js": "347ec3fc7d570d2c26ca0372339e29c764ebf0568aca4029c008aa005b24ded3",
     "zero-evaluation/context-provider-fixture.js": "326be4413fb4ff1018f8551d5e7d3b035cba9495cd2e77b3d4bdb2af787aa393",
@@ -543,15 +544,20 @@
     "zero-evaluation/fixture.js": "5326b57aaf0eb8503a4574d5300605231730aa933c6a6085a3bdfadb069b1e6b",
     "zero-evaluation/provider-network-fixture.js": "a8aa96e76e5cbf9cd6b0f6ca3ed52afc618e09e0316c8c6ea0f52b9768d03945",
     "zero-evaluation/run.js": "bb58c753c65c77bde6debfd42f98b1592f19be0a1c3c842eeb59c36bbb8a94c5",
+    "zero-evaluation/voice-provider-fixture.js": "99e61d04d7bf026997c8774195f02839855e142a173f3c62379329f86de2fff6",
     "zero-evaluation/workflow-provider-fixture.js": "dc304c8335ae7bcd5a5fa5fbfacebe2a28876077e913eb38e372f289039ae1e6",
+    "zero-voice-turns.js": "39ec6edd64b7fd87772a34af505d6579bb1aa1886fe743c35c9a04841b5276ac",
     "zero/agents-api.test.js": "18e5e965304f5b9d56b22524056cbf51f23db13f0f69c923bed7bb7dae869c99",
-    "zero/agents.js": "018c882b2681a3e741a37e3ef2d1b34a8bda4f2c9b302e36e1fed0f5f4f9b067",
+    "zero/agents.js": "4547d1a246a6c6736ebe7b938aa18f0bbb2b84fffecb9b9cf2ac52488472e171",
     "zero/agents.test.js": "d85f5c4b12822cae5aa59c845e1a6c867c0c24983ae7b23edcfe17aa65093eb1",
     "zero/api.js": "3e3ba39133cd5fab757154e826acb4ef3c57a898e4ab434854c3667677b967c7",
     "zero/cognition.js": "cce548db1f4d0313a615bea59c6635ad956722513e949e32fe3d242e9e2e2249",
+    "zero/confirmation.test.js": "25b160f4a74ad761d42d44fd53a8edd98a8933c5955e356102a72ac49b9b6249",
     "zero/context-api.test.js": "0805ad0fc1c2a0fcb9d05a02dd6646d568ae059d6b38c8d83dc23647527aa4ca",
     "zero/context.js": "96abc00ee97813c4470c027a407b19095e79af80053175176faf4e238b4c6c46",
     "zero/contracts.js": "7bc5f085921929ffcbfd6cf2f21e6a29addd7aaeb0f55f7dab798c819d37ec33",
+    "zero/cross-module-api.test.js": "d73f75370d0f652126bb62ab1638f6c655386f57e8679dab1a98cba9e8084be8",
+    "zero/cross-module.js": "2ec30e9b8b8ad21d8f5d949dbb9a3eea8720d17b97628142ff0c95ba040716a9",
     "zero/discovery-api.test.js": "ddc7ab75b12513fd701593a6ae6bb9b08b80a0ed70ed8e27be2f8cf1846ec655",
     "zero/discovery.js": "55566e9caf88baad61ab719c8e6c1770fca599a26deeb57d31a2a9d831473ec7",
     "zero/discovery.test.js": "beb261ff29674505ac894aeb0e62bf8707453a6b47798a9937e0ed3a356b75a3",
@@ -569,7 +575,12 @@
     "zero/router.js": "468dff36efbc2ce4344ba398686816eaac559b81381faddf8f1e5865a7d74a70",
     "zero/router.test.js": "3c68905a5f7273919503625a886e087a76aff2e583a1d174495fefd14ca2862f",
     "zero/stack.js": "b0d47c36f576ab8cc8bae1ce8ca69997386a9be85d43bffae2160ce474601a3d",
-    "zero/stack.test.js": "42b8313026043d48ab299ec4881880973a10f4fe7fec25feba1e884316225d71"
+    "zero/stack.test.js": "42b8313026043d48ab299ec4881880973a10f4fe7fec25feba1e884316225d71",
+    "zero/voice-api.test.js": "3f9a20c54edbaea6424cbfd4998d9f62d0f26a532cc99e843113e8576fd600b1",
+    "zero/voice-client.test.js": "3b467de01b5b2408c4f5baed67f4f09cf19d6be58cef8101a0bb700dc84a2b50",
+    "zero/voice-turns.test.js": "a77e9f7b34138babcf62de2c772df65f2cf8c75c0de525a73e163fbd2f81aab0",
+    "zero/voice.js": "075462876b8c48f986b80dcc53b29394557207e67c261510fd83ff603d7de4f0",
+    "zero/voice.test.js": "18e694a14fdf1ec0e29a731c28307868081c9dad9fe3f428bee380d0989d51b5"
   },
   "external_acceptance": "UNVERIFIED",
   "run_acceptance": "NOT_ESTABLISHED",

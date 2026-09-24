@@ -39,9 +39,9 @@ class AgentOrchestrator{
   }
   const digest=C.hash({objective,steps}),rows=this.rows(ctx),previous=rows.find(r=>C.sameScope(r,ctx)&&r.owner_id===actor.id&&r.request_id===requestId);
   if(previous){if(previous.request_hash!==digest)C.fail('zero_plan_request_conflict',409);return this.get(ctx,actor,previous.id);}
-  if(rows.filter(r=>C.sameScope(r,ctx)&&r.owner_id===actor.id).length>=200)C.fail('zero_plan_capacity',429);
+  if(rows.filter(r=>C.sameScope(r,ctx)&&r.owner_id===actor.id&&r.expires_at>this.now().toISOString()).length>=200)C.fail('zero_plan_capacity',429);
   const at=this.now().toISOString(),row={id:crypto.randomUUID(),...identity,request_id:requestId,request_hash:digest,objective,steps,state:'PLANNED',created_at:at,expires_at:new Date(this.now().getTime()+86400000).toISOString(),limits:LIMITS,receipts:[],revision:1,read_only:true};
-  return scopedMutation(this.adapter,ctx,[BUCKET],()=>{rows.push(row);return C.clone(row);});
+  return scopedMutation(this.adapter,ctx,[BUCKET],()=>{for(let i=rows.length-1;i>=0;i--)if(C.sameScope(rows[i],ctx)&&rows[i].owner_id===actor.id&&rows[i].expires_at<=at&&!this.running.has(this.key(ctx,rows[i])))rows.splice(i,1);rows.push(row);return C.clone(row);});
  }
  owned(ctx,actor,id){
   C.scope(ctx,actor);const row=this.rows(ctx).find(r=>r.id===id&&C.sameScope(r,ctx)&&r.owner_id===actor.id);

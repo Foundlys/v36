@@ -17,256 +17,435 @@
       "group": "ZERO COGNITION",
       "requirement": "natural conversation",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-002",
       "group": "ZERO COGNITION",
       "requirement": "intent resolution",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-003",
       "group": "ZERO COGNITION",
       "requirement": "ambiguity handling",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-004",
       "group": "ZERO COGNITION",
       "requirement": "long-context continuity",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-005",
       "group": "ZERO COGNITION",
       "requirement": "personalization",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-006",
       "group": "ZERO COGNITION",
       "requirement": "social intelligence",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-007",
       "group": "ZERO COGNITION",
       "requirement": "professional contextual humor",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-008",
       "group": "ZERO COGNITION",
       "requirement": "multilingual reasoning",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-009",
       "group": "ZERO COGNITION",
       "requirement": "multi-step planning",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-010",
       "group": "ZERO COGNITION",
       "requirement": "causal/business reasoning",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-011",
       "group": "ZERO COGNITION",
       "requirement": "uncertainty awareness",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-012",
       "group": "ZERO COGNITION",
       "requirement": "contradiction detection",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-013",
       "group": "ZERO COGNITION",
       "requirement": "proactive intelligence",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-014",
       "group": "ZERO COGNITION",
       "requirement": "outcome-oriented recommendations",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cognition.js",
+        "zero/intent-api.test.js",
+        "zero/cross-module-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Policy and bounded native reads exist; representative cognitive, social, long-horizon and business-quality corpus is incomplete."
     },
     {
       "id": "R2-015",
       "group": "MEMORY",
       "requirement": "session memory",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-016",
       "group": "MEMORY",
       "requirement": "task memory",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-017",
       "group": "MEMORY",
       "requirement": "user memory",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-018",
       "group": "MEMORY",
       "requirement": "organization memory",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-019",
       "group": "MEMORY",
       "requirement": "workflow memory",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-020",
       "group": "MEMORY",
       "requirement": "semantic knowledge",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Semantic layer stores assertions; no verified semantic retrieval index."
     },
     {
       "id": "R2-021",
       "group": "MEMORY",
       "requirement": "Industry Pack knowledge",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Industry memory storage exists; deep Automotive knowledge coverage is incomplete."
     },
     {
       "id": "R2-022",
       "group": "MEMORY",
       "requirement": "outcome memory",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-023",
       "group": "MEMORY",
       "requirement": "provenance",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-024",
       "group": "MEMORY",
       "requirement": "freshness",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-025",
       "group": "MEMORY",
       "requirement": "permission isolation",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-026",
       "group": "MEMORY",
       "requirement": "cross-user isolation",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-027",
       "group": "MEMORY",
       "requirement": "cross-tenant isolation",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Eight-layer storage, lifecycle and native authorization contracts verified; this does not establish semantic retrieval or cognitive quality."
     },
     {
       "id": "R2-028",
       "group": "CONTEXT",
       "requirement": "dynamic context assembly",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/context.js",
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Bounded lexical production retrieval with current permissions, dates and source revalidation verified."
     },
     {
       "id": "R2-029",
       "group": "CONTEXT",
       "requirement": "relevance awareness",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/context.js",
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Lexical scoring is bounded; representative natural-language/semantic relevance evaluation is incomplete."
     },
     {
       "id": "R2-030",
       "group": "CONTEXT",
       "requirement": "permission awareness",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/context.js",
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Bounded lexical production retrieval with current permissions, dates and source revalidation verified."
     },
     {
       "id": "R2-031",
       "group": "CONTEXT",
       "requirement": "freshness awareness",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/context.js",
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Bounded lexical production retrieval with current permissions, dates and source revalidation verified."
     },
     {
       "id": "R2-032",
       "group": "CONTEXT",
       "requirement": "source awareness",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/context.js",
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Bounded lexical production retrieval with current permissions, dates and source revalidation verified."
     },
     {
       "id": "R2-033",
@@ -274,79 +453,139 @@
       "requirement": "latency awareness",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/context.js",
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Bounded context exists; representative latency distributions have not been measured."
     },
     {
       "id": "R2-034",
       "group": "CONTEXT",
       "requirement": "cost awareness",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/context.js",
+        "zero/memory.test.js",
+        "zero/context-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Byte/token bounds exist; full task-level cost optimization acceptance is incomplete."
     },
     {
       "id": "R2-035",
       "group": "MODEL / AGENTS",
       "requirement": "model/provider registry",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate."
     },
     {
       "id": "R2-036",
       "group": "MODEL / AGENTS",
       "requirement": "routing",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate."
     },
     {
       "id": "R2-037",
       "group": "MODEL / AGENTS",
       "requirement": "fallback/degradation",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate."
     },
     {
       "id": "R2-038",
       "group": "MODEL / AGENTS",
       "requirement": "specialist orchestration",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate."
     },
     {
       "id": "R2-039",
       "group": "MODEL / AGENTS",
       "requirement": "agent permission boundaries",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate."
     },
     {
       "id": "R2-040",
       "group": "MODEL / AGENTS",
       "requirement": "retry limits",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate."
     },
     {
       "id": "R2-041",
       "group": "MODEL / AGENTS",
       "requirement": "runaway prevention",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Native registry, bounded read specialists and adapter contracts verified; live provider quality remains separate."
     },
     {
       "id": "R2-042",
       "group": "MODEL / AGENTS",
       "requirement": "economic controls",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Request/token budgets exist; verified hard spend ceilings for research and Realtime are incomplete."
     },
     {
       "id": "R2-043",
@@ -354,7 +593,12 @@
       "requirement": "governed current research",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/research.test.js",
+        "zero/knowledge-api.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Governance and source metadata contracts verified; live source accuracy and adversarial content acceptance remain open."
     },
     {
       "id": "R2-044",
@@ -362,15 +606,25 @@
       "requirement": "provenance",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/research.test.js",
+        "zero/knowledge-api.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Governance and source metadata contracts verified; live source accuracy and adversarial content acceptance remain open."
     },
     {
       "id": "R2-045",
       "group": "RESEARCH",
       "requirement": "contradiction handling",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/research.test.js",
+        "zero/knowledge-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Reviewed reference conflicts are explicit; automated research contradiction assessment is incomplete."
     },
     {
       "id": "R2-046",
@@ -378,143 +632,280 @@
       "requirement": "injection resistance appropriate to Run 2",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/research.test.js",
+        "zero/knowledge-api.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Governance and source metadata contracts verified; live source accuracy and adversarial content acceptance remain open."
     },
     {
       "id": "R2-047",
       "group": "RESEARCH",
       "requirement": "controlled knowledge activation",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/research.test.js",
+        "zero/knowledge-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Quarantine, exact-hash review, explicit activation, expiry and rollback pass actual HTTP and persistence checks."
     },
     {
       "id": "R2-048",
       "group": "RESEARCH",
       "requirement": "controlled regulation/domain refresh",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/research.test.js",
+        "zero/knowledge-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Regulation-specific authority, primary-source, jurisdiction and effective-date gates pass; factual source validity still requires operator review."
     },
     {
       "id": "R2-049",
       "group": "STACK DISCOVERY V1",
       "requirement": "heterogeneous discovery",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/stack.test.js",
+        "zero/discovery.test.js",
+        "zero/discovery-api.test.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "OpenAPI, native configuration and declarations exist; heterogeneous installed-system/identity/data discovery coverage remains incomplete."
     },
     {
       "id": "R2-050",
       "group": "STACK DISCOVERY V1",
       "requirement": "evidence states",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/stack.test.js",
+        "zero/discovery.test.js",
+        "zero/discovery-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states."
     },
     {
       "id": "R2-051",
       "group": "STACK DISCOVERY V1",
       "requirement": "conflict handling",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/stack.test.js",
+        "zero/discovery.test.js",
+        "zero/discovery-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states."
     },
     {
       "id": "R2-052",
       "group": "STACK DISCOVERY V1",
       "requirement": "uncertainty handling",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/stack.test.js",
+        "zero/discovery.test.js",
+        "zero/discovery-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states."
     },
     {
       "id": "R2-053",
       "group": "STACK DISCOVERY V1",
       "requirement": "unsafe environment handling",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/stack.test.js",
+        "zero/discovery.test.js",
+        "zero/discovery-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states."
     },
     {
       "id": "R2-054",
       "group": "STACK DISCOVERY V1",
       "requirement": "human clarification boundaries",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/stack.test.js",
+        "zero/discovery.test.js",
+        "zero/discovery-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states."
     },
     {
       "id": "R2-055",
       "group": "STACK DISCOVERY V1",
       "requirement": "no fabricated architecture",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/stack.test.js",
+        "zero/discovery.test.js",
+        "zero/discovery-api.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Current composition, customer declarations and configured public schema observations preserve distinct evidence and permission states."
     },
     {
       "id": "R2-056",
       "group": "LOCALIZATION",
       "requirement": "nl-NL",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-057",
       "group": "LOCALIZATION",
       "requirement": "English",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-058",
       "group": "LOCALIZATION",
       "requirement": "de-DE",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-059",
       "group": "LOCALIZATION",
       "requirement": "fr-FR",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-060",
       "group": "LOCALIZATION",
       "requirement": "es-ES",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-061",
       "group": "LOCALIZATION",
       "requirement": "da-DK",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-062",
       "group": "LOCALIZATION",
       "requirement": "nb-NO",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-063",
       "group": "LOCALIZATION",
       "requirement": "sv-SE",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "index.html",
+        "foundly-workspace.html",
+        "crm.html",
+        "automotive.html",
+        "analysis.html",
+        "finance.html",
+        "identity-login.html"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Preferences support this locale; hardcoded Dutch/English across existing UI and generated states remain materially incomplete."
     },
     {
       "id": "R2-064",
@@ -522,7 +913,14 @@
       "requirement": "natural human quality",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-065",
@@ -530,7 +928,14 @@
       "requirement": "male",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-066",
@@ -538,7 +943,14 @@
       "requirement": "female",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-067",
@@ -546,7 +958,14 @@
       "requirement": "Executive",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-068",
@@ -554,7 +973,14 @@
       "requirement": "Conversational",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-069",
@@ -562,7 +988,14 @@
       "requirement": "Briefing",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-070",
@@ -570,7 +1003,14 @@
       "requirement": "multilingual pronunciation",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-071",
@@ -578,7 +1018,14 @@
       "requirement": "contextual prosody",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-072",
@@ -586,7 +1033,14 @@
       "requirement": "business tone",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-073",
@@ -594,7 +1048,14 @@
       "requirement": "streaming",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-074",
@@ -602,7 +1063,14 @@
       "requirement": "latency",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-075",
@@ -610,7 +1078,14 @@
       "requirement": "barge-in",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-076",
@@ -618,7 +1093,14 @@
       "requirement": "continuity",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-077",
@@ -626,7 +1108,14 @@
       "requirement": "names/brands",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-078",
@@ -634,7 +1123,14 @@
       "requirement": "industry terminology",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-079",
@@ -642,15 +1138,29 @@
       "requirement": "numbers/currencies/dates",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-080",
       "group": "VOICE",
       "requirement": "approval confirmations",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "NONE",
+      "note": "Exact multilingual approval phrases share client/server rules; real input transcription supplies stable deduplicated native turns."
     },
     {
       "id": "R2-081",
@@ -658,63 +1168,87 @@
       "requirement": "no obvious TTS cadence",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/voice.test.js",
+        "zero/voice-api.test.js",
+        "zero/voice-client.test.js",
+        "zero/voice-turns.test.js"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "48 provider settings and transcript/turn safety contracts verified; no live streaming, listening, latency or hardware barge-in acceptance."
     },
     {
       "id": "R2-082",
       "group": "DEMO",
       "requirement": "Demo Universe Engine V1",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [],
+      "classification": "CODE_CONTROLLED",
+      "note": "Reusable scenario seed engine and the required deep Automotive universe have not been implemented."
     },
     {
       "id": "R2-083",
       "group": "DEMO",
       "requirement": "Automotive Demo Universe V1",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [],
+      "classification": "CODE_CONTROLLED",
+      "note": "Reusable scenario seed engine and the required deep Automotive universe have not been implemented."
     },
     {
       "id": "R2-084",
       "group": "DEMO",
       "requirement": "scenario coherence",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [],
+      "classification": "CODE_CONTROLLED",
+      "note": "Reusable scenario seed engine and the required deep Automotive universe have not been implemented."
     },
     {
       "id": "R2-085",
       "group": "DEMO",
       "requirement": "production contracts used",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [],
+      "classification": "CODE_CONTROLLED",
+      "note": "Reusable scenario seed engine and the required deep Automotive universe have not been implemented."
     },
     {
       "id": "R2-086",
       "group": "DEMO",
       "requirement": "provenance classification",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [],
+      "classification": "CODE_CONTROLLED",
+      "note": "Reusable scenario seed engine and the required deep Automotive universe have not been implemented."
     },
     {
       "id": "R2-087",
       "group": "DEMO",
       "requirement": "anomalies/failures",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [],
+      "classification": "CODE_CONTROLLED",
+      "note": "Reusable scenario seed engine and the required deep Automotive universe have not been implemented."
     },
     {
       "id": "R2-088",
       "group": "INDUSTRY KNOWLEDGE",
       "requirement": "Automotive knowledge/data foundations",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "automotive-core.js",
+        "zero/knowledge.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Structured Automotive knowledge depth, history and reference coverage remain incomplete."
     },
     {
       "id": "R2-089",
@@ -722,7 +1256,12 @@
       "requirement": "Customer Truth separation",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "automotive-core.js",
+        "zero/knowledge.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete."
     },
     {
       "id": "R2-090",
@@ -730,7 +1269,12 @@
       "requirement": "external intelligence provenance",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "automotive-core.js",
+        "zero/knowledge.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete."
     },
     {
       "id": "R2-091",
@@ -738,7 +1282,12 @@
       "requirement": "derived intelligence separation",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "automotive-core.js",
+        "zero/knowledge.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete."
     },
     {
       "id": "R2-092",
@@ -746,31 +1295,51 @@
       "requirement": "geography/time semantics",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "automotive-core.js",
+        "zero/knowledge.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Run 1 Automotive and reviewed-reference foundations exist; required Run 2 structured coverage and scenario evidence are incomplete."
     },
     {
       "id": "R2-093",
       "group": "CROSS-MODULE ZERO",
       "requirement": "difficult representative multi-module scenarios",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/cross-module-api.test.js",
+        "zero/native-agents.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "No completed difficult Automotive/multi-module business-quality corpus."
     },
     {
       "id": "R2-094",
       "group": "CROSS-MODULE ZERO",
       "requirement": "permission enforcement",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/cross-module-api.test.js",
+        "zero/native-agents.js"
+      ],
+      "classification": "NONE",
+      "note": "Native current-principal module checks, post-read verification and revocation denial pass actual HTTP."
     },
     {
       "id": "R2-095",
       "group": "CROSS-MODULE ZERO",
       "requirement": "tool discovery",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/cross-module-api.test.js",
+        "zero/native-agents.js"
+      ],
+      "classification": "NONE",
+      "note": "Server-owned tool catalog exposes only currently authorized native specialists."
     },
     {
       "id": "R2-096",
@@ -778,39 +1347,68 @@
       "requirement": "evidence-backed outputs",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "zero/cross-module-api.test.js",
+        "zero/native-agents.js"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "One actual ZERO turn gathers multiple native sources; difficult business-quality and Automotive corpus is incomplete."
     },
     {
       "id": "R2-097",
       "group": "EVALUATION",
       "requirement": "permanent ZERO evaluation framework",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero-evaluation/corpus.v1.json",
+        "docs/run2/evaluation-current.json",
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "NONE",
+      "note": "Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance."
     },
     {
       "id": "R2-098",
       "group": "EVALUATION",
       "requirement": "versioned corpus",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero-evaluation/corpus.v1.json",
+        "docs/run2/evaluation-current.json",
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "NONE",
+      "note": "Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance."
     },
     {
       "id": "R2-099",
       "group": "EVALUATION",
       "requirement": "regression evaluation",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero-evaluation/corpus.v1.json",
+        "docs/run2/evaluation-current.json",
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "NONE",
+      "note": "Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance."
     },
     {
       "id": "R2-100",
       "group": "EVALUATION",
       "requirement": "adversarial coverage",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero-evaluation/corpus.v1.json",
+        "docs/run2/evaluation-current.json",
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Permission, injection boundary and failure cases exist; all enumerated adversarial evaluation dimensions are not covered."
     },
     {
       "id": "R2-101",
@@ -818,7 +1416,11 @@
       "requirement": "frozen main dashboard preserved",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
     },
     {
       "id": "R2-102",
@@ -826,7 +1428,11 @@
       "requirement": "non-frozen touched surfaces quality",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
     },
     {
       "id": "R2-103",
@@ -834,7 +1440,11 @@
       "requirement": "psychological usability",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
     },
     {
       "id": "R2-104",
@@ -842,7 +1452,11 @@
       "requirement": "accessibility",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
     },
     {
       "id": "R2-105",
@@ -850,71 +1464,119 @@
       "requirement": "responsive behavior",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
     },
     {
       "id": "R2-106",
       "group": "UX",
       "requirement": "localization layout integrity",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "docs/run2/checkpoint-tests.json"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Full translated UI does not yet exist, so localized layout integrity cannot pass."
     },
     {
       "id": "R2-107",
       "group": "OPERABILITY / ECONOMICS",
       "requirement": "truthful provider state",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/discovery.test.js",
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "NONE",
+      "note": "Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested."
     },
     {
       "id": "R2-108",
       "group": "OPERABILITY / ECONOMICS",
       "requirement": "telemetry",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/discovery.test.js",
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "NONE",
+      "note": "Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested."
     },
     {
       "id": "R2-109",
       "group": "OPERABILITY / ECONOMICS",
       "requirement": "retry/runaway controls",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/discovery.test.js",
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "NONE",
+      "note": "Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested."
     },
     {
       "id": "R2-110",
       "group": "OPERABILITY / ECONOMICS",
       "requirement": "economically controllable routing",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/discovery.test.js",
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Routing budgets and telemetry exist; complete hard monetary control including live research/audio is not verified."
     },
     {
       "id": "R2-111",
       "group": "OPERABILITY / ECONOMICS",
       "requirement": "documentation updated",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "zero/router.test.js",
+        "zero/discovery.test.js",
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "NONE",
+      "note": "Truthful states, scoped telemetry, request/retry limits and operator configuration documented and tested."
     },
     {
       "id": "R2-112",
       "group": "REGRESSION / CI",
       "requirement": "targeted Run-2 tests",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "docs/run2/checkpoint-tests.json",
+        "docs/run2/evaluation-current.json"
+      ],
+      "classification": "NONE",
+      "note": "Full local npm test passes including 61 ZERO unit/HTTP tests and 14 corpus cases."
     },
     {
       "id": "R2-113",
       "group": "REGRESSION / CI",
       "requirement": "complete relevant regression",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "docs/run2/checkpoint-tests.json",
+        "docs/run2/evaluation-current.json"
+      ],
+      "classification": "NONE",
+      "note": "Full local npm test passes including 61 ZERO unit/HTTP tests and 14 corpus cases."
     },
     {
       "id": "R2-114",
@@ -922,39 +1584,61 @@
       "requirement": "CI",
       "source_section": 52,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/checkpoint-tests.json",
+        "docs/run2/evaluation-current.json"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "CI 147 passed the previous checkpoint; this later voice checkpoint still requires its own remote CI."
     },
     {
       "id": "R2-115",
       "group": "REGRESSION / CI",
       "requirement": "no material unresolved code-controlled Run-2 defect",
       "source_section": 52,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "docs/run2/checkpoint-tests.json",
+        "docs/run2/evaluation-current.json"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Material code-controlled requirements remain open; Run 2 is not accepted."
     },
     {
       "id": "R2-116",
       "group": "ADDITIONAL CONTRACT GATES",
       "requirement": "Permission-aware universal search across authorized sources",
       "source_section": 30,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Existing per-domain/canonical search is not yet one permission-aware universal retrieval surface."
     },
     {
       "id": "R2-117",
       "group": "ADDITIONAL CONTRACT GATES",
       "requirement": "Role-, urgency- and risk-aware attention intelligence",
       "source_section": 31,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Unified role/risk/urgency attention ranking with non-suppressible critical items is not implemented."
     },
     {
       "id": "R2-118",
       "group": "ADDITIONAL CONTRACT GATES",
       "requirement": "Provenance-aware data-quality detection and governed remediation",
       "source_section": 32,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Unified provenance-aware duplicate/contradiction/staleness/invalid-value assessment is not implemented."
     },
     {
       "id": "R2-119",
@@ -962,7 +1646,11 @@
       "requirement": "Versioned and auditable configuration change and rollback",
       "source_section": 39,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Existing workflow/reference revisions have rollback; complete Run 2 configuration change acceptance is open."
     },
     {
       "id": "R2-120",
@@ -970,31 +1658,47 @@
       "requirement": "Business/Personal data and commercial separation",
       "source_section": 41,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "No Personal data integration is introduced; full commercial/data boundary acceptance remains open."
     },
     {
       "id": "R2-121",
       "group": "ADDITIONAL CONTRACT GATES",
       "requirement": "Evidence-backed connector readiness",
       "source_section": 42,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "NONE",
+      "note": "Configuration presence and observed connection are kept distinct; provider failures are not successful empty results."
     },
     {
       "id": "R2-122",
       "group": "ADDITIONAL CONTRACT GATES",
       "requirement": "Customer source-of-truth routing",
       "source_section": 43,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "External references cannot replace customer records; complete heterogeneous authority mappings remain incomplete."
     },
     {
       "id": "R2-123",
       "group": "ADDITIONAL CONTRACT GATES",
       "requirement": "All enumerated Run-2 security adversarial scenarios",
       "source_section": 45,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "FAIL",
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "CODE_CONTROLLED",
+      "note": "Partial security regression is extensive but all enumerated Run 2 adversarial scenarios are not yet covered."
     },
     {
       "id": "R2-124",
@@ -1002,15 +1706,26 @@
       "requirement": "Representative p50/p95/p99 latency and cost measurement",
       "source_section": 46,
       "status": "UNVERIFIED",
-      "evidence": []
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "ENVIRONMENT_UNVERIFIED",
+      "note": "Per-case timings exist; representative p50/p95/p99 business workload and live cost measurements do not."
     },
     {
       "id": "R2-125",
       "group": "ADDITIONAL CONTRACT GATES",
-      "requirement": "Run 3\u20137 boundaries preserved",
+      "requirement": "Run 3–7 boundaries preserved",
       "source_section": 51,
-      "status": "UNVERIFIED",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "docs/run2/ZERO_FOUNDATIONS.md"
+      ],
+      "classification": "NONE",
+      "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
-  ]
+  ],
+  "updated_at": "2026-09-24T11:37:44.267184+00:00",
+  "run_status": "IN_PROGRESS_NOT_ACCEPTED",
+  "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }

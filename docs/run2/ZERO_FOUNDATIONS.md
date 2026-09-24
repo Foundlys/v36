@@ -1,6 +1,16 @@
 # Run 2 implementation checkpoint
 
-This checkpoint extends the existing encrypted Core and current-principal capability resolver. It does not replace Run 1, add PostgreSQL or claim a Run-3 Digital Twin.
+This checkpoint extends the existing encrypted Core and current-principal capability resolver. Run 2 remains **IN PROGRESS / NOT ACCEPTED**. The acceptance matrix records missing code separately from missing runtime evidence.
+
+## Voice and cross-module checkpoint
+
+An explicit question naming multiple supported modules now collects authorized native specialist evidence in one ZERO turn, verifies each snapshot before and after model inference, and returns source receipts without executing business actions. Unavailable modules are denied and unavailable models produce a partial result. This does not establish difficult Automotive reasoning quality.
+
+Voice settings define eight locales, two presentation choices and three modes. Existing lawful provider voices are used; perceived gender, naturalness and pronunciation require listening acceptance. Language, voice and mode controls were added within the existing Audio/privacy panel without changing the approved dashboard layout. Browser speech fallback remains distinct from provider voice quality.
+
+The actual Realtime handlers bind calls to a finalized input transcript and a stable audio-item turn identifier. Model-supplied arguments cannot substitute for the user's words. Duplicate call IDs for one utterance dispatch once, an uncertain transport result cannot trigger an automatic duplicate, and a new utterance cancels an unfinished earlier one. Exact approval phrases share the same client/server rules across all eight languages; the existing native confirmation-token checks still apply. Current identity and preference checks run after the asynchronous ephemeral-credential request.
+
+Full local `npm test` passes, including 61 ZERO unit/HTTP tests and the 14-case foundation corpus. CI 147 passed the previous research/discovery checkpoint. No live microphone, listening or browser acceptance is claimed: the supported cloud browser rejected the local preview with `ERR_BLOCKED_BY_CLIENT`. Full UI translation, realistic cognitive evaluations, demo universes and other code-controlled gaps remain open in `ACCEPTANCE_MATRIX.md`.
 
 ## Implemented and connected
 
