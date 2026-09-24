@@ -779,10 +779,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-057",
@@ -800,10 +801,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-058",
@@ -821,10 +823,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-059",
@@ -842,10 +845,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-060",
@@ -863,10 +867,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-061",
@@ -884,10 +889,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-062",
@@ -905,10 +911,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-063",
@@ -926,10 +933,11 @@
         "zero/crm-pipeline-client.test.js",
         "zero/crm-profile-localization.test.js",
         "zero/integration-localization.test.js",
-        "zero/spatial-localization.test.js"
+        "zero/spatial-localization.test.js",
+        "zero/zero-presentation-localization.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. The conservative audit still finds 940 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces. Pipeline/profile stage language is independent of canonical status and business locale. Dynamic bindings preserve inputs and literal customer data; Finance closing and cash scenario controls, known outcomes and exact cent amounts follow locale changes. Main-dashboard integration controls, Google status/search and summaries now follow locale changes without replaying actions or rewriting native data. The active spatial dashboard changes explicit DOM/canvas labels without additional source requests or altering graph, pose, focus or search input. ZERO status/result/source framing now updates without replaying turns, emitting speech events, changing native codes or rewriting answers and source data. The conservative audit still finds 937 candidates; other views, generated names/events, backend copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-064",

@@ -6263,7 +6263,7 @@
     },
     {
       "file": "index-script.js",
-      "sha256": "2a1e755045a4013b28e0df4501eae0551a0c4f7b066386a08b20a3cb13b9460a",
+      "sha256": "9b6aa240caa02391fef6561a9ebe49eb60058db36f9e815f0932fd811ef8d3df",
       "items": [
         {
           "line": 7,
@@ -6405,41 +6405,9 @@
           "rich_text": false
         },
         {
-          "line": 236,
-          "start": 37961,
-          "end": 37987,
-          "context": "textContent",
-          "text": "Zero voert opdracht uit…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 295,
-          "start": 72886,
-          "end": 72955,
-          "context": "textContent",
-          "text": "ZERO · {p0}",
-          "parameters": [
-            "String(j.voice_mode||j.status||'RESULTAAT').toUpperCase()"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 295,
-          "start": 74481,
-          "end": 74616,
-          "context": "element_text",
-          "text": " · {p0} · {p1}",
-          "parameters": [
-            "source.source_kind||'onbekend'",
-            "source.provider_verified?'provider geverifieerd':'brongebonden, niet provider-geverifieerd'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 300,
-          "start": 77741,
-          "end": 77779,
+          "line": 349,
+          "start": 82040,
+          "end": 82078,
           "context": "textContent",
           "text": "{p0}%",
           "parameters": [
@@ -6448,9 +6416,9 @@
           "rich_text": false
         },
         {
-          "line": 307,
-          "start": 82327,
-          "end": 82362,
+          "line": 356,
+          "start": 86632,
+          "end": 86667,
           "context": "error_message_requires_control_flow_review",
           "text": "Vereiste control ontbreekt: {p0}",
           "parameters": [
@@ -6459,18 +6427,18 @@
           "rich_text": false
         },
         {
-          "line": 310,
-          "start": 85135,
-          "end": 85165,
+          "line": 359,
+          "start": 89440,
+          "end": 89470,
           "context": "error_message_requires_control_flow_review",
           "text": "Statusroute niet beschikbaar",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 310,
-          "start": 85855,
-          "end": 85906,
+          "line": 359,
+          "start": 90160,
+          "end": 90211,
           "context": "textContent",
           "text": "{p0} LIVE",
           "parameters": [
@@ -6479,9 +6447,9 @@
           "rich_text": false
         },
         {
-          "line": 313,
-          "start": 88539,
-          "end": 88612,
+          "line": 362,
+          "start": 92844,
+          "end": 92917,
           "context": "toast",
           "text": "{p0} gekoppeld{p1}",
           "parameters": [
@@ -6491,9 +6459,9 @@
           "rich_text": false
         },
         {
-          "line": 313,
-          "start": 88765,
-          "end": 88834,
+          "line": 362,
+          "start": 93070,
+          "end": 93139,
           "context": "toast",
           "text": "{p0} koppeling fout: {p1}",
           "parameters": [
@@ -6503,9 +6471,9 @@
           "rich_text": false
         },
         {
-          "line": 317,
-          "start": 90033,
-          "end": 90056,
+          "line": 366,
+          "start": 94338,
+          "end": 94361,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [

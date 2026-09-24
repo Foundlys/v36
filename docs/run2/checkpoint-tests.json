@@ -521,7 +521,66 @@
     "main_index_script_candidates": 22,
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "run": 158,
+      "id": 36019570710,
+      "head": "5b2a4141c8d233b7fb95f402500335661db7d2c3",
+      "tree": "e1f11e1be0e78cdcc5079f2a35c0efa256d307de",
+      "status": "SUCCESS"
+    },
     "label_fitting": "Canvas maxWidth bounds localized captions inside their existing label shapes without changing positions, shape dimensions, fonts, shaders or CSS. Pixel/browser fitting remains unverified."
+  },
+  "zero_presentation_locale_checkpoint": {
+    "recorded_at": "2026-09-24T15:46:11.252839+00:00",
+    "source_sha256": {
+      "foundly-i18n.js": "9b373044a11bdc6ae5038e64c4abd8b95cdd3dee74e75be8e5aa7804ea256c56",
+      "foundly-locales.js": "e7ff1eea6a479bb69e67aa3e99dc38ea2eddea9045c5599ba05b851ebdd1acc2",
+      "index-script.js": "9b6aa240caa02391fef6561a9ebe49eb60058db36f9e815f0932fd811ef8d3df",
+      "zero/zero-presentation-localization.test.js": "0bf0f298d9dd1db8fa9bd25445968d3a9164189b4f94196d68d910c0d7dd8767"
+    },
+    "logs": {
+      "zero-presentation-localization.log": {
+        "exit_code": 0,
+        "sha256": "86e8315907d3e751e6b085534261da9ad871c1cca6f72d6e542268385c7a619e",
+        "bytes": 3101,
+        "scope": "24 focused locale tests, including the final repeated-result replacement fix"
+      },
+      "zero-presentation-full-regression.log": {
+        "exit_code": 0,
+        "sha256": "1a40469fd8c58a8a9273b390085ba3147ec8e2a9e553dc79453efac93d24720f",
+        "bytes": 94314,
+        "scope": "Full npm test passed with 112 ZERO tests and 14/14 corpus cases before the final text-host replacement fix; do not treat this log alone as exact-final-tree full-suite proof."
+      },
+      "zero-result-repaint-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "07e40c04e1e0b175c0e13fd3d410a4bff1f5678066fcf0b7467fd2de7666e9b3",
+        "bytes": 1295,
+        "scope": "Intentional regression reproduction: a new processing label retained old action text."
+      },
+      "zero-presentation-final-zero.log": {
+        "exit_code": 0,
+        "sha256": "a7f54737aea20b357a3a48e9c6e508304563845371a7fcb8e8c0fe57eaa205af",
+        "bytes": 13777,
+        "scope": "Final replacement fix: all 112 ZERO tests plus 14/14 corpus checks; native client/audio regressions also passed before this command."
+      }
+    },
+    "targeted_locale_tests": 24,
+    "new_controller_tests": 7,
+    "full_suite": "PASS_BEFORE_FINAL_TEXT_HOST_REPLACEMENT_FIX",
+    "scope": "All sixteen canonical ZERO states have eight-locale presentation labels. Explicit owned status details and conditional wake/conversation statuses retranslate without touching native state codes, CSS datasets, audio/neural state, recognition mode, event telemetry or conversation language. Action/sync and source metadata framing updates in place while answers, source titles/URLs, source kinds not in the explicit catalog, action IDs and native blocked reasons remain literal. Only boolean true marks a provider verified; unknown sync counts remain unknown and real zero stays zero. Result and action headings make no blanket execution/verification claim. Explicit direct text-node bindings retain source links and protect customer replacements. A lost module response shows uncertainty without a new turn, raw error detail or fabricated spoken result.",
+    "native_request_scope": "Actual executeZeroTurn/askModule/showZeroResult/setZeroState controllers under a minimal DOM with a held HTTP-response fixture, plus existing native regressions in the full suite. No live model, WebRTC, audio hardware, browser or native-speaker evidence.",
+    "frozen_main_inline_css_equal_to_run1": true,
+    "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "dynamic_candidates": 937,
+    "main_index_script_candidates": 19,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "current_ci": "PENDING_PUBLICATION",
+    "final_zero_tests": 112,
+    "final_zero_pass": 112,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_client_audio_regression": "PASS after final fix: jarvis-client-regression-test.js and speech-audio-visual-regression-test.js",
+    "text_host_fix": "ZERO complete-text hosts clear all former result rows before a new progress/error label. Shared label bindings continue to preserve nested form controls elsewhere."
   }
 }
