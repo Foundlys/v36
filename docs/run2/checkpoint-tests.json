@@ -1028,6 +1028,77 @@
     "analysis_page_direct_candidates": 0,
     "evidence_limit": "Declared-response DOM fixtures do not establish rendered browser layout, accessibility, native-speaker review, live provider state or voice/cognitive quality. Core/capability behavior remains exercised by separate existing native suites. Cohort rendering and numerous other surfaces/backend messages remain open.",
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "current_ci": "FAILURE",
+    "published_commit": "f7e03a257004ee84fff0e6916057b82e2e83c3c2",
+    "published_tree": "472d1d2ef758100477fdcfffe2d28bcfaf60b973",
+    "ci_run": 166,
+    "ci_run_id": 36039205487,
+    "ci_job_id": 107766843393,
+    "ci_failure": "business-workspaces-regression-test.js asserted the literal NO_VERIFIED_SOURCE_DATA was present in Analysis UI source. The localized renderer replaced that code display with explicit translated empty-source copy. The subsequent checkpoint replaces this literal/source-helper test with actual production-renderer unknown-source, literal external text and real native empty-KPI assertions; route, CSP and core assertions remain."
+  },
+  "analysis_cohort_locale_checkpoint": {
+    "recorded_at": "2026-09-24T18:24:14.325777+00:00",
+    "local_implementation_commit": "1209bb5",
+    "source_sha256": {
+      "analysis-cohorts-client.js": "eb2b40bfebde156cfcfb1c367385085103eb4014b80c13c2aea2ad5914dab1e3",
+      "foundly-locales.js": "31e28030a248584e686010ec5c8be6675a5135ccb959bd33cfcb35927ec8c4eb",
+      "zero/analysis-cohort-localization.test.js": "a275a8ab19b60fb950648b0f458661590e2d7e15880f1165f4c18d4e70013e87",
+      "zero/analysis-page-localization.test.js": "f3bea136df49263f91968fb6555a920e78e63432c4cf9e8ef6580aa764884be6",
+      "zero-evaluation/analysis-page-fixture.js": "e180d0d12499198eec89e3ee48f858e3e2410a0093e6c0c62c012b196faa8cda",
+      "business-workspaces-regression-test.js": "4f5cd990cc755e447a330c01e4f2b081f124c2881781f68af4f329f33faa1b9d"
+    },
+    "logs": {
+      "run2-cohort-before-revocation-fix.log": {
+        "exit_code": 1,
+        "sha256": "b9dc2d1fb085920b76de5c65bf52f4d5d99fff8c49ae4f3f07f9229687f97877",
+        "bytes": 978
+      },
+      "run2-cohort-localization.log": {
+        "exit_code": 0,
+        "sha256": "798d378edc317f143ca7e4ee279a504936b56048cb465894f229443415f83117",
+        "bytes": 956
+      },
+      "run2-analysis-cohort-final-targeted.log": {
+        "exit_code": 0,
+        "sha256": "5ab149071580971592f5e5d3362b36c66643cc370e6bed3e6269ba1046c64c41",
+        "bytes": 2204
+      },
+      "run2-cohort-zero.log": {
+        "exit_code": 0,
+        "sha256": "cc02e5ec9c7739afbc61d578cf2637e21695c3dd44cfced577be6dd95fb32458",
+        "bytes": 21050
+      },
+      "run2-analysis-cohort-full-regression.log": {
+        "exit_code": 0,
+        "sha256": "6ee46c3e339c81baac7c5e5074fe24a620e0c4b874c57f1de4c0382c36e842e1",
+        "bytes": 101575
+      }
+    },
+    "new_controller_tests": 6,
+    "combined_page_cohort_tests": 16,
+    "full_zero_tests": 168,
+    "full_zero_pass": 168,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "full_npm_test_exit_code": 0,
+    "scope": "Eight-locale cohort definition loading, queries, native definition saving, table headings, counts, interval titles, percentages, UTC source evidence and error states. Selected IDs/revisions, literal source records and authored definitions remain unchanged through locale switches. Explicit query and save routes are unchanged; duplicate pending saves are guarded and lost-response retries retain exact payload/key.",
+    "reproduced_defect": "Revoking cohort access removed result/history panels but retained source-populated private acquisition/return fields. The before-fix test retained private_acquisition. Revocation or denied saved-definition reads now clear source-loaded fields, references and notices; late cohort queries cannot restore them. Typing invalidates an old query without allowing its completion to re-enable a newer pending query button.",
+    "native_regression": {
+      "commands": [
+        "node analysis-cohorts-test.js",
+        "node analysis-cohort-definitions-test.js",
+        "node analysis-cohorts-api-test.js",
+        "node analysis-cohort-definitions-api-test.js",
+        "node analysis-cohort-zero-api-test.js",
+        "node business-workspaces-regression-test.js"
+      ],
+      "exit_code": 0
+    },
+    "previous_ci_failure_repaired": "CI 166 was reproduced from decoded job logs; no test was skipped or acceptance threshold reduced. The failing UI-source-token assertion and HTML-helper-name assertion were replaced with controller behavior checks. The entire npm test command subsequently exited 0.",
+    "dynamic_candidates": 818,
+    "analysis_cohort_direct_candidates": 0,
+    "analysis_loading_internal_error_candidates": 1,
+    "evidence_limit": "All full-surface locale gates remain FAIL/CODE_CONTROLLED. Static audits and controller/native tests do not establish browser pixels, accessibility, native-speaker quality, real voice/provider quality, cognitive quality or demo universes.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }
