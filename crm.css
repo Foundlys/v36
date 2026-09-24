@@ -1290,3 +1290,9 @@ dialog::backdrop {
 }
 
 #customObjectWorkspace fieldset,#customObjectWorkspace .form-grid>div{min-width:0;grid-column:1/-1}#customObjectWorkspace label{min-width:0}#customObjectWorkspace p,#customObjectWorkspace h3,#customObjectWorkspace h4{overflow-wrap:anywhere}#customObjectWorkspace output{display:block;margin:12px 0}
+
+.pipeline-stage-editor, .pipeline-stage-list { display: grid; gap: 12px; }
+.pipeline-stage-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin: 0; padding: 12px; border: 1px solid var(--line); border-radius: 12px; min-width: 0; }
+.pipeline-stage-row legend { color: var(--muted); padding: 0 4px; }
+.pipeline-stage-row button { justify-self: start; }
+@media (max-width: 640px) { .pipeline-stage-row { grid-template-columns: 1fr; } }

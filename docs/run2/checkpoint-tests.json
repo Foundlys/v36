@@ -158,6 +158,46 @@
       "status": "SUCCESS",
       "scope": "preceding seven-surface localization checkpoint"
     },
+    "current_ci": {
+      "run": 151,
+      "id": 36005231145,
+      "head": "f5718d43afe7d325264dfe7d568b2dc3bfd6f9a7",
+      "tree": "36faf22d7e97d5e43dacd27407e30f7453af43e0",
+      "status": "SUCCESS"
+    },
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
+  },
+  "pipeline_localization_checkpoint": {
+    "recorded_at": "2026-09-24T13:37:10.676019+00:00",
+    "source_sha256": {
+      "crm-pipeline-editor.js": "7ed85d549cddaacba04813e1f4c1f37421bdd3c7becdedf349f3049228db4411",
+      "crm-script.js": "99bc0b610bbc3f6ba644004444735cd488819f0192ff93f102a137ca5da2fd11",
+      "crm.html": "07e23f695ff6023396b10e59698966616c8ca5b5fd3de1a754da1b71a07c9cc5",
+      "crm.css": "5529e85933c4f8d4a102ad7c589e716beb650a57714240051c36c574a2a289f1",
+      "foundly-locales.js": "75f01cf5b408d5f3f58ebbed9e201e34eb7aefe678ff8bcfc61a2fa59480cfc4",
+      "server.js": "939b62af2e52000e9c6569fc6f7972c738834cfc14deaa03b80d4153d6efc429",
+      "crm-standalone.js": "fcfde9c82e84d2182f1a16d5de992ab1a2e17a2aa2d3d4be8814b1fd9e810aa3",
+      "Dockerfile.crm": "b2346bd7bc8f084adb325623d3ccb054857374a6e549beb410955db8d4676698",
+      "zero/crm-pipeline-client.test.js": "cf4a3d30a0c11e422a757f650826e31ef645ecc16d4851413ee1e6c513e4f16b"
+    },
+    "targeted_tests": {
+      "pipeline-localization-tests.log": {
+        "exit_code": 0,
+        "sha256": "773e3a8393f468f8377857dbe97f5eab8cd2e666ca3144d4e3b94579d3cad88e",
+        "bytes": 2392
+      },
+      "pipeline-crm-regression.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "unit_tests": 20,
+    "native_crm_regressions": "PASS",
+    "scope": "Typed localized stage editor and actual controller/native CRM create, explicit idempotent retry after uncertain response, close/reopen pause, current revoked permission and duplicate-submit guards. Not browser evidence. Pending request survives only in the current page.",
+    "static_unresolved_items": 0,
+    "remaining_dynamic_candidates": 1019,
+    "generated_profile_defaults": "CODE_CONTROLLED_OPEN",
     "current_ci": "PENDING_PUBLICATION",
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED"
   }

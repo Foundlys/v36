@@ -775,10 +775,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-057",
@@ -792,10 +793,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-058",
@@ -809,10 +811,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-059",
@@ -826,10 +829,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-060",
@@ -843,10 +847,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-061",
@@ -860,10 +865,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-062",
@@ -877,10 +883,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-063",
@@ -894,10 +901,11 @@
         "docs/run2/localization-inventory.json",
         "docs/run2/localization-dynamic-inventory.json",
         "zero/localization-authoring.test.js",
-        "docs/run2/localization-structure-check.json"
+        "docs/run2/localization-structure-check.json",
+        "zero/crm-pipeline-client.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Eight-locale catalogs bind 698 static text/accessibility entries across all seven surfaces. Expanded lexical-helper audit still finds 1,020 dynamic candidates; pipeline defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
+      "note": "Eight-locale catalogs bind 698 static entries across seven surfaces, with no unresolved static inventory items. Pipeline creation uses localized defaults with explicit canonical status/probability and idempotent same-page retry. The conservative dynamic audit still finds 1,019 candidates; generated profile defaults, dynamic refresh, backend/generated copy and browser/native-speaker acceptance remain open."
     },
     {
       "id": "R2-064",
@@ -1581,7 +1589,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "CI 150 passed seven-surface localization head b8232812d9e8bc75995626d74fa0af1b8102c4e2. The subsequent startup/standalone extension requires its own CI."
+      "note": "CI 151 passed startup/standalone localization head f5718d43afe7d325264dfe7d568b2dc3bfd6f9a7. The subsequent typed pipeline extension requires its own CI."
     },
     {
       "id": "R2-115",

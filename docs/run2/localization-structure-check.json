@@ -1,6 +1,6 @@
 {
   "base_commit": "f9644bc908922d3d4192ba23d9b7be27d38c4da7",
-  "scope": "HTML token structure and existing attributes/data unchanged; only catalog bindings and explicit equivalent option values added. Not browser, visual or dynamic coverage.",
+  "scope": "Historical seven-surface static-binding structure check at tree eb0c1fa1a5eedc37fc9b162cde748d47954ea641. Current pipeline extension is recorded separately below. Not browser or visual acceptance.",
   "files": [
     {
       "file": "index.html",
@@ -45,5 +45,21 @@
       "explicit_option_values_preserved": 0
     }
   ],
-  "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf"
+  "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+  "pipeline_extension": {
+    "base_commit": "df1448efda63513782bfd6fd2bdb65142b38ba6c",
+    "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "unchanged_surface_hashes": {
+      "index.html": "61902bbd183c130c9e9a22f940967b129320930d01332d07c116d84d8ca28512",
+      "foundly-workspace.html": "777a877c2317aa6f814bbb301f804c705aa275a371221baf6349079b14e0aa31",
+      "analysis.html": "81e59953be64e22a53118eac623f104b1378d9fdf6e65c65f5102159369c3569",
+      "finance.html": "3d9dc2116c2790d2cb2aae4c48d201280bc419b8eab44afabd47443bac2b11a9",
+      "automotive.html": "5c8188c78a4a27db2a77b3d2661f92375f8201672b219cc91859bd228f283f10",
+      "identity-login.html": "a40fff4c8fe837b0f48f4b966cba26d7a474352ebc31608a34a5fbb10e44b288"
+    },
+    "changed_surface": "crm.html",
+    "sha256": "07e23f695ff6023396b10e59698966616c8ca5b5fd3de1a754da1b71a07c9cc5",
+    "intentional_change": "Replace stage-name textarea and Dutch-name status inference with explicit localized status/probability controls and an uncertain-request notice; load the dedicated editor. CRM CSS adds responsive editor fields.",
+    "browser_and_assistive_technology_acceptance": "UNVERIFIED"
+  }
 }

@@ -1985,8 +1985,13 @@
       ]
     },
     {
+      "file": "crm-pipeline-editor.js",
+      "sha256": "7ed85d549cddaacba04813e1f4c1f37421bdd3c7becdedf349f3049228db4411",
+      "items": []
+    },
+    {
       "file": "crm-script.js",
-      "sha256": "3a3ab3b3752fec3cf08bb381847240ae6292086d457472508c7a3b2b7fb3e14c",
+      "sha256": "99bc0b610bbc3f6ba644004444735cd488819f0192ff93f102a137ca5da2fd11",
       "items": [
         {
           "line": 32,
@@ -2070,18 +2075,9 @@
           "rich_text": false
         },
         {
-          "line": 69,
-          "start": 21004,
-          "end": 21034,
-          "context": "toast",
-          "text": "Pipeline en fasen aangemaakt",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 71,
-          "start": 22436,
-          "end": 22494,
+          "line": 86,
+          "start": 23347,
+          "end": 23405,
           "context": "textContent",
           "text": "Geen echte {p0} beschikbaar.",
           "parameters": [
@@ -2090,18 +2086,18 @@
           "rich_text": false
         },
         {
-          "line": 72,
-          "start": 23098,
-          "end": 23141,
+          "line": 87,
+          "start": 24009,
+          "end": 24052,
           "context": "toast",
           "text": "Bewaar eerst de openstaande eigen velden.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 73,
-          "start": 23765,
-          "end": 25090,
+          "line": 88,
+          "start": 24676,
+          "end": 26001,
           "context": "innerHTML",
           "text": "<section><h3>Identiteit</h3><p><strong>{p0}</strong><br>{p1} {p2}</p></section><section><h3>Lifecycle</h3><p>Status: {p3} · Score: {p4}</p></section><section><h3>Relaties</h3><p>{p5} deals · {p6} taken · {p7} afspraken · {p8} documenten</p></section><section><h3>Tijdlijn</h3>{p9}</section><section><h3>Wijzigingshistorie</h3>{p10}</section><section><h3>Toestemming</h3><p>{p11}</p></section>",
           "parameters": [
@@ -2121,9 +2117,9 @@
           "rich_text": true
         },
         {
-          "line": 74,
-          "start": 25416,
-          "end": 25501,
+          "line": 89,
+          "start": 26327,
+          "end": 26412,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -2133,9 +2129,9 @@
           "rich_text": false
         },
         {
-          "line": 75,
-          "start": 26948,
-          "end": 26992,
+          "line": 90,
+          "start": 27859,
+          "end": 27903,
           "context": "toast",
           "text": "CRM-record {p0}",
           "parameters": [
@@ -2144,9 +2140,9 @@
           "rich_text": false
         },
         {
-          "line": 76,
-          "start": 27101,
-          "end": 27171,
+          "line": 91,
+          "start": 28012,
+          "end": 28082,
           "context": "confirm",
           "text": "Archiveer {p0}?",
           "parameters": [
@@ -2155,27 +2151,27 @@
           "rich_text": false
         },
         {
-          "line": 76,
-          "start": 27431,
-          "end": 27456,
+          "line": 91,
+          "start": 28342,
+          "end": 28367,
           "context": "toast",
           "text": "CRM-record gearchiveerd",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 78,
-          "start": 28393,
-          "end": 28423,
+          "line": 93,
+          "start": 29304,
+          "end": 29334,
           "context": "toast",
           "text": "Automation veilig opgeslagen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 79,
-          "start": 28712,
-          "end": 28786,
+          "line": 94,
+          "start": 29623,
+          "end": 29697,
           "context": "toast",
           "text": "{p0}: configuratie ingericht, zonder demodata",
           "parameters": [
@@ -2184,18 +2180,18 @@
           "rich_text": false
         },
         {
-          "line": 82,
-          "start": 29368,
-          "end": 29401,
+          "line": 97,
+          "start": 30279,
+          "end": 30312,
           "context": "textContent",
           "text": "ZERO analyseert de CRM-context…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 93,
-          "start": 34159,
-          "end": 34321,
+          "line": 108,
+          "start": 35070,
+          "end": 35232,
           "context": "textContent",
           "text": "Laatst gecontroleerd {p0} · alleen vastgelegde CRM-data",
           "parameters": [
@@ -2204,9 +2200,9 @@
           "rich_text": false
         },
         {
-          "line": 93,
-          "start": 34417,
-          "end": 34435,
+          "line": 108,
+          "start": 35328,
+          "end": 35346,
           "context": "textContent",
           "text": "NIET BESCHIKBAAR",
           "parameters": [],
