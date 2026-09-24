@@ -1805,5 +1805,82 @@
     "evidence_limit": "DOM fixture with deferred bootstrap; not rendered-browser, assistive-technology or native-speaker proof. Archive and stage-move exact retry, compound stage automation recovery and remaining view localization are the next open gaps. All wider Run-2 gates remain binding.",
     "dynamic_candidates": 787,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_stage_atomicity_checkpoint": {
+    "recorded_at": "2026-09-24T21:04:07.004930+00:00",
+    "prior_published_head": "6e12d21f0991a24192a713014d2f772378c668b5",
+    "prior_published_tree": "537ffdaaaaf351ec60918332eafec986b997219b",
+    "prior_ci": {
+      "number": 178,
+      "id": 36056523354,
+      "job_id": 107824805005,
+      "conclusion": "success",
+      "npm_test": "success"
+    },
+    "source_sha256": {
+      "crm-core.js": "53f341a623392a76d8d12be0bb876638b9ae57c8de5c9fac44077124ff225de1",
+      "crm-core-regression-test.js": "fec2ec1d17e89c07f99551df8890a3464a7d6968f885365712ba69a8d770efc1",
+      "crm-standalone.js": "177ed88a58312d460538646eaa162492ee902a663e0db43e8c2f8117ca0b3ab1",
+      "crm-standalone-regression-test.js": "d188a3e79667d2aa7261d68e40ccc13532dfa2d8a8107a13cb680dbac63c581c",
+      "crm-script.js": "3659038a6f109db10f3e0a221c7e368ad885ff732644ba1d379b17f283f45b2f",
+      "foundly-locales.js": "230d04c0a448237c68c665fef738b5ebbc93b20bf6a7a99fac1b2840ceedc717",
+      "server.js": "e354410b30de745a4f746c5653c8b62f239280745d8286ba6fddd4c326d171d3",
+      "zero/crm-stage-atomicity.test.js": "fed5b90966180ff59f46d1ec55d4194484db6bfdcf0447efb6d0e3d72558a0bb",
+      "zero/crm-stage-atomicity-api.test.js": "9653303f683df41d1a89cbdd0dbb976136beeb203e3e1c7fd0197179811519cd"
+    },
+    "logs": {
+      "run2-crm-stage-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "87fb594a01dfaad0c703b50d90e7d6433ff9fba0cd5845d6c69d3d86610cf0ae",
+        "bytes": 65975
+      },
+      "run2-crm-stage-native-before-replay-fixture.log": {
+        "exit_code": 1,
+        "sha256": "e8fb3fa1ad9a9ea5aa705aeee5ebc592931b5ec31088802ab8e31f05b240d934",
+        "bytes": 1437
+      },
+      "run2-crm-stage-additional-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "f042eae13226a76fb46cb5cac869a40e0987509eea5e9e4ff7dea29d7ce063bf",
+        "bytes": 4132
+      },
+      "run2-crm-stage-api-final.log": {
+        "exit_code": 0,
+        "sha256": "88010202791766613aca33d76fe031e93fc69c763fa6c68661974e415cd3b86f",
+        "bytes": 1786
+      },
+      "run2-crm-stage-zero.log": {
+        "exit_code": 0,
+        "sha256": "3de5e47dd30565061e457810311ec00ca76f80c5f0daa57458b82b12090a6534",
+        "bytes": 34118
+      },
+      "run2-crm-stage-native-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      },
+      "run2-crm-stage-standalone-final.log": {
+        "exit_code": 0,
+        "sha256": "dd0abc69da76b75556dd5eba6275fd0adc98ab3572387cccc977d9fb1b9b5b58",
+        "bytes": 774
+      }
+    },
+    "new_tests": 15,
+    "full_zero_tests": 282,
+    "full_zero_pass": 282,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0,
+      "final_standalone_replay_addition": "node crm-standalone-regression-test.js: exit 0"
+    },
+    "before_fix": "Nine failing-before checks reproduce deal writes before permission denial, unstable replay, split persistence, partial failed effects, lost empty match sets, event-payload substitution, silent match truncation and lost explicit grants. Two further failing checks reproduce payload comparison before receipt access and planned actions incorrectly marked completed. The native legacy replay fixture initially omitted the original before payload; it now replays the exact original event and still requires deduplication. The original failure is retained.",
+    "scope": "Stage move checks current automation/read/write authority before mutation. Deal/history/tasks/executions/audit/idempotency/event receipt stage in isolated same-tenant buckets and persist in one existing synchronous adapter transaction. Failure restores changed buckets and emits no notification. Stage request signatures and derived event IDs are stable; main and standalone HTTP replay survives encrypted restart. Observed empty automation match sets are durably replayed; event identifiers bind original payloads, current receipt/task/definition access is checked first, excessive matches reject without partial effects, and event collisions roll back deal changes.",
+    "storage_change": "New auxiliary crm:automation_event_receipts bucket in the existing encrypted adapter; no public entity schema or external database migration. Capacity 25000 rejects before effects.",
+    "legacy_compatibility": "Historical underlying-update stage receipts replay their recorded deal without repeating uncertain side effects and report LEGACY_OUTCOME_UNVERIFIED; client and workflow adapter retain that review requirement. Existing event execution rows without payload receipts retain LEGACY_UNVERIFIED binding. New records do not invent evidence for historical execution.",
+    "evidence_limit": "Generated internal task effects and observed outcomes are covered. Other internal assign/field/stage actions still require implementation and report PARTIAL; external actions remain AWAITING_EXPLICIT_AUTHORIZATION. Durable cross-module notification delivery and compound provisioning remain open. Client archive/stage exact retry and remaining CRM view localization are next. No full adversarial, locale or wider Run-2 acceptance is claimed.",
+    "dynamic_candidates": 787,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }

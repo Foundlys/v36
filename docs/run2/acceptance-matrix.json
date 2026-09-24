@@ -1750,7 +1750,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 167–177 passed their respective published checkpoints. The later CRM form retry checkpoint passes 267 ZERO tests, 14 corpus cases and native CRM core/API/standalone regressions; its own published CI is pending. Historical CI 166 remains failed and repaired."
+      "note": "CI 167–178 passed their respective published checkpoints. The later CRM stage/automation transaction checkpoint passes 282 ZERO tests, 14 corpus cases and native CRM core/API/standalone regressions; its own published CI is pending. Historical CI 166 remains failed and repaired."
     },
     {
       "id": "R2-115",
@@ -1859,10 +1859,12 @@
         "docs/run2/ZERO_FOUNDATIONS.md",
         "zero/crm-mutation-integrity.test.js",
         "zero/crm-mutation-integrity-api.test.js",
-        "zero/crm-source-lifecycle.test.js"
+        "zero/crm-source-lifecycle.test.js",
+        "zero/crm-stage-atomicity.test.js",
+        "zero/crm-stage-atomicity-api.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Partial security regression now includes current-permission CRM mutation replay, archive revision, malformed revision headers and atomic persistence failure. All enumerated Run-2 adversarial scenarios and compound-action effects remain unaccepted."
+      "note": "Partial security regression includes current-permission CRM replay, archive/revision-header checks, compound stage/task/audit persistence rollback and observed automation event binding. All enumerated Run-2 adversarial scenarios, remaining internal actions and cross-module notification delivery remain unaccepted."
     },
     {
       "id": "R2-124",
@@ -1889,7 +1891,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-24T20:40:25.327653+00:00",
+  "updated_at": "2026-09-24T21:04:07.004930+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }
