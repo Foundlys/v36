@@ -781,12 +781,12 @@
     },
     {
       "file": "crm-script.js",
-      "sha256": "12c0bca40d8b2afe250c77edaa0077bf505f68ecf408d96a899c0bbb7be590cf",
+      "sha256": "08e760ec9516f75cc977cc9c60bcac7b85f0a062e25c2999ba0045ed30046723",
       "items": [
         {
           "line": 70,
-          "start": 13227,
-          "end": 13691,
+          "start": 13406,
+          "end": 13870,
           "context": "innerHTML",
           "text": "<article><h3>{p0} domeincollecties</h3><p>Tenantisolatie, RBAC, audit, revisions en idempotency.</p></article><article><h3>{p1} widgettypen</h3><p>{p2}</p></article><article><h3>Externe writes beschermd</h3><p>{p3}</p></article>",
           "parameters": [
@@ -799,8 +799,8 @@
         },
         {
           "line": 144,
-          "start": 28868,
-          "end": 28904,
+          "start": 29047,
+          "end": 29083,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM dashboard response unavailable",
           "parameters": [],
@@ -808,8 +808,8 @@
         },
         {
           "line": 180,
-          "start": 38370,
-          "end": 38428,
+          "start": 38549,
+          "end": 38607,
           "context": "textContent",
           "text": "Geen echte {p0} beschikbaar.",
           "parameters": [
@@ -819,8 +819,8 @@
         },
         {
           "line": 182,
-          "start": 39401,
-          "end": 39444,
+          "start": 39580,
+          "end": 39623,
           "context": "toast",
           "text": "Bewaar eerst de openstaande eigen velden.",
           "parameters": [],
@@ -828,8 +828,8 @@
         },
         {
           "line": 183,
-          "start": 40545,
-          "end": 41870,
+          "start": 40724,
+          "end": 42049,
           "context": "innerHTML",
           "text": "<section><h3>Identiteit</h3><p><strong>{p0}</strong><br>{p1} {p2}</p></section><section><h3>Lifecycle</h3><p>Status: {p3} · Score: {p4}</p></section><section><h3>Relaties</h3><p>{p5} deals · {p6} taken · {p7} afspraken · {p8} documenten</p></section><section><h3>Tijdlijn</h3>{p9}</section><section><h3>Wijzigingshistorie</h3>{p10}</section><section><h3>Toestemming</h3><p>{p11}</p></section>",
           "parameters": [
@@ -849,9 +849,18 @@
           "rich_text": true
         },
         {
-          "line": 185,
-          "start": 42344,
-          "end": 42417,
+          "line": 191,
+          "start": 43283,
+          "end": 43316,
+          "context": "error_message_requires_control_flow_review",
+          "text": "CRM record response unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 197,
+          "start": 44586,
+          "end": 44659,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -861,20 +870,9 @@
           "rich_text": false
         },
         {
-          "line": 186,
-          "start": 44046,
-          "end": 44090,
-          "context": "toast",
-          "text": "CRM-record {p0}",
-          "parameters": [
-            "id?'bijgewerkt':'opgeslagen'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 188,
-          "start": 44239,
-          "end": 44309,
+          "line": 203,
+          "start": 46627,
+          "end": 46697,
           "context": "confirm",
           "text": "Archiveer {p0}?",
           "parameters": [
@@ -883,27 +881,18 @@
           "rich_text": false
         },
         {
-          "line": 188,
-          "start": 44614,
-          "end": 44639,
+          "line": 203,
+          "start": 47002,
+          "end": 47027,
           "context": "toast",
           "text": "CRM-record gearchiveerd",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 192,
-          "start": 46127,
-          "end": 46157,
-          "context": "toast",
-          "text": "Automation veilig opgeslagen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 209,
-          "start": 49133,
-          "end": 49164,
+          "line": 227,
+          "start": 51671,
+          "end": 51702,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM ZERO response unavailable",
           "parameters": [],

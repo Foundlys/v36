@@ -1749,5 +1749,61 @@
     "evidence_limit": "Current-role HTTP evidence uses a fresh session after revocation and repeats after encrypted restart; it does not merely test a revoked cookie. Native record transactions do not establish atomicity for compound provisioning, stage moves plus automation effects, or durable cross-module notification delivery. Client exact retry for record/archive/stage/automation actions and remaining CRM localization are still open.",
     "dynamic_candidates": 788,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_form_retry_checkpoint": {
+    "recorded_at": "2026-09-24T20:40:25.327653+00:00",
+    "prior_published_head": "e3083aad31418b3622f20439f3eb5a38065b9b4e",
+    "prior_published_tree": "31e31437968040cc43c01953e2d8d67647465959",
+    "prior_ci": {
+      "number": 177,
+      "id": 36055461777,
+      "conclusion": "success"
+    },
+    "source_sha256": {
+      "crm-script.js": "08e760ec9516f75cc977cc9c60bcac7b85f0a062e25c2999ba0045ed30046723",
+      "foundly-locales.js": "417e1c58cbc48c86a919e13e8f086f3e90fed9730acb826b308a756d4bb07d93",
+      "zero-evaluation/crm-dashboard-fixture.js": "dd6f44b0fbeb1406ea8ec3bcd05db19064864ad5741926a0f6c253234a6d1204",
+      "zero-evaluation/crm-form-fixture.js": "40e8583d018f9830b3e8ca0fc36f62223698b3eb83f59f40a2de7c2622136abd",
+      "zero/crm-form-retry.test.js": "5045f1830c8047b67b93a8b4867d33e23b0bd54dd63e8873575b7c3349b6f522"
+    },
+    "logs": {
+      "run2-crm-form-retry-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "0728cd3ec2d391210283f9eb814082137d48afbcdee3c97d792e126abf93ee43",
+        "bytes": 4839
+      },
+      "run2-crm-form-retry-targeted.log": {
+        "exit_code": 0,
+        "sha256": "4d5ff6b18614377b305df0ee97480e1c80cfe458c14af659c7634c0a007c8c2b",
+        "bytes": 2562
+      },
+      "run2-crm-form-retry-zero.log": {
+        "exit_code": 0,
+        "sha256": "c73b069661c032165d55c606851a0eae07db228425dc59fd288f72ea094e321b",
+        "bytes": 32436
+      },
+      "run2-crm-form-retry-native.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 7,
+    "full_zero_tests": 267,
+    "full_zero_pass": 267,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "reproduced_defects": [
+      "Lost committed record and automation responses were resubmitted under new keys and could create duplicate records/definitions.",
+      "Overlapping record and automation submissions made multiple native writes."
+    ],
+    "scope": "Production record and automation controllers freeze their original path/body/revision/key through uncertainty, block overlapping submission and input edits, preserve original record editor identity across close/reopen attempts, and release definitive validation failures for correction under a new key. Permission denial clears frozen requests and stale responses cannot repaint/reset later state. Owned persistent feedback and generated follow-up framing use eight locales; language changes do not reread fields, translate business data or write. Native writes are real in the DOM fixture, including committed-response loss and PATCH revision replay.",
+    "evidence_limit": "DOM fixture with deferred bootstrap; not rendered-browser, assistive-technology or native-speaker proof. Archive and stage-move exact retry, compound stage automation recovery and remaining view localization are the next open gaps. All wider Run-2 gates remain binding.",
+    "dynamic_candidates": 787,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }
