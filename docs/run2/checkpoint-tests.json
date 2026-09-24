@@ -832,7 +832,7 @@
       "id": 36033145353,
       "head": "ca626f3055ed23ab1c84778ab22c302c847f5815",
       "tree": "269bb478caa80dfa07d0f4b73f34e463fbbf1165",
-      "status": "IN_PROGRESS"
+      "status": "SUCCESS"
     },
     "full_npm_test_exit_code": 0,
     "tested_tree": "269bb478caa80dfa07d0f4b73f34e463fbbf1165",
@@ -878,6 +878,51 @@
     "main_index_script_candidates": 8,
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "current_ci": {
+      "run": 163,
+      "id": 36033967728,
+      "head": "7649b5ef5fbb967aabf5537383de00d464deac0c",
+      "tree": "02cf798548b8eb614bfcfb28d23267ae35e25a2a",
+      "status": "SUCCESS"
+    }
+  },
+  "analysis_action_locale_checkpoint": {
+    "recorded_at": "2026-09-24T17:33:54.961602+00:00",
+    "source_sha256": {
+      "analysis-actions-client.js": "9f593fd58f940fceb1728b4c9661c71ab290c6fdf25d2cc0fc2d96c81507f8a7",
+      "foundly-locales.js": "439448e75107927741c52d5dc5adfee6f11b3b3408d6cb94785896e8f2aadda8",
+      "zero/analysis-action-localization.test.js": "e64117a4ea55cc9e2bc36604ede31cc4c554a8ac88e3c74883391690635e3edc"
+    },
+    "logs": {
+      "run2-analysis-localization-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "b9855f03973611afbc40fd5038f63011b9cc473dba129c65f0773debd332afa2",
+        "bytes": 1236
+      },
+      "run2-analysis-localization.log": {
+        "exit_code": 0,
+        "sha256": "d36f4cb02b0aecd730de86e105c7cc1fb37733043cab530a74e98f7b1054d31e",
+        "bytes": 789
+      },
+      "run2-analysis-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "6fa7aba6268da0c77d7072cfe204de3129a587dc51d8bfb87a2132dc94d38210",
+        "bytes": 18242
+      }
+    },
+    "new_controller_tests": 5,
+    "full_zero_tests": 146,
+    "full_zero_pass": 146,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "Actual Analysis proposal/approval/execution controller: eight-locale owned labels, choices, local validation, known status framing, source counts, revision/version formatting and audit times. Customer titles, reviewer identities, reasons, content, native snapshots and payload enum values remain literal. Locale changes preserve inputs, selection, confirmations and exact retry keys without additional reads or writes.",
+    "reproduced_defect": "A current denied list refresh removed list controls but retained already viewed private source details in the editor. Before-fix test failed 1 !== 0. The current failed-read path clears the editor as well, and a late detail response cannot restore it.",
+    "native_regression": "Existing production Analysis controller suite passes in NATIVE and ZERO modes, retaining different-reviewer approval, separate execution, actual native core handlers, exact lost-response replay, current source permissions and persistence restart.",
+    "dynamic_candidates": 884,
+    "analysis_actions_direct_candidates": 0,
+    "main_index_script_candidates": 8,
+    "evidence_limit": "A zero-candidate scoped syntax scan is not proof of all-surface localization. Minimal DOM response fixtures test UI language/state; native regressions test actual core execution. No live provider, browser pixels, native-speaker or cognitive-quality acceptance is claimed.",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "current_ci": "PENDING_PUBLICATION"
   }
 }
