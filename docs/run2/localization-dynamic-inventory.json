@@ -781,39 +781,39 @@
     },
     {
       "file": "crm-script.js",
-      "sha256": "f23c289938a040f6e8b2472b9c071d5fd31f8ae3aba41acadada267811b24cf6",
+      "sha256": "8da1c0a7b052d8323b972de5cb75eb44d3f9c5f91ef08c4bf467dd0f99cfa9ff",
       "items": [
         {
-          "line": 159,
-          "start": 30827,
-          "end": 30863,
+          "line": 170,
+          "start": 31699,
+          "end": 31735,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM dashboard response unavailable",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 205,
-          "start": 37311,
-          "end": 37344,
+          "line": 216,
+          "start": 38183,
+          "end": 38216,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM action response unavailable",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 274,
-          "start": 50180,
-          "end": 50213,
+          "line": 292,
+          "start": 51933,
+          "end": 51966,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM record response unavailable",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 317,
-          "start": 59999,
-          "end": 60030,
+          "line": 340,
+          "start": 62900,
+          "end": 62931,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM ZERO response unavailable",
           "parameters": [],

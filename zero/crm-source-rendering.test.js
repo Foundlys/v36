@@ -37,3 +37,7 @@ test('CRM schema observation distinguishes missing counts and policy from record
  const g=fixture(),native=g.context.fetch;g.context.fetch=(path,options)=>path==='/api/crm/schema'?Promise.resolve({ok:true,status:200,text:async()=>JSON.stringify({entities:{leads:{}},dashboard_widget_types:['KPI'],contracts:{external_writes:'never_without_explicit_authorization_and_connector'}})}):native(path,options);await g.context.loadSchema();const before=g.calls.length;
  for(const locale of locales){g.i.setLocale(locale);assert.ok(g.nodes.schemaSummary.textContent.includes(g.i.t('crm.source.schema_external_policy')));assert.ok(g.nodes.schemaSummary.textContent.includes(g.i.t('crm.dashboard.type.KPI')));assert.equal(g.calls.length,before);}
 });
+test('native CRM customer profile excludes linked companies outside current record access',()=>{
+ const {fixture:storage}=require('../zero-evaluation/crm-save-fixture'),f=storage(),manager={id:'manager',roles:['MANAGER']};const company=f.core.create(f.ctx,manager,'companies',{name:'PRIVATE other company',owner_id:'other_owner'}),lead=f.core.create(f.ctx,manager,'leads',{name:'Readable lead',owner_id:f.actor.id,company_id:company.id});const view=f.core.customer360(f.ctx,f.actor,lead.id);assert.equal(view.subject.id,lead.id);assert.equal(view.companies.length,0);assert.ok(!JSON.stringify(view).includes('PRIVATE other company'));
+ const allowed=f.core.customer360(f.ctx,manager,lead.id);assert.equal(allowed.companies[0].name,company.name);
+});

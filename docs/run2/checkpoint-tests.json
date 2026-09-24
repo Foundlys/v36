@@ -2003,5 +2003,100 @@
     "evidence_limit": "Minimal DOM and native/API fixture evidence, not browser/layout, screen reader, native-speaker or live provider proof. Full-surface locale acceptance remains FAIL. Compound provisioning, remaining generated/backend copy, automation actions and durable notifications stay open.",
     "dynamic_candidates": 781,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_configuration_integrity_checkpoint": {
+    "recorded_at": "2026-09-24T21:40:47.251778+00:00",
+    "prior_published_head": "d2ea7dd33154fd0516621d39331688096d03cc60",
+    "prior_published_tree": "9f681e1df50e76673de0f0b615c6d0bf2188cd1b",
+    "prior_ci": {
+      "number": 181,
+      "id": 36061829786,
+      "status": "in_progress",
+      "latest_completed_ci": 180
+    },
+    "source_sha256": {
+      "crm-core.js": "859cb93c3c100e488535c5d097db90ef247b8f327e2954d3b8f7e01f6892f136",
+      "crm-script.js": "8da1c0a7b052d8323b972de5cb75eb44d3f9c5f91ef08c4bf467dd0f99cfa9ff",
+      "foundly-locales.js": "6f04f05193fa444d6be5db2be81597e8d1ec292157acb72ca847e3d472df26fb",
+      "zero/crm-source-rendering.test.js": "b1711d8c6a5a9c1563145b13eac4f07afc8a703664b1e571da5c4dee08ff3ffe",
+      "zero/crm-profile-integrity.test.js": "a5cdf254554b31755621e4d7049e733b11f1ad91095b2565e9dc4300468d92e8",
+      "zero/crm-profile-integrity-api.test.js": "78afafde8957eae6656682f63343b7f723fd0c4a3d7a92ae430e23af10bab6f4",
+      "zero/crm-profile-client-integrity.test.js": "0d4c8941af247de5f1578e2dd71eed02faf405e3f2b63fb0a56c8c428bc452cb",
+      "zero/crm-pipeline-client-integrity.test.js": "51dc477b7aef7c04b6b8d92e3301ca7c8d9735ad24ebcb2aa3b1e1381aa8effc",
+      "zero-evaluation/crm-profile-fixture.js": "c545a32b27a9f1ef2593b8fa751de61f449bacef2f9d62c22583e5864772ae11",
+      "zero-evaluation/crm-pipeline-fixture.js": "a1afc0b35fdda12db3399bc08671b2eeed3202f48e535e1260125312022348b4"
+    },
+    "logs": {
+      "run2-crm-profile-integrity-before.log": {
+        "exit_code": 1,
+        "sha256": "4857b694e464c1707b02109aa66bbd5c496f19ef72903b4a7a1213c8ff555c83",
+        "bytes": 67299
+      },
+      "run2-crm-profile-client-before.log": {
+        "exit_code": 1,
+        "sha256": "742685db9cca791ac161bc16c789a568ae12744e23cfb8d783496cdae39696f1",
+        "bytes": 3332
+      },
+      "run2-crm-company-access-before.log": {
+        "exit_code": 1,
+        "sha256": "023d2bbce8291bf1fdf5aae2fb2322208e7659567365ce726ba5fe59c811fa94",
+        "bytes": 977
+      },
+      "run2-crm-pipeline-client-before.log": {
+        "exit_code": 1,
+        "sha256": "1467b94205c68403335c06fc465082ad48863271fb8815bc49a984723987bd35",
+        "bytes": 3166
+      },
+      "run2-crm-pipeline-stage-ack-before.log": {
+        "exit_code": 1,
+        "sha256": "7986be033f60b6ffe2b3ceb17234d87f8057b724084aa6941f2c7359367fce6d",
+        "bytes": 920
+      },
+      "run2-crm-profile-final.log": {
+        "exit_code": 0,
+        "sha256": "512228704f41a0e4463a56953112f156dbff9c0b16c96c2c49844b448038f58d",
+        "bytes": 1776
+      },
+      "run2-crm-company-access-final.log": {
+        "exit_code": 0,
+        "sha256": "f08ea6f998013d8921e948bd30c928ba4bfb81901229211fdb8b3e7c15d202c5",
+        "bytes": 216
+      },
+      "run2-crm-pipeline-client-final.log": {
+        "exit_code": 0,
+        "sha256": "9447844c47476f7364d9ac5fc9e0e3f8babd368f9092ce5f68dec89ff80f3143",
+        "bytes": 1694
+      },
+      "run2-crm-configuration-controls-final.log": {
+        "exit_code": 0,
+        "sha256": "a7d12df8a7c112f444b42ba3833588731e12c3e2afc7d0859d9a7c7b25105265",
+        "bytes": 938
+      },
+      "run2-crm-configuration-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "3dad73f0063de69c195c49fc10a656fe6380b1c721bdc469374616c763cb49c1",
+        "bytes": 38385
+      },
+      "run2-crm-configuration-native-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 16,
+    "full_zero_tests": 322,
+    "full_zero_pass": 322,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "before_fix": "Five native profile failures, four profile-controller failures, one linked-company access failure, and pipeline lifecycle/acknowledgement failures reproduced. Pipeline malformed-parent responses already threw an uncontrolled TypeError; malformed stage acknowledgements actually advanced and claimed completion. The latter has its own failing-before log. The dashboard reassignment test uses read-assigned grants because a manager retaining read-all correctly retains access.",
+    "scope": "Existing CRM profile composition commits configuration, previous-default changes, audit and receipts through one native same-tenant transaction. Persistence/capacity failures roll back all effects. Explicit grants survive nested calls; cached profile receipts recheck read/manage/dashboard/current-source access. Historical successful receipts remain compatible and explicitly LEGACY_OUTCOME_UNVERIFIED. Real HTTP replay and freshly revoked principal denial survive encrypted restart. Profile and pipeline controllers validate success evidence, retain exact uncertain requests, retire pending private forms after denial, stop late follow-on writes, and distinguish confirmed writes from failed refresh. Customer360 filters linked companies by current record access.",
+    "remaining": "The existing manual pipeline creator remains an explicitly resumable sequence, not an atomic compound endpoint; interrupted configuration is not presented as complete. Browser-reload durable retry recovery, internal automation assign/field/stage execution, durable event delivery, generated/backend localization and broader Run-2 gates remain open.",
+    "evidence_limit": "Native transaction, HTTP restart and minimal DOM controller proof only; not browser/accessibility/listening/provider or full cognitive acceptance. No main merge/deployment or Run 3.",
+    "dynamic_candidates": 781,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }

@@ -11,7 +11,18 @@ async function api(path,options={}){
   if(!response.ok){const error=Object.assign(new Error(data.error||data.code||`HTTP ${response.status}`),{status:response.status,code:data.code,data});if([401,403].includes(response.status))invalidateCrmAccess(error);throw error;}return data;
 }
 function invalidateCrmAccess(error){
- state.crmAccessGeneration++;state.actionWrites={};state.actionFeedback={};for(const kind of ['archive','stage']){crmActionHost(kind).replaceChildren();crmActionControls(kind);}for(const item of Object.values(state.formWrites)){crmFormControls(item.form,false,false);crmRender(item.notice,crmError(error));}state.formWrites={};for(const key of ['schemaGeneration','recordsGeneration','pipelinesGeneration','boardGeneration','customerGeneration','automationsGeneration','zeroGeneration'])state[key]++;state.schema=state.board=state.recordEditor=null;state.records=[];state.pipelines=[];state.zeroBusy=false;
+ state.crmAccessGeneration++;
+ if(state.pipelineRequest)state.pipelineRequest.paused=true;
+ state.pipelineRequest=state.pipelineRun=null;state.pipelineBusy=false;state.pipelineEditor=null;
+ const pipelineForm=$('#pipelineForm'),profileForm=$('#provisionForm');pipelineForm.reset?.();
+ if(pipelineForm.elements?.name)pipelineForm.elements.name.disabled=false;
+ $('#pipelineStages').replaceChildren();$('#pipelineCreateNotice').hidden=true;
+ if($('#pipelineDialog').open)$('#pipelineDialog').close();
+ for(const {node,disabled}of state.provisionRequest?.controls||[])node.disabled=disabled;
+ state.provisionRequest=state.provisionRun=null;state.provisionBusy=false;profileForm.reset?.();
+ for(const form of [pipelineForm,profileForm]){const submit=form.querySelector('button[type="submit"]');if(submit)submit.disabled=false;}
+ if(state.provisionNotice)crmRender(state.provisionNotice,crmError(error));
+ state.actionWrites={};state.actionFeedback={};for(const kind of ['archive','stage']){crmActionHost(kind).replaceChildren();crmActionControls(kind);}for(const item of Object.values(state.formWrites)){crmFormControls(item.form,false,false);crmRender(item.notice,crmError(error));}state.formWrites={};for(const key of ['schemaGeneration','recordsGeneration','pipelinesGeneration','boardGeneration','customerGeneration','automationsGeneration','zeroGeneration'])state[key]++;state.schema=state.board=state.recordEditor=null;state.records=[];state.pipelines=[];state.zeroBusy=false;
  for(const id of ['recordRows','pipelineSelect','pipelineBoard','customer360','automationList','schemaSummary','customObjectWorkspace','nativeFieldsWorkspace','zeroOutput'])$('#'+id).replaceChildren();
  for(const id of ['recordDialog','customerDialog','nativeFieldsDialog','widgetDialog']){const dialog=$('#'+id);if(dialog.open)dialog.close();}$('#recordForm').reset?.();
  crmRender($('#recordEmpty'),crmError(error));$('#recordEmpty').classList.remove('hidden');invalidateDashboard(error,state.dashboardGeneration);
@@ -231,12 +242,19 @@ async function createPipeline(event){
   event.preventDefault();if(state.pipelineBusy||!$('#pipelineDialog').open)return;
   const form=event.currentTarget,i18n=globalThis.FoundlyI18n,submit=form.querySelector('button[type="submit"]');
   if(!state.pipelineRequest){const name=form.elements.name.value.trim();if(!name||name.length>160)throw Error(i18n.t('common.required'));state.pipelineRequest={id:crypto.randomUUID(),name,stages:state.pipelineEditor.read()};}
-  const pending=state.pipelineRequest;pending.paused=false;state.pipelineBusy=true;form.elements.name.disabled=true;state.pipelineEditor.setDisabled(true);submit.disabled=true;$('#pipelineCreateNotice').hidden=false;
+  const pending=state.pipelineRequest,access=state.crmAccessGeneration,current=()=>state.pipelineRun===pending&&access===state.crmAccessGeneration;pending.paused=false;state.pipelineRun=pending;state.pipelineBusy=true;form.elements.name.disabled=true;state.pipelineEditor.setDisabled(true);submit.disabled=true;$('#pipelineCreateNotice').hidden=false;
+  const valid=row=>row&&typeof row.id==='string'&&row.id&&Number.isSafeInteger(row.revision)&&row.revision>0;
   try{
-    const response=await api('/api/crm/pipelines',{method:'POST',headers:{'idempotency-key':`pipeline-${pending.id}`},body:JSON.stringify({name:pending.name})}),pipeline=response.record;
-    for(const stage of pending.stages){if(pending.paused||!$('#pipelineDialog').open)throw Error(i18n.t('crm.pipeline.paused'));await api('/api/crm/stages',{method:'POST',headers:{'idempotency-key':`pipeline-stage-${pending.id}-${stage.position}`},body:JSON.stringify({...stage,pipeline_id:pipeline.id})});}
-    state.pipelineRequest=null;form.elements.name.disabled=false;state.pipelineEditor.setDisabled(false);$('#pipelineCreateNotice').hidden=true;$('#pipelineDialog').close();form.reset();await loadPipelines();$('#pipelineSelect').value=pipeline.id;await loadPipelineBoard(pipeline.id);toast(i18n.t('crm.pipeline.created'));
-  }finally{state.pipelineBusy=false;submit.disabled=false;}
+    const response=await api('/api/crm/pipelines',{method:'POST',headers:{'idempotency-key':`pipeline-${pending.id}`},body:JSON.stringify({name:pending.name})});if(!current())return;const pipeline=response.record;if(!valid(pipeline))throw Error('CRM pipeline response unavailable');
+    for(const stage of pending.stages){
+      if(!current())return;if(pending.paused||!$('#pipelineDialog').open)throw Error(i18n.t('crm.pipeline.paused'));
+      const response=await api('/api/crm/stages',{method:'POST',headers:{'idempotency-key':`pipeline-stage-${pending.id}-${stage.position}`},body:JSON.stringify({...stage,pipeline_id:pipeline.id})});if(!current())return;
+      if(!valid(response.record)||response.record.pipeline_id!==pipeline.id||response.record.position!==stage.position)throw Error('CRM stage response unavailable');
+    }
+    state.pipelineRequest=null;form.elements.name.disabled=false;state.pipelineEditor.setDisabled(false);$('#pipelineCreateNotice').hidden=true;$('#pipelineDialog').close();form.reset();
+    try{await loadPipelines();if(!current())return;$('#pipelineSelect').value=pipeline.id;await loadPipelineBoard(pipeline.id);if(current())toast(i18n.message?i18n.message('crm.pipeline.created'):i18n.t('crm.pipeline.created'));}
+    catch(error){if(current())toast(i18n.message?i18n.message('crm.dashboard.saved_refresh_failed'):i18n.t('crm.dashboard.saved_refresh_failed'));}
+  }finally{if(state.pipelineRun===pending){state.pipelineRun=null;state.pipelineBusy=false;submit.disabled=false;}}
 }
 
 async function loadRecords(){
@@ -304,11 +322,16 @@ async function provision(event){
   if(!state.provisionNotice){state.provisionNotice=document.createElement('output');state.provisionNotice.setAttribute('role','status');form.append(state.provisionNotice);}
   const notice=(key,params={})=>i18n.bind?i18n.bind(state.provisionNotice,key,undefined,params):(state.provisionNotice.textContent=i18n.t(key,params));
   if(!state.provisionRequest){const data=Object.fromEntries(new FormData(form).entries());if(['business_name','country','industry','segment'].some(key=>!String(data[key]||'').trim())){notice('common.required');return;}data.defaults_locale=i18n.locale;state.provisionRequest={id:crypto.randomUUID(),body:JSON.stringify(data),controls:[...form.querySelectorAll('input,select,textarea')].map(node=>({node,disabled:node.disabled}))};}
-  const pending=state.provisionRequest;state.provisionBusy=true;submit.disabled=true;for(const {node}of pending.controls)node.disabled=true;notice('crm.profile.retry');
+  const pending=state.provisionRequest,access=state.crmAccessGeneration,current=()=>state.provisionRun===pending&&state.crmAccessGeneration===access;state.provisionRun=pending;state.provisionBusy=true;submit.disabled=true;for(const {node}of pending.controls)node.disabled=true;notice('crm.profile.retry');
   const release=()=>{for(const {node,disabled}of pending.controls)node.disabled=disabled;state.provisionRequest=null;};
-  try{const result=await api('/api/crm/provision',{method:'POST',headers:{'idempotency-key':`provision-${pending.id}`},body:pending.body});release();form.reset();notice('crm.profile.created',{name:result.profile.business_name});await loadStatus();}
-  catch(error){if(['crm_profile_invalid','crm_profile_locale_invalid'].includes(error.code||error.data?.code)){release();notice('common.request_failed');}throw error;}
-  finally{state.provisionBusy=false;submit.disabled=false;}
+  try{
+    let result;try{result=await api('/api/crm/provision',{method:'POST',headers:{'idempotency-key':`provision-${pending.id}`},body:pending.body});if(!current())return;
+      const record=row=>row&&typeof row.id==='string'&&row.id&&Number.isSafeInteger(row.revision)&&row.revision>0;
+      if(result?.ok!==true||!['RECORDED_ATOMIC','LEGACY_OUTCOME_UNVERIFIED'].includes(result.configuration_status)||typeof result.profile?.business_name!=='string'||!record(result.tenant_record)||!record(result.pipeline)||!record(result.dashboard)||!Array.isArray(result.stages)||result.stages.length!==6||new Set(result.stages.map(row=>row?.id)).size!==6||!result.stages.every(row=>record(row)&&row.pipeline_id===result.pipeline.id))throw Error('CRM profile response unavailable');
+    }catch(error){if(current()){const definitive=error.status>=400&&error.status<500&&![408,429].includes(error.status)||['crm_profile_invalid','crm_profile_locale_invalid'].includes(error.code||error.data?.code);if(definitive)release();notice(definitive?'common.request_failed':'crm.profile.retry');}throw error;}
+    release();form.reset();notice(result.configuration_status==='LEGACY_OUTCOME_UNVERIFIED'?'crm.profile.legacy_review':'crm.profile.created',{name:result.profile.business_name});
+    try{await loadStatus();}catch(error){if(current())notice('crm.dashboard.saved_refresh_failed');}
+  }finally{if(state.provisionRun===pending){state.provisionRun=null;state.provisionBusy=false;submit.disabled=false;}}
 }
 
 function runUiCommands(commands=[]){for(const command of commands){if(command.type==='OPEN_ENGINE'&&['analysis','finance'].includes(command.target)){location.href=`/${command.target}`;return}if(command.type==='OPEN_ENGINE'&&command.target==='crm')setView('dashboard');if(command.type==='FOCUS_NODE'&&command.target==='crm')setView('dashboard');if(command.type==='SHOW_TASK')setView('records','tasks')}}

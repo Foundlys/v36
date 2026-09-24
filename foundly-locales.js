@@ -5,6 +5,7 @@
   // Explicit catalog entries only. Business records and provider text are never
   // translated by DOM inspection or substituted by a language fallback.
   const rows={
+    "crm.profile.legacy_review":["Profiel {name} is vastgelegd; de eerdere aanmaak moet worden gecontroleerd.", "Profile {name} was recorded; its earlier creation needs review.", "Profil {name} wurde erfasst; die frühere Erstellung muss geprüft werden.", "Le profil {name} a été enregistré ; sa création antérieure doit être vérifiée.", "El perfil {name} está registrado; es necesario revisar su creación anterior.", "Profilen {name} er registreret; den tidligere oprettelse skal kontrolleres.", "Profilen {name} er registrert; den tidligere opprettelsen må kontrolleres.", "Profilen {name} är registrerad; det tidigare skapandet behöver granskas."],
     "crm.source.schema_entities":["Recordtypen", "Record types", "Datensatztypen", "Types d’enregistrement", "Tipos de registro", "Posttyper", "Oppføringstyper", "Posttyper"],
     "crm.source.schema_widgets":["Widgettypen", "Widget types", "Widget-Typen", "Types de widgets", "Tipos de widgets", "Widgettyper", "Widgettyper", "Widgettyper"],
     "crm.source.schema_external":["Externe acties", "External actions", "Externe Aktionen", "Actions externes", "Acciones externas", "Eksterne handlinger", "Eksterne handlinger", "Externa åtgärder"],
