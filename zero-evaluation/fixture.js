@@ -12,11 +12,10 @@ const assert = require('node:assert/strict');
 async function fixture(overrides = {}) {
   const root = path.resolve(__dirname, '..');
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'foundly-zero-eval-'));
-  const port = 33000 + crypto.randomInt(15000);
-  const base = `http://127.0.0.1:${port}`;
+  let base = null;
   const token = crypto.randomBytes(32).toString('hex');
   const origin = 'https://foundly.example.test';
-  const env = {...process.env, NODE_ENV:'production', NODE_OPTIONS:'', PORT:String(port),
+  const env = {...process.env, NODE_ENV:'production', NODE_OPTIONS:'', PORT:'0',
     FOUNDLY_DATA_DIR:dir, FOUNDLY_ADMIN_TOKEN:token, FOUNDLY_ADMIN_PASSWORD:'',
     FOUNDLY_ENCRYPTION_KEY:crypto.randomBytes(32).toString('hex'),
     FOUNDLY_TENANT_ID:'zero-evaluation', FOUNDLY_DEALER_ID:'default',
@@ -26,11 +25,14 @@ async function fixture(overrides = {}) {
     FOUNDLY_ZERO_MODEL_REGISTRY:'', ...overrides};
   let child, logs = '';
   async function start() {
-    child = spawn(process.execPath, ['server.js'], {cwd:root, env, stdio:['ignore','pipe','pipe']});
+    if(child?.exitCode===null)throw Error('Fixture is already running');
+    base=null;logs='';
+    child = spawn(process.execPath, ['--require',path.join(__dirname,'fixture-listening.js'),'server.js'], {cwd:root, env, stdio:['ignore','pipe','pipe','ipc']});
+    child.on('message', message=>{if(message?.type==='zero-fixture-listening'&&Number.isInteger(message.port)&&message.port>0&&message.port<=65535)base=`http://127.0.0.1:${message.port}`;});
     for (const stream of [child.stdout, child.stderr]) stream.on('data', b => { logs = (logs + b).slice(-8000); });
     for (let n = 0; n < 100; n++) {
       if (child.exitCode !== null) throw Error('Fixture exited: ' + logs);
-      try { if ((await fetch(base + '/api/health')).ok) return; } catch {}
+      try { if (base&&(await fetch(base + '/api/health')).ok) return; } catch {}
       await new Promise(resolve => setTimeout(resolve, 50));
     }
     throw Error('Fixture startup timeout: ' + logs);
@@ -63,8 +65,8 @@ async function fixture(overrides = {}) {
     assert.equal(response.status, 200, JSON.stringify(response.body));
     return response.headers.get('set-cookie').split(';')[0];
   }
-  await start();
-  return {base, dir, env, request, enroll, login, start, stop,
+  try{await start();}catch(error){await stop();fs.rmSync(dir,{recursive:true,force:true});throw error;}
+  return {get base(){return base;}, dir, env, request, enroll, login, start, stop,
     async close() { await stop(); fs.rmSync(dir, {recursive:true, force:true}); }};
 }
 module.exports = {fixture};

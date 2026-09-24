@@ -575,12 +575,105 @@
     "main_index_script_candidates": 19,
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "run": 159,
+      "id": 36022775943,
+      "head": "1fe3621e14bde24e634469c871542698e4b0cba3",
+      "tree": "433e49c463a95ec3cee58ef0025b059d6b5c6a91",
+      "status": "SUCCESS"
+    },
     "final_zero_tests": 112,
     "final_zero_pass": 112,
     "corpus_pass": 14,
     "corpus_total": 14,
     "native_client_audio_regression": "PASS after final fix: jarvis-client-regression-test.js and speech-audio-visual-regression-test.js",
     "text_host_fix": "ZERO complete-text hosts clear all former result rows before a new progress/error label. Shared label bindings continue to preserve nested form controls elsewhere."
+  },
+  "audio_locale_checkpoint": {
+    "recorded_at": "2026-09-24T16:09:13.810730+00:00",
+    "source_sha256": {
+      "foundly-locales.js": "8823b01c69e1472c0745aba9251a2087a1690a229cd114a4516a20a7afe7b0e2",
+      "index-script.js": "f917c3d4d8757eaf3370f539368479b723c550d15d962a3848211c37e6c0499b",
+      "zero-evaluation/fixture.js": "a8d4df01bd3318eb1bb68fd64f737a363ed678458e4588fdf25ba538d2e6de7c",
+      "zero-evaluation/fixture-listening.js": "daa46898ea3c1ecd5ef711edae06079591193d3a9175c8c5d70c1e780966a077",
+      "zero-evaluation/zero-presentation-fixture.js": "d3224fbf78a790cb165be11eed02b3d7996b30ec726c1fe65eef90656a276526",
+      "zero/audio-localization.test.js": "6793a03147f383418246a6d7d2f8134fed3211d1f99d9147f8b64dfaf00d72db",
+      "zero/fixture-isolation.test.js": "6f7e0dd3f2e7c734d45e8f6ed04e8c7c8555143d003737115b065fad0a05b745",
+      "zero/voice-client.test.js": "8f5f512ed3c688b484248dd6709eb6bef3da72339d0c364d97da3da6dfd4fb59",
+      "zero/zero-presentation-localization.test.js": "cd947ba4abe3d56bbcb4b4f9d19efdbb0fb0a9ccd09943e51498fdc28a5e6f48"
+    },
+    "logs": {
+      "audio-localization.log": {
+        "exit_code": 0,
+        "sha256": "1138b71577f8464f19ed41d39b8cf93f6bad6f5cf52d2be914c665a3490f7205",
+        "bytes": 4183,
+        "scope": "32 focused locale/controller tests, including eight audio cases"
+      },
+      "audio-native-regression.log": {
+        "exit_code": 0,
+        "sha256": "858b0d879ca09446eba956d85c4a5ac75ff03d93532de8d4acc755c81529860e",
+        "bytes": 1742,
+        "scope": "Existing native client, audio/visual and ZERO production contract regressions; fake devices/providers where declared, not live voice quality"
+      },
+      "audio-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "f81fe7c7d2ea42b3fb20bada55eea721cc3d7a89dcfecd6b040d1d60083da989",
+        "bytes": 15002,
+        "scope": "All 121 ZERO tests and 14/14 foundation corpus cases after the fixture ownership fix"
+      },
+      "audio-zero-before-fixture-update.log": {
+        "exit_code": 1,
+        "sha256": "4eb97168c1e87f5fd60cf8bed39d4235c30c2669a2c4b37bb787949a2b8417b5",
+        "bytes": 14302,
+        "scope": "Historical failure: extracted Realtime handler fixture had not loaded the new actual presentation helper"
+      },
+      "audio-zero-auth-failure.log": {
+        "exit_code": 1,
+        "sha256": "a568ca4ce76e111552f86a672ec39236bc5dc0bb0e946a12a26f53bb5e62b824",
+        "bytes": 14663,
+        "scope": "Historical full run failed one cross-module enrollment with auth_invalid; port-collision startup defect subsequently reproduced"
+      },
+      "audio-auth-voice-recheck.log": {
+        "exit_code": 0,
+        "sha256": "8f92b49e8b95d906f3235fec037c7a0361ffc93e814986df9156e7d4b30f2ac4",
+        "bytes": 354,
+        "scope": "Both the original cross-module scenario and unchanged voice dispatch assertions pass when isolated"
+      },
+      "audio-profile-before-fix.log": {
+        "exit_code": 0,
+        "sha256": "916db058f183fe55d0f43e58067895e9c71208828cbdd0b3df66b7c67f74243f",
+        "bytes": 266,
+        "scope": "Confirmed defect reproduction against prior source: volume input promoted unsaved voice/profile values"
+      },
+      "fixture-port-collision-before-fix.log": {
+        "exit_code": 0,
+        "sha256": "d007bb3361cd39b8890927d14f028f116f464283a2949c28eaa09e427511e012",
+        "bytes": 224,
+        "scope": "Confirmed prior-fixture reproduction: two chosen identical ports reported ready through another fixture health endpoint, then native authentication rejected the wrong token"
+      },
+      "fixture-port-ownership.log": {
+        "exit_code": 0,
+        "sha256": "1ae4ede5e3714a1cdb86c6da1561b1b6eda49c90e44ea878cd52544c30f24b44",
+        "bytes": 376,
+        "scope": "Owned bound-port readiness, parallel authenticated isolation, occupied-port rejection and encrypted restart, plus the original cross-module HTTP case"
+      }
+    },
+    "targeted_locale_tests": 32,
+    "new_audio_controller_tests": 8,
+    "full_zero_tests": 121,
+    "full_zero_pass": 121,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "Eight-locale audio-context/output/music/ducking/voice/permission observations, native volume percentages, transport/privacy labels, transcription prefix and settings save/error feedback. Locale changes apply no preference, query no device, reacquire no microphone and reconnect no voice. Unknown readings stay unknown; observed zero and disabled states remain distinct. Stale microphone permission reads cannot overwrite newer observations, and permission change events repaint without new acquisition. Captured transcript text and conversation language stay literal.",
+    "settings_correctness": "Live volume/checkbox controls no longer promote unsaved conversation language, voice profile or preferred address. Explicit settings save freezes its form and native payload, guards duplicate calls, restores prior disabled states and reconnects once for a saved voice change. Denied/unconfirmed writes retain visible drafts; a confirmed write followed by failed audio activation has a distinct message. Native preference routes/keys, UI/conversation locale separation and acquisition/release controls are preserved.",
+    "fixture_correctness": "Reproduced randomized TCP-port collision during the native HTTP suite. Fixtures now ask the OS for port 0, observe the actual child server listening event over test-only IPC and never accept another process health endpoint as readiness. Production request handling, authorization and encryption are unchanged. Startup failures clean their own temporary state; current bound address updates on restart. Existing dispatch assertions were preserved while loading their actual presentation helper.",
+    "evidence_limit": "Minimal DOM/device/controller fixtures and real local HTTP/native identity/persistence tests. No real browser pixels, microphone hardware, streaming provider, latency, assistive technology or native-speaker acceptance. Full npm/CI success on the preceding ZERO tree is separate; this final audio tree still awaits full CI.",
+    "frozen_main_inline_css_equal_to_run1": true,
+    "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "dynamic_candidates": 936,
+    "main_index_script_candidates": 18,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "current_ci": "PENDING_PUBLICATION"
   }
 }

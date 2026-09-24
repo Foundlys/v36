@@ -6263,7 +6263,7 @@
     },
     {
       "file": "index-script.js",
-      "sha256": "9b6aa240caa02391fef6561a9ebe49eb60058db36f9e815f0932fd811ef8d3df",
+      "sha256": "f917c3d4d8757eaf3370f539368479b723c550d15d962a3848211c37e6c0499b",
       "items": [
         {
           "line": 7,
@@ -6405,20 +6405,9 @@
           "rich_text": false
         },
         {
-          "line": 349,
-          "start": 82040,
-          "end": 82078,
-          "context": "textContent",
-          "text": "{p0}%",
-          "parameters": [
-            "Math.round(Number(value||0)*100)"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 356,
-          "start": 86632,
-          "end": 86667,
+          "line": 394,
+          "start": 90211,
+          "end": 90246,
           "context": "error_message_requires_control_flow_review",
           "text": "Vereiste control ontbreekt: {p0}",
           "parameters": [
@@ -6427,18 +6416,18 @@
           "rich_text": false
         },
         {
-          "line": 359,
-          "start": 89440,
-          "end": 89470,
+          "line": 397,
+          "start": 93027,
+          "end": 93057,
           "context": "error_message_requires_control_flow_review",
           "text": "Statusroute niet beschikbaar",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 359,
-          "start": 90160,
-          "end": 90211,
+          "line": 397,
+          "start": 93747,
+          "end": 93798,
           "context": "textContent",
           "text": "{p0} LIVE",
           "parameters": [
@@ -6447,9 +6436,9 @@
           "rich_text": false
         },
         {
-          "line": 362,
-          "start": 92844,
-          "end": 92917,
+          "line": 400,
+          "start": 96431,
+          "end": 96504,
           "context": "toast",
           "text": "{p0} gekoppeld{p1}",
           "parameters": [
@@ -6459,9 +6448,9 @@
           "rich_text": false
         },
         {
-          "line": 362,
-          "start": 93070,
-          "end": 93139,
+          "line": 400,
+          "start": 96657,
+          "end": 96726,
           "context": "toast",
           "text": "{p0} koppeling fout: {p1}",
           "parameters": [
@@ -6471,9 +6460,9 @@
           "rich_text": false
         },
         {
-          "line": 366,
-          "start": 94338,
-          "end": 94361,
+          "line": 404,
+          "start": 97925,
+          "end": 97948,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [
