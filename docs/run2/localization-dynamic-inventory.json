@@ -781,12 +781,12 @@
     },
     {
       "file": "crm-script.js",
-      "sha256": "081e879149b68ccf9e61247b6b760d1092b61d9afffb56799d7520ce12a3f8d0",
+      "sha256": "12c0bca40d8b2afe250c77edaa0077bf505f68ecf408d96a899c0bbb7be590cf",
       "items": [
         {
-          "line": 64,
-          "start": 11869,
-          "end": 12333,
+          "line": 70,
+          "start": 13227,
+          "end": 13691,
           "context": "innerHTML",
           "text": "<article><h3>{p0} domeincollecties</h3><p>Tenantisolatie, RBAC, audit, revisions en idempotency.</p></article><article><h3>{p1} widgettypen</h3><p>{p2}</p></article><article><h3>Externe writes beschermd</h3><p>{p3}</p></article>",
           "parameters": [
@@ -798,36 +798,18 @@
           "rich_text": true
         },
         {
-          "line": 137,
-          "start": 27402,
-          "end": 27438,
+          "line": 144,
+          "start": 28868,
+          "end": 28904,
           "context": "error_message_requires_control_flow_review",
           "text": "CRM dashboard response unavailable",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 144,
-          "start": 28886,
-          "end": 28996,
-          "context": "innerHTML",
-          "text": "<div class=\"empty\">Nog geen pipeline geconfigureerd. Maak een pipeline of gebruik het bedrijfsprofiel.</div>",
-          "parameters": [],
-          "rich_text": true
-        },
-        {
-          "line": 146,
-          "start": 31001,
-          "end": 31034,
-          "context": "toast",
-          "text": "Deal verplaatst en geverifieerd",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 165,
-          "start": 34725,
-          "end": 34783,
+          "line": 180,
+          "start": 38370,
+          "end": 38428,
           "context": "textContent",
           "text": "Geen echte {p0} beschikbaar.",
           "parameters": [
@@ -836,18 +818,18 @@
           "rich_text": false
         },
         {
-          "line": 166,
-          "start": 35387,
-          "end": 35430,
+          "line": 182,
+          "start": 39401,
+          "end": 39444,
           "context": "toast",
           "text": "Bewaar eerst de openstaande eigen velden.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 167,
-          "start": 36054,
-          "end": 37379,
+          "line": 183,
+          "start": 40545,
+          "end": 41870,
           "context": "innerHTML",
           "text": "<section><h3>Identiteit</h3><p><strong>{p0}</strong><br>{p1} {p2}</p></section><section><h3>Lifecycle</h3><p>Status: {p3} · Score: {p4}</p></section><section><h3>Relaties</h3><p>{p5} deals · {p6} taken · {p7} afspraken · {p8} documenten</p></section><section><h3>Tijdlijn</h3>{p9}</section><section><h3>Wijzigingshistorie</h3>{p10}</section><section><h3>Toestemming</h3><p>{p11}</p></section>",
           "parameters": [
@@ -867,21 +849,21 @@
           "rich_text": true
         },
         {
-          "line": 168,
-          "start": 37705,
-          "end": 37790,
+          "line": 185,
+          "start": 42344,
+          "end": 42417,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [
             "record?'Bewerk':'Nieuw'",
-            "ENTITY_LABELS[state.entity]||titleize(state.entity)"
+            "ENTITY_LABELS[entity]||titleize(entity)"
           ],
           "rich_text": false
         },
         {
-          "line": 169,
-          "start": 39237,
-          "end": 39281,
+          "line": 186,
+          "start": 44046,
+          "end": 44090,
           "context": "toast",
           "text": "CRM-record {p0}",
           "parameters": [
@@ -890,9 +872,9 @@
           "rich_text": false
         },
         {
-          "line": 170,
-          "start": 39390,
-          "end": 39460,
+          "line": 188,
+          "start": 44239,
+          "end": 44309,
           "context": "confirm",
           "text": "Archiveer {p0}?",
           "parameters": [
@@ -901,29 +883,29 @@
           "rich_text": false
         },
         {
-          "line": 170,
-          "start": 39720,
-          "end": 39745,
+          "line": 188,
+          "start": 44614,
+          "end": 44639,
           "context": "toast",
           "text": "CRM-record gearchiveerd",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 172,
-          "start": 40682,
-          "end": 40712,
+          "line": 192,
+          "start": 46127,
+          "end": 46157,
           "context": "toast",
           "text": "Automation veilig opgeslagen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 186,
-          "start": 42998,
-          "end": 43031,
-          "context": "textContent",
-          "text": "ZERO analyseert de CRM-context…",
+          "line": 209,
+          "start": 49133,
+          "end": 49164,
+          "context": "error_message_requires_control_flow_review",
+          "text": "CRM ZERO response unavailable",
           "parameters": [],
           "rich_text": false
         }

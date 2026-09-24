@@ -1622,5 +1622,62 @@
     "evidence_limit": "Bounded native dashboard save and UI recovery evidence does not establish all CRM mutations, all cross-module event delivery or all Run-2 atomicity. Other CRM views still have source-state, localization and request-lifecycle gaps. DOM fixtures do not establish browser/layout, native-speaker or live-provider acceptance.",
     "dynamic_candidates": 790,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_source_lifecycle_checkpoint": {
+    "recorded_at": "2026-09-24T20:19:20.085218+00:00",
+    "prior_published_head": "7966067b189912ba54bef1b5cd88e40ed5908750",
+    "prior_published_tree": "60b5d4ca31461463f2b5a50be7ae700bb22dea3d",
+    "prior_ci": {
+      "number": 175,
+      "id": 36052816177,
+      "conclusion": "success"
+    },
+    "source_sha256": {
+      "crm-script.js": "12c0bca40d8b2afe250c77edaa0077bf505f68ecf408d96a899c0bbb7be590cf",
+      "foundly-locales.js": "c0c595d9953eae5faa21820fefd11b32c6370b54754950ef536c59aca791501a",
+      "zero-evaluation/crm-dashboard-fixture.js": "7c1a1b37442a700cdd089976fbaf8ff2c7354b63f6997c33cb360233ccd57833",
+      "zero/crm-source-lifecycle.test.js": "e3e0ffa7184f3f59eaf84563a7e4fe0f8ac0ad0f79b0a49a35b79b21f166245f"
+    },
+    "logs": {
+      "run2-crm-source-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "00f52a59e3a04fbb704254e232e9beed4bd02e81d5e275c11eb7c68af6a08e9c",
+        "bytes": 7810
+      },
+      "run2-crm-source-lifecycle.log": {
+        "exit_code": 0,
+        "sha256": "ec08ed691f15a3f303741ef079d54fda163828b4df8c011685171eb41cc89134",
+        "bytes": 1812
+      },
+      "run2-crm-source-zero.log": {
+        "exit_code": 0,
+        "sha256": "f26d1a038ab6ad7b59622e9d80add4797505c90d468512c7d898561263067f2c",
+        "bytes": 30586
+      },
+      "run2-crm-source-native.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 17,
+    "full_zero_tests": 250,
+    "full_zero_pass": 250,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "reproduced_defects": [
+      "Current access denial retained private records, pipeline, customer and automation source rows.",
+      "Late replies could restore each source after newer denial.",
+      "Closing a pending customer dialog did not prevent late reopening.",
+      "A late ZERO reply could restore its answer and run navigation after access denial."
+    ],
+    "scope": "Central CRM denial clears private source caches, mounted source editors and dialogs. Per-view generations reject late/older record, pipeline, customer, schema and automation observations; customer close invalidates pending reads. ZERO guards duplicate submissions and late answers/navigation, keeps failed/newer authored questions, preserves literal model answers and localizes progress/classified errors. Missing lists remain distinct from observed empty arrays. Record editing snapshots its original entity across navigation. Automation saving captures its form before event.currentTarget expires.",
+    "evidence_limit": "The fixture defers bootstrap and does not prove rendered-browser/layout or native-speaker quality. Pipeline/record/customer/schema/automation owned rendering still needs full locale conversion. Other CRM mutations lack complete exact-retry/atomicity evidence; generic cached mutation replay and archive revision validation are the next identified code paths to test, not accepted by this bounded UI lifecycle evidence.",
+    "dynamic_candidates": 788,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }
