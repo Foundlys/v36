@@ -5,7 +5,7 @@ const fs=require('fs');
 const path=require('path');
 const crypto=require('crypto');
 const {URL}=require('url');
-const {FoundlyCrmCore,ENTITY_DEFINITIONS}=require('./crm-core');
+const {FoundlyCrmCore,ENTITY_DEFINITIONS,parseCrmRevisionHeader}=require('./crm-core');
 const VERSION=require('./package.json').version;
 const UI_LOCALES=require('./foundly-locales').locales;
 const {serveStaticFile}=require('./static-response');
@@ -43,7 +43,7 @@ function publicBaseReady(){if(env('NODE_ENV')!=='production')return true;try{con
 function storageStatus(){let writable=false,separate_mount=false;try{const test=path.join(DATA_DIR,'.crm-ready');fs.writeFileSync(test,'ready',{mode:0o600});fs.unlinkSync(test);writable=true;separate_mount=fs.statSync(DATA_DIR).dev!==fs.statSync('/').dev}catch{}const railway=Boolean(env('RAILWAY_SERVICE_ID')||env('RAILWAY_PROJECT_ID')||env('RAILWAY_ENVIRONMENT_ID'));return {writable,persistent_mount:railway?separate_mount:true,separate_mount}}
 function readiness(){const storage=storageStatus(),checks={authentication:env('NODE_ENV')==='production'?authConfigured():true,encryption:Boolean(encryptionKey()),public_base_url:publicBaseReady(),storage_writable:storage.writable,persistent_mount:storage.persistent_mount};return {ready:Object.values(checks).every(Boolean),checks,failed:Object.entries(checks).filter(([,ok])=>!ok).map(([name])=>name)}}
 const rateBuckets=new Map();function rateAllowed(req){const ip=String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'unknown').split(',')[0].trim(),slot=Math.floor(Date.now()/60000),key=`${ip}:${slot}`,next=(rateBuckets.get(key)||0)+1;rateBuckets.set(key,next);if(rateBuckets.size>5000)for(const old of rateBuckets.keys())if(!old.endsWith(`:${slot}`))rateBuckets.delete(old);return next<=Math.max(30,Number(env('FOUNDLY_CRM_RATE_LIMIT_PER_MINUTE','240')))}
-function requestOptions(req){const raw=String(req.headers['if-match']||'').replace(/^W\//,'').replace(/^"|"$/g,'');return {idempotencyKey:String(req.headers['idempotency-key']||''),expectedRevision:/^\d+$/.test(raw)?Number(raw):undefined}}
+function requestOptions(req){return {idempotencyKey:String(req.headers['idempotency-key']||''),expectedRevision:parseCrmRevisionHeader(req.headers['if-match'])}}
 function listQuery(url){const filters={};for(const [name,value] of url.searchParams.entries())if(name.startsWith('filter.'))filters[name.slice(7)]=value;return {q:url.searchParams.get('q')||'',limit:url.searchParams.get('limit')||50,cursor:url.searchParams.get('cursor')||0,sort:url.searchParams.get('sort')||'updated_at',order:url.searchParams.get('order')||'desc',filters}}
 function analyticsQuery(url){const filters={};for(const [name,value] of url.searchParams.entries())if(name.startsWith('filter.'))filters[name.slice(7)]=value;return {from:url.searchParams.get('from'),to:url.searchParams.get('to'),compare:/^(?:1|true|yes)$/i.test(url.searchParams.get('compare')||''),filters}}
 function totalRecords(ctx){return (OBJECTS.count(ctx,principal())||0)+Object.keys(ENTITY_DEFINITIONS).filter(entity=>!['audit_events','automation_executions'].includes(entity)).reduce((sum,entity)=>sum+CRM.list(ctx,principal(),entity,{limit:1}).total,0)}

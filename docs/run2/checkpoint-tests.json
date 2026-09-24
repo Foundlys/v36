@@ -1679,5 +1679,75 @@
     "evidence_limit": "The fixture defers bootstrap and does not prove rendered-browser/layout or native-speaker quality. Pipeline/record/customer/schema/automation owned rendering still needs full locale conversion. Other CRM mutations lack complete exact-retry/atomicity evidence; generic cached mutation replay and archive revision validation are the next identified code paths to test, not accepted by this bounded UI lifecycle evidence.",
     "dynamic_candidates": 788,
     "current_ci": "PENDING_PUBLICATION"
+  },
+  "crm_mutation_integrity_checkpoint": {
+    "recorded_at": "2026-09-24T20:30:41.004761+00:00",
+    "prior_published_head": "886b8dcb2443ae626c1f0b7706a00a16527253f6",
+    "prior_published_tree": "1505d691de5579348f6be989c72ddfd10fa10056",
+    "prior_ci": {
+      "number": 176,
+      "id": 36054134770,
+      "conclusion": "success"
+    },
+    "source_sha256": {
+      "crm-core.js": "9d4af4eb94822890c43a88c538c4504f3ea296ca9f46c68dc1cc94d81b32a87f",
+      "server.js": "f54dd021a59ffeb8f58819155ab2073863fb7fb9df7bc4b3f3fe9d26f62cf07f",
+      "crm-standalone.js": "666661ee1743789d310e3f9d8581affb5d07853264c24902ab32cf520e0ff1a5",
+      "crm-standalone-regression-test.js": "a71f5d4423f9bec5e5ac05bedfaf239fa71807ec00165b853089709042e5b526",
+      "zero/crm-mutation-integrity.test.js": "fedd8f80bfb86d6f91827399d76c117b02ad2d71410c2575df6cb5501a2fc6d9",
+      "zero/crm-mutation-integrity-api.test.js": "42e359481f6ca458b73d0cbb8db2e2c44f7c90b536ea85e21ed909cc3c4552a1"
+    },
+    "logs": {
+      "run2-crm-mutations-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "776f94688c9021ecd8db6909ab5173bd025b0e3476e7ecfcbd083f85c54c2f10",
+        "bytes": 53458
+      },
+      "run2-crm-mutations-revision-header-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "61bd895131bc88ec6ee2a6d342f57e4090b081d23c812c2e2f665c8739727c71",
+        "bytes": 1021
+      },
+      "run2-crm-mutations-http-initial-composition.log": {
+        "exit_code": 1,
+        "sha256": "cc90398e5594fc245209ab7aaaca152ae263d41971924c6b5a8214d6f508a278",
+        "bytes": 1167
+      },
+      "run2-crm-mutations-targeted.log": {
+        "exit_code": 0,
+        "sha256": "6e2399a5334e8d166dfa701454dcc194891b06fee17f9fe850c4f2bd46d12cd7",
+        "bytes": 1968
+      },
+      "run2-crm-mutations-http-final.log": {
+        "exit_code": 0,
+        "sha256": "ff570aa73e54d5f9fb8ac6e28cd1fe4ba7dc00be60aa1d3b9fa0a7b2d5f9c522",
+        "bytes": 242
+      },
+      "run2-crm-mutations-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "5ffcc7f42600216778688c78d9ab200be6d2714148c30de65886a0c12e780092",
+        "bytes": 31701
+      },
+      "run2-crm-mutations-native-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      }
+    },
+    "new_tests": 10,
+    "full_zero_tests": 260,
+    "full_zero_pass": 260,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "before_fix": "Nine native tests reproduce actual mutation/replay/persistence/capacity/default-permission failures. A separate HTTP failure proves malformed If-Match headers were ignored and wrote data. Initial HTTP enrollment was blocked by missing tenant composition; the fixture now configures the real CRM package before enrollment and uses a fresh login after role revocation. This setup error is preserved and is not treated as product defect evidence.",
+    "scope": "Generic create/update/archive commits the touched record collection, audit and replay receipt in one synchronous adapter transaction. Failed persistence restores touched buckets and emits no notification. Capacity is checked before insertion. Cached results recheck current target permissions; archived/reassigned sources cannot be disclosed through old create/update receipts. Archive validates expectedRevision, binds new receipts to the revision and preserves the legacy delete signature for existing receipts. Main and standalone HTTP adapters reject malformed/unsafe revision headers. Dashboard replay preserves the original explicit-permission principal rather than renormalizing a permissions Set and dropping grants.",
+    "introduced_regression": "The earlier dashboard atomic-save checkpoint passed a normalized principal into get(), dropping explicit permission grants when roles were empty. A failing-before test now covers and repairs this introduced regression.",
+    "evidence_limit": "Current-role HTTP evidence uses a fresh session after revocation and repeats after encrypted restart; it does not merely test a revoked cookie. Native record transactions do not establish atomicity for compound provisioning, stage moves plus automation effects, or durable cross-module notification delivery. Client exact retry for record/archive/stage/automation actions and remaining CRM localization are still open.",
+    "dynamic_candidates": 788,
+    "current_ci": "PENDING_PUBLICATION"
   }
 }

@@ -14,7 +14,7 @@ const dns = require('dns').promises;
 const os = require('os');
 const { URL } = require('url');
 const {formatZeroResponse}=require('./speech-formatter');
-const {FoundlyCrmCore,ENTITY_DEFINITIONS}=require('./crm-core');
+const {FoundlyCrmCore,ENTITY_DEFINITIONS,parseCrmRevisionHeader}=require('./crm-core');
 const {CapabilityResolver,canManage:canManageComposition}=require('./capability-resolver');
 const {BusinessDomain,DEFINITIONS:BUSINESS_DOMAIN_DEFINITIONS}=require('./business-domains');
 const {createBusinessDomainApi}=require('./business-domain-api');
@@ -1565,7 +1565,7 @@ async function handleWixCallback(req,res,u){
   }
 }
 
-function crmRequestOptions(req){const rawRevision=String(req.headers['if-match']||'').replace(/^W\//,'').replace(/^"|"$/g,''),revision=rawRevision&&/^\d+$/.test(rawRevision)?Number(rawRevision):undefined;return {idempotencyKey:String(req.headers['idempotency-key']||''),expectedRevision:revision}}
+function crmRequestOptions(req){return {idempotencyKey:String(req.headers['idempotency-key']||''),expectedRevision:parseCrmRevisionHeader(req.headers['if-match'])}}
 function crmListQuery(u){const filters={};for(const [name,value] of u.searchParams.entries())if(name.startsWith('filter.'))filters[name.slice(7)]=value;return {q:u.searchParams.get('q')||'',limit:u.searchParams.get('limit')||50,cursor:u.searchParams.get('cursor')||0,sort:u.searchParams.get('sort')||'updated_at',order:u.searchParams.get('order')||'desc',filters}}
 function crmAnalyticsQuery(u){const filters={};for(const [name,value] of u.searchParams.entries())if(name.startsWith('filter.'))filters[name.slice(7)]=value;return {from:u.searchParams.get('from'),to:u.searchParams.get('to'),compare:/^(?:1|true|yes)$/i.test(u.searchParams.get('compare')||''),filters}}
 function crmApiError(res,error){return json(res,error.statusCode||500,{ok:false,code:error.code||'crm_internal_error',error:error.statusCode?redactJarvisText(error.message,500):'Interne CRM-fout',details:error.statusCode?redactSecrets(error.details||null):null})}
