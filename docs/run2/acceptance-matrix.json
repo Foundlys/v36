@@ -1766,7 +1766,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 167–178 passed their published checkpoints. CI 179 is running on the preceding compound-stage head. The later CRM action-retry checkpoint passes 294 ZERO tests, 14 corpus cases and native CRM regressions; its own published CI is pending. Historical CI 166 remains failed and repaired."
+      "note": "CI 179–182 passed their exact published checkpoints, including full npm test. CI 182 covers configuration head eecd3a3. The later durable CRM event checkpoint passes 332 ZERO tests, 14 corpus cases, native CRM and access regressions; its published CI is pending. Historical CI 166 remains failed and repaired."
     },
     {
       "id": "R2-115",
@@ -1877,10 +1877,13 @@
         "zero/crm-mutation-integrity-api.test.js",
         "zero/crm-source-lifecycle.test.js",
         "zero/crm-stage-atomicity.test.js",
-        "zero/crm-stage-atomicity-api.test.js"
+        "zero/crm-stage-atomicity-api.test.js",
+        "zero/crm-profile-integrity-api.test.js",
+        "zero/crm-event-recovery.test.js",
+        "zero/crm-event-recovery-api.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Partial security regression includes current-permission CRM replay, archive/revision-header checks, compound stage/task/audit persistence rollback and observed automation event binding. All enumerated Run-2 adversarial scenarios, remaining internal actions and cross-module notification delivery remain unaccepted."
+      "note": "Partial security regression covers current-permission mutation/profile/event replay, compound rollback, stable durable event identities and bounded authorized retries. All enumerated Run-2 adversarial scenarios and remaining internal automation actions remain unaccepted."
     },
     {
       "id": "R2-124",

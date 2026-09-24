@@ -2011,8 +2011,9 @@
     "prior_ci": {
       "number": 181,
       "id": 36061829786,
-      "status": "in_progress",
-      "latest_completed_ci": 180
+      "status": "completed",
+      "latest_completed_ci": 180,
+      "conclusion": "success"
     },
     "source_sha256": {
       "crm-core.js": "859cb93c3c100e488535c5d097db90ef247b8f327e2954d3b8f7e01f6892f136",
@@ -2097,6 +2098,93 @@
     "remaining": "The existing manual pipeline creator remains an explicitly resumable sequence, not an atomic compound endpoint; interrupted configuration is not presented as complete. Browser-reload durable retry recovery, internal automation assign/field/stage execution, durable event delivery, generated/backend localization and broader Run-2 gates remain open.",
     "evidence_limit": "Native transaction, HTTP restart and minimal DOM controller proof only; not browser/accessibility/listening/provider or full cognitive acceptance. No main merge/deployment or Run 3.",
     "dynamic_candidates": 781,
+    "current_ci": {
+      "number": 182,
+      "id": 36063143038,
+      "job_id": 107846596581,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "eecd3a38931f9d3452f01d769b7a7e082fa46deb",
+      "tree": "d06e292b664137f140daf4aebd547fb6b004d7e7",
+      "full_npm_test": "PASS"
+    }
+  },
+  "crm_event_delivery_checkpoint": {
+    "recorded_at": "2026-09-24T21:57:59.910493+00:00",
+    "prior_published_head": "eecd3a38931f9d3452f01d769b7a7e082fa46deb",
+    "prior_published_tree": "d06e292b664137f140daf4aebd547fb6b004d7e7",
+    "prior_ci": {
+      "number": 182,
+      "id": 36063143038,
+      "job_id": 107846596581,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "eecd3a38931f9d3452f01d769b7a7e082fa46deb",
+      "tree": "d06e292b664137f140daf4aebd547fb6b004d7e7",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "crm-event-outbox.js": "dbc08f119cc65e1efef0fb917b37d80d08354537a72d2950799e2ee1bd9d5b1e",
+      "crm-core.js": "3b03c43343dc1f2a8c22be4466dd76a52f7d07fb7f3b560a4a239d8e8331bd6c",
+      "server.js": "a0a9bfee73444236c93b8fe9437c90b25603fe72caf9673e6622898d888358ff",
+      "crm-standalone.js": "a90ff694a8256a7ded3a53f58230fb9927ea4aae7af8b457472f698456ace293",
+      "Dockerfile.crm": "de2523d4477b6a0a85b70b4d628aaee292acb4ee14a8280261d0ca77af6da3e4",
+      "module-access-contracts.js": "cb8fb8b20c723ff2c7cf0f6bbdd861c62b4922b38033c6b51ba125fcb298d4ed",
+      "module-access-contracts-test.js": "d44176429ce6cb51f93922ec0eacf39e4ca7bb255ec7564a298d3d4de7a546e9",
+      "crm-standalone-regression-test.js": "c1dd7ccad2f6fdeb171fdd6a131986dd254af7a1472ef7e4410511aef2146c51",
+      "zero/crm-event-recovery.test.js": "087f58cc2c877ae6fa5bd84a85a1ee5f5c7658f5ddc70b68ed04c1640026f4a6",
+      "zero/crm-event-recovery-api.test.js": "7be03c44aa43a6c40f44baea5451c1c5f3ffcf5fdc107cc6b093d8ea4c92a011"
+    },
+    "logs": {
+      "run2-crm-event-before.log": {
+        "exit_code": 1,
+        "sha256": "3c47c2e6d29f27ce7942960033b383c8f02db6eb82b9b3fa9940e7f635b340fe",
+        "bytes": 6751
+      },
+      "run2-crm-event-http-targeted.log": {
+        "exit_code": 1,
+        "sha256": "e620597e988d8ba44ebba27c6cddbc667c1b42a71d93c3ed1fb9adfd09216500",
+        "bytes": 1990
+      },
+      "run2-crm-event-http-final.log": {
+        "exit_code": 0,
+        "sha256": "073cf4ae5fef94f89a6c602ef064e516c1191a1efdc063cd2413e9167f15dfed",
+        "bytes": 1240
+      },
+      "run2-crm-event-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "ce8164ff69786ad6109c978bf7cf2d5d7544c1b8604da975ad0a54f3d5951012",
+        "bytes": 39487
+      },
+      "run2-crm-event-native-final.log": {
+        "exit_code": 0,
+        "sha256": "d0172c26cebc7d783a0c83a4ba750912638dda424be8b0df8b54d94d39aa2bc7",
+        "bytes": 2300
+      },
+      "run2-crm-event-access-final.log": {
+        "exit_code": 0,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "bytes": 332
+      }
+    },
+    "new_tests": 10,
+    "full_zero_tests": 332,
+    "full_zero_pass": 332,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": {
+      "command": "npm run test:crm",
+      "exit_code": 0
+    },
+    "access_regression": {
+      "command": "node module-access-contracts-test.js",
+      "exit_code": 0
+    },
+    "before_fix": "The first native recovery test reproduced a committed CRM record whose failed downstream event disappeared after restart. Further tests specify durable acknowledgement, immutable source snapshot, rollback and bounded delivery. Initial HTTP check requested the API default page (one item); corrected limit=100 is fixture pagination, not product-defect evidence.",
+    "scope": "Production main and standalone adapters atomically commit each native CRM mutation with crm:event_outbox. Canonical snapshots retain source revision, explicit currency and unknown values at mutation time. Delivery requires matching event ID acknowledgement and persists its receipt; lost acknowledgements reuse the original identity. Main canonical ingestion deduplicates by event ID; standalone encrypted runtime journal deduplicates too. Pending events are bounded at 25000, automatic retries at five with backoff and batches of fifty; current authorized operators can request a bounded manual retry. Retry output contains counts only, current manage/read and composition capabilities apply, raw operational storage stays hidden. Standalone package includes the new module.",
+    "storage_change": "New auxiliary encrypted per-tenant crm:event_outbox bucket, lazily created by existing adapter. No destructive schema migration or production mutation; no reconstruction of historically lost events.",
+    "remaining": "Internal automation assign/field/stage execution, generated/backend localization, browser-reload retry recovery, representative cognitive/adversarial/performance corpus and wider Run-2 gates remain open. Event-ingestion receipt does not prove completion of every subscriber or historical event delivery.",
+    "evidence_limit": "Deterministic outage/ack/persistence adapter tests plus real main and standalone HTTP/encrypted restart. No live external provider, browser/accessibility/native-speaker/voice or full Run-2 acceptance inferred.",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

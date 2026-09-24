@@ -5,7 +5,7 @@ const fs=require('fs');
 const path=require('path');
 const crypto=require('crypto');
 const {URL}=require('url');
-const {FoundlyCrmCore,ENTITY_DEFINITIONS,parseCrmRevisionHeader}=require('./crm-core');
+const {FoundlyCrmCore,ENTITY_DEFINITIONS,parseCrmRevisionHeader,canRetryCrmEvents}=require('./crm-core');
 const VERSION=require('./package.json').version;
 const UI_LOCALES=require('./foundly-locales').locales;
 const {serveStaticFile}=require('./static-response');
@@ -25,7 +25,7 @@ function context(){return {tenant_id:env('FOUNDLY_CRM_TENANT_ID',env('FOUNDLY_TE
 function principal(){return {id:env('FOUNDLY_CRM_USER_ID','crm-admin'),roles:env('FOUNDLY_CRM_ROLES','ADMIN').split(',').map(value=>value.trim()).filter(Boolean),team_ids:env('FOUNDLY_CRM_TEAM_IDS').split(',').map(value=>value.trim()).filter(Boolean)}}
 function storeKey(ctx,scope){return `${ctx.tenant_id}:${ctx.dealer_id}:${scope}`}
 function bucket(ctx,scope){const key=storeKey(ctx,scope);if(!stores.has(key)){stores.set(key,[]);dirty=true}return stores.get(key)}
-const CRM=new FoundlyCrmCore({bucket,persist:()=>persist(true),emit:(ctx,event)=>{const rows=bucket(ctx,'crm:runtime_events');rows.unshift({...event,at:new Date().toISOString()});if(rows.length>500)rows.splice(500);dirty=true},id:()=>crypto.randomUUID(),now:()=>new Date()});
+const CRM=new FoundlyCrmCore({bucket,persist:()=>persist(true),publish:(ctx,event)=>{const rows=bucket(ctx,'crm:runtime_events');if(!rows.some(row=>row.event_id===event.event_id)){rows.unshift({...event,at:new Date().toISOString()});if(rows.length>500)rows.splice(500);dirty=true;}persist(true);return {event_id:event.event_id};},id:()=>crypto.randomUUID(),now:()=>new Date()});
 
 // Service mode supplies exactly CRM; CrmObjects still enforces the native CRM
 // read/write/manage/export and row policies for the current configured actor.
@@ -60,6 +60,7 @@ async function crmApi(req,res,url){
   if(url.pathname==='/api/crm/summary'&&req.method==='GET'){const options=analyticsQuery(url);return json(res,200,{ok:true,analytics:CRM.analyticsWithComparison(ctx,actor,options),priority_leads:CRM.priorityLeads(ctx,actor,{limit:10,filters:options.filters}),counts:counts(ctx),observed_at:new Date().toISOString()})}
   if(url.pathname==='/api/crm/analytics'&&req.method==='GET')return json(res,200,CRM.analyticsWithComparison(ctx,actor,analyticsQuery(url)));
   if(url.pathname==='/api/crm/priority-leads'&&req.method==='GET'){const options=analyticsQuery(url);return json(res,200,CRM.priorityLeads(ctx,actor,{limit:url.searchParams.get('limit')||20,filters:options.filters}))}
+  if(url.pathname==='/api/crm/event-delivery/retry'&&req.method==='POST')return json(res,200,{ok:true,...CRM.retryEvents(ctx,actor)});
   if(url.pathname==='/api/crm/provision'&&req.method==='POST')return json(res,201,CRM.provisionProfile(ctx,actor,await readJson(req),requestOptions(req)));
   if(url.pathname==='/api/crm/dashboard'&&req.method==='GET')return json(res,200,{ok:true,dashboard:CRM.dashboard(ctx,actor,{id:url.searchParams.get('id'),preset:url.searchParams.get('preset')||'SALES',forcePreset:/^(?:1|true|yes)$/i.test(url.searchParams.get('force_preset')||'')})});
   if(url.pathname==='/api/crm/dashboard'&&['POST','PUT','PATCH'].includes(req.method)){const payload=await readJson(req),dashboard=CRM.saveDashboard(ctx,actor,payload,requestOptions(req));return json(res,payload.id?200:201,{ok:true,dashboard})}
@@ -96,5 +97,5 @@ function isPublic(pathname){return pathname==='/api/health'||pathname==='/api/re
 function serveFile(res,file,mime){const personal=file==='crm.html';return serveStaticFile(res,path.join(ROOT,file),baseHeaders({'content-type':mime,'cache-control':personal?'no-store':'no-cache'}),personal?{htmlLanguage:uiLocale()}:{});}
 const server=http.createServer(async(req,res)=>{const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);try{if(!rateAllowed(req))return json(res,429,{ok:false,code:'rate_limited',error:'Te veel verzoeken'});if(url.pathname==='/api/health')return json(res,200,{ok:true,service:'foundly-crm',version:VERSION,standalone:true});if(url.pathname==='/api/ready'){const result=readiness();return json(res,result.ready?200:503,{ok:result.ready,...result})}if(!isPublic(url.pathname)&&!authorized(req)){res.writeHead(401,baseHeaders({'content-type':'application/json; charset=utf-8','www-authenticate':'Bearer realm="Foundly CRM"'}));return res.end(JSON.stringify({ok:false,code:authConfigured()?'auth_invalid':'auth_not_configured',error:'Authenticatie vereist'}))}if(url.pathname==='/api/zero/preferences')return await uiPreferences(req,res);if(url.pathname==='/api/workspaces'&&req.method==='GET'){const {principal:actor}=CRM.context(context(),principal());CRM.assertRead(actor);return json(res,200,{ok:true,workspaces:[{id:'crm',route:'/crm',name:'CRM'}]});}if(url.pathname.startsWith('/api/crm'))return await crmApi(req,res,url);if(url.pathname==='/api/zero/status')return json(res,200,{ok:true,assistant:'ZERO',enabled:false,optional:true,reason:'Configureer ZERO via Foundly OS-integratie'});if(url.pathname==='/api/zero/turn')return json(res,503,{ok:false,code:'zero_optional_not_configured',error:'ZERO is optioneel en niet geconfigureerd in deze zelfstandige CRM-service'});if((url.pathname==='/'||url.pathname==='/crm'||url.pathname==='/crm.html')&&req.method==='GET')return serveFile(res,'crm.html','text/html; charset=utf-8');if(req.method==='GET'&&UI_ASSETS.has(url.pathname.slice(1)))return serveFile(res,url.pathname.slice(1),url.pathname.endsWith('.css')?'text/css; charset=utf-8':'application/javascript; charset=utf-8');return json(res,404,{ok:false,code:'not_found',error:'Niet gevonden'})}catch(error){const status=Number(error.statusCode)||500;return json(res,status,{ok:false,code:error.code||'crm_internal_error',error:status<500?String(error.message).slice(0,500):'Interne CRM-fout',details:status<500?error.details||null:null})}});
 server.listen(PORT,'0.0.0.0',()=>console.log(`Foundly CRM v${VERSION} standalone online op poort ${PORT}`));
-setInterval(()=>{try{persist()}catch(error){console.error('[CRM PERSIST ERROR]',String(error.code||'persistence_failed'))}},2000).unref();
+setInterval(()=>{try{if(canRetryCrmEvents(principal()))CRM.retryEvents(context(),principal(),{automatic:true});persist()}catch(error){console.error('[CRM PERSIST ERROR]',String(error.code||'persistence_failed'))}},2000).unref();
 for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>{try{persist(true)}finally{process.exit(0)}});

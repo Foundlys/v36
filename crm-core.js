@@ -2,6 +2,7 @@
 
 const crypto=require('crypto');
 const {scopedMutation}=require('./scoped-mutation');
+const crmEvents=require('./crm-event-outbox');
 const {create:createUiLocale,normalize:normalizeUiLocale}=require('./foundly-i18n');
 
 const ENTITY_DEFINITIONS=Object.freeze({
@@ -85,6 +86,7 @@ function normalizeContext(context={}){const tenant_id=safeId(context.tenant_id),
 function permissionsFor(principal={}){const explicit=Array.isArray(principal.permissions)?principal.permissions:[],roles=Array.isArray(principal.roles)?principal.roles:[principal.role||'VIEWER'];return new Set([...explicit,...roles.flatMap(role=>ROLE_PERMISSIONS[String(role).toUpperCase()]||[])])}
 function principalShape(principal={}){return {id:safeId(principal.id)||'anonymous',roles:(Array.isArray(principal.roles)?principal.roles:[principal.role||'VIEWER']).map(x=>String(x).toUpperCase()).slice(0,8),team_ids:(Array.isArray(principal.team_ids)?principal.team_ids:[]).map(safeId).filter(Boolean).slice(0,50),permissions:permissionsFor(principal)}}
 function hasPermission(principal,permission){return principal.permissions.has('*')||principal.permissions.has(permission)}
+function canRetryCrmEvents(principalInput){const principal=principalShape(principalInput);return hasPermission(principal,'crm:manage')&&(hasPermission(principal,'crm:read_all')||hasPermission(principal,'crm:read_assigned'));}
 function requirePermission(principal,permission){if(!hasPermission(principal,permission))throw crmError(403,'crm_forbidden','Deze CRM-actie is niet toegestaan voor de actieve rol')}
 function randomId(){return crypto.randomUUID?crypto.randomUUID():crypto.randomBytes(16).toString('hex')}
 function sha(value){return crypto.createHash('sha256').update(String(value)).digest('hex')}
@@ -136,7 +138,7 @@ class FoundlyCrmCore{
     const staged=new FoundlyCrmCore({...adapter,bucket:(requested,scope)=>{const c=normalizeContext(requested);if(c.tenant_id!==ctx.tenant_id||c.dealer_id!==ctx.dealer_id)throw crmError(403,'crm_transaction_scope_invalid','CRM-transactie overschrijdt de tenantscope');if(!stores.has(scope)){const target=adapter.bucket(ctx,scope),original=JSON.stringify(target);stores.set(scope,{target,original,rows:JSON.parse(original)});}return stores.get(scope).rows;},persist:()=>{},emit:(c,event)=>notifications.push({ctx:c,event})});staged.stagedTransaction=true;
     const result=operation(staged);if(result&&typeof result.then==='function')throw crmError(500,'crm_transaction_async_invalid','Synchrone CRM-transactie vereist');const changed=[...stores].filter(([,entry])=>JSON.stringify(entry.rows)!==entry.original);
     if(changed.length)scopedMutation(adapter,ctx,changed.map(([scope])=>scope),()=>{for(const [,entry]of changed){entry.target.length=0;for(const row of entry.rows)entry.target.push(deepClone(row));}return result;});
-    for(const notification of notifications)adapter.emit(notification.ctx,notification.event);return result;
+    for(const notification of notifications)adapter.emit(notification.ctx,notification.event);if(typeof adapter.publish==='function')crmEvents.flush(this,ctx);return result;
   }
 
   context(context,principal){return {ctx:normalizeContext(context),principal:principalShape(principal)}}
@@ -167,7 +169,8 @@ class FoundlyCrmCore{
     const row={id:this.adapter.id(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,entity_type:'audit_event',action,entity,record_id:recordId||null,actor_id:principal.id,actor_roles:principal.roles,changes:sanitizeInput(changes),meta:sanitizeInput(meta),created_at:this.adapter.now().toISOString()};
     const bucket=this.collection(ctx,'audit_events');bucket.unshift(row);if(bucket.length>10000)bucket.splice(10000);return row;
   }
-  emit(ctx,type,message,meta){this.adapter.emit(ctx,{type:`crm.${type}`,message:safeString(message,240),meta:sanitizeInput(meta||{})})}
+  emit(ctx,type,message,meta){const event={type:`crm.${type}`,message:safeString(message,240),meta:sanitizeInput(meta||{})};if(typeof this.adapter.publish==='function')return crmEvents.queue(this,ctx,event);this.adapter.emit(ctx,event);}
+  retryEvents(context,principalInput,{automatic=false}={}){const {ctx,principal}=this.context(context,principalInput);requirePermission(principal,'crm:manage');this.assertRead(principal);return crmEvents.flush(this,ctx,{force:!automatic});}
   runIdempotent(ctx,principal,key,signature,operation,options={}){
     const execute=mutate=>options.atomicScopes?scopedMutation(this.adapter,ctx,options.atomicScopes,mutate):mutate();
     if(!key)return execute(operation);const normalized=safeString(key,200);if(!/^[A-Za-z0-9_.:-]{8,200}$/.test(normalized))throw crmError(400,'crm_idempotency_invalid','Ongeldige Idempotency-Key');
@@ -176,10 +179,11 @@ class FoundlyCrmCore{
     const result=execute(()=>{const result=operation();bucket.push({digest,signature,result:deepClone(result),created_at:this.adapter.now().toISOString()});if(bucket.length>2000)bucket.splice(0,bucket.length-2000);return result;});if(!options.atomicScopes)this.commit();return result;
   }
   create(context,principalInput,entityInput,input,options={}){
+    if(typeof this.adapter.publish==='function'&&!this.stagedTransaction)return this.atomicState(normalizeContext(context),core=>core.create(context,principalInput,entityInput,input,options));
     const {ctx,principal}=this.context(context,principalInput),entity=this.assertEntity(entityInput);this.assertCreate(entity,principal);const data=this.validate(entity,input),signature=sha(JSON.stringify({entity,data}));let event=null;
     const result=this.runIdempotent(ctx,principal,options.idempotencyKey,signature,()=>{
       const bucket=this.collection(ctx,entity);if(bucket.length>=MAX_COLLECTION_SIZE)throw crmError(507,'crm_capacity_reached','CRM-collectielimiet bereikt');
-      const now=this.adapter.now().toISOString(),row={...data,id:this.adapter.id(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,entity_type:ENTITY_SINGULAR[entity]||entity.replace(/s$/,''),owner_id:data.owner_id||(['contacts','leads','opportunities','deals','tasks','appointments'].includes(entity)?principal.id:data.owner_id),created_at:now,created_by:principal.id,updated_at:now,updated_by:principal.id,revision:1};bucket.push(row);this.audit(ctx,principal,'CREATE',entity,row.id,{fields:Object.keys(data)});event={entity,record_id:row.id};return deepClone(row);
+      const now=this.adapter.now().toISOString(),row={...data,id:this.adapter.id(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,entity_type:ENTITY_SINGULAR[entity]||entity.replace(/s$/,''),owner_id:data.owner_id||(['contacts','leads','opportunities','deals','tasks','appointments'].includes(entity)?principal.id:data.owner_id),created_at:now,created_by:principal.id,updated_at:now,updated_by:principal.id,revision:1};bucket.push(row);this.audit(ctx,principal,'CREATE',entity,row.id,{fields:Object.keys(data)});event={entity,record_id:row.id,actor_id:principal.id};return deepClone(row);
     },{atomicScopes:[`crm:${entity}`,'crm:audit_events','crm:idempotency'],authorizeReplay:cached=>{const row=this.get(ctx,principalInput,entity,cached.id);if(!this.canWriteRecord(row,principal))throw crmError(403,'crm_forbidden','Deze CRM-mutatie is niet toegestaan');}});
     if(event)this.emit(ctx,'record.created',`${entity} record aangemaakt`,event);return result;
   }
@@ -191,6 +195,7 @@ class FoundlyCrmCore{
   }
   get(context,principalInput,entityInput,idInput,{includeDeleted=false}={}){const {ctx,principal}=this.context(context,principalInput),entity=this.assertEntity(entityInput);this.assertRead(principal);const record=this.collection(ctx,entity).find(row=>row.id===idInput&&(includeDeleted||!row.deleted_at));if(!record||!this.canReadRecord(record,principal))throw crmError(404,'crm_record_not_found','CRM-record niet gevonden');return deepClone(record)}
   update(context,principalInput,entityInput,idInput,input,options={}){
+    if(typeof this.adapter.publish==='function'&&!this.stagedTransaction)return this.atomicState(normalizeContext(context),core=>core.update(context,principalInput,entityInput,idInput,input,options));
     const {ctx,principal}=this.context(context,principalInput),entity=this.assertEntity(entityInput),bucket=this.collection(ctx,entity),index=bucket.findIndex(row=>row.id===idInput&&!row.deleted_at),record=bucket[index];
     if(!record||!this.canWriteRecord(record,principal))throw crmError(record?403:404,record?'crm_forbidden':'crm_record_not_found',record?'Deze CRM-mutatie is niet toegestaan':'CRM-record niet gevonden');if(ENTITY_DEFINITIONS[entity].readOnly)throw crmError(405,'crm_entity_read_only','Deze CRM-collectie is alleen-lezen');
     const data=this.validate(entity,input,{partial:true}),signature=sha(JSON.stringify({entity,idInput,data,revision:options.expectedRevision||null}));let event=null;
@@ -201,6 +206,7 @@ class FoundlyCrmCore{
     if(event)this.emit(ctx,'record.updated',`${entity} record bijgewerkt`,event);return result;
   }
   remove(context,principalInput,entityInput,idInput,options={}){
+    if(typeof this.adapter.publish==='function'&&!this.stagedTransaction)return this.atomicState(normalizeContext(context),core=>core.remove(context,principalInput,entityInput,idInput,options));
     const {ctx,principal}=this.context(context,principalInput),entity=this.assertEntity(entityInput);if(ENTITY_DEFINITIONS[entity].readOnly)throw crmError(405,'crm_entity_read_only','Deze CRM-collectie is alleen-lezen');
     const bucket=this.collection(ctx,entity),index=bucket.findIndex(row=>row.id===idInput),record=bucket[index];if(!record||!this.canWriteRecord(record,principal))throw crmError(record?403:404,record?'crm_forbidden':'crm_record_not_found',record?'Deze CRM-mutatie is niet toegestaan':'CRM-record niet gevonden');
     const signature=sha(JSON.stringify({entity,idInput,operation:'delete',revision:options.expectedRevision??null}));let changed=false;
@@ -208,7 +214,7 @@ class FoundlyCrmCore{
       if(record.deleted_at)throw crmError(404,'crm_record_not_found','CRM-record niet gevonden');if(options.expectedRevision!==undefined&&Number(options.expectedRevision)!==Number(record.revision))throw crmError(409,'crm_revision_conflict','CRM-record is ondertussen gewijzigd',{current_revision:record.revision});
       const now=this.adapter.now().toISOString();bucket[index]={...record,deleted_at:now,deleted_by:principal.id,updated_at:now,updated_by:principal.id,revision:Number(record.revision||0)+1};this.audit(ctx,principal,'DELETE',entity,idInput,{});changed=true;return {ok:true,id:idInput,deleted_at:now};
     },{atomicScopes:[`crm:${entity}`,'crm:audit_events','crm:idempotency'],legacySignatures:[sha(`${entity}:${idInput}:delete`)]});
-    if(changed)this.emit(ctx,'record.deleted',`${entity} record gearchiveerd`,{entity,record_id:idInput});return result;
+    if(changed)this.emit(ctx,'record.deleted',`${entity} record gearchiveerd`,{entity,record_id:idInput,actor_id:principal.id});return result;
   }
   moveDeal(context,principalInput,dealId,stageId,options={}){
     const {ctx,principal}=this.context(context,principalInput);requirePermission(principal,'crm:automate');const stage=this.get(ctx,principalInput,'stages',stageId),deal=this.get(ctx,principalInput,'deals',dealId);if(!this.canWriteRecord(deal,principal))throw crmError(403,'crm_forbidden','Deze CRM-mutatie is niet toegestaan');if(stage.pipeline_id!==deal.pipeline_id)throw crmError(409,'crm_stage_pipeline_mismatch','Fase hoort niet bij de pipeline van deze deal');
@@ -253,6 +259,7 @@ class FoundlyCrmCore{
   activityVersion(context,principalInput){const {ctx,principal}=this.context(context,principalInput);requirePermission(principal,'crm:dashboard');const rows=this.collection(ctx,'audit_events').filter(row=>!row.deleted_at&&this.canReadRecord(row,principal)),latest=rows.slice().sort((a,b)=>Date.parse(b.created_at)-Date.parse(a.created_at)||String(b.id).localeCompare(String(a.id)))[0];return {change_token:sha(`${rows.length}:${latest?.created_at||''}:${latest?.id||''}`).slice(0,24),last_change_at:latest?.created_at||null,changes:rows.length}}
   dashboard(context,principalInput,{id,preset='SALES',forcePreset=false}={}){const {ctx,principal}=this.context(context,principalInput);requirePermission(principal,'crm:dashboard');if(id){const row=this.collection(ctx,'dashboard_views').find(item=>item.id===id&&!item.deleted_at&&(item.owner_id===principal.id||item.share_mode==='TEAM'&&item.team_id&&principal.team_ids.includes(item.team_id)||hasPermission(principal,'crm:read_all')));if(!row)throw crmError(404,'crm_dashboard_not_found','Dashboardweergave niet gevonden');return deepClone(row)}if(forcePreset)return presetDashboard(preset,principal.id);const saved=this.collection(ctx,'dashboard_views').find(item=>!item.deleted_at&&item.owner_id===principal.id&&item.is_default);return saved?deepClone(saved):presetDashboard(preset,principal.id)}
   saveDashboard(context,principalInput,input,options={}){
+    if(typeof this.adapter.publish==='function'&&!this.stagedTransaction)return this.atomicState(normalizeContext(context),core=>core.saveDashboard(context,principalInput,input,options));
     const {ctx,principal}=this.context(context,principalInput),entity='dashboard_views';requirePermission(principal,'crm:dashboard');const desired={...input,owner_id:principal.id,persisted:true};
     if(String(desired.share_mode||'PRIVATE').toUpperCase()==='TEAM'){const teamId=safeId(desired.team_id);if(!teamId)throw crmError(400,'crm_dashboard_invalid','Een team-id is verplicht om een dashboard met een team te delen');if(!hasPermission(principal,'crm:manage')&&!principal.team_ids.includes(teamId))throw crmError(403,'crm_forbidden','Dashboard kan alleen met een eigen team worden gedeeld');desired.team_id=teamId;}else delete desired.team_id;
     const authorizeTarget=id=>{const row=this.get(ctx,principalInput,entity,id);if((row.owner_id!==principal.id&&!hasPermission(principal,'crm:manage'))||!this.canWriteRecord(row,principal))throw crmError(403,'crm_forbidden','Alleen de eigenaar kan dit dashboard wijzigen');return row;};
@@ -294,7 +301,7 @@ class FoundlyCrmCore{
         }
         const execution={id:core.adapter.id(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,entity_type:'automation_execution',automation_id:automation.id,event_id:event.id,event_type:eventType,status:actionResults.every(row=>['EXECUTED_INTERNAL','RECORDED_INTERNAL'].includes(row.status))?'COMPLETED':'PARTIAL',actions:actionResults,created_at:core.adapter.now().toISOString()};core.collection(ctx,'automation_executions').push(execution);results.push(deepClone(execution));core.audit(ctx,principal,'AUTOMATION_EXECUTE','automations',automation.id,{event_id:event.id,action_count:actionResults.length});
       }
-      core.adapter.bucket(ctx,'crm:automation_event_receipts').push({event_id:event.id,signature,actor_id:principal.id,execution_ids:results.map(row=>row.id),observed_at:core.adapter.now().toISOString()});core.emit(ctx,'automation.evaluated','CRM-automationevent verwerkt',{event_id:event.id,event_type:eventType,executions:results.length});return {event_id:event.id,replayed:false,executions:results};
+      core.adapter.bucket(ctx,'crm:automation_event_receipts').push({event_id:event.id,signature,actor_id:principal.id,execution_ids:results.map(row=>row.id),observed_at:core.adapter.now().toISOString()});core.emit(ctx,'automation.evaluated','CRM-automationevent verwerkt',{event_id:event.id,event_type:eventType,executions:results.length,actor_id:principal.id});return {event_id:event.id,replayed:false,executions:results};
     });
   }
   provisionProfile(context,principalInput,input={},options={}){
@@ -306,7 +313,7 @@ class FoundlyCrmCore{
     const list=(value,fallback=[],maximum=40)=>Array.isArray(value)?value.map(item=>safeString(item,64)).filter(Boolean).slice(0,maximum):fallback,preset=String(profile.dashboard_preset||'SALES').toUpperCase().replace(/\s+/g,'_'),presetName=PRESET_WIDGETS[preset]?preset:'SALES',kpis=[...new Set((PRESET_WIDGETS[presetName]||[]).map(([metricId])=>metricId))],normalized={business_name:name,country,industry,segment,capabilities:list(profile.capabilities,['crm','contacts','pipelines','activities','analytics','automations']),engines:list(profile.engines,['crm','analytics','automation']),regions:list(profile.regions,[country]),crm_config:{locale:configurationLocale,currency:safeString(profile.crm_config?.currency||profile.currency||'EUR',8),timezone:safeString(profile.crm_config?.timezone||profile.timezone||'Europe/Amsterdam',64),industry,segment},pipelines:[{name:'Sales',purpose:'general_sales'}],kpis:list(profile.kpis,kpis),connectors:list(profile.connectors,[]),zero_tools:['crm_priority_leads','crm_pipeline_summary','crm_customer_360','crm_inventory_customer_matches'],workflows:list(profile.workflows,[]),permissions:{roles:Object.keys(ROLE_PERMISSIONS)},dashboard_preset:presetName,...(profile.defaults_locale!==undefined?{defaults_locale:locale}:{}),schema_version:1};const signature=sha(JSON.stringify(normalized)),idempotencyKey=options.idempotencyKey||`provision:${sha(`${ctx.tenant_id}:${ctx.dealer_id}:${signature}`).slice(0,32)}`;
     const result=this.atomicState(ctx,core=>core.runIdempotent(ctx,principal,idempotencyKey,signature,()=>{
       const tenant=core.create(ctx,principalInput,'tenants',{name,business_profile:normalized},{idempotencyKey:`${idempotencyKey}:tenant`}),pipeline=core.create(ctx,principalInput,'pipelines',{name:'Sales',purpose:'general_sales',country,industry,segment,is_default:true},{idempotencyKey:`${idempotencyKey}:pipeline`}),stageSpecs=[['new',10,'OPEN'],['qualified',30,'OPEN'],['proposal',60,'OPEN'],['negotiation',80,'OPEN'],['won',100,'WON'],['lost',0,'LOST']],stages=stageSpecs.map(([stageName,probability,status],index)=>core.create(ctx,principalInput,'stages',{name:localization.t('crm.pipeline.'+stageName),pipeline_id:pipeline.id,position:index+1,probability,status},{idempotencyKey:`${idempotencyKey}:stage:${index+1}`})),dashboard=core.saveDashboard(ctx,principalInput,{...presetDashboard(normalized.dashboard_preset,principal.id),id:undefined,name:`${name} Sales`,is_default:true,business_profile:normalized},{idempotencyKey:`${idempotencyKey}:dashboard`});
-      core.audit(ctx,principal,'PROVISION','tenants',tenant.id,{profile:normalized,pipeline_id:pipeline.id,dashboard_id:dashboard.id});core.emit(ctx,'profile.provisioned','CRM-bedrijfsprofiel ingericht',{tenant_record_id:tenant.id,pipeline_id:pipeline.id,dashboard_id:dashboard.id});return {ok:true,configuration_status:'RECORDED_ATOMIC',profile:normalized,tenant_record:tenant,pipeline,stages,dashboard,created_business_records:0,no_demo_data:true,one_codebase:true};
+      core.audit(ctx,principal,'PROVISION','tenants',tenant.id,{profile:normalized,pipeline_id:pipeline.id,dashboard_id:dashboard.id});core.emit(ctx,'profile.provisioned','CRM-bedrijfsprofiel ingericht',{tenant_record_id:tenant.id,pipeline_id:pipeline.id,dashboard_id:dashboard.id,actor_id:principal.id});return {ok:true,configuration_status:'RECORDED_ATOMIC',profile:normalized,tenant_record:tenant,pipeline,stages,dashboard,created_business_records:0,no_demo_data:true,one_codebase:true};
     },{authorizeReplay:cached=>{
       const targets=[['tenants',cached.tenant_record?.id],['pipelines',cached.pipeline?.id],['dashboard_views',cached.dashboard?.id],...(Array.isArray(cached.stages)?cached.stages.map(row=>['stages',row.id]):[])];
       for(const [entity,id]of targets){const row=core.get(ctx,principalInput,entity,id);if(!core.canWriteRecord(row,principal))throw crmError(403,'crm_forbidden','Deze CRM-mutatie is niet toegestaan');}
@@ -317,4 +324,4 @@ class FoundlyCrmCore{
   export(context,principalInput,entityInput){const {ctx,principal}=this.context(context,principalInput);requirePermission(principal,'crm:export');const entity=this.assertEntity(entityInput),records=this.collection(ctx,entity).filter(row=>!row.deleted_at&&this.canReadRecord(row,principal)).map(row=>sanitizeInput(row));return {entity,exported_at:this.adapter.now().toISOString(),tenant_id:ctx.tenant_id,records,count:records.length,no_secrets:true}}
 }
 
-module.exports={parseCrmRevisionHeader,FoundlyCrmCore,ENTITY_DEFINITIONS,ROLE_PERMISSIONS,DASHBOARD_WIDGET_TYPES,AUTOMATION_TRIGGERS,AUTOMATION_ACTIONS,PRESET_WIDGETS,presetDashboard,crmError,sanitizeInput,normalizeContext,principalShape};
+module.exports={parseCrmRevisionHeader,canRetryCrmEvents,FoundlyCrmCore,ENTITY_DEFINITIONS,ROLE_PERMISSIONS,DASHBOARD_WIDGET_TYPES,AUTOMATION_TRIGGERS,AUTOMATION_ACTIONS,PRESET_WIDGETS,presetDashboard,crmError,sanitizeInput,normalizeContext,principalShape};
