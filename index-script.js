@@ -15,11 +15,41 @@ function focusOn(id){focus=MODULES[id]?id:null;if(focus){pulseRoute(focus);neura
 function connectorBy(id){return (window.__foundlyConnectorStatus?.connectors||[]).find(x=>x.id===id)||null}
 function googleSummary(){const ids=['google_ads','ga4','search_console','google_calendar'];const rows=ids.map(id=>connectorBy(id)).filter(Boolean);return {connected:rows.filter(x=>x.connected).length,configured:rows.filter(x=>x.configured).length,rows,openai:Boolean(window.__foundlyConnectorStatus?.openai_search?.configured)}}
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]||c))}
-async function googleStatusRefresh(){try{return await integrationRequest('/api/google/status')}catch(error){return {error:String(integrationFailure(error)),services:{},oauth_configured:false,token_stored:false,openai_search:{configured:false}}}}
+async function googleStatusRefresh(){try{return await integrationRequest('/api/google/status')}catch(error){return {error:String(integrationFailure(error)),failure:integrationFailure(error),services:{},oauth_configured:false,token_stored:false,openai_search:{configured:false}}}}
 async function providerStatus(id){try{const pid=['instagram','facebook_pages'].includes(id)?'meta':id;return await integrationRequest(`/api/connect/${pid}/status`)}catch(error){return {id,configured:false,connected:false,error:String(integrationFailure(error))}}}
 function specialProvider(id){if(['meta','instagram','facebook_pages'].includes(id))return 'meta';if(['linkedin','tiktok','wix'].includes(id))return id;return null}
 function nativeManaged(id){return ['whatsapp','email','voice','dms'].includes(id)}
-async function runWebSearch(){const q=prompt('Welke actuele zoekdata wil je via Foundly AI Search onderzoeken?');if(!q)return;const out=$('#googleOutput');out.textContent='Foundly zoekt live op het web…';try{const r=await fetch('/api/search/web',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({query:q})});const j=await r.json();if(!r.ok)throw new Error(j.error||'Zoeken mislukt');out.textContent=(j.text||'Geen antwoord')+(j.sources?.length?'\n\nBRONNEN\n'+j.sources.slice(0,8).map(x=>'• '+(x.title||x.url)+' — '+x.url).join('\n'):'')}catch(e){out.textContent='Fout: '+e.message}}
+async function runWebSearch(){
+  const out=$('#googleOutput'),button=$('#googleSearch');if(!out||button?.disabled)return;
+  const query=prompt(FoundlyI18n.t('google.search_prompt'));if(!query)return;
+  const token={};out.searchRequest=token;const current=()=>out.isConnected&&out.searchRequest===token&&$('#googleOutput')===out;if(button)button.disabled=true;
+  FoundlyI18n.renderText(out,'');FoundlyI18n.bind(out,'google.searching');
+  try{
+    const result=await integrationRequest('/api/search/web',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({query})});if(!current())return;
+    // Model text and citation titles/URLs remain literal. Only explicit framing
+    // text nodes belong to the interface catalog, including after a locale change.
+    FoundlyI18n.renderText(out,result.text||'');const labels={};
+    if(!result.text){out.append(document.createTextNode(FoundlyI18n.t('google.no_answer')));labels[0]='google.no_answer'}
+    if(result.sources?.length){const index=out.childNodes.length;out.append(document.createTextNode('\n\n'+FoundlyI18n.t('google.sources')+'\n'),document.createTextNode(result.sources.slice(0,8).map(row=>'• '+(row.title||row.url)+' — '+row.url).join('\n')));labels[index]='google.sources'}
+    if(Object.keys(labels).length)out.setAttribute('data-i18n-text',JSON.stringify(labels));FoundlyI18n.translate(out);
+  }catch(error){if(current())FoundlyI18n.renderText(out,FoundlyI18n.message(FoundlyI18n.errorKey(error?.code,error?.status)))}finally{if(button)button.disabled=false}
+}
+async function refreshGooglePanel(){
+  const node=$('#googleStateText'),out=$('#googleOutput');if(!node)return;const searchRequest=out?.searchRequest;
+  const token={};node.statusRequest=token;FoundlyI18n.renderText(node,'');FoundlyI18n.bind(node,'google.loading');
+  const status=await googleStatusRefresh();if(!node.isConnected||node.statusRequest!==token||$('#googleStateText')!==node)return;
+  const label=(value,yes,no)=>{const bold=document.createElement('b');FoundlyI18n.bind(bold,status.failure||typeof value!=='boolean'?'common.unknown':'google.'+(value?yes:no));return bold};
+  FoundlyI18n.renderText(node,'OAuth: ');node.append(label(status.token_stored,'linked','unlinked'));
+  for(const [id,name] of Object.entries({google_ads:'Google Ads',ga4:'GA4',search_console:'Search Console',google_calendar:'Google Calendar'}))node.append(document.createTextNode(' · '+name+': '),label(status.services?.[id],'live','off'));
+  // The status endpoint observes key presence here, not a successful AI probe.
+  node.append(document.createTextNode(' · AI Search: '),label(status.openai_search?.configured,'configured','not_configured'));
+  if(out?.isConnected&&$('#googleOutput')===out&&out.searchRequest===searchRequest){if(status.failure)FoundlyI18n.renderText(out,status.failure);else if(status.error)FoundlyI18n.renderText(out,status.error)}
+}
+async function disconnectGooglePanel(){
+  const button=$('#googleDisconnect'),out=$('#googleOutput');if(button?.disabled||!confirm(integrationText('disconnect_confirm',{name:'Google'})))return;if(button)button.disabled=true;
+  try{await integrationRequest('/api/google/disconnect',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});await loadSystemStatus();await refreshGooglePanel()}
+  catch(error){if(out?.isConnected&&$('#googleOutput')===out)FoundlyI18n.renderText(out,integrationFailure(error))}finally{if(button)button.disabled=false}
+}
 // Integration labels are explicit catalog bindings. Provider names, technical
 // IDs, credential keys and server-owned schema labels remain literal data.
 function integrationText(key,params={}){return FoundlyI18n.t('integrations.'+key,params)}
@@ -105,10 +135,10 @@ function integrationCard(x){
   if(x.auth_strategy||x.auth)auth.textContent=x.auth_strategy||x.auth;else FoundlyI18n.bind(auth,'integrations.auth_configurable');
   if(x.error)auth.append(document.createTextNode(' · '+x.error));card.append(auth);
   const google=['google_ads','ga4','search_console','google_calendar'].includes(x.id),openai=x.id==='openai',dedicated=Boolean(specialProvider(x.id)),actions=integrationElement('div','connectorActions');
-  const action=(attribute,key,disabled=false,title)=>{const button=integrationElement('button','miniAction'+(attribute==='disconnect'?' danger':''),key);button.setAttribute('data-'+attribute,x.id);if(disabled){button.disabled=true;if(title)FoundlyI18n.bind(button,'integrations.'+title,'title')}actions.append(button);return button};
-  const connect=action('connect',x.connected?'connected':'connect');if(!x.connected&&google&&x.configured)FoundlyI18n.renderText(connect,'GOOGLE OAUTH');
-  action('test','test');action('sync','sync',openai||['whatsapp','email','voice'].includes(x.id)||!x.connected||(!(google||dedicated)&&!x.sync?.path),'sync_unavailable');
-  action('profile','profile',google||openai||dedicated,'profile_managed');action('disconnect','disconnect',openai||!x.configured,'disconnect_unavailable');
+  const action=(attribute,key,disabled=false,title)=>{const button=integrationElement('button','miniAction'+(attribute==='data-disconnect'?' danger':''),key);button.setAttribute(attribute,x.id);if(disabled){button.disabled=true;if(title)FoundlyI18n.bind(button,'integrations.'+title,'title')}actions.append(button);return button};
+  const connect=action('data-connect',x.connected?'connected':'connect');if(!x.connected&&google&&x.configured)FoundlyI18n.renderText(connect,'GOOGLE OAUTH');
+  action('data-test','test');action('data-sync','sync',openai||['whatsapp','email','voice'].includes(x.id)||!x.connected||(!(google||dedicated)&&!x.sync?.path),'sync_unavailable');
+  action('data-profile','profile',google||openai||dedicated,'profile_managed');action('data-disconnect','disconnect',openai||!x.configured,'disconnect_unavailable');
   card.append(actions);return card;
 }
 function integrationNumber(value){return FoundlyI18n.message(Number.isFinite(value)?'integrations.count':'common.unknown',Number.isFinite(value)?{count:value}:{})}
@@ -187,13 +217,13 @@ async function openModule(id){
   $('#layer').classList.remove('hidden');$('#layerTitle').textContent=m.naam;$('#layerSmall').textContent='AUTOMOTIVE HOOFDONDERDEEL · FOUNDLY INTELLIGENCE · BRONGEBONDEN DATA';
   let extra='';
   if(id==='inkoop')extra+=automotiveSourcePanel(registrySources);
-  if(id==='google')extra=`<div class="card" style="grid-column:1/-1"><h3>GOOGLE LIVE DATA LAAG</h3><p id="googleStateText">Status laden…</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="action" id="googleConnect">VERBIND GOOGLE</button><button class="action" id="googleRefresh">CONTROLEER KOPPELING</button><button class="action" id="googleSearch">AI WEB SEARCH</button><button class="action" id="googleDisconnect">ONTKOPPEL</button></div><div class="answer" id="googleOutput">Google Ads, GA4, Search Console, Calendar en Foundly AI Search worden hier live gekoppeld.</div></div>`;
+  if(id==='google')extra=`<div class="card" style="grid-column:1/-1"><h3 data-i18n="google.title">GOOGLE LIVE DATA LAAG</h3><p id="googleStateText" data-i18n="google.loading">Status laden…</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="action" id="googleConnect">VERBIND GOOGLE</button><button class="action" id="googleRefresh" data-i18n="google.refresh">CONTROLEER KOPPELING</button><button class="action" id="googleSearch" data-i18n="google.search">AI WEB SEARCH</button><button class="action" id="googleDisconnect" data-i18n="integrations.disconnect">ONTKOPPEL</button></div><div class="answer" id="googleOutput" data-i18n="google.intro">Google Ads, GA4, Search Console, Calendar en Foundly AI Search worden hier live gekoppeld.</div></div>`;
   if(id==='integraties')extra=`<div class="card" style="grid-column:1/-1"><h3 data-i18n="integrations.title">FOUNDLY INTEGRATION CONTROL CENTER</h3><p id="integrationSummary" data-i18n="integrations.loading">Integraties laden…</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="action" data-quick-oauth="google">VERBIND GOOGLE</button><button class="action" data-quick-oauth="meta">VERBIND META</button><button class="action" data-quick-oauth="linkedin">VERBIND LINKEDIN</button><button class="action" data-quick-oauth="tiktok">VERBIND TIKTOK</button><button class="action" data-quick-oauth="wix">VERBIND WIX</button><button class="action" id="integrationRefresh" data-i18n="integrations.refresh">CONTROLEER ALLES</button><button class="action" id="integrationSelfCheck" data-i18n="integrations.self_check">SELF CHECK</button><button class="action" id="integrationAdd" data-i18n="integrations.add">+ NIEUWE CONNECTOR</button></div><div id="integrationGrid" class="subGrid"></div><div class="answer" id="integrationOutput" data-i18n="integrations.runtime_help">Elke integratie heeft VERBIND, TEST, SYNC, PROFIEL en ONTKOPPEL. Nieuwe providers kunnen runtime worden toegevoegd zonder nieuwe Foundly-build.</div></div>`;
   $('#layerBody').innerHTML=`<div class="grid"><div class="card"><h3>${m.naam} AI</h3><p>Foundly-engine die alleen beschikbare interne historie, geverifieerde providerdata en brongebonden intelligence gebruikt. Niet-verbonden bronnen worden niet als actief gepresenteerd.</p><button class="action" id="ask">VRAAG ${m.naam} AI</button><div class="answer" id="answer">Klaar voor opdrachten.</div></div><div class="card"><h3>FOUNDLY DATA LAYER</h3><p>Rol: <b>normalisatie, cache en persistentie</b><br>Records: <b>${Number(sourceState.foundly_data_layer.records||0)}</b><br>Lokale opslag: <b>${sourceState.local_persistence.writable?(sourceState.local_persistence.separate_mount?'PERSISTENT VOLUME':'SCHRIJFBAAR · VOLUME NIET BEWEZEN'):'NIET BESCHIKBAAR'}</b></p></div><div class="card"><h3>WERKELIJKE BRONNEN</h3><p>Live providerprobes: <b>${live.length}</b><br>${live.length?`Bronnen: <b>${esc(sourceNames)}</b>`:'Geen externe provider voor deze engine bevestigd.'}<br>Geconfigureerd, niet live: <b>${configured.length}</b><br>Interne historie: <b>${Number(sourceState.historical_internal_data.records||0)+Number(sourceState.historical_internal_data.memory_records||0)}</b> · Afgeleide intelligence: <b>${Number(sourceState.derived_intelligence.records||0)+Number(sourceState.derived_intelligence.decision_records||0)}</b></p></div>${extra}</div><div class="subGrid" style="margin-top:10px">${m.sub.map(s=>`<div class="subCard"><b>${s}</b><span>subagent · beschikbare bronnen: ${esc(sourceLabel)}</span></div>`).join('')}</div>`;
   $('#ask').onclick=()=>{const q=prompt(`Wat wil je vragen aan ${m.naam}?`);if(q)askModule(id,q)};
   if(id==='google'){
-    const refresh=async()=>{const j=await googleStatusRefresh();const ss=j.services||{};const names={google_ads:'Google Ads',ga4:'GA4',search_console:'Search Console',google_calendar:'Google Calendar'};$('#googleStateText').innerHTML=`OAuth: <b>${j.token_stored?'GEKOPPELD':'NIET GEKOPPELD'}</b> · ${Object.entries(names).map(([k,n])=>`${n}: <b>${ss[k]?'LIVE':'UIT'}</b>`).join(' · ')} · AI Search: <b>${j.openai_search?.configured?'LIVE':'NIET INGESTELD'}</b>`;if(j.error)$('#googleOutput').textContent=j.error;};
-    $('#googleConnect').onclick=()=>{location.href='/api/google/connect?return_to=/?open=integraties'};$('#googleRefresh').onclick=refresh;$('#googleSearch').onclick=runWebSearch;$('#googleDisconnect').onclick=async()=>{if(!confirm('Google ontkoppelen van Foundly?'))return;await fetch('/api/google/disconnect',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});await loadSystemStatus();await refresh();};refresh();
+    FoundlyI18n.translate($('#layerBody'));FoundlyI18n.bind($('#googleConnect'),'integrations.connect_provider',undefined,{name:'GOOGLE'});
+    $('#googleConnect').onclick=()=>{location.href='/api/google/connect?return_to=/?open=integraties'};$('#googleRefresh').onclick=refreshGooglePanel;$('#googleSearch').onclick=runWebSearch;$('#googleDisconnect').onclick=disconnectGooglePanel;refreshGooglePanel();
   }
   if(id==='integraties'){
     $('#integrationGrid').addEventListener('click',handleIntegrationClick);

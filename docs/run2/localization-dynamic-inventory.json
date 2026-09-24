@@ -6529,7 +6529,7 @@
     },
     {
       "file": "index-script.js",
-      "sha256": "48e4309462785eefa3652aa737e3a0b7a62e0fdafd96dc8a57baf4ea05e5b7fe",
+      "sha256": "2a1e755045a4013b28e0df4501eae0551a0c4f7b066386a08b20a3cb13b9460a",
       "items": [
         {
           "line": 7,
@@ -6545,45 +6545,36 @@
           "rich_text": false
         },
         {
-          "line": 22,
-          "start": 9445,
-          "end": 9511,
-          "context": "prompt",
-          "text": "Welke actuele zoekdata wil je via Foundly AI Search onderzoeken?",
+          "line": 45,
+          "start": 12025,
+          "end": 12041,
+          "context": "element_text",
+          "text": " · AI Search: ",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 22,
-          "start": 9571,
-          "end": 9603,
-          "context": "textContent",
-          "text": "Foundly zoekt live op het web…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 28,
-          "start": 10794,
-          "end": 10824,
+          "line": 58,
+          "start": 13668,
+          "end": 13698,
           "context": "error_message_requires_control_flow_review",
           "text": "integration_response_invalid",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 28,
-          "start": 10898,
-          "end": 10926,
+          "line": 58,
+          "start": 13772,
+          "end": 13800,
           "context": "error_message_requires_control_flow_review",
           "text": "integration_request_failed",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 45,
-          "start": 12252,
-          "end": 12339,
+          "line": 75,
+          "start": 15126,
+          "end": 15213,
           "context": "prompt",
           "text": "{p0} · {p1}{p2}",
           "parameters": [
@@ -6594,9 +6585,9 @@
           "rich_text": false
         },
         {
-          "line": 46,
-          "start": 12435,
-          "end": 12476,
+          "line": 76,
+          "start": 15309,
+          "end": 15350,
           "context": "prompt",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -6606,9 +6597,9 @@
           "rich_text": false
         },
         {
-          "line": 61,
-          "start": 13814,
-          "end": 13855,
+          "line": 91,
+          "start": 16688,
+          "end": 16729,
           "context": "prompt",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -6618,9 +6609,9 @@
           "rich_text": false
         },
         {
-          "line": 65,
-          "start": 14113,
-          "end": 14248,
+          "line": 95,
+          "start": 16987,
+          "end": 17122,
           "context": "prompt",
           "text": "{p0} · {p1}\n(public / basic / bearer / api_key_header / oauth2_authorization_code / webhook)",
           "parameters": [
@@ -6630,27 +6621,27 @@
           "rich_text": false
         },
         {
-          "line": 167,
-          "start": 25175,
-          "end": 25201,
+          "line": 197,
+          "start": 28071,
+          "end": 28097,
           "context": "error_message_requires_control_flow_review",
           "text": "integration_check_failed",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 187,
-          "start": 29379,
-          "end": 29449,
+          "line": 217,
+          "start": 32275,
+          "end": 32345,
           "context": "textContent",
           "text": "AUTOMOTIVE HOOFDONDERDEEL · FOUNDLY INTELLIGENCE · BRONGEBONDEN DATA",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 192,
-          "start": 31423,
-          "end": 32922,
+          "line": 222,
+          "start": 34485,
+          "end": 35984,
           "context": "innerHTML",
           "text": "<div class=\"grid\"><div class=\"card\"><h3>{p0} AI</h3><p>Foundly-engine die alleen beschikbare interne historie, geverifieerde providerdata en brongebonden intelligence gebruikt. Niet-verbonden bronnen worden niet als actief gepresenteerd.</p><button class=\"action\" id=\"ask\">VRAAG {p1} AI</button><div class=\"answer\" id=\"answer\">Klaar voor opdrachten.</div></div><div class=\"card\"><h3>FOUNDLY DATA LAYER</h3><p>Rol: <b>normalisatie, cache en persistentie</b><br>Records: <b>{p2}</b><br>Lokale opslag: <b>{p3}</b></p></div><div class=\"card\"><h3>WERKELIJKE BRONNEN</h3><p>Live providerprobes: <b>{p4}</b><br>{p5}<br>Geconfigureerd, niet live: <b>{p6}</b><br>Interne historie: <b>{p7}</b> · Afgeleide intelligence: <b>{p8}</b></p></div>{p9}</div><div class=\"subGrid\" style=\"margin-top:10px\">{p10}</div>",
           "parameters": [
@@ -6669,9 +6660,9 @@
           "rich_text": true
         },
         {
-          "line": 193,
-          "start": 32964,
-          "end": 32998,
+          "line": 223,
+          "start": 36026,
+          "end": 36060,
           "context": "prompt",
           "text": "Wat wil je vragen aan {p0}?",
           "parameters": [
@@ -6680,40 +6671,18 @@
           "rich_text": false
         },
         {
-          "line": 195,
-          "start": 33278,
-          "end": 33505,
-          "context": "innerHTML",
-          "text": "OAuth: <b>{p0}</b> · {p1} · AI Search: <b>{p2}</b>",
-          "parameters": [
-            "j.token_stored?'GEKOPPELD':'NIET GEKOPPELD'",
-            "Object.entries(names).map(([k,n])=>`${n}: <b>${ss[k]?'LIVE':'UIT'}</b>`).join(' · ')",
-            "j.openai_search?.configured?'LIVE':'NIET INGESTELD'"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 196,
-          "start": 33791,
-          "end": 33824,
-          "context": "confirm",
-          "text": "Google ontkoppelen van Foundly?",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 206,
-          "start": 35445,
-          "end": 35471,
+          "line": 236,
+          "start": 37961,
+          "end": 37987,
           "context": "textContent",
           "text": "Zero voert opdracht uit…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 265,
-          "start": 70370,
-          "end": 70439,
+          "line": 295,
+          "start": 72886,
+          "end": 72955,
           "context": "textContent",
           "text": "ZERO · {p0}",
           "parameters": [
@@ -6722,9 +6691,9 @@
           "rich_text": false
         },
         {
-          "line": 265,
-          "start": 71965,
-          "end": 72100,
+          "line": 295,
+          "start": 74481,
+          "end": 74616,
           "context": "element_text",
           "text": " · {p0} · {p1}",
           "parameters": [
@@ -6734,9 +6703,9 @@
           "rich_text": false
         },
         {
-          "line": 270,
-          "start": 75225,
-          "end": 75263,
+          "line": 300,
+          "start": 77741,
+          "end": 77779,
           "context": "textContent",
           "text": "{p0}%",
           "parameters": [
@@ -6745,9 +6714,9 @@
           "rich_text": false
         },
         {
-          "line": 277,
-          "start": 79811,
-          "end": 79846,
+          "line": 307,
+          "start": 82327,
+          "end": 82362,
           "context": "error_message_requires_control_flow_review",
           "text": "Vereiste control ontbreekt: {p0}",
           "parameters": [
@@ -6756,18 +6725,18 @@
           "rich_text": false
         },
         {
-          "line": 280,
-          "start": 82619,
-          "end": 82649,
+          "line": 310,
+          "start": 85135,
+          "end": 85165,
           "context": "error_message_requires_control_flow_review",
           "text": "Statusroute niet beschikbaar",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 280,
-          "start": 83339,
-          "end": 83390,
+          "line": 310,
+          "start": 85855,
+          "end": 85906,
           "context": "textContent",
           "text": "{p0} LIVE",
           "parameters": [
@@ -6776,9 +6745,9 @@
           "rich_text": false
         },
         {
-          "line": 283,
-          "start": 86023,
-          "end": 86096,
+          "line": 313,
+          "start": 88539,
+          "end": 88612,
           "context": "toast",
           "text": "{p0} gekoppeld{p1}",
           "parameters": [
@@ -6788,9 +6757,9 @@
           "rich_text": false
         },
         {
-          "line": 283,
-          "start": 86249,
-          "end": 86318,
+          "line": 313,
+          "start": 88765,
+          "end": 88834,
           "context": "toast",
           "text": "{p0} koppeling fout: {p1}",
           "parameters": [
@@ -6800,9 +6769,9 @@
           "rich_text": false
         },
         {
-          "line": 287,
-          "start": 87517,
-          "end": 87540,
+          "line": 317,
+          "start": 90033,
+          "end": 90056,
           "context": "textContent",
           "text": "{p0} · {p1}",
           "parameters": [

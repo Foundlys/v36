@@ -407,6 +407,60 @@
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED",
     "test_limitation": "Controller state/ownership is tested with a minimal DOM and actual frontend functions. Native backend permission/OAuth regressions use their existing isolated fixtures. This is not browser rendering, live provider or perceived-language-quality evidence.",
+    "current_ci": {
+      "run": 156,
+      "id": 36015558250,
+      "head": "a347c28481597ebf9f67515088defbe635bb86ea",
+      "tree": "55bc16438d04ef2e8554d0273602798d8e1a1b94",
+      "status": "FAIL",
+      "reason": "Existing smoke-test source contract requires literal data-test/data-sync/data-profile/data-disconnect attributes. The new DOM action helper constructed them dynamically. Follow-up uses the explicit native attribute names without changing the test."
+    }
+  },
+  "google_locale_ownership_checkpoint": {
+    "recorded_at": "2026-09-24T15:01:08.446788+00:00",
+    "source_sha256": {
+      "foundly-i18n.js": "726eda9c6dee9756cd43d244e4bd45ced7a92a999d5e1942f898bae9f8abb92d",
+      "foundly-locales.js": "513912450668956655ca451e3b415181c969e3e007e26fa55e3caee1cfd6a68b",
+      "index-script.js": "2a1e755045a4013b28e0df4501eae0551a0c4f7b066386a08b20a3cb13b9460a",
+      "zero/integration-localization.test.js": "238b51e1a3e2c14827e4af91b7fe9cc871daee55eb3729fe8385b54e9ba62d98"
+    },
+    "logs": {
+      "google-localization.log": {
+        "exit_code": 0,
+        "sha256": "ac82d0a2fe0e93e216829642f4c1571103fb9c980cdecf1dd1603a57bcf39448",
+        "bytes": 3428
+      },
+      "google-native-regression.log": {
+        "exit_code": 0,
+        "sha256": "e5d7047aea4755d93b553e593dd366824bb20a91c7d63c901c59e97e534b7cd8",
+        "bytes": 1001
+      },
+      "google-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "e6d165d4012d6eb5b7d1576fc21917b9dca2861deb6a06d4ce1d6cbfdf53164b",
+        "bytes": 12437
+      },
+      "google-full-regression.log": {
+        "exit_code": 0,
+        "sha256": "f8b536e51a0a9143a09e7c35200c8131bb1541d6a39faa59ee9011ac908ab911",
+        "bytes": 92974
+      }
+    },
+    "targeted_locale_tests": 27,
+    "full_npm_test_exit_code": 0,
+    "full_zero_tests": 102,
+    "full_zero_pass": 102,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "Google status/search/disconnect presentation uses all eight locales. Model answers and source titles/URLs stay literal; changing language does not repeat search or disconnect. Key presence is displayed as configured, not as a successful live probe. Failed reads preserve unknown status, and stale status failures cannot overwrite newer search output or replacement panels. Explicit text repaint clears obsolete direct-text ownership; ordinary DOM replacement still protects customer content. Repeated summary/search repaint tests reproduce and cover the former stale-label bug.",
+    "ci_156_fix": "Use literal canonical data-connect/data-test/data-sync/data-profile/data-disconnect arguments in the DOM action helper. Existing smoke test is unchanged and passes within full npm test.",
+    "full_zero_log_scope": "google-zero-regression.log precedes the literal-attribute smoke fix; google-full-regression.log includes that final fix and all 102 ZERO tests.",
+    "frozen_main_inline_css_equal_to_run1": true,
+    "frozen_main_inline_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "dynamic_candidates": 969,
+    "main_dashboard_candidates": 22,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

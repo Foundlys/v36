@@ -5,6 +5,21 @@
   // Explicit catalog entries only. Business records and provider text are never
   // translated by DOM inspection or substituted by a language fallback.
   const rows={
+    'google.title':['GOOGLE LIVE DATALAAG','GOOGLE LIVE DATA LAYER','GOOGLE LIVE-DATENSCHICHT','COUCHE DE DONNÉES GOOGLE EN DIRECT','CAPA DE DATOS GOOGLE EN DIRECTO','GOOGLE LIVE-DATALAG','GOOGLE LIVE-DATALAG','GOOGLE LIVE-DATALAGER'],
+    'google.loading':['Status laden…','Loading status…','Status wird geladen…','Chargement de l’état…','Cargando estado…','Indlæser status…','Laster status…','Läser in status…'],
+    'google.refresh':['CONTROLEER KOPPELING','CHECK CONNECTION','VERBINDUNG PRÜFEN','VÉRIFIER LA CONNEXION','COMPROBAR CONEXIÓN','KONTROLLÉR FORBINDELSE','KONTROLLER TILKOBLING','KONTROLLERA ANSLUTNING'],
+    'google.search':['ZOEK OP HET WEB MET AI','AI WEB SEARCH','KI-WEBSUCHE','RECHERCHE WEB PAR IA','BÚSQUEDA WEB CON IA','AI-WEBSØGNING','KI-NETTSØK','AI-WEBBSÖKNING'],
+    'google.intro':['Koppel hier Google Ads, GA4, Search Console, Calendar en Foundly AI Search.','Connect Google Ads, GA4, Search Console, Calendar and Foundly AI Search here.','Verbinden Sie hier Google Ads, GA4, Search Console, Calendar und Foundly AI Search.','Connectez ici Google Ads, GA4, Search Console, Calendar et Foundly AI Search.','Conecta aquí Google Ads, GA4, Search Console, Calendar y Foundly AI Search.','Forbind Google Ads, GA4, Search Console, Calendar og Foundly AI Search her.','Koble til Google Ads, GA4, Search Console, Calendar og Foundly AI Search her.','Anslut Google Ads, GA4, Search Console, Calendar och Foundly AI Search här.'],
+    'google.linked':['GEKOPPELD','LINKED','VERKNÜPFT','LIÉ','VINCULADO','TILKNYTTET','TILKNYTTET','LÄNKAD'],
+    'google.unlinked':['NIET GEKOPPELD','NOT LINKED','NICHT VERKNÜPFT','NON LIÉ','SIN VINCULAR','IKKE TILKNYTTET','IKKE TILKNYTTET','INTE LÄNKAD'],
+    'google.live':['LIVE','LIVE','LIVE','ACTIF','ACTIVO','AKTIV','AKTIV','AKTIV'],
+    'google.off':['UIT','OFF','AUS','INACTIF','INACTIVO','FRA','AV','AV'],
+    'google.configured':['GECONFIGUREERD','CONFIGURED','KONFIGURIERT','CONFIGURÉ','CONFIGURADO','KONFIGURERET','KONFIGURERT','KONFIGURERAD'],
+    'google.not_configured':['NIET INGESTELD','NOT CONFIGURED','NICHT KONFIGURIERT','NON CONFIGURÉ','SIN CONFIGURAR','IKKE KONFIGURERET','IKKE KONFIGURERT','INTE KONFIGURERAD'],
+    'google.search_prompt':['Welke actuele informatie wil je via Foundly AI Search onderzoeken?','What current information would you like to research with Foundly AI Search?','Welche aktuellen Informationen möchten Sie mit Foundly AI Search recherchieren?','Quelles informations actuelles souhaitez-vous rechercher avec Foundly AI Search ?','¿Qué información actual quieres investigar con Foundly AI Search?','Hvilke aktuelle oplysninger vil du undersøge med Foundly AI Search?','Hvilken aktuell informasjon vil du undersøke med Foundly AI Search?','Vilken aktuell information vill du undersöka med Foundly AI Search?'],
+    'google.searching':['Foundly zoekt live op het web…','Foundly is searching the live web…','Foundly durchsucht das aktuelle Web…','Foundly effectue une recherche sur le web en direct…','Foundly está buscando en la web en directo…','Foundly søger live på nettet…','Foundly søker direkte på nettet…','Foundly söker på webben i realtid…'],
+    'google.no_answer':['Geen antwoord','No answer','Keine Antwort','Aucune réponse','Sin respuesta','Intet svar','Ingen svar','Inget svar'],
+    'google.sources':['BRONNEN','SOURCES','QUELLEN','SOURCES','FUENTES','KILDER','KILDER','KÄLLOR'],
     'integrations.ready':['GEREED','READY','BEREIT','PRÊT','LISTO','KLAR','KLAR','KLAR'],
     'integrations.blocked':['GEBLOKKEERD','BLOCKED','BLOCKIERT','BLOQUÉ','BLOQUEADO','BLOKERET','BLOKKERT','BLOCKERAD'],
     'integrations.active':['ACTIEF','ACTIVE','AKTIV','ACTIF','ACTIVO','AKTIV','AKTIV','AKTIV'],
