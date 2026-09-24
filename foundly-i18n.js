@@ -41,7 +41,7 @@
   api.translate=function(container=document){const nodes=Array.from(container.querySelectorAll(selector));if(container.matches?.(selector))nodes.unshift(container);
     for(const node of nodes){
       const key=node.getAttribute('data-i18n');if(key){const target=()=>node.firstChild||node;paint(node,target,'text',key,()=>target().textContent,value=>target().textContent=value);}
-      const direct=node.getAttribute('data-i18n-text');if(direct){const keys=JSON.parse(direct);for(const [index,key]of Object.entries(keys)){const text=node.childNodes?.[Number(index)];if(text?.nodeType!==3)continue;const prefix=text.textContent.match(/^\s*/)[0],suffix=text.textContent.match(/\s*$/)[0];paint(node,text,'direct:'+index,key,()=>text.textContent,value=>text.textContent=value,value=>prefix+value+suffix);}}
+      const direct=node.getAttribute('data-i18n-text');if(direct){const keys=JSON.parse(direct);for(const [index,key]of Object.entries(keys)){const text=node.childNodes?.[Number(index)];if(text?.nodeType!==3)continue;const owned=parameters.get(node)?.has('direct:'+index),prefix=owned?'':text.textContent.match(/^\s*/)[0],suffix=owned?'':text.textContent.match(/\s*$/)[0];paint(node,text,'direct:'+index,key,()=>text.textContent,value=>text.textContent=value,value=>prefix+value+suffix);}}
       for(const attr of allowedAttributes){const k=node.getAttribute('data-i18n-'+attr);if(k)paint(node,node,attr,k,()=>node.getAttribute(attr),value=>node.setAttribute(attr,value));}}
     for(const selector of document.querySelectorAll('[data-ui-locale]'))selector.value=api.locale;
     document.documentElement.lang=api.locale;};
@@ -51,12 +51,12 @@
     // An explicit native repaint starts a new owned text layout. Retire direct
     // slots too, otherwise a later deliberate binding sees obsolete text nodes.
     // Ordinary DOM writes still retain the customer-content protection in paint.
-    const state=bindings.get(node);if(state)for(const slot of state.keys())if(slot==='text'||slot.startsWith('direct:'))state.delete(slot);
+    for(const state of [bindings.get(node),parameters.get(node)])if(state)for(const slot of state.keys())if(slot==='text'||slot.startsWith('direct:'))state.delete(slot);
   }
   api.bind=function(node,key,attribute,params={}){
     if(attribute&&!allowedAttributes.includes(attribute))throw Error('translation_attribute_unsupported');
-    const slot=attribute||'text';let values=parameters.get(node);if(!values){values=new Map();parameters.set(node,values);}values.set(slot,Object.freeze({...params}));
-    node.setAttribute(attribute?'data-i18n-'+attribute:'data-i18n',key);if(!attribute){node.removeAttribute('data-i18n-text');resetTextOwnership(node);}else bindings.get(node)?.delete(slot);
+    const slot=attribute||'text';if(!attribute)resetTextOwnership(node);let values=parameters.get(node);if(!values){values=new Map();parameters.set(node,values);}values.set(slot,Object.freeze({...params}));
+    node.setAttribute(attribute?'data-i18n-'+attribute:'data-i18n',key);if(!attribute)node.removeAttribute('data-i18n-text');else bindings.get(node)?.delete(slot);
     if(attribute)paint(node,node,attribute,key,()=>node.getAttribute(attribute),value=>node.setAttribute(attribute,value));else{const target=()=>node.firstChild||node;paint(node,target,'text',key,()=>target().textContent,value=>target().textContent=value);}return node;
   };
   api.bindText=function(node,index,key,params={}){
@@ -64,9 +64,10 @@
     const slot='direct:'+index,keys=JSON.parse(node.getAttribute('data-i18n-text')||'{}');keys[index]=key;
     node.removeAttribute('data-i18n');node.setAttribute('data-i18n-text',JSON.stringify(keys));
     const state=bindings.get(node);state?.delete('text');state?.delete(slot);
-    let values=parameters.get(node);if(!values){values=new Map();parameters.set(node,values);}values.set(slot,Object.freeze({...params}));
-    const prefix=target.textContent.match(/^\s*/)[0],suffix=target.textContent.match(/\s*$/)[0];
-    paint(node,target,slot,key,()=>target.textContent,value=>target.textContent=value,value=>prefix+value+suffix);return node;
+    let values=parameters.get(node);if(!values){values=new Map();parameters.set(node,values);}values.delete('text');values.set(slot,Object.freeze({...params}));
+    // Explicit fragments own the whole text node. Whitespace inside their
+    // parameters is source content, not static markup padding to repeat.
+    paint(node,target,slot,key,()=>target.textContent,value=>target.textContent=value);return node;
   };
   // Only an explicit descriptor created by this instance can become a live
   // binding. Ordinary strings and customer-shaped objects remain literal.

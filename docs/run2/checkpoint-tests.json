@@ -724,6 +724,103 @@
     "main_index_script_candidates": 15,
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "current_ci": {
+      "run": 161,
+      "id": 36027532910,
+      "head": "4ee64a121479fae38fdfbd302562ed1fb76417b8",
+      "tree": "56c1465ee63e0f993db180080250e5ebdf3e67b7",
+      "status": "SUCCESS"
+    }
+  },
+  "direct_fragment_ownership_checkpoint": {
+    "recorded_at": "2026-09-24T16:37:38.966574+00:00",
+    "source_sha256": {
+      "foundly-i18n.js": "fe13503aa12fcd01669eae6b3e89b654f8c1420280f91417e99095590bb781b0",
+      "zero/zero-presentation-localization.test.js": "1c8b021db76c0fcc1572a1aca34a29a06ea299a9735df95d2992454605fef365"
+    },
+    "logs": {
+      "direct-text-whitespace-before-fix.log": {
+        "exit_code": 1,
+        "sha256": "b8970eed664e1601d180249ef56061181e3d84ea27865d3eb672cde594c2bf8c",
+        "bytes": 1437,
+        "scope": "Regression reproduction: leading/trailing source parameter whitespace was duplicated by the static-padding rule"
+      },
+      "direct-text-whitespace.log": {
+        "exit_code": 0,
+        "sha256": "335e4897c96141fa36a7d65f13323636b8799dadaf7a5808268eda5464891647",
+        "bytes": 6441,
+        "scope": "50 locale/controller checks, including exact whitespace and previous-parameter retirement"
+      },
+      "direct-text-final-zero.log": {
+        "exit_code": 0,
+        "sha256": "088be402bdb41ffa7c3568ca5a5f88dd80d1825b1d8600f026876f3dd6db696a",
+        "bytes": 15997,
+        "scope": "All 129 ZERO tests plus 14/14 foundation corpus cases"
+      }
+    },
+    "focused_tests": 50,
+    "full_zero_tests": 129,
+    "full_zero_pass": 129,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "Explicit parameterised text fragments own their whole text node, so leading/trailing source whitespace is not duplicated as static markup padding during repeated locale changes. A deliberate new text layout retires previous text parameters as well as binding ownership. New bindings store their current parameters only after that reset. Static HTML padding, nested controls and ordinary customer replacement protection remain intact.",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "browser_and_native_speaker_acceptance": "UNVERIFIED",
+    "current_ci": "PENDING_PUBLICATION"
+  },
+  "module_overlay_checkpoint": {
+    "recorded_at": "2026-09-24T17:10:51.817316+00:00",
+    "source_sha256": {
+      "index-script.js": "58895f5711ae19895c6e7b2e105ab7206504096648171e0cf24fdc1583fa5a7d",
+      "foundly-locales.js": "59012a15ffc93d41cce70b19792ca3e69c6041d6d6672499d4f5b736fdcf7933",
+      "foundly-static-copy.js": "24c3bfcfecac8967a38e670e2c15faedafecc336b103c6d487b734e299ab0776",
+      "zero-evaluation/module-overlay-fixture.js": "9edd2375e196ba12f68d83f3d505f8b52633d711e4e03ae57eec90f013056523",
+      "zero/module-overlay-localization.test.js": "1c31195a1705d5054d20d8a781f7e757e55ead057b9277a5c17ee6ab045b74c1",
+      "smoke-test.js": "fbec6e8f183a96239b37ae5a86c6eaa948f4d2eff4d29a4eb93b53a9b06c010a",
+      "foundly-masterbuild-regression-test.js": "62e33cf46fda3b5f34999fd611bd3d4790be2e0a31175a29ff5327f134e0bca1"
+    },
+    "logs": {
+      "run2-module-overlay-tests.log": {
+        "exit_code": 0,
+        "sha256": "3a0a6599810a45442632ed821e3dcf8d0ba1d820e4a91608cb072d2d980deacb",
+        "bytes": 914
+      },
+      "run2-module-zero-regression.log": {
+        "exit_code": 0,
+        "sha256": "68e462430bbc24a9e234d2b5eb2c5f9f0934152c1c528d4d31e0c2b878e2cf26",
+        "bytes": 16799
+      },
+      "run2-module-smoke.log": {
+        "exit_code": 0,
+        "sha256": "ddffcc39602b77a0f2007193d4593a7a22e4e479f5cde9c7b6c590e25ae40c1a",
+        "bytes": 376
+      },
+      "run2-module-full-regression-before-fixture-update.log": {
+        "exit_code": 1,
+        "sha256": "8ce567fcf46672d6df6dcecd7eb1bfae931c12e16a1b34c0956b85861527064a",
+        "bytes": 13495
+      },
+      "run2-module-masterbuild.log": {
+        "exit_code": 0,
+        "sha256": "9870f023efeaebf9fd3ab8144d9ad09af5cce6c80acddfe0c473bdd262747079",
+        "bytes": 678
+      }
+    },
+    "focused_tests": 6,
+    "full_zero_tests": 135,
+    "full_zero_pass": 135,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "full_regression": "RUNNING_AFTER_STATIC_FIXTURE_UPDATES",
+    "scope": "Eleven module overlays, 149 distinct sublabels, source details, Automotive registry, native CRM navigation and Google/integration controls. Locale updates preserve nodes, source names, answers, conversation language and native routes without additional reads or actions. Unknown, malformed, denied, partial, contradictory, duplicate and overflowing observations are not turned into zero or verified providers. Older, closed or replaced views reject late responses. Loading status cannot overwrite an active answer.",
+    "reproduction": "Against 9124ff3, an offline engine-status request rendered Records: 0 and Live providerprobes: 0. New controller tests demonstrate unknown on failures and zero only on observed zero.",
+    "smoke_fixture_update": "Prior static HTML-string button assertion failed after native DOM construction. Smoke now executes the real module controller and verifies actual button tags and callable handlers; existing static controls and backend contracts stay asserted. The dynamic source headings are likewise verified in the rendered controller DOM. The masterbuild source-registry check also executes the real panel and asserts all four groups, required providers and the /automotive destination instead of requiring untranslated English literals.",
+    "browser": "ENVIRONMENT_UNVERIFIED: supported browser returned net::ERR_BLOCKED_BY_CLIENT for http://127.0.0.1:4182/index.html?open=data. No browser pixels, layout, accessibility or native-speaker PASS is claimed.",
+    "frozen_main_inline_css_equal_to_run1": true,
+    "frozen_main_inline_css_sha256": "d0471f30911dc54b45a2ced262e9e18402d0bb749b1d37cd20c7104eea027f91",
+    "dynamic_candidates": 930,
+    "main_index_script_candidates": 12,
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "current_ci": "PENDING_PUBLICATION"
   }
 }

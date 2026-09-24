@@ -56,3 +56,10 @@ test('lost module responses show a translatable uncertain result without raw err
   for(const locale of locales){f.i.setLocale(locale);assert.equal(out.textContent,f.i.t('zero.result.unavailable'));assert.equal(f.requests.length,1);assert.equal(f.speeches.length,0);assert.ok(!out.textContent.includes('RAW_PROVIDER_DETAILS'));}
   let release;f.context.executeZeroTurn=()=>new Promise(resolve=>release=resolve);const pending=f.context.askModule('crm','Second request'),replacement=f.nodes.answer=new ViewElement();replacement.textContent='New module content';release({answer:'Stale result'});await pending;assert.equal(replacement.textContent,'New module content');
 });
+test('owned result fragments preserve leading and trailing source whitespace through repeated locale changes',()=>{
+  const f=fixture(),out=f.nodes.answer=new ViewElement(),j={answer:'Literal answer',actions:[{type:'  native_action',status:'blocked',reason:'  Literal reason\t '}]};
+  f.context.renderCommandResult(out,j);
+  for(const locale of [...locales,...locales]){f.i.setLocale(locale);assert.equal(out.textContent,f.context.formatCommandResult(j));}
+  const node=f.nodes.fragment=new ViewElement();node.append(f.context.document.createTextNode('1,234 records'));f.i.bindText(node,0,'common.record_count',{count:1234});
+  f.i.renderText(node,'Fresh layout');node.setAttribute('data-i18n-text','{"0":"common.record_count"}');assert.throws(()=>f.i.translate(node),/plural_count_required/,'A new layout cannot borrow a previous result count');
+});

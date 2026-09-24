@@ -6263,7 +6263,7 @@
     },
     {
       "file": "index-script.js",
-      "sha256": "85c46a9605a755a416b5757a2c42c017c86d2506e3fef4ddca3b7b1429af9455",
+      "sha256": "58895f5711ae19895c6e7b2e105ab7206504096648171e0cf24fdc1583fa5a7d",
       "items": [
         {
           "line": 7,
@@ -6364,50 +6364,9 @@
           "rich_text": false
         },
         {
-          "line": 217,
-          "start": 32275,
-          "end": 32345,
-          "context": "textContent",
-          "text": "AUTOMOTIVE HOOFDONDERDEEL · FOUNDLY INTELLIGENCE · BRONGEBONDEN DATA",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 222,
-          "start": 34485,
-          "end": 35984,
-          "context": "innerHTML",
-          "text": "<div class=\"grid\"><div class=\"card\"><h3>{p0} AI</h3><p>Foundly-engine die alleen beschikbare interne historie, geverifieerde providerdata en brongebonden intelligence gebruikt. Niet-verbonden bronnen worden niet als actief gepresenteerd.</p><button class=\"action\" id=\"ask\">VRAAG {p1} AI</button><div class=\"answer\" id=\"answer\">Klaar voor opdrachten.</div></div><div class=\"card\"><h3>FOUNDLY DATA LAYER</h3><p>Rol: <b>normalisatie, cache en persistentie</b><br>Records: <b>{p2}</b><br>Lokale opslag: <b>{p3}</b></p></div><div class=\"card\"><h3>WERKELIJKE BRONNEN</h3><p>Live providerprobes: <b>{p4}</b><br>{p5}<br>Geconfigureerd, niet live: <b>{p6}</b><br>Interne historie: <b>{p7}</b> · Afgeleide intelligence: <b>{p8}</b></p></div>{p9}</div><div class=\"subGrid\" style=\"margin-top:10px\">{p10}</div>",
-          "parameters": [
-            "m.naam",
-            "m.naam",
-            "Number(sourceState.foundly_data_layer.records||0)",
-            "sourceState.local_persistence.writable?(sourceState.local_persistence.separate_mount?'PERSISTENT VOLUME':'SCHRIJFBAAR · VOLUME NIET BEWEZEN'):'NIET BESCHIKBAAR'",
-            "live.length",
-            "live.length?`Bronnen: <b>${esc(sourceNames)}</b>`:'Geen externe provider voor deze engine bevestigd.'",
-            "configured.length",
-            "Number(sourceState.historical_internal_data.records||0)+Number(sourceState.historical_internal_data.memory_records||0)",
-            "Number(sourceState.derived_intelligence.records||0)+Number(sourceState.derived_intelligence.decision_records||0)",
-            "extra",
-            "m.sub.map(s=>`<div class=\"subCard\"><b>${s}</b><span>subagent · beschikbare bronnen: ${esc(sourceLabel)}</span></div>`).join('')"
-          ],
-          "rich_text": true
-        },
-        {
-          "line": 223,
-          "start": 36026,
-          "end": 36060,
-          "context": "prompt",
-          "text": "Wat wil je vragen aan {p0}?",
-          "parameters": [
-            "m.naam"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 394,
-          "start": 90211,
-          "end": 90246,
+          "line": 423,
+          "start": 93900,
+          "end": 93935,
           "context": "error_message_requires_control_flow_review",
           "text": "Vereiste control ontbreekt: {p0}",
           "parameters": [
@@ -6416,9 +6375,9 @@
           "rich_text": false
         },
         {
-          "line": 434,
-          "start": 98734,
-          "end": 98807,
+          "line": 463,
+          "start": 102423,
+          "end": 102496,
           "context": "toast",
           "text": "{p0} gekoppeld{p1}",
           "parameters": [
@@ -6428,9 +6387,9 @@
           "rich_text": false
         },
         {
-          "line": 434,
-          "start": 98960,
-          "end": 99029,
+          "line": 463,
+          "start": 102649,
+          "end": 102718,
           "context": "toast",
           "text": "{p0} koppeling fout: {p1}",
           "parameters": [
