@@ -359,7 +359,7 @@
     },
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "legacy_native_profile_evidence": "legacy-profile-replay-check.json",
-    "cash_validation": "Whole-day horizon validated at 1–730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
+    "cash_validation": "Whole-day horizon validated at 1\u2013730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
   },
   "integration_locale_checkpoint": {
     "recorded_at": "2026-09-24T14:47:25.073630+00:00",
@@ -922,6 +922,61 @@
     "analysis_actions_direct_candidates": 0,
     "main_index_script_candidates": 8,
     "evidence_limit": "A zero-candidate scoped syntax scan is not proof of all-surface localization. Minimal DOM response fixtures test UI language/state; native regressions test actual core execution. No live provider, browser pixels, native-speaker or cognitive-quality acceptance is claimed.",
+    "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
+    "current_ci": "SUCCESS",
+    "published_commit": "121594160f59b8934edc3c02c3678a77aaf95d82",
+    "published_tree": "7b306cbc49ebc929657c1742586fbdbf06a0e487",
+    "ci_run": 164,
+    "ci_run_id": 36035724562
+  },
+  "analysis_model_history_locale_checkpoint": {
+    "recorded_at": "2026-09-24T17:50:20.134551+00:00",
+    "source_sha256": {
+      "analysis-models-client.js": "0a4a6a67291b4e2c894a6d0d7ca2aee48a6818df293aebac2404697555889b5f",
+      "analysis-definition-history-client.js": "c42b5241978b9cdb4199695acf5913d13f1b1b7abb23965184c122625e90c439",
+      "foundly-locales.js": "172570a03dfa144adc3a23b6f6d1560bd4b97a85cf270a34374c2131d360876b",
+      "zero/analysis-model-history-localization.test.js": "8d9fcfd66c3ace768cb25b204d60457d6be3a959af4b2b8e0d5d6e32572a33b8"
+    },
+    "logs": {
+      "run2-model-history-before-selection-fix.log": {
+        "exit_code": 1,
+        "sha256": "d187cb2676f42fc760f65118d2a46a6b196c874839efd5ab5b04dc3f3352d2fc",
+        "bytes": 1439
+      },
+      "run2-model-history-localization.log": {
+        "exit_code": 0,
+        "sha256": "464a4d761e96aeb491e15ac42934e47f498341b070bab046641215d48ce93f74",
+        "bytes": 828
+      },
+      "run2-model-history-zero.log": {
+        "exit_code": 0,
+        "sha256": "20df116177ff03bb7eb0080ae851ab614a9d089acb71ccdc5f50cc9aec17f54e",
+        "bytes": 18948
+      }
+    },
+    "new_controller_tests": 6,
+    "full_zero_tests": 152,
+    "full_zero_pass": 152,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "scope": "Actual Analysis model and definition-history controls: eight-locale owned form labels, options, confirmation, typed measurement fields, query groups, units, source details, explicit revision/restore and UTC observations. Source identifiers, authored definitions, model titles, raw JSON snapshots and native payloads remain literal. Live locale changes do not read, write, recalculate, reset confirmation or alter retry identity. Missing and malformed counts, negative monetary values, zero and incomplete results stay distinct.",
+    "reproduced_defect": "A pending calculation survived selecting another model and returning to the original; its stale result reappeared. Test failed 6 !== 0 before the fix. Changing selected model or opening a new model now invalidates pending calculations. Denied refresh also remains guarded against late results.",
+    "native_regression": {
+      "commands": [
+        "node analysis-models-client-test.js",
+        "node analysis-definition-history-client-test.js",
+        "node analysis-models-test.js",
+        "node analysis-definition-history-test.js",
+        "node analysis-models-api-test.js",
+        "node analysis-definition-history-api-test.js"
+      ],
+      "exit_code": 0,
+      "scope": "Real native core and authenticated HTTP tests cover typed measurement, permission filtering, exact retry keys, separate version/restore, current source revalidation, adapter/encrypted restart and body-wait capability revocation."
+    },
+    "dynamic_candidates": 844,
+    "analysis_models_direct_candidates": 0,
+    "analysis_history_direct_candidates": 0,
+    "evidence_limit": "Controller fixtures and native regression do not establish rendered layout, accessibility, native-speaker quality, provider coverage or cognitive quality. Other UI surfaces/backend copy and all full-surface locale acceptance remain open.",
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "current_ci": "PENDING_PUBLICATION"
   }
