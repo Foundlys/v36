@@ -2754,6 +2754,86 @@
     "remaining": "Current-scope registry knowledge counts and native workspace metric completeness/currency remain open for native reproduction. Shared workspace section/domain/connector-detail and generated/backend localization, browser-reload retry recovery, every-trigger automation dispatch and broader cognition/adversarial/performance/demo/voice acceptance remain unaccepted.",
     "dynamic_candidates": 707,
     "workspace_direct_candidates": 365,
+    "current_ci": {
+      "number": 189,
+      "id": 36074197182,
+      "status": "in_progress",
+      "conclusion": null,
+      "head": "d57644908f68c6a72f016f426cd3491c38c5e0fb",
+      "tree": "fde24f2f0bfa0e7029ad3333a00783de7142c000",
+      "full_npm_test": "PENDING"
+    }
+  },
+  "workspace_knowledge_observation_checkpoint": {
+    "recorded_at": "2026-09-24T23:51:22.910147+00:00",
+    "prior_published_head": "d57644908f68c6a72f016f426cd3491c38c5e0fb",
+    "prior_published_tree": "fde24f2f0bfa0e7029ad3333a00783de7142c000",
+    "prior_ci": {
+      "number": 189,
+      "id": 36074197182,
+      "status": "in_progress",
+      "conclusion": null,
+      "head": "d57644908f68c6a72f016f426cd3491c38c5e0fb",
+      "tree": "fde24f2f0bfa0e7029ad3333a00783de7142c000",
+      "full_npm_test": "PENDING"
+    },
+    "source_sha256": {
+      "platform-core.js": "80be9d100b10e496653b4f83bba1e4e495d543e3f02d6d078d47540392d1c09f",
+      "server.js": "461b06ffc0f0d11bb3217978efe980ba55098328088242f01013b14a05a5108a",
+      "foundly-registry.js": "2f4f75b48fe68e549e6ff5752109e4de65fde2f4a3a4c6e358aba800e2b41a29",
+      "zero/workspace-knowledge-integrity.test.js": "d3f326472b8c3238d8f43c2020259e315d84a25b172da29003b85fce056c6664"
+    },
+    "logs": {
+      "run2-knowledge-observation-before.log": {
+        "exit_code": 1,
+        "sha256": "bee7760d4bd51acd36e78670b4d52036dcd05bf0a4aa74e4ce1a5eade0adeb17",
+        "bytes": 6596
+      },
+      "run2-knowledge-export-before.log": {
+        "exit_code": 1,
+        "sha256": "05c55da28af0dcc5bb7b52b4cdd9fc07ff47624c8883629538fc00269b048e50",
+        "bytes": 1003
+      },
+      "run2-knowledge-observation-final-targeted.log": {
+        "exit_code": 0,
+        "sha256": "9d615180b62d28ee7e06163da30c2ef9375773e2166af7349cd66cd6ecd41537",
+        "bytes": 984
+      },
+      "run2-knowledge-platform.log": {
+        "exit_code": 0,
+        "sha256": "68f5f5742ad3560f0aa2df3e010c4a8200c38bab6c46066f10499d1d341c5733",
+        "bytes": 2892
+      },
+      "run2-knowledge-masterbuild.log": {
+        "exit_code": 0,
+        "sha256": "9870f023efeaebf9fd3ab8144d9ad09af5cce6c80acddfe0c473bdd262747079",
+        "bytes": 678
+      },
+      "run2-knowledge-zero.log": {
+        "exit_code": 0,
+        "sha256": "01bb3235081736fb95323dba39208df901b887edfe960072706ae5db0e0f74aa",
+        "bytes": 48526
+      }
+    },
+    "new_tests": 8,
+    "full_zero_tests": 410,
+    "full_zero_pass": 410,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regressions": [
+      "npm run test:platform",
+      "node foundly-masterbuild-regression-test.js"
+    ],
+    "native_exit_codes": [
+      0,
+      0
+    ],
+    "before_fix": "Eight failing-before checks expose restricted knowledge counts in the native source registry, absent confidence becoming zero, invalid confidence coercion/clamping, explicit user grants lost in search/export, page-limited workspace aggregates and missing lifecycle records. The native count leak is 3 reported records versus 2 authorized retained records.",
+    "scope": "Knowledge source counts use native current-authorized retained records, including retained expired/superseded history, rather than raw storage length. Native search and export share record ACL semantics including explicit user/team/permission grants; knowledge export additionally requires source-read permission. Native snapshot aggregates cover all authorized retained/current rows while its preview stays bounded at 100. Lifecycle and percentage scopes, aggregate completeness, preview coverage and confidence/evidence sample counts are explicit. Missing/blank confidence stays null, actual numeric zero remains valid and malformed/out-of-range new values reject before mutation. Source registry missing/invalid counts remain unknown; explicit zero never falls through to an unrelated connector count.",
+    "storage_change": "None. Historical records remain intact. Existing numeric zero confidence is not retrospectively reclassified because its original input cannot be recovered. No backfill, migration, credential or production change.",
+    "remaining": "Native Finance mixed-currency reporting/posting and workspace currency metadata are next to reproduce. Knowledge mutation atomicity/uncertain-write recovery is not established by this read-observation checkpoint. Shared workspace section/domain/connector-detail and generated/backend localization, browser-reload retries, every-trigger automation dispatch and wider cognition/adversarial/performance/demo/voice acceptance remain open.",
+    "evidence_limit": "Actual native core and member HTTP, real encrypted restart and 105 real native knowledge writes beyond the 100-row preview. No synthetic browser/provider or broad acceptance claims. Existing platform/masterbuild accessibility labels remain fixture/source checks.",
+    "dynamic_candidates": 707,
     "current_ci": "PENDING_PUBLICATION"
   }
 }

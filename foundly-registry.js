@@ -406,11 +406,13 @@ function supportFlags(capabilities, categories) {
   };
 }
 
+function observedCount(value){return typeof value==='number'&&Number.isSafeInteger(value)&&value>=0?value:null;}
+
 function buildSourceRegistry({ connectors = [], recordsBySource = {}, internalCounts = {} }) {
   const sources = connectors.map(connector => {
     const override = SOURCE_OVERRIDES[connector.connector_id] || {}, sourceId = override.source_id || connector.connector_id;
     const categories = values(override.categories || connector.category), capabilities = values(override.capabilities || connector.capabilities);
-    const authType = connector.auth_type, flags = supportFlags(capabilities, categories), recordsAvailable = Number(recordsBySource[sourceId] || recordsBySource[connector.connector_id] || connector.records || 0);
+    const authType = connector.auth_type, flags = supportFlags(capabilities, categories), recordsAvailable = observedCount(Object.hasOwn(recordsBySource,sourceId)?recordsBySource[sourceId]:Object.hasOwn(recordsBySource,connector.connector_id)?recordsBySource[connector.connector_id]:connector.records);
     return {
       source_id: sourceId,
       provider_id: override.provider_id || connector.provider,
@@ -455,7 +457,8 @@ function buildSourceRegistry({ connectors = [], recordsBySource = {}, internalCo
     if (!existing || (existing.connection_status !== 'CONNECTED' && source.connection_status === 'CONNECTED')) deduplicated.set(source.source_id, source);
   }
   for (const internal of [...INTERNAL_SOURCES, ...DOMAIN_INTERNAL_SOURCES]) {
-    deduplicated.set(internal.source_id, { ...internal, records_available: Number(internalCounts[internal.source_id] || 0), freshness_status: Number(internalCounts[internal.source_id] || 0) > 0 ? 'AVAILABLE' : internal.freshness_status });
+    const count=observedCount(internalCounts[internal.source_id]);
+    deduplicated.set(internal.source_id, { ...internal, records_available:count, records_scope:'CURRENT_AUTHORIZED_RETAINED_RECORDS', freshness_status:count>0?'AVAILABLE':internal.freshness_status });
   }
   return [...deduplicated.values()].sort((a, b) => a.display_name.localeCompare(b.display_name, 'en'));
 }
