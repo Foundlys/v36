@@ -8405,6 +8405,139 @@
     },
     "evidence_notes": "The original controls failed nine of ten baseline cases. The first localized implementation exposed an undefined active-status translation alias; it now references the existing eight-locale active status. A fresh pending view initially could not choose ZERO: transport can now change when no literal unsaved input would be discarded, retaining the exact pending metadata, while dirty original forms remain guarded. Real HTTP tests assert the actual recovery lane in both native and ZERO. A complete initial source freeze passed 1028 ZERO plus 14 corpus and all eight native commands; a subsequent compatibility check reproduced that public refresh() no longer returned an awaited read. The restored async method preserves the prior unsaved-input guard and has a permanent before/after test. Only the later clean verified freeze at the recorded source is the final gate. All earlier failure and frozen logs remain retained.",
     "scope": "Production Sales definition, preview/start, execution/control, scoped task completion and non-causal outcome feedback. Strict canonical native source, plan, input, snapshot and metadata verification. Private titles, reasons and mail input remain out of browser recovery storage. Eight locales preserve field nodes, selected operation, confirmation checkbox, transport, literal mail and feedback. Lists load beyond one hundred records; global recovery reaches off-page runs. Current denial retires private content; storage/cleanup faults, concurrent actions and retired replies cannot repeat writes. Existing native and ZERO UI tests now use the actual shared fixtures, retain their business assertions and strengthen lost replies from body replay to one native write plus metadata recovery. Native task/draft preparation stays separate from completion, mail review and sending. The public refresh() method remains awaited and respects unsaved input.",
-    "remaining": "Sales pipeline native recovery and production browser localization/state are next, then other genuinely open Run 2 gates. Synthetic DOM is behavioral evidence only, not rendered browser layout, responsive or accessibility acceptance."
+    "remaining": "Sales pipeline native recovery and production browser localization/state are next, then other genuinely open Run 2 gates. Synthetic DOM is behavioral evidence only, not rendered browser layout, responsive or accessibility acceptance.",
+    "published_ci_231": {
+      "run_number": 231,
+      "run_id": 36180769395,
+      "job_id": 108222269603,
+      "conclusion": "success",
+      "published_head": "23dbe24ed157f23ff2b9967ddab997e98f3876dd",
+      "ci_merge_commit": "f1ad7196f5b44dd5df9aa820b74b05376eb4233b",
+      "tree": "b155c2f39c928b2f6dd42fbe86b9d972f292bf18",
+      "exact_tree_match": true,
+      "zero_tests": 1029,
+      "zero_pass": 1029,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "log_bytes": 533420,
+      "log_sha256": "fa00157ca50ba18c959e35cc0bbce070e81c5206b1e0b44987352c87ff5e2118"
+    }
+  },
+  "native_pipeline_recovery_20260925": {
+    "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+    "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+      "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+      "exit_code": 0,
+      "seconds": 90.85,
+      "log_sha256": "5c6d0519afefa7b8baa0531c53126db63ba0faddef11b7dec7ddb4691e308dee",
+      "log_bytes": 126058,
+      "clean_after": true,
+      "pass_count": 1050,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "sales-pipeline-test.js",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "sha256": "20b9725002cf0a3f2ef1cefc7fbe033409d0c28fb94b4ea93e67ac9afd12de1c"
+      },
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "sales-pipeline-api-test.js",
+        "exit_code": 0,
+        "seconds": 6.14,
+        "sha256": "250947d3234a8e1b040fee0b425610ca0df6e98b78491e403d7d33ddcbf40426"
+      },
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "sales-pipeline-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.34,
+        "sha256": "25074cb199a62ba6b5799da6d8fff661677a705290204e03f92bd2ee00d580d5"
+      },
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "sales-forecast-test.js",
+        "exit_code": 0,
+        "seconds": 0.36,
+        "sha256": "0016bb0b73ba8391154cda987bda0c1b575eeab782298021449c812278c75f21"
+      },
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "sales-hierarchy-test.js",
+        "exit_code": 0,
+        "seconds": 0.35,
+        "sha256": "413a7cdf79bc1c1ff2793a5b735862aaf2940bbb022dd0ac0c1cebd5a0dc367e"
+      },
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "sales-hierarchy-api-test.js",
+        "exit_code": 0,
+        "seconds": 5.65,
+        "sha256": "5248efa687d206a33a058293b0f4efadc0dd983ca6d5359973164bd291d5c1ff"
+      },
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "a1b2259e3e3d89165e2d4cb45ae9820bb402ba53",
+        "source_tree": "14289556ea35bc02f9c878e9ec8f6d54d211e153",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 1.03,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "pipeline-recovery-before.log",
+        "status": "EXPECTED_BASELINE_FAILURE_12_OF_12",
+        "bytes": 17913,
+        "sha256": "a0d26fe07036d7e7b1888fa322c45cd3f499a1b8f054bb5f784efc91b8e74282"
+      },
+      {
+        "file": "pipeline-recovery-initial.log",
+        "status": "PASS_12",
+        "bytes": 1517,
+        "sha256": "c2a53f75d1b2ea27400ce665c8825d4029ba6a853874a0a9a9f4a73520854e85"
+      },
+      {
+        "file": "pipeline-recovery-expanded.log",
+        "status": "PASS_15",
+        "bytes": 1874,
+        "sha256": "3e617d3fa3239811601e3faeba001409b4e14a5fe57e7cd8fa1ee18ef6d1edce"
+      },
+      {
+        "file": "pipeline-recovery-api-initial.log",
+        "status": "PASS_6",
+        "bytes": 877,
+        "sha256": "d99e1533d004f0d67b75b93a91bc1517722a7e4b4bdca07c7de2e8dec1ffdc92"
+      }
+    ],
+    "new_tests": {
+      "native": 15,
+      "actual_http": 6
+    },
+    "exact_published_full_ci": "PENDING",
+    "acceptance_scope": "Native pipeline proof, absence retirement, current access, encrypted restart and paged reads only; global Run 2 acceptance unchanged."
   }
 }

@@ -6,7 +6,7 @@ const ENTITY_GROUPS={
   analysis:{kpis:['kpis'],events:['events','realtime','historical','provider_events'],funnel:['funnel'],reports:['reports','attribution','campaigns','provider_reports','cohorts','cohort_definitions','definition_revisions','analytic_models','action_proposals']},
   marketing:{campaigns:['campaigns','journey_definitions','journey_runs','journey_requests','tasks','creatives','creative_revisions','creative_requests','creative_review_requests','experiments','creative_reviews'],audiences:['audiences','audience_members','audience_activations','audience_requests'],attribution:['attribution','measurement']},
   procurement:{sourcing:['rfqs','bids','supplier_clarifications','clarifications'],suppliers:['suppliers'],opportunities:['opportunities','tasks','outcome_observations','economics_snapshots'],approvals:['quotes','orders','documents','approval_policies','awards']},
-  sales:{forecast:['forecast','forecast_snapshots','forecast_hierarchies','quotas'],opportunities:['opportunities','tasks','sequences','sequence_runs','sequence_requests'],pipeline:['pipelines','activities'],quotes:['quotes','orders']},
+  sales:{forecast:['forecast','forecast_snapshots','forecast_hierarchies','quotas'],opportunities:['opportunities','tasks','sequences','sequence_runs','sequence_requests'],pipeline:['pipelines','activities','pipeline_requests'],quotes:['quotes','orders']},
   calendar:{events:['events','reminders','notifications','event-preparation','event_preparation'],availability:['availability','calendars','scheduling','external_calendar'],conflicts:['conflicts']},
   communication:{drafts:['drafts','templates','draft_revisions'],threads:['threads','preferences'],inbox:['messages','inbox','mailboxes']},
   automation:{workflows:['workflows','tasks','documents','drafts','publications'],runs:['runs'],approvals:['approvals']}
@@ -25,6 +25,9 @@ function methodOperation(method){return String(method).startsWith('export')?'exp
 // Legacy provider routes must enforce the same capability as native workspaces.
 // Reporting POSTs are reads; an internal cache is not user mutation authority.
 const PROVIDER_ROUTES=[
+  // Shared board movers need pipeline read plus opportunity write. The native
+  // recovery handler rechecks that combination, or pipeline write for SAVE.
+  [/^\/api\/sales\/pipeline-requests\/recover$/, 'sales:pipeline','read'],
   [/^\/api\/crm\/event-delivery\/retry$/, 'crm:relationships','write'],
   [/^\/api\/marketing\/audience-activation-preview$/, 'marketing:campaigns','write'],
   [/^\/api\/procurement\/rfqs\/[-A-Za-z0-9_.:]+\/economics-snapshots$/, 'procurement:opportunities','write'],
