@@ -20,3 +20,12 @@ Native snapshot recovery publication `2ce7456` has exact full CI 234 PASS: merge
 Snapshot browser source `5e9c32378734f4bb9f5d22bffc920d9016b4af68`, tree `17ac548cfc1afaac649716a46afb7f1843fcf110`, passes 1122 ZERO plus 14 corpus and all eleven affected native commands. It adds 23 permanent client/shared-page/HTTP tests and replaces the shared page blind replay with scoped metadata recovery. Failed startup evidence and the unchanged-tree rerun are retained in checkpoint-tests.json. Full exact-published CI is still pending.
 
 Continuation is already isolated in `work/run2-forecast-observations`: forecast readout/filter/scenario localization, typed observation validation and a reproduced large-amount weighted-cent rounding defect. Do not overwrite that newer work or restart discovery. Hierarchy definition recovery and broader Run 2 gates remain open; no final acceptance is claimed.
+
+
+## Forecast observations checkpoint — 2026-09-25
+
+Snapshot UI publication `9a252128894841c24ccc97f49a1b598773331347` has complete exact CI 235 PASS: merge `7b8c3d474357013b2aeb3a607ce409b253d91a42`, tree `30877ad7632a1af04f567f42d1af716b9531a622`, 1122 ZERO plus 14 corpus.
+
+Forecast observations source `4890b4cec031413b30f8f37615c613b839389ed9`, tree `95b3ce69409f158f03aecaaa3c0be8ba55696f8a`, passes 1138 ZERO plus 14 corpus and eleven affected native commands. Sixteen permanent tests cover typed observations, exact weighted cents, eight-locale readouts, literal assumptions, fractional-input rejection and draft preservation. Exact-published full CI is pending.
+
+Continue the already-started native hierarchy version recovery work in `work/run2-hierarchy-recovery`; preserve its new journal, fixtures and fault-test fixes. Hierarchy UI localization/reload recovery and the broader acceptance matrix remain open. No final Run 2 verdict or real-browser accessibility acceptance is claimed.

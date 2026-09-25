@@ -9059,7 +9059,7 @@
     }
   },
   "forecast_snapshot_browser_20260925": {
-    "status": "ZERO_CORPUS_AND_AFFECTED_NATIVE_PASS_FULL_PUBLISHED_CI_PENDING",
+    "status": "ZERO_CORPUS_AFFECTED_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
     "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
     "zero": {
@@ -9316,7 +9316,268 @@
       "log_sha256": "210ccd6654445d1d86ada4d67cbd25bf2937e020c542c4bad0e5a7400acad981"
     },
     "failure_note": "The first complete ZERO run passed 1121 of 1122 tests and failed while starting an unrelated connector test server within the existing five-second startup bound. Its corpus did not run. The wrapper then failed to find corpus output; the raw test exit 1 and full failed log were saved before parsing. The unchanged connector file passed all 4 tests alone, and the unchanged frozen source passed the complete ZERO+14 corpus rerun after concurrent native testing ended. No product assertion or timeout was weakened.",
+    "exact_published_full_ci": "PASS",
+    "remaining": "Forecast and scenario readout/filter/editor localization and typed calculation observations remain open, as does hierarchy definition authoring/reload recovery. These DOM fixtures are not real-browser layout, keyboard or assistive-technology evidence. Wider Run 2 acceptance remains IN_PROGRESS_NOT_ACCEPTED.",
+    "published_ci_235": {
+      "run_number": 235,
+      "run_id": 36189900231,
+      "job_id": 108252239216,
+      "conclusion": "success",
+      "published_head": "9a252128894841c24ccc97f49a1b598773331347",
+      "ci_merge_commit": "7b8c3d474357013b2aeb3a607ce409b253d91a42",
+      "tree": "30877ad7632a1af04f567f42d1af716b9531a622",
+      "exact_tree_match": true,
+      "zero_tests": 1122,
+      "zero_pass": 1122,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "log_bytes": 571470,
+      "log_sha256": "14d5cd985d868f6c15f1de52eef23a329664ef173acb60b8d9c1d1b6582ea5ac"
+    }
+  },
+  "forecast_observations_20260925": {
+    "status": "ZERO_CORPUS_AND_AFFECTED_NATIVE_PASS_FULL_PUBLISHED_CI_PENDING",
+    "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+    "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+      "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+      "exit_code": 0,
+      "seconds": 92.54,
+      "log_file": "forecast-observation-frozen-zero.log",
+      "log_bytes": 136803,
+      "log_sha256": "d3b9389f70d381aa145170152ca0ccfe0a6f78efac531aa871c440859f0fca6a",
+      "tests": 1138,
+      "pass": 1138,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "corpus": {
+        "head": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "clean_after": true
+    },
+    "affected_native": [
+      {
+        "command": "node sales-forecast-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.35,
+        "log_file": "forecast-observation-frozen-sales-forecast-test.js.log",
+        "log_bytes": 162,
+        "log_sha256": "0016bb0b73ba8391154cda987bda0c1b575eeab782298021449c812278c75f21",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-quotas-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.24,
+        "log_file": "forecast-observation-frozen-sales-quotas-test.js.log",
+        "log_bytes": 164,
+        "log_sha256": "e1de957d1760912ffd38514ddcc25e3a2ee2afc317d13a986554e06a17c057f2",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-quotas-api-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 1.72,
+        "log_file": "forecast-observation-frozen-sales-quotas-api-test.js.log",
+        "log_bytes": 152,
+        "log_sha256": "40ebeb598b5e3270dcd2233e9d81dc6a0ad3f9d3874637985354ae9b16c8adc9",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.28,
+        "log_file": "forecast-observation-frozen-sales-scenarios-test.js.log",
+        "log_bytes": 211,
+        "log_sha256": "1879de17b33c911f65baefc821dea98edadb138311d626b9563806f421146562",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-api-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 2.15,
+        "log_file": "forecast-observation-frozen-sales-scenarios-api-test.js.log",
+        "log_bytes": 225,
+        "log_sha256": "329e59583454d2a24b84181677a2f1e6704d11e18beffa081000d06c319bdd48",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-client-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.43,
+        "log_file": "forecast-observation-frozen-sales-scenarios-client-test.js.log",
+        "log_bytes": 343,
+        "log_sha256": "9ea936a3aef18621639da149359b8100ee7ae6e60ff23e2503e29f1d94cb8761",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.26,
+        "log_file": "forecast-observation-frozen-sales-hierarchy-test.js.log",
+        "log_bytes": 295,
+        "log_sha256": "413a7cdf79bc1c1ff2793a5b735862aaf2940bbb022dd0ac0c1cebd5a0dc367e",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-api-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 4.36,
+        "log_file": "forecast-observation-frozen-sales-hierarchy-api-test.js.log",
+        "log_bytes": 272,
+        "log_sha256": "5248efa687d206a33a058293b0f4efadc0dd983ca6d5359973164bd291d5c1ff",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-client-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.45,
+        "log_file": "forecast-observation-frozen-sales-hierarchy-client-test.js.log",
+        "log_bytes": 425,
+        "log_sha256": "abb8d85f486ff1de52f95e30fdf470e728e2c19fe6a7c4f0cd320dde12d1eb30",
+        "clean_after": true
+      },
+      {
+        "command": "node module-access-contracts-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "log_file": "forecast-observation-frozen-module-access-contracts-test.js.log",
+        "log_bytes": 332,
+        "log_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true
+      },
+      {
+        "command": "node business-workspaces-regression-test.js",
+        "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
+        "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
+        "exit_code": 0,
+        "seconds": 0.71,
+        "log_file": "forecast-observation-frozen-business-workspaces-regression-test.js.log",
+        "log_bytes": 254,
+        "log_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true
+      }
+    ],
+    "permanent_new_tests": 16,
+    "new_test_breakdown": {
+      "native_shared_state": 9,
+      "actual_shared_page": 7
+    },
+    "scope": "Forecast filters, readouts, source details, quota reasons and scenario editors use explicit eight-locale bindings with exact currency hundredths and literal source/title/rationale preservation. Current observations require calculation version and authenticated context; native source rows, groups, coverage, categories, quotas, scenario sources/adjustments/totals and hierarchy identity are checked before rendering a save action. Missing, zero, partial and empty cases remain distinct. Recorded decimal probabilities use integer arithmetic to avoid weighted-cent loss near safe integer limits. Version 2 is included in the confirmation basis so previously reviewed arithmetic cannot silently save a different calculation; legacy stored results and receipts stay retained. Scenario input rejects unsupported fractional basis points and amounts instead of silently rounding user assumptions. Uncalculated assumptions block replacement until cleared or their current calculation is saved. Scoped reads and hierarchy node bindings prevent retired responses and mismatched query results. The new browser state asset is served and loaded before its consumers.",
+    "prior_evidence": [
+      {
+        "file": "forecast-observation-before.log",
+        "bytes": 288564,
+        "sha256": "bbdcff2b0d5baa1dceb01a4a1094c4d725bf7d1415baeb8df48f9a18715d0167",
+        "retained_tail": "generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: [WorkspaceView],\n    expected: undefined,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-forecast-observation.test.js:6:1\n✖ forecast pending reads localize without changing filters or issuing new requests (139.183841ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + ''\n  - '⟦sales.forecast.loading:nl-NL⟧'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-observations/zero/sales-forecast-observation.test.js:6:508)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: '',\n    expected: '⟦sales.forecast.loading:nl-NL⟧',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-forecast-observation.test.js:7:1\n✖ an uncalculated scenario draft survives workspace navigation and a replacement baseline query (82.353345ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(scenario)\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-observations/zero/sales-forecast-observation.test.js:7:344)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "forecast-observation-initial.log",
+        "bytes": 1254,
+        "sha256": "d8b896bddcb2e93751519e67795846e18f5e5af0aa9fce2fe7b1d07ca833701b",
+        "retained_tail": "✔ native weighted forecasts retain the nearest cent at the safe-integer boundary for recorded decimal probabilities (38.734358ms)\n✔ forecast fields result money and scenario captions follow all eight locales while preserving literal source and entered assumptions (154.105973ms)\n✔ contradictory forecast totals coverage and expected filters cannot expose a writable calculation (342.49031ms)\n✔ forecast pending reads localize without changing filters or issuing new requests (53.508647ms)\n✖ an uncalculated scenario draft survives workspace navigation and a replacement baseline query (56.99102ms)\nℹ tests 5\nℹ suites 0\nℹ pass 4\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 880.055296\n\n✖ failing tests:\n\ntest at zero/sales-forecast-observation.test.js:7:1\n✖ an uncalculated scenario draft survives workspace navigation and a replacement baseline query (56.99102ms)\n  TypeError: Cannot read properties of undefined (reading 'fire')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-observations/zero/sales-forecast-observation.test.js:7:579)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "forecast-assumption-rounding-before.log",
+        "bytes": 152,
+        "sha256": "22fb8459de10e8be95ab90abec7e204fa3d2dff6b8836a3762e1efa4b0d46420",
+        "retained_tail": "{\"original_percent\":\"0.005\",\"submitted_adjustment\":{\"opportunity_id\":\"6d58de05-d32b-4d8a-b5ab-c2852c05cf18\",\"expected_revision\":1,\"probability_bps\":1}}\n"
+      },
+      {
+        "file": "forecast-draft-navigation-before.log",
+        "bytes": 115,
+        "sha256": "89e1328648e4be39ab47bf2dc168c3ce8e3e5496da3e226db45ab18b12595613",
+        "retained_tail": "{\"entered_title\":\"Literal uncalculated scenario\",\"active_section\":\"OPPORTUNITIES\",\"original_form_connected\":false}\n"
+      }
+    ],
+    "fixture_note": "The shared forecast fixture now propagates input/change events to ancestors so draft-preservation assertions exercise the production form listener. An interim failure caused by the previous non-bubbling fixture is retained. Currency assertions in the existing native scenario test now compare the locale formatter without losing their amount, zero, outside-period, snapshot and source-immutability assertions.",
     "exact_published_full_ci": "PENDING",
-    "remaining": "Forecast and scenario readout/filter/editor localization and typed calculation observations remain open, as does hierarchy definition authoring/reload recovery. These DOM fixtures are not real-browser layout, keyboard or assistive-technology evidence. Wider Run 2 acceptance remains IN_PROGRESS_NOT_ACCEPTED."
+    "remaining": "Hierarchy version authoring still needs native/browser durable recovery and complete eight-locale controls. Its next native checkpoint is isolated in work/run2-hierarchy-recovery. Other shared-domain aggregate rounding/unknown handling and remaining Run 2 gates are not accepted by this forecast-only evidence. Synthetic DOM tests are not browser layout or accessibility acceptance."
   }
 }
