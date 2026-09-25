@@ -5973,45 +5973,8 @@
     },
     {
       "file": "workflow-inspector.js",
-      "sha256": "6e24b47e654bfb870cb10cb56705d854e5e3ac67f59ab326c580b0a9d3358b6f",
-      "items": [
-        {
-          "line": 4,
-          "start": 227,
-          "end": 257,
-          "context": "element_text",
-          "text": "Run en voorwaarden verklaren",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 11,
-          "start": 1284,
-          "end": 1311,
-          "context": "textContent",
-          "text": "Bewaarde run controleren…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 15,
-          "start": 2010,
-          "end": 2032,
-          "context": "element_text",
-          "text": "Stap voor verklaring",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 17,
-          "start": 2720,
-          "end": 2739,
-          "context": "textContent",
-          "text": "Uitlezing gereed.",
-          "parameters": [],
-          "rich_text": false
-        }
-      ]
+      "sha256": "7f9ade565afd4879d55074b4264bc738375fa025c63ba4b44f64460be219e4ec",
+      "items": []
     },
     {
       "file": "workflow-run-zero-client.js",

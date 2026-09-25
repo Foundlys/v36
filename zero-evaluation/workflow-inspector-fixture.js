@@ -1,0 +1,16 @@
+'use strict';
+// Native retained-run inspection in a minimal DOM. No execution/provider/browser proof.
+const fs=require('node:fs'),vm=require('node:vm'),{browserFixture}=require('./dom-fixture'),{WorkspaceView}=require('./workspace-page-fixture'),{FoundlyPlatformCore}=require('../platform-core');
+const clone=value=>JSON.parse(JSON.stringify(value));
+function fixture({failing=false,score=1234,threshold=1000}={}){
+ const f=browserFixture('en-GB'),rows=new Map(),ctx={tenant_id:'inspector_locale_fixture',dealer_id:'default'},actor={id:'inspector_owner',roles:['ADMIN']};let writes=0,effects=0,epoch=0,override=null,hasOverride=false,denied=false;const calls=[],gates=[];
+ const core=new FoundlyPlatformCore({bucket(c,s){const key=JSON.stringify([c,s]);if(!rows.has(key))rows.set(key,[]);return rows.get(key);},persist(){writes++;},executeAutomationAction(){if(failing)throw Object.assign(Error('Fixture action failure'),{code:'RAW_PRIVATE_ACTION_DIAGNOSTIC'});effects++;return {executed:true};}});
+ const workflow=core.defineAutomation(ctx,actor,{name:'Literal <img> workflow',trigger:'custom_event',approval_required:!failing,actions:[{type:'create_task',title:'Literal skipped action',when:{not:{field:'inputs.flag',operator:'eq',value:true}}},{type:'create_task',title:'Literal waiting action',when:{all:[{field:'inputs.flag',operator:'eq',value:true},{any:[{field:'inputs.missing',operator:'exists'},{field:'inputs.score',operator:'gte',value:threshold}]}]}}]}),run=core.runAutomation(ctx,actor,workflow.id,{event_id:'literal-inspection-event'},{inputs:{flag:true,score,unused_private:'Do not expose unused inputs'}});
+ const request=async route=>{calls.push(route);if(denied)throw Object.assign(Error('RAW_PRIVATE_PROVIDER_FAILURE'),{status:denied});const query=Object.fromEntries(new URL(route,'https://fixture.test').searchParams);let value=clone(hasOverride?override:core.inspectAutomationRun(ctx,actor,run.run_id,query));const gate=gates.find(g=>!g.used);if(gate){gate.used=true;gate.started();await gate.promise;}return value;};
+ // Native dispatchEvent runs every listener synchronously; model that for multiple views.
+ f.context.document.dispatchEvent=event=>{for(const handler of f.context.document.handlers[event.type]||[])handler(event);return true;};
+ f.context.document.createElement=tag=>new WorkspaceView(tag);vm.runInContext(fs.readFileSync(require.resolve('../workflow-inspector.js'),'utf8'),f.context);const create=()=>{const ownEpoch=epoch;return f.context.FoundlyWorkflowInspector.create({document:f.context.document,run,request,isActive:()=>ownEpoch===epoch});};const box=create();f.nodes.inspectorBox=box;
+ function hold(){let release,started;const promise=new Promise(resolve=>release=resolve);release.started=new Promise(resolve=>started=resolve);gates.push({promise,started,used:false});return release;}
+ return {...f,i:f.context.FoundlyI18n,box,core,ctx,actor,workflow,run,calls,hold,button:()=>box.querySelector('button'),select:()=>box.querySelector('select'),counts:()=>({writes,effects}),override:value=>{hasOverride=true;override=value;},deny:(status=403)=>{denied=status;},retire:()=>{epoch++;},reopen:()=>{const next=create();f.nodes.nextInspectorBox=next;return next;}};
+}
+module.exports={fixture};

@@ -4118,7 +4118,23 @@
       "log_bytes": 64382,
       "evidence_note": "Frozen implementation source; subsequent prepublication changes are evidence and inventory documentation only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 203,
+      "id": 36117656486,
+      "job_id": 108015423809,
+      "head": "1fcc02ea51f43dc3d12255b28c92434eeed03a47",
+      "tree": "c89cdf5e200f2bca387087a8153ae9485333ee3a",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 546,
+      "zero_pass": 546,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "dba49a41f42a72234dcb6971083a70454d65220fe7e8b84c24d80b62ea863869",
+        "bytes": 334690
+      }
+    },
     "remaining": "Real browser/sessionStorage and native-speaker acceptance remain unverified. Composition cross-reload recovery, specialist/generated/backend localization, specialist/provider authority and profile/OAuth races, receipt retention, invalid limits and broader cognition/demo/industry/adversarial/performance/voice gates remain open. Run 3 has not started.",
     "native_regression": {
       "status": "PASS",
@@ -4127,5 +4143,105 @@
       "log_sha256": "1969e3e0b0682cfc93d2a5b32b51dedd6d0d3f3a1bb64208e3cd17f5ec0500cc",
       "log_bytes": 501
     }
+  },
+  "workflow_inspector_checkpoint": {
+    "recorded_at": "2026-09-25T09:44:33.426215+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 203,
+      "id": 36117656486,
+      "job_id": 108015423809,
+      "head": "1fcc02ea51f43dc3d12255b28c92434eeed03a47",
+      "tree": "c89cdf5e200f2bca387087a8153ae9485333ee3a",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 546,
+      "zero_pass": 546,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "dba49a41f42a72234dcb6971083a70454d65220fe7e8b84c24d80b62ea863869",
+        "bytes": 334690
+      }
+    },
+    "scope": "Read-only retained-run component. Typed run/workflow/version/signature and requested-step binding; current generation and retired-control checks; current access/error clearing; safe localized feedback and retained diagnostic separation; 69 owned catalog rows across eight locales; exact displayed small nonzero numbers. Native inspection/effects API is unchanged.",
+    "permanent_tests": {
+      "file": "zero/workflow-inspector-localization.test.js",
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "fixture": "Actual native core retained run and production component in a minimal DOM; no browser/provider acceptance"
+    },
+    "logs": {
+      "run2-workflow-inspector-before.log": {
+        "sha256": "c8f1368dd82d5bc60275d955c133dcda224989eab633f0f665d20d36cb2244aa",
+        "bytes": 3626,
+        "exit_code": 1
+      },
+      "run2-workflow-inspector-after.log": {
+        "sha256": "622c7e1e4f4d315bf4aef7f25e84c27e95ac56c9d338b0f2b0ca3b22f1e14ddb",
+        "bytes": 617,
+        "exit_code": 0
+      },
+      "run2-workflow-inspector-native-before.log": {
+        "sha256": "01f353b8e5cd5f0703df71a4ab61a1c3990e5c7e7dea6eb254fde96174a78927",
+        "bytes": 220,
+        "exit_code": 1
+      },
+      "run2-workflow-inspector-expanded.log": {
+        "sha256": "b1ece1f77bf57aef2b9177b8f08e8b168fee6efb541da3ae68b65c6743ba902a",
+        "bytes": 3354,
+        "exit_code": 1
+      },
+      "run2-workflow-inspector-expanded-before.log": {
+        "sha256": "424fe2267fa41d7d3d49519eb6e72e3d58f5a9556c0fc9601f8db76642c09e46",
+        "bytes": 9963,
+        "exit_code": 1
+      },
+      "run2-workflow-inspector-precision-before.log": {
+        "sha256": "ec74a7ea42a12498085c38d504a96d80d0b78b5400c0d43b1fc6527a279b6108",
+        "bytes": 921,
+        "exit_code": 1
+      },
+      "run2-workflow-inspector-final.log": {
+        "sha256": "4c880c40d0b4c63785fabd7cb898179020001aa729d59716830d66a18a111a63",
+        "bytes": 1543,
+        "exit_code": 0
+      },
+      "run2-workflow-inspector-native-final.log": {
+        "sha256": "5fe07bd0f02fcb417d4f3fa57d42d48bf57b349240cd40cbecc64fd867da74b4",
+        "bytes": 1162,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "Initial four tests fail before the first fix. Eleven expanded tests also fail against immutable prior published component 1fcc02e loaded by a read-only Node preload; working files were not replaced. The intermediate expanded run has two fixture errors: asynchronous simulated dispatchEvent incorrectly delays the second locale listener, and a generic thrown Error does not set the native retained error code. The fixture now models synchronous native event dispatch and throws an explicit code. Existing native label lookup was adapted to the owned label span and its raw transport-error expectation now requires safe feedback. All native no-write/effect and current-authority assertions remain. A later permanent small-number test fails before maximum-significant-digit formatting.",
+    "native_regression": {
+      "status": "PASS",
+      "command": "node workflow-inspection-test.js && node workflow-inspection-api-test.js && node workflow-inspector-test.js && node workflow-run-query-test.js && node workflow-run-zero-client-test.js",
+      "exit_code": 0
+    },
+    "data_and_diagnostics": "Workflow/source names and condition field paths/strings stay literal text. Internal action error codes remain in the existing native run journal; the screen displays a safe recorded-error description. Rendering never writes, retries, approves or executes an action; no private inputs or new recovery state are stored by this component. Unknown recorded outcomes and missing operands stay distinct from zero.",
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 616,
+      "main_dashboard": 8,
+      "note": "Conservative inventory, not rendered completeness or a PASS gate"
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 558,
+      "pass": 558,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "1b7ce345ed19e54c9db1fb139a8321773f40bf8f",
+      "source_tree": "a30096a50cc8b0e1bc21b88762743e41004fe26b",
+      "log_sha256": "f297563670efcecd408e34b77cdf903c621bd7ffb69fdbf06cdc9045b6507308",
+      "log_bytes": 65816,
+      "evidence_note": "Frozen implementation source; later prepublication changes only record test evidence."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Automation list/filter/step/status, editor/generator/manual execution and other specialist/backend/generated surfaces remain open. Browser/layout/accessibility/native-speaker evidence, broader cognitive/demo/industry/adversarial/performance/voice gates remain unaccepted. No matrix row is promoted; Run 3 has not started."
   }
 }
