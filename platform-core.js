@@ -338,6 +338,7 @@ class FoundlyPlatformCore{
     return verified?{verified:true,record_id:row.id,record_revision:row.revision,record_fingerprint:fingerprint,idempotency_key:key,entity,external_write:false}:key&&records.length===0?{verified:false,absence_verified:true,outcome:'ABSENT',record_fingerprint:fingerprint,idempotency_key:key,entity,external_write:false}:{verified:false,absence_verified:false,external_write:false};
   }
   previewAutomationRecovery(context,principalInput,runId){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return previewRecovery(this,ctx,principal,runId);}
+  recoverAutomationRunRequest(context,principalInput,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return require('./workflow-run-requests').recover(this,ctx,principal,input);}
   recoverAutomation(context,principalInput,runId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return recoverWorkflow(this,ctx,principal,runId,input);}
   setAutomationActivation(context,principalInput,automationId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return setWorkflowActivation(this,ctx,principal,automationId,input);}
   previewAutomationRun(context,principalInput,automationId,input){

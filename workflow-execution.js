@@ -95,6 +95,8 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   let row = rows.find(item => item.automation_id === workflow.id && item.event_id === eventId);
   if (row && (row.request_signature || signature({ workflow: workflow.signature, trigger: row.trigger, inputs: row.inputs })) !== requestSignature) fail('automation_replay_conflict', 'Event-ID heeft andere workflow-invoer');
   if (row && row.actor_id !== actor.id && !actor.permissions.has('*')) fail('automation_run_forbidden', 'Run behoort tot een andere gebruiker', 403);
+  const request=require('./workflow-run-requests').prepare(core,ctx,actor,workflow,eventId,requestSignature,options,row);
+  if(request?.record)return {...request.record,replayed:true,request_acknowledgement:request.envelope};
   if (row?.steps.some(step => step.status === 'RUNNING')) fail('automation_outcome_indeterminate', 'Controleer het resultaat van de onderbroken stap vóór hervatten');
   const resuming = row?.status==='RECOVERY_READY'||row?.status === 'AWAITING_APPROVAL' && options.approval || ['WAITING_TIME','WAITING_RETRY'].includes(row?.status)&&Date.parse(row.next_wakeup_at)<=core.adapter.now().getTime();
   if (row && !resuming) return { ...clone(row), replayed: true };
@@ -110,11 +112,12 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   if (!row) {
     if (rows.length >= 25000) fail('automation_run_capacity', 'Archiveer runs volgens bewaarbeleid', 507);
     row = { run_id: core.adapter.id(), tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, automation_id: workflow.id, workflow_version: workflow.version, event_id: eventId, request_signature: requestSignature, trigger, inputs, steps: [], outputs: [], errors: [], status: 'RUNNING', started_at: core.now(), completed_at: null, actor_id: actor.id, approval: null, replay_safe: true };
-    rows.push(row);
+    if(request)core.moduleMutation(ctx,['automation_runs',require('./workflow-run-requests').NAME],()=>{rows.push(row);request.retain(row);});
+    else rows.push(row);
   }
   if (approval) row.approval = approval;
   row.status = 'RUNNING';
-  core.commit();
+  if(!request)core.commit();
   for (let index = 0; index < workflow.actions.length; index++) {
     const action = workflow.actions[index], type = String(action.type).toLowerCase();
     let step = row.steps.find(item => item.index === index);
@@ -170,6 +173,6 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   queueOwnedEvent(core,ctx,actor,'automation','run',row,'updated');
   core.commit();
   flushOwnedEvents(core,ctx,actor);
-  return clone(row);
+  return {...clone(row),...(request?{request_acknowledgement:request.envelope}:{})};
 }
 module.exports = { matchesCondition:matches,validateCondition,sanitizeAction,AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts,signature };

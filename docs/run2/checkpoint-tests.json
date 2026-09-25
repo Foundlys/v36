@@ -5276,7 +5276,135 @@
       "log_bytes": 81424,
       "evidence_note": "Frozen source; subsequent prepublication edits record evidence only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 212,
+      "id": 36137056201,
+      "job_id": 108077537661,
+      "head": "405e7d88853002e4cef777e0af9cfe465ccfa009",
+      "tree": "0cefd76c924ff90d86d78100dd727442eb37ee64",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 679,
+      "zero_pass": 679,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "0831eec19e9dbd6a5a27c5e2cc9097fa13e4234c174f9183d3b4ababb05a4ccc",
+        "bytes": 390603,
+        "exit_code": 0
+      }
+    },
     "remaining": "Exact run retry can resume a due WAITING_TIME or WAITING_RETRY execution: durable non-executing reconciliation and terminal absent-request closure are the immediate next code-controlled gap. Shared manual/recovery/approval/activation controls and wider Run 2 hard gates remain open. No matrix promotion, production/main/deployment, credentials or Run 3."
+  },
+  "workflow_run_request_recovery_checkpoint": {
+    "recorded_at": "2026-09-25T13:05:30.130363+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 212,
+      "id": 36137056201,
+      "job_id": 108077537661,
+      "head": "405e7d88853002e4cef777e0af9cfe465ccfa009",
+      "tree": "0cefd76c924ff90d86d78100dd727442eb37ee64",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 679,
+      "zero_pass": 679,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "0831eec19e9dbd6a5a27c5e2cc9097fa13e4234c174f9183d3b4ababb05a4ccc",
+        "bytes": 390603,
+        "exit_code": 0
+      }
+    },
+    "scope": "Durable native run request attribution, non-executing current-outcome reconciliation, terminal absent-request closure and actual ZERO control fresh-view recovery. Explicit native manual resume and separate approval preserve their existing semantics.",
+    "native_contract": "Optional native request ID and input hash bind original actor, workflow/version signature, event and canonical run signature. Reference and initial run reserve atomically before effects. Replaying a keyed request, including a newly attributed existing keyless run, only returns its current retained run. The recovery POST never executes, resumes, verifies external effects or flushes events. An absent actor/key is durably closed; a late original key is denied. Missing or changed rows remain unavailable or unverified. ZERO callers lacking a browser ID receive a stable conversation/turn/workflow-derived native key. Current automation authority and both workflow/run capabilities apply.",
+    "client_contract": "Six metadata fields only in actor/realm/workflow-scoped sessionStorage before dispatch. No reason, action content, trigger/input payload, conversation or source result. Initial and recovered acknowledgement binds exact reference/realm/signatures and typed run. Once dispatched, even a 4xx retains attribution; subsequent controls reconcile instead of submitting again. Fresh view recovery preserves new input, suppresses retired/late results, blocks duplicate requests, validates all flags and keeps original references on malformed replies. Known native outcomes survive cleanup failure; missing historical runs remain explicitly unavailable. Invalid or unavailable storage fails before dispatch. Seven new owned rows in eight locales.",
+    "targeted": {
+      "distinct_tests": 42,
+      "pass": 42,
+      "fail": 0,
+      "new_permanent_tests": 21,
+      "files": [
+        "zero/workflow-run-request-recovery.test.js",
+        "zero/workflow-run-client-reload.test.js",
+        "zero/workflow-run-request-recovery-api.test.js"
+      ],
+      "scope": "41 combined focused checks pass; the additionally discovered legacy ZERO retry case fails before correction and passes in the nine-case native rerun. Actual HTTP covers destroyed reply, fresh VM, encrypted restart, due waiting run, EIO reservation and closure rollback, held ZERO body, current capabilities/role after body waits and actor isolation. No actual browser/native-speaker/provider claim."
+    },
+    "failure_history": "Seven initial native cases and six initial fresh-client cases fail before implementation. Initial client implementation passes eleven of twelve combined cases; missing locale entries fail the locale completeness assertion and are supplied. A separate ninth native case proves keyless legacy ZERO turn replay resumed a due run; stable native keys now prevent this. Failed-before logs are preserved. The earlier client-to-HTTP regression now asserts one original ZERO submission plus independent native reconciliation, retaining all one-document/literal-content/history assertions.",
+    "logs": {
+      "run2-workflow-run-request-native-before.log": {
+        "sha256": "96361f3c3774b01429c733cdf6e770a8615cd9248aa3759c860d7864403bf70f",
+        "bytes": 9166,
+        "exit_code": 1
+      },
+      "run2-workflow-run-request-native-after.log": {
+        "sha256": "51b6b2067acd4fe43af0c16dd9d676d41c739564cafd746152472fa002059bbb",
+        "bytes": 974,
+        "exit_code": 0
+      },
+      "run2-workflow-run-request-client-before.log": {
+        "sha256": "44713c335b1dbbdb44c469ea7153a41277fa2b9a338596f75bacb1dfbeaa61e0",
+        "bytes": 4578,
+        "exit_code": 1
+      },
+      "run2-workflow-run-request-client-initial.log": {
+        "sha256": "0b97d30c8bd9fa7eda6409c41dc1a083d2c160df88fd5e01b5faf6641c595a20",
+        "bytes": 2352,
+        "exit_code": 1
+      },
+      "run2-workflow-run-request-client-localized.log": {
+        "sha256": "d1a7493c5aa9ec2b39ee577fab1a133d913752f9ad92e1a2df1983c77e3006c2",
+        "bytes": 1658,
+        "exit_code": 0
+      },
+      "run2-workflow-run-request-http.log": {
+        "sha256": "5bb7d0fed18822877b5798ed9dc11726044f30a4184b949af5aeff2341dd0c35",
+        "bytes": 698,
+        "exit_code": 0
+      },
+      "run2-workflow-run-request-focused.log": {
+        "sha256": "4a3a16d107a9bb2880b7ae842eb438b47f66cae3392d3d781badda416e1179f3",
+        "bytes": 5348,
+        "exit_code": 0
+      },
+      "run2-workflow-run-request-legacy-before.log": {
+        "sha256": "e73058efdc540bac9a9bc500d01fb22b2a7f8717d7212e14c85944942daee429",
+        "bytes": 1107,
+        "exit_code": 1
+      },
+      "run2-workflow-run-request-legacy-after.log": {
+        "sha256": "1648bd1a203cad9935e1b4cdd710bf707a6bb40aff13bf62f9299689059dd1a6",
+        "bytes": 1756,
+        "exit_code": 0
+      },
+      "run2-workflow-run-request-native-final.log": {
+        "sha256": "36e629bba59f2359b1124f60ea35f44708bbc1aa0869576cfb38c4411bfb017e",
+        "bytes": 3323,
+        "exit_code": 0
+      }
+    },
+    "native_regression": {
+      "status": "PASS",
+      "scope": "Native execution, retry, recovery, verified absence, ZERO client/core/member HTTP, native recovery HTTP, authoring/approval/restart HTTP, manual controls and module-access capability gates. ZERO core/member HTTP repeated after legacy-turn correction."
+    },
+    "storage_config": "Additive encrypted platform:automation_run_requests collection, bounded at 10000 actor-scoped references per realm without eviction; no migration/credentials/runtime/production changes. Private operational collection excluded from shared Data. Browser queue bound 100 per actor/workflow. Existing source history is not rewritten. Receipt lifecycle remains a wider open gate.",
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 700,
+      "pass": 700,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "76d01d4f4c14adfaf31f4390848804791411e8d9",
+      "source_tree": "931c73fb7454dafbcdd6e2799815ad02fe1af57f",
+      "log_sha256": "af97d57d8c220ec42712c87253c42156428ba4ec022505950f6649fb5b297de7",
+      "log_bytes": 84078,
+      "evidence_note": "Frozen source; following prepublication edits record evidence only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Shared native manual execution, run recovery/approval/activation confirmation copy, exact uncertain request binding and durable recovery remain code-controlled gaps. Legacy native keyless run API retains explicit resume semantics; ZERO no longer uses it as retry. All wider hard exit gates, eight-locale full-surface acceptance, browser/native speaker/real voice/provider/demo/performance/security gaps remain open. Matrix unchanged. No main/production/deployment or Run 3."
   }
 }
