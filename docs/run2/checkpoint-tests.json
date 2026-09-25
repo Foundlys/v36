@@ -7697,7 +7697,7 @@
   "audience_client_20260925": {
     "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
     "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
-    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE and exact published full CI 227 PASS",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
@@ -7831,6 +7831,139 @@
     ],
     "evidence_notes": "The initial baseline and missing translation proof are preserved. Integrated targeted tests found incorrect selection filter binding and duplicate participant pagination; both product defects are corrected. The denied-page fixture initially assumed an editor remained, whereas actual shared access retirement removes the whole workspace and renders its notice; the final fixture asserts that behavior. One ZERO fixture classified its MEMBERS query HTTP POST as a write; the helper now distinguishes actual mutation operations. A premature full local runner and eight native commands were started before the source freeze, recorded only the old HEAD and are not exact-tree evidence; their logs remain preserved. The full premature run failed the ZERO fixture write count. Only the clean-source verified runner output is accepted here.",
     "scope": "Actual shared audience/member/filter controls and global recovery outside the first visible page. Seven-field metadata contains a participant reference hash, no entered participant, email, permission evidence or reason. Exact native and ZERO acknowledgements, superseded opt-out proof, encrypted restart/fresh VM recovery and durable absence closure. Eight locales preserve field nodes, filter tab and literal input; unknown remains unknown. Current permission denial retires private content, read-only controls cannot write, concurrent pagination is unique, and selection filters match the observed source. Stale forms/replies and storage/cleanup failure are guarded.",
-    "remaining": "Journey definition, activation and execution native/client recovery and localization; other genuinely open Run 2 gates remain unaccepted. Synthetic DOM establishes behavior only, not browser layout, accessibility or responsive acceptance."
+    "remaining": "Journey definition, activation and execution native/client recovery and localization; other genuinely open Run 2 gates remain unaccepted. Synthetic DOM establishes behavior only, not browser layout, accessibility or responsive acceptance.",
+    "published_ci_227": {
+      "published_commit": "cefcaf60d122265302b5b53e70d0e8c4476699ed",
+      "published_tree": "41eb6de2daa773dafba395820ebf7aeec0d47dc7",
+      "ci_merge_commit": "0e03877740430a47964fcf97e05de0b6512ec984",
+      "ci_merge_tree": "41eb6de2daa773dafba395820ebf7aeec0d47dc7",
+      "run_id": 36170455055,
+      "job_id": 108188431328,
+      "run_number": 227,
+      "status": "PASS",
+      "zero_pass": 924,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "3d6fa76f08d8a1f985374eb24a7a8868ae9808dcbee9e4a7ae8c72cde169b4cd",
+      "log_bytes": 490522
+    }
+  },
+  "native_journey_recovery_20260925": {
+    "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+    "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+      "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+      "exit_code": 0,
+      "seconds": 72.92,
+      "log_sha256": "79df15257ab6bbd4064ae0d0bba55ab2c1969f2bd1e77acd02771bd393683918",
+      "log_bytes": 113274,
+      "pass_count": 944,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "marketing-audiences-test.js",
+        "exit_code": 0,
+        "seconds": 0.25,
+        "sha256": "bcdae40df077cebe2044c1fc96188a00c1f7bbbf3788660e01dbaed517058b25"
+      },
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "marketing-journeys-test.js",
+        "exit_code": 0,
+        "seconds": 0.67,
+        "sha256": "26e8bd2d80442ea51a85d673375b68393b83e0c9cf552cb46b3b4fefcb1c9ee8"
+      },
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "marketing-journeys-api-test.js",
+        "exit_code": 0,
+        "seconds": 8.33,
+        "sha256": "df3448a4615f31bb6c14f770ecac303ee2f2d72d93de7e4110076a98c2a90717"
+      },
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "marketing-journeys-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.78,
+        "sha256": "5a95f3fbe54e73dfdecad0dcaa7ed08c0b5916fdc7589895bef7acb80edaaea5"
+      },
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "marketing-journeys-client-test.js --zero",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "sha256": "a25308322103e744a207f99aece818eb48d1d6a0745cd617149a8e53bf84f14a"
+      },
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "marketing-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.19,
+        "sha256": "2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373"
+      },
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.38,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "0225146dfc910d51f3def7503686f408c0e161de",
+        "source_tree": "089f18dba18e2019801aed5436ed93e091b3abc7",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 1.1,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      }
+    ],
+    "permanent_new_tests": 20,
+    "preserved_failures": [
+      {
+        "file": "journey-recovery-before.log",
+        "sha256": "cc663e60cf0e43ab166498308d5793f0cfe6b8eeda381487201342f2b0265f1f",
+        "bytes": 13630,
+        "retained_head": "\u2716 journey definitions bind the exact confirmed reason and retain typed outcome proof through restart (37.822677ms)\n\u2716 a definition ID cannot acknowledge a different reason under a fresh request identity (5.905009ms)\n\u2716 recovering automatic enrollment returns exact current run identities without executing a step (18.276687ms)\n\u2716 advance recovery distinguishes the originally created task from later completed native work and never creates a second task (60.553282ms)\n\u2716 an old task completion replay cannot acknowledge a subsequently reopened task as its original completion (32.131068ms)\n\u2716 pause, resume and cancellation recover original revisions without restoring superseded journey state (17.554072ms)\n\u2716 absent definition, enrollment, advance, task completion and control requests close durably before delayed original bodies arrive (3.640864ms)\n\u2716 journey recovery binds exact metadata and actor and rechecks current source ownership and capabilities (7.673936ms)\n\u2716 journey proof and native mutations roll back together on persistence failure, including durable absence closure (6.265264ms)\n\u2716 legacy and tampered journey receipts cannot acquire invented typed result or side-effect proof (12.521349m",
+        "retained_tail": "Run (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: TypeError: service.recover is not a function\n        at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-journey-fixture.js:11:178)\n        at assert.throws.code (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:12:280)\n        at getActual (node:assert:611:5)\n        at strict.throws (node:assert:759:24)\n        at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:12:267)\n        at Test.runInAsyncScope (node:async_hooks:227:14)\n        at Test.run (node:internal/test_runner/test:1382:25)\n        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n        at Test.postRun (node:internal/test_runner/test:1522:19)\n        at Test.run (node:internal/test_runner/test:1447:12),\n    expected: { code: 'journey_recovery_unverifiable' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-journey-recovery.test.js:13:1\n\u2716 draft preparation recovery verifies exact native output and current communication authority without sending (21.926595ms)\n  TypeError: service.recover is not a function\n      at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-journey-fixture.js:11:178)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:13:205)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "journey-recovery-initial.log",
+        "sha256": "51814e7a0ee53939a3299daac960932862a1041541d58d9a2b99b85c80179d92",
+        "bytes": 3450,
+        "retained_head": "\u2714 journey definitions bind the exact confirmed reason and retain typed outcome proof through restart (42.120694ms)\n\u2714 a definition ID cannot acknowledge a different reason under a fresh request identity (7.054189ms)\n\u2714 recovering automatic enrollment returns exact current run identities without executing a step (19.715637ms)\n\u2714 advance recovery distinguishes the originally created task from later completed native work and never creates a second task (92.12259ms)\n\u2714 an old task completion replay cannot acknowledge a subsequently reopened task as its original completion (42.191741ms)\n\u2714 pause, resume and cancellation recover original revisions without restoring superseded journey state (29.247549ms)\n\u2714 absent definition, enrollment, advance, task completion and control requests close durably before delayed original bodies arrive (128.705169ms)\n\u2714 journey recovery binds exact metadata and actor and rechecks current source ownership and capabilities (15.670132ms)\n\u2714 journey proof and native mutations roll back together on persistence failure, including durable absence closure (11.37508ms)\n\u2714 legacy and tampered journey receipts cannot acquire invented typed result or side-effect proof (20.92088",
+        "retained_tail": "uration_ms 749.8984\n\n\u2716 failing tests:\n\ntest at zero/marketing-journey-recovery.test.js:13:1\n\u2716 draft preparation recovery verifies exact native output and current communication authority without sending (36.164977ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n    Comparison {\n  +   code: 'composition_forbidden'\n  -   code: 'domain_forbidden'\n    }\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:13:421)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: Error: Deze capability is niet toegestaan\n        at fail (/workspace/scratch/foundly-run2/capability-resolver.js:8:70)\n        at requirePermission (/workspace/scratch/foundly-run2/capability-resolver.js:18:82)\n        at BusinessDomain.scope (/workspace/scratch/foundly-run2/business-domains.js:42:59)\n        at BusinessDomain.get (/workspace/scratch/foundly-run2/business-domains.js:101:149)\n        at Object.recover (/workspace/scratch/foundly-run2/marketing-journey-recovery.js:28:23)\n        at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-journey-fixture.js:11:178)\n        at assert.throws.code (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:13:434)\n        at getActual (node:assert:611:5)\n        at strict.throws (node:assert:759:24)\n        at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:13:421),\n    expected: { code: 'domain_forbidden' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "journey-recovery-native-expanded.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "retained_head": "",
+        "retained_tail": ""
+      },
+      {
+        "file": "journey-recovery-native-expanded-repeat.log",
+        "sha256": "99c3959ea6d48a7c53286bb1bb6a5c706fcaf7f3d0467ffbc6b43c0002a05cc0",
+        "bytes": 3775,
+        "retained_head": "\u2714 journey definitions bind the exact confirmed reason and retain typed outcome proof through restart (34.368638ms)\n\u2714 a definition ID cannot acknowledge a different reason under a fresh request identity (5.89635ms)\n\u2714 recovering automatic enrollment returns exact current run identities without executing a step (17.819755ms)\n\u2714 advance recovery distinguishes the originally created task from later completed native work and never creates a second task (80.901109ms)\n\u2714 an old task completion replay cannot acknowledge a subsequently reopened task as its original completion (39.884634ms)\n\u2714 pause, resume and cancellation recover original revisions without restoring superseded journey state (33.851143ms)\n\u2714 absent definition, enrollment, advance, task completion and control requests close durably before delayed original bodies arrive (78.938808ms)\n\u2714 journey recovery binds exact metadata and actor and rechecks current source ownership and capabilities (8.803236ms)\n\u2714 journey proof and native mutations roll back together on persistence failure, including durable absence closure (8.899975ms)\n\u2714 legacy and tampered journey receipts cannot acquire invented typed result or side-effect proof (17.944925m",
+        "retained_tail": "ms 701.275579\n\n\u2716 failing tests:\n\ntest at zero/marketing-journey-recovery.test.js:15:1\n\u2716 journey recovery rechecks capability revocation even for confirmed outcomes (9.497044ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n    Comparison {\n  +   code: 'module_disabled',\n  -   code: 'capability_disabled',\n      statusCode: 403\n    }\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:15:277)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: Error: Marketing is niet actief\n        at fail (/workspace/scratch/foundly-run2/capability-resolver.js:8:70)\n        at CapabilityResolver.assertModule (/workspace/scratch/foundly-run2/capability-resolver.js:87:72)\n        at BusinessDomain.scope (/workspace/scratch/foundly-run2/business-domains.js:42:131)\n        at Object.scope (/workspace/scratch/foundly-run2/marketing-journeys.js:5:54)\n        at Object.recover (/workspace/scratch/foundly-run2/marketing-journey-recovery.js:14:56)\n        at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-journey-fixture.js:11:178)\n        at assert.throws.code (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:15:290)\n        at getActual (node:assert:611:5)\n        at strict.throws (node:assert:759:24)\n        at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-journey-recovery.test.js:15:277),\n    expected: { code: 'capability_disabled', statusCode: 403 },\n    operator: 'throws',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "evidence_notes": "Eleven baseline failures retain missing recovery behavior and reproduced definition-reason and reopened-task replay defects. The initial native suite had one incorrect expected authorization-layer error; permission denial was already effective. The expanded unit run also expected capability_disabled when the fixture disabled the entire module, whose actual error is module_disabled. Two redirected unit logs were empty and are non-conclusive. The final explicit TAP unit capture passes all 14 cases; the frozen full ZERO run includes all 20 new tests and is complete.",
+    "scope": "Six-field actor/tenant scoped journey request metadata, bounded durable receipts and exact original outcome snapshots for immutable definition, enrollment, advance, task completion, pause, resume and cancel. Native task/draft side effects retain separate original and current proof. Superseded task reopening cannot acknowledge old completion; recovery never advances or sends. Current parent/output ownership, module/communication access, exact metadata, immutable history prefixes, native output links and hashes are rechecked. Durable absence closure blocks held native and ZERO bodies; receipt/result/audit/outbox rollback on persistence failure. Real HTTP response loss, encrypted restart and identity revocation during body wait. Legacy receipts never acquire invented typed evidence. ZERO carries explicit native request IDs; existing routes and legacy retries remain compatible when their original result is current.",
+    "remaining": "Journey production controls still need complete localization, browser metadata persistence and typed outcome verification. All other genuinely open Run 2 gates remain unaccepted."
   }
 }
