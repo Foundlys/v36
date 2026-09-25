@@ -11,3 +11,12 @@ Activation/pause predecessor CI 217 completed full regression on the exact publi
 Continue with native result-recovery request/locale controls and the remaining Run 2 gates. This checkpoint is not global acceptance. No production/main merge, deployment, credentials or Run 3 action.
 
 CI 218 is now **PASS**: run `36152660195`, job `108129517279`, published head `2d778ee1081e13f54c85d70bba1fee97c4aa3e2d`. CI merge `fc28c69492a74600ae134450f03517b43135fabb` has the same tree `739084ba33ba4d0b5d006e84a914fa195273523c`. The complete npm log reaches 774 ZERO PASS / zero failures and all 14 corpus cases PASS.
+
+
+## Forecast snapshot browser checkpoint — 2026-09-25
+
+Native snapshot recovery publication `2ce7456` has exact full CI 234 PASS: merge `473544ecf8e9b1f3dce409f2379d6d87cda95ded`, tree `e453f2ae82423f9167ca27e97e50f19d4746f533`, 1099 ZERO plus 14 corpus.
+
+Snapshot browser source `5e9c32378734f4bb9f5d22bffc920d9016b4af68`, tree `17ac548cfc1afaac649716a46afb7f1843fcf110`, passes 1122 ZERO plus 14 corpus and all eleven affected native commands. It adds 23 permanent client/shared-page/HTTP tests and replaces the shared page blind replay with scoped metadata recovery. Failed startup evidence and the unchanged-tree rerun are retained in checkpoint-tests.json. Full exact-published CI is still pending.
+
+Continuation is already isolated in `work/run2-forecast-observations`: forecast readout/filter/scenario localization, typed observation validation and a reproduced large-amount weighted-cent rounding defect. Do not overwrite that newer work or restart discovery. Hierarchy definition recovery and broader Run 2 gates remain open; no final acceptance is claimed.

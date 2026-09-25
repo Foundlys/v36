@@ -8558,7 +8558,7 @@
     }
   },
   "pipeline_browser_20260925": {
-    "status": "LOCAL_ZERO_CORPUS_AFFECTED_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "status": "ZERO_CORPUS_AFFECTED_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
     "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
     "zero": {
@@ -8778,11 +8778,28 @@
         "retained_tail": "form cannot write (59.838271ms)\n✔ read-only pipeline views display literal current records without editor or move authority (53.816992ms)\n✔ pipeline stale-source conflicts retain one request until metadata absence is confirmed and all literal input survives (55.649079ms)\n✔ a failed initial pipeline read leaves a visible retry that can load current data (54.350211ms)\n✔ denial during additional pipeline loading clears unsaved private fields without trapping navigation (191.200984ms)\n✖ fully observed pipeline stages reject invented currency totals and missing-value counts (58.266873ms)\n✖ literal pipeline whitespace remains correctly acknowledged by the native source normalization contract (53.59816ms)\nℹ tests 24\nℹ suites 0\nℹ pass 22\nℹ fail 2\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2859.369142\n\n✖ failing tests:\n\ntest at zero/sales-pipeline-client.test.js:25:1\n✖ fully observed pipeline stages reject invented currency totals and missing-value counts (58.266873ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Current pipeline board loaded.'\n  - 'The received pipeline details could not be verified.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:25:394)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Current pipeline board loaded.',\n    expected: 'The received pipeline details could not be verified.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-pipeline-client.test.js:26:1\n✖ literal pipeline whitespace remains correctly acknowledged by the native source normalization contract (53.59816ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'The result is not yet confirmed. Check the original request.'\n  - 'Pipeline change saved.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:26:396)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'The result is not yet confirmed. Check the original request.',\n    expected: 'Pipeline change saved.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
       }
     ],
-    "published_ci": "PENDING",
-    "remaining": "Sales forecast, scenario and hierarchy production controls remain untranslated and lack complete typed observations and durable browser request recovery. Continue those code-controlled gaps and the remaining authoritative Run 2 gates. DOM fixtures are state evidence, not rendered-browser, responsive, accessibility or native-speaker acceptance. No acceptance matrix status is upgraded."
+    "published_ci": "PASS_233",
+    "remaining": "Sales forecast, scenario and hierarchy production controls remain untranslated and lack complete typed observations and durable browser request recovery. Continue those code-controlled gaps and the remaining authoritative Run 2 gates. DOM fixtures are state evidence, not rendered-browser, responsive, accessibility or native-speaker acceptance. No acceptance matrix status is upgraded.",
+    "published_ci_233": {
+      "run_number": 233,
+      "run_id": 36185875866,
+      "job_id": 108238959241,
+      "conclusion": "success",
+      "published_head": "ee4cef4258484169adb46a680425ed976b581ef0",
+      "ci_merge_commit": "c9005ad0dcbc466e17d5c16a7615094b759067ba",
+      "tree": "b6536bc3810c0d5a07aaadba0aeefbdf5518d65f",
+      "exact_tree_match": true,
+      "zero_tests": 1082,
+      "zero_pass": 1082,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "log_bytes": 555066,
+      "log_sha256": "1ade7ca33570e2a72887fd08547c1aa9be89c71f2a9f97b3a64b80f771e747ab"
+    }
   },
   "forecast_snapshot_native_recovery_20260925": {
-    "status": "LOCAL_ZERO_CORPUS_AFFECTED_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "status": "ZERO_CORPUS_AFFECTED_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
     "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
     "zero": {
@@ -9021,7 +9038,285 @@
     ],
     "scope": "Actor/tenant/dealer/request/basis-bound immutable forecast receipt and metadata-only recovery. Atomic snapshot/journal/event persistence and absence retirement prevent delayed original saves after terminal closure. Native recovery reads the reviewed snapshot and never recalculates newer source values. Snapshot/scenario/hierarchy evidence remains literal, immutable and subject to current source and capability authority. Deleted opportunity or quota sources no longer authorize historical snapshot disclosure. Current immutable-result digest detects changed saved calculations; exact legacy replay remains compatible without inventing modern proof. Request storage is bounded without eviction. Actual HTTP verifies reply loss, encrypted restart, held-body retirement, EIO rollback, identity changes, source ownership loss and encoded-path capability denial. No external action or provider evidence is implied.",
     "fixture_note": "An initial false-confirmation test incorrectly used a helper that always supplies confirm=true; the test now calls the real recovery method directly. Its failure log is retained.",
+    "exact_published_full_ci": "PASS",
+    "remaining": "The original Sales forecast/scenario/hierarchy controls still require durable browser recovery, complete localization, typed calculation validation and lifecycle protection. Snapshot UI continuation is isolated in work/run2-forecast-controls. Wider Run 2 acceptance is unchanged.",
+    "published_ci_234": {
+      "run_number": 234,
+      "run_id": 36187049396,
+      "job_id": 108242913252,
+      "conclusion": "success",
+      "published_head": "2ce745601b732a4a2c3923b5eee28e07cbebc588",
+      "ci_merge_commit": "473544ecf8e9b1f3dce409f2379d6d87cda95ded",
+      "tree": "e453f2ae82423f9167ca27e97e50f19d4746f533",
+      "exact_tree_match": true,
+      "zero_tests": 1099,
+      "zero_pass": 1099,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "log_bytes": 562040,
+      "log_sha256": "13ef45af16e6be5903c9d4b71256bd3e012071a9e59d6d27511d8983a2a4f8e9"
+    }
+  },
+  "forecast_snapshot_browser_20260925": {
+    "status": "ZERO_CORPUS_AND_AFFECTED_NATIVE_PASS_FULL_PUBLISHED_CI_PENDING",
+    "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+    "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+      "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+      "exit_code": 0,
+      "seconds": 95.86,
+      "log_file": "forecast-ui-frozen-recheck-zero.log",
+      "log_bytes": 134841,
+      "log_sha256": "a2562ba396c65475d3dadbff67756bf91f36ba500a67bc633b8421b2b0b616be",
+      "tests": 1122,
+      "pass": 1122,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "corpus": {
+        "head": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "clean_after": true
+    },
+    "affected_native": [
+      {
+        "command": "node sales-forecast-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 0.29,
+        "log_file": "forecast-ui-frozen-sales-forecast-test.js.log",
+        "log_bytes": 162,
+        "log_sha256": "0016bb0b73ba8391154cda987bda0c1b575eeab782298021449c812278c75f21",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-quotas-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 0.64,
+        "log_file": "forecast-ui-frozen-sales-quotas-test.js.log",
+        "log_bytes": 164,
+        "log_sha256": "e1de957d1760912ffd38514ddcc25e3a2ee2afc317d13a986554e06a17c057f2",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-quotas-api-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 3.22,
+        "log_file": "forecast-ui-frozen-sales-quotas-api-test.js.log",
+        "log_bytes": 152,
+        "log_sha256": "40ebeb598b5e3270dcd2233e9d81dc6a0ad3f9d3874637985354ae9b16c8adc9",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 0.57,
+        "log_file": "forecast-ui-frozen-sales-scenarios-test.js.log",
+        "log_bytes": 211,
+        "log_sha256": "1879de17b33c911f65baefc821dea98edadb138311d626b9563806f421146562",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-api-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 3.4,
+        "log_file": "forecast-ui-frozen-sales-scenarios-api-test.js.log",
+        "log_bytes": 225,
+        "log_sha256": "329e59583454d2a24b84181677a2f1e6704d11e18beffa081000d06c319bdd48",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-client-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "log_file": "forecast-ui-frozen-sales-scenarios-client-test.js.log",
+        "log_bytes": 343,
+        "log_sha256": "9ea936a3aef18621639da149359b8100ee7ae6e60ff23e2503e29f1d94cb8761",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 0.39,
+        "log_file": "forecast-ui-frozen-sales-hierarchy-test.js.log",
+        "log_bytes": 295,
+        "log_sha256": "413a7cdf79bc1c1ff2793a5b735862aaf2940bbb022dd0ac0c1cebd5a0dc367e",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-api-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 6.97,
+        "log_file": "forecast-ui-frozen-sales-hierarchy-api-test.js.log",
+        "log_bytes": 272,
+        "log_sha256": "5248efa687d206a33a058293b0f4efadc0dd983ca6d5359973164bd291d5c1ff",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-client-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "log_file": "forecast-ui-frozen-sales-hierarchy-client-test.js.log",
+        "log_bytes": 425,
+        "log_sha256": "abb8d85f486ff1de52f95e30fdf470e728e2c19fe6a7c4f0cd320dde12d1eb30",
+        "clean_after": true
+      },
+      {
+        "command": "node module-access-contracts-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 0.95,
+        "log_file": "forecast-ui-frozen-module-access-contracts-test.js.log",
+        "log_bytes": 332,
+        "log_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true
+      },
+      {
+        "command": "node business-workspaces-regression-test.js",
+        "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+        "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+        "exit_code": 0,
+        "seconds": 1.2,
+        "log_file": "forecast-ui-frozen-business-workspaces-regression-test.js.log",
+        "log_bytes": 254,
+        "log_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true
+      }
+    ],
+    "permanent_new_tests": 23,
+    "new_test_breakdown": {
+      "client": 14,
+      "shared_page": 7,
+      "actual_http": 2
+    },
+    "scope": "Production shared forecast, scenario and hierarchy snapshot save controls preserve title, uncertain request and displayed calculation. Eight-locale save/recovery controls keep input nodes and literal data without requests. Metadata-only session recovery is available before another forecast query; no title, scenario, source rows or request body is persisted in browser storage. Exact acknowledgement, calculation, realm and terminal proof validation prevent blind replay and contradictory success. Dirty or uncertain snapshot forms block tab, filter, scenario and hierarchy replacement. Storage outages recover without discarding entered title; a second panel cannot cause a duplicate action after recovery elsewhere. Real HTTP drops a committed reply, restarts encrypted state and recovers the original calculation in a fresh VM while retaining later source changes separately. Current denial clears private UI and only opaque metadata remains. Asset serving and script order are checked. Native scenario/hierarchy business assertions now run through the actual shared controller; snapshot response-loss checks require one write plus metadata recovery.",
+    "prior_evidence": [
+      {
+        "file": "forecast-client-initial.log",
+        "bytes": 9414,
+        "sha256": "ffe0c08e2f8d4eaec7b2ce8a86cdabaa9f5f5def66765ad0ade224677a24ae84",
+        "retained_tail": "nial clears private title and retained result while preserving only opaque metadata (177.911648ms)\n  TypeError: Cannot set properties of undefined (setting 'value')\n      at Object.fill (/workspace/scratch/foundly-run2-forecast-controls/zero-evaluation/sales-forecast-snapshot-client-fixture.js:6:401)\n      at Object.save (/workspace/scratch/foundly-run2-forecast-controls/zero-evaluation/sales-forecast-snapshot-client-fixture.js:6:564)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-controls/zero/sales-forecast-snapshot-client.test.js:11:173)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/sales-forecast-snapshot-client.test.js:12:1\n✖ forecast context failure leaves a working retry and malformed metadata cannot be discarded by it (102.528377ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'The forecast could not be checked. Try again.'\n  - 'The received forecast confirmation cannot be verified.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-controls/zero/sales-forecast-snapshot-client.test.js:12:203)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'The forecast could not be checked. Try again.',\n    expected: 'The received forecast confirmation cannot be verified.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "forecast-page-before.log",
+        "bytes": 2648,
+        "sha256": "3fbb3e7c224c84b65d8f41528075ad3c687cf58236797d7ec7c770882a2c1b84",
+        "retained_tail": "ntrols/zero/sales-forecast-page-recovery.test.js:3:303)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 2,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-forecast-page-recovery.test.js:4:1\n✖ shared forecast navigation and repeated queries preserve a dirty snapshot title and all eight locale controls (71.701514ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Berekening bewaren'\n  - 'Save calculation'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-controls/zero/sales-forecast-page-recovery.test.js:4:413)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Berekening bewaren',\n    expected: 'Save calculation',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-forecast-page-recovery.test.js:5:1\n✖ a fresh forecast page exposes retained request recovery before any new forecast calculation (69.21208ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-controls/zero/sales-forecast-page-recovery.test.js:5:227)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "forecast-scenario-native-page.log",
+        "bytes": 165,
+        "sha256": "f67009aaeb9c458fe6912674a83cb72444fb34a2d7fb626d47a48fdaf6ca5e8d",
+        "retained_tail": "TypeError: Cannot read properties of undefined (reading 'textContent')\n    at /workspace/scratch/foundly-run2-forecast-controls/sales-scenarios-client-test.js:7:293\n"
+      },
+      {
+        "file": "forecast-ui-frozen-zero.log",
+        "bytes": 134549,
+        "sha256": "210ccd6654445d1d86ada4d67cbd25bf2937e020c542c4bad0e5a7400acad981",
+        "retained_tail": "ents and repeated native layouts (126.545457ms)\n✔ actual ZERO results change eight locales in place while preserving native data, source URLs and per-source verification (96.11884ms)\n✔ blocked-only and empty results have neutral framing; business-shaped objects never become translation bindings (68.653344ms)\n✔ all ZERO state labels and owned details update without emitting telemetry or changing audio state, canonical codes or conversation language (104.706954ms)\n✔ native ZERO execution survives a locale change during the request with one canonical payload and unchanged spoken response (118.030034ms)\n✔ wake-listener status changes locale without starting recognition again or changing its native mode (79.99203ms)\n✔ lost module responses show a translatable uncertain result without raw errors, automatic retry or synthetic speech (87.473168ms)\n✔ owned result fragments preserve leading and trailing source whitespace through repeated locale changes (77.111451ms)\nℹ tests 1122\nℹ suites 0\nℹ pass 1121\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 97893.145906\n\n✖ failing tests:\n\ntest at zero/connector-config-recovery-api.test.js:23:1\n✖ native connector refuses corrupt encrypted state instead of replacing it with an empty configuration (5266.456667ms)\n  Error: Fixture startup timeout: \n      at start (/workspace/scratch/foundly-run2-forecast-controls/zero-evaluation/fixture.js:38:11)\n      at async fixture (/workspace/scratch/foundly-run2-forecast-controls/zero-evaluation/fixture.js:68:7)\n      at async TestContext.<anonymous> (/workspace/scratch/foundly-run2-forecast-controls/zero/connector-config-recovery-api.test.js:24:10)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "forecast-ui-startup-reproduction.log",
+        "bytes": 589,
+        "sha256": "a761aa8db5e419f1d246ac7118aaf3287b89f5dce8487138b70ae019789e6d94",
+        "retained_tail": "✔ native connector receipt survives restart and replays without replacing a newer encrypted configuration (1784.081019ms)\n✔ native connector refuses corrupt encrypted state instead of replacing it with an empty configuration (693.621125ms)\n✔ native connector does not return undeclared or explicitly secret credentials as readable metadata (297.824607ms)\n✔ native credential write recovers an actually dropped HTTP response with one durable revision (1584.051137ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 4494.07035\n"
+      }
+    ],
+    "failed_full_zero": {
+      "command": "npm run test:zero",
+      "source_commit": "5e9c32378734f4bb9f5d22bffc920d9016b4af68",
+      "source_tree": "17ac548cfc1afaac649716a46afb7f1843fcf110",
+      "exit_code": 1,
+      "seconds": 98.19,
+      "log_file": "forecast-ui-frozen-zero.log",
+      "log_bytes": 134549,
+      "log_sha256": "210ccd6654445d1d86ada4d67cbd25bf2937e020c542c4bad0e5a7400acad981"
+    },
+    "failure_note": "The first complete ZERO run passed 1121 of 1122 tests and failed while starting an unrelated connector test server within the existing five-second startup bound. Its corpus did not run. The wrapper then failed to find corpus output; the raw test exit 1 and full failed log were saved before parsing. The unchanged connector file passed all 4 tests alone, and the unchanged frozen source passed the complete ZERO+14 corpus rerun after concurrent native testing ended. No product assertion or timeout was weakened.",
     "exact_published_full_ci": "PENDING",
-    "remaining": "The original Sales forecast/scenario/hierarchy controls still require durable browser recovery, complete localization, typed calculation validation and lifecycle protection. Snapshot UI continuation is isolated in work/run2-forecast-controls. Wider Run 2 acceptance is unchanged."
+    "remaining": "Forecast and scenario readout/filter/editor localization and typed calculation observations remain open, as does hierarchy definition authoring/reload recovery. These DOM fixtures are not real-browser layout, keyboard or assistive-technology evidence. Wider Run 2 acceptance remains IN_PROGRESS_NOT_ACCEPTED."
   }
 }
