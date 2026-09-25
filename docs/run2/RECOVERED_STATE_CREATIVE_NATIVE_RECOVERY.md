@@ -1,0 +1,9 @@
+# Same Run 2: native Marketing creative revision recovery
+
+Frozen source `a065c6bab8678d842501aee258def5bbb3403196`, tree `c902b5232a7e3d3fb00768df452cb480c099969e`: all 826 ZERO tests, 14 corpus cases and seven affected native commands PASS. Twelve new permanent tests include real native/ZERO HTTP, lost completed replies, encrypted restart, storage failure and authenticated body waits. Nine missing-feature failures are retained.
+
+The native receipt binds the original actor, source owner, request key/body fingerprint, source revision and restore choice to the exact retained result snapshot. Version, history, audit, outbox and receipt remain in the existing atomic domain transaction. Recovery observes the original applied revision and reports whether the accessible current record is newer; it does not overwrite or re-execute. An absent request can be durably closed, preventing its delayed original version or restore body from applying. Current authority and source/result ownership precede outcome disclosure. Corrupt history and legacy receipts without complete metadata cannot become invented recovery proof. Capacity remains bounded.
+
+The explicit ZERO version/restore request key now matches the native key, while old ZERO turn-derived keys remain compatible. The new recovery operation uses the same native current-permission policy. Receipts stay excluded from generic snapshots.
+
+The published measurement checkpoint has complete matching CI 221 evidence. This newer native source/evidence requires its own exact published full CI. The current creative-history client has not yet been connected to metadata-only reload recovery; strict response validation, uncertainty handling, stale/denied control safety and eight-locale presentation are the immediate continuation. No client acceptance is claimed by this native checkpoint. All wider unaccepted Run 2 gates remain open; no main merge, deployment, real credentials or Run 3 action.

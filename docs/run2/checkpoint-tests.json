@@ -6904,7 +6904,7 @@
   "marketing_metric_presentation_20260925": {
     "source_commit": "3d751626437782807e6da32ea321eb20d14b5694",
     "source_tree": "b9d9b4a5f38752eb77d71d37bc01d85098e4cd96",
-    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE AND EXACT PUBLISHED FULL CI 221 PASS; wider Run 2 gates remain open",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "3d751626437782807e6da32ea321eb20d14b5694",
@@ -7016,6 +7016,109 @@
     ],
     "scope": "Eight-locale current-source measurement and transport controls; literal input/source retention; exact cents, separate currencies, true zero and unknown, nonzero small ratios; typed query/period/completeness/count/currency/ratio observations; fingerprint/current-source/page/evidence binding; current denial, stale input/error/button and retired-view guards. Actual member HTTP native and ZERO pagination with current capability denial and exclusion of inaccessible source fields.",
     "fixture_corrections": "Native client test now loads the actual i18n and shared DOM fixture, retaining its original source/zero/denial assertions. Initial HTTP fixture used a campaign ID containing spaces that native ingestion normalizes; the selection did not match and correctly returned zero source events. The fixture now supplies a valid canonical campaign ID, retaining all 31-source pagination, money, privacy and current-denial assertions. No production native authorization or source calculations were changed.",
-    "remaining": "Marketing creative history and remaining production localization/state gaps; every wider genuinely open Run 2 gate. Minimal DOM is not browser layout, accessibility or native-speaker acceptance. Native provider/source completeness is still unverified."
+    "remaining": "Marketing creative history and remaining production localization/state gaps; every wider genuinely open Run 2 gate. Minimal DOM is not browser layout, accessibility or native-speaker acceptance. Native provider/source completeness is still unverified.",
+    "published_ci_221": {
+      "published_commit": "9a554e156d0f98c9c6a4b46b406ccb80f404c4c5",
+      "published_tree": "6f0b2c46de883cf43289824b3a490ba2b4ab5b0d",
+      "ci_merge_commit": "83d02279653c368e0e5b70c00f08538e000d7832",
+      "ci_merge_tree": "6f0b2c46de883cf43289824b3a490ba2b4ab5b0d",
+      "run_id": 36158269832,
+      "job_id": 108148117707,
+      "run_number": 221,
+      "status": "PASS",
+      "zero_pass": 814,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "8315f71c623d338c7866da282843795dbaf5ffb84a9a6b75a33c79cd296929b5",
+      "log_bytes": 445708
+    }
+  },
+  "native_creative_recovery_20260925": {
+    "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+    "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+      "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+      "exit_code": 0,
+      "seconds": 59.75,
+      "log_sha256": "672150b4f1a92be5e86ed1756f3c66e4d9fce15839b0f732df56cab6d1cef2d0",
+      "log_bytes": 99012,
+      "pass_count": 826,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+        "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+        "test": "marketing-creative-history-test.js",
+        "exit_code": 0,
+        "seconds": 0.26,
+        "sha256": "893840958facac09683b3a6987cca712089fb63f6c0927afb397bc5dae380697"
+      },
+      {
+        "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+        "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+        "test": "marketing-creative-history-api-test.js",
+        "exit_code": 0,
+        "seconds": 5.52,
+        "sha256": "96c38c6779d2c2725ea51e234cd78b5daf37e93ad9470c1682b6b691e23fc735"
+      },
+      {
+        "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+        "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+        "test": "marketing-creative-history-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "sha256": "64c297f425b488214b902feeb92bee9228605e0257b50716296325bf30799f2a"
+      },
+      {
+        "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+        "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+        "test": "marketing-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.11,
+        "sha256": "2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373"
+      },
+      {
+        "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+        "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+        "test": "marketing-creative-reviews-test.js",
+        "exit_code": 0,
+        "seconds": 0.39,
+        "sha256": "e9b9fb9888d788d5a273a93abf2afcdd9b8404079561924bf17a38bced072e46"
+      },
+      {
+        "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+        "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+        "test": "marketing-creative-reviews-api-test.js",
+        "exit_code": 0,
+        "seconds": 7.55,
+        "sha256": "ba9426e7fe342179561176aadfeaf58bd88cc52300ce6402bdba4fa5ba5c65a8"
+      },
+      {
+        "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
+        "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      }
+    ],
+    "permanent_new_tests": 12,
+    "preserved_failures": [
+      {
+        "file": "creative-recovery-before.log",
+        "sha256": "0381fd122bcd08c50955212471b0a14741faa4c70dcadb90eea8119d62bc0b0d",
+        "bytes": 11587,
+        "retained_head": "\u2716 creative version acknowledgement and recovery bind the original request and retained revision through restart without a second write (16.820019ms)\n\u2716 creative recovery identifies an earlier applied revision while preserving a newer current revision (4.885475ms)\n\u2716 closing an absent creative request is durable and prevents a delayed original write or restore (0.793867ms)\n\u2716 creative request collisions and forged recovery fields never release another request outcome (3.833204ms)\n\u2716 creative recovery and replay recheck original ownership, actor, tenant and current module capability (4.933729ms)\n\u2716 creative write and absent closure roll back record, history, audit, outbox and recovery receipt on persistence failure (2.958338ms)\n\u2716 legacy creative receipts and corrupt retained history cannot be upgraded into recovery proof (2.935794ms)\n\u2716 approved creative forks retain exact parent and result proof without inheriting publication or modifying the original (1.957273ms)\n\u2716 bounded creative recovery retains existing proofs and cannot append a new tombstone past capacity (16.14877ms)\n\u2139 tests 9\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 9\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 288.603153\n\n\u2716 failing tests:\n\ntest at zero/marketing-creative-recovery.test.js:3:1\n\u2716 creative version acknowledgement and recovery bind the original request and retained revision through restart without a second write (16.820019ms)\n  TypeError: Cannot read properties of undefined (reading 'request')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-recovery.test.js:3:260)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)\n\ntest at zero/marketing-creative-recovery.test.js:4:1\n\u2716 creative recovery identifies an earlier applied revision while preserving a newer current revision (4.885475ms)\n  TypeError: history.recover is not a function\n      at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-creative-fixture.js:9:225)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-recovery.test.js:4:302)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (nod",
+        "retained_tail": "undly-run2/zero-evaluation/marketing-creative-fixture.js:9:225)\n        at assert.throws.code (/workspace/scratch/foundly-run2/zero/marketing-creative-recovery.test.js:9:232)\n        at getActual (node:assert:611:5)\n        at strict.throws (node:assert:759:24)\n        at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-recovery.test.js:9:219)\n        at Test.runInAsyncScope (node:async_hooks:227:14)\n        at Test.run (node:internal/test_runner/test:1382:25)\n        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n        at Test.postRun (node:internal/test_runner/test:1522:19)\n        at Test.run (node:internal/test_runner/test:1447:12),\n    expected: { code: 'creative_recovery_unverifiable' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-creative-recovery.test.js:10:1\n\u2716 approved creative forks retain exact parent and result proof without inheriting publication or modifying the original (1.957273ms)\n  TypeError: history.recover is not a function\n      at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-creative-fixture.js:9:225)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-recovery.test.js:10:417)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/marketing-creative-recovery.test.js:11:1\n\u2716 bounded creative recovery retains existing proofs and cannot append a new tombstone past capacity (16.14877ms)\n  TypeError: history.recover is not a function\n      at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-creative-fixture.js:9:225)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-recovery.test.js:11:283)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      }
+    ],
+    "scope": "Atomic native revision acknowledgements and current-owner recovery. Metadata binds original key/body fingerprint/source/revision/restore choice. Read-only APPLIED reconciliation returns exact retained snapshot and separately identifies a newer current revision. NOT_APPLIED closure prevents delayed original version/restore bodies. Native and ZERO explicit request IDs share the same receipt; legacy ZERO turn keys and older saved receipts remain compatible without invented recovery proof. Current module/capability/actor/tenant/source/result ownership, retained-history integrity, capacity, persistence rollback, real lost response, encrypted restart and held authenticated body verified.",
+    "remaining": "The existing creative-history client still needs metadata-only browser reload recovery, strict acknowledgement/response binding, eight-locale presentation and stale/denied controls. This native-only checkpoint does not claim those client gates. Every wider genuinely open Run 2 gate remains open."
   }
 }

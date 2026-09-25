@@ -15,10 +15,11 @@
     if(parts[2]==='audience_activations'&&parts.length===3&&options.method==='POST')action={operation:'ACTIVATE',input};
     if(parts[2]==='journey_runs'&&parts.length>=4)action={operation:parts.length===4?'JOURNEY_READ':'JOURNEY_'+parts[4].toUpperCase().replace(/-/g,'_'),input:{run_id:parts[3],...input}};
     if(parts[2]==='measurement'&&['query','drilldown'].includes(parts[3]))action={operation:parts[3]==='query'?'METRICS':'SOURCES',input};
+    else if(parts[2]==='creative-requests'&&parts[3]==='recover'&&parts.length===4)action={operation:'CREATIVE_RECOVER',input};
     else if(parts[2]==='creatives'){
      if(parts.length===5&&parts[4]==='revisions')action={operation:'HISTORY',input:{creative_id:parts[3],...Object.fromEntries([...url.searchParams].map(([key,value])=>[key,Number(value)]))}};
-     if(parts.length===5&&parts[4]==='version')action={operation:'VERSION',input:{creative_id:parts[3],...input}};
-     if(parts.length===7&&parts[4]==='revisions'&&parts[6]==='restore')action={operation:'RESTORE',input:{creative_id:parts[3],revision_id:parts[5],...input}};
+     if(parts.length===5&&parts[4]==='version')action={operation:'VERSION',input:{creative_id:parts[3],...input,...(options.headers?.['idempotency-key']?{request_id:options.headers['idempotency-key']}:{})}};
+     if(parts.length===7&&parts[4]==='revisions'&&parts[6]==='restore')action={operation:'RESTORE',input:{creative_id:parts[3],revision_id:parts[5],...input,...(options.headers?.['idempotency-key']?{request_id:options.headers['idempotency-key']}:{})}};
     }
    }
    if(!action)return request(path,options);if(!active())throw Error('Deze Marketing-weergave is niet meer actief.');

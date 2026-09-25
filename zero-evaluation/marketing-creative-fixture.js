@@ -1,0 +1,11 @@
+'use strict';
+const crypto=require('node:crypto'),{BusinessDomain}=require('../business-domains'),{CapabilityResolver}=require('../capability-resolver'),history=require('../marketing-creative-history');
+const clone=value=>JSON.parse(JSON.stringify(value)),hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
+function fixture(){
+ let state=new Map(),disk=null,failure=false;const ctx={tenant_id:'creative-recovery-fixture',dealer_id:'default'},actor={id:'creative-author',roles:['MARKETING']},admin={id:'creative-admin',roles:['SUPER_ADMIN']};
+ const adapter={bucket(c,scope){const key=JSON.stringify([c.tenant_id,c.dealer_id,scope]);if(!state.has(key))state.set(key,[]);return state.get(key);},persist(){if(failure)throw Object.assign(Error('Isolated persistence failure'),{code:'EIO'});disk=JSON.stringify([...state]);},audit(c,a,action,entity,id,detail){this.bucket(c,'platform:audit').push({actor_id:a.id,action,entity,id,detail});},publish(){}};
+ const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['marketing'],expected_revision:0});const core=new BusinessDomain('marketing',adapter,resolver),source=core.save(ctx,actor,'creatives',{title:'Literal original',content:'Literal original content',description:'Literal original description'}).record;
+ const reference=(input,id=source.id,restoreId=null,key=crypto.randomUUID())=>({input,options:{idempotency_key:key},restoreId,id,meta:{request_id:key,request_fingerprint:hash({id,input,restoreId}),source_id:id,expected_revision:input.expected_revision,restore_id:restoreId}}),review=(fields={content:'New literal private content'},extra={})=>reference({expected_revision:source.revision,confirm:true,reason:'Explicit private reason',fields,...extra});
+ return {ctx,actor,admin,adapter,resolver,core,source,reference,review,current:(id=source.id)=>core.get(ctx,actor,'creatives',id),save:r=>history.save(core,ctx,actor,r.id,r.input,r.options,r.restoreId),recover:meta=>history.recover(core,ctx,actor,{...meta,confirm:true}),receipts:()=>adapter.bucket(ctx,history.OPERATIONS),snapshot:()=>JSON.stringify([...state]),fail:value=>failure=value,restart:()=>state=new Map(JSON.parse(disk)),history:id=>history.history(core,ctx,actor,id||source.id)};
+}
+module.exports={fixture,clone,hash};
