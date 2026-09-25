@@ -4771,7 +4771,144 @@
       "log_bytes": 73324,
       "evidence_note": "Frozen implementation source; subsequent prepublication changes record evidence only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 208,
+      "id": 36128174962,
+      "job_id": 108049031729,
+      "head": "01f579e0d09b808e0a95779c07d53b17032ff510",
+      "tree": "c4541775ccd80be0b32d60d45b5184d7555f72fe",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 618,
+      "zero_pass": 618,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "cba9ee3d843024b66a5c117f745e54233f274d821d5c21a25369e0d07630f171",
+        "bytes": 364359
+      }
+    },
     "remaining": "Durable browser-reload attribution/terminal recovery of uncertain ongoing draft edits and workflow publication; shared automation lists/run/approval/activation/recovery controls; specialist/generated/backend copy and existing wider Run 2 hard gates. No matrix row promoted. Minimal DOM is not rendered browser, accessibility or native-speaker acceptance. No credentials, destructive migration, production mutation, main merge, deployment or Run 3."
+  },
+  "workflow_editor_write_recovery_checkpoint": {
+    "recorded_at": "2026-09-25T11:42:36.662018+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 208,
+      "id": 36128174962,
+      "job_id": 108049031729,
+      "head": "01f579e0d09b808e0a95779c07d53b17032ff510",
+      "tree": "c4541775ccd80be0b32d60d45b5184d7555f72fe",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 618,
+      "zero_pass": 618,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "cba9ee3d843024b66a5c117f745e54233f274d821d5c21a25369e0d07630f171",
+        "bytes": 364359
+      }
+    },
+    "scope": "Durable keyed native editor and ZERO draft-write reconciliation after a fresh editor; publication reload recovery remains the next open gap.",
+    "native_contract": "Optional actor-scoped request ID, draft ID, expected revision and exact request hash bind metadata-only receipts atomically with native draft/audit. Recover a still-current owned revision or durably close an absent key; delayed same-key writes are rejected. Changed/missing/legacy outcomes stay explicit. Independent keys remain independent; capacity preserves earlier evidence. Private journal is excluded from generic Data. Existing keyless/native generated-draft recovery remains compatible.",
+    "client_contract": "Seven new owned rows across all eight locales. Scoped session storage retains only four-field request metadata before native or ZERO writes. Fresh editor validates native realm/owner/revision/hash before offering the recovered draft. Malformed/unavailable storage blocks effects. Forged/retired/denied replies retain evidence. Superseded outcomes are not released as old requests; independent drafts can continue. Known native outcomes survive metadata-cleanup failure. Definitive invalid input can be corrected with a new request identity.",
+    "targeted": {
+      "tests": 50,
+      "pass": 50,
+      "fail": 0,
+      "new_permanent_tests": 19,
+      "files": [
+        "zero/workflow-draft-write-recovery.test.js",
+        "zero/workflow-editor-reload.test.js",
+        "zero/workflow-editor-write-recovery-api.test.js"
+      ],
+      "scope": "Seven new native, nine fresh-VM editor, three actual HTTP tests; nineteen existing editor integrity, five locale and seven session tests retained."
+    },
+    "logs": {
+      "run2-workflow-draft-write-recovery-before.log": {
+        "sha256": "cd74b94723f249a0befc08ef92abd19cda4638d5df5f4a082c692b8737732038",
+        "bytes": 10951,
+        "exit_code": 1
+      },
+      "run2-workflow-draft-write-recovery-after.log": {
+        "sha256": "6ee94720330ae3ebb0dfc58a459e4ff8f0dfc3fb316afd4df92c53606554304b",
+        "bytes": 1038,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-reload-before.log": {
+        "sha256": "16f517d2b3030fb4e4d180b60019215d9854ffb81096d00cd6d660d122e2670d",
+        "bytes": 3864,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-write-recovery-focused.log": {
+        "sha256": "038574fd9bf47fb21cf0b52119502c2af9edb66f2d9c88b410db96bd3db26645",
+        "bytes": 5354,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-write-recovery-api.log": {
+        "sha256": "211a2ab2f35d797af8922aa242ee93dbf10f1038a3580c637c8fcf9778665f2d",
+        "bytes": 600,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-invalid-recovery-before.log": {
+        "sha256": "13a7430af0659dbff229d201b0aef2327e75a99c9852ccc24fbfb1bc2e007e41",
+        "bytes": 921,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-invalid-http-before.log": {
+        "sha256": "1513aa48576905586bd1867328037ef3cfc8d0e8dd9141d58b7feb4502246527",
+        "bytes": 1138,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-write-recovery-final.log": {
+        "sha256": "9a066f9a6850d19b645fbdb988b6ec3f7e707719e8a3b6a16a948fbb429a2d1e",
+        "bytes": 6340,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-write-recovery-native-before.log": {
+        "sha256": "f4a69287ee61c0062606d2b56de7fd2255317fd835364e469796a219015e174d",
+        "bytes": 1132,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-write-recovery-native-timing-before.log": {
+        "sha256": "ebc2163e770a345fe35f5175c4b67fb1b77e508687ae486c1a6fd916ddffe9ba",
+        "bytes": 1167,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-write-recovery-native-corrected.log": {
+        "sha256": "ff4a1e323289e9e6f11da45e11c76b5f1216c8ff6c06600ca0eb64e2afa1b213",
+        "bytes": 2901,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "Seven native and five initial fresh-view tests fail before implementation. New invalid-condition fixtures prove HTTP 500 and a trapped uncertain retry; authoring validation now carries 422 so definitive errors can be corrected. Existing authoring API regression exposed a timing-dependent expectation: a restarted WAITING_TIME run may correctly resume after its deadline. The strengthened fixture explicitly waits, asserts AWAITING_APPROVAL with no document effect, approves the exact run, requires completion, then checks terminal replay through restart and unchanged task/document counts. Its intermediate expectation of success before approval failed and is preserved. No product permission or idempotency assertion was waived.",
+    "native_regression": {
+      "status": "PASS",
+      "exit_code": 0,
+      "command": "node workflow-editor-test.js && node workflow-authoring-test.js && node workflow-authoring-api-test.js && node workflow-drafts-test.js && node workflow-drafts-api-test.js && node workflow-zero-test.js && node workflow-zero-api-test.js && node workflow-generator-test.js && node workflow-language-test.js && node workflow-language-api-test.js && node business-workspaces-regression-test.js"
+    },
+    "http_evidence": "Actual editor handlers and browser session module call authenticated HTTP; successful keyed response is destroyed, encrypted server restarts, and a fresh VM recovers without original private input. Actual incomplete PUT arrives only after terminal closure and is refused through restart. Injected EIO rolls terminal closure back. Current member authority is rechecked after an authenticated body wait; foreign owner cannot recover private content.",
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 570,
+      "main_dashboard": 8
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 637,
+      "pass": 637,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "af72944fafc40f6480859cb2e41467d66b260c87",
+      "source_tree": "a47429dc6f187124ce5f2984439c62a058c0c681",
+      "log_sha256": "3382bfced03c0787b25c483a50cdde88e44f99c9f96aac7f5b61bb94dc7b0027",
+      "log_bytes": 75938,
+      "evidence_note": "Frozen source; following prepublication edits record evidence only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Workflow publication browser-reload recovery, shared automation list/manual run/approval/activation/recovery controls and all wider recorded Run 2 gates. Minimal DOM/fresh VM is not real browser, accessibility, native-speaker or live-provider evidence. Matrix unchanged; no main merge, credentials, destructive migration, production/deployment or Run 3."
   }
 }

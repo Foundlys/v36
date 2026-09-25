@@ -9,7 +9,7 @@
     delay:{label:'Wachten',fields:[{key:'seconds',label:'Wachttijd in seconden',type:'number',required:true,min:1,max:2592000}]}
   };
   const operators=['eq','ne','gt','gte','lt','lte','exists','in'];
-  const fail=(message,issue)=>{throw Object.assign(new Error(message),{code:'workflow_draft_invalid',...(issue?{issue}:{})});};
+  const fail=(message,issue)=>{throw Object.assign(new Error(message),{code:'workflow_draft_invalid',statusCode:422,...(issue?{issue}:{})});};
   const integer=(value,min,max,label)=>{const n=Number(value);if(!Number.isInteger(n)||n<min||n>max)fail(`${label}: kies ${min} tot ${max}.`);return n;};
   function validateDraftCondition(condition,depth=0,budget={nodes:0}){
     if(!condition||typeof condition!=='object'||Array.isArray(condition)||depth>5||++budget.nodes>200)fail('Ongeldige conditiegroep.');

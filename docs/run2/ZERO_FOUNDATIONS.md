@@ -618,3 +618,16 @@ The stronger acknowledgement exposed native document content flattening. Native 
 This is retained VM state across a server restart, not browser-reload recovery. Durable editor-update/publication recovery and shared automation controls remain open. The conservative locale inventory is 569 candidates across 47 scripts; the frozen dashboard remains eight. Full current-source ZERO and exact-head CI are pending. Matrix verdicts and the wider hard gates remain unchanged; no real browser/native-speaker claim, main/production mutation, credentials, deployment or Run 3.
 
 The frozen editor-confirmation source `7e51f69` (tree `1131290c05505804dfb48db70c12045e8990501c`) subsequently passed all 618 ZERO tests and all 14 corpus cases. Full npm regression for this source remains pending exact-head CI after publication.
+
+
+## Continued Phase 8: ongoing private draft recovery after reload
+
+CI 208 passed full npm regression on published `01f579e`, including 618 ZERO tests and 14 corpus cases. The next checkpoint retains optional keyed write receipts atomically with private drafts and audit. Current owner, realm, expected revision and exact request fingerprint bind recovery. A still-current draft can be recovered without replaying its body; a closed absent key cannot later apply its delayed request. Missing, superseded and legacy evidence remain explicit. The bounded metadata-only journal is excluded from generic Data, and existing keyless/generator recovery remains compatible.
+
+The editor and ZERO draft save persist four-field metadata before dispatch, partitioned by tenant/dealer/actor. A fresh view validates native recovery before offering an owned draft. Seven additional owned messages cover all eight locales. Unavailable/malformed storage blocks new writes; retired/forged/current-denial responses retain references. Metadata cleanup failure does not undo a known native result. Invalid partial condition input now returns a definite 422, allowing correction rather than trapping an invalid uncertain retry.
+
+Fifty focused tests pass, including nineteen new permanent tests. Actual editor-to-HTTP evidence destroys a committed response, restarts encrypted persistence and recovers in a fresh VM without private body replay. Further HTTP evidence covers EIO rollback, a delayed incomplete PUT after terminal closure and current member authority after a body wait. An existing timing-dependent authoring fixture is strengthened to complete delay and exact approval before requiring terminal replay; its intermediate approval expectation failure remains in the ledger. Full current-source ZERO and exact-head CI remain required.
+
+Fresh VM/session-storage fixtures do not prove actual browser persistence, accessibility or native-speaker acceptance. Publication recovery after browser reload is next; shared automation controls and broader hard gates remain open. Matrix unchanged; no main/production/deployment, credentials, destructive migration or Run 3.
+
+The frozen editor write-recovery source `af72944fafc40f6480859cb2e41467d66b260c87` (tree `a47429dc6f187124ce5f2984439c62a058c0c681`) passed all 637 ZERO tests and all 14 corpus cases. Current-source full npm regression remains pending exact-head CI after publication.

@@ -16,7 +16,7 @@ function validate(action){
   if(typeof action!=='object'||Array.isArray(action)||Object.keys(action).some(k=>!['operation','run_id','input'].includes(k))||typeof action.run_id!=='string'||!/^[A-Za-z0-9_.:-]{1,200}$/.test(action.run_id)||!action.input||typeof action.input!=='object'||Array.isArray(action.input)||Object.keys(action.input).some(k=>k!=='step')||Object.hasOwn(action.input,'step')&&(!Number.isInteger(action.input.step)||action.input.step<0||action.input.step>99))fail('automation_zero_action_invalid','Kies een geldige run en stap');return OPERATIONS.INSPECT_RUN;
  }
  if(!action||typeof action!=='object'||Array.isArray(action)||Object.keys(action).some(key=>!['operation','draft_id','input'].includes(key))||!Object.hasOwn(OPERATIONS,action.operation)||typeof action.draft_id!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/.test(action.draft_id)||!action.input||typeof action.input!=='object'||Array.isArray(action.input)||JSON.stringify(action).length>130000)fail('automation_zero_action_invalid','Kies een geldige workflowconceptactie met expliciete invoer');
- const keys=action.operation==='READ'?[]:action.operation==='GENERATE'?['prompt','expected_revision']:action.operation==='PREVIEW'?['draft','expected_revision']:['draft','expected_revision','preview_fingerprint','confirm','reason'];
+ const keys=action.operation==='READ'?[]:action.operation==='GENERATE'?['prompt','expected_revision']:action.operation==='PREVIEW'?['draft','expected_revision']:['draft','expected_revision','preview_fingerprint','confirm','reason','request_id'];
  if(Object.keys(action.input).some(key=>!keys.includes(key)))fail('automation_zero_action_invalid','Onbekende invoer voor workflowconcept');
  return OPERATIONS[action.operation];
 }
@@ -51,7 +51,7 @@ function execute(drafts,platform,ctx,actor,action,{message,conversation_id,turn_
    if(action.operation==='PREVIEW')value={draft:input.draft,definition,expected_revision:input.expected_revision,preview_fingerprint:fingerprint,executable:false,publication_required:true};
    else{
      if(input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>500||input.preview_fingerprint!==fingerprint)fail('automation_zero_confirmation_invalid','Bevestig het exact voorbereide workflowconcept met een reden');
-     value=drafts.save(ctx,actor,action.draft_id,{draft:input.draft,expected_revision:input.expected_revision},input.expected_revision===0?{preview_fingerprint:fingerprint}:{});
+     value=drafts.save(ctx,actor,action.draft_id,{draft:input.draft,expected_revision:input.expected_revision,...(Object.hasOwn(input,'request_id')?{request_id:input.request_id}:{})},input.expected_revision===0?{preview_fingerprint:fingerprint}:{});
    }
  }
  const answer=action.operation==='SAVE'?'Het private workflowconcept is bewaard. Publicatie, activatie en uitvoering zijn niet uitgevoerd.':action.operation==='READ'?'Het actuele eigen workflowconcept is opgehaald.':'Het workflowconcept is gecontroleerd. Bevestig apart om dit private concept te bewaren.';
