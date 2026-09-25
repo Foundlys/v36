@@ -469,7 +469,7 @@
       for (const category of (connector.category || []).slice(0, 4)) categories.append(node('span', '', category.replaceAll('_', ' ')));
       card.append(categories);
       const facts = node('div', 'connector-facts');
-      for(const [label,value] of [[copy('configuration'),stateText(connector.configuration_state)],[copy('authentication'),stateText(connector.authentication_state)],[copy('probe'),stateText(connector.probe_state)],[copy('last_probe'),time(connector.last_probe)],[copy('latency'),live(()=>typeof connector.latency==='number'&&Number.isFinite(connector.latency)&&connector.latency>=0?i18n().number(connector.latency)+' ms':String(unknown()))],[copy('sync'),stateText(connector.sync_state)],[copy('freshness'),stateText(connector.freshness)],[copy('records'),count(connector.records)]]){
+      for(const [label,value] of [[copy('configuration'),connectorState(connector.configuration_state)],[copy('authentication'),connectorState(connector.authentication_state)],[copy('probe'),connectorState(connector.probe_state)],[copy('last_probe'),time(connector.last_probe)],[copy('latency'),live(()=>typeof connector.latency==='number'&&Number.isFinite(connector.latency)&&connector.latency>=0?i18n().number(connector.latency)+' ms':String(unknown()))],[copy('sync'),connectorState(connector.sync_state)],[copy('freshness'),connectorState(connector.freshness)],[copy('records'),count(connector.records)]]){
         const fact=node('div');fact.append(node('span','',label),node('strong','',value));facts.append(fact);
       }
       card.append(facts);
@@ -549,7 +549,7 @@
   }
 
   function connectorState(value){
-    const keys={NOT_RUN:'not_run',NOT_CONFIGURED:'configuration',AUTHENTICATED_PUBLIC:'public_access',LIVE_REFERENCE:'live_reference',AVAILABLE:'available'};
+    const keys={NOT_RUN:'not_run',AUTHENTICATED_PUBLIC:'public_access',LIVE_REFERENCE:'live_reference',AVAILABLE:'available',RECORDS_AVAILABLE:'retained_records'};
     if(value==='NOT_VERIFIED')return i18n().message('integrations.unproven');if(value==='NOT_CONFIGURED')return i18n().message('integrations.unconfigured');
     if(value==='PASS'||value==='FAIL')return i18n().message(value==='PASS'?'integrations.pass':'integrations.error');
     return keys[value]?copy(keys[value]):stateText(value);
@@ -573,7 +573,7 @@
         detailFact(copy('lifecycle'), connectorState(connector.connection_state)), detailFact(copy('configuration'), connectorState(connector.configuration_state)),
         detailFact(copy('authentication'), connectorState(connector.authentication_state)), detailFact(copy('probe'), connectorState(connector.probe_state)),
         detailFact(copy('sync'), connectorState(connector.sync_state)), detailFact(copy('records'),count(connector.records)),
-        detailFact(copy('last_probe'),connector.last_probe?time(connector.last_probe):copy('not_run')),
+        detailFact(copy('last_probe'),connector.last_probe?time(connector.last_probe):connector.probe_state==='NOT_RUN'?copy('not_run'):unknown()),
         detailFact(copy('latency'),typeof connector.latency==='number'&&Number.isFinite(connector.latency)&&connector.latency>=0?live(()=>i18n().number(connector.latency)+' ms'):unknown()), detailFact(copy('freshness'),connectorState(connector.freshness))
       );
       const labels = ['OVERVIEW', 'CAPABILITIES', 'SETUP', 'AUTHENTICATION', 'DATA', 'SYNC', 'EVENTS', 'ERRORS', 'AUDIT'];
@@ -632,7 +632,7 @@
         node('p','panel-copy',live(()=>copy('connector_scopes',{scopes:(connector.required_scopes||[]).join(', ')||String(copy('connector_no_scopes'))})))
       ]);
       const data=panel('DATA',[detailFact(copy('records'),count(connector.records)),detailFact(copy('freshness'),connectorState(connector.freshness)),detailFact(copy('scope'),connector.tenant_scope),node('p','panel-copy',copy('connector_records_note'))]);
-      const syncPanel=panel('SYNC',[detailFact(copy('sync'),connectorState(connector.sync_state)),detailFact(copy('last_sync'),connector.last_sync?time(connector.last_sync):copy('not_run')),node('p','panel-copy',copy(connector.connection_state==='CONNECTED'?'connector_sync_available':'connector_sync_disabled'))]);
+      const syncPanel=panel('SYNC',[detailFact(copy('sync'),connectorState(connector.sync_state)),detailFact(copy('last_sync'),connector.last_sync?time(connector.last_sync):connector.sync_state==='NOT_RUN'?copy('not_run'):unknown()),node('p','panel-copy',copy(connector.connection_state==='CONNECTED'?'connector_sync_available':'connector_sync_disabled'))]);
       const eventsPanel=panel('EVENTS',[node('div','EmptyState NoDataState',copy('connector_no_events'))]);
       const errors=panel('ERRORS',[connector.safe_error?node('p','connector-safe-error',connector.safe_error):node('div','EmptyState NoDataState',copy('connector_no_errors'))]);
       const audit=panel('AUDIT',[detailFact(copy('contract'),connector.documentation_reference),node('p','panel-copy',copy('connector_audit_note'))]);

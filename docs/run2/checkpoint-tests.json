@@ -3065,6 +3065,65 @@
     "remaining": "Generic connector-runtime sync only fetches data; safe governed ingestion is still CODE_CONTROLLED. Existing integratedSync is a separate older ingestion path and must be reconciled rather than duplicated; it also needs current-principal/atomicity and bounded-count evidence. Connector registry state/count/latency coercions need review. OAuth rollback/configuration concurrency, legacy unguarded edits/deletes, credential-draft recovery after closing/reloading the browser and receipt retention policy remain separate open contracts. Shared workspace section/domain/localization, CRM/Analysis currency metadata, Finance compound writes/report range/schema terminology, generated/backend localization and every-trigger automation remain open along with full cognition/adversarial/performance/demo/voice/browser/native-speaker acceptance.",
     "evidence_limit": "Actual native HTTP/member authorization, encrypted persistence/restart and a dropped socket after native persistence; isolated fixture credentials only. Controller/keyboard checks use the actual production controller with a minimal DOM and do not establish real browser layout, screen-reader, native-speaker, live-provider or overall Run-2 acceptance. Only confirmed nonnegative safe integer ingestion counts can display a successful count; current generic native route provides no such proof.",
     "dynamic_candidates": 674,
-    "current_ci": "PENDING_PUBLICATION"
+    "current_ci": {
+      "number": 192,
+      "id": 36078945131,
+      "job_id": 107896333555,
+      "head": "f6331e8cb72e5f6ca545ad03c1b523d7e9ee9f93",
+      "tree": "6a1d0a37cc5d36fa9d2f23599bda1bcfab19796f",
+      "status": "in_progress",
+      "conclusion": null,
+      "observed_at": "2026-09-25T00:52:40.465633+00:00"
+    }
+  },
+  "connector_registry_observation_checkpoint": {
+    "recorded_at": "2026-09-25T00:52:40.465633+00:00",
+    "prior_published_head": "f6331e8cb72e5f6ca545ad03c1b523d7e9ee9f93",
+    "prior_published_tree": "6a1d0a37cc5d36fa9d2f23599bda1bcfab19796f",
+    "source_sha256": {
+      "foundly-registry.js": "65a316ac116436654b14caca023c4d428c75f834670c58635a64174e81b87b26",
+      "foundly-locales.js": "3d0d3e386112d36ce5c870d350ae0d5cfdac3e33ea5bc0b0c7441d1e5fbedd87",
+      "foundly-workspace.js": "88f0a78df27db636c64be6c841076e03ebb746432455415e7738d2fc4169a3c2",
+      "server.js": "fede5258515161ba17e0cafe0ed3918116713add7f742d5748f7111701562932",
+      "foundly-masterbuild-regression-test.js": "bcada48d3d4aca8dd576a57d358252728b722eacb4885bad220ba00aef7288a3",
+      "zero/module-overlay-localization.test.js": "19e5ff70a5d7d16db41b770aa91622476402f5f15efc876a7e264b680596f0e8",
+      "zero/connector-registry-observation.test.js": "238b6f5cef95593e11477e347b71d66f924e044933b3922d82bb2bd37dda08d0"
+    },
+    "logs": {
+      "run2-connector-registry-before.log": {
+        "exit_code": 1,
+        "sha256": "33068827a820cc36d22c4b4d3957acab8db908c546b1b187336864a84f9140fa",
+        "bytes": 8398
+      },
+      "run2-connector-registry-targeted.log": {
+        "exit_code": 0,
+        "sha256": "fa707dbf94bcc15110124783cb83e6c6ec28d9999da88cff522c6c9007668ecb",
+        "bytes": 4342
+      },
+      "run2-connector-registry-zero.log": {
+        "exit_code": 1,
+        "sha256": "a715609ef9323fec48fcb533c794e0dc6a5afdeadf4c4e51548166d68d73a4fc",
+        "bytes": 53034
+      },
+      "run2-connector-registry-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "9fd09396469816d11f5934e73b274e0519ab0c6f69a5f56d8dd5a148b35bf7d5",
+        "bytes": 53281
+      }
+    },
+    "new_tests": 9,
+    "full_zero_tests": 455,
+    "full_zero_pass": 455,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": "PASS foundly-masterbuild-regression-test.js, including real HTTP source registry counts/navigation/dashboards/encrypted restart with explicitly isolated provider responses.",
+    "before_fix": "Eight of nine new tests failed truthy credential/auth/probe/sync flags, token-only authentication, retained-record sync inference, absent/malformed latency or count coercion, implicit nonsecret fields, unknown configuration/authentication projection and contradictory probe success. One positive control verifies confirmed native booleans and exact zero.",
+    "scope": "Native registry requires explicit booleans for success and does not treat stored tokens or retained source records as proof of authentication/bootstrap/sync. Missing counts stay unknown unless the caller explicitly supplies complete current authorized retained-record coverage; native snapshot does so after its synchronous scoped scan. Invalid counts and latency remain unknown, actual zero is retained. Unknown lifecycle/configuration/authentication have explicit representations, and Source projection preserves unknown flags. Credential fields default to secret. Owned connector state labels and missing timestamp rendering remain explicit and localizable.",
+    "regression_correction": "The first all-ZERO run passed 454/455: the existing overlay test iterates the lifecycle enum and expected a nonexistent overlay.source.unknown key after UNKNOWN was added. The existing production overlay already correctly shows common.unknown. Only the test expectation for explicit UNKNOWN was aligned to that existing correct behavior; frozen main dashboard production code was untouched. Final 455/455 plus 14/14 pass.",
+    "storage_change": "No storage change, migration, credential mutation or deployment. Public metadata enum now includes UNKNOWN; retained-record availability is distinct from proven synchronization.",
+    "remaining": "Generic native sync still fetches without ingestion, and older integratedSync must be reconciled safely, not duplicated. Current-principal checks around provider waits, atomic import/receipt/count bounds, source-of-truth isolation and first authorized bootstrap interaction remain code-controlled gaps. OAuth rollback concurrency, legacy credential caller recovery, shared section/domain localization and wider Run-2 acceptance remain open.",
+    "evidence_limit": "Real registry builders and production controllers plus native masterbuild HTTP with isolated provider fixtures; not live provider, complete ingestion, real browser/accessibility, native-speaker or Run-2 PASS evidence.",
+    "current_ci": "PENDING_PUBLICATION",
+    "dynamic_candidates": 674
   }
 }

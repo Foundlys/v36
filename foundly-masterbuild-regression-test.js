@@ -72,7 +72,7 @@ function put(route, payload, headers = {}) {
 
 function unitContracts() {
   assert.equal(SOURCE_SCHEMA_FIELDS.length, 47);
-  assert.deepEqual(CONNECTOR_LIFECYCLE, ['UNCONFIGURED', 'AWAITING_ACCESS', 'CONFIGURED', 'AUTHORIZING', 'AUTHENTICATED', 'PROBING', 'SYNCING', 'CONNECTED', 'DEGRADED', 'ERROR', 'EXPIRED', 'DISCONNECTED']);
+  assert.deepEqual(CONNECTOR_LIFECYCLE, ['UNCONFIGURED', 'AWAITING_ACCESS', 'CONFIGURED', 'AUTHORIZING', 'AUTHENTICATED', 'PROBING', 'SYNCING', 'CONNECTED', 'DEGRADED', 'ERROR', 'EXPIRED', 'DISCONNECTED', 'UNKNOWN']);
 
   const registry = {
     openai: { naam: 'OpenAI', categorie: 'ai_search', auth: 'api_key', env: ['OPENAI_API_KEY'], modules: ['data'], capabilities: ['reasoning'] },

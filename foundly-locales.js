@@ -1484,6 +1484,7 @@
   rows["workspace.page.not_applicable"]=["Niet van toepassing", "Not applicable", "Nicht zutreffend", "Sans objet", "No aplicable", "Ikke relevant", "Ikke relevant", "Inte tillämpligt"];
   rows["workspace.page.public_access"]=["Publieke toegang", "Public access", "Öffentlicher Zugriff", "Accès public", "Acceso público", "Offentlig adgang", "Offentlig tilgang", "Offentlig åtkomst"];
   rows["workspace.page.live_reference"]=["Actuele referentiebron", "Live reference source", "Aktuelle Referenzquelle", "Source de référence actuelle", "Fuente de referencia actual", "Aktuel referencekilde", "Aktuell referansekilde", "Aktuell referenskälla"];
+  rows["workspace.page.retained_records"]=["Opgeslagen records beschikbaar", "Stored records available", "Gespeicherte Datensätze verfügbar", "Enregistrements stockés disponibles", "Registros guardados disponibles", "Gemte poster tilgængelige", "Lagrede oppføringer tilgjengelige", "Sparade poster tillgängliga"];
   for(const [source,translations]of Object.entries(staticRows)){
     let hash=2166136261;for(let i=0;i<source.length;i++)hash=Math.imul(hash^source.charCodeAt(i),16777619);
     const key='static.'+(hash>>>0).toString(16).padStart(8,'0');if(Object.hasOwn(rows,key))throw Error('static_translation_key_collision');
