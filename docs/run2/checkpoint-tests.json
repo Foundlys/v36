@@ -7547,7 +7547,7 @@
   "native_audience_recovery_20260925": {
     "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
     "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
-    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE and exact published full CI 226 PASS",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
@@ -7677,6 +7677,160 @@
       }
     ],
     "scope": "Native and ZERO member and filter acknowledgements and terminal recovery; exact request fingerprint, actor/realm, original parent/member owner, retained immutable member row or filter snapshot, original vs latest revision, and bounded transactional receipts. Portable metadata stores a subject hash rather than the entered person reference. Later opt-out/filter changes remain current and cannot be overwritten by an old replay. Missing receipt-backed member revisions block selection/list/recovery instead of falling back to an earlier consent. Native hidden newer opt-out suppression remains unchanged. Durable absent-key closure, held original bodies, real lost response, encrypted restart, storage rollback, capability denial and authenticated identity revocation verified. Read observations expose typed pagination/context and current can_write.",
-    "remaining": "Own exact-tree complete full CI pending. Audience client still needs scoped browser recovery, strict presentation and eight-locale input-preserving controls; journey definition/activation/execution and other open production screens remain. Wider Run 2 gates remain unaccepted."
+    "remaining": "Own exact-tree complete full CI pending. Audience client still needs scoped browser recovery, strict presentation and eight-locale input-preserving controls; journey definition/activation/execution and other open production screens remain. Wider Run 2 gates remain unaccepted.",
+    "published_ci_226": {
+      "published_commit": "0efbb5e091bf5610459fa76a7bc18206b00cf819",
+      "published_tree": "900ec36e30b9c5ff45584127c6e9cbfb2df5c76c",
+      "ci_merge_commit": "d1498a189c3d8ccb50e69f0131d587ec57e2cd24",
+      "ci_merge_tree": "900ec36e30b9c5ff45584127c6e9cbfb2df5c76c",
+      "run_id": 36167620096,
+      "job_id": 108179098084,
+      "run_number": 226,
+      "status": "PASS",
+      "zero_pass": 895,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "e28d98eea6f0796a72e7992f78cf3f90f4be12522f728f04de3f05b2dedb4f64",
+      "log_bytes": 479357
+    }
+  },
+  "audience_client_20260925": {
+    "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+    "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+      "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+      "exit_code": 0,
+      "seconds": 91.1,
+      "log_sha256": "0f2b05aa38d8478338703a1b877b36df580bc2a96daebdb3673d5d0296b72c7e",
+      "log_bytes": 110950,
+      "pass_count": 924,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "marketing-audiences-test.js",
+        "exit_code": 0,
+        "seconds": 0.28,
+        "sha256": "bcdae40df077cebe2044c1fc96188a00c1f7bbbf3788660e01dbaed517058b25"
+      },
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "marketing-journeys-test.js",
+        "exit_code": 0,
+        "seconds": 1.22,
+        "sha256": "26e8bd2d80442ea51a85d673375b68393b83e0c9cf552cb46b3b4fefcb1c9ee8"
+      },
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "marketing-journeys-api-test.js",
+        "exit_code": 0,
+        "seconds": 10.93,
+        "sha256": "df3448a4615f31bb6c14f770ecac303ee2f2d72d93de7e4110076a98c2a90717"
+      },
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "marketing-journeys-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "sha256": "5a95f3fbe54e73dfdecad0dcaa7ed08c0b5916fdc7589895bef7acb80edaaea5"
+      },
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "marketing-journeys-client-test.js --zero",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "sha256": "a25308322103e744a207f99aece818eb48d1d6a0745cd617149a8e53bf84f14a"
+      },
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "marketing-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.16,
+        "sha256": "2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373"
+      },
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.42,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "1235daa47e856b131f43962578c84faa0bbf0959",
+        "source_tree": "5958e7f6a65784d1066813412a9d58247560dea9",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 1.75,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      }
+    ],
+    "permanent_new_tests": 29,
+    "preserved_failures": [
+      {
+        "file": "audience-client-before.log",
+        "sha256": "ead24165085b057869d4faaf807113c08974449e4594fedd77b8e579541ee9e9",
+        "bytes": 8334,
+        "retained_head": "\u2716 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (98.045179ms)\n\u2716 uncertain audience writes reconcile only exact metadata and never resend a changed consent body (89.331131ms)\n\u2716 fresh audience clients recover after restart using no literal participant, email, reason or consent evidence in browser storage (91.361299ms)\n\u2716 a member request that never dispatched is durably closed before another body can execute (49.33765ms)\n\u2716 audience source and member lists reject missing results instead of displaying an empty successful editor (54.654198ms)\n\u2716 current audience denial removes retained member selection and source literals (59.499395ms)\n\u2716 audience pagination loads all thirty-one current members without duplicating a concurrent next page (173.059709ms)\n\u2716 read-only audience access displays the source without enabling member writes (73.273463ms)\n\u2716 unavailable browser recovery storage prevents an audience write from dispatching (54.548099ms)\n\u2716 retired audience forms cannot submit after explicit input reset (90.287581ms)\n\u2139 tests 10\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 10\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1195.983412\n\n\u2716 faili",
+        "retained_tail": "ERTION',\n    actual: 2,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-audience-client.test.js:10:1\n\u2716 read-only audience access displays the source without enabling member writes (73.273463ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  false !== true\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:10:200)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-audience-client.test.js:11:1\n\u2716 unavailable browser recovery storage prevents an audience write from dispatching (54.548099ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  1 !== 0\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:11:171)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-audience-client.test.js:12:1\n\u2716 retired audience forms cannot submit after explicit input reset (90.287581ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  1 !== 0\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:12:342)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-client-missing-locales.log",
+        "sha256": "ae4ff9cc280314eb5685ff2da7b739ab2d42af883f857738708b9651a492a5a0",
+        "bytes": 997,
+        "retained_head": "\u2716 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (118.095162ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 358.175826\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-client.test.js:3:1\n\u2716 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (118.095162ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(!f.box.textContent.includes('marketing.audience.'))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:3:705)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n",
+        "retained_tail": "\u2716 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (118.095162ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 358.175826\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-client.test.js:3:1\n\u2716 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (118.095162ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(!f.box.textContent.includes('marketing.audience.'))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:3:705)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-ui-integrated-before.log",
+        "sha256": "cc8ea0e8735a105e949d9f646b40b559f965ddc25a7580ec663fc0de5c86fb14",
+        "bytes": 5397,
+        "retained_head": "\u2714 actual native audience controls recover member and filter outcomes in fresh VMs after encrypted restart (4269.0809ms)\n\u2714 actual ZERO audience controls recover member and filter outcomes in fresh VMs after encrypted restart (3125.834974ms)\n\u2714 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (155.844418ms)\n\u2714 uncertain audience writes reconcile only exact metadata and never resend a changed consent body (118.277553ms)\n\u2714 fresh audience clients recover after restart using no literal participant, email, reason or consent evidence in browser storage (143.096838ms)\n\u2714 a member request that never dispatched is durably closed before another body can execute (60.171333ms)\n\u2714 audience source and member lists reject missing results instead of displaying an empty successful editor (72.994342ms)\n\u2714 current audience denial removes retained member selection and source literals (122.559341ms)\n\u2714 audience pagination loads all thirty-one current members without duplicating a concurrent next page (182.167944ms)\n\u2714 read-only audience access displays the source without enabling member writes (79.190068ms)\n\u2714 unavailable browser recovery storage pre",
+        "retained_tail": "ION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Current audience source loaded.'\n  - 'The received audience details could not be verified.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:22:308)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Current audience source loaded.',\n    expected: 'The received audience details could not be verified.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-audience-client.test.js:23:1\n\u2716 audience pagination rejects a repeated participant even when the later page has a different valid history record (104.156165ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Current audience source loaded.'\n  - 'The received audience details could not be verified.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:23:650)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Current audience source loaded.',\n    expected: 'The received audience details could not be verified.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-audience-page.test.js:6:1\n\u2716 clean audience detail reopen rereads authority and removes private content after denial (121.083833ms)\n  TypeError: Cannot read properties of undefined (reading 'disabled')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-page.test.js:6:628)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "audience-ui-final-targeted.log",
+        "sha256": "c4f41591ab937e7fd57068ff543cf836bfa76ac10ea36c7da8d8ede6cfcff191",
+        "bytes": 3902,
+        "retained_head": "\u2714 actual native audience controls recover member and filter outcomes in fresh VMs after encrypted restart (4198.651973ms)\n\u2714 actual ZERO audience controls recover member and filter outcomes in fresh VMs after encrypted restart (3388.102173ms)\n\u2714 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (305.528261ms)\n\u2714 uncertain audience writes reconcile only exact metadata and never resend a changed consent body (197.169736ms)\n\u2714 fresh audience clients recover after restart using no literal participant, email, reason or consent evidence in browser storage (187.749723ms)\n\u2714 a member request that never dispatched is durably closed before another body can execute (67.256475ms)\n\u2714 audience source and member lists reject missing results instead of displaying an empty successful editor (83.283899ms)\n\u2714 current audience denial removes retained member selection and source literals (69.00452ms)\n\u2714 audience pagination loads all thirty-one current members without duplicating a concurrent next page (101.425361ms)\n\u2714 read-only audience access displays the source without enabling member writes (49.471468ms)\n\u2714 unavailable browser recovery storage pre",
+        "retained_tail": "e recovery cannot discard the original request metadata (50.513888ms)\n\u2714 current denial during audience reconciliation clears private fields but retains attribution (52.210575ms)\n\u2714 confirmed audience metadata cleanup failure cannot dispatch a second mutation (67.773175ms)\n\u2714 late audience write responses from a retired view retain metadata for a fresh explicit recovery (199.668062ms)\n\u2714 read-only audience selection reports unknown permission as exclusion without recording a grant (53.682217ms)\n\u2714 audience selection cannot claim filters that differ from the displayed native audience revision (59.938886ms)\n\u2714 audience pagination rejects a repeated participant even when the later page has a different valid history record (139.646117ms)\n\u2714 shared audience controls localize all eight locales without losing literal input or the dirty close guard (179.337723ms)\n\u2714 shared audience loss recovery sends only metadata and never repeats the changed member body (125.881708ms)\n\u2714 a fresh shared audience page can recover a request outside its visible first page (183.305296ms)\n\u2716 clean audience detail reopen rereads authority and removes private content after denial (79.69962ms)\n\u2139 tests 27\n\u2139 suites 0\n\u2139 pass 26\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 7929.188964\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-page.test.js:6:1\n\u2716 clean audience detail reopen rereads authority and removes private content after denial (79.69962ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(f.content.textContent.includes(f.i.t('common.access_denied')))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-page.test.js:6:729)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-ui-client-complete.log",
+        "sha256": "c4e4586bcb086ddeb13ff17483d121d79834ed4f0598f2d08ffbac4e7f2e0c50",
+        "bytes": 3362,
+        "retained_head": "\u2714 audience owned controls localize in all eight locales while preserving literal member input and unknown consent (118.936713ms)\n\u2714 uncertain audience writes reconcile only exact metadata and never resend a changed consent body (81.13767ms)\n\u2714 fresh audience clients recover after restart using no literal participant, email, reason or consent evidence in browser storage (117.318434ms)\n\u2714 a member request that never dispatched is durably closed before another body can execute (59.28197ms)\n\u2714 audience source and member lists reject missing results instead of displaying an empty successful editor (49.727443ms)\n\u2714 current audience denial removes retained member selection and source literals (55.85723ms)\n\u2714 audience pagination loads all thirty-one current members without duplicating a concurrent next page (110.351493ms)\n\u2714 read-only audience access displays the source without enabling member writes (58.207309ms)\n\u2714 unavailable browser recovery storage prevents an audience write from dispatching (53.04923ms)\n\u2714 retired audience forms cannot submit after explicit input reset (47.276408ms)\n\u2714 native audience filter controls reconcile the exact revision and preserve pending tab input through every loc",
+        "retained_tail": "ing tab input through every locale (89.374464ms)\n\u2714 superseded consent recovery presents the newer opt-out while keeping newer unsent input (49.684955ms)\n\u2714 audience acknowledgements reject a changed native reason despite a self-consistent result hash (45.672681ms)\n\u2714 contradictory audience recovery cannot discard the original request metadata (49.806002ms)\n\u2714 current denial during audience reconciliation clears private fields but retains attribution (77.372632ms)\n\u2714 confirmed audience metadata cleanup failure cannot dispatch a second mutation (52.855391ms)\n\u2714 late audience write responses from a retired view retain metadata for a fresh explicit recovery (119.304963ms)\n\u2714 read-only audience selection reports unknown permission as exclusion without recording a grant (48.02467ms)\n\u2714 audience selection cannot claim filters that differ from the displayed native audience revision (53.324339ms)\n\u2714 audience pagination rejects a repeated participant even when the later page has a different valid history record (85.652875ms)\n\u2714 native exact audience member and filter acknowledgements complete without a recovery write (53.593793ms)\n\u2716 ZERO exact audience member and filter acknowledgements complete without a recovery write (56.88352ms)\n\u2139 tests 23\n\u2139 suites 0\n\u2139 pass 22\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1821.004359\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-client.test.js:25:32\n\u2716 ZERO exact audience member and filter acknowledgements complete without a recovery write (56.88352ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  3 !== 2\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:25:682)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 3,\n    expected: 2,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-ui-frozen-zero.log",
+        "sha256": "c286a492eeb54b5cddb4f181434394620da833380e345ff9661186d597114414",
+        "bytes": 110504,
+        "retained_head": "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n\n> foundly-os@6.0.0 test:zero\n> node --test zero/*.test.js && node zero-evaluation/run.js\n\n\u2714 real specialist API uses native composition, owned plans, revalidation and encrypted replay (5507.073316ms)\n\u2714 source-verified plans store only receipts and replay without retaining private source content (12.661336ms)\n\u2714 plans cannot expose hidden tools, expand identity, cross tenants, create loops or duplicate steps (2.139237ms)\n\u2714 independent source verification rejects fabricated success and changed source values (0.885348ms)\n\u2714 revocation while a tool is pending discards its output (6.486154ms)\n\u2714 cancellation ends a pending read and restart does not silently repeat a plan (3.092351ms)\n\u2714 source budget aborts before oversized context is handed to another worker (1.128726ms)\n\u2714 Analysis action details and confirmation change all locales in place while literal evidence and exact native approval requests remain unchanged (235.721896ms)\n\u2714 Analysis proposal editing, reviewer selection, validation and preview preserve authored values across locale changes without extra writes (135.029095ms)\n\u2714 a denied",
+        "retained_tail": "ce rows and quotes formula-shaped source strings without converting amounts (69.852491ms)\n\u2714 a late export observation cannot release records after another current read denies access (89.416956ms)\n\u2714 parameterised text fragments preserve links, literal replacements and repeated native layouts (141.726358ms)\n\u2714 actual ZERO results change eight locales in place while preserving native data, source URLs and per-source verification (96.361041ms)\n\u2714 blocked-only and empty results have neutral framing; business-shaped objects never become translation bindings (61.374872ms)\n\u2714 all ZERO state labels and owned details update without emitting telemetry or changing audio state, canonical codes or conversation language (69.544631ms)\n\u2714 native ZERO execution survives a locale change during the request with one canonical payload and unchanged spoken response (56.760923ms)\n\u2714 wake-listener status changes locale without starting recognition again or changing its native mode (47.803765ms)\n\u2714 lost module responses show a translatable uncertain result without raw errors, automatic retry or synthetic speech (76.047123ms)\n\u2714 owned result fragments preserve leading and trailing source whitespace through repeated locale changes (55.487067ms)\n\u2139 tests 924\n\u2139 suites 0\n\u2139 pass 923\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 84249.230112\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-client.test.js:25:32\n\u2716 ZERO exact audience member and filter acknowledgements complete without a recovery write (96.450651ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  3 !== 2\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-client.test.js:25:682)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 3,\n    expected: 2,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-ui-native-frozen-results.json",
+        "sha256": "9094bf4d70ab320e9d43d54051e2c09d387dbe777aa37a11ced41a5e31918eff",
+        "bytes": 2457,
+        "retained_head": "[\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-audiences-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 0.42,\n    \"sha256\": \"bcdae40df077cebe2044c1fc96188a00c1f7bbbf3788660e01dbaed517058b25\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-journeys-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 0.68,\n    \"sha256\": \"26e8bd2d80442ea51a85d673375b68393b83e0c9cf552cb46b3b4fefcb1c9ee8\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-journeys-api-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 7.84,\n    \"sha256\": \"df3448a4615f31bb6c14f770ecac303ee2f2d72d93de7e4110076a98c2a90717\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-journeys-client-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 0.49,\n    \"sha256\": \"5a95f3fbe54e73dfdecad0dcaa7ed08c0b5916fdc7589895bef7a",
+        "retained_tail": "g-journeys-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 0.68,\n    \"sha256\": \"26e8bd2d80442ea51a85d673375b68393b83e0c9cf552cb46b3b4fefcb1c9ee8\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-journeys-api-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 7.84,\n    \"sha256\": \"df3448a4615f31bb6c14f770ecac303ee2f2d72d93de7e4110076a98c2a90717\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-journeys-client-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 0.49,\n    \"sha256\": \"5a95f3fbe54e73dfdecad0dcaa7ed08c0b5916fdc7589895bef7acb80edaaea5\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-journeys-client-test.js --zero\",\n    \"exit_code\": 0,\n    \"seconds\": 0.64,\n    \"sha256\": \"a25308322103e744a207f99aece818eb48d1d6a0745cd617149a8e53bf84f14a\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"marketing-zero-client-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 0.14,\n    \"sha256\": \"2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"module-access-contracts-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 0.47,\n    \"sha256\": \"2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e\"\n  },\n  {\n    \"source_commit\": \"b9980be20ec29eb855cccd3435e87b3a53e73b53\",\n    \"source_tree\": \"900ec36e30b9c5ff45584127c6e9cbfb2df5c76c\",\n    \"test\": \"business-workspaces-regression-test.js\",\n    \"exit_code\": 0,\n    \"seconds\": 1.12,\n    \"sha256\": \"35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a\"\n  }\n]\n"
+      }
+    ],
+    "evidence_notes": "The initial baseline and missing translation proof are preserved. Integrated targeted tests found incorrect selection filter binding and duplicate participant pagination; both product defects are corrected. The denied-page fixture initially assumed an editor remained, whereas actual shared access retirement removes the whole workspace and renders its notice; the final fixture asserts that behavior. One ZERO fixture classified its MEMBERS query HTTP POST as a write; the helper now distinguishes actual mutation operations. A premature full local runner and eight native commands were started before the source freeze, recorded only the old HEAD and are not exact-tree evidence; their logs remain preserved. The full premature run failed the ZERO fixture write count. Only the clean-source verified runner output is accepted here.",
+    "scope": "Actual shared audience/member/filter controls and global recovery outside the first visible page. Seven-field metadata contains a participant reference hash, no entered participant, email, permission evidence or reason. Exact native and ZERO acknowledgements, superseded opt-out proof, encrypted restart/fresh VM recovery and durable absence closure. Eight locales preserve field nodes, filter tab and literal input; unknown remains unknown. Current permission denial retires private content, read-only controls cannot write, concurrent pagination is unique, and selection filters match the observed source. Stale forms/replies and storage/cleanup failure are guarded.",
+    "remaining": "Journey definition, activation and execution native/client recovery and localization; other genuinely open Run 2 gates remain unaccepted. Synthetic DOM establishes behavior only, not browser layout, accessibility or responsive acceptance."
   }
 }
