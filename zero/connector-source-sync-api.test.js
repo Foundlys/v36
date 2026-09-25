@@ -57,3 +57,10 @@ test('source import bodies require current connector management and remain hidde
   assert.equal((await f.request('/api/composition','PUT',{entitlements:['crm'],expected_revision:1})).status,200);assert.equal((await f.rows()).length,0,'A retained source must not bypass a disabled owner module through Core Data');
  }finally{await f.close();}
 });
+test('source sync publishes one durable native activity event atomically with its rows and receipt',async()=>{
+ const f=await setup();try{
+  const events=async()=>{const r=await f.request('/api/events');assert.equal(r.status,200);return r.body.events.filter(row=>row.type==='sync'&&row.meta?.connector==='rdw');};
+  f.set({payload:[{id:'activity-source'}]});fs.writeFileSync(f.file('fail-commit'),'fail once');assert.ok((await f.sync('activity-source-page')).status>=500);fs.rmSync(f.file('fail-commit'));assert.equal((await events()).length,0);
+  const committed=await f.sync('activity-source-page');assert.equal(committed.status,200);let rows=await events();assert.equal(rows.length,1);assert.equal(rows[0].meta.proof_id,committed.body.proof_id);assert.equal(rows[0].meta.customer_objects_changed,false);await f.stop();await f.start();assert.deepEqual((await f.sync('activity-source-page')).body,committed.body);assert.equal((await events()).length,1);
+ }finally{await f.close();}
+});

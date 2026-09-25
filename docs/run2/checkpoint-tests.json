@@ -3242,7 +3242,96 @@
     "fixture_corrections": "Early follow-up tests looked for external source envelopes in the canonical-only workspace Data list, then used an incorrect /api/data/data route. The fixture now reads the existing /api/module/data/data contract and verifies its actual retained source rows. The erroneous test attempts are preserved and are not represented as product persistence failures. A correct-path follow-up separately demonstrated real source-text truncation, revision and legacy-replay defects.",
     "remaining": "Provider-specific older bootstrap paths (Meta/Google/LinkedIn/TikTok/Wix), generic native probe authorization/configuration races, unsupported provider JSON/XML/POST mappings, governed promotion into customer objects, first-class workspace source browsing, broader source field/schema localization, browser-reload recovery and receipt retention remain open. No full enterprise migration/Connector Factory or Run 3 is claimed. Credential OAuth rollback/concurrent profile identity handling, legacy unguarded writes/deletes, invalid environment limit validation, Finance compound recovery, CRM/Analysis metadata and the larger cognition/adversarial/performance/demo/voice/browser/native-speaker gates remain code-controlled or honestly externally unverified as recorded.",
     "evidence_limit": "Real HTTP, identities, composition, encrypted persistence and restart; controlled provider response/DNS/disk/socket boundaries are explicit isolated fixtures with no live provider evidence. Current Data source envelopes are read through the existing module Data API; the canonical-record workspace list is not claimed to include them. Page persistence does not establish full provider synchronization, customer truth, browser accessibility, voice or Run-2 PASS.",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 194,
+      "id": 36104155322,
+      "job_id": 107972858175,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "161e2ae190a237fba5d4bf0773ccad476fa3f6e9",
+      "tree": "c007e2c0fc6e91af8f74d8529c766d196572bfca",
+      "full_npm_test": "FAIL",
+      "first_failure": "smoke-test.js used a singular health/ping object as a provider record page; the explicit mapping contract now rejects it with 422. A corrected real HTTP page separately exposed a genuinely missing native sync activity event. Both observations are preserved and corrected without accepting ambiguous provider data."
+    },
     "dynamic_candidates": 674
+  },
+  "connector_probe_authority_checkpoint": {
+    "recorded_at": "2026-09-25T06:56:14.574620+00:00",
+    "prior_published_head": "161e2ae190a237fba5d4bf0773ccad476fa3f6e9",
+    "prior_published_tree": "c007e2c0fc6e91af8f74d8529c766d196572bfca",
+    "prior_ci": {
+      "number": 194,
+      "id": 36104155322,
+      "job_id": 107972858175,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "161e2ae190a237fba5d4bf0773ccad476fa3f6e9",
+      "tree": "c007e2c0fc6e91af8f74d8529c766d196572bfca",
+      "full_npm_test": "FAIL",
+      "first_failure": "smoke-test.js used a singular health/ping object as a provider record page; the explicit mapping contract now rejects it with 422. A corrected real HTTP page separately exposed a genuinely missing native sync activity event. Both observations are preserved and corrected without accepting ambiguous provider data."
+    },
+    "source_sha256": {
+      "connector-source-sync.js": "e326e4fbf616e1e6ded1fa5a348402dac92e05b420327211fc45298cf8ef3993",
+      "server.js": "09f87fc85f440d489a167df184b34a5a9ba698c959f2fe75d5c28f62751ffef9",
+      "foundly-workspace.js": "7a1ce0674930e57bcd0c0119e09e8d8eebf85b1dfc5d0e2c9c1fc84bbbd65ec9",
+      "smoke-test.js": "d5ee28b7efc8c2842637eeae886390e148ffce4b2b7619f90ca4fdbd2f71800a",
+      "zero-evaluation/connector-source-fixture.js": "45675c6442fb0ce55358b32b3241aee3262e1e73fd2eb87654a456bfe33c73c0",
+      "zero/connector-probe-authority-api.test.js": "269b9c0d40dceb2e4bf36742464381b281dc44c9247444ee92733bec6eee5075",
+      "zero/connector-source-sync-api.test.js": "795de857dbe2d08d49d6353b67a414dfa640f7e37b0b4a44a23a7ae5b95e7845",
+      "zero/workspace-connector-integrity.test.js": "e3410ee6db98e99f89d1551638e33514679fefac3a3b8b439b24e6b0349ecabe"
+    },
+    "logs": {
+      "run2-connector-source-ci194.log": {
+        "exit_code": 1,
+        "sha256": "768aebbc432af845a7124b4874d99141120283349676529a59aa936f9facb082",
+        "bytes": 16130
+      },
+      "run2-connector-smoke-before.log": {
+        "exit_code": 1,
+        "sha256": "479d29c8bc2b5b59eccbde76828ca8d7a12017a94b3370f68d5c2bfc6a7ff943",
+        "bytes": 861
+      },
+      "run2-connector-smoke-record-page-before.log": {
+        "exit_code": 1,
+        "sha256": "d4bf69f119b5fb74e658864acd54d2dfcf9c8819e4fd504a61b5d9fe5f86208e",
+        "bytes": 947
+      },
+      "run2-connector-probe-before.log": {
+        "exit_code": 1,
+        "sha256": "eb3aa29e7c8f46a0c68a2070b4e0e3fa547ab2e64e5eec418b63fbe0360b3786",
+        "bytes": 6847
+      },
+      "run2-connector-probe-activity-before.log": {
+        "exit_code": 1,
+        "sha256": "2383b6b80310a5e1d5f0929963287864bb2dc11bef11e49cbeb2c82e7c485403",
+        "bytes": 1869
+      },
+      "run2-connector-smoke-after.log": {
+        "exit_code": 0,
+        "sha256": "ddffcc39602b77a0f2007193d4593a7a22e4e479f5cde9c7b6c590e25ae40c1a",
+        "bytes": 376
+      },
+      "run2-connector-probe-targeted.log": {
+        "exit_code": 0,
+        "sha256": "ac36dbb7c27d440df5a298b97efb50a0587787274d8b88f0e1f10fb7387afd58",
+        "bytes": 3792
+      }
+    },
+    "new_tests": 9,
+    "targeted_tests": 33,
+    "targeted_pass": 33,
+    "full_npm_test": "RUNNING: immutable source tree in /workspace/scratch/foundly-run2, exec session 75192; not accepted",
+    "full_zero_tests": null,
+    "full_zero_pass": null,
+    "corpus_pass": null,
+    "corpus_total": 14,
+    "before_fix": "Seven native probe tests failed current rights/configuration, owner-module access or missing revision binding. An actual-controller test failed obsolete probe revision handling. Correcting the smoke fixture to supply explicit real HTTP source records exposed a separate missing sync activity event, reproduced by a native disk-failure/restart/replay test. No failure was waived.",
+    "scope": "Generic native runtime probes capture a configuration/profile observation, recheck current authorization after DNS before provider request release, and recheck authorization and configuration after the response. Stale configurations return 409 and revoked rights or disabled owning modules cannot receive a successful old observation. Successful observations carry the exact configuration revision; the actual workspace controller refuses another revision and suppresses replies superseded by a concurrent save. Provider HTTP failure remains explicit. Source rows, receipts, audit and native sync activity now commit atomically; disk failures roll activity back and durable request replay does not duplicate it. The smoke test still rejects an ambiguous ping object and positively verifies two actual source envelopes from a local HTTP page.",
+    "storage_change": "No new storage format, migration or credential change. Adds the existing activity:system bucket to the scoped atomic source-import mutation. The restored activity states source records stored with source_complete:false and customer_objects_changed:false. No production action, main merge or deployment.",
+    "remaining": "Legacy integration-test/provider-specific and bulk status paths still require current authorization/configuration review. Credential/profile identity isolation, OAuth rollback races, legacy unguarded writes/deletes, invalid source capacity configuration, provider-specific import adapters, governed customer-object promotion, first-class workspace source browsing, browser-reload recovery and wider shared section/domain/generated copy remain open. The full semantic/cognitive/demo/industry/adversarial/performance/voice/browser/native-speaker gates remain as recorded.",
+    "evidence_limit": "Native HTTP, real isolated identities/composition/encrypted storage and restart plus controlled DNS/provider/disk/socket fixtures. A local HTTP smoke provider is synthetic data. No real-provider, native browser/layout/accessibility/listening or native-speaker acceptance is established.",
+    "current_ci": "PENDING_PUBLICATION",
+    "dynamic_candidates": 674,
+    "expected_zero_tests": 474
   }
 }

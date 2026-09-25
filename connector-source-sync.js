@@ -47,10 +47,10 @@ class ConnectorSourceSync{
   }
   if(rows.length+created>this.capacity||receipts.length>=200000)fail('connector_sync_storage_capacity',507);
   const result={ok:true,id,request_id:key,proof_id:hash([ctx.tenant_id,ctx.dealer_id,actor.id,id,key]),configuration_revision:config.revision,ingested:unique.size,received:list.length,duplicate_items:list.length-unique.size,created,updated,unchanged,target:'data',source_class:'EXTERNAL_PROVIDER_OBSERVATIONS',source_complete:false,customer_objects_changed:false,observed_at:at};
-  return scopedMutation(this.adapter,ctx,['data',RECEIPTS,'platform:audit'],()=>{
+  return scopedMutation(this.adapter,ctx,['data',RECEIPTS,'platform:audit','activity:system'],()=>{
    for(const {index,row}of prepared){if(index<0)rows.push(row);else rows[index]=row;}
    receipts.push({actor_id:actor.id,connector_id:id,request_id:key,request_fingerprint:fingerprint,configuration_fingerprint:config.fingerprint,result:clone(result)});
-   this.adapter.audit(ctx,actor,'CONNECTOR_SOURCE_IMPORTED','connector_source_observation',result.proof_id,{connector_id:id,ingested:result.ingested,created,updated,unchanged,customer_objects_changed:false});return result;
+   this.adapter.audit(ctx,actor,'CONNECTOR_SOURCE_IMPORTED','connector_source_observation',result.proof_id,{connector_id:id,ingested:result.ingested,created,updated,unchanged,customer_objects_changed:false});this.adapter.activity(ctx,{connector:id,ingested:result.ingested,target:'data',proof_id:result.proof_id,source_complete:false,customer_objects_changed:false});return result;
   });
  }
  latest(ctx,id){const row=this.adapter.bucket(ctx,RECEIPTS).findLast(row=>row.connector_id===id);if(!row||row.configuration_fingerprint!==this.configuration(ctx,id).fingerprint)return null;return {observed_at:row.result.observed_at,ingested:row.result.ingested,proof_id:row.result.proof_id};}

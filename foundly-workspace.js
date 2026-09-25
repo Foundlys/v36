@@ -671,10 +671,11 @@
 
   async function testConnector(connectorId) {
     const key='test:'+connectorId;if(connectorActions.has(key))return;connectorActions.add(key);
-    const session=connectorSession,current=()=>!session||session.current();
+    const session=connectorSession?.id===connectorId?connectorSession:null,ticket=connectorView,revision=session?.revision??null,current=()=>session?session.current()&&session.revision===revision:ticket===connectorView;
     try{
       const result=await request(`/api/connector-runtime/test/${encodeURIComponent(connectorId)}`,{method:'POST',body:'{}'});if(!current())return;
-      const connected=result?.ok===true&&result.connector?.id===connectorId&&result.connector.connected===true;
+      const observedRevision=result?.connector?.configuration_revision;
+      const connected=result?.ok===true&&result.connector?.id===connectorId&&result.connector.connected===true&&Number.isSafeInteger(observedRevision)&&observedRevision>=0&&(revision===null||observedRevision===revision);
       const smtp=result?.ok===true&&connectorId==='email'&&result.connector?.id==='email'&&result.connector.authenticated===true&&result.connector.authentication_verified===true&&result.connector.tls_verified===true&&result.external_send===false&&result.connector.connected===false&&result.connector.mailbox_access_verified===false&&result.connector.send_verified===false;
       toast(copy(connected?'connector_probe_pass':smtp?'connector_smtp_verified':'connector_probe_unconfirmed'),!connected&&!smtp);await reloadRegistries();
     }catch(error){if(current()&&!error.stale)toast(friendlyError(error),true);}finally{connectorActions.delete(key);}

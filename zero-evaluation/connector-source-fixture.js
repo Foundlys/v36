@@ -8,7 +8,7 @@ const file=name=>path.join(dir,name),config=()=>JSON.parse(fs.readFileSync(file(
 dns.lookup=async host=>{if(host==='source-sync.fixture.test'&&config().dns_wait){fs.writeFileSync(file('dns-started'),'lookup observed');for(let n=0;!fs.existsSync(file('dns-release'));n++){if(n>250)throw Error('Isolated DNS wait expired');await new Promise(resolve=>setTimeout(resolve,20));}}return [{address:'93.184.216.34',family:4}];};
 globalThis.fetch=async(url,options={})=>{
  const u=new URL(String(url));if(u.hostname!=='source-sync.fixture.test')return new Response('UNVERIFIED ISOLATED PROVIDER',{status:401});
- if(u.pathname==='/health')return new Response('{}',{status:200});
+ if(u.pathname==='/health'&&!config().probe)return new Response('{}',{status:200});
  const c=config(),n=Number(fs.existsSync(file('fetches'))?fs.readFileSync(file('fetches'),'utf8'):0);fs.writeFileSync(file('fetches'),String(n+1));fs.writeFileSync(file('started'),'request observed');
  if(c.wait)for(let i=0;!fs.existsSync(file('release'));i++){if(i>250||options.signal?.aborted)throw Error('Isolated transport wait expired');await new Promise(resolve=>setTimeout(resolve,20));}
  return new Response(c.raw??JSON.stringify(c.payload),{status:c.status||200,headers:{'content-type':'application/json'}});
