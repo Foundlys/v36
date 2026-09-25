@@ -79,8 +79,9 @@ async function call(route, authenticated = true) {
     const account=financePresentation.nodes.financePnl.children[0].children[0];
     assert.equal(account.textContent,'4000 · Literal private <img> account');
     assert.equal(account.children.length,0,'Finance source text must remain inert');
-    assert.equal(financePresentation.context.money(null),financePresentation.i.t('common.unknown'));
-    assert.equal(financePresentation.context.money(-1),financePresentation.i.currencyCents(-1,'EUR'));
+    assert.equal(financePresentation.context.money(null,'EUR'),financePresentation.i.t('common.unknown'));
+    assert.equal(financePresentation.context.money(-1,'EUR'),financePresentation.i.currencyCents(-1,'EUR'));
+    assert.equal(financePresentation.context.money(-1),financePresentation.i.t('common.unknown'));
     // Exercise the actual Analysis renderer: translated empty-source states and
     // literal DOM text are behavioral contracts, not a particular helper name.
     const presentation=require('./zero-evaluation/analysis-page-fixture').fixture();
@@ -119,7 +120,16 @@ async function call(route, authenticated = true) {
     assert.equal(result.response.status, 200);
     const finance = JSON.parse(result.text);
     assert.equal(finance.no_fake_data, true);
-    assert.equal(finance.widgets.find(widget => widget.id === 'revenue').value_cents, 0);
+    assert.equal(finance.currency, null);
+    assert.equal(finance.widgets.find(widget => widget.id === 'revenue').value_cents, null);
+    assert.equal(finance.widgets.find(widget => widget.id === 'revenue').available, false);
+    assert.deepEqual(finance.currency_groups, []);
+    const entityResponse = await fetch(base + '/api/finance/legal-entities', {method:'POST',headers:{authorization:auth,'content-type':'application/json'},body:JSON.stringify({name:'Observed empty EUR ledger',legal_form:'BV',currency:'EUR'})});
+    assert.equal(entityResponse.status,201);
+    const configured = JSON.parse((await call('/api/finance/dashboard')).text);
+    assert.equal(configured.currency,'EUR');
+    assert.equal(configured.widgets.find(widget=>widget.id==='revenue').value_cents,0);
+    assert.equal(configured.widgets.find(widget=>widget.id==='revenue').available,true);
 
     console.log(JSON.stringify({
       ok: true,

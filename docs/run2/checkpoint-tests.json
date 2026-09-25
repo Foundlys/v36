@@ -2757,11 +2757,12 @@
     "current_ci": {
       "number": 189,
       "id": 36074197182,
-      "status": "in_progress",
-      "conclusion": null,
+      "job_id": 107881654034,
+      "status": "completed",
+      "conclusion": "success",
       "head": "d57644908f68c6a72f016f426cd3491c38c5e0fb",
       "tree": "fde24f2f0bfa0e7029ad3333a00783de7142c000",
-      "full_npm_test": "PENDING"
+      "full_npm_test": "PASS"
     }
   },
   "workspace_knowledge_observation_checkpoint": {
@@ -2833,6 +2834,131 @@
     "storage_change": "None. Historical records remain intact. Existing numeric zero confidence is not retrospectively reclassified because its original input cannot be recovered. No backfill, migration, credential or production change.",
     "remaining": "Native Finance mixed-currency reporting/posting and workspace currency metadata are next to reproduce. Knowledge mutation atomicity/uncertain-write recovery is not established by this read-observation checkpoint. Shared workspace section/domain/connector-detail and generated/backend localization, browser-reload retries, every-trigger automation dispatch and wider cognition/adversarial/performance/demo/voice acceptance remain open.",
     "evidence_limit": "Actual native core and member HTTP, real encrypted restart and 105 real native knowledge writes beyond the 100-row preview. No synthetic browser/provider or broad acceptance claims. Existing platform/masterbuild accessibility labels remain fixture/source checks.",
+    "dynamic_candidates": 707,
+    "current_ci": {
+      "number": 190,
+      "id": 36074895947,
+      "job_id": 107883787414,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "f5b3ab334da71359b3aa265b8571badeca9e7dd5",
+      "tree": "b1f7bc3e834ddbcbf898e22de7fae88ab405ba71",
+      "full_npm_test": "PASS"
+    }
+  },
+  "finance_currency_observation_checkpoint": {
+    "recorded_at": "2026-09-25T00:16:05.729642+00:00",
+    "prior_published_head": "f5b3ab334da71359b3aa265b8571badeca9e7dd5",
+    "prior_published_tree": "b1f7bc3e834ddbcbf898e22de7fae88ab405ba71",
+    "prior_ci": {
+      "number": 190,
+      "id": 36074895947,
+      "job_id": 107883787414,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "f5b3ab334da71359b3aa265b8571badeca9e7dd5",
+      "tree": "b1f7bc3e834ddbcbf898e22de7fae88ab405ba71",
+      "full_npm_test": "PASS"
+    },
+    "preserved_local_implementation_commit": "59c2899",
+    "source_sha256": {
+      "finance-core.js": "06346d7bde4a172f33d5c355b725aa75c4346f3d5b8231f902ef489e6ef96052",
+      "finance-reports.js": "3d36bb216d44b9566a69f8820e4a35bfab219fa484d86ec88baa9a9840d9bedf",
+      "finance-script.js": "2db229e8e4fb06c0d9dbefda0b6546e57c25afc74d08ffe6002a51e150bd65ad",
+      "server.js": "521e37745570ba726d0e008a17e5e72db46758436234a6465bc4b6438499f62d",
+      "business-workspaces-regression-test.js": "248bc4bf5ea1e6df8e5dbde0a0bc4686b3c72c6d5616e05823d095deab1175a6",
+      "zero/finance-currency-integrity.test.js": "1bc43a3f9eb2bfea1ad7601943c378e313bfe3fba4f08fb238471a118146a74f",
+      "zero/localization.test.js": "c32a3096c66cdb624eb7f326a10f8ae2d68576b899665c68d56d31440e364aaa",
+      "zero/finance-page-localization.test.js": "0e9b6663378159251845b708fea507f8c00b79b00e80cf376556c46f9d2e97db"
+    },
+    "logs": {
+      "run2-finance-currency-before.log": {
+        "exit_code": 1,
+        "sha256": "71e91d5915fe0224c1e80c061785f9f712efb9daac4bae7f9f9e2bad91ac8925",
+        "bytes": 10495
+      },
+      "run2-finance-amount-bounds-before.log": {
+        "exit_code": 1,
+        "sha256": "1fba03f62dd2e467f1b58d250068229bede942ca7f73845e07d45cef0b82dfc5",
+        "bytes": 1964
+      },
+      "run2-finance-currency-followup-before.log": {
+        "exit_code": 1,
+        "sha256": "c7633f7caa7968b889e4445c53fb8716036653647e62625de278324f784456a8",
+        "bytes": 3034
+      },
+      "run2-finance-currency-sources-before.log": {
+        "exit_code": 1,
+        "sha256": "4b1c0b5e9550ad12f3d06bce19bcb8d26531480d03f54506b0d224c68910586c",
+        "bytes": 2004
+      },
+      "run2-finance-zero-exact-before.log": {
+        "exit_code": 1,
+        "sha256": "a2c43c6e3d7ed4625a2e167e14252c1cd58536e5f500a69f272dee12b45a03ae",
+        "bytes": 996
+      },
+      "run2-finance-currency-verified.log": {
+        "exit_code": 0,
+        "sha256": "4f65c1e96348f586eeaa7ee7eab401f5f0478a37b2781307b9252509e02f9d39",
+        "bytes": 3547
+      },
+      "run2-finance-empty-observation.log": {
+        "exit_code": 0,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      "run2-finance-formatter-final.log": {
+        "exit_code": 0,
+        "sha256": "f1537eaa0eecc02f98d322ea83ab63921df4909580fffc27e7c6a7d385361311",
+        "bytes": 5725
+      },
+      "run2-finance-formatter-native.log": {
+        "exit_code": 1,
+        "sha256": "589ccddd25d32e4fa46fe8cd8d4b04b0dc9dfeeb874e5b58b48d88585ba2fc5b",
+        "bytes": 276
+      },
+      "run2-finance-formatter-native-final.log": {
+        "exit_code": 0,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      "run2-finance-currency-full-regression.log": {
+        "exit_code": 1,
+        "sha256": "e524bd2c939e16dcae6c09a53ef416eb2f9536007d7390fe7eb85ca354f2b626",
+        "bytes": 10325
+      },
+      "run2-finance-currency-full-regression-final.log": {
+        "exit_code": null,
+        "sha256": "e36eef27871f6070cab8372da47da047c2ac937e03a9fa7998326a2ef066157d",
+        "bytes": 34902
+      },
+      "run2-finance-regression-resume.log": {
+        "exit_code": 0,
+        "sha256": "8105072cb7207a4977e55074934c3a427cfd7d455b8ef69c6f93de3496c010a7",
+        "bytes": 154051
+      }
+    },
+    "new_tests": 18,
+    "full_zero_tests": 428,
+    "full_zero_pass": 428,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "full_local_regression": {
+      "status": "ALL_COMMANDS_PASSED_ACROSS_PRESERVED_PREFIX_AND_CHECKPOINTED_CONTINUATION",
+      "initial_command": "npm test",
+      "interrupted": true,
+      "last_confirmed_prefix_command": "node analysis-actions-zero-api-test.js",
+      "resumed_commands": 184,
+      "resumed_exit_codes": "FINAL_ATTEMPT_PER_COMMAND_ZERO; FAILED_ZERO_PHASE_RETAINED",
+      "evidence": "docs/run2/finance-currency-regression.json",
+      "note": "The interrupted npm process has no final exit code and is not itself called a successful run. The preserved sequential prefix plus all remaining composition, spatial and ZERO commands cover the full existing regression. A later isolated formatter regression and native test invocation required explicit currency in the pure helper. Final targeted localization/currency/native business checks cover this bounded amendment; their source hashes and the failed prior attempts are preserved. Exact published-head CI remains required."
+    },
+    "before_fix": "Eighteen new tests reproduce lost/invented currency in accounts, reports, posting, reversal, bank import, counterparty balances, workspace/controller/ZERO; mixed-currency totals; clamped negative revenue; unsafe integers and overflowing sums; incompatible posting/reconciliation; historical conflicts incorrectly showing valid zero in another affected currency; and request currency changes replaying an old result. An additional failing-before assertion within the native HTTP test demonstrates one-cent rounding at Number.MAX_SAFE_INTEGER in ZERO output.",
+    "scope": "Reports expose separate explicit currency groups and no mixed-currency scalar. Exact signed amounts and safe-integer limits are retained. Missing currency, conflicting historical ledger metadata and overflowing aggregates remain unverified; affected entity currencies cannot display a false zero. Native account/chart defaults inherit the configured legal-entity currency. Journal, invoice, payment and reversal paths preserve currency and reject unsupported cross-currency posting without applying an invented FX rate. Bank import binds source content/currency and entity; current reconciliation rejects mismatched currency/entity/direction before effects. Compatible legacy entity/bank receipts replay their observed values. Counterparty balances group by recorded name, direction and currency. Workspace metadata, eight-locale Finance presentation and native ZERO retain explicit currency and every exact cent.",
+    "storage_change": "No migration or destructive backfill. Existing source rows and historical currency conflicts are preserved and exposed as unverified. New request hashes bind additional source facts; compatible historical receipts remain recognized. No new storage bucket, credentials, main merge or production write.",
+    "regression_correction": "The first full local attempt failed an old business-workspace assertion that expected currencyless zero. That assertion was replaced with both unknown-without-currency and actual zero for an explicitly configured empty EUR ledger. Targeted and remaining regression evidence preserve both distinctions; no product defect is waived. The subsequent execution session disappeared during composition tests; no surviving process or terminal exit remained, so the unfinished suffix was resumed with durable per-command outcomes. Its initial ZERO phase passed 427 of 428 tests; an extracted formatter fixture lacked ambient report state. The formatter now requires explicit currency and all related assertions retain both exact EUR when requested and unknown without currency. Final targeted checks and rerun ZERO/corpus pass. A prematurely recorded native recheck exit was corrected to its actual failure, the final legacy invocation was updated and native validation then passed; all failure logs are retained.",
+    "remaining": "Finance compound write atomicity/exact uncertain-response recovery, complete report-range semantics and schema monetary terminology still need separate evidence. CRM/Analysis workspace currency metadata, shared workspace section/domain/connector-detail copy and form integrity, generated/backend localization, browser-reload retry and every-trigger automation dispatch remain open, alongside full cognition/adversarial/performance/demo/voice/browser/native-speaker acceptance.",
+    "evidence_limit": "Actual native core, real member HTTP, encrypted restart and production controller with minimal DOM. Monetary source fixtures are isolated recorded inputs, not customer/provider data. Aggregate scope is retained authorized records; no external-ledger completeness, automatic FX, live provider, browser/accessibility or native-speaker acceptance is inferred.",
     "dynamic_candidates": 707,
     "current_ci": "PENDING_PUBLICATION"
   }

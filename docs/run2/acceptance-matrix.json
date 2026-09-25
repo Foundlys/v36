@@ -1798,7 +1798,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 188 passed exact dashboard-recovery head ac17373d08cad2ec866b73c70ecf46dbc0992394 including full npm test. CI 189 is running for snapshot head d57644908f68c6a72f016f426cd3491c38c5e0fb. The next knowledge-observation checkpoint passes 410 ZERO tests, 14 corpus cases and native platform/masterbuild regressions; own-head CI is pending. Historical failures remain recorded."
+      "note": "CI 189 and 190 passed exact snapshot and knowledge checkpoint heads, including full npm test. Finance corrections pass all existing local regression commands across a preserved prefix and 184 checkpointed continuation commands, including 428 ZERO tests and 14 corpus cases. Its interrupted npm process is not claimed to have a final success exit; published exact-head CI is pending. Historical failures remain recorded."
     },
     {
       "id": "R2-115",
@@ -1923,10 +1923,11 @@
         "zero/workspace-dashboard-authority-api.test.js",
         "zero/workspace-dashboard-recovery-client.test.js",
         "zero/workspace-snapshot-authority-api.test.js",
-        "zero/workspace-knowledge-integrity.test.js"
+        "zero/workspace-knowledge-integrity.test.js",
+        "zero/finance-currency-integrity.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Partial security regression covers current-permission writes/replay, atomic rollback, durable events and source checks. Native snapshots recheck composition/ownership after provider waits; knowledge registry and export now use current native record grants, with native HTTP/restart evidence. Full enumerated Run-2 adversarial acceptance remains open."
+      "note": "Partial security/source regression includes current-permission writes/replay, atomic rollback, durable events, native snapshot/knowledge scope and Finance currency/unsafe amount/current bank-source checks. Native member HTTP and encrypted restart are covered. Full enumerated Run-2 adversarial acceptance remains open."
     },
     {
       "id": "R2-124",
@@ -1953,7 +1954,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-24T23:51:22.910147+00:00",
+  "updated_at": "2026-09-25T00:16:05.729642+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }

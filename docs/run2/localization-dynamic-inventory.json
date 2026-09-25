@@ -462,7 +462,7 @@
     },
     {
       "file": "finance-script.js",
-      "sha256": "63ce836f0b74cadc002ea55977b8b60534272363d8e65f74e4dd6b3ee72be0fd",
+      "sha256": "2db229e8e4fb06c0d9dbefda0b6546e57c25afc74d08ffe6002a51e150bd65ad",
       "items": [
         {
           "line": 19,
@@ -502,8 +502,8 @@
         },
         {
           "line": 59,
-          "start": 7480,
-          "end": 7490,
+          "start": 7492,
+          "end": 7502,
           "context": "textContent",
           "text": "Onbekend",
           "parameters": [],
@@ -511,8 +511,8 @@
         },
         {
           "line": 125,
-          "start": 17329,
-          "end": 17368,
+          "start": 17992,
+          "end": 18031,
           "context": "error_message_requires_control_flow_review",
           "text": "Finance authentication is unavailable",
           "parameters": [],
@@ -520,8 +520,8 @@
         },
         {
           "line": 173,
-          "start": 22148,
-          "end": 22181,
+          "start": 22811,
+          "end": 22844,
           "context": "error_message_requires_control_flow_review",
           "text": "Invalid Finance export response",
           "parameters": [],
