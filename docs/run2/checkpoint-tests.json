@@ -3875,7 +3875,23 @@
       "log_bytes": 61708,
       "evidence_note": "This result covers the frozen implementation source; subsequent changes before publication are evidence documentation only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 201,
+      "id": 36114307384,
+      "job_id": 108004663740,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "400b9f154140e56f9c1326b017ba751393568cc0",
+      "tree": "dc7438217ad1abbdf206ba6786fe7fd179128422",
+      "full_npm_test": "PASS",
+      "zero_tests": 525,
+      "zero_pass": 525,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "25d06b2cc5cf8e078438e2db05baac01bbed8822311c8a8ecbe87cdd5040c147",
+        "bytes": 325806
+      }
+    },
     "dynamic_candidates": 634,
     "evidence_limit": "Minimal DOM fixtures do not establish actual browser/sessionStorage persistence, layout, accessibility or native-speaker quality. Actual dropped HTTP and encrypted restart evidence comes from the independent native tests. External provider/voice/browser acceptance remains unverified.",
     "remaining": "Shared domain forms, specialist/generated/backend copy and broader Phase 8 coverage remain open. Composition recovery across navigation/reload, specialized/bulk provider authority, profile/OAuth races, receipt retention and invalid limits remain code-controlled gaps, along with wider cognitive/semantic/demo/industry/adversarial/performance acceptance. Run 3 has not started.",
@@ -3885,6 +3901,112 @@
       "exit_code": 0,
       "log_sha256": "7d8c576b3e1c6f3cd5f9d791df3974239cee0fcbeafd234cb7790aac4d2817fa",
       "log_bytes": 636
+    }
+  },
+  "workspace_domain_checkpoint": {
+    "recorded_at": "2026-09-25T08:59:43.984831+00:00",
+    "prior_ci": {
+      "number": 201,
+      "id": 36114307384,
+      "job_id": 108004663740,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "400b9f154140e56f9c1326b017ba751393568cc0",
+      "tree": "dc7438217ad1abbdf206ba6786fe7fd179128422",
+      "full_npm_test": "PASS",
+      "zero_tests": 525,
+      "zero_pass": 525,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "25d06b2cc5cf8e078438e2db05baac01bbed8822311c8a8ecbe87cdd5040c147",
+        "bytes": 325806
+      }
+    },
+    "source_sha256": {
+      "business-domains.js": "40b4c1bf469d8a462d1dcfb7eb36c6de13b13902c8efafa1d646ef088e904a91",
+      "foundly-workspace.js": "6d50bd31947afd618a92431c462c80b364df465fe893f7ae357698a8491c4979",
+      "foundly-locales.js": "3e030b2f7847956731a005c13f603bc3fb07aa95c58c25227a2275d17ce478b3",
+      "zero-evaluation/workspace-page-fixture.js": "e3c325b49dce943eb897594e19fd70cb0778964bd69415b766fcb8d3431124bb",
+      "zero-evaluation/workspace-domain-fixture.js": "5da5710e4d20103ecd9679f28d3ed9ec8c4124e1ec5a295b123b69412d3d6cb6",
+      "zero-evaluation/domain-ack-drop.js": "537f58b406e24c4b5358e1628ac1a1553ffafdc13d4b7332e40e67241fcd2357",
+      "zero/domain-request-recovery-api.test.js": "34842d72ec835abf5af4cf6a837fb2443e00e2717e5dd45727437a998b618263",
+      "zero/domain-request-guards.test.js": "b2a724581343a4727586e6f90abb78ba16a275fc2103886a482ce3d99393983e",
+      "zero/workspace-domain-integrity.test.js": "3d8c6c722d25f7429c6a56a63ac88ae88865b1f59212d87b94a00f0035b8b197"
+    },
+    "new_tests": 15,
+    "targeted_tests": 15,
+    "targeted_pass": 15,
+    "logs": {
+      "run2-domain-recovery-before.log": {
+        "sha256": "36fcf66d5d0147a54036379e434318f9cfe7b31d88def262a999d867439125c2",
+        "bytes": 1952,
+        "exit_code": 1
+      },
+      "run2-domain-recovery-after.log": {
+        "sha256": "ae36e24519424b82ecc36f4750bc80ed180c1f83d256a3ffed495896a4d7872d",
+        "bytes": 387,
+        "exit_code": 0
+      },
+      "run2-workspace-domain-before.log": {
+        "sha256": "519f6bea00ab6a9d4bf90fb4963c00e127b81fa279ca1342ec16889c3172c7de",
+        "bytes": 4967,
+        "exit_code": 1
+      },
+      "run2-workspace-domain-guarded.log": {
+        "sha256": "97e43dd919072727fbe02348c53ff50d39b302e24cd623e7bbcdc3c675c5af14",
+        "bytes": 1514,
+        "exit_code": 1
+      },
+      "run2-workspace-domain-localized.log": {
+        "sha256": "46be6711f9631dcdda27f6f0323065859c681a3a03858c81b6b1fe5f3c428009",
+        "bytes": 813,
+        "exit_code": 0
+      },
+      "run2-workspace-domain-expanded.log": {
+        "sha256": "5414f475799aa22fbc534f67e508811231f922029f656e361f8bffcf5bd9da15",
+        "bytes": 2463,
+        "exit_code": 1
+      },
+      "run2-workspace-domain-verified.log": {
+        "sha256": "485e2b07c9337988d8dc6b45b036ede579fea10d0bdcdf54f7762974f0c6fdc8",
+        "bytes": 1749,
+        "exit_code": 0
+      },
+      "run2-workspace-domain-final.log": {
+        "sha256": "08990e06e1b8ce3ef9988161da9f4e4ba1dd5c46d9ddade371f512a5488f45ed",
+        "bytes": 1989,
+        "exit_code": 0
+      }
+    },
+    "before_fix": "Two native tests show update retries incorrectly return revision conflict and old create retries incorrectly report a superseding record. All six initial controller tests fail before repair. The expanded calendar test initially expected canonical UTC storage even though the native contract preserves an explicit original offset; the corrected test asserts the original offset, absolute native occurrences across DST and unchanged duration. This was an incorrect test assumption, not a waived implementation defect.",
+    "scope": "Generic domain saves bind current request/actor/entity, expected revision and recorded result revision. A same-key update can recover before stale expected-revision rejection, but later independent edits cannot be claimed as its result. Result revisions absent from older receipts remain explicitly unverifiable with existing evidence/data retained. Capacity is bounded at 100000 entries without eviction. Current owner, edit-session and capability checks still precede replay. The shared editor has per-view/epoch/module/section guards, typed schema/list/write observations, stable frozen retries and duplicate suppression. A retained pending request can recover across in-page view reconstruction; a full page reload remains an open recovery gap. Confirmation does not depend on a subsequent view reload. 99 owned copy rows cover common fields/statuses, recurrence, supplier/quotation choices, table controls and the four registered Automotive field names. Literal values, IDs, explicit time offsets, currency payloads and selected controls stay intact across locale changes.",
+    "native_evidence": "Three real HTTP tests cover same-key update replay, changed expected revision, superseded create/update results, encrypted restart and an actual destroyed update response. Two core guard cases cover legacy receipt retention, capacity, current owner and revoked module access. Ten actual-controller tests use the native core with controlled HTTP and minimal DOM, including repeat clicks, lost replies, stale views, malformed observations, calendar recurrence across DST, Procurement lines and actual supplier choices, and retained industry values.",
+    "storage_change": "Additive receipt_version, expected_revision and result_revision on existing per-module idempotency entries; existing entries/data are preserved. New replies echo request_id when a key was supplied. Older receipts lacking result revision return record_request_unverifiable instead of inventing historical success. No secret/provider configuration, destructive migration, production runtime, main merge or deployment change.",
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 540,
+      "pass": 540,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "a48b3a52d4290465ebf1ddd49bdc8b9f09a87144",
+      "source_tree": "f482c958e180b230a2d454c9fb2711dbdbc4281a",
+      "log_sha256": "7bcbcec73b7ecf5887d297c7848ee237b2b2c073522cabe29a19fd918044308e",
+      "log_bytes": 63584,
+      "evidence_note": "Frozen implementation source; subsequent prepublication changes are documentation only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "dynamic_candidates": 620,
+    "evidence_limit": "Minimal DOM and in-memory controller fixtures are not browser, accessibility, session persistence or native-speaker acceptance. Actual dropped HTTP/encrypted restart has separate native tests. This is not full generic domain recovery after browser reload and does not cover all specialist operations.",
+    "remaining": "Generic domain recovery across full browser reload and specialist/backend/generated copy remain open. Composition cross-reload recovery, specialist/provider races, receipt retention, invalid limits, and wider cognitive/semantic/demo/industry/adversarial/performance/voice acceptance remain unresolved. Run 3 has not started.",
+    "native_regression": {
+      "status": "PASS",
+      "command": "node business-domains-test.js && node calendar-time-test.js && node industry-field-api-test.js && node business-workspaces-regression-test.js",
+      "exit_code": 0,
+      "log_sha256": "c3ec1fa08f36781e7a947f4b35e17c3a26a2014ddb38c4a0a67dc4be60bdaec8",
+      "log_bytes": 793,
+      "limitation": "The workspace accessibility/responsive assertions are static checks, not real browser acceptance."
     }
   }
 }

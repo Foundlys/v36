@@ -113,6 +113,19 @@ class BusinessDomain {
   saveOwned(ctx,actor,entity,input,options={}){
     this.scope(ctx,actor,'write');const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');const rows=this.bucket(ctx,entity),prior=options.id?this.get(ctx,actor,entity,options.id):null;
     if(this.id==='communication'&&entity==='drafts'&&prior)require('./communication-edit-sessions').assertEdit(this,ctx,actor,prior.id,options.edit_token);
+    const fingerprint=crypto.createHash('sha256').update(JSON.stringify({entity,input,id:options.id||null})).digest('hex'),keys=this.adapter.bucket(ctx,`${this.id}:idempotency`),key=options.idempotency_key;
+    if(key){
+      if(typeof key!=='string'||key.length>200||/[\u0000-\u001f\u007f]/.test(key))fail('record_request_invalid','Gebruik een geldige aanvraagsleutel');
+      const seen=keys.find(row=>row.key===key&&row.actor_id===actor.id);
+      if(seen){
+        if(seen.fingerprint!==fingerprint||seen.receipt_version===1&&seen.expected_revision!==(options.expected_revision??null))fail('idempotency_conflict','Idempotency key heeft andere inhoud',409);
+        const record=this.get(ctx,actor,entity,seen.record_id);
+        if(seen.receipt_version!==1||!Number.isSafeInteger(seen.result_revision))fail('record_request_unverifiable','De oude aanvraag heeft geen verifieerbare resultaatrevisie; controleer het huidige record',409);
+        if(record.revision!==seen.result_revision)fail('record_request_superseded','Het record is na deze aanvraag gewijzigd; controleer de huidige revisie',409);
+        return {record,deduplicated:true,request_id:key};
+      }
+      if(keys.length>=100000)fail('record_request_capacity','De bewaarlimiet voor recordaanvragen is bereikt',507);
+    }
     if(prior&&options.expected_revision!==prior.revision)fail('record_revision_conflict','Record is intussen gewijzigd',409);
     if(prior?.status==='APPROVED_INTERNAL')fail('approved_record_immutable','Maak een nieuwe revisie buiten het goedgekeurde record');
     if(this.id==='communication'&&entity==='drafts'&&prior&&input.owner_id!==undefined&&input.owner_id!==prior.owner_id&&prior.owner_id!==actor.id&&!this.visible({owner_id:null},actor))fail('draft_owner_change_forbidden','Een medebewerker kan geen eigenaarschap wijzigen',403);
@@ -132,19 +145,16 @@ class BusinessDomain {
       if(input.probability===undefined&&(!prior||value.pipeline_id!==prior.pipeline_id||value.stage_id!==prior.stage_id))value.probability=stage.probability;
     }
     if(value.owner_id&&value.owner_id!==actor.id&&value.owner_id!==prior?.owner_id&&!this.visible({owner_id:null},actor))fail('owner_assignment_forbidden','Alleen een beheerder mag een andere eigenaar toewijzen',403);
-    const fingerprint=crypto.createHash('sha256').update(JSON.stringify({entity,input,id:options.id||null})).digest('hex');
-    const keys=this.adapter.bucket(ctx,`${this.id}:idempotency`),key=options.idempotency_key;
-    if(key){const seen=keys.find(row=>row.key===key&&row.actor_id===actor.id);if(seen){if(seen.fingerprint!==fingerprint)fail('idempotency_conflict','Idempotency key heeft andere inhoud',409);return {record:this.get(ctx,actor,entity,seen.record_id),deduplicated:true};}}
     if(this.id==='calendar'&&entity==='events'&&!['CANCELLED','ARCHIVED'].includes(value.status)){const conflict=this.conflicts(ctx,actor,value,options.id);if(conflict.count)fail('calendar_conflict',`Tijdstip overlapt met ${conflict.count} bestaande afspraak(en)`,409);}
     const now=new Date().toISOString(),row={...value,...(this.id==='calendar'&&entity==='reminders'?{execution_principal_id:actor.id}:{}),id:prior?.id||crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:value.owner_id||prior?.owner_id||actor.id,status:value.status||'DRAFT',created_at:prior?.created_at||now,updated_at:now,revision:(prior?.revision||0)+1,source_module:this.id,owned_entity:entity,schema_version:1,provenance:{source_id:'authorized_user_input',actor_id:actor.id,observed_at:now,classification:options.provenance_classification||'USER_SUPPLIED',provider_verified:false}};
     if(rows.length>=25000&&!prior)fail('domain_capacity','Recordlimiet bereikt',507);
     if(prior)rows[rows.findIndex(r=>r.id===row.id)]=row;else rows.push(row);
-    if(key)keys.push({key,actor_id:actor.id,fingerprint,request_fingerprint:options.request_fingerprint||null,record_id:row.id});
+    if(key)keys.push({key,actor_id:actor.id,fingerprint,request_fingerprint:options.request_fingerprint||null,record_id:row.id,receipt_version:1,expected_revision:options.expected_revision??null,result_revision:row.revision});
     if(this.id==='communication'&&entity==='drafts')require('./communication-drafts').append(this,ctx,actor,row,prior);
     require('./marketing-creative-history').append(this,ctx,actor,row,prior);
     require('./analysis-definition-history').append(this,ctx,actor,row,prior);
     this.recordEvent(ctx,actor,entity,row,prior?'updated':'created',options);
-    return {record:clone(row),deduplicated:false};
+    return {record:clone(row),deduplicated:false,...(key?{request_id:key}:{})};
   }
   recordEvent(ctx,actor,entity,row,action,options={}){
     const event_id=crypto.randomUUID(),event={event_id,event_name:`${this.id}.record.${action}.v1`,event_version:1,tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id,source_module:this.id,source:`foundly_${this.id}`,occurred_at:row.updated_at,correlation_id:options.correlation_id||event_id,causation_id:options.causation_id||null,entity_type:entity,entity_id:row.id,properties:{revision:row.revision,status:row.status},permissions:row.owner_id?{user_ids:[row.owner_id]}:{},consent_context:{purpose:'business_operations',legal_basis:'contract'},privacy_classification:'INTERNAL',provenance:row.provenance,idempotency_key:`${this.id}:${row.id}:${row.revision}`};
