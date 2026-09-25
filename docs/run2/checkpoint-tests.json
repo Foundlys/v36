@@ -3996,7 +3996,23 @@
       "log_bytes": 63584,
       "evidence_note": "Frozen implementation source; subsequent prepublication changes are documentation only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 202,
+      "id": 36116226354,
+      "job_id": 108010862797,
+      "head": "ff75df29f329e141d9d1351c3237ca94a6bce3d2",
+      "tree": "523e978fee4597b0d5121d3733ca0bf009c4bd8d",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 540,
+      "zero_pass": 540,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "2bb191a000e3e8970e7dde932a53fe5db123dc32a64ee91a243cf0e39cde3011",
+        "bytes": 332068
+      }
+    },
     "dynamic_candidates": 620,
     "evidence_limit": "Minimal DOM and in-memory controller fixtures are not browser, accessibility, session persistence or native-speaker acceptance. Actual dropped HTTP/encrypted restart has separate native tests. This is not full generic domain recovery after browser reload and does not cover all specialist operations.",
     "remaining": "Generic domain recovery across full browser reload and specialist/backend/generated copy remain open. Composition cross-reload recovery, specialist/provider races, receipt retention, invalid limits, and wider cognitive/semantic/demo/industry/adversarial/performance/voice acceptance remain unresolved. Run 3 has not started.",
@@ -4007,6 +4023,109 @@
       "log_sha256": "c3ec1fa08f36781e7a947f4b35e17c3a26a2014ddb38c4a0a67dc4be60bdaec8",
       "log_bytes": 793,
       "limitation": "The workspace accessibility/responsive assertions are static checks, not real browser acceptance."
+    }
+  },
+  "domain_terminal_recovery_checkpoint": {
+    "recorded_at": "2026-09-25T09:14:21.036125+00:00",
+    "prior_published_head": "ff75df29f329e141d9d1351c3237ca94a6bce3d2",
+    "prior_ci": {
+      "number": 202,
+      "id": 36116226354,
+      "job_id": 108010862797,
+      "head": "ff75df29f329e141d9d1351c3237ca94a6bce3d2",
+      "tree": "523e978fee4597b0d5121d3733ca0bf009c4bd8d",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 540,
+      "zero_pass": 540,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "2bb191a000e3e8970e7dde932a53fe5db123dc32a64ee91a243cf0e39cde3011",
+        "bytes": 332068
+      }
+    },
+    "source_sha256": {
+      "business-domain-api.js": "ef28f645e41b235c6d7568a09290974e185fae1b0faf824650a32964cb4d642a",
+      "business-domains.js": "d40e2f91da63af29609a4af7d27cc75e4ecf2ec1884e8222d43faf0c91396294",
+      "foundly-workspace.js": "d47fc65d2b4bea8bad2c0971755d26c7343d645ade7ac8d4f46385d89738592b",
+      "foundly-locales.js": "f804e170601d00a2f2e4f5ab4ffe21a619b9e0e82fc1d0cd232962251922f7be",
+      "zero-evaluation/workspace-domain-fixture.js": "f7e319be391ca8b3e0f949b8116fe69614f0ff12c00c777d0eef0992fad73aba",
+      "zero/domain-terminal-recovery-api.test.js": "5d1de05f0f7fc3625a36e052083e3d285d9401b33357bc558ed6cf90b3599b84",
+      "zero/workspace-domain-terminal.test.js": "e4b26ca8e150dcce5900df5d1f2e2792f31068808d6f86f0acbe3ccb71b34b7b"
+    },
+    "new_tests": 6,
+    "targeted_tests": 21,
+    "targeted_pass": 21,
+    "analysis_route_extension_pass": 2,
+    "logs": {
+      "run2-domain-terminal-before.log": {
+        "sha256": "6445606c748fd05b067fdfb950b612c1b056507f4dcdeb54352567dad96392f0",
+        "bytes": 2008,
+        "exit_code": 1
+      },
+      "run2-domain-terminal-native.log": {
+        "sha256": "4e8cabb1d5ec2bf9581f5fad026008f2080ddc01857b2f5eb600b9d274075366",
+        "bytes": 3919,
+        "exit_code": 1
+      },
+      "run2-domain-terminal-native-corrected.log": {
+        "sha256": "a1be2505889505ce4c5b6e65ae3b6a09fe31d579c53557250fdfee50d10a0eb2",
+        "bytes": 1061,
+        "exit_code": 0
+      },
+      "run2-workspace-domain-terminal-before.log": {
+        "sha256": "a91289ac31402528d47fab4b7290cbd268fe1c941f945980d1f41de70c896980",
+        "bytes": 2477,
+        "exit_code": 1
+      },
+      "run2-workspace-domain-terminal-ui.log": {
+        "sha256": "dbeb491cb8cf53f68f5749597a317b432f5aed9ea4c4c85a62320ec106c040ab",
+        "bytes": 1707,
+        "exit_code": 0
+      },
+      "run2-domain-terminal-verified.log": {
+        "sha256": "b043620ac72b4166660dd384b5b0ad3d4d6a3d70124ddd62987232ee91f4fd0f",
+        "bytes": 2654,
+        "exit_code": 0
+      },
+      "run2-domain-terminal-final.log": {
+        "sha256": "353b8c78f416df74f8d180895fb5424a9a216814042c2f0798c682a515b14602",
+        "bytes": 2804,
+        "exit_code": 0
+      },
+      "run2-domain-terminal-analysis.log": {
+        "sha256": "f496912d5ebb1e41a99482e52bc69094fc696597cc928990cb1fdc81bbd8b069",
+        "bytes": 414,
+        "exit_code": 0
+      }
+    },
+    "before_fix": "Two native and three initial controller tests fail before terminal reconciliation and scoped session storage. An intermediate native run exposes the new zero expected-revision representation being compared to the historical null form; compatibility now distinguishes receipt metadata versions by the actual stored fields. No failed run is hidden.",
+    "scope": "Native schema exposes the current tenant/dealer/actor request context. Per-module recovery is bound to that actor, entity, target and expected revision. It returns only the still-current recorded result, or atomically closes an absent key so even an original HTTP body arriving later cannot create/update a record. Current access loss is represented without leaking the record and permits independent work after refresh. The shared editor retains only key/target/result-revision metadata in session storage scoped to tenant/dealer/actor/module/entity. A fresh controller recovers through the native route without retaining the private draft or repeating the original mutation. Malformed/unavailable storage prevents new effects. Forged realm and retired recovery responses cannot clear evidence or claim success. Existing in-page exact-body retry remains intact.",
+    "native_evidence": "Real HTTP covers committed and absent outcomes, actor isolation, wrong entity, current superseding records, a former owner losing record access, the actual Analysis route and current schema realm. A held-open HTTP body cannot commit after recovery closes its key. A final-file rename EIO rolls back the terminal reservation, followed by successful retry. Encrypted restart retains the terminal outcome. Controller reload is modeled with a fresh VM sharing native state and an explicit session-storage fixture; this does not prove actual browser persistence.",
+    "storage_change": "Additive receipt_entity and target_id on existing module idempotency entries, plus ABANDONED terminal reservations. Legacy exact retries still use their prior recorded expected-revision form; older entries without complete recovery metadata are explicitly unverifiable by the new lookup. No existing evidence or data is removed. No destructive migration, real credentials, provider configuration, main merge, production operation or deployment.",
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 546,
+      "pass": 546,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "51381c498c7e0f4478c3478faa58ea392b8d4809",
+      "source_tree": "7ab796709c4dadf995833a919adae182f42ea4d0",
+      "log_sha256": "ab4e55747d2ed4ab0c818dfaee07f84a17c64fdb02f8eba643be6170501f04f7",
+      "log_bytes": 64382,
+      "evidence_note": "Frozen implementation source; subsequent prepublication changes are evidence and inventory documentation only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Real browser/sessionStorage and native-speaker acceptance remain unverified. Composition cross-reload recovery, specialist/generated/backend localization, specialist/provider authority and profile/OAuth races, receipt retention, invalid limits and broader cognition/demo/industry/adversarial/performance/voice gates remain open. Run 3 has not started.",
+    "native_regression": {
+      "status": "PASS",
+      "command": "node business-domains-test.js && node industry-field-api-test.js && node core-access-api-test.js",
+      "exit_code": 0,
+      "log_sha256": "1969e3e0b0682cfc93d2a5b32b51dedd6d0d3f3a1bb64208e3cd17f5ec0500cc",
+      "log_bytes": 501
     }
   }
 }

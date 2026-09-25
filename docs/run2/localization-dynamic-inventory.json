@@ -566,7 +566,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "6d50bd31947afd618a92431c462c80b364df465fe893f7ae357698a8491c4979",
+      "sha256": "d47fc65d2b4bea8bad2c0971755d26c7343d645ade7ac8d4f46385d89738592b",
       "items": [
         {
           "line": 47,
@@ -3135,81 +3135,81 @@
           "rich_text": false
         },
         {
-          "line": 1498,
-          "start": 213638,
-          "end": 213656,
+          "line": 1505,
+          "start": 215016,
+          "end": 215034,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1499,
-          "start": 213705,
-          "end": 213710,
+          "line": 1506,
+          "start": 215083,
+          "end": 215088,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1500,
-          "start": 213778,
-          "end": 213805,
+          "line": 1507,
+          "start": 215156,
+          "end": 215183,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1558,
-          "start": 225024,
-          "end": 225044,
+          "line": 1578,
+          "start": 228845,
+          "end": 228865,
           "context": "element_text",
           "text": "Versies en herstel",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1562,
-          "start": 226997,
-          "end": 227029,
+          "line": 1582,
+          "start": 230818,
+          "end": 230850,
           "context": "element_text",
           "text": "Vragen en leveranciersreacties",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1563,
-          "start": 227598,
-          "end": 227621,
+          "line": 1583,
+          "start": 231419,
+          "end": 231442,
           "context": "element_text",
           "text": "Biedingen vergelijken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1564,
-          "start": 227932,
-          "end": 227955,
+          "line": 1584,
+          "start": 231753,
+          "end": 231776,
           "context": "element_text",
           "text": "Order ter beoordeling",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1566,
-          "start": 228316,
-          "end": 228335,
+          "line": 1586,
+          "start": 232137,
+          "end": 232156,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1632,
-          "start": 234171,
-          "end": 234210,
+          "line": 1652,
+          "start": 238024,
+          "end": 238063,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -3218,27 +3218,27 @@
           "rich_text": false
         },
         {
-          "line": 1690,
-          "start": 239721,
-          "end": 239738,
+          "line": 1710,
+          "start": 243574,
+          "end": 243591,
           "context": "element_text",
           "text": "Branchesjabloon",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1690,
-          "start": 239797,
-          "end": 239808,
+          "line": 1710,
+          "start": 243650,
+          "end": 243661,
           "context": "element_text",
           "text": "Overnemen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1691,
-          "start": 239994,
-          "end": 240033,
+          "line": 1711,
+          "start": 243847,
+          "end": 243886,
           "context": "element_text",
           "text": "{p0} · versie {p1}",
           "parameters": [
@@ -3248,27 +3248,27 @@
           "rich_text": false
         },
         {
-          "line": 1692,
-          "start": 240174,
-          "end": 240257,
+          "line": 1712,
+          "start": 244027,
+          "end": 244110,
           "context": "element_text",
           "text": "Je kunt het sjabloon aanpassen voordat je het opslaat. Er wordt niets uitgevoerd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1762,
-          "start": 245800,
-          "end": 245825,
+          "line": 1782,
+          "start": 249653,
+          "end": 249678,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1765,
-          "start": 246026,
-          "end": 246149,
+          "line": 1785,
+          "start": 249879,
+          "end": 250002,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -3277,36 +3277,36 @@
           "rich_text": false
         },
         {
-          "line": 1780,
-          "start": 247481,
-          "end": 247562,
+          "line": 1800,
+          "start": 251334,
+          "end": 251415,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1807,
-          "start": 249901,
-          "end": 249980,
+          "line": 1827,
+          "start": 253754,
+          "end": 253833,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1811,
-          "start": 250273,
-          "end": 250288,
+          "line": 1831,
+          "start": 254126,
+          "end": 254141,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1812,
-          "start": 250394,
-          "end": 250410,
+          "line": 1832,
+          "start": 254247,
+          "end": 254263,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],

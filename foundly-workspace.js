@@ -1465,7 +1465,7 @@
   async function renderDomainSection(entity, content) {
     if(!creativeWorkCanLeave())return;
     if(state.workspaceId==='communication'&&entity==='messages')return renderCommunicationInbox(content);
-    const workspace=state.workspaceId,epoch=accessGeneration,ticket={},requestScope=workspace+':'+entity;domainViews.set(content,ticket);
+    const workspace=state.workspaceId,epoch=accessGeneration,ticket={};let requestScope;domainViews.set(content,ticket);
     const current=()=>state.workspaceId===workspace&&state.activeSection.toLowerCase()===entity&&epoch===accessGeneration&&content.isConnected&&domainViews.get(content)===ticket;
     const invalid=()=>Object.assign(Error('domain_observation_invalid'),{domainInvalid:true}),failure=error=>error?.domainInvalid?copy('domain_invalid'):error?.domainInput?copy(error.domainInput):friendlyError(error);
     const statuses=new Set(['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','COMPLETED','DECLINED','APPROVAL_REQUIRED','APPROVED_INTERNAL','GRANTED','DENIED','REVOKED','NOT_SENT','SENT','DELIVERED','FAILED']);
@@ -1477,6 +1477,13 @@
       const [result,schema] = await Promise.all([draftId?request('/api/communication/drafts/'+encodeURIComponent(draftId)).then(data=>({ok:data.ok,items:[data.record],total:1,next_offset:null})):request(`/api/${workspace}/${entity}?limit=100`),request(`/api/${workspace}/schema`)]);
       if(!current())return;
       if(result.ok!==true||!Array.isArray(result.items)||!result.items.every(recordValid)||!Number.isSafeInteger(result.total)||result.total<result.items.length||!(result.next_offset===null||Number.isSafeInteger(result.next_offset)&&result.next_offset>=result.items.length)||schema.ok!==true||schema.module_id!==workspace||!Array.isArray(schema.entities)||!schema.entities.includes(entity)||!Array.isArray(schema.required_fields?.[entity])||!schema.required_fields[entity].every(name=>typeof name==='string'&&/^[a-z][a-z0-9_]*$/.test(name))||!Array.isArray(schema.industry_fields?.fields)||!schema.industry_fields.fields.every(field=>field&&typeof field.name==='string'&&typeof field.label==='string'&&['string','number','boolean'].includes(field.type)))throw invalid();
+      const realm=schema.request_context;if(!realm||!['tenant_id','dealer_id','actor_id'].every(key=>typeof realm[key]==='string'&&realm[key].length>0))throw invalid();
+      requestScope=JSON.stringify([realm.tenant_id,realm.dealer_id,realm.actor_id,workspace,entity]);const storageKey='foundly.domain.request.v1:'+requestScope;
+      const metadataValid=value=>value&&typeof value.key==='string'&&/^[A-Za-z0-9_.:-]{8,200}$/.test(value.key)&&Number.isSafeInteger(value.revision)&&value.revision>0&&(value.recordId===null?value.revision===1:typeof value.recordId==='string'&&/^[A-Za-z0-9_.:-]{1,200}$/.test(value.recordId)&&value.revision>1)&&Object.keys(value).every(key=>['key','recordId','revision'].includes(key));
+      const readStored=()=>{const raw=sessionStorage.getItem(storageKey);if(raw===null)return null;if(raw.length>1000)throw invalid();const value=JSON.parse(raw);if(!metadataValid(value))throw invalid();return value;};
+      const storeRequest=value=>sessionStorage.setItem(storageKey,JSON.stringify({key:value.key,recordId:value.recordId,revision:value.revision}));
+      const forgetRequest=value=>{const stored=readStored();if(stored?.key===value.key)sessionStorage.removeItem(storageKey);if(domainRequests.get(requestScope)?.key===value.key)domainRequests.delete(requestScope);};
+      let stored=null,storageReady=true;try{stored=readStored();}catch{storageReady=false;}
       const required=schema.required_fields[entity];
       const form = node('form', 'domain-record-form'), notice = node('p', '', ''), fields = new Map();
       const fieldNames = [...new Set([...required, 'description','status',...(workspace==='communication'&&entity==='drafts'?['to','cc']:[]),...(workspace==='sales'&&entity==='opportunities'?['expected_close_date','closed_date','forecast_category']:[]),...(workspace==='procurement'&&entity==='bids'?['bid_scope']:[]),...(workspace==='procurement'&&entity==='orders'?['evidence_reference']:[]),...(workspace==='procurement'&&entity==='approval_policies'?['allow_self_approval']:[]), ...(workspace==='calendar'&&['availability','events'].includes(entity)?['calendar_id','participants']:[]), ...(['procurement','sales'].includes(workspace) && ['opportunities','quotes','orders'].includes(entity) ? ['value_cents','currency','probability'] : [])])];
@@ -1518,12 +1525,12 @@
           input.name=`industry_${field.name}`;label.append(input);group.append(label);industryInputs.set(field.name,{input,type:field.type});
         }form.append(group);
       }
-      let editing=null,pending=domainRequests.get(requestScope)||null,busy=false,confirmed=false;
+      let editing=null,pending=domainRequests.get(requestScope)||(stored?{...stored,recoveryOnly:true}:null),busy=false,confirmed=false;
       const save=node('button','primary-button',copy(pending?'domain_retry':'domain_save'));save.type='submit';form.append(save,notice);
       notice.setAttribute('role','status');
-      const lock=()=>{for(const input of [...fields.values(),...[...industryInputs.values()].map(row=>row.input),...(recurrenceFields?[recurrenceFields.frequency,recurrenceFields.count,recurrenceFields.interval]:[])])input.disabled=busy||Boolean(pending)||confirmed||Boolean(input.domainPackConflict);save.disabled=busy||confirmed;if(recurrenceFields&&!busy&&!pending&&!confirmed)recurrenceFields.refresh();};
+      const lock=()=>{for(const input of [...fields.values(),...[...industryInputs.values()].map(row=>row.input),...(recurrenceFields?[recurrenceFields.frequency,recurrenceFields.count,recurrenceFields.interval]:[])])input.disabled=busy||Boolean(pending)||confirmed||!storageReady||Boolean(input.domainPackConflict);save.disabled=busy||confirmed||!storageReady||Boolean(pending?.recoveryOnly);if(recurrenceFields&&!busy&&!pending&&!confirmed&&storageReady)recurrenceFields.refresh();};
       form.addEventListener('submit',async event=>{
-        event.preventDefault();if(!current()||busy||confirmed)return;busy=true;lock();
+        event.preventDefault();if(!current()||busy||confirmed||!storageReady||pending?.recoveryOnly)return;busy=true;lock();
         try {
           if(!pending){const payload={};for(const [name,input] of fields){if(!input.value.trim())continue;payload[name]=['value_cents','minimum_value_cents','target_cents'].includes(name)?Math.round(Number(input.value)*100):name==='probability'?Number(input.value):input.value.trim();}
           if(workspace==='procurement'&&['rfqs','bids'].includes(entity)){
@@ -1537,13 +1544,26 @@
           const industryValues={};for(const [name,{input,type}] of industryInputs)if(!input.domainPackConflict&&input.value.trim()!=='')industryValues[name]=type==='number'?Number(input.value):type==='boolean'?input.value==='true':input.value.trim();
           if(Object.keys(industryValues).length)payload.industry_fields=industryValues;
           if(editing)payload.expected_revision=editing.revision;
-          pending={key:crypto.randomUUID(),path:`/api/${workspace}/${entity}${editing?`/${encodeURIComponent(editing.id)}`:''}`,method:editing?'PUT':'POST',payload,recordId:editing?.id||null,revision:(editing?.revision||0)+1};domainRequests.set(requestScope,pending);}
+          const prepared={key:crypto.randomUUID(),path:`/api/${workspace}/${entity}${editing?`/${encodeURIComponent(editing.id)}`:''}`,method:editing?'PUT':'POST',payload,recordId:editing?.id||null,revision:(editing?.revision||0)+1};try{if(readStored())throw invalid();storeRequest(prepared);}catch{throw Object.assign(Error('domain_storage_unavailable'),{domainInput:'domain_storage_required'});}pending=prepared;domainRequests.set(requestScope,pending);}
           const saved=await request(pending.path,{method:pending.method,headers:{'idempotency-key':pending.key},body:JSON.stringify(pending.payload)});if(!current())return;
           if(saved.ok!==true||saved.request_id!==pending.key||!recordValid(saved.record)||saved.record.revision!==pending.revision||pending.recordId&&saved.record.id!==pending.recordId||typeof saved.deduplicated!=='boolean')throw invalid();
-          domainRequests.delete(requestScope);pending=null;confirmed=true;writeText(notice,copy('domain_saved'));toast(copy('domain_saved'));
-        }catch(error){if(!current())return;if(error.status>=400&&error.status<500&&![408,429].includes(error.status)){domainRequests.delete(requestScope);pending=null;confirmed=[409,412,428].includes(error.status);writeText(notice,failure(error));}else if(pending){writeText(notice,copy('domain_unconfirmed'));writeText(save,copy('domain_retry'));}else writeText(notice,failure(error));}
+          confirmed=true;try{forgetRequest(pending);writeText(notice,copy('domain_saved'));}catch{writeText(notice,copy('domain_saved_metadata'));}pending=null;toast(copy('domain_saved'));
+        }catch(error){if(!current())return;if(error.status>=400&&error.status<500&&![408,429].includes(error.status)){if(pending)try{forgetRequest(pending);}catch{}pending=null;confirmed=[409,412,428].includes(error.status);writeText(notice,failure(error));}else if(pending){writeText(notice,copy('domain_unconfirmed'));writeText(save,copy('domain_retry'));}else writeText(notice,failure(error));}
         finally{if(current()){busy=false;lock();}}
       });
+      const recovery=node('div');
+      if(pending){const recover=node('button','',copy('domain_recover')),output=node('p');output.setAttribute('role','status');recover.type='button';recover.setAttribute('data-domain-action','recover');recover.disabled=!storageReady;recovery.append(node('p','',copy('domain_pending')),recover,output);recover.addEventListener('click',async()=>{
+        if(!current()||busy||confirmed||!pending||!storageReady)return;busy=true;recover.disabled=true;lock();const target=pending;
+        try{
+          const expected=target.recordId?target.revision-1:0,observed=await request(`/api/${workspace}/record-requests/${encodeURIComponent(target.key)}/recover`,{method:'POST',body:JSON.stringify({entity,target_id:target.recordId,expected_revision:expected,confirm:true})});if(!current())return;
+          if(observed.ok!==true||observed.request_id!==target.key||observed.entity!==entity||observed.target_id!==target.recordId||observed.expected_revision!==expected||!['tenant_id','dealer_id','actor_id'].every(key=>observed[key]===realm[key]))throw invalid();
+          if(observed.state==='NOT_APPLIED'){if(observed.record!==undefined)throw invalid();writeText(output,copy('domain_not_applied'));}
+          else{if(!recordValid(observed.record)||observed.record.revision!==target.revision||target.recordId&&observed.record.id!==target.recordId||observed.deduplicated!==true)throw invalid();writeText(output,copy('domain_saved'));}
+          confirmed=true;try{forgetRequest(target);}catch{writeText(notice,copy('domain_saved_metadata'));}pending=null;
+        }catch(error){if(!current())return;if(['record_request_superseded','record_request_unavailable'].includes(error.code)){confirmed=true;try{forgetRequest(target);}catch{}pending=null;writeText(output,friendlyError(error));}else writeText(output,copy('domain_unconfirmed'));}
+        finally{if(current()){busy=false;recover.disabled=confirmed;lock();}}
+      });}
+      if(!storageReady)recovery.append(node('p','ErrorState',copy('domain_storage_required')));
       const rows=result.items,table=node('table'),head=node('thead'),body=node('tbody'),headRow=node('tr');
       for(const title of [copy('domain_record'),copy('domain_field.status'),...(workspace==='calendar'?[copy('domain_time')]:[]),copy('domain_updated'),copy('domain_action')])headRow.append(node('th','',title));head.append(headRow);table.append(head,body);
       for(const record of rows){
@@ -1567,9 +1587,9 @@
         if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','creative_revisions','draft_revisions','economics_snapshots','outcome_observations','supplier_clarifications','audience_members','audience_activations','journey_definitions','journey_runs'].includes(entity)&&record.status!=='APPROVED_INTERNAL')cell.append(edit);tr.append(cell);body.append(tr);
       }
       const summary=node('p','',live(()=>copy('domain_count',{count:i18n().number(result.total),partial:result.next_offset!==null?String(copy('domain_partial_list')):''})));const refresh=node('button','',copy('domain_refresh'));refresh.type='button';refresh.addEventListener('click',()=>{if(current()&&!busy)return renderDomainSection(entity,content);});
-      const children=[summary,refresh];if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','creative_revisions','draft_revisions','economics_snapshots','outcome_observations','supplier_clarifications','audience_members','audience_activations','journey_definitions','journey_runs'].includes(entity))children.push(form);
+      const children=[summary,refresh,recovery];if(!['messages','notifications','awards','forecast_snapshots','creative_reviews','creative_revisions','draft_revisions','economics_snapshots','outcome_observations','supplier_clarifications','audience_members','audience_activations','journey_definitions','journey_runs'].includes(entity))children.push(form);
       children.push(rows.length?table:node('div','EmptyState',copy('domain_empty')));
-      if(pending){for(const [name,input]of fields){const value=pending.payload[name];input.value=value===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(value/100):Array.isArray(value)?value.join(','):String(value);}writeText(notice,copy('domain_unconfirmed'));}lock();
+      if(pending&&!pending.recoveryOnly){for(const [name,input]of fields){const value=pending.payload[name];input.value=value===undefined?'':['value_cents','minimum_value_cents','target_cents'].includes(name)?String(value/100):Array.isArray(value)?value.join(','):String(value);}writeText(notice,copy('domain_unconfirmed'));}lock();
       if(current())replaceChildren(content,children);
     }catch(error){if(current()&&!error.stale)replaceChildren(content,[node('div','ErrorState',failure(error))]);}
   }

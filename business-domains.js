@@ -110,6 +110,22 @@ class BusinessDomain {
   }
   mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='procurement'?[require('./procurement-outcomes').OPERATIONS,require('./procurement-clarifications').OPERATIONS]:[]),...(this.id==='marketing'?[require('./marketing-creative-history').OPERATIONS,require('./marketing-audiences').OPERATIONS,require('./marketing-journeys').OPERATIONS]:[]),...(this.id==='sales'?[require('./sales-pipeline').OPERATIONS]:[]),...(this.id==='analysis'?[require('./analysis-definition-versions').OPERATIONS,require('./analysis-actions').OPERATIONS]:[]),...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-send-reviews').SCOPE,require('./communication-submissions').SCOPE,require('./communication-submission-recovery').SCOPE,require('./communication-mailboxes').SCOPE,require('./communication-mailboxes').ITEMS,require('./communication-comments').SCOPE,require('./communication-edit-sessions').SCOPE,require('./communication-binary-attachments').SCOPE]:[])],callback);}
   save(ctx,actor,entity,input,options={}){const result=this.mutate(ctx,()=>this.saveOwned(ctx,actor,entity,input,options));try{this.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;}
+  recoverRequest(ctx,actor,key,input){
+    this.scope(ctx,actor,'write');
+    if(typeof key!=='string'||!key||key.length>200||/[\u0000-\u001f\u007f]/.test(key)||!input||Object.keys(input).some(name=>!['entity','target_id','expected_revision','confirm'].includes(name))||input.confirm!==true||!this.definition.entities.includes(input.entity)||(input.target_id===null?input.expected_revision!==0:typeof input.target_id!=='string'||!input.target_id||input.target_id.length>200||!Number.isSafeInteger(input.expected_revision)||input.expected_revision<1))fail('record_recovery_invalid','Bevestig de eerdere recordaanvraag');
+    const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${input.entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');
+    const keys=this.adapter.bucket(ctx,`${this.id}:idempotency`),prior=keys.find(row=>row.key===key&&row.actor_id===actor.id),envelope={request_id:key,entity:input.entity,target_id:input.target_id,expected_revision:input.expected_revision,actor_id:actor.id,tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id};
+    if(prior){
+      if(prior.receipt_version!==1||typeof prior.receipt_entity!=='string'||!Object.hasOwn(prior,'target_id'))fail('record_request_unverifiable','De oude aanvraag heeft geen volledige herstelgegevens; controleer het huidige record',409);
+      if(prior.receipt_entity!==input.entity||prior.target_id!==input.target_id||prior.expected_revision!==input.expected_revision)fail('idempotency_conflict','De aanvraagsleutel hoort bij andere herstelgegevens',409);
+      if(prior.state==='ABANDONED')return {...envelope,state:'NOT_APPLIED'};
+      let record;try{record=this.get(ctx,actor,input.entity,prior.record_id);}catch(error){if(error.code==='record_not_found')fail('record_request_unavailable','De eerdere aanvraag is bewaard, maar het huidige record is niet meer toegankelijk',409);throw error;}
+      if(record.revision!==prior.result_revision)fail('record_request_superseded','Het record is na deze aanvraag gewijzigd; controleer de huidige revisie',409);
+      return {...envelope,record,deduplicated:true};
+    }
+    if(keys.length>=100000)fail('record_request_capacity','De bewaarlimiet voor recordaanvragen is bereikt',507);
+    return this.mutate(ctx,()=>{keys.push({key,actor_id:actor.id,receipt_version:1,receipt_entity:input.entity,target_id:input.target_id,expected_revision:input.expected_revision,state:'ABANDONED'});this.adapter.audit(ctx,actor,'REQUEST_ABANDONED',this.id,key,{entity:input.entity,target_id:input.target_id});return {...envelope,state:'NOT_APPLIED'};});
+  }
   saveOwned(ctx,actor,entity,input,options={}){
     this.scope(ctx,actor,'write');const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');const rows=this.bucket(ctx,entity),prior=options.id?this.get(ctx,actor,entity,options.id):null;
     if(this.id==='communication'&&entity==='drafts'&&prior)require('./communication-edit-sessions').assertEdit(this,ctx,actor,prior.id,options.edit_token);
@@ -118,7 +134,8 @@ class BusinessDomain {
       if(typeof key!=='string'||key.length>200||/[\u0000-\u001f\u007f]/.test(key))fail('record_request_invalid','Gebruik een geldige aanvraagsleutel');
       const seen=keys.find(row=>row.key===key&&row.actor_id===actor.id);
       if(seen){
-        if(seen.fingerprint!==fingerprint||seen.receipt_version===1&&seen.expected_revision!==(options.expected_revision??null))fail('idempotency_conflict','Idempotency key heeft andere inhoud',409);
+        if(seen.state==='ABANDONED')fail('record_request_abandoned','Deze aanvraag is afgesloten zonder wijziging; controleer het record vóór een nieuwe aanvraag',409);
+        if(seen.fingerprint!==fingerprint||seen.receipt_version===1&&seen.expected_revision!==(options.expected_revision??(Object.hasOwn(seen,'target_id')?0:null)))fail('idempotency_conflict','Idempotency key heeft andere inhoud',409);
         const record=this.get(ctx,actor,entity,seen.record_id);
         if(seen.receipt_version!==1||!Number.isSafeInteger(seen.result_revision))fail('record_request_unverifiable','De oude aanvraag heeft geen verifieerbare resultaatrevisie; controleer het huidige record',409);
         if(record.revision!==seen.result_revision)fail('record_request_superseded','Het record is na deze aanvraag gewijzigd; controleer de huidige revisie',409);
@@ -149,7 +166,7 @@ class BusinessDomain {
     const now=new Date().toISOString(),row={...value,...(this.id==='calendar'&&entity==='reminders'?{execution_principal_id:actor.id}:{}),id:prior?.id||crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:value.owner_id||prior?.owner_id||actor.id,status:value.status||'DRAFT',created_at:prior?.created_at||now,updated_at:now,revision:(prior?.revision||0)+1,source_module:this.id,owned_entity:entity,schema_version:1,provenance:{source_id:'authorized_user_input',actor_id:actor.id,observed_at:now,classification:options.provenance_classification||'USER_SUPPLIED',provider_verified:false}};
     if(rows.length>=25000&&!prior)fail('domain_capacity','Recordlimiet bereikt',507);
     if(prior)rows[rows.findIndex(r=>r.id===row.id)]=row;else rows.push(row);
-    if(key)keys.push({key,actor_id:actor.id,fingerprint,request_fingerprint:options.request_fingerprint||null,record_id:row.id,receipt_version:1,expected_revision:options.expected_revision??null,result_revision:row.revision});
+    if(key)keys.push({key,actor_id:actor.id,fingerprint,request_fingerprint:options.request_fingerprint||null,record_id:row.id,receipt_version:1,receipt_entity:entity,target_id:options.id||null,expected_revision:options.expected_revision??0,result_revision:row.revision});
     if(this.id==='communication'&&entity==='drafts')require('./communication-drafts').append(this,ctx,actor,row,prior);
     require('./marketing-creative-history').append(this,ctx,actor,row,prior);
     require('./analysis-definition-history').append(this,ctx,actor,row,prior);

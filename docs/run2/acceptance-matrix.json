@@ -1838,7 +1838,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 194/195 failures and CI 196 cancellation remain recorded. CI 201 passed complete npm test, 525 ZERO tests and 14 corpus cases on head 400b9f1. New domain receipt/editor changes pass 15 focused tests; 540 ZERO tests, 14 corpus cases and affected native regression suites now pass. Exact-head full npm CI remains pending."
+      "note": "CI 194/195 failures and CI 196 cancellation remain recorded. CI 202 passed complete npm test, 540 ZERO tests and 14 corpus cases on head ff75df2. The newer terminal-recovery code passes 21 focused tests, 546 ZERO tests, 14 corpus cases and affected native suites; its exact-head full npm CI remains pending."
     },
     {
       "id": "R2-115",
@@ -1977,10 +1977,12 @@
         "zero/workspace-identity-integrity.test.js",
         "zero/domain-request-recovery-api.test.js",
         "zero/domain-request-guards.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/domain-terminal-recovery-api.test.js",
+        "zero/workspace-domain-terminal.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Partial security/source regression includes current-permission writes/replay, atomic rollback, durable events, native snapshot/knowledge scope and Finance currency/unsafe amount/current bank-source checks. Native member HTTP and encrypted restart are covered. Full enumerated Run-2 adversarial acceptance remains open. Native connector receipts recover an actual dropped HTTP response through encrypted restart; stale writes, corrupt storage and secret metadata exposure are covered. Wider adversarial acceptance stays open. Generic source imports additionally exercise DNS/response authorization, configuration races, bounded pages, atomic recovery, scoped raw-source reads and actual lost-response replay. Broader provider/adversarial contracts remain open. Generic native probes now refuse revoked rights, disabled owners and changed configurations across DNS/provider waits; activity is atomic and exactly recovered with source receipts. Legacy/bulk/provider-specific observation and broader adversarial coverage remain open. Generic legacy tests now contact only the selected source and bind current native/legacy configuration across waits; encoded and custom connector IDs retain current owner-module authorization. Specialized/bulk provider paths remain open. Shared section observations refuse mismatched/malformed/contradictory payloads and suppress stale results after navigation, refresh or access denial; wider security acceptance remains open. Package review binds exact input and native profile evidence, rejects truthy management authority, suppresses stale views/duplicate writes and retains newer native compositions on retry. Wider adversarial acceptance remains open. Identity mutations bind request/actor/tenant and current revisions, keep receipts encrypted and atomically resolve absent keys before delayed HTTP bodies can commit. Wider adversarial acceptance remains open. Generic domain replay now checks recorded result revisions and current owner/module authority; retired editors cannot redirect writes into another module. Wider adversarial acceptance remains open."
+      "note": "Partial security/source regression includes current-permission writes/replay, atomic rollback, durable events, native snapshot/knowledge scope and Finance currency/unsafe amount/current bank-source checks. Native member HTTP and encrypted restart are covered. Full enumerated Run-2 adversarial acceptance remains open. Native connector receipts recover an actual dropped HTTP response through encrypted restart; stale writes, corrupt storage and secret metadata exposure are covered. Wider adversarial acceptance stays open. Generic source imports additionally exercise DNS/response authorization, configuration races, bounded pages, atomic recovery, scoped raw-source reads and actual lost-response replay. Broader provider/adversarial contracts remain open. Generic native probes now refuse revoked rights, disabled owners and changed configurations across DNS/provider waits; activity is atomic and exactly recovered with source receipts. Legacy/bulk/provider-specific observation and broader adversarial coverage remain open. Generic legacy tests now contact only the selected source and bind current native/legacy configuration across waits; encoded and custom connector IDs retain current owner-module authorization. Specialized/bulk provider paths remain open. Shared section observations refuse mismatched/malformed/contradictory payloads and suppress stale results after navigation, refresh or access denial; wider security acceptance remains open. Package review binds exact input and native profile evidence, rejects truthy management authority, suppresses stale views/duplicate writes and retains newer native compositions on retry. Wider adversarial acceptance remains open. Identity mutations bind request/actor/tenant and current revisions, keep receipts encrypted and atomically resolve absent keys before delayed HTTP bodies can commit. Wider adversarial acceptance remains open. Generic domain replay now checks recorded result revisions and current owner/module authority; retired editors cannot redirect writes into another module. Wider adversarial acceptance remains open. Generic request reconciliation survives controller reload with scoped opaque metadata and blocks late original HTTP bodies after a terminal reservation. Current-result access loss stays private and does not block independent records."
     },
     {
       "id": "R2-124",
@@ -2007,7 +2009,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-25T08:59:43.984831+00:00",
+  "updated_at": "2026-09-25T09:14:21.036125+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }
