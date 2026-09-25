@@ -359,7 +359,7 @@
     },
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "legacy_native_profile_evidence": "legacy-profile-replay-check.json",
-    "cash_validation": "Whole-day horizon validated at 1–730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
+    "cash_validation": "Whole-day horizon validated at 1\u2013730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
   },
   "integration_locale_checkpoint": {
     "recorded_at": "2026-09-24T14:47:25.073630+00:00",
@@ -5156,7 +5156,127 @@
       "log_bytes": 80479,
       "evidence_note": "Frozen source; following prepublication edits record evidence only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 211,
+      "id": 36134544119,
+      "job_id": 108069365097,
+      "head": "34203c029d931e8127a3361b42a3ea32005b6619",
+      "tree": "aa39680141b614b540a729ea67df633b3e81b3c4",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 672,
+      "zero_pass": 672,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "4c51afd980904a32bef8d053268743549ecfe5384b575b95788a6459e7403446",
+        "bytes": 387497,
+        "exit_code": 0
+      }
+    },
     "remaining": "Shared draft chooser/manual-run/recovery/approval/activation copy; typed current operation acknowledgements, frozen uncertain execution/confirmation bodies and durable recovery; full ZERO run proposal/confirmation component localization/integrity. All wider recorded hard exit gates remain open. Matrix unchanged. Minimal DOM/snapshot fixture is not actual browser, accessibility, native speaker or provider acceptance. No native API/storage migration, credentials, main/production/deployment or Run 3 changes."
+  },
+  "workflow_run_client_checkpoint": {
+    "recorded_at": "2026-09-25T12:44:31.101973+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 211,
+      "id": 36134544119,
+      "job_id": 108069365097,
+      "head": "34203c029d931e8127a3361b42a3ea32005b6619",
+      "tree": "aa39680141b614b540a729ea67df633b3e81b3c4",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 672,
+      "zero_pass": 672,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "4c51afd980904a32bef8d053268743549ecfe5384b575b95788a6459e7403446",
+        "bytes": 387497,
+        "exit_code": 0
+      }
+    },
+    "scope": "Complete literal ZERO run review, typed source and outcome acknowledgement, eight-locale controls, frozen uncertain action and turn. Durable run request recovery remains explicitly open.",
+    "owned_copy_rows": 21,
+    "locales": [
+      "nl-NL",
+      "en-GB",
+      "de-DE",
+      "fr-FR",
+      "es-ES",
+      "da-DK",
+      "nb-NO",
+      "sv-SE"
+    ],
+    "targeted": {
+      "tests": 21,
+      "pass": 21,
+      "fail": 0,
+      "new_permanent_tests": 7,
+      "files": [
+        "zero/workflow-run-client-integrity.test.js",
+        "zero/workflow-run-client-api.test.js"
+      ],
+      "scope": "Actual client with native engine and real HTTP destroyed committed response, encrypted restart, one literal document and source-free retained conversation. Minimal DOM is not a rendered browser."
+    },
+    "failure_history": "Five initial run review/binding/frozen input/locale cases failed before implementation. Intermediate run passed two and failed three; native run signatures use canonical sorted keys, unlike immutable definition and raw request hashes. A sixth before-case showed substituted action content/step identity and contradictory success were accepted; now exact native step input, effect identity and successful output evidence are checked. All failures retained.",
+    "logs": {
+      "run2-workflow-run-client-before.log": {
+        "sha256": "48901f989d75d1275c7417d1e37b243e9a5f9607fbe5bf4e73c36d7a19f87045",
+        "bytes": 4710,
+        "exit_code": 1
+      },
+      "run2-workflow-run-client-initial-after.log": {
+        "sha256": "679d15a659901535b90ecbebb825263bfaf1eb7757e71f462fe2c8c2f16a9896",
+        "bytes": 3173,
+        "exit_code": 1
+      },
+      "run2-workflow-run-client-localized.log": {
+        "sha256": "0fd092d04be1c4006625cbca0eaff78214f02639b87caaba23878f0e59530c5d",
+        "bytes": 2548,
+        "exit_code": 0
+      },
+      "run2-workflow-run-step-ack-before.log": {
+        "sha256": "efcc604b034e4aabb1fd7e9e19f46c59586fb4b7e60d31728b7b6a18e013c3ac",
+        "bytes": 1976,
+        "exit_code": 1
+      },
+      "run2-workflow-run-client-expanded.log": {
+        "sha256": "18206a65617425fcccf30a0908609a63b306979274bb503f3592aaf1bcc6b4ac",
+        "bytes": 2822,
+        "exit_code": 0
+      },
+      "run2-workflow-run-client-native-initial.log": {
+        "sha256": "5ffd94fbf4d8b9c4f4ec1ca13b4a58440acf06b911de4d9d14f28a9aab73f4b5",
+        "bytes": 1035,
+        "exit_code": 0
+      }
+    },
+    "native_regression": {
+      "status": "PASS",
+      "command": "node workflow-run-zero-client-test.js && node workflow-run-zero-test.js && node workflow-run-zero-api-test.js && node workflow-manual-run-test.js"
+    },
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 551,
+      "main_dashboard": 8
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 679,
+      "pass": 679,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "8d7549e5f10c9424d857b182cd93ed0e6521e19a",
+      "source_tree": "17d4495c5f3e267e7f3c9a808306ea27c4d4eca5",
+      "log_sha256": "20113e1698b1855a732677a06a1b2d3db3eb17b513a81b323fb83cdfee676584",
+      "log_bytes": 81424,
+      "evidence_note": "Frozen source; subsequent prepublication edits record evidence only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Exact run retry can resume a due WAITING_TIME or WAITING_RETRY execution: durable non-executing reconciliation and terminal absent-request closure are the immediate next code-controlled gap. Shared manual/recovery/approval/activation controls and wider Run 2 hard gates remain open. No matrix promotion, production/main/deployment, credentials or Run 3."
   }
 }

@@ -310,7 +310,7 @@ class FoundlyPlatformCore{
     const rows=this.bucket(ctx,`automation_${entity}`).filter(row=>privileged||row.owner_id===principal.id),limit=Math.max(1,Math.min(250,Number(query.limit)||100)),offset=Math.max(0,Number(query.offset)||0);
     return {items:clone(rows.slice(offset,offset+limit)),total:rows.length,next_offset:offset+limit<rows.length?offset+limit:null,tenant_filtered:true};
   }
-  automationDefinitions(context,principalInput){const status=this.automationStatus(context,principalInput);return {workflows:status.workflows,workflow_count:status.workflow_count,editor_contract:status.editor_contract,can_manage:status.can_manage,retryable_actions:status.retryable_actions};}
+  automationDefinitions(context,principalInput){const {ctx,principal}=this.scope(context,principalInput),status=this.automationStatus(context,principalInput);return {request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:principal.id},workflows:status.workflows,workflow_count:status.workflow_count,editor_contract:status.editor_contract,can_manage:status.can_manage,retryable_actions:status.retryable_actions};}
   inspectAutomationRun(context,principalInput,runId,query={}){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'platform:read');return require('./workflow-inspection').inspect(this,ctx,principal,runId,query);}
   queryAutomationRuns(context,principalInput,query={}){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'platform:read');return require('./workflow-run-query').queryRuns(this,ctx,principal,query);}
   exportAutomation(context,principalInput){
