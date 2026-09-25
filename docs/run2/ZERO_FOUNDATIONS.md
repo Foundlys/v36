@@ -493,3 +493,8 @@ The generic evidence-section renderer now uses explicit eight-locale owned copy 
 Six new controller tests fail before implementation. Matching workspace/section/status and valid record arrays are required; missing or contradictory observations do not masquerade as empty results. Independent observation tokens and current workspace/section/access checks prevent old results or errors from replacing a newer view. All 60 focused locale/workspace/connector/knowledge tests and native business workspace regression pass. No full 491-test ZERO suite or native browser/accessibility/native-speaker acceptance is claimed for this change; exact full CI remains pending. The prior connector checkpoint retains 485/485 ZERO and 14/14 corpus passes.
 
 Inventory is 668 candidates across 47 scripts, with the frozen main dashboard still at eight candidates. The inventory is conservative. Context headings/tabs, package/identity settings, shared forms and specialist/backend copy remain actual open Phase 8 work. No storage/API migration, credentials, production action, main merge, deployment or Run 3 work occurred. Matrix verdicts remain unchanged.
+
+
+### CI execution budget after the measured job cap
+
+CI 196 began at 07:09:39 UTC and was cancelled at 07:19:39 UTC by the existing ten-minute job boundary. Its log reports 485 ZERO tests passed, zero failed, and 14 corpus passes, but the npm step/job has no successful conclusion and is not accepted as PASS. The full job budget is now twenty minutes. The npm test command, all assertions and individual test/provider timeouts are unchanged. This is execution capacity for the complete required suite; it does not satisfy or waive the separate performance/cost acceptance gate. Exact-head CI must finish successfully.

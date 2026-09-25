@@ -1806,7 +1806,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 194 and 195 failures and their corrections remain recorded. The connector checkpoint passed 485 ZERO tests and 14 corpus cases; CI 196 for that exact tree is in_progress / None. The later evidence-section change passes 60 focused tests and native workspace regression; new exact-head full CI remains pending."
+      "note": "CI 194/195 failures remain recorded and corrected. CI 196 reached the exact 10-minute job cap after reporting 485/485 ZERO tests and 14 corpus passes; its cancelled job is NOT accepted as PASS. The full CI job budget is raised to 20 minutes, retaining the complete command, every assertion and individual test/provider timeouts. Later section changes pass 60 targeted tests and native workspace regression. New exact-head complete CI is pending."
     },
     {
       "id": "R2-115",
@@ -1968,7 +1968,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-25T07:19:03.333258+00:00",
+  "updated_at": "2026-09-25T07:22:27.787593+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }

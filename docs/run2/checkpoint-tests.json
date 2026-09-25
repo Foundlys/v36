@@ -3440,11 +3440,23 @@
       "number": 196,
       "id": 36106239822,
       "job_id": 107979297964,
-      "status": "in_progress",
-      "conclusion": null,
+      "status": "completed",
+      "conclusion": "cancelled",
       "head": "a771ab4a71f486e49ad1c559734f767ef2c21f44",
       "tree": "ab7dd199aa3bc55afa1f930f90218b48d8d2be0f",
-      "full_npm_test": "PENDING"
+      "full_npm_test": "NOT_ACCEPTED: job cancelled at its 10-minute cap",
+      "job_started_at": "2026-09-25T07:09:39.4363861Z",
+      "cancelled_at": "2026-09-25T07:19:39.1233526Z",
+      "zero_reported_tests": 485,
+      "zero_reported_pass": 485,
+      "zero_reported_fail": 0,
+      "corpus_reported_pass": 14,
+      "corpus_reported_fail": 0,
+      "log": {
+        "sha256": "8889d9cef405d7ca5b3b7d64706e9130a20111dc92eedf5851e56e878a54beaa",
+        "bytes": 309219,
+        "job_conclusion": "cancelled"
+      }
     },
     "dynamic_candidates": 674
   },
@@ -3456,11 +3468,23 @@
       "number": 196,
       "id": 36106239822,
       "job_id": 107979297964,
-      "status": "in_progress",
-      "conclusion": null,
+      "status": "completed",
+      "conclusion": "cancelled",
       "head": "a771ab4a71f486e49ad1c559734f767ef2c21f44",
       "tree": "ab7dd199aa3bc55afa1f930f90218b48d8d2be0f",
-      "full_npm_test": "PENDING"
+      "full_npm_test": "NOT_ACCEPTED: job cancelled at its 10-minute cap",
+      "job_started_at": "2026-09-25T07:09:39.4363861Z",
+      "cancelled_at": "2026-09-25T07:19:39.1233526Z",
+      "zero_reported_tests": 485,
+      "zero_reported_pass": 485,
+      "zero_reported_fail": 0,
+      "corpus_reported_pass": 14,
+      "corpus_reported_fail": 0,
+      "log": {
+        "sha256": "8889d9cef405d7ca5b3b7d64706e9130a20111dc92eedf5851e56e878a54beaa",
+        "bytes": 309219,
+        "job_conclusion": "cancelled"
+      }
     },
     "source_sha256": {
       "foundly-workspace.js": "3f698ee9de24baf3b674c84152e752b7c3b028c25aaa07f55b36b14a3b624834",
@@ -3503,5 +3527,34 @@
     "evidence_limit": "The actual shared controller runs in a minimal DOM with explicitly controlled HTTP responses, plus native workspace regression. This is not native browser, live provider, layout, assistive technology or native-speaker evidence.",
     "current_ci": "PENDING_PUBLICATION",
     "dynamic_candidates": 668
+  },
+  "ci_budget_checkpoint": {
+    "recorded_at": "2026-09-25T07:22:27.787593+00:00",
+    "trigger": {
+      "number": 196,
+      "id": 36106239822,
+      "job_id": 107979297964,
+      "status": "completed",
+      "conclusion": "cancelled",
+      "head": "a771ab4a71f486e49ad1c559734f767ef2c21f44",
+      "tree": "ab7dd199aa3bc55afa1f930f90218b48d8d2be0f",
+      "full_npm_test": "NOT_ACCEPTED: job cancelled at its 10-minute cap",
+      "job_started_at": "2026-09-25T07:09:39.4363861Z",
+      "cancelled_at": "2026-09-25T07:19:39.1233526Z",
+      "zero_reported_tests": 485,
+      "zero_reported_pass": 485,
+      "zero_reported_fail": 0,
+      "corpus_reported_pass": 14,
+      "corpus_reported_fail": 0,
+      "log": {
+        "sha256": "8889d9cef405d7ca5b3b7d64706e9130a20111dc92eedf5851e56e878a54beaa",
+        "bytes": 309219,
+        "job_conclusion": "cancelled"
+      }
+    },
+    "scope": "Raises the existing complete CI job limit from 10 to 20 minutes because the expanded sequential regression reached the actual ten-minute job cap immediately after reporting ZERO/corpus results. The existing npm test command, required tests, per-test/provider timeouts, assertions and failure behavior are unchanged. A successful process/job conclusion remains mandatory; cancellation is not accepted as PASS. No performance/cost gate is waived.",
+    "workflow_sha256": "edea10937ef38ca34a60be527676cf0875502db0ae09a089b417b785b3962481",
+    "validation": "Diff reviewed: comments and timeout-minutes only; npm test/package.json unchanged. New exact-head CI pending.",
+    "current_ci": "PENDING_PUBLICATION"
   }
 }
