@@ -51,7 +51,7 @@ function execute(drafts,platform,ctx,actor,action,{message,conversation_id,turn_
    if(action.operation==='PREVIEW')value={draft:input.draft,definition,expected_revision:input.expected_revision,preview_fingerprint:fingerprint,executable:false,publication_required:true};
    else{
      if(input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>500||input.preview_fingerprint!==fingerprint)fail('automation_zero_confirmation_invalid','Bevestig het exact voorbereide workflowconcept met een reden');
-     value=drafts.save(ctx,actor,action.draft_id,{draft:input.draft,expected_revision:input.expected_revision});
+     value=drafts.save(ctx,actor,action.draft_id,{draft:input.draft,expected_revision:input.expected_revision},input.expected_revision===0?{preview_fingerprint:fingerprint}:{});
    }
  }
  const answer=action.operation==='SAVE'?'Het private workflowconcept is bewaard. Publicatie, activatie en uitvoering zijn niet uitgevoerd.':action.operation==='READ'?'Het actuele eigen workflowconcept is opgehaald.':'Het workflowconcept is gecontroleerd. Bevestig apart om dit private concept te bewaren.';

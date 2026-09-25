@@ -4347,7 +4347,149 @@
       "log_bytes": 67233,
       "evidence_note": "Frozen implementation source; later prepublication changes only record test evidence."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 205,
+      "id": 36121833508,
+      "job_id": 108028887991,
+      "head": "c636e1b7259668022d87cfbd554455711b8e2cc9",
+      "tree": "d2417bd7cd926cd70d08ceb681c4f2d92fa6c2fb",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 569,
+      "zero_pass": 569,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "16a04dbce5ded9bad80a6488c3f3a37f27ef4ac9d4a65850a157cd60e3c49b27",
+        "bytes": 344038
+      }
+    },
     "remaining": "Cross-browser-reload attribution/terminal reconciliation of an uncertain newly generated draft remains open; native retained private drafts are accessible through the existing owner list and exact native replay. Workflow editor/autosave/publication, shared workflow list/manual-run/recovery/approval and backend/generated copy remain open. Broader hard exit gates and real browser/native-speaker/provider acceptance remain unaccepted. No matrix row is promoted; Run 3 has not started."
+  },
+  "workflow_draft_recovery_checkpoint": {
+    "recorded_at": "2026-09-25T10:21:34.844148+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 205,
+      "id": 36121833508,
+      "job_id": 108028887991,
+      "head": "c636e1b7259668022d87cfbd554455711b8e2cc9",
+      "tree": "d2417bd7cd926cd70d08ceb681c4f2d92fa6c2fb",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 569,
+      "zero_pass": 569,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "16a04dbce5ded9bad80a6488c3f3a37f27ef4ac9d4a65850a157cd60e3c49b27",
+        "bytes": 344038
+      }
+    },
+    "scope": "Recover or durably close a new generated private draft after a browser reload, preserving current owner/realm/permission and original native preview attribution. Generic ongoing draft-editor autosave/publication recovery remains separate open work.",
+    "native_contract": "Additive encrypted platform:automation_draft_requests journals new draft IDs and terminal closures. Native draft creation, audit and initial receipt commit together. Recovery returns only the same current owner/revision/fingerprint or atomically closes the absent ID. Delayed ZERO/private native writes cannot recreate closed IDs; an APPLIED receipt cannot resurrect a missing draft. Existing native keyless same-content replay stays compatible. Older drafts without a retained preview reference remain explicitly unverifiable, and newer revisions are not presented as the earlier result. Capacity refuses new writes at 10000 receipts without evicting prior evidence.",
+    "browser_contract": "Only draft ID, expected revision and preview hash enter session storage, keyed by tenant/dealer/actor. A fresh VM uses the native recovery route without retaining or resending the private description, reason, draft or SAVE action. Missing/malformed storage blocks new draft writes. Current response realm/draft/fingerprint/revision must match. Retired replies cannot clear metadata or invoke saved callbacks. Closed requests stay distinct from saved drafts even if local reference removal fails. Eight added owned rows provide locale-sensitive recovery feedback.",
+    "targeted": {
+      "tests": 26,
+      "pass": 26,
+      "fail": 0,
+      "new_permanent_tests": 15,
+      "files": [
+        "zero/workflow-draft-recovery.test.js",
+        "zero/workflow-draft-recovery-api.test.js",
+        "zero/workflow-generator-reload.test.js"
+      ],
+      "scope": "Six native core, three actual HTTP and six reload tests plus eleven retained generator controls. Reload uses fresh VM/native state and explicit session-storage fixtures, not real browser evidence."
+    },
+    "logs": {
+      "run2-workflow-draft-recovery-before.log": {
+        "sha256": "5d003ca1566bfabbf61ba4bc3ad0aea381cb512fbe6160eb65d0709632b4e165",
+        "bytes": 6856,
+        "exit_code": 1
+      },
+      "run2-workflow-draft-recovery-after.log": {
+        "sha256": "70325aa7186e46d0d3d048e98ab86eaab4bf27a6755bcb89ed03fccac2ae5af5",
+        "bytes": 776,
+        "exit_code": 0
+      },
+      "run2-workflow-draft-recovery-compat-before.log": {
+        "sha256": "a0c47e62b0be455d59df9676da5f08e51154797ab514907c9e4353a41fd292ac",
+        "bytes": 1136,
+        "exit_code": 1
+      },
+      "run2-workflow-draft-recovery-native.log": {
+        "sha256": "082acf63ec17759683f6ccccb17107c10b88065a7f0b43b01a7e2e8920c4b184",
+        "bytes": 2208,
+        "exit_code": 1
+      },
+      "run2-workflow-draft-recovery-native-corrected.log": {
+        "sha256": "502e41dd8f7c30ac0c1a14da63ad3c38b733cd6c2b5c18630472c7a2347858e6",
+        "bytes": 1382,
+        "exit_code": 0
+      },
+      "run2-workflow-generator-reload-before.log": {
+        "sha256": "0399027a1e924444deb353a5b1d1e0c7ba0280a93c62300e21e792d16d5e29f5",
+        "bytes": 3146,
+        "exit_code": 1
+      },
+      "run2-workflow-generator-reload-ui.log": {
+        "sha256": "07f285e4f50cc5b585ca9810a24a47b5b6a20bcc9d1b8566edb6f03272cb482e",
+        "bytes": 1998,
+        "exit_code": 0
+      },
+      "run2-workflow-draft-recovery-focused.log": {
+        "sha256": "0ba44a12ad61ce87e7a46c978ca263c3f6b5914e0d64367fcda56f35a75aa23c",
+        "bytes": 2798,
+        "exit_code": 0
+      },
+      "run2-workflow-generator-terminal-copy-before.log": {
+        "sha256": "1a2e4ff24d2a0579aaf34f8f7f311faeb4d52f59ae84f6033da2589210bf71e6",
+        "bytes": 1005,
+        "exit_code": 1
+      },
+      "run2-workflow-draft-recovery-final.log": {
+        "sha256": "e70a050373a71749d37666d46c306a941940aef4f9f7d7a070764dacef283a17",
+        "bytes": 3387,
+        "exit_code": 0
+      },
+      "run2-workflow-draft-recovery-verified.log": {
+        "sha256": "92ccf65ec1e9980d8f15a31a94ee08aef29bffa1f55d7e783be29065e4d8f223",
+        "bytes": 3516,
+        "exit_code": 0
+      },
+      "run2-workflow-draft-recovery-native-regression.log": {
+        "sha256": "7cd299632a59965e1018dd1deeab7ff049a4c54adeb78a9f18bde51a7fbaf725",
+        "bytes": 1685,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "Five initial native recovery tests and four initial fresh-view/storage tests fail before their implementations. A new origin check initially rejected the old keyless exact native replay; an explicit compatibility test fails before the check was narrowed to supplied origin references. One HTTP fixture incorrectly requested Data as a commercial entitlement and received the correct 422; it now requests Automation only. A dedicated failing-before test exposes false saved wording when a terminal NOT_APPLIED result cannot clear browser metadata; wording now describes only the confirmed recovery outcome. No failing result is discarded.",
+    "native_regression": {
+      "status": "PASS",
+      "exit_code": 0,
+      "command": "node workflow-generator-test.js && node workflow-drafts-test.js && node workflow-drafts-api-test.js && node workflow-zero-test.js && node workflow-zero-api-test.js && node workflow-language-api-test.js && node business-workspaces-regression-test.js"
+    },
+    "native_http_evidence": "Actually destroyed successful ZERO SAVE response; encrypted restart; no duplicate draft/publication/action; journal hidden from generic Data. Terminal closure blocks a real incomplete original ZERO body. Final-file rename EIO rolls back terminal persistence. Real member recovery checks current session after body wait and rejects another owner. The existing dynamic principal already performed that recheck; it was evidenced, not rebuilt.",
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 604,
+      "main_dashboard": 8
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 584,
+      "pass": 584,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "c9ec7482f61edcdc96033acf6d38eb95d25614de",
+      "source_tree": "f297ec908288d2d05f370dfebe8b8268fe65c51c",
+      "log_sha256": "4b08487ad767f533a34e1b9c7f99cb6eede4a58d5cb720af88d0166f6665bb1b",
+      "log_bytes": 69253,
+      "evidence_note": "Frozen implementation source; later prepublication changes only record test evidence."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Workflow editor/autosave/publication and shared workflow list/manual-run/recovery/approval, specialist/backend/generated localization, receipt lifecycle, broader cognition/demo/industry/performance/security/voice and real browser/native-speaker acceptance remain open. No matrix row is promoted. No destructive migration, real credential, main/production/deployment or Run 3 change."
   }
 }
