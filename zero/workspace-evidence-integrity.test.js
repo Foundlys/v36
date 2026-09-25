@@ -1,0 +1,25 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),{fixture}=require('../zero-evaluation/workspace-evidence-fixture'),{locales}=require('../foundly-i18n');
+test('shared evidence loading and owned fields follow all eight locales while source text and observation identity remain literal',async()=>{
+ const f=fixture(),release=f.holdEvidence(),pending=f.show();await release.started;const calls=f.calls.length;
+ for(const locale of locales){f.i.setLocale(locale);assert.equal(f.nodes.contextContent.textContent,f.i.t('workspace.page.section_loading'));assert.equal(f.calls.length,calls);}
+ release();await pending;const card=f.nodes.contextContent.children[0],original=JSON.stringify(f.response);
+ for(const locale of locales){f.i.setLocale(locale);assert.equal(f.nodes.contextContent.children[0],card);assert.ok(card.textContent.includes(f.i.t('workspace.page.field.record_type')));assert.ok(card.textContent.includes(f.i.number(1234)));assert.ok(card.textContent.includes(f.i.t('common.unknown')));assert.ok(card.textContent.includes(f.i.date(f.response.items[0].updated_at,{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'})));assert.ok(card.textContent.includes('Literal source <img>'));assert.ok(card.textContent.includes('custom_field'));assert.ok(card.textContent.includes('CONNECTED'));assert.equal(card.querySelector('img'),null);assert.equal(JSON.stringify(f.response),original);assert.equal(f.calls.length,calls);assert.equal(f.i.missingKeys().length,0);}
+});
+test('missing, malformed or mismatched section observations never become a successful empty collection',async()=>{
+ for(const patch of [{items:undefined},{items:{}},{items:[null]},{items:['not a record']},{workspace_id:'another'},{section:'QUALITY'},{status:'UNKNOWN'},{status:'MODULE_UNAVAILABLE'},{ok:false}]){const f=fixture();Object.assign(f.response,patch);await f.show();assert.ok(f.nodes.contextContent.textContent.includes(f.i.t('workspace.page.section_unavailable')));assert.ok(!f.nodes.contextContent.textContent.includes(f.i.t('workspace.page.section_empty')));assert.ok(!f.nodes.contextContent.textContent.includes('Literal source'));}
+});
+test('the latest section observation wins when an older request for the same section completes later',async()=>{
+ const f=fixture(),release=f.holdEvidence(),pending=f.show();await release.started;f.response.items=[{title:'Current source observation'}];await f.show();release();await pending;assert.ok(f.nodes.contextContent.textContent.includes('Current source observation'));assert.ok(!f.nodes.contextContent.textContent.includes('Literal source'));
+});
+test('a retired workspace or section view cannot receive an old evidence response or error',async()=>{
+ for(const change of ['workspace','section','denied']){const f=fixture(),release=f.holdEvidence(),pending=f.show();await release.started;if(change==='workspace')f.ui.state.workspaceId='knowledge';else if(change==='section')f.ui.state.activeSection='QUALITY';else{f.response.httpStatus=403;await f.show();}f.nodes.contextContent.textContent='Newer view';release();await pending;assert.equal(f.nodes.contextContent.textContent,'Newer view');}
+});
+test('valid empty evidence and bounded field counts are explicit instead of hiding omitted values',async()=>{
+ const f=fixture();f.response.items=[];await f.show();assert.equal(f.nodes.contextContent.textContent,f.i.t('workspace.page.section_empty'));
+ f.response.items=[Object.fromEntries(Array.from({length:21},(_,i)=>['source_field_'+i,'Literal '+i]))];await f.show();for(const locale of locales){f.i.setLocale(locale);assert.ok(f.nodes.contextContent.textContent.includes(f.i.t('workspace.page.section_fields_shown',{shown:f.i.number(18),total:f.i.number(21)})));}
+});
+test('section status instructions localize without converting provider reasons or inventing module access',async()=>{
+ for(const [status,key]of [['NOT_IMPLEMENTED','section_unimplemented'],['MODULE_UNAVAILABLE','section_module_unavailable'],['USE_WORKSPACE_EXPORT','section_export_hint']]){const f=fixture();Object.assign(f.response,{status,items:[],reason:status==='NOT_IMPLEMENTED'?'Literal provider reason <img>':undefined});await f.show();for(const locale of locales){f.i.setLocale(locale);assert.ok(f.nodes.contextContent.textContent.includes(f.i.t('workspace.page.'+key)));if(status==='NOT_IMPLEMENTED')assert.ok(f.nodes.contextContent.textContent.includes('Literal provider reason <img>'));assert.equal(f.nodes.contextContent.querySelector('img'),null);}}
+ const f=fixture();Object.assign(f.response,{status:'OPEN_MODULE',items:[],route:'/calendar'});await f.show();assert.ok(f.nodes.contextContent.textContent.includes(f.i.t('workspace.page.section_module_unavailable')));f.ui.state.navigation=[{id:'calendar',label:'Literal calendar title',route:'/calendar'}];await f.show();for(const locale of locales){f.i.setLocale(locale);assert.equal(f.nodes.contextContent.querySelector('a').textContent,f.i.t('workspace.page.section_open',{module:'Literal calendar title'}));}
+});

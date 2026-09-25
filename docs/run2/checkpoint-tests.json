@@ -3436,7 +3436,72 @@
     "storage_change": "None. No credential change, storage migration, production mutation, deployment, main merge or Run 3 work. Native test identities/provider data are isolated and synthetic.",
     "remaining": "Specialized provider and bulk status paths still need current-authority/configuration review. Profile/secret-file identity collisions, OAuth callback rollback races, legacy unguarded configuration writes/deletes, invalid environment capacity, first-class source browsing, unsupported imports, browser reload/receipt retention and broader shared section/domain localization remain open. Wider cognitive/semantic/industry/demo/adversarial/performance and external voice/browser/native-speaker gates are unchanged.",
     "evidence_limit": "Native HTTP, current identities/composition and controlled DNS/provider boundaries; full ZERO/corpus and native regression do not establish real provider, browser, accessibility, listening or native-speaker acceptance. No full new-tree npm regression is claimed before CI finishes.",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 196,
+      "id": 36106239822,
+      "job_id": 107979297964,
+      "status": "in_progress",
+      "conclusion": null,
+      "head": "a771ab4a71f486e49ad1c559734f767ef2c21f44",
+      "tree": "ab7dd199aa3bc55afa1f930f90218b48d8d2be0f",
+      "full_npm_test": "PENDING"
+    },
     "dynamic_candidates": 674
+  },
+  "workspace_evidence_section_checkpoint": {
+    "recorded_at": "2026-09-25T07:19:03.333258+00:00",
+    "prior_published_head": "a771ab4a71f486e49ad1c559734f767ef2c21f44",
+    "prior_published_tree": "ab7dd199aa3bc55afa1f930f90218b48d8d2be0f",
+    "prior_ci": {
+      "number": 196,
+      "id": 36106239822,
+      "job_id": 107979297964,
+      "status": "in_progress",
+      "conclusion": null,
+      "head": "a771ab4a71f486e49ad1c559734f767ef2c21f44",
+      "tree": "ab7dd199aa3bc55afa1f930f90218b48d8d2be0f",
+      "full_npm_test": "PENDING"
+    },
+    "source_sha256": {
+      "foundly-workspace.js": "3f698ee9de24baf3b674c84152e752b7c3b028c25aaa07f55b36b14a3b624834",
+      "foundly-locales.js": "f284f8cbcc1b176a4df3fe6e8ba968511d6a77aa4597f4d52b9b9c63ae4f34e3",
+      "zero-evaluation/workspace-page-fixture.js": "55ea31c27891bb94672362ed4830be6b767b3e4a81df5ddf32f901eea4343ee6",
+      "zero-evaluation/workspace-evidence-fixture.js": "ad5af79fbff013d596146bbf4d5c099b07479c3b6cf9834acbef60caf159d369",
+      "zero/workspace-evidence-integrity.test.js": "510774656b9bd1b3519d01ee741b6e89da97ace86880e6db10d4db1c135428bb"
+    },
+    "logs": {
+      "run2-workspace-evidence-before.log": {
+        "exit_code": 1,
+        "sha256": "13491544a207ff709a866c89a2cc83eae237718df18d3d6999c3230e9d8aef7c",
+        "bytes": 5818
+      },
+      "run2-workspace-evidence-targeted.log": {
+        "exit_code": 0,
+        "sha256": "a1dfb003579e115b5879a73e2a7314ff7c9ad78cacca76aff1ade1a22d7af89e",
+        "bytes": 1937
+      },
+      "run2-workspace-evidence-contradiction-before.log": {
+        "exit_code": 1,
+        "sha256": "a563e49a895a2cff2e6b6076936746832827c5fdcddba007b936d15c3ac2b686",
+        "bytes": 1013
+      },
+      "run2-workspace-evidence-verified.log": {
+        "exit_code": 0,
+        "sha256": "305644234cd785a25ca846270e6c8bf90a52df14e7056f9745f0d7e292f8b489",
+        "bytes": 7365
+      }
+    },
+    "new_tests": 6,
+    "targeted_tests": 60,
+    "targeted_pass": 60,
+    "native_regression": "business-workspaces-regression-test.js completed exit 0. Its static design/accessibility assertions are not actual browser/layout/assistive technology acceptance.",
+    "full_zero_current_tree": "PENDING full CI; prior exact connector checkpoint has 485/485 ZERO and 14/14 corpus passes. No full 491-test run is claimed here.",
+    "before_fix": "All six initial controller tests fail locale binding, observation validation, same-section request ordering, retired-workspace response suppression, explicit field coverage or typed status copy. A later contradictory unavailable-with-records case also fails before tightening the observation contract.",
+    "scope": "Shared generic evidence sections localize owned loading/status/empty/export/open messages and registered field labels across all eight locales. Known UTC dates, exact integer counts and bounded confidence retain unknown values without zero coercion. Money fields use their declared currency. Customer/provider strings, unknown field names, IDs and nested source objects remain literal and inert. Locale changes retain DOM nodes, source values and request count. Explicit null fields remain visible as unknown; the existing 18-field display limit now states shown versus returned fields. Responses must match the requested workspace and section, explicit status and valid item shape; missing/malformed/contradictory observations cannot become a successful empty list. Per-container observation tokens, workspace/section identity and access generation suppress old results/errors after refresh, navigation or denial.",
+    "remaining": "SECTION_COPY/context headings, workspace tabs, package composition, identity/settings controls, shared domain forms and specialist/generated/backend content remain open; conservative inventory is 668 candidates across 47 scripts and is not exhaustive. Native browser, layout/accessibility and native-speaker acceptance remain unverified. Generic connector slices do not close specialized/bulk provider authority, profile identity/OAuth races, receipt retention, invalid limits or the broader cognition/semantic/demo/industry/adversarial/performance/voice gates.",
+    "storage_change": "None. No server API contract change, migration, credential change, actual data/provider mutation, main merge or deployment. Frozen main dashboard source remains unchanged.",
+    "evidence_limit": "The actual shared controller runs in a minimal DOM with explicitly controlled HTTP responses, plus native workspace regression. This is not native browser, live provider, layout, assistive technology or native-speaker evidence.",
+    "current_ci": "PENDING_PUBLICATION",
+    "dynamic_candidates": 668
   }
 }

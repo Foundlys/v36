@@ -23,7 +23,7 @@
   let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0,dashboardWrite=null;
   const dashboardControlState=new Map();
   let connectorView=0,connectorSession=null;const connectorForms=new WeakMap(),connectorActions=new Set(),connectorSyncRequests=new Map();
-  const liveMessages=new WeakMap(),liveBindings=new Set();
+  const liveMessages=new WeakMap(),liveBindings=new Set(),evidenceViews=new WeakMap();
   const i18n=()=>globalThis.FoundlyI18n;
   const copy=(key,params={})=>i18n()?.message(key.startsWith('common.')||key.startsWith('module.')||key.startsWith('analysis.')?key:'workspace.page.'+key,params)||key;
   function live(read){const value=Object.freeze({toString:()=>String(read())});liveMessages.set(value,read);return value;}
@@ -724,27 +724,40 @@
   }
 
   async function renderEvidenceSection(section,content){
-    replaceChildren(content,[node('p','LoadingState','Gegevens voor dit onderdeel laden…')]);
+    const workspace=state.workspaceId,epoch=accessGeneration,ticket={};evidenceViews.set(content,ticket);
+    const current=()=>content.isConnected&&evidenceViews.get(content)===ticket&&state.workspaceId===workspace&&state.activeSection===section&&accessGeneration===epoch;
+    replaceChildren(content,[node('p','LoadingState',copy('section_loading'))]);
     try{
-      const result=await request(`/api/workspaces/${state.workspaceId}/sections/${encodeURIComponent(section)}`);if(state.activeSection!==section)return;
+      const result=await request(`/api/workspaces/${workspace}/sections/${encodeURIComponent(section)}`);if(!current())return;
+      const statuses=['AVAILABLE','NOT_IMPLEMENTED','MODULE_UNAVAILABLE','USE_WORKSPACE_EXPORT','OPEN_MODULE'];
+      if(result?.ok!==true||result.workspace_id!==workspace||result.section!==section||!statuses.includes(result.status)||!Array.isArray(result.items)||result.status!=='AVAILABLE'&&result.items.length>0||result.items.some(row=>!row||typeof row!=='object'||Array.isArray(row))){replaceChildren(content,[node('p','ErrorState',copy('section_unavailable'))]);return;}
       const items=[];
-      if(result.status==='NOT_IMPLEMENTED')items.push(node('p','EmptyState',result.reason));
-      else if(result.status==='MODULE_UNAVAILABLE')items.push(node('p','EmptyState','Deze aanvullende module is niet actief.'));
-      else if(result.status==='USE_WORKSPACE_EXPORT')items.push(node('p','','Gebruik de exportknop om de toegankelijke workspacegegevens te downloaden.'));
+      if(result.status==='NOT_IMPLEMENTED'){items.push(node('p','EmptyState',copy('section_unimplemented')));if(typeof result.reason==='string'&&result.reason!=='Dit onderdeel heeft nog geen volledig aangesloten gegevenscontract.')items.push(node('p','',result.reason));}
+      else if(result.status==='MODULE_UNAVAILABLE')items.push(node('p','EmptyState',copy('section_module_unavailable')));
+      else if(result.status==='USE_WORKSPACE_EXPORT')items.push(node('p','',copy('section_export_hint')));
       else if(result.status==='OPEN_MODULE'){
-        const target=state.navigation.find(item=>item.route===result.route);if(target){const link=node('a','primary-button',`Open ${target.label}`);link.href=target.route;items.push(link);}else items.push(node('p','EmptyState','Deze aanvullende module is niet actief.'));
+        const target=state.navigation.find(item=>item.route===result.route);if(target){const link=node('a','primary-button',copy('section_open',{module:target.label}));link.href=target.route;items.push(link);}else items.push(node('p','EmptyState',copy('section_module_unavailable')));
       }
-      for(const row of result.items||[]){
+      const ownedFields=new Set(['name','title','status','provider','amount_cents','currency','updated_at','created_at','occurred_at','event_name','entity_type','confidence','record_type','schema_version','internal_id','observed_at','ingested_at','expires_at','last_verified_at','source_id','provenance','superseded_by','supersedes']);
+      const dates=new Set(['updated_at','created_at','occurred_at','observed_at','ingested_at','expires_at','last_verified_at']),counts=new Set(['records_available','record_count']);
+      for(const row of result.items){
         const card=node('article','context-item'),heading=row.title||row.name||row.event_name||row.subject||row.source_name||row.connector_id||row.internal_id||row.id||section;
         card.append(node('h3','',typeof heading==='string'?heading:section));const list=node('dl');
-        for(const [key,value] of Object.entries(row).filter(([,value])=>value!==undefined&&value!==null).slice(0,18)){
-          const label=node('dt','',key.replaceAll('_',' ')),detail=node('dd','',typeof value==='object'?JSON.stringify(value):String(value));list.append(label,detail);
+        const fields=Object.entries(row).filter(([,value])=>value!==undefined);
+        for(const [key,value] of fields.slice(0,18)){
+          const label=node('dt','',ownedFields.has(key)?copy('field.'+key):counts.has(key)?copy('records'):key==='source'?copy('source'):key);
+          let observed=value===null?unknown():typeof value==='object'?JSON.stringify(value):String(value);
+          if(dates.has(key))observed=time(value);
+          else if(counts.has(key))observed=count(value);
+          else if(key==='amount_cents')observed=live(()=>i18n().currencyCents(value,row.currency));
+          else if(key==='confidence')observed=typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=1?number(value):unknown();
+          list.append(label,node('dd','',observed));
         }
-        card.append(list);items.push(card);
+        card.append(list);if(fields.length>18)card.append(node('p','',live(()=>copy('section_fields_shown',{shown:i18n().number(18),total:i18n().number(fields.length)}))));items.push(card);
       }
-      if(!items.length)items.push(node('p','EmptyState','Geen toegankelijke gegevens voor dit onderdeel.'));
+      if(!items.length)items.push(node('p','EmptyState',copy('section_empty')));
       replaceChildren(content,items);
-    }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
+    }catch(error){if(current()&&!error.stale)replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
   }
 
   async function renderComposer(content) {
