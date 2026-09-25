@@ -7036,7 +7036,7 @@
   "native_creative_recovery_20260925": {
     "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
     "source_tree": "c902b5232a7e3d3fb00768df452cb480c099969e",
-    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "status": "PASS for bounded native recovery checkpoint, including exact-tree complete CI 222; wider Run 2 gates remain open",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "a065c6bab8678d842501aee258def5bbb3403196",
@@ -7119,6 +7119,131 @@
       }
     ],
     "scope": "Atomic native revision acknowledgements and current-owner recovery. Metadata binds original key/body fingerprint/source/revision/restore choice. Read-only APPLIED reconciliation returns exact retained snapshot and separately identifies a newer current revision. NOT_APPLIED closure prevents delayed original version/restore bodies. Native and ZERO explicit request IDs share the same receipt; legacy ZERO turn keys and older saved receipts remain compatible without invented recovery proof. Current module/capability/actor/tenant/source/result ownership, retained-history integrity, capacity, persistence rollback, real lost response, encrypted restart and held authenticated body verified.",
-    "remaining": "The existing creative-history client still needs metadata-only browser reload recovery, strict acknowledgement/response binding, eight-locale presentation and stale/denied controls. This native-only checkpoint does not claim those client gates. Every wider genuinely open Run 2 gate remains open."
+    "remaining": "The subsequent creative_client_recovery_20260925 source connects the actual client and shared page, with its own evidence. Native CI 222 does not cover that newer source. Wider unaccepted Run 2 gates remain open.",
+    "published_ci_222": {
+      "published_commit": "a12671cdc13020d768a626ed86e6ed90bcb73b0b",
+      "published_tree": "077785582edc196ebb83f21621a63dbd0bd8322b",
+      "ci_merge_commit": "7c3cd3fff8c740d13a27ea12b13b56701c0db160",
+      "ci_merge_tree": "077785582edc196ebb83f21621a63dbd0bd8322b",
+      "run_id": 36159785842,
+      "job_id": 108153212480,
+      "run_number": 222,
+      "status": "PASS",
+      "zero_pass": 826,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "718c9103f7e2c1d2163ff40f4e3d9436c82d203431711f34ca59518b8bc44041",
+      "log_bytes": 450700
+    }
+  },
+  "creative_client_recovery_20260925": {
+    "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+    "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+      "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+      "exit_code": 0,
+      "seconds": 61.39,
+      "log_sha256": "68ebf2c8b70ff454b6200e16e0da925b124c90f741ebc8abe40151b2314f3177",
+      "log_bytes": 101448,
+      "pass_count": 845,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "marketing-creative-history-test.js",
+        "exit_code": 0,
+        "seconds": 0.24,
+        "sha256": "893840958facac09683b3a6987cca712089fb63f6c0927afb397bc5dae380697"
+      },
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "marketing-creative-history-api-test.js",
+        "exit_code": 0,
+        "seconds": 8.82,
+        "sha256": "96c38c6779d2c2725ea51e234cd78b5daf37e93ad9470c1682b6b691e23fc735"
+      },
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "marketing-creative-history-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.52,
+        "sha256": "06f764749c91d163e6055926719574b3c4424a26707d61744dd969418a814442"
+      },
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "marketing-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.12,
+        "sha256": "2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373"
+      },
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "marketing-creative-reviews-test.js",
+        "exit_code": 0,
+        "seconds": 0.38,
+        "sha256": "e9b9fb9888d788d5a273a93abf2afcdd9b8404079561924bf17a38bced072e46"
+      },
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "marketing-creative-reviews-api-test.js",
+        "exit_code": 0,
+        "seconds": 7.72,
+        "sha256": "ba9426e7fe342179561176aadfeaf58bd88cc52300ce6402bdba4fa5ba5c65a8"
+      },
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.36,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
+        "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 1.05,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      }
+    ],
+    "permanent_new_tests": 19,
+    "preserved_failures": [
+      {
+        "file": "creative-client-before.log",
+        "sha256": "dbf287189123501ac10a65f144096ddab6bcbbb2f497b37605944db24410bdac",
+        "bytes": 10426,
+        "retained_head": "\u2716 creative fields, selected source and owned history labels localize in place without changing literal input or dispatching (113.680769ms)\n\u2716 an uncertain creative save uses metadata-only outcome recovery on retry despite changed private fields or reason (67.457145ms)\n\u2716 a fresh creative view recovers the original outcome and preserves its newer input across all locales (112.347176ms)\n\u2716 a failed-before-dispatch creative request is durably closed and its original body can never execute later (101.613272ms)\n\u2716 forged creative acknowledgements cannot clear uncertainty, switch identity, report success or fetch another source (92.229795ms)\n\u2716 missing, contradictory or altered creative history cannot be presented as an authoritative editable source (53.237224ms)\n\u2716 old creative history controls cannot select a stale revision after a newer source refresh (72.516413ms)\n\u2716 creative current denial retires private source and history without clearing unresolved recovery attribution (53.321287ms)\n\u2716 a previously applied creative revision can be reconciled after a newer independent update without resending or overwriting (63.644342ms)\n\u2716 creative storage failure prevents dispatch and failed local cleanup preserves a known native save (95.336749ms)\n\u2716 a refresh failure following a verified creative save cannot become another uncertain write (60.753335ms)\n\u2716 retired creative save replies preserve scoped recovery and a global fresh-view control can reconcile the original source (66.005257ms)\n\u2139 tests 12\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 12\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1257.44929\n\n\u2716 failing tests:\n\ntest at zero/marketing-creative-client.test.js:3:1\n\u2716 creative fields, selected source and owned history labels localize in place without changing literal input or dispatching (113.680769ms)\n",
+        "retained_tail": " at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-creative-client.test.js:13:1\n\u2716 a refresh failure following a verified creative save cannot become another uncertain write (60.753335ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'PRIVATE RAW refresh unavailable'\n  - '\u27e6marketing.creative.confirmed_refresh_failed:en-GB\u27e7'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-client.test.js:13:256)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'PRIVATE RAW refresh unavailable',\n    expected: '\u27e6marketing.creative.confirmed_refresh_failed:en-GB\u27e7',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-creative-client.test.js:14:1\n\u2716 retired creative save replies preserve scoped recovery and a global fresh-view control can reconcile the original source (66.005257ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-client.test.js:14:402)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "creative-client-initial.log",
+        "sha256": "e5853eee4529d7861f2e8abbcecfbfcca94a2bfd39388733c6a40cb32e453bb4",
+        "bytes": 2339,
+        "retained_head": "\u2716 creative fields, selected source and owned history labels localize in place without changing literal input or dispatching (132.644596ms)\n\u2714 an uncertain creative save uses metadata-only outcome recovery on retry despite changed private fields or reason (131.018221ms)\n\u2714 a fresh creative view recovers the original outcome and preserves its newer input across all locales (124.660701ms)\n\u2714 a failed-before-dispatch creative request is durably closed and its original body can never execute later (47.147428ms)\n\u2714 forged creative acknowledgements cannot clear uncertainty, switch identity, report success or fetch another source (353.254972ms)\n\u2714 missing, contradictory or altered creative history cannot be presented as an authoritative editable source (465.266741ms)\n\u2714 old creative history controls cannot select a stale revision after a newer source refresh (67.612335ms)\n\u2714 creative current denial retires private source and history without clearing unresolved recovery attribution (67.460844ms)\n\u2714 a previously applied creative revision can be reconciled after a newer independent update without resending or overwriting (54.104722ms)\n\u2714 creative storage failure prevents dispatch and failed local cleanup preserves a known native save (103.469537ms)\n\u2714 a refresh failure following a verified creative save cannot become another uncertain write (49.050356ms)\n\u2714 retired creative save replies preserve scoped recovery and a global fresh-view control can reconcile the original source (88.861806ms)\n\u2139 tests 12\n\u2139 suites 0\n\u2139 pass 11\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1899.146924\n\n\u2716 failing tests:\n\ntest at zero/marketing-creative-client.test.js:3:1\n\u2716 creative fields, selected source and owned history labels localize in place without changing literal input or dispatching (132.644596",
+        "retained_tail": "(47.147428ms)\n\u2714 forged creative acknowledgements cannot clear uncertainty, switch identity, report success or fetch another source (353.254972ms)\n\u2714 missing, contradictory or altered creative history cannot be presented as an authoritative editable source (465.266741ms)\n\u2714 old creative history controls cannot select a stale revision after a newer source refresh (67.612335ms)\n\u2714 creative current denial retires private source and history without clearing unresolved recovery attribution (67.460844ms)\n\u2714 a previously applied creative revision can be reconciled after a newer independent update without resending or overwriting (54.104722ms)\n\u2714 creative storage failure prevents dispatch and failed local cleanup preserves a known native save (103.469537ms)\n\u2714 a refresh failure following a verified creative save cannot become another uncertain write (49.050356ms)\n\u2714 retired creative save replies preserve scoped recovery and a global fresh-view control can reconcile the original source (88.861806ms)\n\u2139 tests 12\n\u2139 suites 0\n\u2139 pass 11\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1899.146924\n\n\u2716 failing tests:\n\ntest at zero/marketing-creative-client.test.js:3:1\n\u2716 creative fields, selected source and owned history labels localize in place without changing literal input or dispatching (132.644596ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  14 !== 0\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-client.test.js:3:695)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 14,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "creative-client-proof-before.log",
+        "sha256": "f5ab2ac3b419757db7d68cd4bbcccbafdbf5d5282c290a9d6e75d88ef98b1db7",
+        "bytes": 1811,
+        "retained_head": "\u2716 a superseded recovery cannot accept an incomplete retained snapshot even with a matching supplied digest (232.308129ms)\n\u2716 reopening a clean creative detail revalidates the source and cannot display retained private history after current denial (240.644115ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 2\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 538.614546\n\n\u2716 failing tests:\n\ntest at zero/marketing-creative-client.test.js:18:1\n\u2716 a superseded recovery cannot accept an incomplete retained snapshot even with a matching supplied digest (232.308129ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-client.test.js:18:591)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-creative-page.test.js:7:1\n\u2716 reopening a clean creative detail revalidates the source and cannot display retained private history after current denial (240.644115ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(!f.content.textContent.includes('Private reopen content'))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-page.test.js:7:698)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n",
+        "retained_tail": "\u2716 a superseded recovery cannot accept an incomplete retained snapshot even with a matching supplied digest (232.308129ms)\n\u2716 reopening a clean creative detail revalidates the source and cannot display retained private history after current denial (240.644115ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 2\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 538.614546\n\n\u2716 failing tests:\n\ntest at zero/marketing-creative-client.test.js:18:1\n\u2716 a superseded recovery cannot accept an incomplete retained snapshot even with a matching supplied digest (232.308129ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-client.test.js:18:591)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-creative-page.test.js:7:1\n\u2716 reopening a clean creative detail revalidates the source and cannot display retained private history after current denial (240.644115ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(!f.content.textContent.includes('Private reopen content'))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-creative-page.test.js:7:698)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "scope": "Actual creative history client and shared workspace page. Metadata-only, actor/tenant/dealer-scoped session recovery; exact acknowledgement and retained native snapshot binding; no changed or duplicate write after uncertain replies; durable absence closure; current permission denial clears private history while retaining attribution; dirty/pending close guards and fresh authorized reopen; stale controls and responses blocked. Native and ZERO actual HTTP lost completed reply plus encrypted restart and fresh VM; global pending controls for sources outside visible page. Eight locales preserve form/reason and source literals; native status and dates use owned presentation. Approved creative fork and superseded result are identified without overwriting newer input. Storage and post-confirmation read failures stay truthful.",
+    "remaining": "Own complete full CI on this exact published tree is pending. Shared creative review commands and journey controls, other production-facing localization/state gaps and all wider unaccepted Run 2 gates remain open. Fixture DOM evidence does not establish browser layout/responsive acceptance."
   }
 }
