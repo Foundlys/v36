@@ -4908,7 +4908,130 @@
       "log_bytes": 75938,
       "evidence_note": "Frozen source; following prepublication edits record evidence only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 209,
+      "id": 36131247678,
+      "job_id": 108058755292,
+      "head": "467b3b05531bf4ef3b4c60642ba240bb929afec4",
+      "tree": "d717d072996baf7122c38c44fc5d9e0a04e6f0d1",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 637,
+      "zero_pass": 637,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "8a00edaaa9f3c5196f1f42df0592435714300267d56605f2ab072a1cafb15f27",
+        "bytes": 372694
+      }
+    },
     "remaining": "Workflow publication browser-reload recovery, shared automation list/manual run/approval/activation/recovery controls and all wider recorded Run 2 gates. Minimal DOM/fresh VM is not real browser, accessibility, native-speaker or live-provider evidence. Matrix unchanged; no main merge, credentials, destructive migration, production/deployment or Run 3."
+  },
+  "workflow_publication_recovery_checkpoint": {
+    "recorded_at": "2026-09-25T12:00:22.640595+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 209,
+      "id": 36131247678,
+      "job_id": 108058755292,
+      "head": "467b3b05531bf4ef3b4c60642ba240bb929afec4",
+      "tree": "d717d072996baf7122c38c44fc5d9e0a04e6f0d1",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 637,
+      "zero_pass": 637,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "8a00edaaa9f3c5196f1f42df0592435714300267d56605f2ab072a1cafb15f27",
+        "bytes": 372694
+      }
+    },
+    "scope": "Exact keyed immutable workflow publication outcome through fresh editor recovery, with terminal closure of absent requests.",
+    "native_contract": "Optional actor-scoped request ID binds the exact input hash and native definition signature. Metadata-only receipt commits atomically with immutable version, audit and owned event outbox. Existing exact versions can be confirmed without redefining or emitting another event. Missing or altered retained versions cannot be recreated or falsely confirmed. An absent request can be durably closed; later original POST is refused. Recovery itself never publishes, activates, executes or flushes events. Current native management permission, owning module and workflow capability remain required after body wait. Capacity preserves old evidence; legacy keyless publication remains compatible without invented attribution.",
+    "client_contract": "Eight additional owned rows across all eight locales. Before dispatch, retain only request ID, input hash and definition hash in tenant/dealer/actor-scoped session storage. Validate exact immutable result and request/realm before acknowledgement or recovery callback. Fresh VM does not retain or replay private definition content. Unknown, invalid, inaccessible or retired responses preserve metadata. Native known outcomes survive local cleanup failure; absent request closure has distinct feedback. Unavailable older result does not block independent draft work. Definitive conflicts can be corrected as a separate immutable version. Recovery cannot refresh away private input typed before or during the lookup.",
+    "targeted": {
+      "tests": 55,
+      "pass": 55,
+      "fail": 0,
+      "new_permanent_tests": 21,
+      "files": [
+        "zero/workflow-publication-recovery.test.js",
+        "zero/workflow-editor-publication-reload.test.js",
+        "zero/workflow-publication-recovery-api.test.js"
+      ],
+      "scope": "Eight native, ten fresh-editor and three actual HTTP tests; retained nineteen editor integrity, nine draft reload, five locale and one publication HTTP case."
+    },
+    "logs": {
+      "run2-workflow-publication-recovery-before.log": {
+        "sha256": "f727b837aa6f15e5aee0dd14367823770354938d00427e49e29d4783b6e6f07c",
+        "bytes": 11772,
+        "exit_code": 1
+      },
+      "run2-workflow-publication-recovery-after.log": {
+        "sha256": "43e1bc7f2c7abecd812acf975c680135f4812cd5769ebcc454994b61f1a2a040",
+        "bytes": 1112,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-publication-reload-before.log": {
+        "sha256": "f3763f846ec7ecf401628679024edc84ffe41e85e16d3925e29c2fa0e9898dec",
+        "bytes": 6233,
+        "exit_code": 1
+      },
+      "run2-workflow-publication-recovery-focused.log": {
+        "sha256": "c05eaff30e1223b7b867734afa4059e3874c952142e03f57d78d798dc7e85af4",
+        "bytes": 5769,
+        "exit_code": 0
+      },
+      "run2-workflow-publication-recovery-api.log": {
+        "sha256": "b8c45487d123a04b1d0e49230dfd2a9eb6288943971928149066b2cde64a3b5d",
+        "bytes": 600,
+        "exit_code": 0
+      },
+      "run2-workflow-publication-unsaved-before.log": {
+        "sha256": "8e63fb642cfbcbdd060c36a30c13d9abbf4e89c41e849b3da5341a85f32bbefa",
+        "bytes": 931,
+        "exit_code": 1
+      },
+      "run2-workflow-publication-recovery-final.log": {
+        "sha256": "3efb7c066abfb0bf094cfe204491dd20d2952a3a5ab441ec57b121184cfc74c5",
+        "bytes": 7162,
+        "exit_code": 0
+      },
+      "run2-workflow-publication-recovery-native.log": {
+        "sha256": "20c274fa5f28eafaffa7d583e7dd53420bb0b862792b191bac24618372d5e254",
+        "bytes": 4792,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "All eight native cases fail before keyed publication implementation. Seven of eight initial editor reload cases fail before browser metadata/recovery implementation; the existing immutable-conflict correction already passed and remains retained. A further failing-before case proves that successful recovery could invoke a refresh callback despite new unsaved input; the callback now requires no unsaved input, and both before/during-response edits remain preserved. No native permission, delay, approval or immutable-version assertion was waived.",
+    "http_evidence": "Actual editor to authenticated HTTP loses a successfully committed publication response, then a fresh VM recovers after encrypted server restart without replay or workflow execution. EIO rolls terminal closure back, allowing the original request; a later durable closure rejects an actual held original POST body, including after restart. Actor receipts are isolated. Workflow capability revocation and member role revocation during authenticated body waits both prevent private result release. Generic Data excludes applied and closed publication request keys.",
+    "native_regression": {
+      "status": "PASS",
+      "exit_code": 0,
+      "command": "node workflow-authoring-test.js && node workflow-authoring-api-test.js && node workflow-editor-test.js && node workflow-activation-test.js && node workflow-execution-test.js && node module-access-contracts-test.js && node module-event-contracts-test.js && node platform-core-regression-test.js && node platform-api-regression-test.js && node business-workspaces-regression-test.js",
+      "timing": "Before final recovery-only unsaved-input refresh guard and source-free terminal audit identity; final focused tests include those changes, exact-source full ZERO/full npm CI still required."
+    },
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 570,
+      "main_dashboard": 8
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 658,
+      "pass": 658,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "d439fd0b0a5838c507132ba8da543568b4f0c8fb",
+      "source_tree": "0927d9484d4dd80913a2c5fce2cc5804c3b0b8ec",
+      "log_sha256": "bab3b749e40ea634a1e99107f5115855e32a28d57a55a7e9eb932f0e12a32a27",
+      "log_bytes": 78703,
+      "evidence_note": "Frozen source; following prepublication edits record evidence only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Shared automation list/manual run/recovery/approval/activation controls, specialist/backend/generated localization and all wider recorded hard exit gates. No matrix row promoted. Fresh VM/minimal DOM is not actual browser, accessibility, native-speaker or live-provider acceptance. Additive optional encrypted native journal; no destructive migration, credential, main/production/deployment or Run 3 work."
   }
 }

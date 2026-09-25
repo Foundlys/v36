@@ -631,3 +631,18 @@ Fifty focused tests pass, including nineteen new permanent tests. Actual editor-
 Fresh VM/session-storage fixtures do not prove actual browser persistence, accessibility or native-speaker acceptance. Publication recovery after browser reload is next; shared automation controls and broader hard gates remain open. Matrix unchanged; no main/production/deployment, credentials, destructive migration or Run 3.
 
 The frozen editor write-recovery source `af72944fafc40f6480859cb2e41467d66b260c87` (tree `a47429dc6f187124ce5f2984439c62a058c0c681`) passed all 637 ZERO tests and all 14 corpus cases. Current-source full npm regression remains pending exact-head CI after publication.
+
+
+## Continued Phase 8: immutable publication recovery after reload
+
+CI 209 passed full npm regression on exact published `467b3b0`, including 637 ZERO tests and 14 corpus cases. The next checkpoint adds twenty-one permanent tests; fifty-five focused tests pass. Eight initial native and seven initial fresh-editor failures are reproduced. A further failing-before case catches recovery refreshing away newly typed private input; recovery now preserves that input and confirms the old outcome without refreshing the editor.
+
+Optional actor-scoped publication keys bind exact input and immutable definition hashes. Native receipt, version, audit and owned event outbox share one transaction. Exact existing versions can gain a new request confirmation without duplicate definition/events. Metadata-only recovery returns the retained immutable version or closes an absent request; a delayed original POST cannot publish afterward. Legacy keyless publication remains compatible, without retrospective request attribution. Missing/corrupt retained results are explicit, receipts are bounded without eviction, and the private journal is excluded from generic Data. Management, module and workflow capability checks remain current after body waits.
+
+The production editor stores only scoped request ID and two hashes, before sending publication. A fresh VM can recover without retaining or replaying the private definition. Eight additional owned rows cover all eight locales. Typed checks bind realm, request and immutable content; retired/forged/denied replies retain evidence. Failed local cleanup cannot undo a known outcome. Unavailable historical results do not block independent drafts; definitive conflicts can be corrected as a new immutable version.
+
+Actual HTTP destroys a successful publication response, restarts encrypted persistence and recovers through a fresh editor. Further HTTP tests prove EIO rollback, terminal closure before completion of an original POST body, actor isolation and current capability/member revocation after authenticated body waits. Recovery does not run or activate workflows; existing automatic publication behavior is unchanged and remains stated in the editor. Existing authoring, activation, execution, access/event, platform and workspace regressions pass. Full frozen-source ZERO and exact-head CI remain pending.
+
+Minimal DOM/fresh VM does not establish actual browser persistence, accessibility, native-speaker or provider acceptance. Locale inventory remains 570 candidates across 47 scripts, with eight on the frozen dashboard. Shared automation controls and wider hard gates remain open, matrix unchanged. No main/production/deployment, real credentials, destructive migration or Run 3.
+
+The frozen publication recovery source `d439fd0b0a5838c507132ba8da543568b4f0c8fb` (tree `0927d9484d4dd80913a2c5fce2cc5804c3b0b8ec`) passed all 658 ZERO tests and all 14 corpus cases. Current-source full npm regression remains pending exact-head CI after publication.
