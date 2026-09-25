@@ -9,3 +9,5 @@ The native receipt commits atomically with the run, recovery history, audit and 
 The six initial missing-contract failures and locale-dependent fixture failures remain in evidence. The updated native UI test retains its absence, effect-count and changed-source proof; it now uses the actual shared page instead of extracting removed inline code. It does not claim browser layout acceptance.
 
 CI 218 fully passes for the preceding resume publication with matching published/CI trees. Publish this newer result-recovery tree plus evidence and inspect its own full CI. Continue with shared draft/template controls and remaining Run 2 gates; no global acceptance claim, production/main merge, deployment, credentials or Run 3 action.
+
+CI 219 is now **PASS**: run `36154382373`, job `108135239266`, published head `9934a32463b83e62f5a65e0843e9be1f860103de`. CI merge `d2c98770183e97a86af0960bd6c23544d4a9b22d` has the identical tree `2fc19c4f66b6ec119c8c5d5e74d6a1487c92c345`; complete npm output reaches 792 ZERO PASS and 14 corpus PASS.

@@ -6789,6 +6789,101 @@
     ],
     "scope": "Present internal proof versus proven absence; exact native reconciliation and receipt in one atomic transaction; immutable request identity, terminal closure, metadata-only browser reload recovery, encrypted restart, non-executing observation, eight locales, checkbox/reason/source preservation, current owner/capabilities/roles, EIO rollback, lost response and stale view protection.",
     "fixture_updates": "Legacy recovery UI extraction replaced by the actual shared page/component fixture while retaining absence-not-completion, no-next-effect and stale-proof rejection assertions. The native test explicitly selects nl-NL for its Dutch assertions. The retired-control test uses the canonical recovery control attribute instead of a hardcoded Dutch label. No effect/security/restart assertion removed.",
-    "remaining": "Shared draft chooser and industry-template controls, remaining full-surface localization and every genuinely open authoritative gate. Minimal DOM tests do not establish browser/layout/native-speaker acceptance."
+    "remaining": "Shared draft chooser and industry-template controls, remaining full-surface localization and every genuinely open authoritative gate. Minimal DOM tests do not establish browser/layout/native-speaker acceptance.",
+    "published_ci_219": {
+      "published_commit": "9934a32463b83e62f5a65e0843e9be1f860103de",
+      "published_tree": "2fc19c4f66b6ec119c8c5d5e74d6a1487c92c345",
+      "ci_merge_commit": "d2c98770183e97a86af0960bd6c23544d4a9b22d",
+      "ci_merge_tree": "2fc19c4f66b6ec119c8c5d5e74d6a1487c92c345",
+      "run_id": 36154382373,
+      "job_id": 108135239266,
+      "run_number": 219,
+      "status": "PASS",
+      "zero_pass": 792,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "cecee89b4262e0dcc41c6536f7016c814793c52f43c75fad6591a2cc31511c5f",
+      "log_bytes": 436354
+    }
+  },
+  "workflow_choice_localization_20260925": {
+    "source_commit": "739b5fafe46f4a487292e704c0191d175606078a",
+    "source_tree": "bf48583ae30dedc080de07009ab58592ef36daf9",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "739b5fafe46f4a487292e704c0191d175606078a",
+      "source_tree": "bf48583ae30dedc080de07009ab58592ef36daf9",
+      "exit_code": 0,
+      "seconds": 56.46,
+      "log_sha256": "20171568e829778b5565906a688c28f3e3c3359ada813484b5ed5682c313af9b",
+      "log_bytes": 95810,
+      "pass_count": 801,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "739b5fafe46f4a487292e704c0191d175606078a",
+        "source_tree": "bf48583ae30dedc080de07009ab58592ef36daf9",
+        "test": "industry-presets-test.js",
+        "exit_code": 0,
+        "seconds": 0.35,
+        "sha256": "d5f36948ce9b4c53d3fac2ddcb096d900a3c05f6f1e06977f9261071a896ef33"
+      },
+      {
+        "source_commit": "739b5fafe46f4a487292e704c0191d175606078a",
+        "source_tree": "bf48583ae30dedc080de07009ab58592ef36daf9",
+        "test": "industry-presets-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.89,
+        "sha256": "8fbe4599b8984e447e91080a726232fa4f4c13baa2bf93b19a3c8514c2df98af"
+      },
+      {
+        "source_commit": "739b5fafe46f4a487292e704c0191d175606078a",
+        "source_tree": "bf48583ae30dedc080de07009ab58592ef36daf9",
+        "test": "workflow-editor-test.js",
+        "exit_code": 0,
+        "seconds": 0.36,
+        "sha256": "acb5b87bd33ddaaebe4241ae09577d840fcce35166db7f0ea988d933db7812d5"
+      }
+    ],
+    "permanent_new_tests": 9,
+    "preserved_failures": [
+      {
+        "file": "chooser-before.log",
+        "sha256": "0201d47548f3f3b73ec90052c04a68815ff1a2889a13494406171acae80af338",
+        "bytes": 4220,
+        "retained_tail": "es owned labels and revision while preserving selected draft, editor nodes and literal source text (118.523852ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Concept openen'\n  - 'Open draft'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:4:196)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Concept openen',\n    expected: 'Open draft',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/workflow-draft-chooser.test.js:5:1\n✖ opening another draft preserves unsaved input and the localized guard without requests (74.614293ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(f.content.textContent.includes(f.i.t('workflow.choice.unsaved')))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:5:462)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n\ntest at zero/workflow-draft-chooser.test.js:6:1\n✖ a late template list cannot open private choices after the workflow screen is retired (52.385224ms)\n  TypeError: Cannot read properties of undefined (reading 'fire')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:6:226)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/workflow-draft-chooser.test.js:7:1\n✖ edits made while templates load survive the response and do not get replaced by a template (60.989064ms)\n  TypeError: Cannot read properties of undefined (reading 'fire')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:7:231)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/workflow-draft-chooser.test.js:8:1\n✖ template modal localizes in place without changing the literal template or draft and makes no writes (63.969103ms)\n  TypeError: Cannot read properties of undefined (reading 'fire')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:8:181)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/workflow-draft-chooser.test.js:9:1\n✖ unknown template state or malformed draft observations cannot become a valid empty selection (53.876943ms)\n  TypeError: Cannot read properties of undefined (reading 'fire')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:9:219)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "chooser-corrected-before.log",
+        "sha256": "8f9b726abcbce1e0cd526cd744a32a9d353665004193222884a8a3f1c058d9a3",
+        "bytes": 78597,
+        "retained_tail": "+         }\n  +       ],\n  +       classList: {\n  +         add: [Function: add],\n  +         contains: [Function: contains],\n  +         remove: [Function: remove],\n  +         toggle: [Function: toggle]\n  +       },\n  +       disabled: false,\n  +       handlers: {\n  +         submit: [\n  +           [Function (anonymous)]\n  +         ]\n  +       },\n  +       isConnected: true,\n  +       nodeType: 1,\n  +       parentNode: [Circular *4],\n  +       tag: 'form',\n  +       validity: {},\n  +       value: ''\n  +     }\n  +   ],\n  +   classList: {\n  +     add: [Function: add],\n  +     contains: [Function: contains],\n  +     remove: [Function: remove],\n  +     toggle: [Function: toggle]\n  +   },\n  +   disabled: false,\n  +   handlers: {\n  +     cancel: [\n  +       [Function (anonymous)]\n  +     ]\n  +   },\n  +   isConnected: true,\n  +   nodeType: 1,\n  +   open: true,\n  +   parentNode: WorkspaceView {\n  +     attrs: {},\n  +     childNodes: [\n  +       [Circular *4]\n  +     ],\n  +     children: [\n  +       [Circular *4]\n  +     ],\n  +     classList: {\n  +       add: [Function: add],\n  +       contains: [Function: contains],\n  +       remove: [Function: remove],\n  +       toggle: [Function: toggle]\n  +     },\n  +     disabled: false,\n  +     handlers: {},\n  +     isConnected: true,\n  +     nodeType: 1,\n  +     tag: 'body',\n  +     validity: {},\n  +     value: ''\n  +   },\n  +   tag: 'dialog',\n  +   validity: {},\n  +   value: ''\n  + }\n  - undefined\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:7:399)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: [WorkspaceView],\n    expected: undefined,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/workflow-draft-chooser.test.js:8:1\n✖ template modal localizes in place without changing the literal template or draft and makes no writes (84.067791ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(select.textContent.includes(f.i.number(1234)))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:8:548)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n\ntest at zero/workflow-draft-chooser.test.js:9:1\n✖ unknown template state or malformed draft observations cannot become a valid empty selection (66.564517ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(f.content.textContent.includes(f.i.t('workspace.presets.invalid')))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser.test.js:9:276)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "chooser-focused.log",
+        "sha256": "16724e6db23cec6aad74ea912ac0c152959bd2eb85e43faec010637075dd91fa",
+        "bytes": 12061,
+        "retained_tail": ".332743ms)\n✔ write recovery checks the current member after its authenticated body wait and rejects another owner without private content (4589.462997ms)\n✔ generator owned review copy follows all locales without changing literal proposals, inputs, requests or native state (527.75564ms)\n✔ a lost committed save locks the reviewed request and retries exactly the same body and turn despite input events and locales (303.990684ms)\n✔ typed native acknowledgement must match the reviewed draft and revision before claiming a saved private concept (1015.850605ms)\n✔ provider and access failures use localized safe copy, clear proposal state and cannot trigger save (68.686259ms)\n✔ retired generator controls neither invoke ZERO nor release late private proposals or saved callbacks (220.705738ms)\n✔ malformed or contradictory clarification responses cannot become questions or a savable proposal (212.924307ms)\n✔ late generation uses the current locale but cannot restore a proposal after its description changes (58.271597ms)\n✔ a pending save blocks duplicate save and generation while locale changes preserve the one native draft write (79.889305ms)\n✔ an uncertain older save cannot overwrite a newer native draft revision or claim it as its own confirmation (212.721226ms)\n✔ valid clarification questions remain literal text through every locale and cannot publish or save a workflow (155.766019ms)\n✔ generation rejects mismatched IDs, definition, fingerprint and typed publication flags before review (451.787389ms)\n✔ a fresh generator recovers a committed native draft using only realm-scoped metadata without reissuing its private SAVE (284.851576ms)\n✔ reload can close an uncommitted original request so that its delayed SAVE cannot create a draft later (123.100314ms)\n✔ unavailable storage prevents a new write while retaining the reviewed private proposal (73.160916ms)\n✔ mismatched recovery evidence and retired views cannot clear a scoped pending reference or claim a saved draft (120.793689ms)\n✔ failure to remove a closed request reference cannot turn a not-applied result into a saved-draft claim (118.550284ms)\n✔ another actor cannot load pending private references and malformed stored metadata blocks new draft writes (228.373458ms)\nℹ tests 87\nℹ suites 0\nℹ pass 86\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 13497.215248\n\n✖ failing tests:\n\ntest at zero/workflow-draft-chooser-api.test.js:3:1\n✖ the actual shared chooser reads native member drafts and templates, preserves locale state, and retires a held response after current capability denial (3310.853675ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Literal native draft name'\n  - '  Literal native draft name  '\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser-api.test.js:8:216)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Literal native draft name',\n    expected: '  Literal native draft name  ',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "chooser-final-targeted.log",
+        "sha256": "3def6bfbe76812fa067be876eb348ceeb65f213995e7a4925bb9c562878d6190",
+        "bytes": 1851,
+        "retained_tail": "✖ the actual shared chooser reads native member drafts and templates, preserves locale state, and retires a held response after current capability denial (1645.578209ms)\n✔ shared draft choice translates owned labels and revision while preserving selected draft, editor nodes and literal source text (338.745703ms)\n✔ opening another draft preserves unsaved input and the localized guard without requests (144.79653ms)\n✔ a late template list cannot open private choices after the workflow screen is retired (92.008754ms)\n✔ edits made while templates load survive the response and do not get replaced by a template (103.434197ms)\n✔ template modal localizes in place without changing the literal template or draft and makes no writes (157.161964ms)\n✔ unknown template state or malformed draft observations cannot become a valid empty selection (185.995563ms)\n✔ an already open template modal cannot restore private content after a current access denial (94.973988ms)\n✔ truthful empty and partial template states keep distinct localized explanations (247.511283ms)\nℹ tests 9\nℹ suites 0\nℹ pass 8\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1900.067993\n\n✖ failing tests:\n\ntest at zero/workflow-draft-chooser-api.test.js:3:1\n✖ the actual shared chooser reads native member drafts and templates, preserves locale state, and retires a held response after current capability denial (1645.578209ms)\n  TypeError: Cannot read properties of undefined (reading 'open')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser-api.test.js:9:115)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n"
+      },
+      {
+        "file": "chooser-http-diagnostic.log",
+        "sha256": "05a08f100a2908e4c3219de71debd56ba1a096f4312ef8e3325fcd8f823eed57",
+        "bytes": 1166,
+        "retained_tail": "✖ the actual shared chooser reads native member drafts and templates, preserves locale state, and retires a held response after current capability denial (1457.029982ms)\nℹ tests 1\nℹ suites 0\nℹ pass 0\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1668.73934\n\n✖ failing tests:\n\ntest at zero/workflow-draft-chooser-api.test.js:3:1\n✖ the actual shared chooser reads native member drafts and templates, preserves locale state, and retires a held response after current capability denial (1457.029982ms)\n  AssertionError [ERR_ASSERTION]: {\"notices\":[\"\",\"\",\"\",\"\"],\"toast\":\"Ingen passande branschmall är tillgänglig med din aktuella behörighet.\"}\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-draft-chooser-api.test.js:9:105)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "scope": "Shared draft and industry-template controls localize all eight locales in place, retain selected draft and editor nodes/input, preserve source names/content, suppress late modals after retirement or edits, close private modal on current denial, validate response state rather than inventing empty success. Real HTTP member drafts and capability changes verified.",
+    "fixture_corrections": "Template fallback locator now uses its pre-existing translated static key. API assertions compare the stored native draft after its existing normalization, not unsaved input. Native template fixture explicitly selects AUTOMOTIVE instead of expecting automotive choices in GENERAL. Tests retain current-source, no-write, locale, denial and stale-view assertions.",
+    "remaining": "Marketing measurement and other inventory candidates need production behavior review. Candidate counts are not acceptance, and minimal DOM is not browser/layout/native-speaker evidence."
   }
 }
