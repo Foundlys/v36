@@ -8780,5 +8780,248 @@
     ],
     "published_ci": "PENDING",
     "remaining": "Sales forecast, scenario and hierarchy production controls remain untranslated and lack complete typed observations and durable browser request recovery. Continue those code-controlled gaps and the remaining authoritative Run 2 gates. DOM fixtures are state evidence, not rendered-browser, responsive, accessibility or native-speaker acceptance. No acceptance matrix status is upgraded."
+  },
+  "forecast_snapshot_native_recovery_20260925": {
+    "status": "LOCAL_ZERO_CORPUS_AFFECTED_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+    "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+      "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+      "exit_code": 0,
+      "seconds": 95.47,
+      "log_file": "forecast-native-frozen-zero.log",
+      "log_bytes": 132023,
+      "log_sha256": "d5a1400b2857515e36361dc7d37788b74eb8245862662dcca5f86a6233ff5d92",
+      "tests": 1099,
+      "pass": 1099,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "corpus": {
+        "head": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "clean_after": true
+    },
+    "affected_native": [
+      {
+        "command": "node sales-forecast-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 0.34,
+        "log_file": "forecast-native-frozen-sales-forecast-test.js.log",
+        "log_bytes": 162,
+        "log_sha256": "0016bb0b73ba8391154cda987bda0c1b575eeab782298021449c812278c75f21",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-quotas-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 0.45,
+        "log_file": "forecast-native-frozen-sales-quotas-test.js.log",
+        "log_bytes": 164,
+        "log_sha256": "e1de957d1760912ffd38514ddcc25e3a2ee2afc317d13a986554e06a17c057f2",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-quotas-api-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 3.28,
+        "log_file": "forecast-native-frozen-sales-quotas-api-test.js.log",
+        "log_bytes": 152,
+        "log_sha256": "40ebeb598b5e3270dcd2233e9d81dc6a0ad3f9d3874637985354ae9b16c8adc9",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 0.45,
+        "log_file": "forecast-native-frozen-sales-scenarios-test.js.log",
+        "log_bytes": 211,
+        "log_sha256": "1879de17b33c911f65baefc821dea98edadb138311d626b9563806f421146562",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-api-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 3.18,
+        "log_file": "forecast-native-frozen-sales-scenarios-api-test.js.log",
+        "log_bytes": 225,
+        "log_sha256": "329e59583454d2a24b84181677a2f1e6704d11e18beffa081000d06c319bdd48",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-scenarios-client-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 0.38,
+        "log_file": "forecast-native-frozen-sales-scenarios-client-test.js.log",
+        "log_bytes": 323,
+        "log_sha256": "b8f1e6858eeaadf7b043bd9190b95b8c46a1fac8a839e7589bdaebc78838e7b8",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 0.43,
+        "log_file": "forecast-native-frozen-sales-hierarchy-test.js.log",
+        "log_bytes": 295,
+        "log_sha256": "413a7cdf79bc1c1ff2793a5b735862aaf2940bbb022dd0ac0c1cebd5a0dc367e",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-api-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 5.74,
+        "log_file": "forecast-native-frozen-sales-hierarchy-api-test.js.log",
+        "log_bytes": 272,
+        "log_sha256": "5248efa687d206a33a058293b0f4efadc0dd983ca6d5359973164bd291d5c1ff",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-client-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 0.4,
+        "log_file": "forecast-native-frozen-sales-hierarchy-client-test.js.log",
+        "log_bytes": 340,
+        "log_sha256": "e64ced631c05cb8c9d84609fe6f933c5586efc75525ef36a71a6ea0aa8690491",
+        "clean_after": true
+      },
+      {
+        "command": "node module-access-contracts-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 0.45,
+        "log_file": "forecast-native-frozen-module-access-contracts-test.js.log",
+        "log_bytes": 332,
+        "log_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true
+      },
+      {
+        "command": "node business-workspaces-regression-test.js",
+        "source_commit": "bc2526364ca1e5a129d0ff6029fcb549956c6d8c",
+        "source_tree": "0bc087fd3bbadf67a0c9710ae4f422859d2c47b5",
+        "exit_code": 0,
+        "seconds": 1.02,
+        "log_file": "forecast-native-frozen-business-workspaces-regression-test.js.log",
+        "log_bytes": 254,
+        "log_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true
+      }
+    ],
+    "new_tests": {
+      "native": 13,
+      "actual_http": 4
+    },
+    "prior_evidence": [
+      {
+        "file": "forecast-recovery-before.log",
+        "bytes": 17213,
+        "sha256": "52c52513cfec3b9486964e0da7cee8c2274238b22ca13138bd30140e15ad3749",
+        "retained_tail": "internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/sales-forecast-recovery.test.js:13:1\n✖ deleted forecast source records revoke retained snapshot reads replay and recovery (3.817126ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-forecast-recovery.test.js:13:228)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { code: 'record_not_found' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at zero/sales-forecast-recovery.test.js:14:1\n✖ forecast receipt capacity blocks new writes and absence closures without evicting existing recovery (54.26901ms)\n  TypeError: service.recoverSnapshot is not a function\n      at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/sales-forecast-fixture.js:5:139)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-forecast-recovery.test.js:14:250)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "forecast-recovery-initial.log",
+        "bytes": 2401,
+        "sha256": "eb83c5b2aea2409ca60b85be5567ecbc532fc3cadf1b738f38bae718daa239b5",
+        "retained_tail": "✔ forecast recovery and replay reject a corrupted immutable native result (2.758712ms)\n✔ forecast result ownership and recorded receipt fields cannot be replaced even for a current administrator (3.71817ms)\n✔ snapshot journal result audit and outbox roll back together on persistence failure (2.947212ms)\n✔ failed absence retirement leaves no false confirmation and a later explicit original write remains possible (2.064182ms)\n✔ legacy snapshot receipts retain exact compatible replay but cannot invent metadata recovery proof (2.602752ms)\n✔ retained scenario and hierarchy snapshots recover their exact reviewed assumptions and hierarchy node (14.79596ms)\n✔ deleted forecast source records revoke retained snapshot reads replay and recovery (2.505215ms)\n✔ forecast receipt capacity blocks new writes and absence closures without evicting existing recovery (72.173815ms)\nℹ tests 12\nℹ suites 0\nℹ pass 11\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 407.65562\n\n✖ failing tests:\n\ntest at zero/sales-forecast-recovery.test.js:5:1\n✖ forecast recovery binds request fingerprint and original basis before exposing the saved result (5.689242ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-forecast-recovery.test.js:5:462)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { code: 'forecast_recovery_invalid' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "forecast-recovery-focused.log",
+        "bytes": 2059,
+        "sha256": "aafb54a498bc643325ffb45ec41dc77cf86ed1493f519383a8ac7d2546fa2cf1",
+        "retained_tail": "e changes separate (2247.82328ms)\n✔ actual HTTP forecast absence recovery closes a held original request before its body completes and stays closed after restart (2165.733156ms)\n✔ actual HTTP forecast persistence failure rolls back saved and abandoned requests and held recovery rechecks authenticated authority (1945.860645ms)\n✔ actual HTTP recovery denies source ownership loss and disabled forecast or opportunity capability including encoded paths (2335.816108ms)\n✔ retained forecast proof survives restart without recalculating later native opportunity values (24.698062ms)\n✔ absent forecast requests retire durably and forbid both original and changed delayed snapshot bodies (2.140306ms)\n✔ forecast recovery binds request fingerprint and original basis before exposing the saved result (2.283583ms)\n✔ forecast recovery stays actor tenant and current-source scoped without leaking the retained calculation (4.40559ms)\n✔ forecast recovery and replay reject a corrupted immutable native result (3.328564ms)\n✔ forecast result ownership and recorded receipt fields cannot be replaced even for a current administrator (4.532758ms)\n✔ snapshot journal result audit and outbox roll back together on persistence failure (3.161848ms)\n✔ failed absence retirement leaves no false confirmation and a later explicit original write remains possible (1.635334ms)\n✔ legacy snapshot receipts retain exact compatible replay but cannot invent metadata recovery proof (3.787715ms)\n✔ retained scenario and hierarchy snapshots recover their exact reviewed assumptions and hierarchy node (10.905102ms)\n✔ deleted forecast source records revoke retained snapshot reads replay and recovery (3.625065ms)\n✔ forecast receipt capacity blocks new writes and absence closures without evicting existing recovery (65.461261ms)\nℹ tests 16\nℹ suites 0\nℹ pass 16\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 8836.412636\n"
+      },
+      {
+        "file": "forecast-native-final.log",
+        "bytes": 1586,
+        "sha256": "f0879befbb5eb2acb9cce6b9016374f5b22be92af5db0c24c032ecdc354ee630",
+        "retained_tail": "✔ retained forecast proof survives restart without recalculating later native opportunity values (31.988147ms)\n✔ absent forecast requests retire durably and forbid both original and changed delayed snapshot bodies (3.562551ms)\n✔ forecast recovery binds request fingerprint and original basis before exposing the saved result (3.338306ms)\n✔ forecast recovery stays actor tenant and current-source scoped without leaking the retained calculation (6.53207ms)\n✔ forecast recovery and replay reject a corrupted immutable native result (4.796911ms)\n✔ forecast result ownership and recorded receipt fields cannot be replaced even for a current administrator (3.770924ms)\n✔ snapshot journal result audit and outbox roll back together on persistence failure (3.311287ms)\n✔ failed absence retirement leaves no false confirmation and a later explicit original write remains possible (2.082036ms)\n✔ legacy snapshot receipts retain exact compatible replay but cannot invent metadata recovery proof (3.110139ms)\n✔ retained scenario and hierarchy snapshots recover their exact reviewed assumptions and hierarchy node (7.443791ms)\n✔ deleted forecast source records revoke retained snapshot reads replay and recovery (2.17939ms)\n✔ forecast receipt capacity blocks new writes and absence closures without evicting existing recovery (78.454271ms)\n✔ forecast recovery metadata is isolated between tenants sharing the same actor and request identifier (3.08561ms)\nℹ tests 13\nℹ suites 0\nℹ pass 13\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 403.329119\n"
+      }
+    ],
+    "scope": "Actor/tenant/dealer/request/basis-bound immutable forecast receipt and metadata-only recovery. Atomic snapshot/journal/event persistence and absence retirement prevent delayed original saves after terminal closure. Native recovery reads the reviewed snapshot and never recalculates newer source values. Snapshot/scenario/hierarchy evidence remains literal, immutable and subject to current source and capability authority. Deleted opportunity or quota sources no longer authorize historical snapshot disclosure. Current immutable-result digest detects changed saved calculations; exact legacy replay remains compatible without inventing modern proof. Request storage is bounded without eviction. Actual HTTP verifies reply loss, encrypted restart, held-body retirement, EIO rollback, identity changes, source ownership loss and encoded-path capability denial. No external action or provider evidence is implied.",
+    "fixture_note": "An initial false-confirmation test incorrectly used a helper that always supplies confirm=true; the test now calls the real recovery method directly. Its failure log is retained.",
+    "exact_published_full_ci": "PENDING",
+    "remaining": "The original Sales forecast/scenario/hierarchy controls still require durable browser recovery, complete localization, typed calculation validation and lifecycle protection. Snapshot UI continuation is isolated in work/run2-forecast-controls. Wider Run 2 acceptance is unchanged."
   }
 }

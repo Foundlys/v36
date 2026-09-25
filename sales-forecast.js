@@ -1,5 +1,6 @@
 'use strict';
 const crypto=require('node:crypto');
+const recovery=require('./sales-forecast-recovery');
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
 const clone=value=>JSON.parse(JSON.stringify(value));
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -41,8 +42,8 @@ function snapshotForecast(domain,ctx,actor,input,options={}){
   domain.scope(ctx,actor,'write');
   domain.resolver.assertCapability(ctx,actor,'sales:forecast','write');const key=options.idempotency_key;if(typeof key!=='string'||!key.length||key.length>200)fail('forecast_idempotency_required','Een unieke actie-ID is verplicht');
   if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(k=>!['title','filters','scenario','hierarchy','basis_fingerprint','confirm'].includes(k)))fail('forecast_snapshot_invalid','Gebruik een expliciete prognose met alleen ondersteunde velden');
-  const signature=digest(input),keys=domain.adapter.bucket(ctx,'sales:idempotency'),previous=keys.find(row=>row.key===key&&row.actor_id===actor.id);
-  if(previous){if(previous.fingerprint!==signature)fail('idempotency_conflict','Actie-ID heeft andere inhoud',409);return {record:domain.get(ctx,actor,'forecast_snapshots',previous.record_id),deduplicated:true};}
+  const meta=recovery.metadata(input,key),previous=recovery.existing(domain,ctx,actor,meta);
+  if(previous)return recovery.replay(domain,ctx,actor,meta,previous);
   if(input.confirm!==true||!String(input.title||'').trim()||String(input.title).length>240)fail('forecast_confirmation_required','Bevestig de prognose met een korte titel');
   if(Object.hasOwn(input,'hierarchy')&&(!input.hierarchy||typeof input.hierarchy!=='object'||Array.isArray(input.hierarchy)||typeof input.hierarchy.id!=='string'||!input.hierarchy.id||typeof input.hierarchy.node_id!=='string'||!input.hierarchy.node_id||Object.keys(input.hierarchy).some(k=>!['id','node_id'].includes(k))))fail('hierarchy_query_invalid','Kies een exacte hiërarchie en node');
   const computed=input.hierarchy?require('./sales-hierarchy').query(domain,ctx,actor,input.hierarchy.id,{node_id:input.hierarchy.node_id,filters:input.filters||{},...(Object.hasOwn(input,'scenario')?{scenario:input.scenario}:{})}):Object.hasOwn(input,'scenario')?require('./sales-scenarios').scenarioForecast(domain,ctx,actor,input.filters||{},input.scenario):forecast(domain,ctx,actor,input.filters||{});if(computed.basis_fingerprint!==input.basis_fingerprint)fail('forecast_basis_changed','De berekeningsbasis is gewijzigd; bekijk eerst de actuele prognose',409);
@@ -50,7 +51,7 @@ function snapshotForecast(domain,ctx,actor,input,options={}){
   const result=domain.mutate(ctx,()=>{
     const rows=domain.bucket(ctx,'forecast_snapshots');if(rows.length>=1000)fail('forecast_snapshot_capacity','Archiveer prognoses volgens het bewaarbeleid',507);
     const now=new Date().toISOString(),row={id:crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:actor.id,owned_entity:'forecast_snapshots',source_module:'sales',schema_version:1,revision:1,title:String(input.title).trim(),status:'SAVED_SNAPSHOT',created_at:now,updated_at:now,forecast:computed,provenance:{source_id:'owned_sales_records',actor_id:actor.id,classification:computed.scenario?'USER_ASSUMPTION_SCENARIO':'CALCULATED_FROM_RECORDED_INPUT',provider_verified:false},immutable:true};
-    rows.push(row);keys.push({key,actor_id:actor.id,fingerprint:signature,record_id:row.id});domain.recordEvent(ctx,actor,'forecast_snapshots',row,'created');return {record:clone(row),deduplicated:false};
+    rows.push(row);const request_acknowledgement=recovery.store(domain,ctx,actor,meta,row);domain.recordEvent(ctx,actor,'forecast_snapshots',row,'created');return {record:clone(row),request_acknowledgement,deduplicated:false};
   });try{domain.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
-module.exports={dateOnly,validateForecast,forecast,snapshotForecast};
+module.exports={dateOnly,validateForecast,forecast,snapshotForecast,recoverSnapshot:recovery.recover};
