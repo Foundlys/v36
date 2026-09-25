@@ -1798,7 +1798,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 194 failed health-object mapping in smoke-test. The corrected native record fixture additionally reproduced a missing sync activity event. Atomic activity and generic probe authority/revision corrections pass 33 targeted tests and the corrected smoke test. The complete local npm test process remains running on immutable sources; full ZERO/corpus and new published-head CI are pending. All previous results and failures remain recorded."
+      "note": "CI 194 health-object mapping and CI 195 SMTP fixture extraction failures remain recorded. Corrected native/legacy probes, atomic source activity and owner lookup pass 485 ZERO tests, 14 corpus cases, 44 targeted tests and the native smoke/masterbuild/provider/current-principal regressions. The full local process also stopped at the preserved CI 195 fixture failure; new exact published-head full CI remains pending."
     },
     {
       "id": "R2-115",
@@ -1928,10 +1928,11 @@
         "zero/workspace-connector-integrity.test.js",
         "zero/connector-config-recovery-api.test.js",
         "zero/connector-source-sync-api.test.js",
-        "zero/connector-probe-authority-api.test.js"
+        "zero/connector-probe-authority-api.test.js",
+        "zero/connector-legacy-probe-authority-api.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Partial security/source regression includes current-permission writes/replay, atomic rollback, durable events, native snapshot/knowledge scope and Finance currency/unsafe amount/current bank-source checks. Native member HTTP and encrypted restart are covered. Full enumerated Run-2 adversarial acceptance remains open. Native connector receipts recover an actual dropped HTTP response through encrypted restart; stale writes, corrupt storage and secret metadata exposure are covered. Wider adversarial acceptance stays open. Generic source imports additionally exercise DNS/response authorization, configuration races, bounded pages, atomic recovery, scoped raw-source reads and actual lost-response replay. Broader provider/adversarial contracts remain open. Generic native probes now refuse revoked rights, disabled owners and changed configurations across DNS/provider waits; activity is atomic and exactly recovered with source receipts. Legacy/bulk/provider-specific observation and broader adversarial coverage remain open."
+      "note": "Partial security/source regression includes current-permission writes/replay, atomic rollback, durable events, native snapshot/knowledge scope and Finance currency/unsafe amount/current bank-source checks. Native member HTTP and encrypted restart are covered. Full enumerated Run-2 adversarial acceptance remains open. Native connector receipts recover an actual dropped HTTP response through encrypted restart; stale writes, corrupt storage and secret metadata exposure are covered. Wider adversarial acceptance stays open. Generic source imports additionally exercise DNS/response authorization, configuration races, bounded pages, atomic recovery, scoped raw-source reads and actual lost-response replay. Broader provider/adversarial contracts remain open. Generic native probes now refuse revoked rights, disabled owners and changed configurations across DNS/provider waits; activity is atomic and exactly recovered with source receipts. Legacy/bulk/provider-specific observation and broader adversarial coverage remain open. Generic legacy tests now contact only the selected source and bind current native/legacy configuration across waits; encoded and custom connector IDs retain current owner-module authorization. Specialized/bulk provider paths remain open."
     },
     {
       "id": "R2-124",
@@ -1958,7 +1959,7 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-25T06:56:14.574620+00:00",
+  "updated_at": "2026-09-25T07:07:18.681801+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
 }

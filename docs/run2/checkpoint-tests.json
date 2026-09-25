@@ -3320,7 +3320,7 @@
     "new_tests": 9,
     "targeted_tests": 33,
     "targeted_pass": 33,
-    "full_npm_test": "RUNNING: immutable source tree in /workspace/scratch/foundly-run2, exec session 75192; not accepted",
+    "full_npm_test": "FAIL: completed local process exit 1 at the same SMTP fixture source-extraction failure as CI 195; the earlier successful prefix is retained. No completed full regression or 474-test ZERO run is claimed for that tree.",
     "full_zero_tests": null,
     "full_zero_pass": null,
     "corpus_pass": null,
@@ -3330,8 +3330,113 @@
     "storage_change": "No new storage format, migration or credential change. Adds the existing activity:system bucket to the scoped atomic source-import mutation. The restored activity states source records stored with source_complete:false and customer_objects_changed:false. No production action, main merge or deployment.",
     "remaining": "Legacy integration-test/provider-specific and bulk status paths still require current authorization/configuration review. Credential/profile identity isolation, OAuth rollback races, legacy unguarded writes/deletes, invalid source capacity configuration, provider-specific import adapters, governed customer-object promotion, first-class workspace source browsing, browser-reload recovery and wider shared section/domain/generated copy remain open. The full semantic/cognitive/demo/industry/adversarial/performance/voice/browser/native-speaker gates remain as recorded.",
     "evidence_limit": "Native HTTP, real isolated identities/composition/encrypted storage and restart plus controlled DNS/provider/disk/socket fixtures. A local HTTP smoke provider is synthetic data. No real-provider, native browser/layout/accessibility/listening or native-speaker acceptance is established.",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 195,
+      "id": 36105312213,
+      "job_id": 107976426426,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "845baa28ea4ed3cd67510e5130cbb95d6189046a",
+      "tree": "46f23c7bccac825a2032f50c7ff4eab6a31d8b3d",
+      "full_npm_test": "FAIL",
+      "first_failure": "communication-provider-state-test.js:13, TypeError: context.status is not a function. The VM fixture searched for the entire old two-argument signature and evaluated an empty source slice after the production function gained observation/guard parameters. All SMTP behavior assertions remain; fixture extraction is now checked and independent of the parameter list."
+    },
     "dynamic_candidates": 674,
-    "expected_zero_tests": 474
+    "expected_zero_tests": 474,
+    "full_regression_failure_log": {
+      "exit_code": 1,
+      "sha256": "48a35f206e29fb683f62ceedf881de145cfc4831c0d34dcb980f261baabb39a1",
+      "bytes": 52344
+    }
+  },
+  "connector_legacy_probe_checkpoint": {
+    "recorded_at": "2026-09-25T07:07:18.681801+00:00",
+    "prior_published_head": "845baa28ea4ed3cd67510e5130cbb95d6189046a",
+    "prior_published_tree": "46f23c7bccac825a2032f50c7ff4eab6a31d8b3d",
+    "prior_ci": {
+      "number": 195,
+      "id": 36105312213,
+      "job_id": 107976426426,
+      "status": "completed",
+      "conclusion": "failure",
+      "head": "845baa28ea4ed3cd67510e5130cbb95d6189046a",
+      "tree": "46f23c7bccac825a2032f50c7ff4eab6a31d8b3d",
+      "full_npm_test": "FAIL",
+      "first_failure": "communication-provider-state-test.js:13, TypeError: context.status is not a function. The VM fixture searched for the entire old two-argument signature and evaluated an empty source slice after the production function gained observation/guard parameters. All SMTP behavior assertions remain; fixture extraction is now checked and independent of the parameter list."
+    },
+    "source_sha256": {
+      "server.js": "88f111a77aa2a94603f3580b088b7f64826102c6aff59095c86aa320e4e94104",
+      "communication-provider-state-test.js": "5b9e3ae3f40257f4d653f569d60bae7a3a640ea0f11de0d5acb4d1955294dce5",
+      "zero-evaluation/connector-source-fixture.js": "cbef6e0067e27f82d2c65ac072ad5ac6451d738f039de13a9f34aa48a3bedf88",
+      "zero/connector-probe-authority-api.test.js": "457376b071a408727024bf9f6ddedc154526a908f48bbb05f565b31f9151837f",
+      "zero/connector-legacy-probe-authority-api.test.js": "c4517eca824b7623ab56a21ba15b8d3f9c9953210afb66ef46dd517ebe9fc015"
+    },
+    "logs": {
+      "run2-connector-probe-regression.log": {
+        "exit_code": 1,
+        "sha256": "48a35f206e29fb683f62ceedf881de145cfc4831c0d34dcb980f261baabb39a1",
+        "bytes": 52344
+      },
+      "run2-connector-probe-ci195.log": {
+        "exit_code": 1,
+        "sha256": "b86e450a1179d2dc5018a371468d256653ed8dcfe3abb57e66c9b647c47854c2",
+        "bytes": 83143
+      },
+      "run2-connector-smtp-regression-fix.log": {
+        "exit_code": 0,
+        "sha256": "1616130325199b11f1b778ac721c2d8635170d05ee1626986ca9aa9c98830bb2",
+        "bytes": 176
+      },
+      "run2-connector-legacy-probe-before.log": {
+        "exit_code": 1,
+        "sha256": "d0691bee2c4e47db1a46e69492df499abe59d04def2bf70a794bcf2180f08a69",
+        "bytes": 9014
+      },
+      "run2-connector-legacy-probe-targeted.log": {
+        "exit_code": 1,
+        "sha256": "1c03a9889e7dc1d34581c8b05652a98ab4c552798980e0d63933cbbb2ab4fa4d",
+        "bytes": 8552
+      },
+      "run2-connector-legacy-probe-typed.log": {
+        "exit_code": 0,
+        "sha256": "89590af7a30936a81e0f0d74575e117ad6d73ee4875f33435cbf46ab380a7505",
+        "bytes": 997
+      },
+      "run2-connector-probe-owner-before.log": {
+        "exit_code": 1,
+        "sha256": "00f2aa2b026553a195db4c1bf2ffb190b3851e1b05585c72350ba760e3d20948",
+        "bytes": 1824
+      },
+      "run2-connector-legacy-probe-verified.log": {
+        "exit_code": 0,
+        "sha256": "86c775eb3df44b22ed1c251e13e0ad39d5669925292318cafd226b94548d9d36",
+        "bytes": 4857
+      },
+      "run2-connector-legacy-adjacent.log": {
+        "exit_code": 0,
+        "sha256": "bb8d09459defa60b702ff925f9aee2e401ba57bd9d7ebaaf1960fe2b40c5fc35",
+        "bytes": 1524
+      },
+      "run2-connector-legacy-zero.log": {
+        "exit_code": 0,
+        "sha256": "94d2cb2d80fd91ed6b4f5a14244b9b73520c768cf5ea1fb318140cba294b8993",
+        "bytes": 56770
+      }
+    },
+    "new_tests": 11,
+    "targeted_tests": 44,
+    "targeted_pass": 44,
+    "full_zero_tests": 485,
+    "full_zero_pass": 485,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "targeted_regression": "Smoke, native masterbuild, provider access and current connector principal regressions exit 0. SMTP status fixture and current-principal regression also pass after the final encoded/custom owner correction. Full npm test remains pending new exact-head CI; the earlier local full run and CI 195 both stopped at the preserved fixture failure.",
+    "before_fix": "All nine legacy native tests fail rights/configuration/owner revalidation, revision observation or selected-provider isolation before the correction. The first implementation passes 37/42 but exposes five typed conflicts/module denials being converted to generic HTTP 500 by the older route; explicit route error handling fixes them. Two additional native tests reproduce an encoded connector ID and a custom connector profile bypassing current owner-module lookup. All failed attempts remain recorded.",
+    "scope": "Generic legacy integration-test selects only the requested source rather than probing every configured provider. It checks current authorization after DNS and the provider response, binds both runtime profile/configuration and legacy credentials, and returns explicit conflict/denial status. The common current-request check resolves the actual decoded connector ID and falls back to the configured custom profile for owner-module checks. Native and legacy generic observations therefore retain current owner/rights checks across waits. The existing SMTP behavior fixture now locates and asserts the real source function regardless of its parameter list and stubs the current transport to retain its no-network assertion. No behavior assertion is removed.",
+    "storage_change": "None. No credential change, storage migration, production mutation, deployment, main merge or Run 3 work. Native test identities/provider data are isolated and synthetic.",
+    "remaining": "Specialized provider and bulk status paths still need current-authority/configuration review. Profile/secret-file identity collisions, OAuth callback rollback races, legacy unguarded configuration writes/deletes, invalid environment capacity, first-class source browsing, unsupported imports, browser reload/receipt retention and broader shared section/domain localization remain open. Wider cognitive/semantic/industry/demo/adversarial/performance and external voice/browser/native-speaker gates are unchanged.",
+    "evidence_limit": "Native HTTP, current identities/composition and controlled DNS/provider boundaries; full ZERO/corpus and native regression do not establish real provider, browser, accessibility, listening or native-speaker acceptance. No full new-tree npm regression is claimed before CI finishes.",
+    "current_ci": "PENDING_PUBLICATION",
+    "dynamic_candidates": 674
   }
 }

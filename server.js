@@ -95,11 +95,17 @@ function isSecretFieldName(keyName=''){const key=String(keyName).trim().toLowerC
 function redactSecrets(value,keyName=''){if(value===null||value===undefined)return value;if(isSecretFieldName(keyName))return '***';if(Array.isArray(value))return value.map(v=>redactSecrets(v));if(typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,redactSecrets(v,k)]));if(typeof value==='string')return redactJarvisText(value);return value}
 function redactConnectorSource(value,keyName=''){if(value===null||value===undefined)return value;if(isSecretFieldName(keyName))return '***';if(Array.isArray(value))return value.map(item=>redactConnectorSource(item));if(typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,redactConnectorSource(v,k)]));return typeof value==='string'?redactJarvisText(value,Number.MAX_SAFE_INTEGER):value}
 function profileContainsInlineSecret(value,keyName=''){if(value===null||value===undefined)return false;if(isSecretFieldName(keyName)&&String(value).length>0)return true;if(Array.isArray(value))return value.some(v=>profileContainsInlineSecret(v));if(typeof value==='object')return Object.entries(value).some(([k,v])=>profileContainsInlineSecret(v,k));return typeof value==='string'&&/[?&](?:api[_-]?key|access[_-]?token|refresh[_-]?token|password|secret)=([^&]+)/i.test(value)}
-function assertCurrentConnectorRequest(req,u){const current=platformPrincipal(),context=trustedContext();assertCompositionRoute(u.pathname,COMPOSITION,context,current,req.method);assertCoreRoute(u.pathname,req.method,COMPOSITION,context,current);const operation=u.pathname.match(/^\/api\/(?:connector-runtime\/(?:config|test|sync)|integration-(?:config|test|sync))\/([A-Za-z0-9_.:-]+)$/);if(operation&&!connectorVisible(CONNECTOR_REGISTRY[operation[1]],COMPOSITION,context,current))throw Object.assign(new Error('Connector hoort niet bij een actieve module'),{statusCode:403,code:'connector_module_disabled'});}
+function assertCurrentConnectorRequest(req,u){
+  const current=platformPrincipal(),context=trustedContext();assertCompositionRoute(u.pathname,COMPOSITION,context,current,req.method);assertCoreRoute(u.pathname,req.method,COMPOSITION,context,current);
+  const operation=u.pathname.match(/^\/api\/(?:connector-runtime\/(?:config|test|sync)|integration-(?:config|test|sync))\/([^/]+)$/);
+  if(operation){let id;try{id=decodeURIComponent(operation[1]);}catch{throw Object.assign(Error('Ongeldige connectoridentiteit'),{statusCode:400,code:'connector_identity_invalid'});}
+    if(!connectorVisible(CONNECTOR_REGISTRY[id]||CONNECTOR_RUNTIME.profiles()[id],COMPOSITION,context,current))throw Object.assign(new Error('Connector hoort niet bij een actieve module'),{statusCode:403,code:'connector_module_disabled'});
+  }
+}
 function trustedContext(){return {tenant_id:env('FOUNDLY_TENANT_ID','default'),dealer_id:env('FOUNDLY_DEALER_ID','default')}}
 function isPrivateIp(ip){return /^(127\.|10\.|0\.|169\.254\.|192\.168\.|::1$|fc|fd|fe80)/i.test(ip)||(/^172\.(\d+)\./.test(ip)&&Number(ip.split('.')[1])>=16&&Number(ip.split('.')[1])<=31)}
 async function assertSafeUrl(raw){const u=new URL(raw);if(u.username||u.password)throw new Error('Credentials in provider-URLs zijn niet toegestaan');if(u.protocol!=='https:'&&!(env('NODE_ENV')!=='production'&&u.protocol==='http:'))throw new Error('Alleen HTTPS provider-URLs zijn toegestaan');const allowed=new Set(env('FOUNDLY_CONNECTOR_ALLOWED_HOSTS').split(',').map(x=>x.trim().toLowerCase()).filter(Boolean));if(allowed.size&&!allowed.has(u.hostname.toLowerCase())&&![...allowed].some(x=>x.startsWith('*.')&&u.hostname.toLowerCase().endsWith(x.slice(1))))throw new Error('Provider-host staat niet in FOUNDLY_CONNECTOR_ALLOWED_HOSTS');const rows=await dns.lookup(u.hostname,{all:true});if(!rows.length||(env('NODE_ENV')==='production'&&rows.some(x=>isPrivateIp(x.address))))throw new Error('Privé-, loopback- of link-local provider-host geweigerd');return u.toString()}
-async function safeFetch(raw,opts={}){const url=await assertSafeUrl(raw);return fetch(url,{...opts,redirect:'error',signal:opts.signal||timeoutSignal()})}
+async function safeFetch(raw,opts={},beforeRequest=()=>{}){const url=await assertSafeUrl(raw);beforeRequest();return fetch(url,{...opts,redirect:'error',signal:opts.signal||timeoutSignal()})}
 function makeRuntime({root,registry}){
   const dataDir=process.env.FOUNDLY_DATA_DIR?path.resolve(process.env.FOUNDLY_DATA_DIR):path.join(root,'data-runtime'); fs.mkdirSync(dataDir,{recursive:true});
   const profileFile=path.join(dataDir,'connector-profiles.json');
@@ -505,7 +511,8 @@ async function probeDms(c={tenant_id:'default',dealer_id:'default'}){
   const configured=Boolean(url&&apiKey);if(!configured)return {id:'dms',configured:false,connected:false,error:null};
   try{const r=await safeFetch(url,{headers:{authorization:`Bearer ${apiKey}`}});return {id:'dms',configured:true,connected:r.ok,error:r.ok?null:`HTTP ${r.status}`}}catch(e){return {id:'dms',configured:true,connected:false,error:redactJarvisText(e.message)}}
 }
-async function simpleEnvStatus(id,c){
+const SPECIALIZED_CONNECTOR_STATUS_IDS=new Set(['google_ads','ga4','search_console','google_calendar','google','openai','meta','facebook','instagram','facebook_pages','linkedin','tiktok','wix','whatsapp','email','voice','openai_realtime','google_measurement_protocol','google_enhanced_conversions','dms','webhooks']);
+async function simpleEnvStatus(id,c,beforeRequest=()=>{}){
   const profile=CONNECTOR_RUNTIME.profiles()[id]||{},spec=CONNECTOR_REGISTRY[id]||profile||{env:[]};
   const up=id.toUpperCase();
   const saved=loadConnector(c,id)||{};
@@ -533,9 +540,10 @@ async function simpleEnvStatus(id,c){
     else if(keyv)headers[authHeader]=prefix?`${prefix} ${keyv}`:keyv;
     const health=po.health?.path||saved.health_path||profile.health?.path||cleanEnv(`${up}_HEALTH_PATH`)||'';
     const method=po.health?.method||saved.health_method||'GET';
-    const r=await safeFetch(baseUrl.replace(/\/$/,'')+health,{method,headers});
+    const r=await safeFetch(baseUrl.replace(/\/$/,'')+health,{method,headers},beforeRequest);
     base.connected=r.ok;base.status=r.ok?'verbonden':'healthcheck_mislukt';if(!r.ok)base.error=`HTTP ${r.status}`;
-  }catch(e){base.error=redactJarvisText(e.message,500)}
+    await r.body?.cancel?.().catch(()=>{});
+  }catch(e){if(e.statusCode)throw e;base.error=redactJarvisText(e.message,500)}
   return base;
 }
 async function universalStatuses(c,force=false){
@@ -1851,6 +1859,13 @@ async function api(req,res,u){
   if(testMatch&&req.method==='POST'){
     const c=ctx(req),cid=testMatch[1]; if(!CONNECTOR_REGISTRY[cid])return json(res,404,{error:'Onbekende connector'});
     if(cid==='email'){try{return json(res,200,await MAIL_AUTH.probe(c,platformPrincipal()));}catch(error){return json(res,error.statusCode||503,{ok:false,code:error.code||'mail_authentication_unavailable',error:'Mailverificatie is niet beschikbaar',external_send:false});}}
+    if(!SPECIALIZED_CONNECTOR_STATUS_IDS.has(cid)){
+      try{
+      assertCurrentConnectorRequest(req,u);const runtime=CONNECTOR_RUNTIME.configuration(c,cid),hash=require('./connector-source-sync').hash,observed=hash({runtime:runtime.fingerprint,legacy:loadConnector(c,cid)});
+      const guard=()=>{assertCurrentConnectorRequest(req,u);if(hash({runtime:CONNECTOR_RUNTIME.configuration(c,cid).fingerprint,legacy:loadConnector(c,cid)})!==observed)throw Object.assign(Error('Connectorconfiguratie is gewijzigd tijdens de verificatie'),{statusCode:409,code:'connector_probe_configuration_changed'});};
+      const connector=await simpleEnvStatus(cid,c,guard);guard();return json(res,200,{ok:true,connector:{...connector,provider:cid,probe_ok:connector.connected===true,configuration_revision:runtime.revision,last_probe_at:new Date().toISOString()}});
+      }catch(error){return json(res,error.statusCode||503,{ok:false,id:cid,code:error.code||'connector_probe_unconfirmed',error:'Connectorverificatie niet bevestigd'});}
+    }
     const s=(await universalStatuses(c,true)).list.find(x=>x.id===cid); return json(res,200,{ok:true,connector:s});
   }
   if(u.pathname==='/api/integration-registry'&&req.method==='GET')return json(res,200,{ok:true,total:CONNECTORS.length,connectors:CONNECTORS.map(id=>({id,...CONNECTOR_REGISTRY[id]}))});
