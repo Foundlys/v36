@@ -3650,11 +3650,98 @@
     },
     "scope": "All 103 registered shared-workspace section names have explicit labels in each of the eight locales. All 72 existing owned section descriptions and the parameterised generic description are explicitly translated. The actual workspace controller updates tabs, context titles, eyebrows and descriptions in place. Canonical section IDs, selected-tab attributes, DOM identities, literal workspace/source names and request counts are preserved. Unknown section names, including prototype-shaped names, remain literal and inert. Coverage enumerates actual WORKSPACE_DEFINITIONS rather than a hand-maintained test subset.",
     "native_regression": "business-workspaces-regression-test.js PASS (exit 0); its static design/accessibility assertions are not browser, layout or assistive-technology acceptance.",
-    "full_zero_current_tree": "PENDING exact published-head CI; no full 494-test run is claimed from the 38-test focused run.",
-    "current_ci": "PENDING_PUBLICATION",
+    "full_zero_current_tree": "CI 199 PASS: complete npm test, 494 ZERO tests and 14 corpus cases for the published section-copy head.",
+    "current_ci": {
+      "number": 199,
+      "id": 36109242263,
+      "job_id": 107988685204,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "9a685c467a3671b9a8b3bb2b2476b49171bac061",
+      "tree": "6eda51a08b4d679d2f9547a2b1affda09e0f9d3a",
+      "full_npm_test": "PASS",
+      "zero_tests": 494,
+      "zero_pass": 494,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "a6354c3179db2b5c9ab4102b7ed6e9f0d7848bc9f312ffa3fc673a93f2000269",
+        "bytes": 313029
+      }
+    },
     "evidence_limit": "Actual controller in a minimal DOM and native server workspace regression. Explicit translations are not independent native-speaker review. Real browser, layout/accessibility and native-speaker gates remain unverified.",
     "dynamic_candidates": 667,
     "remaining": "Package composition, identity/settings controls, shared domain forms and specialist/generated/backend copy remain code-controlled Phase 8 gaps. Full localization and broader cognition, semantic, demo, industry, security/adversarial, performance/cost and voice gates remain unaccepted. Specialized/bulk provider authority, profile/OAuth races, receipt retention and invalid limits remain open.",
     "storage_change": "None. No migration, credential change, production operation, main merge or deployment. Frozen main dashboard source unchanged; Run 3 not started."
+  },
+  "workspace_composer_checkpoint": {
+    "recorded_at": "2026-09-25T07:59:08.404795+00:00",
+    "prior_ci": {
+      "number": 199,
+      "id": 36109242263,
+      "job_id": 107988685204,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "9a685c467a3671b9a8b3bb2b2476b49171bac061",
+      "tree": "6eda51a08b4d679d2f9547a2b1affda09e0f9d3a",
+      "full_npm_test": "PASS",
+      "zero_tests": 494,
+      "zero_pass": 494,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "a6354c3179db2b5c9ab4102b7ed6e9f0d7848bc9f312ffa3fc673a93f2000269",
+        "bytes": 313029
+      }
+    },
+    "source_sha256": {
+      "foundly-workspace.js": "ab727939bcc31c04dbadc0a72366ca659e033b7451e29b3271dbdc36baf35fc4",
+      "foundly-locales.js": "38ef792573fde792c84df1d0b7bd2ef16512360093427f5758a9174166801ddb",
+      "zero-evaluation/workspace-page-fixture.js": "98530949be657f56b279ef6314b8d21e18ce377b6adc3d5da9827c4f01d42f6d",
+      "zero-evaluation/workspace-composer-fixture.js": "1fd0adbe1b553b42a73953341d0329eba7798022a1c4601fe76b1a77389a6844",
+      "zero/workspace-composer-integrity.test.js": "51090b24eaccc7a4e086f3bf8b85eaed570f2a1c22dfcf88b5f84ea264b8111b"
+    },
+    "new_tests": 11,
+    "targeted_tests": 49,
+    "targeted_pass": 49,
+    "logs": {
+      "run2-workspace-composer-before.log": {
+        "sha256": "94b13df1d829050384f9ccd50d0cedc78d7e76d6f8e14ca05420765d5caf74f0",
+        "bytes": 440105,
+        "exit_code": 1
+      },
+      "run2-workspace-composer-targeted.log": {
+        "sha256": "63db2953e1619091b400a527dbc654f790b05104c902786282b157cabfcbccd6",
+        "bytes": 1070,
+        "exit_code": 0
+      },
+      "run2-workspace-composer-labels-observation-before.log": {
+        "sha256": "0c2454200e18c9e71abdd0137add05f601737b8b9c3bc8cd209b7647d65d9863",
+        "bytes": 334,
+        "exit_code": 1
+      },
+      "run2-workspace-composer-verified.log": {
+        "sha256": "acfada0bddc1c3c398078d6c92701841c0fab00f392524e1b50cbcaf36c89026",
+        "bytes": 5816,
+        "exit_code": 0
+      },
+      "run2-workspace-composer-final.log": {
+        "sha256": "9180a646844c0cf9608fa7a434ef12f38123c914722747053313d5e2e053dada",
+        "bytes": 6051,
+        "exit_code": 0
+      },
+      "run2-workspace-composer-native.log": {
+        "sha256": "4f96a9d81052d7bf0fd26cad39f3dd7ed09e708ba5914fe6d2096b8fc7e39eef",
+        "bytes": 499,
+        "exit_code": 0
+      }
+    },
+    "before_fix": "The initial six tests fail before implementation: untranslated controls, stale edited previews, old read replacement, malformed preview/apply false success, duplicate writes and truthy management authority. A later focused pre-correction diagnostic process was interrupted after 79 seconds while producing a large object comparison; its file-level failure is preserved and is not evidence of two individually completed tests. DOM identity assertions now use bounded diagnostics without weakening their equality requirements.",
+    "scope": "Package composition controls, registered module/capability/industry/bundle labels and review states use explicit eight-locale copy. Locale changes preserve actual controls, draft choices and canonical request values. Preview explicitly shows entitlement, enabled-module, individual capability and industry changes. A preview is bound to the exact current input and native profile/revision/signature; edited, superseded or retired observations cannot expose Apply. Current management authority must be true. Catalog/current/preview/write observations must have consistent identities, revisions, modules and typed flags; malformed or contradictory replies cannot claim success. Duplicate preview/write submissions are suppressed. A lost write response preserves and retries the frozen reviewed body; the native resolver prevents overwriting a newer different composition. Current permission revocation blocks apply. A confirmed write is distinguished from subsequent navigation-refresh failure. Late responses cannot repaint retired settings views.",
+    "native_regression": "capability-resolver-test.js, composition-api-test.js and business-workspaces-regression-test.js all completed in one sequential command with exit 0. The native API regression covers authenticated routes, revocation and encrypted restart; the workspace static accessibility assertions do not establish browser/accessibility acceptance.",
+    "full_zero_current_tree": "PENDING exact published-head CI. No full 505-test run is inferred from the 49 focused tests.",
+    "current_ci": "PENDING_PUBLICATION",
+    "dynamic_candidates": 656,
+    "evidence_limit": "Actual controller and native resolver with controlled HTTP observations in a minimal DOM. The lost-acknowledgement client case is simulated after native in-memory configure; it is not a real dropped network reply or cross-reload recovery proof. Independent native-speaker review and real browser/layout/assistive technology acceptance remain unverified.",
+    "remaining": "Identity/settings controls, shared domain forms and specialist/generated/backend copy remain code-controlled Phase 8 gaps. Composition recovery across navigation/reload and durable request attribution remain open; only the still-open reviewed editor is covered here. Specialized/bulk provider authority, profile/OAuth races, receipt retention and invalid limits remain open, alongside full cognition, semantic, demo, industry, security/adversarial, performance/cost and voice acceptance.",
+    "storage_change": "None. No server contract change, migration, real credential change, production action, main merge or deployment. Frozen main dashboard source remains unchanged; Run 3 not started."
   }
 }

@@ -23,7 +23,7 @@
   let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0,dashboardWrite=null;
   const dashboardControlState=new Map();
   let connectorView=0,connectorSession=null;const connectorForms=new WeakMap(),connectorActions=new Set(),connectorSyncRequests=new Map();
-  const liveMessages=new WeakMap(),liveBindings=new Set(),evidenceViews=new WeakMap();
+  const liveMessages=new WeakMap(),liveBindings=new Set(),evidenceViews=new WeakMap(),composerViews=new WeakMap();
   const i18n=()=>globalThis.FoundlyI18n;
   const copy=(key,params={})=>i18n()?.message(key.startsWith('common.')||key.startsWith('module.')||key.startsWith('analysis.')?key:'workspace.page.'+key,params)||key;
   function live(read){const value=Object.freeze({toString:()=>String(read())});liveMessages.set(value,read);return value;}
@@ -691,39 +691,88 @@
   }
 
   async function renderComposer(content) {
-    replaceChildren(content,[node('p','LoadingState','Pakketconfiguratie laden…')]);
+    const workspace=state.workspaceId,epoch=accessGeneration,ticket={};composerViews.set(content,ticket);
+    const active=()=>workspace==='settings'&&state.workspaceId===workspace&&state.activeSection==='CAPABILITIES'&&accessGeneration===epoch&&content.isConnected&&composerViews.get(content)===ticket;
+    if(!active())return;
+    replaceChildren(content,[node('p','LoadingState',copy('composer_loading'))]);
+    const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value),strings=value=>Array.isArray(value)&&value.every(v=>typeof v==='string')&&new Set(value).size===value.length;
+    const equal=(a,b)=>strings(a)&&strings(b)&&a.length===b.length&&a.every(value=>b.includes(value));
+    const revision=value=>Number.isSafeInteger(value)&&value>=0;
+    const invalid=()=>Object.assign(Error('composition_observation_invalid'),{code:'composition_observation_invalid'});
+    const failure=error=>error.code==='composition_observation_invalid'?copy('composer_invalid'):friendlyError(error);
+    const ownedModules=new Set(['procurement','sales','crm','marketing','finance','analysis','calendar','communication','automation']);
+    const moduleLabel=id=>ownedModules.has(id)?copy('module.'+id):id;
+    const extraCapabilities=new Set(['sourcing','pipeline','contacts','companies','relationships','ledger','invoices','payments','reports','kpis','funnel']);
+    const capabilityLabel=value=>{const suffix=value.split(':')[1];return extraCapabilities.has(suffix)?copy('composer_capability.'+suffix):ownedSections.has(suffix?.toUpperCase())?sectionLabel(suffix.toUpperCase()):value;};
     try {
-      const [catalog,current]=await Promise.all([request('/api/composition/catalog'),request('/api/composition')]);
-      if(state.activeSection!=='CAPABILITIES')return;
-      const form=node('form','domain-record-form'),industryLabel=node('label','',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.fd7fc200"):'Branche')),industry=node('select'),bundleLabel=node('label','','Pakket'),bundle=node('select'),groups=node('div','composition-modules');
-      for(const pack of Object.values(catalog.industries))if(pack.production){const option=node('option','',pack.industry_id==='GENERAL'?'Algemeen':pack.industry_id);option.value=pack.industry_id;industry.append(option);}
-      industry.value=current.resolution.industry_id;industryLabel.append(industry);
-      const custom=node('option','','Eigen samenstelling');custom.value='';bundle.append(custom);
-      for(const name of Object.keys(catalog.bundles)){const option=node('option','',name);option.value=name;bundle.append(option);}bundleLabel.append(bundle);
+      const [catalog,current]=await Promise.all([request('/api/composition/catalog'),request('/api/composition')]);if(!active())return;
+      if(catalog?.ok!==true||!record(catalog.industries)||!record(catalog.bundles)||!Array.isArray(catalog.modules)||!catalog.modules.length||catalog.modules.length>50||catalog.modules.some(m=>!record(m)||typeof m.module_id!=='string'||typeof m.display_name!=='string'||!strings(m.provided_capabilities)||m.provided_capabilities.some(c=>!c.startsWith(m.module_id+':')))||new Set(catalog.modules.map(m=>m.module_id)).size!==catalog.modules.length)throw invalid();
+      const moduleIds=catalog.modules.map(m=>m.module_id),resolution=current?.resolution;
+      if(current?.ok!==true||!record(resolution)||resolution.schema_version!=='foundly-capability-resolution/1.0.0'||!revision(resolution.revision)||typeof resolution.tenant_id!=='string'||typeof resolution.dealer_id!=='string'||!strings(resolution.entitlements)||!strings(resolution.enabled_modules)||resolution.entitlements.some(id=>!moduleIds.includes(id))||resolution.enabled_modules.some(id=>!resolution.entitlements.includes(id))||!Object.hasOwn(catalog.industries,resolution.industry_id)||catalog.industries[resolution.industry_id]?.production!==true||Object.values(catalog.bundles).some(ids=>!strings(ids)||ids.some(id=>!moduleIds.includes(id)))||current.profile!==null&&(!record(current.profile)||!record(current.profile.capability_flags)||current.profile.revision!==resolution.revision||current.profile.tenant_id!==resolution.tenant_id||current.profile.dealer_id!==resolution.dealer_id))throw invalid();
+      const capabilities=catalog.modules.flatMap(module=>module.provided_capabilities);
+      if(current.profile===null?resolution.revision!==0||resolution.legacy_compatibility!==true:resolution.legacy_compatibility!==false||resolution.revision<1||current.profile.industry_id!==resolution.industry_id||!equal(current.profile.entitlements,resolution.entitlements)||!equal(current.profile.enabled_modules,resolution.enabled_modules)||Object.entries(current.profile.capability_flags).some(([key,value])=>!capabilities.includes(key)||typeof value!=='boolean'))throw invalid();
+      const form=node('form','domain-record-form'),industryLabel=node('label','',copy('composer_industry')),industry=node('select'),bundleLabel=node('label','',copy('composer_bundle')),bundle=node('select'),groups=node('div','composition-modules');
+      const present=()=>active()&&form.isConnected;
+      for(const [id,pack]of Object.entries(catalog.industries))if(pack?.production===true){if(pack.industry_id!==id)throw invalid();const option=node('option','',['GENERAL','AUTOMOTIVE'].includes(id)?copy('composer_industry_'+id.toLowerCase()):id);option.value=id;industry.append(option);}
+      industry.value=resolution.industry_id;industryLabel.append(industry);
+      const custom=node('option','',copy('composer_custom'));custom.value='';bundle.append(custom);
+      for(const name of Object.keys(catalog.bundles)){const option=node('option','',ownedModules.has(name.toLowerCase())?moduleLabel(name.toLowerCase()):['COMPLETE','OPERATIONS'].includes(name)?copy('composer_bundle_'+name.toLowerCase()):name);option.value=name;bundle.append(option);}bundleLabel.append(bundle);
       const choices=[];
       for(const module of catalog.modules){
-        const group=node('fieldset'),legend=node('legend','',module.display_name),entitled=node('input'),enabled=node('input');
-        entitled.type=enabled.type='checkbox';entitled.checked=current.resolution.entitlements.includes(module.module_id);enabled.checked=current.resolution.enabled_modules.includes(module.module_id);
-        const accessLabel=node('label','','Pakketrecht'),activeLabel=node('label','','Actief');accessLabel.prepend(entitled);activeLabel.prepend(enabled);group.append(legend,accessLabel,activeLabel);
-        const flags=[];for(const capability of module.provided_capabilities){const label=node('label','',capability.split(':')[1].replaceAll('_',' ')),input=node('input');input.type='checkbox';input.checked=current.profile?.capability_flags?.[capability]!==false;label.prepend(input);group.append(label);flags.push({capability,input});}
+        const group=node('fieldset'),legend=node('legend','',ownedModules.has(module.module_id)?moduleLabel(module.module_id):module.display_name),entitled=node('input'),enabled=node('input');
+        entitled.type=enabled.type='checkbox';entitled.checked=resolution.entitlements.includes(module.module_id);enabled.checked=resolution.enabled_modules.includes(module.module_id);
+        const accessLabel=node('label'),activeLabel=node('label');accessLabel.append(entitled,node('span','',copy('composer_entitlement')));activeLabel.append(enabled,node('span','',copy('composer_enabled')));group.append(legend,accessLabel,activeLabel);
+        const flags=[];for(const capability of module.provided_capabilities){const label=node('label'),input=node('input');input.type='checkbox';input.checked=current.profile?.capability_flags?.[capability]!==false;label.append(input,node('span','',capabilityLabel(capability)));group.append(label);flags.push({capability,input});}
         entitled.addEventListener('change',()=>{if(!entitled.checked)enabled.checked=false;});enabled.addEventListener('change',()=>{if(enabled.checked)entitled.checked=true;});
         groups.append(group);choices.push({id:module.module_id,entitled,enabled,flags});
       }
-      bundle.addEventListener('change',()=>{if(!bundle.value)return;for(const choice of choices)choice.entitled.checked=choice.enabled.checked=catalog.bundles[bundle.value].includes(choice.id);});
-      const notice=node('p','','Uitgeschakelde modules verdwijnen uit navigatie en uitvoering. Bestaande gegevens blijven bewaard.'),preview=node('button','primary-button','Wijzigingen bekijken'),apply=node('button','','Samenstelling toepassen'),output=node('output','workspace-notice');
-      output.setAttribute('aria-live','polite');preview.type='submit';apply.type='button';apply.hidden=true;
-      form.append(industryLabel,bundleLabel,groups,notice,preview,apply,output);
-      if(!current.can_manage){for(const input of form.querySelectorAll('input,select,button'))input.disabled=true;notice.textContent='Alleen de bevoegde platformbeheerder kan pakketrechten aanpassen.';}
-      let prepared=null;
-      form.addEventListener('change',()=>{prepared=null;apply.hidden=true;});
-      form.addEventListener('submit',async event=>{event.preventDefault();preview.disabled=true;try{
-        const payload={industry_id:industry.value,entitlements:choices.filter(c=>c.entitled.checked).map(c=>c.id),enabled_modules:choices.filter(c=>c.enabled.checked).map(c=>c.id),capability_flags:Object.fromEntries(choices.flatMap(c=>c.flags.map(f=>[f.capability,f.input.checked]))),expected_revision:current.resolution.revision};
-        const result=await request('/api/composition/preview',{method:'POST',body:JSON.stringify(payload)});prepared=payload;apply.hidden=false;
-        output.textContent=`Activeren: ${result.diff.enabled.join(', ')||'geen'}. Uitschakelen: ${result.diff.disabled.join(', ')||'geen'}. ${result.diff.industry_changed?'Branche wordt gewijzigd. ':''}Gegevens worden niet verwijderd.`;
-      }catch(error){output.textContent=friendlyError(error);}finally{preview.disabled=false;}});
-      apply.addEventListener('click',async()=>{if(!prepared)return;apply.disabled=true;try{await request('/api/composition',{method:'PUT',body:JSON.stringify(prepared)});const nav=await request('/api/workspaces');state.navigation=nav.workspaces;renderNavigation();await renderComposer(content);toast('Samenstelling opgeslagen.');}catch(error){output.textContent=friendlyError(error);apply.disabled=false;}});
-      replaceChildren(content,[form]);
-    }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
+      bundle.addEventListener('change',()=>{if(!bundle.value||!Object.hasOwn(catalog.bundles,bundle.value))return;for(const choice of choices)choice.entitled.checked=choice.enabled.checked=catalog.bundles[bundle.value].includes(choice.id);});
+      const notice=node('p','',copy('composer_retained')),preview=node('button','primary-button',copy('composer_preview')),apply=node('button','',copy('composer_apply')),refresh=node('button','',copy('composer_refresh')),output=node('output','workspace-notice');
+      output.setAttribute('aria-live','polite');preview.type='submit';apply.type=refresh.type='button';apply.hidden=true;
+      form.append(industryLabel,bundleLabel,groups,notice,preview,apply,refresh,output);
+      const canManage=current.can_manage===true;let prepared=null,draftVersion=0,previewing=false,writing=false,uncertain=false,confirmed=false;
+      const payload=()=>({industry_id:industry.value,entitlements:choices.filter(c=>c.entitled.checked).map(c=>c.id),enabled_modules:choices.filter(c=>c.enabled.checked).map(c=>c.id),capability_flags:Object.fromEntries(choices.flatMap(c=>c.flags.map(f=>[f.capability,f.input.checked]))),expected_revision:resolution.revision});
+      const lock=()=>{for(const input of form.querySelectorAll('input,select'))input.disabled=!canManage||writing||uncertain||confirmed;preview.disabled=!canManage||previewing||writing||uncertain||confirmed;apply.disabled=!canManage||writing;refresh.disabled=writing;};
+      if(!canManage)writeText(notice,copy('composer_manage_only'));
+      function changed(){if(writing||uncertain||confirmed)return;draftVersion++;prepared=null;apply.hidden=true;writeText(output,copy('composer_changed'));}
+      form.addEventListener('change',changed);
+      const profileMatches=(profile,input)=>record(profile)&&profile.tenant_id===resolution.tenant_id&&profile.dealer_id===resolution.dealer_id&&profile.industry_id===input.industry_id&&equal(profile.entitlements,input.entitlements)&&equal(profile.enabled_modules,input.enabled_modules)&&record(profile.capability_flags)&&equal(Object.keys(profile.capability_flags),Object.keys(input.capability_flags))&&Object.keys(input.capability_flags).every(key=>profile.capability_flags[key]===input.capability_flags[key])&&revision(profile.revision)&&/^[a-f0-9]{64}$/.test(profile.signature||'');
+      function validPreview(result,input){
+        if(result?.ok!==true||result.persistent_changes!==false||result.data_deleted!==false||result.expected_revision!==resolution.revision||!profileMatches(result.profile,input)||![resolution.revision,resolution.revision+1].includes(result.profile.revision))return false;
+        const next=result.resolution,diff=result.diff;
+        return record(next)&&next.schema_version===resolution.schema_version&&next.tenant_id===resolution.tenant_id&&next.dealer_id===resolution.dealer_id&&next.revision===result.profile.revision&&next.industry_id===input.industry_id&&equal(next.entitlements,input.entitlements)&&equal(next.enabled_modules,input.enabled_modules)&&record(diff)&&equal(diff.enabled,input.enabled_modules.filter(id=>!resolution.enabled_modules.includes(id)))&&equal(diff.disabled,resolution.enabled_modules.filter(id=>!input.enabled_modules.includes(id)))&&diff.industry_changed===(resolution.industry_id!==input.industry_id);
+      }
+      form.addEventListener('submit',async event=>{
+        event.preventDefault();if(!present()||!canManage||previewing||writing||uncertain||confirmed)return;
+        const version=draftVersion,input=payload(),body=JSON.stringify(input);previewing=true;prepared=null;apply.hidden=true;lock();
+        try{
+          const result=await request('/api/composition/preview',{method:'POST',body});if(!present()||version!==draftVersion||body!==JSON.stringify(payload()))return;if(!validPreview(result,input))throw invalid();
+          prepared={body,profile:result.profile};apply.hidden=false;writeText(apply,copy('composer_apply'));
+          const entitled=input.entitlements.filter(id=>!resolution.entitlements.includes(id)),revoked=resolution.entitlements.filter(id=>!input.entitlements.includes(id)),capabilityChanges=Object.keys(input.capability_flags).filter(cap=>input.capability_flags[cap]!==(current.profile?.capability_flags?.[cap]!==false));
+          const moduleList=ids=>ids.map(id=>String(moduleLabel(id))).join(', ')||String(copy('composer_none'));
+          const capabilityList=enabled=>capabilityChanges.filter(cap=>input.capability_flags[cap]===enabled).map(cap=>`${moduleLabel(cap.split(':')[0])} / ${capabilityLabel(cap)}`).join(', ')||String(copy('composer_none'));
+          writeText(output,live(()=>copy('composer_preview_summary',{entitled:moduleList(entitled),revoked:moduleList(revoked),enabled:moduleList(result.diff.enabled),disabled:moduleList(result.diff.disabled),capabilities_enabled:capabilityList(true),capabilities_disabled:capabilityList(false),industry:result.diff.industry_changed?String(copy('composer_industry_changed')):''})));
+        }catch(error){if(present()&&version===draftVersion&&!error.stale)writeText(output,failure(error));}
+        finally{previewing=false;if(present())lock();}
+      });
+      apply.addEventListener('click',async()=>{
+        if(!present()||!canManage||!prepared||writing||confirmed)return;if(!uncertain&&JSON.stringify(payload())!==prepared.body){changed();return;}
+        const attempt=prepared;writing=true;lock();
+        try{
+          const result=await request('/api/composition',{method:'PUT',body:attempt.body});if(!present())return;
+          if(result?.ok!==true||typeof result.created!=='boolean'||result.data_deleted!==undefined&&result.data_deleted!==false||!profileMatches(result.profile,JSON.parse(attempt.body))||result.profile.revision!==attempt.profile.revision||result.profile.signature!==attempt.profile.signature)throw invalid();
+          confirmed=true;uncertain=false;prepared=null;apply.hidden=true;writeText(output,copy('composer_saved'));
+          const nav=await request('/api/workspaces');if(!present())return;if(!Array.isArray(nav.workspaces))throw invalid();state.navigation=nav.workspaces;renderNavigation();toast(copy('composer_saved'));await renderComposer(content);
+        }catch(error){
+          if(!present()||error.stale)return;
+          if(confirmed)writeText(output,copy('composer_saved_refresh_failed'));
+          else if(error.status>=400&&error.status<500&&![408,429].includes(error.status)){prepared=null;apply.hidden=true;writeText(output,failure(error));}
+          else{uncertain=true;writeText(output,copy('composer_unconfirmed'));writeText(apply,copy('composer_retry'));}
+        }finally{writing=false;if(present())lock();}
+      });
+      refresh.addEventListener('click',()=>{if(present()&&!writing)return renderComposer(content);});
+      replaceChildren(content,[form]);lock();
+    }catch(error){if(active()&&!error.stale)replaceChildren(content,[node('p','ErrorState',failure(error))]);}
   }
 
   async function renderIdentityUsers(section,content){
