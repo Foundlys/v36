@@ -646,3 +646,16 @@ Actual HTTP destroys a successful publication response, restarts encrypted persi
 Minimal DOM/fresh VM does not establish actual browser persistence, accessibility, native-speaker or provider acceptance. Locale inventory remains 570 candidates across 47 scripts, with eight on the frozen dashboard. Shared automation controls and wider hard gates remain open, matrix unchanged. No main/production/deployment, real credentials, destructive migration or Run 3.
 
 The frozen publication recovery source `d439fd0b0a5838c507132ba8da543568b4f0c8fb` (tree `0927d9484d4dd80913a2c5fce2cc5804c3b0b8ec`) passed all 658 ZERO tests and all 14 corpus cases. Current-source full npm regression remains pending exact-head CI after publication.
+
+
+## Continued Phase 8: shared automation lists and owning-view requests
+
+CI 210 passed full npm regression on exact publication-recovery head `5a98d9a`, with 658 ZERO and 14 corpus cases. The next checkpoint adds fourteen permanent tests of the actual shared controller and workflow components. Twenty-nine focused tests and existing manual-run, native recovery UI, ZERO run-client and workspace regressions pass. Nine initial cases fail before implementation; further failures preserve the live-label input-removal and retired ZERO-control defects and their fixes.
+
+Twenty-two owned catalog rows cover list loading, safe invalid/empty feedback, filters, pagination, counts, version/activation, trigger/action/step labels, UTC wake time and retained retry explanations in all eight locales. Names, literal action text, run IDs, input nodes, search text and selected filters remain unchanged. Raw step diagnostics stay in native evidence rather than being rendered as screen copy. Unknown activation/time remains unknown; an empty page with a positive total is not described as an empty catalogue.
+
+An optional current-view predicate now protects the shared request before global response/error handling. A stale access denial cannot retire a newer authorized view. Automation binds section, workspace, query and access generation; old or detached replies cannot fetch further data, repaint current content or adopt conversation state. Retired list and operation controls cannot dispatch native requests. Pending resume cannot duplicate its request. A late ZERO preview cannot restore old controls. Current access denial retains the existing global workspace retirement and safe localized notice.
+
+These are explicit HTTP snapshot/minimal DOM state tests, not real browser or native-provider execution acceptance. Full current-source ZERO and exact-head CI remain pending. The locale inventory is 558 candidates across 47 scripts; the frozen dashboard remains eight. Shared action copy, typed confirmations, uncertain execution/recovery and broader gates stay open. Matrix unchanged; no native API/storage migration, credentials, main/production/deployment or Run 3.
+
+The frozen shared automation readout source `b3c117dac76c79a303c39d21be7cbf41bd96ad8f` (tree `854ad412b982274d2f4ddf8c75b1479607282c43`) passed all 672 ZERO tests and all 14 corpus cases. Current-source full npm regression remains pending exact-head CI after publication.

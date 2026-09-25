@@ -5031,7 +5031,132 @@
       "log_bytes": 78703,
       "evidence_note": "Frozen source; following prepublication edits record evidence only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 210,
+      "id": 36132872203,
+      "job_id": 108063967115,
+      "head": "5a98d9a657168271ea4e6a2160f8a65cb7bd46df",
+      "tree": "2395a1eb54c90c435460a5c2235176d24728bb38",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 658,
+      "zero_pass": 658,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "740458cba6067d2c7c74bcab042005e875a5e0df9f44f5c58a9cc2e4fec612e4",
+        "bytes": 381747
+      }
+    },
     "remaining": "Shared automation list/manual run/recovery/approval/activation controls, specialist/backend/generated localization and all wider recorded hard exit gates. No matrix row promoted. Fresh VM/minimal DOM is not actual browser, accessibility, native-speaker or live-provider acceptance. Additive optional encrypted native journal; no destructive migration, credential, main/production/deployment or Run 3 work."
+  },
+  "automation_page_readout_checkpoint": {
+    "recorded_at": "2026-09-25T12:17:59.321820+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 210,
+      "id": 36132872203,
+      "job_id": 108063967115,
+      "head": "5a98d9a657168271ea4e6a2160f8a65cb7bd46df",
+      "tree": "2395a1eb54c90c435460a5c2235176d24728bb38",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 658,
+      "zero_pass": 658,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "740458cba6067d2c7c74bcab042005e875a5e0df9f44f5c58a9cc2e4fec612e4",
+        "bytes": 381747
+      }
+    },
+    "scope": "Shared workflow catalogue and run-list readout, owning-view request boundary and retired shared operation dispatch. Action confirmation/recovery protocols and remaining action copy are subsequent gaps.",
+    "owned_copy_rows": 22,
+    "locales": [
+      "nl-NL",
+      "en-GB",
+      "de-DE",
+      "fr-FR",
+      "es-ES",
+      "da-DK",
+      "nb-NO",
+      "sv-SE"
+    ],
+    "readout_contract": "Workflow versions/activation, registered actions/triggers, run/step states, counts, filters, pagination, UTC wake time, bounded-retry and dead-letter explanations update in place. Literal names, action text, run IDs, input values, selected filters and element identity remain unchanged. Raw step diagnostics are not rendered. Missing/malformed payloads are distinct from empty results; empty pages with a positive native total are distinct from an empty catalogue. Missing activation and invalid/missing timestamps remain unknown.",
+    "view_contract": "Shared request accepts an optional owning-view predicate checked before response/error handling, so stale 403 cannot retire a newer authorized view. Automation requests also bind workspace, section, query generation and access generation. Retired/detached results cannot request follow-up composition/private drafts, replace current content, adopt conversation state or release stale controls. Retired filter/pagination, manual, ZERO, resume, recovery, approval and activation controls cannot dispatch operations. Pending resume blocks duplicates. Current 401/403 keeps the existing global retirement and safe notice behavior.",
+    "targeted": {
+      "tests": 29,
+      "pass": 29,
+      "fail": 0,
+      "new_permanent_tests": 14,
+      "files": [
+        "zero/automation-page-readout.test.js"
+      ],
+      "scope": "Fourteen actual shared controller/workflow component cases plus existing source-integrity and section-label cases. Explicit response snapshots are not native execution or browser acceptance."
+    },
+    "logs": {
+      "run2-automation-page-readout-before.log": {
+        "sha256": "64ce8ca567e07ed4e86306c0fea31dd6bd0c705da3498cb12bfa9653a5ddcb77",
+        "bytes": 18060,
+        "exit_code": 1
+      },
+      "run2-automation-page-readout-after.log": {
+        "sha256": "374b3a841dbe5a54838568417cbe6eefdeb3815f696ab65c870531d3686ca569",
+        "bytes": 149411,
+        "exit_code": 1
+      },
+      "run2-automation-page-readout-expanded.log": {
+        "sha256": "9162087eee90a1c5b7f16ba7eef094c8300a93e414c807c3d1790979cdbe1a7f",
+        "bytes": 1744,
+        "exit_code": 0
+      },
+      "run2-automation-page-zero-retired-before.log": {
+        "sha256": "fa7a6eca1f1649d33a685bdb8c6135f350d0a3dac8cfb3c76b0a10bdfb7fe234",
+        "bytes": 928,
+        "exit_code": 1
+      },
+      "run2-automation-page-readout-final.log": {
+        "sha256": "bf82be4ad0679e098cbcf3a1da23d6a10bdc274b1caf922847e5842b404f130b",
+        "bytes": 3523,
+        "exit_code": 0
+      },
+      "run2-automation-page-readout-native.log": {
+        "sha256": "9dbd11e7190f8fe249af44016f224ba927909331dd823a4fc3f676fa6206435c",
+        "bytes": 933,
+        "exit_code": 0
+      },
+      "run2-automation-page-readout-native-final.log": {
+        "sha256": "9dbd11e7190f8fe249af44016f224ba927909331dd823a4fc3f676fa6206435c",
+        "bytes": 933,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "Nine initial readout/boundary cases fail before implementation. The first corrected run passes eight and exposes live-label repaint removing the search input; labels now bind a separate owned span, preserving the input/select nodes. A further failing-before case shows a late ZERO preview restoring controls after its view retires; its finally path now checks current ownership. The current-denial assertion follows the existing global workspace notice, rather than requiring a second local notice after global retirement. The isolated native recovery snippet fixture supplies the new current/read dependencies; all original native state/effect assertions remain.",
+    "native_regression": {
+      "status": "PASS",
+      "exit_code": 0,
+      "command": "node workflow-manual-run-test.js && node workflow-recovery-ui-test.js && node workflow-run-zero-client-test.js && node business-workspaces-regression-test.js"
+    },
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 558,
+      "main_dashboard": 8
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 672,
+      "pass": 672,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "b3c117dac76c79a303c39d21be7cbf41bd96ad8f",
+      "source_tree": "854ad412b982274d2f4ddf8c75b1479607282c43",
+      "log_sha256": "cee41541f38e194b9efac33ffb2e230f5403bbc475bcad0048eacf1eab877fb0",
+      "log_bytes": 80479,
+      "evidence_note": "Frozen source; following prepublication edits record evidence only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Shared draft chooser/manual-run/recovery/approval/activation copy; typed current operation acknowledgements, frozen uncertain execution/confirmation bodies and durable recovery; full ZERO run proposal/confirmation component localization/integrity. All wider recorded hard exit gates remain open. Matrix unchanged. Minimal DOM/snapshot fixture is not actual browser, accessibility, native speaker or provider acceptance. No native API/storage migration, credentials, main/production/deployment or Run 3 changes."
   }
 }
