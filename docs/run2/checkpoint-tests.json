@@ -7984,7 +7984,7 @@
   "journey_client_20260925": {
     "source_commit": "98181c74145caece609e81a84aa94c7eb68aea3c",
     "source_tree": "26358e8f4c391b5389a55344a549b9000d3341ef",
-    "status": "Frozen full local ZERO/CORPUS/AFFECTED NATIVE PASS; exact published full CI pending",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE and exact published full CI 229 PASS",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "98181c74145caece609e81a84aa94c7eb68aea3c",
@@ -8123,6 +8123,129 @@
     ],
     "evidence_notes": "Baseline demonstrates missing UI recovery and localization. Stronger proof cases reproduced accepted forged current-step titles, definition titles and preview fingerprints; native plan, exact title and preview hashes now reject them. Actual shared pages exposed missing source_module provenance on native journey constructors; new records now contain it and legacy collection reads provide observed provenance without rewriting retained native rows or receipt hashes. The page fixture separately omitted the production ok:true envelope and delivered browser events asynchronously; both fixtures now match actual contracts. No source changes occurred during the accepted frozen full runners. Earlier targeted runs and failures remain preserved; all 28 new cases pass in the frozen full run.",
     "scope": "Actual shared campaign/journey definition, preview, enrollment, execution, completion and control UI with global recovery outside the first visible page. Six-field browser metadata stores no literal title, reason or mail body. Both native and ZERO transport recover after real HTTP reply loss, encrypted restart and a fresh browser VM; current reopened tasks remain open. All eight locales preserve input, selected operation, field nodes and pending state. Strict current-source/plan/input/effect proofs, read-only access, denial retirement, durable absence closure, cleanup/storage failure and stale replies are guarded. Concurrent pagination loads record 101 without duplicates. Existing native journey controls now use the actual production component and retain their behavioral assertions.",
-    "remaining": "Sales sequence native recovery and browser localization/state are next. Other genuinely open Run 2 gates remain unaccepted. Synthetic DOM establishes behavior only, not browser layout, accessibility or responsive acceptance."
+    "remaining": "Sales sequence native recovery and browser localization/state are next. Other genuinely open Run 2 gates remain unaccepted. Synthetic DOM establishes behavior only, not browser layout, accessibility or responsive acceptance.",
+    "published_ci_229": {
+      "published_commit": "c7477db56b204d84de64728843c2235802bade1f",
+      "published_tree": "2131598efdd23c3326155b54acbd90990076f4ef",
+      "ci_merge_commit": "7517e476f32bc588f7c1ab69581ba00c880aac75",
+      "ci_merge_tree": "2131598efdd23c3326155b54acbd90990076f4ef",
+      "run_id": 36176226688,
+      "job_id": 108207368328,
+      "run_number": 229,
+      "status": "PASS",
+      "zero_pass": 972,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "bca8d269800268b52840e426f195d6220754f9bf9cedde549c5a039c76548a94",
+      "log_bytes": 509785
+    }
+  },
+  "native_sequence_recovery_20260925": {
+    "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+    "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+    "status": "Frozen full local ZERO/CORPUS/AFFECTED NATIVE PASS; exact published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+      "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+      "exit_code": 0,
+      "seconds": 79.96,
+      "log_sha256": "90358fcff69d84130157e9c65a74c8f02eb896129dfe82fbc3474b3610ad727c",
+      "log_bytes": 119171,
+      "pass_count": 994,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "sales-sequences-test.js",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "sha256": "b2239191006ca83d4df7e97318f7956b5a766448954279870dc6a02d6eb90b1d"
+      },
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "sales-sequences-api-test.js",
+        "exit_code": 0,
+        "seconds": 8.03,
+        "sha256": "e9c5153e17e5a244c7e77d79c1f1560e8adac92a79c9f4cf7fe943fe84512266"
+      },
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "sales-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f"
+      },
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "sales-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 7.46,
+        "sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4"
+      },
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "sales-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.51,
+        "sha256": "4de706ae33dbacc1b58e4a64f5caf7665ce49472cb80bdd220a1228e75f1d6c7"
+      },
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "sales-sequences-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.45,
+        "sha256": "7387afc89127fe5c001e4f5c72379732aecf68d7c986899f53afae8bf4889804"
+      },
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
+        "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 1.16,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      }
+    ],
+    "permanent_new_tests": 22,
+    "new_test_breakdown": {
+      "native": 16,
+      "native_and_zero_http": 6
+    },
+    "preserved_failures": [
+      {
+        "file": "sequence-recovery-before.log",
+        "sha256": "79fbf07a60f5516bc9c5fbb7942572c326326b94197b5bb1ca03f3c258122b81",
+        "bytes": 15341,
+        "retained_head": "TAP version 13\n# Subtest: sequence definitions retain exact typed acknowledgement and metadata recovery across restart\nnot ok 1 - sequence definitions retain exact typed acknowledgement and metadata recovery across restart\n  ---\n  duration_ms: 18.233849\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:3:1'\n  failureType: 'testCodeFailure'\n  error: \"Cannot read properties of undefined (reading 'request')\"\n  code: 'ERR_TEST_FAILURE'\n  name: 'TypeError'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:3:201)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1382:25)\n    Test.start (node:internal/test_runner/test:1242:17)\n    startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)\n  ...\n# Subtest: old sequence enrollment cannot acknowledge a later paused run as the original successful start\nnot ok 2 - old sequence enrollment cannot acknowledge a later paused run as the original successful start\n  ---\n  duration_ms: 20.752327\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:4:1'\n  failureType: 'testCodeFailure'\n  error: 'Missing expected exception.'\n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    code: 'sequence_result_changed'\n  operator: 'throws'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:4:206)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1382:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    Test.postRun (node:internal/test_runner/test:1522:19)\n    Test.run (node:internal/test_runner/test:1447:12",
+        "retained_tail": "est_runner/test:1522:19)\n    Test.run (node:internal/test_runner/test:1447:12)\n  operator: 'throws'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:12:227)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1382:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    Test.postRun (node:internal/test_runner/test:1522:19)\n    Test.run (node:internal/test_runner/test:1447:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n  ...\n# Subtest: sequence draft recovery verifies native draft output and current communication authority without sending\nnot ok 11 - sequence draft recovery verifies native draft output and current communication authority without sending\n  ---\n  duration_ms: 9.74535\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:13:1'\n  failureType: 'testCodeFailure'\n  error: 'service.recover is not a function'\n  code: 'ERR_TEST_FAILURE'\n  name: 'TypeError'\n  stack: |-\n    Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/sales-sequence-fixture.js:14:247)\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:13:210)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1382:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    Test.postRun (node:internal/test_runner/test:1522:19)\n    Test.run (node:internal/test_runner/test:1447:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n  ...\n# Subtest: resuming a sequence whose current opportunity is closed cannot reactivate internal execution\nnot ok 12 - resuming a sequence whose current opportunity is closed cannot reactivate internal execution\n  ---\n  duration_ms: 6.444695\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:14:1'\n  failureType: 'testCodeFailure'\n  error: 'Missing expected exception.'\n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    code: 'sequence_source_closed'\n  operator: 'throws'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:14:276)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1382:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    Test.postRun (node:internal/test_runner/test:1522:19)\n    Test.run (node:internal/test_runner/test:1447:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n  ...\n1..12\n# tests 12\n# suites 0\n# pass 0\n# fail 12\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 326.309681\n"
+      },
+      {
+        "file": "sequence-recovery-initial.log",
+        "sha256": "4705f008859e230e98e19c16e598ce9b941cf1cc535495a3e7bd6ebc0ba2178b",
+        "bytes": 4185,
+        "retained_head": "TAP version 13\n# Subtest: sequence definitions retain exact typed acknowledgement and metadata recovery across restart\nok 1 - sequence definitions retain exact typed acknowledgement and metadata recovery across restart\n  ---\n  duration_ms: 37.613807\n  type: 'test'\n  ...\n# Subtest: old sequence enrollment cannot acknowledge a later paused run as the original successful start\nok 2 - old sequence enrollment cannot acknowledge a later paused run as the original successful start\n  ---\n  duration_ms: 22.477802\n  type: 'test'\n  ...\n# Subtest: sequence enrollment recovery rechecks source access without requiring the original opportunity revision to stay current\nok 3 - sequence enrollment recovery rechecks source access without requiring the original opportunity revision to stay current\n  ---\n  duration_ms: 10.952433\n  type: 'test'\n  ...\n# Subtest: sequence task creation and completion retain separate original and current task evidence after reopening\nok 4 - sequence task creation and completion retain separate original and current task evidence after reopening\n  ---\n  duration_ms: 28.232879\n  type: 'test'\n  ...\n# Subtest: sequence control recovery preserves superseding cancellation without changing current native state\nok 5 - sequence control recovery preserves superseding cancellation without changing current native state\n  ---\n  duration_ms: 18.485745\n  type: 'test'\n  ...\n# Subtest: sequence outcome recovery preserves the original observation after the opportunity and feedback change without claiming causation\nok 6 - sequence outcome recovery preserves the original observation after the opportunity and feedback change without claiming causation\n  ---\n  duration_ms: 13.310363\n  type: 'test'\n  ...\n# Subtest: absent sequence requests for every mutation close durably before a del",
+        "retained_tail": "...\n# Subtest: sequence outcome recovery preserves the original observation after the opportunity and feedback change without claiming causation\nok 6 - sequence outcome recovery preserves the original observation after the opportunity and feedback change without claiming causation\n  ---\n  duration_ms: 13.310363\n  type: 'test'\n  ...\n# Subtest: absent sequence requests for every mutation close durably before a delayed original body arrives\nok 7 - absent sequence requests for every mutation close durably before a delayed original body arrives\n  ---\n  duration_ms: 46.175089\n  type: 'test'\n  ...\n# Subtest: sequence recovery binds exact actor metadata and rejects original source ownership changes even for administrators\nok 8 - sequence recovery binds exact actor metadata and rejects original source ownership changes even for administrators\n  ---\n  duration_ms: 6.3723\n  type: 'test'\n  ...\n# Subtest: sequence result and closure receipts roll back atomically with native records on persistence failure\nok 9 - sequence result and closure receipts roll back atomically with native records on persistence failure\n  ---\n  duration_ms: 7.44307\n  type: 'test'\n  ...\n# Subtest: legacy and damaged sequence receipts cannot acquire fabricated original result proof\nok 10 - legacy and damaged sequence receipts cannot acquire fabricated original result proof\n  ---\n  duration_ms: 5.374825\n  type: 'test'\n  ...\n# Subtest: sequence draft recovery verifies native draft output and current communication authority without sending\nnot ok 11 - sequence draft recovery verifies native draft output and current communication authority without sending\n  ---\n  duration_ms: 19.117069\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:13:1'\n  failureType: 'testCodeFailure'\n  error: 'Missing expected exception.'\n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    statusCode: 403\n  operator: 'throws'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-recovery.test.js:13:481)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1382:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n    Test.postRun (node:internal/test_runner/test:1522:19)\n    Test.run (node:internal/test_runner/test:1447:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n  ...\n# Subtest: resuming a sequence whose current opportunity is closed cannot reactivate internal execution\nok 12 - resuming a sequence whose current opportunity is closed cannot reactivate internal execution\n  ---\n  duration_ms: 10.163779\n  type: 'test'\n  ...\n1..12\n# tests 12\n# suites 0\n# pass 11\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 521.430345\n"
+      }
+    ],
+    "evidence_notes": "Twelve baseline failures reproduced missing durable proof, an old start acknowledging a later paused run, and resume reactivating a closed opportunity. Both behavior defects are fixed. The initial draft-rights fixture removed explicit permissions but Sales retains default Communication read authority; the final fixture disables the Communication module and verifies the actual current denial. Original canonical sorted native fingerprints remain intact. Frozen source was clean for both accepted full runners.",
+    "scope": "Private bounded six-field recovery for definition, start, advance, task completion, pause, resume, cancel and outcome feedback. Exact native snapshots, source/parent owners, task/draft effects and current records remain separate. Delayed bodies cannot execute after durable absence closure. Recovery never advances automatic work, reopens tasks, sends messages or changes opportunity observations. Native and ZERO explicit request identities, current capability checks after body wait, encrypted restart, rollback, tamper/legacy denial and metadata privacy are exercised. New sequence task completion uses existing native Sales tasks; generic task mutation remains compatible.",
+    "remaining": "Sales production browser controls still need scoped recovery, strict source verification, pagination and all eight locales. Other genuinely open Run 2 gates remain unaccepted."
   }
 }
