@@ -7264,7 +7264,7 @@
   "native_creative_review_recovery_20260925": {
     "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
     "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
-    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "status": "PASS for bounded native review recovery checkpoint, including exact-tree complete CI 224; wider Run 2 gates remain open",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
@@ -7393,6 +7393,140 @@
     ],
     "failure_interpretation": "Nine baseline missing recovery failures; three first HTTP fixture failures caused by using an unsupported enrollment argument rather than actually granting approval rights (corrected through native identity update and fresh login, no product permission weakening); a genuine review snapshot disclosure through unreadable creative ancestry; and the missing typed approval-only recovery route. Native and ZERO long HTTP cases now run separately under the unchanged 15 second timeout, with all assertions retained.",
     "scope": "Atomic metadata-bound receipts for native and ZERO preparation, ordered decision, final approval and withdrawal. APPLIED recovery verifies exact retained review snapshot, current immutable source and review ownership, current actor/role/campaign authority, review prefix and final native creative revision. Superseded direct replay cannot claim current success. NOT_APPLIED durably closes absent keys and rejects delayed bodies. Legacy receipts do not gain invented typed recovery proof. Receipts excluded from shared Data; bounds and persistence rollback enforced. Read-only review projections now obey full creative ancestry access. Approval-only reviewers use the existing approve permission, without acquiring write permission.",
-    "remaining": "Connect the actual shared creative review UI to scoped metadata-only recovery, strict response validation, eight-locale presentation and stale/denied control guards. Native recovery does not imply browser acceptance. Wider unaccepted Run 2 gates remain open."
+    "remaining": "The subsequent creative_review_client_20260925 source connects the actual shared review controls and owns separate client evidence. Native CI 224 does not cover that newer source. Wider unaccepted Run 2 gates remain open.",
+    "published_ci_224": {
+      "published_commit": "bb1824330e3c5c27fbf19b8a2c4acf4ac2393a25",
+      "published_tree": "df09faedcbc21916904231c2c6f7a4999c0f9a18",
+      "ci_merge_commit": "c0f7e6d413c08e1d5f26f68bc538136159d2b82e",
+      "ci_merge_tree": "df09faedcbc21916904231c2c6f7a4999c0f9a18",
+      "run_id": 36164126251,
+      "job_id": 108167605454,
+      "run_number": 224,
+      "status": "PASS",
+      "zero_pass": 860,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "09f53d0bd16b7bb4e500c8644c3e7933cd53c36f4f7dd7e57da8162506df26ac",
+      "log_bytes": 464886
+    }
+  },
+  "creative_review_client_20260925": {
+    "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+    "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+      "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+      "exit_code": 0,
+      "seconds": 86.27,
+      "log_sha256": "984db87782a5c3de194b1eb884512e4349a7a3cdc87ac4d68a81889da0141157",
+      "log_bytes": 105768,
+      "pass_count": 880,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-creative-history-test.js",
+        "exit_code": 0,
+        "seconds": 2.18,
+        "sha256": "893840958facac09683b3a6987cca712089fb63f6c0927afb397bc5dae380697"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-creative-history-api-test.js",
+        "exit_code": 0,
+        "seconds": 6.88,
+        "sha256": "96c38c6779d2c2725ea51e234cd78b5daf37e93ad9470c1682b6b691e23fc735"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-creative-history-client-test.js",
+        "exit_code": 0,
+        "seconds": 1.85,
+        "sha256": "06f764749c91d163e6055926719574b3c4424a26707d61744dd969418a814442"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.1,
+        "sha256": "2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-creative-reviews-test.js",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "sha256": "e9b9fb9888d788d5a273a93abf2afcdd9b8404079561924bf17a38bced072e46"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-creative-reviews-api-test.js",
+        "exit_code": 0,
+        "seconds": 9.74,
+        "sha256": "ba9426e7fe342179561176aadfeaf58bd88cc52300ce6402bdba4fa5ba5c65a8"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.4,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 5.25,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-journeys-test.js",
+        "exit_code": 0,
+        "seconds": 1.13,
+        "sha256": "26e8bd2d80442ea51a85d673375b68393b83e0c9cf552cb46b3b4fefcb1c9ee8"
+      },
+      {
+        "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
+        "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
+        "test": "marketing-journeys-api-test.js",
+        "exit_code": 0,
+        "seconds": 8.87,
+        "sha256": "df3448a4615f31bb6c14f770ecac303ee2f2d72d93de7e4110076a98c2a90717"
+      }
+    ],
+    "permanent_new_tests": 20,
+    "preserved_failures": [
+      {
+        "file": "review-page-before.log",
+        "sha256": "daf53b80b7b2c3512a32e965bc9801719c5dd29bcfe17d3076949387f498beea",
+        "bytes": 3617,
+        "retained_head": "\u2716 shared review preparation localizes owned controls in all eight locales while preserving literal input and dirty close guards (131.642189ms)\n\u2716 a lost review preparation reply can only reconcile exact metadata even after the visible input changes (170.128549ms)\n\u2716 fresh shared review pages recover scoped pending metadata even when the source is outside the visible page (151.01286ms)\n\u2716 clean review detail reopen performs a current read and cannot restore private snapshot content after denial (71.023574ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 4\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 838.103575\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-page.test.js:3:1\n\u2716 shared review preparation localizes owned controls in all eight locales while preserving literal input and dirty close guards (131.642189ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Inhoud laten beoordelen'\n  - '\u27e6marketing.review.prepare_panel:nl-NL\u27e7'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-page.test.js:3:442)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Inhoud laten beoordelen',\n    expected: '\u27e6marketing.review.prepare_panel:nl-NL\u27e7',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-page.test.js:4:1\n\u2716 a lost review preparation reply can only reconcile exact metadata even after the visible input ch",
+        "retained_tail": "zero/marketing-review-page.test.js:4:505)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 2,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-page.test.js:5:1\n\u2716 fresh shared review pages recover scoped pending metadata even when the source is outside the visible page (151.01286ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok([...f.saved.keys()].some(k=>k.startsWith('foundly.marketing.review.requests.v1:')))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-page.test.js:5:356)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-page.test.js:6:1\n\u2716 clean review detail reopen performs a current read and cannot restore private snapshot content after denial (71.023574ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(!detail.textContent.includes('Literal private review content'))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-page.test.js:6:502)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "review-client-proof-before.log",
+        "sha256": "b2c7b7ede17fc6d39834ecf0a595552ccecca8a3150d1894df9ec0c74990603b",
+        "bytes": 1937,
+        "retained_head": "\u2716 review decision acknowledgements cannot change the original request reason or title even with a self-consistent response digest (149.12611ms)\n\u2716 review source reads reject non-string timestamps instead of treating numeric metadata as native evidence (107.569666ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 2\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 698.931391\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-client.test.js:15:1\n\u2716 review decision acknowledgements cannot change the original request reason or title even with a self-consistent response digest (149.12611ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-client.test.js:15:445)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-client.test.js:16:1\n\u2716 review source reads reject non-string timestamps instead of treating numeric metadata as native evidence (107.569666ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Current review source loaded.'\n  - 'The received review details could not be verified.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-client.test.js:16:285)\n      at async Test.run (node:internal/test_runner/test:1",
+        "retained_tail": "nt response digest (149.12611ms)\n\u2716 review source reads reject non-string timestamps instead of treating numeric metadata as native evidence (107.569666ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 2\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 698.931391\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-client.test.js:15:1\n\u2716 review decision acknowledgements cannot change the original request reason or title even with a self-consistent response digest (149.12611ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-client.test.js:15:445)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-client.test.js:16:1\n\u2716 review source reads reject non-string timestamps instead of treating numeric metadata as native evidence (107.569666ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Current review source loaded.'\n  - 'The received review details could not be verified.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-client.test.js:16:285)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Current review source loaded.',\n    expected: 'The received review details could not be verified.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "scope": "Actual shared creative review controls now use a scoped metadata-only request queue, stable native or ZERO request identity, exact typed acknowledgement binding and explicit terminal recovery. Preparation, ordered decision and withdrawal cannot resubmit a changed or uncertain body. Original applied revision and newer current review are distinct; final approval recovery verifies native creative revision proof. Strict original immutable fields, snapshot hashes, timestamps, actor/tenant context and contradiction/null checks. Eight locales preserve source literals and field nodes. Dirty/pending close guards, fresh authorized reopen, global recovery outside the visible page, denied-content removal, stale replies/controls and storage-failure behavior. Real native/ZERO HTTP controller runs include dropped preparation and approval replies, encrypted restart and fresh VM.",
+    "remaining": "Own exact-tree complete full CI pending. Audience/member/filter and journey definition, activation and execution controls still have production localization/state/recovery gaps; other previously unaccepted Run 2 gates remain open. DOM fixtures do not establish responsive/layout acceptance."
   }
 }
