@@ -13,7 +13,7 @@ class Element{
  focus(){this.focused=true;}
 }
 const find=(root,tag,label)=>root.all().find(el=>el.tag===tag&&(label===undefined||el.textContent===label));
-const field=(root,label)=>find(root,'label',label).children[0];
+const field=(root,label)=>root.all().find(el=>el.tag==='label'&&el.children.some(child=>child.tag==='span'&&child.textContent===label)).children.find(child=>['input','textarea'].includes(child.tag));
 const {FoundlyPlatformCore}=require('./platform-core'),{WorkflowDrafts}=require('./workflow-drafts'),{CapabilityResolver}=require('./capability-resolver'),zero=require('./workflow-zero');
 let state=new Map(),disk,core;const ctx={tenant_id:'generator-ui',dealer_id:'default'},actor={id:'owner',roles:['ADMIN','SUPER_ADMIN']};
 const adapter={bucket(c,s){const k=JSON.stringify([c,s]);if(!state.has(k))state.set(k,[]);return state.get(k);},persist(){disk=JSON.stringify([...state]);},audit(){},executeAutomationAction(c,a,action,run){const row=core.createAutomationRecord(c,a,'tasks',{title:action.title},{idempotencyKey:run.idempotency_key});return {executed:true,record_id:row.id};}};

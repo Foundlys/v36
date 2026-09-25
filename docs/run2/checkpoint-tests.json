@@ -4241,7 +4241,113 @@
       "log_bytes": 65816,
       "evidence_note": "Frozen implementation source; later prepublication changes only record test evidence."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 204,
+      "id": 36120521358,
+      "job_id": 108024668658,
+      "head": "ea34f591c89d2fa86b3d31eb4fa2b21a2dbf4e56",
+      "tree": "6350099051f60f3b38516f16952c367662c3d9b1",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 558,
+      "zero_pass": 558,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "e947d4baf4a60bf90f0bb988bef5dda4495126c48c62fab9c6228cda09cb3c5b",
+        "bytes": 339501
+      }
+    },
     "remaining": "Automation list/filter/step/status, editor/generator/manual execution and other specialist/backend/generated surfaces remain open. Browser/layout/accessibility/native-speaker evidence, broader cognitive/demo/industry/adversarial/performance/voice gates remain unaccepted. No matrix row is promoted; Run 3 has not started."
+  },
+  "workflow_generator_checkpoint": {
+    "recorded_at": "2026-09-25T09:58:40.664547+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 204,
+      "id": 36120521358,
+      "job_id": 108024668658,
+      "head": "ea34f591c89d2fa86b3d31eb4fa2b21a2dbf4e56",
+      "tree": "6350099051f60f3b38516f16952c367662c3d9b1",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 558,
+      "zero_pass": 558,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "e947d4baf4a60bf90f0bb988bef5dda4495126c48c62fab9c6228cda09cb3c5b",
+        "bytes": 339501
+      }
+    },
+    "scope": "Production natural-language workflow proposal/review/private-save component, native compiler and private draft store. Forty-eight owned rows across eight locales; structured branches, logical conditions, typed values and source literals are formatted without refetching or mutating state. Request/definition/fingerprint/typed flags are checked before review and exact native draft/revision/compiled-content acknowledgement before claiming a saved draft.",
+    "permanent_tests": {
+      "file": "zero/workflow-generator-localization.test.js",
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "fixture": "Actual core, capability resolver, ZERO handlers and private draft store in a minimal DOM with deterministic provider text; not live model/browser acceptance"
+    },
+    "logs": {
+      "run2-workflow-generator-before.log": {
+        "sha256": "3caca18a5d47d584365ae986f0479d699949045739ee4d3a557fe7e9e5cb7cc2",
+        "bytes": 6235,
+        "exit_code": 1
+      },
+      "run2-workflow-generator-corrected-before.log": {
+        "sha256": "b19b1eafc790bafb04948ead9818d7b0914743fc8ee828d7832bd4475dd94bc7",
+        "bytes": 5496,
+        "exit_code": 1
+      },
+      "run2-workflow-generator-after.log": {
+        "sha256": "978f63e75fed4640e68223a7ae719c6a54e00d998e57155ebc3eab228cc419de",
+        "bytes": 879,
+        "exit_code": 0
+      },
+      "run2-workflow-generator-native-before.log": {
+        "sha256": "c174bae52863676e1ce98df033bcd5d7272855694e776aec7b51699a3910f5a8",
+        "bytes": 764,
+        "exit_code": 1
+      },
+      "run2-workflow-generator-expanded.log": {
+        "sha256": "4f66951c4cbc5cf3386c1290cf2c35decddb90c9d74c5623481701bb8435a7f8",
+        "bytes": 1505,
+        "exit_code": 0
+      },
+      "run2-workflow-generator-native-final.log": {
+        "sha256": "08359c261dc4589a5e58c38ddc78ff00d44f3854677f49e4cf9f081dc38e9e8e",
+        "bytes": 1688,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "The first fixture incorrectly requested a retry without an adapter idempotence contract; the native compiler correctly rejected it. The fixture now uses one attempt. All six initial defect tests then fail against the prior production component before implementation changes. Eleven expanded tests now pass. The preexisting native test label lookup was adapted to explicit owned text spans; no native authority, execution, rollback, source-retention or restart assertion was removed.",
+    "mutation_evidence": "A lost native save response freezes the exact original action, reason, draft, expected revision, fingerprint and turn. Duplicate calls and prompt/reason changes cannot replace that uncertain write; exact retry returns the native retained revision without another write. A later native revision is not overwritten or falsely claimed. Retired controls make no calls or saved callbacks. Generation and locale changes create no draft, publish no workflow and execute no action. Provider questions remain literal inert text. Native HTTP tests retain role changes during provider/body waits, current owner/tenant access, source-free audit/history, encrypted restart, revision conflicts and explicit separate execution.",
+    "native_regression": {
+      "status": "PASS",
+      "exit_code": 0,
+      "command": "node workflow-generator-test.js && node workflow-language-test.js && node workflow-language-api-test.js && node workflow-zero-test.js && node workflow-zero-api-test.js && node workflow-drafts-test.js && node workflow-drafts-api-test.js"
+    },
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 604,
+      "main_dashboard": 8,
+      "note": "Conservative inventory, not a rendered completeness or acceptance metric"
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 569,
+      "pass": 569,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "4aa2e98026046b8c1013af969877ba580d869237",
+      "source_tree": "618152bccf6c939d9bcfdbe417d02bd2a8ed96ce",
+      "log_sha256": "cf2593fe32ec24cf2a52d38595c4d4564d4ae22f8e3a08084d95fee30d6254dd",
+      "log_bytes": 67233,
+      "evidence_note": "Frozen implementation source; later prepublication changes only record test evidence."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Cross-browser-reload attribution/terminal reconciliation of an uncertain newly generated draft remains open; native retained private drafts are accessible through the existing owner list and exact native replay. Workflow editor/autosave/publication, shared workflow list/manual-run/recovery/approval and backend/generated copy remain open. Broader hard exit gates and real browser/native-speaker/provider acceptance remain unaccepted. No matrix row is promoted; Run 3 has not started."
   }
 }
