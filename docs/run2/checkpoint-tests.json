@@ -359,7 +359,7 @@
     },
     "all_surface_locale_acceptance": "FAIL_CODE_CONTROLLED",
     "legacy_native_profile_evidence": "legacy-profile-replay-check.json",
-    "cash_validation": "Whole-day horizon validated at 1\u2013730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
+    "cash_validation": "Whole-day horizon validated at 1–730; known native scenario error codes have localized actionable labels. Unknown codes, including inherited object property names, remain generic localized errors."
   },
   "integration_locale_checkpoint": {
     "recorded_at": "2026-09-24T14:47:25.073630+00:00",
@@ -5876,5 +5876,296 @@
     },
     "current_ci": "PENDING_PUBLICATION",
     "remaining": "Activation confirmation/reload, explicit resume and native result-recovery controls, all wider Run 2 hard gates. Real browser/accessibility/native-speaker/provider acceptance not established. No matrix promotion."
+  },
+  "activation_confirmation_recovery_20260925": {
+    "baseline": "854360bef83cccab1b4dd405b03659fc40e9f57a",
+    "source": {
+      "command": "npm run test:zero",
+      "source_commit": "92f8b5dd29bf7e768deb7b609bf0e40095eafe21",
+      "source_tree": "cdfc19555b5971e8bd4e9123c21e9a5e1dbc0d7b",
+      "exit_code": 0,
+      "seconds": 55.23,
+      "log_sha256": "4b1905a25d614d43fb5ace3660e8c5828c7eebbbe4815a55181d99f08d72f4f2",
+      "log_bytes": 89445
+    },
+    "full_zero": {
+      "tests": 748,
+      "passed": 748,
+      "failed": 0,
+      "corpus_passed": 14,
+      "corpus_total": 14
+    },
+    "native_suites": [
+      {
+        "test": "workflow-absence-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.29,
+        "sha256": "fd7a96856d0d0d7b60d88c1be6bb3f7448c7e006e81642ae6bc5ef2ac150e046"
+      },
+      {
+        "test": "workflow-absence-test.js",
+        "exit_code": 0,
+        "seconds": 0.21,
+        "sha256": "7829e28d946065ecebd498ecee1ee26b23cae66616f33361074cf70d5c51a2f9"
+      },
+      {
+        "test": "workflow-activation-test.js",
+        "exit_code": 0,
+        "seconds": 0.25,
+        "sha256": "e1358886f260fda7f6d29968a83bcff05a2bbaef6c5386a5d96d08a23746f80b"
+      },
+      {
+        "test": "workflow-authoring-api-test.js",
+        "exit_code": 0,
+        "seconds": 6.04,
+        "sha256": "f211a1f4c217e20eac95de0c5e58da18fb0f0eb3ea03d09efe2e141b9c8af66c"
+      },
+      {
+        "test": "workflow-authoring-test.js",
+        "exit_code": 0,
+        "seconds": 0.47,
+        "sha256": "ad403f05d4f0bdf4d2c524c33786e2b81ab66a031fdcd4b453b15b81e4cc0ff1"
+      },
+      {
+        "test": "workflow-branching-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.33,
+        "sha256": "1ea1e56edda7cad0aa2b38781c5b868989d4770236eb7a15f9006142bd1df8bd"
+      },
+      {
+        "test": "workflow-branching-test.js",
+        "exit_code": 0,
+        "seconds": 0.24,
+        "sha256": "102bfac28d790828e1d377954c1fa7e91ec6d5ba70f6f6af9ce2848f5a409841"
+      },
+      {
+        "test": "workflow-conditions-test.js",
+        "exit_code": 0,
+        "seconds": 0.82,
+        "sha256": "82f3d8c64cb90d6aea0eb726418f1cb2c468084174a684deceb1dc1264a4fef9"
+      },
+      {
+        "test": "workflow-drafts-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.01,
+        "sha256": "c197e72aac86676f65721785eaf94dff0f3c7be8f9c5b78ce179539ca4d27563"
+      },
+      {
+        "test": "workflow-drafts-test.js",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "sha256": "4a6ec0a9148f205bb09966fd9477f111660dd466ee963bad9018053bcbf28c21"
+      },
+      {
+        "test": "workflow-editor-test.js",
+        "exit_code": 0,
+        "seconds": 0.35,
+        "sha256": "acb5b87bd33ddaaebe4241ae09577d840fcce35166db7f0ea988d933db7812d5"
+      },
+      {
+        "test": "workflow-execution-test.js",
+        "exit_code": 0,
+        "seconds": 0.22,
+        "sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb"
+      },
+      {
+        "test": "workflow-generator-test.js",
+        "exit_code": 0,
+        "seconds": 0.36,
+        "sha256": "142826208b2ba006fc9d2aa74e886f59aad88d2bef2df05b8205b2d05a81a227"
+      },
+      {
+        "test": "workflow-inspection-api-test.js",
+        "exit_code": 0,
+        "seconds": 4.44,
+        "sha256": "a06d62ed562e8dfde1d0a1ba71227b09ffb377bdcb37704e7a6d482f2ac5c0ed"
+      },
+      {
+        "test": "workflow-inspection-test.js",
+        "exit_code": 0,
+        "seconds": 0.4,
+        "sha256": "68645dcf193ae850f1b6860e9f5449cc220590d65d5f745c38f87842938d03c3"
+      },
+      {
+        "test": "workflow-inspector-test.js",
+        "exit_code": 0,
+        "seconds": 0.11,
+        "sha256": "25bf56aa7ee428225065d932396b32d5422a9dac935420c0c204beb319ce3d37"
+      },
+      {
+        "test": "workflow-language-api-test.js",
+        "exit_code": 0,
+        "seconds": 4.39,
+        "sha256": "b8327cf8563703d0e06e356859fe04200094f3fef7841b30dd74ae79b77e241b"
+      },
+      {
+        "test": "workflow-language-test.js",
+        "exit_code": 0,
+        "seconds": 0.23,
+        "sha256": "5500a3bbbd6f4ffb241620953566e421b01df164330bb546b15be557dced67cb"
+      },
+      {
+        "test": "workflow-manual-run-test.js",
+        "exit_code": 0,
+        "seconds": 0.41,
+        "sha256": "b05496eb546d81a52dd97a24853cbfcf8b19b0e55d54216ef6c0eae3017c17fd"
+      },
+      {
+        "test": "workflow-recovery-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.46,
+        "sha256": "d068c3fcb80e971f0d48c2c2e09dd0141ef8b5b0c892e2e22c200c923b36e943"
+      },
+      {
+        "test": "workflow-recovery-test.js",
+        "exit_code": 0,
+        "seconds": 0.16,
+        "sha256": "60797b562009fa8c2b1c1ec2859aac7acb4ac42b821f79384bc88e93f76a4541"
+      },
+      {
+        "test": "workflow-recovery-ui-test.js",
+        "exit_code": 0,
+        "seconds": 0.11,
+        "sha256": "0db0306560d779be3c738c0462cd612d7528739a63682bcad5b4d12506846770"
+      },
+      {
+        "test": "workflow-retry-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.4,
+        "sha256": "04b17c287c9cd8176c5ae09e178bc295c1ab6b4f827cf0cf9e51fd0c757f4514"
+      },
+      {
+        "test": "workflow-retry-test.js",
+        "exit_code": 0,
+        "seconds": 0.15,
+        "sha256": "e4e9855801e77dbe9d83972afce4b8e6c19f7b018fe02b207a5d39922a1dd347"
+      },
+      {
+        "test": "workflow-run-query-api-test.js",
+        "exit_code": 0,
+        "seconds": 1.29,
+        "sha256": "538bfc5c88057082b4a0b40d46fe8909d8d8fdb446200aabf4375c8d9cae9fa0"
+      },
+      {
+        "test": "workflow-run-query-test.js",
+        "exit_code": 0,
+        "seconds": 0.22,
+        "sha256": "4ce75cc7c5b28c1257454165f5e87f720dd842e72b6b3ddb48b334e1b0315660"
+      },
+      {
+        "test": "workflow-run-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.72,
+        "sha256": "e05ce558e891c0bb90d4f60b02e489000f66271bf382349761e727b39169ec77"
+      },
+      {
+        "test": "workflow-run-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.23,
+        "sha256": "ee1d28d357bcf8674e44020e0b3b06613350e2ff99667e282df4386bbdc23a75"
+      },
+      {
+        "test": "workflow-run-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.24,
+        "sha256": "364e211d828350347a2bc0c4600787c0ae211f3372bd2eadefaa1ba88ccd1db6"
+      },
+      {
+        "test": "workflow-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 5.94,
+        "sha256": "311455ad78f0b131b53df394e264f6973482345599d129ec041cb5df9da78fbd"
+      },
+      {
+        "test": "workflow-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.21,
+        "sha256": "efdd25b37586cd8031d7a11e1e3e7d786a07e8a890600c1e9201bc9abdd11f09"
+      }
+    ],
+    "focused_before_attachment_fix": {
+      "tests": 60,
+      "passed": 60,
+      "log": {
+        "file": "/workspace/scratch/be87522d6b82/run2-evidence/activation-focused-final.log",
+        "sha256": "d609ef68b88b9f12670f89f93f61c9bacb4dbf7bd76f667b390d788697600fcd",
+        "bytes": 7286
+      }
+    },
+    "attachment_fix_targeted": {
+      "tests": 17,
+      "passed": 17,
+      "log": {
+        "file": "/workspace/scratch/be87522d6b82/run2-evidence/activation-attachment-final.log",
+        "sha256": "01ee13c05851b65b8bbdbeeb0fed3864caf74cd1722119d85169bde9ec850cf7",
+        "bytes": 2150
+      }
+    },
+    "new_permanent_tests": 19,
+    "ci216": {
+      "run_id": 36146660470,
+      "job_id": 108109415549,
+      "head": "854360bef83cccab1b4dd405b03659fc40e9f57a",
+      "conclusion": "failure",
+      "cause": "Native workflow-branching-test reused a durable approval reference for a separate run. Native and HTTP fixtures now assert refusal of the collision and use a distinct reference for the second intended approval. All original branch/delay/restart assertions are retained.",
+      "log": {
+        "file": "/workspace/scratch/be87522d6b82/run2-evidence/ci216-failure.log",
+        "sha256": "7438aa20e2e5a2d34038c6f8a03f6afe23396581034e1c14136fe517346d4573",
+        "bytes": 105878
+      }
+    },
+    "failed_reproductions": [
+      {
+        "file": "/workspace/scratch/be87522d6b82/run2-evidence/activation-native-before.log",
+        "sha256": "10210eb39a1202a0f2b64df9a84f1011f4d0487f15d526da6e203089bb7de314",
+        "bytes": 6896
+      },
+      {
+        "file": "/workspace/scratch/be87522d6b82/run2-evidence/activation-detached-before.log",
+        "sha256": "9beef26c156a94c4d8a378cefe640c9b2c4362ac0a1b8dfdfc41c91d5dc6691d",
+        "bytes": 280
+      },
+      {
+        "file": "/workspace/scratch/be87522d6b82/run2-evidence/approval-detached-before.log",
+        "sha256": "83cde245c2cf9ce7a8cab7f551307a941e4e0f3927f4d405b97670b2d65012f6",
+        "bytes": 382
+      }
+    ],
+    "fixture_failure": {
+      "log": {
+        "file": "/workspace/scratch/be87522d6b82/run2-evidence/activation-http-first.log",
+        "sha256": "90e9e6d3c8bb752a46d0cea9857272d1aafd9ea8da1faa2d0f5335db69a5a3a8",
+        "bytes": 2335
+      },
+      "correction": "Configure the isolated tenant composition before enrolling its member; no production change or assertion removal."
+    },
+    "broad_local_attempt": {
+      "command": "npm test",
+      "source_commit": "5680d8286b3190434f9f7f1c7b6a5ecb1d119aff",
+      "source_tree": "6b57338dd7db75bf756a04ae50c8d837d342f9ed",
+      "exit_code": 0,
+      "seconds": 505.86,
+      "log_sha256": "009ace4489399f02101f11bc31879407349bd2d291708a39b0c231c3264b95cf",
+      "log_bytes": 58159,
+      "acceptance": "UNVERIFIED",
+      "reason": "Process returned 0 but captured log ends at Procurement incremental client and lacks later native suites, ZERO summary and corpus. Do not treat exit status alone as full regression evidence."
+    },
+    "claims": [
+      "Exact immutable choice and revision",
+      "Atomic activation and encrypted receipt",
+      "Non-executing response-loss/reload/restart recovery",
+      "Durable absent-reference closure and delayed body refusal",
+      "SUPERSEDED instead of stale current success",
+      "Current owner, role and capability checks",
+      "Metadata-only browser queue",
+      "Eight-locale state preservation",
+      "Initial disabled controls apply before DOM attachment"
+    ],
+    "limits": [
+      "Synthetic DOM is not browser layout or accessibility acceptance",
+      "Full exact-head CI required",
+      "Remaining native explicit resume and result-recovery controls are open",
+      "No main, credential, production or deployment mutation"
+    ]
   }
 }

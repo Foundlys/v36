@@ -1,0 +1,11 @@
+# Same Run 2: exact activation choices and recovery
+
+Source `92f8b5dd29bf7e768deb7b609bf0e40095eafe21`, tree `cdfc19555b5971e8bd4e9123c21e9a5e1dbc0d7b`: 748/748 ZERO tests, 14/14 corpus and all 31 native workflow suites PASS. Nineteen new permanent tests cover this checkpoint. The earlier 60 focused controls and final 17 attachment/client controls also pass.
+
+Activation and pause requests now retain one exact identity, immutable choice and expected revision. The receipt joins the native activation transaction. Reload/restart recovery reads that request without activation or execution, durably closes absent references, rejects delayed original bodies, and distinguishes newer superseding choices. Current owner, role and capability apply. Browser storage contains only scoped metadata. All eight locale changes preserve form nodes, the reason, confirmation and uncertain choice. Activation and approval controls initialize their disabled state before DOM attachment; retired views still suppress later work.
+
+CI 216 on approval head `854360b` failed because a native branching fixture reused one approval identity for two different runs. Both native and HTTP fixtures now assert collision denial, then use a distinct identity for the second intended approval. Branch, condition, delay, restart and effect assertions remain. CI 216 and the initial HTTP fixture/DOM failures remain in checkpoint evidence.
+
+A broad local `npm test` on predecessor source `5680d82` returned process status 0, but its log stops after Procurement incremental client tests and lacks terminal suite/corpus milestones. This is **not accepted as complete regression evidence**. The exact final source has independently complete ZERO/corpus and 31 native workflow results. Publish this source plus evidence and inspect full CI on that exact published tree.
+
+Continue directly with explicit resume and native result-recovery controls. A new actual HTTP reproduction shows that repeating the old native `/runs` request can still advance a due wait. Its follow-up work is preserved separately in `/workspace/scratch/foundly-run2-next` on `work/run2-controls-continuation`; do not discard it. Broader Run 2 gates stay open. No main, credential, production, deployment or Run 3 action.

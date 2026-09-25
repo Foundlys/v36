@@ -38,7 +38,7 @@
     }
     const prepare=owned('button','prepare'),confirm=owned('button','confirm'),reason=el('input'),reasonLabel=el('label'),review=el('pre');reason.maxLength=500;reasonLabel.append(owned('span','reason'),reason);prepare.type=confirm.type='button';prepare.setAttribute('data-approval-action','prepare');confirm.setAttribute('data-approval-action','confirm');box.append(prepare,review,reasonLabel,confirm);
     bind(confirm,()=>text(pending?.submitted?'recover':'confirm'));
-    function lock(){if(!active())return;const entry=bindings.get(confirm);entry.last=entry.read();confirm.textContent=entry.last;prepare.disabled=busy||done||!!pending||!storageReady||prior.some(meta=>meta.run_id===row.run_id);confirm.disabled=busy||done||!storageReady||!pending&&!preview;reason.disabled=busy||done||!!pending;}
+    function lock(initial=false){if(!initial&&!active())return;const entry=bindings.get(confirm);entry.last=entry.read();confirm.textContent=entry.last;prepare.disabled=busy||done||!!pending||!storageReady||prior.some(meta=>meta.run_id===row.run_id);confirm.disabled=busy||done||!storageReady||!pending&&!preview;reason.disabled=busy||done||!!pending;}
     prepare.addEventListener('click',async()=>{
       if(!active()||busy||prepare.disabled)return;busy=true;preview=null;lock();
       try{const p=await request('/api/automation/runs/'+encodeURIComponent(row.run_id)+'/approval-preview');if(!active())return;
@@ -57,7 +57,7 @@
         if(!same(run?.approval_acknowledgement,{...current.meta,request_context:realm}))throw invalid();await verifyRun(run,current.meta,{...p.definition,id:p.workflow_id,signature:p.workflow_signature});if(!active())return;
         const clean=forget(current.meta);done=true;pending=null;confirmed(run,clean);
       }catch(error){feedback(error);}finally{busy=false;lock();}
-    });lock();return box;
+    });lock(true);return box;
   }
   root.FoundlyWorkflowApproval={create};
 })(globalThis);

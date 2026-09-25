@@ -286,6 +286,7 @@ function createPlatformApi(options = {}) {
       if(url.pathname==='/api/automation/publications/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationPublication(ctx,actor,await readBody(req)));
       if(url.pathname==='/api/automation/run-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationRunRequest(ctx,actor,await readBody(req)));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
+      if(url.pathname==='/api/automation/activation-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationActivationRequest(ctx,actor,await readBody(req)));
       if(url.pathname==='/api/automation/approval-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationApprovalRequest(ctx,actor,await readBody(req)));
       const approvalPreview=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/approval-preview$/);
       if(approvalPreview&&req.method==='GET')return sendJson(res,200,platform.previewAutomationApproval(ctx,actor,approvalPreview[1]));
