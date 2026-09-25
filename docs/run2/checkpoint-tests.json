@@ -4606,7 +4606,172 @@
       "log_bytes": 71041,
       "evidence_note": "Frozen implementation source; subsequent prepublication changes record evidence only."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 207,
+      "id": 36125741262,
+      "job_id": 108041318624,
+      "head": "47b281b4f8cb954313451f941bd959d589b95c87",
+      "tree": "2e84e02b11ee6106db9a2bb724fc5a8e30f9530c",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 600,
+      "zero_pass": 600,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "1bed5ba405baf7bc59d3da95ee25a1c2ced244b514db8d5fc3536fb48f7c299b",
+        "bytes": 356855
+      }
+    },
     "remaining": "Editor owned copy, ZERO review/save and publication acknowledgement/uncertain-result recovery remain open, as do shared automation controls and the broader existing Run 2 hard exit gates. No matrix row promoted; no main merge, production mutation, credentials, deployment or Run 3."
+  },
+  "workflow_editor_confirmation_checkpoint": {
+    "recorded_at": "2026-09-25T11:09:08.092377+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 207,
+      "id": 36125741262,
+      "job_id": 108041318624,
+      "head": "47b281b4f8cb954313451f941bd959d589b95c87",
+      "tree": "2e84e02b11ee6106db9a2bb724fc5a8e30f9530c",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 600,
+      "zero_pass": 600,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "1bed5ba405baf7bc59d3da95ee25a1c2ced244b514db8d5fc3536fb48f7c299b",
+        "bytes": 356855
+      }
+    },
+    "scope": "Eight-locale actual editor controls and complete reviewed definition; frozen ZERO SAVE/immutable publication retry, typed source acknowledgements and native multiline document preservation. Browser-reload recovery of editor updates/publication remains open.",
+    "owned_copy_rows": 64,
+    "locales": [
+      "nl-NL",
+      "en-GB",
+      "de-DE",
+      "fr-FR",
+      "es-ES",
+      "da-DK",
+      "nb-NO",
+      "sv-SE"
+    ],
+    "review_contract": "Literal document content, title/message/delay, conditions, trigger, automatic publication behavior, approval and retry policy are all included. Native IDs, typed values, inputs and request identity stay unchanged by locale; numbers/dates use current locale and explicit UTC. Existing automatic-version activation semantics remain stated in all eight locales.",
+    "confirmation_contract": "ZERO PREVIEW binds exact draft/revision/compiled definition. ZERO SAVE binds request and native record fingerprints, realm/owner/revision and compiled content. Publication checks immutable flags, exact semantically matching definition, realm and native signature. Uncertain requests keep one original body/turn, lock alternate write paths and preserve dirty state; retries cannot incorporate later programmatic input. Detached or retired views cannot adopt late results. A known publication stays confirmed if its consumer refresh fails. Typing the reason after preview is distinct from editing the draft; a later ordinary save invalidates the older revision review.",
+    "native_content_fix": "Native generic single-line sanitation previously flattened document line breaks. Workflow definition/run step sanitation and native Automation task/document record content now preserve line breaks and tabs, retaining existing other-control-character and length bounds. Compiler normalization matches native single-line and multiline fields; condition operands remain unchanged. Immutable historical definitions/records are not rewritten.",
+    "targeted": {
+      "tests": 32,
+      "pass": 32,
+      "fail": 0,
+      "new_permanent_tests": 18,
+      "files": [
+        "zero/workflow-editor-integrity.test.js",
+        "zero/workflow-editor-localization.test.js",
+        "zero/workflow-editor-publication-api.test.js"
+      ],
+      "scope": "Nineteen actual editor controls, five localization/current-view tests, seven retained session integrity tests and one actual editor-to-HTTP publication/restart/native execution test."
+    },
+    "logs": {
+      "run2-workflow-editor-confirmation-before.log": {
+        "sha256": "75108eaa5f8269ea2c2bc133210b7c8043e606332a7ffaea6edbbb89beccc060",
+        "bytes": 4117,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-confirmation-after.log": {
+        "sha256": "3180c7c66aaa7b512c3808dc86b54c5d7ef3c7f1c6c8866ae34468b085a92cc4",
+        "bytes": 1524,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-confirmation-native.log": {
+        "sha256": "848541e6b8eae000e2022fe260ed82a60add3aa0e160be8ba387b3bac60e6b18",
+        "bytes": 135,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-confirmation-native-corrected.log": {
+        "sha256": "acb5b87bd33ddaaebe4241ae09577d840fcce35166db7f0ea988d933db7812d5",
+        "bytes": 555,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-localization-before.log": {
+        "sha256": "41b1a29adf651e34dec86459f49ec3f5a2074d0cd7f218061ba116da3a768661",
+        "bytes": 3935,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-localization-after.log": {
+        "sha256": "2c29811da9fc82ba61791507db139983fd20072c7c8c35b15eaccd32efb8ab5d",
+        "bytes": 2068,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-localization-native.log": {
+        "sha256": "acb5b87bd33ddaaebe4241ae09577d840fcce35166db7f0ea988d933db7812d5",
+        "bytes": 555,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-reason-signature-before.log": {
+        "sha256": "624353f25f9a1f964f197e4ea1b6b97361c8aca76f73ba57994df0ca7b09c9f7",
+        "bytes": 2505,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-expanded.log": {
+        "sha256": "a94186d533f8ac2e30556dfdd163fab0b2b6b6e4c8e65d06a0c1ca98954fae86",
+        "bytes": 2316,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-multiline-before.log": {
+        "sha256": "b10d1d3f9a97f3bd106295249be0fdd2161da2c3974f854461e2d5927b8f87ec",
+        "bytes": 1026,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-multiline-after.log": {
+        "sha256": "d8f969635627b82730060c50198104a155ecb74b04d0d460e694a87395c080a2",
+        "bytes": 2452,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-publish-http.log": {
+        "sha256": "6d26960dea67d18c6f06ad7a73f96f6b7232d22954c4eb4a565c42ec8542016f",
+        "bytes": 4773,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-final.log": {
+        "sha256": "b2e47389a9ee426c694ea22769b8172612041b4345f0f39f43537e694d830386",
+        "bytes": 3939,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-native-final.log": {
+        "sha256": "d34ca418b7d463288a1bd4b6bc30d4985132aea95be47c29c86d701ac1b0319f",
+        "bytes": 3724,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "All five initial confirmation cases and four initial locale cases fail before their fixes. Expanded tests reproduce changed native signature acceptance, reason-input invalidation and stale ZERO review after ordinary save. A separate failing-before case exposes native multiline content loss. The first native editor run exposed locking a successfully published retained consumer; successful callbacks now release that form while failed callbacks retain known-outcome protection. The new HTTP fixture initially expected 201 for the separate run route; the actual contract returns 202 with a successful native run, and the assertion now requires exactly 202. Existing assertions remain.",
+    "native_regression": {
+      "status": "PASS",
+      "exit_code": 0,
+      "command": "node workflow-editor-test.js && node workflow-authoring-test.js && node workflow-authoring-api-test.js && node workflow-drafts-test.js && node workflow-drafts-api-test.js && node workflow-zero-test.js && node workflow-zero-api-test.js && node workflow-generator-test.js && node workflow-language-test.js && node workflow-language-api-test.js && node workflow-execution-test.js && node workflow-conditions-test.js",
+      "timing": "Before the final case-insensitive document-action normalization consistency line; final frozen-source full ZERO and exact-head CI remain required."
+    },
+    "http_evidence": "The actual browser module and editor handlers call real authenticated HTTP. A successful publication response is destroyed after native persistence; after encrypted server restart, the retained editor retries the exact publication without an extra draft save. No document exists until a separate explicit native run. The actual resulting document preserves multiline content through another encrypted restart. This is a retained VM across server restart, not a browser-reload recovery claim.",
+    "locale_inventory": {
+      "files": 47,
+      "candidates": 569,
+      "main_dashboard": 8
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 618,
+      "pass": 618,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "7e51f69e830497b4d07efe06f2ea2595515c3d80",
+      "source_tree": "1131290c05505804dfb48db70c12045e8990501c",
+      "log_sha256": "a44b9c7a5a4e449371ccf6df6d9b9bdf67546ca23609c700242b6703765f5c8a",
+      "log_bytes": 73324,
+      "evidence_note": "Frozen implementation source; subsequent prepublication changes record evidence only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Durable browser-reload attribution/terminal recovery of uncertain ongoing draft edits and workflow publication; shared automation lists/run/approval/activation/recovery controls; specialist/generated/backend copy and existing wider Run 2 hard gates. No matrix row promoted. Minimal DOM is not rendered browser, accessibility or native-speaker acceptance. No credentials, destructive migration, production mutation, main merge, deployment or Run 3."
   }
 }

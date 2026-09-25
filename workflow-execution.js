@@ -38,7 +38,11 @@ function sanitizeAction(action,sanitize){
   // Conditions are already strictly validated. Generic payload depth/string
   // normalization must not truncate a valid group or alter comparison values.
   const {when,...rest}=action;
-  return {...sanitize(rest),...(Object.hasOwn(action,'when')?{when:clone(when)}:{})};
+  const value=sanitize(rest);
+  // Document bodies are multiline source content, including literal tabs and
+  // line endings. Keep the existing control-character and length bounds.
+  if(String(action.type).toLowerCase()==='create_document'&&typeof action.content==='string')value.content=action.content.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g,' ').trim().slice(0,12000);
+  return {...value,...(Object.hasOwn(action,'when')?{when:clone(when)}:{})};
 }
 function matches(condition,event,inputs) {
   if(condition===undefined)return true;

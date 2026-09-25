@@ -84,6 +84,7 @@ function clone(value){return value===undefined?undefined:JSON.parse(JSON.stringi
 function digest(value){return crypto.createHash('sha256').update(String(value)).digest('hex')}
 function safeId(value){const id=String(value||'').trim();return /^[A-Za-z0-9][A-Za-z0-9_.:-]{0,199}$/.test(id)?id:null}
 function text(value,max=4000){return String(value??'').replace(/[\u0000-\u001f\u007f]/g,' ').trim().slice(0,max)}
+function multilineText(value,max=12000){return String(value??'').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g,' ').trim().slice(0,max)}
 function iso(value){const date=new Date(value);return Number.isNaN(date.getTime())?null:date.toISOString()}
 function finite(value,fallback=0){const number=Number(value);return Number.isFinite(number)?number:fallback}
 function contextShape(value={}){const tenant_id=safeId(value.tenant_id),dealer_id=safeId(value.dealer_id||'default');if(!tenant_id||!dealer_id)throw platformError(400,'platform_context_invalid','Geldige tenant- en businesscontext is verplicht');return {tenant_id,dealer_id}}
@@ -100,7 +101,7 @@ function eventReadable(event,principal){
 }
 function automationRecordFields(principal,entity,input){
   const title=text(input.title,240);if(!title)throw platformError(422,'automation_title_required','Titel is verplicht');
-  return {title,content:text(input.content,12000),owner_id:safeId(input.owner_id)||principal.id,related_entity:text(input.related_entity,80)||null,related_id:safeId(input.related_id),status:entity==='tasks'?'OPEN':'DRAFT'};
+  return {title,content:multilineText(input.content),owner_id:safeId(input.owner_id)||principal.id,related_entity:text(input.related_entity,80)||null,related_id:safeId(input.related_id),status:entity==='tasks'?'OPEN':'DRAFT'};
 }
 function requirePermission(principal,permission){if(!principal.permissions.has('*')&&!principal.permissions.has(permission))throw platformError(403,'platform_forbidden','Deze platformactie is niet toegestaan voor de actieve rol')}
 function sanitize(value,key='',depth=0){

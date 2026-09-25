@@ -36,5 +36,5 @@
       }catch(reason){state(conflict?'CONFLICT':'ERROR');throw reason;}
     });sequence=operation.catch(()=>{});return operation;},get revision(){return revision;},get uncertain(){return !conflict&&Boolean(pending?.uncertain);}};
   }
-  return {create,acknowledge};
+  return {create,acknowledge,fingerprint:sha};
 });
