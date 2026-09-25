@@ -4,6 +4,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),{browserFixture}=require('./dom-fixture'),{ObjectView}=require('./crm-objects-fixture');
 const source=fs.readFileSync(require.resolve('../foundly-workspace.js'),'utf8');
 class WorkspaceView extends ObjectView{
+ reportValidity(){return !this.validationMessage&&(!this.required||(this.type==='checkbox'?this.checked:Boolean(String(this.value).trim())));}
  prepend(...nodes){for(const node of [...nodes].reverse()){node.parentNode=this;node.isConnected=this.isConnected;this.childNodes.unshift(node);if(node.nodeType===1)this.children.unshift(node);}}
  get firstElementChild(){return this.children[0]||null;}
  get options(){return this.children.filter(n=>n.tag==='option');}

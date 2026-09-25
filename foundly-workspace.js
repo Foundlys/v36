@@ -23,7 +23,7 @@
   let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0,dashboardWrite=null;
   const dashboardControlState=new Map();
   let connectorView=0,connectorSession=null;const connectorForms=new WeakMap(),connectorActions=new Set(),connectorSyncRequests=new Map();
-  const liveMessages=new WeakMap(),liveBindings=new Set(),evidenceViews=new WeakMap(),composerViews=new WeakMap();
+  const liveMessages=new WeakMap(),liveBindings=new Set(),evidenceViews=new WeakMap(),composerViews=new WeakMap(),identityViews=new WeakMap();
   const i18n=()=>globalThis.FoundlyI18n;
   const copy=(key,params={})=>i18n()?.message(key.startsWith('common.')||key.startsWith('module.')||key.startsWith('analysis.')?key:'workspace.page.'+key,params)||key;
   function live(read){const value=Object.freeze({toString:()=>String(read())});liveMessages.set(value,read);return value;}
@@ -776,35 +776,94 @@
   }
 
   async function renderIdentityUsers(section,content){
-    replaceChildren(content,[node('p','LoadingState','Gebruikerscontext laden…')]);
+    const epoch=accessGeneration,ticket={};identityViews.set(content,ticket);
+    const active=()=>state.workspaceId==='settings'&&state.activeSection===section&&accessGeneration===epoch&&content.isConnected&&identityViews.get(content)===ticket;
+    const invalid=()=>Object.assign(Error('identity_observation_invalid'),{identityInvalid:true});
+    const text=value=>typeof value==='string'&&value.length>0,strings=value=>Array.isArray(value)&&value.every(text)&&new Set(value).size===value.length;
+    const roles=['ADMIN','FOUNDER','SUPER_ADMIN','MANAGER','FINANCE_ADMIN','APPROVER','ANALYST','VIEWER','SALES','ACCOUNTANT','MARKETING'],modules=['procurement','sales','crm','marketing','finance','analysis','calendar','communication','automation'],operations=['read','write','export','manage','approve'];
+    const permissions=modules.flatMap(module=>operations.map(op=>module+':'+op));
+    const roleLabel=value=>roles.includes(value)?copy('identity_role.'+value.toLowerCase()):String(value);
+    const permissionLabel=value=>permissions.includes(value)?live(()=>{const [module,op]=value.split(':');return copy('module.'+module)+' / '+copy('identity_permission.'+op);}):String(value);
+    const list=(values,label)=>values.map(value=>String(label(value))).join(', ')||String(copy('composer_none'));
+    const memberValid=member=>member&&text(member.id)&&text(member.username)&&text(member.display_name)&&strings(member.roles)&&member.roles.length>0&&member.roles.every(role=>roles.includes(role))&&strings(member.permissions)&&member.permissions.every(value=>permissions.includes(value))&&typeof member.enrolled==='boolean'&&['ACTIVE','INVITED','SUSPENDED'].includes(member.status)&&Number.isSafeInteger(member.revision)&&member.revision>0&&!(member.status==='ACTIVE'&&!member.enrolled)&&!(member.status==='INVITED'&&member.enrolled);
+    const errorCopy=error=>error?.identityInvalid?copy('identity_invalid'):friendlyError(error);
+    replaceChildren(content,[node('p','LoadingState',copy('identity_loading'))]);
     try{
-      const session=await request('/api/identity/session'),items=[];
-      if(!session.authenticated){const link=node('a','','Persoonlijk aanmelden');link.href='/login';replaceChildren(content,[link]);return;}
-      const self=node('article','context-item');self.append(node('h3','','Huidige gebruiker'),node('p','',session.principal.id),node('p','',`Rollen: ${session.principal.roles.join(', ')}`));
-      if(session.principal.permissions.length)self.append(node('p','',`Extra modulerechten: ${session.principal.permissions.join(', ')}`));
-      if(session.authentication_method==='MEMBER_SESSION'){const logout=node('button','','Uitloggen');logout.type='button';logout.addEventListener('click',async()=>{logout.disabled=true;try{await request('/api/identity/logout',{method:'POST',body:'{}'});location.assign('/login');}catch(error){toast(friendlyError(error),true);logout.disabled=false;}});self.append(logout);}
+      const session=await request('/api/identity/session');if(!active())return;
+      if(session.authenticated===false){retireWorkspace({status:401});const link=node('a','',copy('identity_sign_in'));link.href='/login';replaceChildren(content,[link]);return;}
+      if(session.authenticated!==true||typeof session.can_manage!=='boolean'||!text(session.tenant_id)||!text(session.dealer_id)||!text(session.principal?.id)||!strings(session.principal.roles)||!strings(session.principal.permissions)||!['MEMBER_SESSION','BOOTSTRAP_ADMIN','DEVELOPMENT_OR_ADMIN'].includes(session.authentication_method))throw invalid();
+      const items=[],self=node('article','context-item');self.append(node('h3','',copy('identity_current_user')),node('p','',session.principal.id),node('p','',live(()=>copy('identity_roles_value',{roles:list(session.principal.roles,roleLabel)}))));
+      if(session.principal.permissions.length)self.append(node('p','',live(()=>copy('identity_permissions_value',{permissions:list(session.principal.permissions,permissionLabel)}))));
+      if(session.authentication_method==='MEMBER_SESSION'){const logout=node('button','',copy('identity_logout'));logout.type='button';logout.setAttribute('data-identity-action','logout');let busy=false;logout.addEventListener('click',async()=>{if(!active()||busy)return;busy=true;logout.disabled=true;try{const result=await request('/api/identity/logout',{method:'POST',body:'{}'});if(!active())return;if(result.ok!==true)throw invalid();retireWorkspace({status:401});location.assign('/login');}catch(error){if(active()){toast(errorCopy(error),true);busy=false;logout.disabled=false;}}});self.append(logout);}
       items.push(self);
-      if(section==='ROLES'||!session.can_manage){if(!session.can_manage)items.push(node('p','','Gebruikersbeheer vereist Founder- of Super Admin-rechten.'));replaceChildren(content,items);return;}
-      const data=await request('/api/identity/users');if(state.activeSection!==section)return;
-      const invitation=node('div');invitation.setAttribute('role','status');
-      const showInvitation=result=>{const label=node('label','','Persoonlijke uitnodigingslink'),link=node('textarea');link.value=result.enrollment_url;link.readOnly=true;label.append(link);replaceChildren(invitation,[node('p','',`Uitnodiging aangemaakt, nog niet verstuurd. Geldig tot ${new Date(result.expires_at).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL'))}. Deel deze link persoonlijk; de ontvanger kiest een eigen wachtwoord.`),label]);};
+      if(section==='ROLES'||!session.can_manage){if(!session.can_manage)items.push(node('p','',copy('identity_manage_only')));replaceChildren(content,items);return;}
+      const data=await request('/api/identity/users');if(!active())return;
+      if(data.tenant_id!==session.tenant_id||!Array.isArray(data.items)||!data.items.every(memberValid)||new Set(data.items.map(row=>row.id)).size!==data.items.length||!strings(data.roles)||data.roles.length!==roles.length||data.roles.some(role=>!roles.includes(role))||!strings(data.permissions)||data.permissions.length!==permissions.length||data.permissions.some(value=>!permissions.includes(value)))throw invalid();
+      const storageKey='foundly.identity.requests.v1:'+JSON.stringify([session.tenant_id,session.dealer_id,session.principal.id]);
+      const metadataValid=row=>row&&typeof row.request_id==='string'&&/^[A-Za-z0-9_.:-]{8,160}$/.test(row.request_id)&&['INVITE','UPDATE_ACCESS','REISSUE_INVITE'].includes(row.operation)&&(row.operation==='INVITE'?row.target_id===null&&row.expected_revision===0:text(row.target_id)&&Number.isSafeInteger(row.expected_revision)&&row.expected_revision>0)&&Object.keys(row).every(key=>['request_id','operation','target_id','expected_revision'].includes(key));
+      const readPending=()=>{const raw=sessionStorage.getItem(storageKey),rows=raw===null?[]:JSON.parse(raw);if(!Array.isArray(rows)||rows.length>100||!rows.every(metadataValid)||new Set(rows.map(row=>row.request_id)).size!==rows.length)throw invalid();return rows;};
+      const storePending=rows=>{if(rows.length)sessionStorage.setItem(storageKey,JSON.stringify(rows));else sessionStorage.removeItem(storageKey);};
+      const forget=key=>storePending(readPending().filter(row=>row.request_id!==key));
+      let prior=[],storageReady=true;try{prior=readPending();}catch{storageReady=false;}
+      const invitation=node('div'),recovery=node('div'),forms=[];invitation.setAttribute('role','status');
+      const acknowledgement=(result,pending,payload)=>{
+        if(result.ok!==true||result.request_id!==pending.request_id||result.operation!==pending.operation||result.actor_id!==session.principal.id||result.tenant_id!==session.tenant_id||result.dealer_id!==session.dealer_id)throw invalid();
+        if(result.status==='NOT_APPLIED'){if(payload||result.target_id!==pending.target_id||result.expected_revision!==pending.expected_revision||result.member!==undefined||result.invite_token!==undefined)throw invalid();return;}
+        if(!memberValid(result.member)||result.member.revision!==pending.expected_revision+1||(pending.target_id!==null&&result.member.id!==pending.target_id))throw invalid();
+        if(payload&&pending.operation==='INVITE'&&(result.member.username!==payload.username.toLowerCase()||result.member.display_name!==payload.display_name))throw invalid();
+        const same=(a,b)=>JSON.stringify([...a].sort())===JSON.stringify([...b].sort());
+        if(payload&&pending.operation!=='REISSUE_INVITE'&&(!same(result.member.roles,payload.roles)||!same(result.member.permissions,payload.permissions)))throw invalid();
+        if(pending.operation==='UPDATE_ACCESS'){if(result.sessions_revoked!==true||payload&&result.member.status!==payload.status||result.invite_token!==undefined)throw invalid();}
+        else if(result.delivered!==false||result.member.status!=='INVITED'||result.member.enrolled||!/^[a-f0-9]{64}$/.test(result.invite_token||'')||typeof result.expires_at!=='string'||!Number.isFinite(Date.parse(result.expires_at))||Date.parse(result.expires_at)<=Date.now()||result.expires_at!==result.member.invite_expires_at||typeof session.public_origin!=='string'||!/^https?:\/\/[^/?#\s]+$/.test(session.public_origin)||result.enrollment_url!==session.public_origin+'/login#invite='+result.invite_token)throw invalid();
+      };
+      const showResult=result=>{
+        const summary=node('p','',live(()=>copy('identity_result',{name:result.member.display_name,status:String(copy('identity_status.'+result.member.status.toLowerCase())),revision:i18n().number(result.member.revision)})));
+        if(!result.invite_token){replaceChildren(invitation,[summary,node('p','',copy('identity_saved'))]);return;}
+        const label=node('label'),link=node('textarea');link.value=result.enrollment_url;link.readOnly=true;label.append(node('span','',copy('identity_invitation_link')),link);
+        replaceChildren(invitation,[summary,node('p','',live(()=>copy('identity_invitation_ready',{expires:String(time(result.expires_at))}))),label]);
+      };
+      const lockTarget=target=>{for(const entry of forms)if(entry.target===target){entry.done=true;entry.lock();}};
+      for(const pending of prior){const row=node('article','context-item'),notice=node('output'),recover=node('button','',copy('identity_recover'));notice.setAttribute('role','status');recover.type='button';recover.setAttribute('data-identity-action','recover');let busy=false,done=false;row.append(node('p','',copy('identity_pending')),recover,notice);recovery.append(row);recover.addEventListener('click',async()=>{
+        if(!active()||busy||done)return;busy=true;recover.disabled=true;
+        try{const result=await request('/api/identity/requests/'+encodeURIComponent(pending.request_id)+'/recover',{method:'POST',body:JSON.stringify({operation:pending.operation,target_id:pending.target_id,expected_revision:pending.expected_revision,confirm:true})});if(!active())return;acknowledgement(result,pending);if(result.status==='NOT_APPLIED')writeText(notice,copy('identity_not_applied'));else showResult(result);done=true;lockTarget(pending.target_id);try{forget(pending.request_id);}catch{writeText(notice,copy('identity_saved_metadata'));}if(!notice.textContent)writeText(notice,copy('identity_recovered'));}
+        catch(error){if(active()){if(error.code==='identity_request_superseded'){done=true;try{forget(pending.request_id);}catch{}writeText(notice,copy('identity_superseded'));}else writeText(notice,copy('identity_unconfirmed'));}}
+        finally{if(active()){busy=false;recover.disabled=done;}}
+      });}
+      if(!storageReady)recovery.append(node('p','ErrorState',copy('identity_storage_required')));
       function memberForm(member){
-        const form=node('form','domain-record-form'),notice=node('output');notice.setAttribute('role','status');const fields={};
-        if(!member)for(const [name,label]of [['username','Gebruikersnaam'],['display_name','Naam']]){const wrap=node('label','',label),input=node('input');input.required=true;input.maxLength=200;wrap.append(input);form.append(wrap);fields[name]=input;}
-        const roles=node('fieldset'),permissions=node('details'),roleInputs=[],permissionInputs=[];roles.append(node('legend','','Rollen'));permissions.append(node('summary','','Extra modulerechten'));
-        for(const [values,container,controls,selected]of [[data.roles,roles,roleInputs,member?.roles||['VIEWER']],[data.permissions,permissions,permissionInputs,member?.permissions||[]]])for(const value of values){const label=node('label','',value),input=node('input');input.type='checkbox';input.value=value;input.defaultChecked=selected.includes(value);input.checked=input.defaultChecked;label.append(input);container.append(label);controls.push(input);}
-        form.append(roles,permissions);let status;
-        if(member){const wrap=node('label','','Accountstatus');status=node('select');for(const value of !member.enrolled?['SUSPENDED']:['ACTIVE','SUSPENDED']){const option=node('option','',value==='ACTIVE'?'Actief':'Geblokkeerd');option.value=value;status.append(option);}status.value=member.status==='INVITED'?'SUSPENDED':member.status;wrap.append(status);form.append(wrap);}
-        const reasonLabel=node('label','','Reden voor deze toegang'),reason=node('input'),confirmLabel=node('label','','Ik heb de gebruiker, rollen en gevolgen gecontroleerd'),confirm=node('input'),save=node('button','primary-button',member?'Toegang wijzigen en oude sessies intrekken':'Uitnodiging aanmaken');reason.required=true;reason.maxLength=500;reasonLabel.append(reason);confirm.type='checkbox';confirm.required=true;confirmLabel.append(confirm);save.type='submit';form.append(reasonLabel,confirmLabel,save,notice);
-        form.addEventListener('submit',async event=>{event.preventDefault();save.disabled=true;try{const payload={roles:roleInputs.filter(input=>input.checked).map(input=>input.value),permissions:permissionInputs.filter(input=>input.checked).map(input=>input.value),reason:reason.value.trim(),confirm:confirm.checked,...(member?{status:status.value,expected_revision:member.revision}:{username:fields.username.value.trim(),display_name:fields.display_name.value.trim()})};const result=await request('/api/identity/users'+(member?'/'+encodeURIComponent(member.id):''),{method:member?'PUT':'POST',body:JSON.stringify(payload)});if(member)await renderIdentityUsers(section,content);else{showInvitation(result);form.reset();notice.textContent='De uitnodiging staat hieronder. Vernieuw de gebruikerslijst na het delen.';}}catch(error){notice.textContent=friendlyError(error);}finally{save.disabled=false;}});
-        if(member&&!member.enrolled){const renew=node('button','','Nieuwe uitnodigingslink maken');renew.type='button';form.append(renew);renew.addEventListener('click',async()=>{if(!reason.reportValidity()||!confirm.reportValidity())return;renew.disabled=true;try{const result=await request(`/api/identity/users/${encodeURIComponent(member.id)}/reissue`,{method:'POST',body:JSON.stringify({expected_revision:member.revision,confirm:confirm.checked,reason:reason.value.trim()})});showInvitation(result);notice.textContent='De eerdere uitnodigingslink is nu ongeldig. Vernieuw de lijst vóór een volgende wijziging.';}catch(error){notice.textContent=friendlyError(error);renew.disabled=false;}});}
-        return form;
+        const form=node('form','domain-record-form'),notice=node('output'),fields={},roleInputs=[],permissionInputs=[];notice.setAttribute('role','status');
+        const entry={target:member?.id||null,done:false,lock:null};forms.push(entry);let busy=false,pending=null,payload=null,path=null,method=null;
+        const retained=prior.some(row=>row.target_id===entry.target),controls=[];
+        const field=(name,type,label)=>{const wrap=node('label'),input=node(type==='select'?'select':'input');input.name=name;if(type!=='select')input.type=type;wrap.append(node('span','',copy(label)),input);form.append(wrap);controls.push(input);fields[name]=input;return input;};
+        if(!member){field('username','text','identity_username').required=true;fields.username.maxLength=200;field('display_name','text','identity_name').required=true;fields.display_name.maxLength=200;}
+        const roleGroup=node('fieldset'),permissionGroup=node('details');roleGroup.append(node('legend','',copy('identity_roles')));permissionGroup.append(node('summary','',copy('identity_permissions')));
+        for(const [values,container,inputs,selected,label]of [[data.roles,roleGroup,roleInputs,member?.roles||['VIEWER'],roleLabel],[data.permissions,permissionGroup,permissionInputs,member?.permissions||[],permissionLabel]])for(const value of values){const wrap=node('label'),input=node('input');input.type='checkbox';input.value=value;input.checked=selected.includes(value);wrap.append(input,node('span','',label(value)));container.append(wrap);inputs.push(input);controls.push(input);}
+        form.append(roleGroup,permissionGroup);
+        if(member){const status=field('status','select','identity_status');for(const value of member.enrolled?['ACTIVE','SUSPENDED']:['SUSPENDED']){const option=node('option','',copy('identity_status.'+value.toLowerCase()));option.value=value;status.append(option);}status.value=member.status==='INVITED'?'SUSPENDED':member.status;}
+        const reason=field('reason','text','identity_reason'),confirm=field('confirm','checkbox','identity_confirm');reason.required=true;reason.maxLength=500;confirm.required=true;
+        const save=node('button','primary-button',copy(member?'identity_update':'identity_invite'));save.type='submit';const renew=member&&!member.enrolled?node('button','',copy('identity_reissue')):null;
+        if(renew){renew.type='button';renew.setAttribute('data-identity-action','reissue');}form.append(save,...(renew?[renew]:[]),notice);
+        entry.lock=()=>{for(const control of controls)control.disabled=busy||entry.done||retained||!storageReady||Boolean(pending);save.disabled=busy||entry.done||retained||!storageReady||Boolean(pending&&pending.operation==='REISSUE_INVITE');if(renew)renew.disabled=busy||entry.done||retained||!storageReady||Boolean(pending&&pending.operation!=='REISSUE_INVITE');};entry.lock();
+        async function submit(operation){
+          if(!active()||!form.isConnected||busy||entry.done||retained||!storageReady||pending&&pending.operation!==operation)return;
+          if(!pending){
+            if(!reason.reportValidity()||!confirm.reportValidity())return;
+            payload=operation==='REISSUE_INVITE'?{expected_revision:member.revision,confirm:confirm.checked,reason:reason.value.trim()}:{roles:roleInputs.filter(input=>input.checked).map(input=>input.value),permissions:permissionInputs.filter(input=>input.checked).map(input=>input.value),reason:reason.value.trim(),confirm:confirm.checked,...(member?{status:fields.status.value,expected_revision:member.revision}:{username:fields.username.value.trim(),display_name:fields.display_name.value.trim()})};
+            try{const rows=readPending();if(rows.length>=100||rows.some(row=>row.target_id===entry.target))throw invalid();const requestId=crypto.randomUUID(),metadata={request_id:requestId,operation,target_id:entry.target,expected_revision:member?.revision||0};if(!metadataValid(metadata))throw invalid();storePending([...rows,metadata]);pending=metadata;}catch{writeText(notice,copy('identity_storage_required'));return;}
+            path='/api/identity/users'+(member?'/'+encodeURIComponent(member.id):'')+(operation==='REISSUE_INVITE'?'/reissue':'');method=operation==='UPDATE_ACCESS'?'PUT':'POST';
+          }
+          busy=true;entry.lock();writeText(notice,copy('identity_saving'));
+          try{const result=await request(path,{method,headers:{'idempotency-key':pending.request_id},body:JSON.stringify(payload)});if(!active())return;acknowledgement(result,pending,payload);showResult(result);entry.done=true;try{forget(pending.request_id);writeText(notice,copy('identity_saved'));}catch{writeText(notice,copy('identity_saved_metadata'));}}
+          catch(error){if(!active())return;if(error.status>=400&&error.status<500&&![408,429].includes(error.status)){try{forget(pending.request_id);}catch{}pending=null;entry.done=[409,412,428].includes(error.status);writeText(notice,errorCopy(error));}else{writeText(notice,copy('identity_unconfirmed'));writeText(operation==='REISSUE_INVITE'?renew:save,copy('identity_retry'));}}
+          finally{if(active()){busy=false;entry.lock();}}
+        }
+        form.addEventListener('submit',event=>{event.preventDefault();return submit(member?'UPDATE_ACCESS':'INVITE');});if(renew)renew.addEventListener('click',()=>submit('REISSUE_INVITE'));return form;
       }
-      items.push(node('h3','','Nieuwe gebruiker'),memberForm(null),invitation);
-      const refresh=node('button','','Gebruikerslijst vernieuwen');refresh.type='button';refresh.addEventListener('click',()=>renderIdentityUsers(section,content));items.push(refresh);
-      for(const member of data.items){const card=node('details','context-item');card.append(node('summary','',`${member.display_name} · ${member.username} · ${member.status}`),node('p','',`Gebruikers-ID: ${member.id}`),node('p','',`Revisie ${member.revision} · ${member.roles.join(', ')}`),memberForm(member));items.push(card);}
-      replaceChildren(content,items);
-    }catch(error){replaceChildren(content,[node('p','ErrorState',friendlyError(error))]);}
+      items.push(recovery,node('h3','',copy('identity_new_user')),memberForm(null),invitation);
+      const refresh=node('button','',copy('identity_refresh'));refresh.type='button';refresh.setAttribute('data-identity-action','refresh');refresh.addEventListener('click',()=>{if(active())return renderIdentityUsers(section,content);});items.push(refresh);
+      for(const member of data.items){const card=node('details','context-item');card.append(node('summary','',live(()=>`${member.display_name} · ${member.username} · ${copy('identity_status.'+member.status.toLowerCase())}`)),node('p','',live(()=>copy('identity_member_id',{id:member.id}))),node('p','',live(()=>copy('identity_revision_roles',{revision:i18n().number(member.revision),roles:list(member.roles,roleLabel)}))),memberForm(member));items.push(card);}
+      if(active())replaceChildren(content,items);
+    }catch(error){if(active()&&!error.stale)replaceChildren(content,[node('p','ErrorState',errorCopy(error))]);}
   }
 
   async function renderAutomationSection(section,content,query={}) {

@@ -3737,11 +3737,154 @@
     "before_fix": "The initial six tests fail before implementation: untranslated controls, stale edited previews, old read replacement, malformed preview/apply false success, duplicate writes and truthy management authority. A later focused pre-correction diagnostic process was interrupted after 79 seconds while producing a large object comparison; its file-level failure is preserved and is not evidence of two individually completed tests. DOM identity assertions now use bounded diagnostics without weakening their equality requirements.",
     "scope": "Package composition controls, registered module/capability/industry/bundle labels and review states use explicit eight-locale copy. Locale changes preserve actual controls, draft choices and canonical request values. Preview explicitly shows entitlement, enabled-module, individual capability and industry changes. A preview is bound to the exact current input and native profile/revision/signature; edited, superseded or retired observations cannot expose Apply. Current management authority must be true. Catalog/current/preview/write observations must have consistent identities, revisions, modules and typed flags; malformed or contradictory replies cannot claim success. Duplicate preview/write submissions are suppressed. A lost write response preserves and retries the frozen reviewed body; the native resolver prevents overwriting a newer different composition. Current permission revocation blocks apply. A confirmed write is distinguished from subsequent navigation-refresh failure. Late responses cannot repaint retired settings views.",
     "native_regression": "capability-resolver-test.js, composition-api-test.js and business-workspaces-regression-test.js all completed in one sequential command with exit 0. The native API regression covers authenticated routes, revocation and encrypted restart; the workspace static accessibility assertions do not establish browser/accessibility acceptance.",
-    "full_zero_current_tree": "PENDING exact published-head CI. No full 505-test run is inferred from the 49 focused tests.",
-    "current_ci": "PENDING_PUBLICATION",
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 505,
+      "pass": 505,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "local_head": "2e360c40856151776b24048180c456cbc4d6f5f6",
+      "tree": "1c97f3229f43f0bfbec29b4345ca8bd5b560157b",
+      "published_head": "70a92f942b6a1b947e55689edb53afb485ca7d5d",
+      "log_sha256": "3794ac6a56ee691c2a1e64a9d0a898a09936ecd2301912c06f66e97a1e6ca8e4",
+      "log_bytes": 59205
+    },
+    "current_ci": {
+      "number": 200,
+      "id": 36111094672,
+      "job_id": 107994482687,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "70a92f942b6a1b947e55689edb53afb485ca7d5d",
+      "tree": "1c97f3229f43f0bfbec29b4345ca8bd5b560157b",
+      "full_npm_test": "PASS",
+      "zero_tests": 505,
+      "zero_pass": 505,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "579f90db23225ae3e02d746a538045ceff36848e36131234910c46235f1b967d",
+        "bytes": 317544
+      }
+    },
     "dynamic_candidates": 656,
     "evidence_limit": "Actual controller and native resolver with controlled HTTP observations in a minimal DOM. The lost-acknowledgement client case is simulated after native in-memory configure; it is not a real dropped network reply or cross-reload recovery proof. Independent native-speaker review and real browser/layout/assistive technology acceptance remain unverified.",
     "remaining": "Identity/settings controls, shared domain forms and specialist/generated/backend copy remain code-controlled Phase 8 gaps. Composition recovery across navigation/reload and durable request attribution remain open; only the still-open reviewed editor is covered here. Specialized/bulk provider authority, profile/OAuth races, receipt retention and invalid limits remain open, alongside full cognition, semantic, demo, industry, security/adversarial, performance/cost and voice acceptance.",
     "storage_change": "None. No server contract change, migration, real credential change, production action, main merge or deployment. Frozen main dashboard source remains unchanged; Run 3 not started."
+  },
+  "continuation_20260925": {
+    "recorded_at": "2026-09-25T08:07:16.351311+00:00",
+    "attachment_raw_sha256": "04011720552dcbc2cff8b71d830d68ec62b77d6d29e9b072f66f1f3fcf291f4b",
+    "saved_contract": "docs/run2/CONTINUATION_CONTRACT_20260925.md",
+    "saved_contract_sha256": "bae54841155252b47812a904123230913c2029c610e3175d7a1139484e0b9fa6",
+    "recovered_local_head": "56c78758c11771baf6fb2203e1d32eb7a499607c",
+    "recovered_tree": "1c97f3229f43f0bfbec29b4345ca8bd5b560157b",
+    "published_head": "70a92f942b6a1b947e55689edb53afb485ca7d5d",
+    "main": "e8142578eb2185a915c37d895c567937f20a9970",
+    "phase": 8,
+    "next": "Identity settings localization and exposed current-view/acknowledgement/recovery defects. No completed work is restarted."
+  },
+  "workspace_identity_checkpoint": {
+    "recorded_at": "2026-09-25T08:38:55.135734+00:00",
+    "prior_ci": {
+      "number": 200,
+      "id": 36111094672,
+      "job_id": 107994482687,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "70a92f942b6a1b947e55689edb53afb485ca7d5d",
+      "tree": "1c97f3229f43f0bfbec29b4345ca8bd5b560157b",
+      "full_npm_test": "PASS",
+      "zero_tests": 505,
+      "zero_pass": 505,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "579f90db23225ae3e02d746a538045ceff36848e36131234910c46235f1b967d",
+        "bytes": 317544
+      }
+    },
+    "source_sha256": {
+      "tenant-identities.js": "6964c59a9c6fcbced3e69ca8671f14d666c09fe1cac605967197f48abbddeb5c",
+      "tenant-identity-api.js": "bdcbb448062b76d2682eb13cf8580f47dab7f2dbd32564b55295ce4f2f25135f",
+      "foundly-workspace.js": "ef0a85e68b1f67a39b47578ea3897335a45575289c26bc2b380f528dce96e066",
+      "foundly-locales.js": "3cbd2b8820585bf0cf42d2aa1b91884dd026d3f9a4cb6702130ac739fe731a75",
+      "zero-evaluation/workspace-page-fixture.js": "c7036da389f99d5c045e4587c3908e3b04790b9285afd545b40c3f9ef64a5b59",
+      "zero-evaluation/workspace-identity-fixture.js": "23dc20b27c8638624e040d7aa919329d443dae21d3ecdafc0bfbd08256ad68c4",
+      "zero-evaluation/identity-ack-drop.js": "e3f60d7fcf214350d57e358208e10398e9a3aa1b2a8450f9932d0bbd32936adf",
+      "zero-evaluation/identity-persistence-fault.js": "b6441fde969ed838515c9a928af48017bd3a4cd72c4d9a9ff073d73c2e95eb9d",
+      "zero/identity-mutation-recovery-api.test.js": "7a8796f5be03cd8a5e5945cf6931c244225157edba7af6f4ecbc610e8888ea7f",
+      "zero/identity-request-guards.test.js": "90915c244fe631fae680adf762198703e0228500210ae5e2b7f5d7cf53bfff7b",
+      "zero/workspace-identity-integrity.test.js": "9aff78b5bd1aa134f63586fa86e5319d309d8f804dbb1700320e96536a2c3b6a"
+    },
+    "new_tests": 20,
+    "targeted_tests": 20,
+    "targeted_pass": 20,
+    "logs": {
+      "run2-identity-recovery-before.log": {
+        "sha256": "60807618f1485cea0d60a8fea968009433e804103727181b69b7bca1bce2f507",
+        "bytes": 2885,
+        "exit_code": 1
+      },
+      "run2-workspace-identity-before.log": {
+        "sha256": "a25225c523c9c59f559e909a0d4c096ecec8c1c28eed6b4df50dce48b34141af",
+        "bytes": 570798,
+        "exit_code": 1
+      },
+      "run2-workspace-identity-after.log": {
+        "sha256": "25e90143be88d480305e7c086d837d1f6b8d18cbfe0551409b02e2270e47bc77",
+        "bytes": 4775,
+        "exit_code": 1
+      },
+      "run2-workspace-identity-targeted.log": {
+        "sha256": "b3b951b7247df5ac2d8dd57ce32075e157bbfafc0cc847e47e55012c8b6ef317",
+        "bytes": 1052,
+        "exit_code": 0
+      },
+      "run2-workspace-identity-verified.log": {
+        "sha256": "a3b0c8b4f01c59608564b82bc65b03b3f76cf463b3221396d96deeb31b5facfd",
+        "bytes": 2350,
+        "exit_code": 0
+      },
+      "run2-identity-terminal-before.log": {
+        "sha256": "1d757bb38da925070ee741482fb41da99b9babbe2ebcf5a0d8869b74b15569da",
+        "bytes": 1214,
+        "exit_code": 1
+      },
+      "run2-workspace-identity-terminal.log": {
+        "sha256": "d9f18a0fc6b47b690eec9292ca8fea64f171b74cfa102c76784bf4f1fb6d1406",
+        "bytes": 2618,
+        "exit_code": 0
+      }
+    },
+    "before_fix": "Three native recovery tests fail before the journal, and eight controller tests fail before view/localization/acknowledgement repair. A subsequent test reveals absent-request recovery is missing; this is implemented with a durable terminal reservation. The first UI implementation exposed a missing reportValidity method in the minimal DOM fixture; native controls are unchanged and the fixture now checks required fields. Large failure diagnostics were bounded without weakening DOM identity/absence assertions.",
+    "scope": "Personal identity management uses 55 explicit owned keys across eight locales, including current roles, module grants, status, revision, invitation expiry and recovery. Locale changes preserve draft controls and canonical payloads. Session/list/write/recovery observations are typed and scoped. Stale views and late callbacks cannot repaint a different view; anonymous/denied observations clear private workspace state. A current acknowledgement is required for logout. Stable request keys cover invitation, reissue and access updates; duplicate submissions are blocked and uncertain writes retry the exact frozen body. Minimal session storage retains only the key/operation/target/revision, partitioned by tenant/dealer/actor. Recovery after reload returns the still-current encrypted receipt, or atomically closes an absent key without a member mutation; a delayed original request cannot commit afterward. Superseded/expired receipts never re-expose invalid invitation links.",
+    "native_evidence": "Six real HTTP tests use production-mode isolated encrypted storage and real identity routes. They cover actual response socket destruction, encrypted restart, final-file rename EIO rollback for all mutations and terminal reconciliation, two concurrent same-key invitations, current actor authority and hidden projections, superseded tokens, plus a real held-open HTTP body that loses to terminal recovery. Three core guard tests cover tenant/actor isolation, expiry, bounded receipt capacity and delayed abandoned keys. Eleven actual-controller tests use the native in-memory identity engine with controlled HTTP observations; these are not browser proofs.",
+    "storage_change": "Adds tenant-scoped encrypted identity:mutation_receipts inside the existing core state format; no destructive migration or secret-file change. Legacy keyless callers remain supported and are not claimed recoverable. Capacity is bounded at 10000 receipts and never silently evicts recovery evidence; retention/operator lifecycle remains open. No real credentials, production runtime, main merge or deployment changed.",
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 525,
+      "pass": 525,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "2d94149c9d783589d5d27a3b0a537b0ee36fc435",
+      "source_tree": "7198ea7a195ee0c9f138b8e74df0d8c0b5fbc54d",
+      "log_sha256": "1869945f34b3ff62a628a39398ca7219ce4ba5420442118581e99275763ff05c",
+      "log_bytes": 61708,
+      "evidence_note": "This result covers the frozen implementation source; subsequent changes before publication are evidence documentation only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "dynamic_candidates": 634,
+    "evidence_limit": "Minimal DOM fixtures do not establish actual browser/sessionStorage persistence, layout, accessibility or native-speaker quality. Actual dropped HTTP and encrypted restart evidence comes from the independent native tests. External provider/voice/browser acceptance remains unverified.",
+    "remaining": "Shared domain forms, specialist/generated/backend copy and broader Phase 8 coverage remain open. Composition recovery across navigation/reload, specialized/bulk provider authority, profile/OAuth races, receipt retention and invalid limits remain code-controlled gaps, along with wider cognitive/semantic/demo/industry/adversarial/performance acceptance. Run 3 has not started.",
+    "native_regression": {
+      "status": "PASS",
+      "command": "node tenant-identities-test.js && node tenant-identity-api-test.js && node tenant-identity-bootstrap-api-test.js",
+      "exit_code": 0,
+      "log_sha256": "7d8c576b3e1c6f3cd5f9d791df3974239cee0fcbeafd234cb7790aac4d2817fa",
+      "log_bytes": 636
+    }
   }
 }
