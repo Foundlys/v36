@@ -41,7 +41,8 @@ class WorkflowDrafts{
     if(receipt?.state==='NOT_APPLIED')fail('workflow_draft_request_abandoned','Deze nieuwe conceptaanvraag is afgesloten',409);
     if(receipt&&!previous)fail('workflow_draft_request_unavailable','De bewaarde conceptbevestiging is niet meer beschikbaar',409);
     if(input.expected_revision===0&&receipt?.preview_fingerprint&&origin.preview_fingerprint!==undefined&&origin.preview_fingerprint!==receipt.preview_fingerprint)fail('workflow_draft_request_conflict','Deze aanvraag hoort bij een ander gecontroleerd voorstel',409);
-    const result=(row,deduplicated)=>({record:clone(row),deduplicated,executable:false,request_context:requestContext(ctx,actor),draft_id:id,expected_revision:input.expected_revision,preview_fingerprint:origin.preview_fingerprint||null});
+    const requestFingerprint=crypto.createHash('sha256').update(JSON.stringify({draft:input.draft,expected_revision:input.expected_revision})).digest('hex');
+    const result=(row,deduplicated)=>({record:clone(row),deduplicated,executable:false,request_context:requestContext(ctx,actor),draft_id:id,expected_revision:input.expected_revision,request_fingerprint:requestFingerprint,preview_fingerprint:origin.preview_fingerprint||null});
     if(previous&&previous.request_revision===input.expected_revision&&previous.fingerprint===fingerprint)return result(previous,true);
     if(!Number.isInteger(input.expected_revision)||input.expected_revision!==(previous?.revision||0))fail('workflow_draft_conflict','Dit concept is elders gewijzigd; laad de bewaarde versie voordat je verder opslaat',409);
     if(!previous&&(rows.length>=1000||rows.filter(row=>row.owner_id===actor.id).length>=100))fail('workflow_draft_capacity','Het maximumaantal bewaarde concepten is bereikt',507);

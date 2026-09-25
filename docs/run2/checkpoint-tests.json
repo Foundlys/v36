@@ -4489,7 +4489,124 @@
       "log_bytes": 69253,
       "evidence_note": "Frozen implementation source; later prepublication changes only record test evidence."
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 206,
+      "id": 36123991381,
+      "job_id": 108035784027,
+      "head": "48ec188ee7c1b2b98626ec07ba2f704a8da1714a",
+      "tree": "a6d0223d03101f070e4dbebceaf89fa2710bfbea",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 584,
+      "zero_pass": 584,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "8dcfc2548aa03e9819510227813058300c0b508625b0da7fc139cb80aefb5495",
+        "bytes": 350613
+      }
+    },
     "remaining": "Workflow editor/autosave/publication and shared workflow list/manual-run/recovery/approval, specialist/backend/generated localization, receipt lifecycle, broader cognition/demo/industry/performance/security/voice and real browser/native-speaker acceptance remain open. No matrix row is promoted. No destructive migration, real credential, main/production/deployment or Run 3 change."
+  },
+  "workflow_editor_session_checkpoint": {
+    "recorded_at": "2026-09-25T10:42:04.002952+00:00",
+    "phase": 8,
+    "prior_ci": {
+      "number": 206,
+      "id": 36123991381,
+      "job_id": 108035784027,
+      "head": "48ec188ee7c1b2b98626ec07ba2f704a8da1714a",
+      "tree": "a6d0223d03101f070e4dbebceaf89fa2710bfbea",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS",
+      "zero_tests": 584,
+      "zero_pass": 584,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "8dcfc2548aa03e9819510227813058300c0b508625b0da7fc139cb80aefb5495",
+        "bytes": 350613
+      }
+    },
+    "scope": "Serialized private draft autosave, exact current acknowledgement and owning-editor boundaries before publication. Complete editor/ZERO/publication localization and durable cross-reload update recovery remain separate open work.",
+    "native_contract": "An additive request_fingerprint hashes the exact dispatched draft/expected_revision JSON. The session independently checks that hash, the native normalized record hash, owner/realm, ID, exact revision, schema and nonexecutable status. Native partial normalization remains in the existing store; no browser duplicate sanitizer or new storage migration.",
+    "client_contract": "Uncertain writes retain their exact body and revision. A later edit first acknowledges the original write, then uses the confirmed next revision. Current access loss preserves uncertainty. Genuine conflict blocks overwrite and permits an explicitly separate new draft. Retired queued writes are not dispatched; late acknowledgements do not advance the retired session or release saved callbacks. Publication cannot follow a stale draft prerequisite or changed input; switching draft ownership during an in-flight or uncertain save is blocked.",
+    "targeted": {
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "new_permanent_tests": 16,
+      "files": [
+        "zero/workflow-draft-session-integrity.test.js",
+        "zero/workflow-editor-integrity.test.js",
+        "zero/workflow-draft-session-api.test.js"
+      ],
+      "scope": "Seven native session tests, seven actual browser-module/editor handler tests in a minimal DOM, two actual HTTP tests. A real committed PUT response is destroyed; the same client resumes after encrypted server restart, acknowledges the original request, then saves its newer input. Current member access is rechecked after a real body wait using the existing dynamic principal."
+    },
+    "logs": {
+      "run2-workflow-draft-session-before.log": {
+        "sha256": "242a29acee6b845d0d64970f6f32f6d5eb561f44b822f08a16cbaee613cd69b4",
+        "bytes": 5224,
+        "exit_code": 1
+      },
+      "run2-workflow-draft-session-after.log": {
+        "sha256": "6982d62df52319034532781ca67c8a536c0d3ca341e354be2cc62067ab439f2e",
+        "bytes": 864,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-boundary-before.log": {
+        "sha256": "8cae6091d2128ecae2c87d51fb03a38b4c35f2a3ab77332f54d985b78963277e",
+        "bytes": 3279,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-boundary-after.log": {
+        "sha256": "49069baa18931086c9f993050884337f5e1b2d21b477b802870b4594b3471d28",
+        "bytes": 1424,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-boundary-http.log": {
+        "sha256": "5c1a75a20984403431b2adb667f5515e6d5233d150427dd1162a22ca129dbb50",
+        "bytes": 1692,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-conflict-copy-before.log": {
+        "sha256": "4b362a3022c40837649e79e8158d75dfc232983013c7880d263e1e3469b678ed",
+        "bytes": 907,
+        "exit_code": 1
+      },
+      "run2-workflow-editor-boundary-final.log": {
+        "sha256": "626dace74ba3d23b7b6cd2e918cad422d8ad8e947a097a4257e3f8ba785562bd",
+        "bytes": 1917,
+        "exit_code": 0
+      },
+      "run2-workflow-editor-boundary-native.log": {
+        "sha256": "460f842434cdc92bf351c3b5dc53fdf2d004e26ca0a97243189863b52e2f3a94",
+        "bytes": 1921,
+        "exit_code": 0
+      }
+    },
+    "failure_history": "Six of seven initial session tests fail before implementation; the invalid-input correction test already passes. Four of five owning-editor boundary tests fail before those guards; malformed prerequisite acknowledgement already passes with the preceding session fix. A further failing-before regression catches overblocking of explicit save-as-new after a genuine conflict; that case is now separate from unresolved transport uncertainty. All failures remain recorded.",
+    "native_regression": {
+      "status": "PASS",
+      "exit_code": 0,
+      "command": "node workflow-drafts-test.js && node workflow-editor-test.js && node workflow-drafts-api-test.js && node workflow-zero-test.js && node workflow-zero-api-test.js && node workflow-generator-test.js && node business-workspaces-regression-test.js",
+      "timing": "Before the final small conflict/uncertainty getter correction, subsequently covered by all sixteen focused tests; full current source ZERO and CI still pending."
+    },
+    "full_zero_current_tree": {
+      "status": "PASS",
+      "tests": 600,
+      "pass": 600,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "exit_code": 0,
+      "source_commit": "e6816e8b536f7dd5544afe8a21f3d3261a5bb9b5",
+      "source_tree": "4469d859af8204758da6c65621cbb8094a174a6a",
+      "log_sha256": "2135585a369dee8ea529277278b34d1199925bd9a6e20220e70ee90976f62d11",
+      "log_bytes": 71041,
+      "evidence_note": "Frozen implementation source; subsequent prepublication changes record evidence only."
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Editor owned copy, ZERO review/save and publication acknowledgement/uncertain-result recovery remain open, as do shared automation controls and the broader existing Run 2 hard exit gates. No matrix row promoted; no main merge, production mutation, credentials, deployment or Run 3."
   }
 }

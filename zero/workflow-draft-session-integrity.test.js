@@ -1,0 +1,33 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),crypto=require('node:crypto'),{WorkflowDrafts}=require('../workflow-drafts'),{CapabilityResolver}=require('../capability-resolver'),{create}=require('../workflow-draft-session');
+const clone=value=>JSON.parse(JSON.stringify(value));
+function fixture(){
+ const rows=new Map(),ctx={tenant_id:'draft-session-fixture',dealer_id:'default'},actor={id:'draft-session-owner',roles:['ADMIN','SUPER_ADMIN']};let writes=0,active=true,lose=false,alter=null,denied=false,held=null;
+ const adapter={bucket(c,s){const key=JSON.stringify([c,s]);if(!rows.has(key))rows.set(key,[]);return rows.get(key);},persist(){writes++;},audit(){}},resolver=new CapabilityResolver(adapter);resolver.configure(ctx,actor,{entitlements:['automation'],expected_revision:0});const drafts=new WorkflowDrafts(adapter,resolver),calls=[],states=[],realm={...ctx,actor_id:actor.id};
+ const request=async(route,options)=>{calls.push({route,...options});if(denied)throw Object.assign(Error('PRIVATE_DENIAL'),{status:403});const result=drafts.save(ctx,actor,route.split('/').at(-1),JSON.parse(options.body));if(held){const gate=held;held=null;gate.started();await gate.promise;}if(lose){lose=false;throw Error('LOST_AFTER_COMMIT');}return alter?alter(clone(result)):result;};
+ const session=create({id:'draft_session_id',request,requestContext:realm,isActive:()=>active,onState:(state,record)=>states.push({state,record:record&&clone(record)})});
+ return {drafts,ctx,actor,realm,calls,states,session,rows,writes:()=>writes,lose:()=>lose=true,alter:fn=>alter=fn,retire:()=>active=false,deny:value=>denied=value,hold(){let release,started;const promise=new Promise(resolve=>release=resolve);release.started=new Promise(resolve=>started=resolve);held={promise,started};return release;}};
+}
+test('draft queue recovers the frozen committed write before advancing a newer partial edit',async()=>{
+ const f=fixture();f.lose();const original={name:'  Literal <img> unfinished  ',steps:[{type:'create_task',values:{title:''}}]};await assert.rejects(f.session.save(original),/LOST_AFTER_COMMIT/);const first=f.calls[0],writes=f.writes();original.name='Changed object after dispatch';const saved=await f.session.save({name:'Newer unfinished edit'});
+ assert.deepEqual(f.calls[1],first);assert.equal(f.calls.length,3);assert.equal(f.writes(),writes+1);assert.equal(saved.revision,2);assert.equal(saved.draft.name,'Newer unfinished edit');assert.equal(f.session.revision,2);assert.deepEqual(f.states.filter(row=>row.state==='SAVED').map(row=>row.record.draft.name),['Newer unfinished edit']);
+});
+test('draft acknowledgement binds the native request, owner, realm, content fingerprint and exact nonexecutable revision',async()=>{
+ const changes=[r=>r.record.id='wrong_id',r=>r.record.revision=9,r=>r.record.request_revision=8,r=>r.record.status='PUBLISHED',r=>r.record.executable=true,r=>r.executable=true,r=>r.record.schema_version=2,r=>r.record.owner_id='foreign',r=>r.request_context.actor_id='foreign',r=>r.record.tenant_id='foreign',r=>r.expected_revision=20,r=>r.draft_id='foreign',r=>r.deduplicated='false',r=>r.record.fingerprint='invalid',r=>r.record.draft.name='UNREVIEWED',r=>r.request_fingerprint='a'.repeat(64),r=>{r.record.draft.name='Substituted valid native record';r.record.fingerprint=crypto.createHash('sha256').update(JSON.stringify(r.record.draft)).digest('hex');r.request_fingerprint=crypto.createHash('sha256').update(JSON.stringify({draft:r.record.draft,expected_revision:0})).digest('hex');}];
+ for(const change of changes){const f=fixture();f.alter(r=>{change(r);return r;});await assert.rejects(f.session.save({name:'Reviewed unfinished draft'}),{code:'workflow_draft_ack_invalid'});assert.equal(f.session.revision,0);assert.equal(f.states.filter(row=>row.state==='SAVED').length,0);f.alter(null);await f.session.save({name:'Reviewed unfinished draft'});assert.deepEqual(f.calls[1],f.calls[0]);assert.equal(f.session.revision,1);assert.equal(f.drafts.list(f.ctx,f.actor).items.length,1);}
+});
+test('retired queued draft saves dispatch no requests or state callbacks',async()=>{
+ const f=fixture(),pending=f.session.save({name:'Retired queued edit'});f.retire();await assert.rejects(pending,{code:'workflow_draft_session_inactive'});assert.equal(f.calls.length,0);assert.equal(f.states.length,0);
+});
+test('late draft acknowledgement cannot release a retired save or its queued successor',async()=>{
+ const f=fixture(),release=f.hold(),first=f.session.save({name:'Already dispatched'});await release.started;const second=f.session.save({name:'Queued stale edit'}),settled=Promise.allSettled([first,second]),states=f.states.length;f.retire();release();for(const result of await settled){assert.equal(result.status,'rejected');assert.equal(result.reason.code,'workflow_draft_session_inactive');}assert.equal(f.calls.length,1);assert.equal(f.states.length,states);assert.equal(f.session.revision,0);assert.equal(f.drafts.list(f.ctx,f.actor).items[0].revision,1);
+});
+test('recovery of an uncertain draft cannot overwrite or falsely acknowledge another editor revision',async()=>{
+ const f=fixture();f.lose();await assert.rejects(f.session.save({name:'Uncertain'}));f.drafts.save(f.ctx,f.actor,'draft_session_id',{draft:{name:'Other editor'},expected_revision:1});const writes=f.writes();await assert.rejects(f.session.save({name:'New local edit'}),{code:'workflow_draft_conflict'});const count=f.calls.length;await assert.rejects(f.session.save({name:'Another local edit'}),{code:'workflow_draft_conflict'});assert.equal(f.calls.length,count);assert.equal(f.writes(),writes);assert.equal(f.drafts.list(f.ctx,f.actor).items[0].draft.name,'Other editor');assert.equal(f.session.revision,0);
+});
+test('current denial preserves an uncertain draft request for exact retry after access returns',async()=>{
+ const f=fixture();f.lose();await assert.rejects(f.session.save({name:'Committed private draft'}));f.deny(true);await assert.rejects(f.session.save({name:'Later input'}),{status:403});assert.equal(f.session.revision,0);f.deny(false);await f.session.save({name:'Later input'});assert.deepEqual(f.calls[1],f.calls[0]);assert.deepEqual(f.calls[2],f.calls[0]);assert.equal(f.session.revision,2);assert.equal(f.states.filter(row=>row.state==='SAVED').length,1);
+});
+test('a definitively invalid partial draft can be corrected without replaying rejected input forever',async()=>{
+ const f=fixture();await assert.rejects(f.session.save({name:'Invalid',steps:'not steps'}),{code:'workflow_draft_invalid'});const result=await f.session.save({name:'Corrected',steps:[]});assert.equal(result.revision,1);assert.equal(f.calls.length,2);assert.equal(f.drafts.list(f.ctx,f.actor).items.length,1);
+});
