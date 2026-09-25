@@ -29,3 +29,14 @@ Snapshot UI publication `9a252128894841c24ccc97f49a1b598773331347` has complete 
 Forecast observations source `4890b4cec031413b30f8f37615c613b839389ed9`, tree `95b3ce69409f158f03aecaaa3c0be8ba55696f8a`, passes 1138 ZERO plus 14 corpus and eleven affected native commands. Sixteen permanent tests cover typed observations, exact weighted cents, eight-locale readouts, literal assumptions, fractional-input rejection and draft preservation. Exact-published full CI is pending.
 
 Continue the already-started native hierarchy version recovery work in `work/run2-hierarchy-recovery`; preserve its new journal, fixtures and fault-test fixes. Hierarchy UI localization/reload recovery and the broader acceptance matrix remain open. No final Run 2 verdict or real-browser accessibility acceptance is claimed.
+
+
+## Execution environment disconnected — exact preservation checkpoint
+
+Forecast observation publication `a3d7b915239394a519a3b924206bf4757aaed0e6` has complete exact CI 236 PASS: merge `28e7c4bfbb2c77fc6cd87246d554326b96df2a2f`, tree `5112c5bc53529b0ab9b5dd26eb4acd07fd8894a2`, 1138 ZERO plus 14 corpus. The merge tree was verified through the GitHub Git-data API after the execution environment went offline.
+
+Native hierarchy recovery source `1ad5e59c025b4bd00cfdc28d0935c32b2a225487`, tree `ed14e3337965ba36620d0c1ae9017e457f76f205`, passed 15 new native/HTTP tests and all 14 affected native regression commands. Its full local ZERO command was running in session 31297 when exec-server became unavailable; that result is UNVERIFIED. The eight source/test files were reconstructed through GitHub and the resulting tree was verified to equal the exact frozen local tree before publication. This preserves the newer valid work without claiming missing full-test evidence.
+
+Current failure: exec-server returned 409 `environment_offline` / `Environment is not connected`. The first hierarchy UI test-authoring command failed to create a process. No main merge, deployment or credential changes occurred.
+
+On reconnection, preserve all existing worktrees and logs. Inspect the full ZERO result before rerunning it. Continue the already-created `work/run2-hierarchy-controls` worktree (based on the native hierarchy recovery source), starting with the three shared-page regressions: locale/input/confirmation retention, one PUT plus metadata recovery after a dropped reply, and fresh-page recovery with only opaque metadata stored. Wire `/api/sales/forecast/hierarchy-requests/recover`, add typed catalog/context and exact acknowledgement/proof checks, and localize the hierarchy editor/query controls across all eight locales. Existing scenario/node totals, immutable-version, native access, stale-response and snapshot assertions must remain. Keep literal owner IDs, labels, names and entered definitions intact. Broader Run 2 remains IN_PROGRESS_NOT_ACCEPTED.

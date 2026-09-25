@@ -6698,7 +6698,7 @@
         "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
         "test": "workflow-retry-api-test.js",
         "exit_code": 0,
-        "seconds": 3.0,
+        "seconds": 3,
         "sha256": "04b17c287c9cd8176c5ae09e178bc295c1ab6b4f827cf0cf9e51fd0c757f4514"
       },
       {
@@ -9337,7 +9337,7 @@
     }
   },
   "forecast_observations_20260925": {
-    "status": "ZERO_CORPUS_AND_AFFECTED_NATIVE_PASS_FULL_PUBLISHED_CI_PENDING",
+    "status": "ZERO_CORPUS_AFFECTED_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "4890b4cec031413b30f8f37615c613b839389ed9",
     "source_tree": "95b3ce69409f158f03aecaaa3c0be8ba55696f8a",
     "zero": {
@@ -9577,7 +9577,90 @@
       }
     ],
     "fixture_note": "The shared forecast fixture now propagates input/change events to ancestors so draft-preservation assertions exercise the production form listener. An interim failure caused by the previous non-bubbling fixture is retained. Currency assertions in the existing native scenario test now compare the locale formatter without losing their amount, zero, outside-period, snapshot and source-immutability assertions.",
+    "exact_published_full_ci": "PASS",
+    "remaining": "Hierarchy version authoring still needs native/browser durable recovery and complete eight-locale controls. Its next native checkpoint is isolated in work/run2-hierarchy-recovery. Other shared-domain aggregate rounding/unknown handling and remaining Run 2 gates are not accepted by this forecast-only evidence. Synthetic DOM tests are not browser layout or accessibility acceptance.",
+    "published_ci_236": {
+      "run_number": 236,
+      "run_id": 36192009240,
+      "job_id": 108259088508,
+      "published_head": "a3d7b915239394a519a3b924206bf4757aaed0e6",
+      "ci_merge_commit": "28e7c4bfbb2c77fc6cd87246d554326b96df2a2f",
+      "tree": "5112c5bc53529b0ab9b5dd26eb4acd07fd8894a2",
+      "exact_tree_match": true,
+      "zero_tests": 1138,
+      "zero_pass": 1138,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "conclusion": "success",
+      "log_evidence": "Complete GitHub job log fetched and checked. Local log saving unavailable because the execution environment is offline."
+    }
+  },
+  "hierarchy_native_recovery_20260925": {
+    "status": "TARGETED_AND_AFFECTED_NATIVE_PASS_LOCAL_ZERO_UNVERIFIED_FULL_PUBLISHED_CI_PENDING",
+    "source_commit": "1ad5e59c025b4bd00cfdc28d0935c32b2a225487",
+    "source_tree": "ed14e3337965ba36620d0c1ae9017e457f76f205",
+    "permanent_new_tests": 15,
+    "new_test_breakdown": {
+      "native": 11,
+      "actual_http": 4
+    },
+    "targeted": {
+      "command": "node --test zero/sales-hierarchy-recovery.test.js zero/sales-hierarchy-recovery-api.test.js",
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "log_file": "hierarchy-recovery-http.log"
+    },
+    "affected_native": {
+      "pass": 14,
+      "fail": 0,
+      "commands": [
+        "node sales-pipeline-test.js",
+        "node sales-pipeline-api-test.js",
+        "node sales-pipeline-client-test.js",
+        "node sales-forecast-test.js",
+        "node sales-quotas-test.js",
+        "node sales-quotas-api-test.js",
+        "node sales-scenarios-test.js",
+        "node sales-scenarios-api-test.js",
+        "node sales-scenarios-client-test.js",
+        "node sales-hierarchy-test.js",
+        "node sales-hierarchy-api-test.js",
+        "node sales-hierarchy-client-test.js",
+        "node module-access-contracts-test.js",
+        "node business-workspaces-regression-test.js"
+      ],
+      "source_commit": "1ad5e59c025b4bd00cfdc28d0935c32b2a225487",
+      "source_tree": "ed14e3337965ba36620d0c1ae9017e457f76f205",
+      "evidence": "All fourteen commands returned exit 0 on the frozen source; per-command JSON and logs were written before the workspace disconnected."
+    },
+    "zero": {
+      "command": "npm run test:zero",
+      "status": "UNVERIFIED_ENVIRONMENT_OFFLINE",
+      "exit_code": null,
+      "source_commit": "1ad5e59c025b4bd00cfdc28d0935c32b2a225487",
+      "source_tree": "ed14e3337965ba36620d0c1ae9017e457f76f205",
+      "log_file": "hierarchy-native-frozen-zero.log",
+      "note": "The command was started as exec session 31297. Its final result and local log could not be retrieved after exec-server reported environment_offline. Do not infer PASS or rerun solely because of interruption; inspect the result if the environment returns."
+    },
+    "scope": "Actor/tenant/dealer/request/definition-bound metadata recovery for immutable native hierarchy versions. Atomic request journal, definition, audit and outbox rollback. Absence retirement blocks delayed original or altered PUT bodies. Recovery and exact replay revalidate current management/forecast authority, immutable definition integrity, author/owner, revision and record digest. Deleted or corrupted versions cannot be resurrected by replay. Legacy exact replay remains compatible without inventing request proof. Bounded journals do not evict old recovery. Actual HTTP covers dropped committed replies, encrypted restart, held-body retirement, storage faults, role changes, other authors and encoded-route capability withdrawal.",
+    "prior_evidence": {
+      "files": [
+        "hierarchy-recovery-before.log",
+        "hierarchy-recovery-initial.log",
+        "hierarchy-recovery-atomic.log"
+      ],
+      "note": "Two initial rollback tests exposed that the new journal scope was missing from BusinessDomain.mutate. The scope was added to the same native transaction; all 11 native recovery tests and all 4 HTTP cases then passed. Raw logs remain in the disconnected worktree's evidence directory; no missing hashes or exit codes are fabricated."
+    },
+    "offline_recovery": {
+      "reason": "exec-server connection unavailable; environment registry returned 409 environment_offline",
+      "source_reconstructed_from": "Known exact creation/edit commands and the published predecessor a3d7b915239394a519a3b924206bf4757aaed0e6",
+      "reconstructed_tree": "ed14e3337965ba36620d0c1ae9017e457f76f205",
+      "matches_frozen_tree": true,
+      "verification": "GitHub create_tree returned the exact already-frozen local Git tree SHA before any branch ref change. This preserves all eight native hierarchy source/test files without inventing new code."
+    },
     "exact_published_full_ci": "PENDING",
-    "remaining": "Hierarchy version authoring still needs native/browser durable recovery and complete eight-locale controls. Its next native checkpoint is isolated in work/run2-hierarchy-recovery. Other shared-domain aggregate rounding/unknown handling and remaining Run 2 gates are not accepted by this forecast-only evidence. Synthetic DOM tests are not browser layout or accessibility acceptance."
+    "remaining": "Hierarchy controls still need eight-locale authoring, typed catalog/acknowledgement validation and metadata-only reload recovery. The next worktree work/run2-hierarchy-controls was created at the frozen source, but its first attempted UI fixture/test command failed before a process could be created. Inspect actual files if the environment returns. No browser, accessibility, Phase 8 or whole Run 2 acceptance is implied."
   }
 }
