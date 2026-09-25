@@ -7413,7 +7413,7 @@
   "creative_review_client_20260925": {
     "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
     "source_tree": "7bd93119631ceae0cbc14bd91fdcba076969e2c6",
-    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "status": "PASS for bounded review client checkpoint, including exact-tree complete CI 225; wider Run 2 gates remain open",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "6644ab5524c901463e13bbfcf34262e7eb660304",
@@ -7527,6 +7527,156 @@
       }
     ],
     "scope": "Actual shared creative review controls now use a scoped metadata-only request queue, stable native or ZERO request identity, exact typed acknowledgement binding and explicit terminal recovery. Preparation, ordered decision and withdrawal cannot resubmit a changed or uncertain body. Original applied revision and newer current review are distinct; final approval recovery verifies native creative revision proof. Strict original immutable fields, snapshot hashes, timestamps, actor/tenant context and contradiction/null checks. Eight locales preserve source literals and field nodes. Dirty/pending close guards, fresh authorized reopen, global recovery outside the visible page, denied-content removal, stale replies/controls and storage-failure behavior. Real native/ZERO HTTP controller runs include dropped preparation and approval replies, encrypted restart and fresh VM.",
-    "remaining": "Own exact-tree complete full CI pending. Audience/member/filter and journey definition, activation and execution controls still have production localization/state/recovery gaps; other previously unaccepted Run 2 gates remain open. DOM fixtures do not establish responsive/layout acceptance."
+    "remaining": "Audience/member/filter and journey definition, activation and execution controls still have production localization/state/recovery gaps; other previously unaccepted Run 2 gates remain open. DOM fixtures do not establish responsive/layout acceptance.",
+    "published_ci_225": {
+      "published_commit": "0a9a2f25be9fc12584c235106767efb2520bb80a",
+      "published_tree": "6638711a48b6f61573b50fbf5436180cda84d3ec",
+      "ci_merge_commit": "8b0a3c6de810bc2820bd1b6456f1946192ad1462",
+      "ci_merge_tree": "6638711a48b6f61573b50fbf5436180cda84d3ec",
+      "run_id": 36165861616,
+      "job_id": 108173320189,
+      "run_number": 225,
+      "status": "PASS",
+      "zero_pass": 880,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "27f7c0c3aedf1dc371c00ae523f1e86a238f48f643f7138e5890d7879a9d7f2d",
+      "log_bytes": 473141
+    }
+  },
+  "native_audience_recovery_20260925": {
+    "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+    "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+      "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+      "exit_code": 0,
+      "seconds": 81.93,
+      "log_sha256": "8eca65982044cea65b0bf084023d94ced2e1f6cbfaecd49e72e42a13d8c71331",
+      "log_bytes": 107657,
+      "pass_count": 895,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+        "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+        "test": "marketing-audiences-test.js",
+        "exit_code": 0,
+        "seconds": 0.26,
+        "sha256": "bcdae40df077cebe2044c1fc96188a00c1f7bbbf3788660e01dbaed517058b25"
+      },
+      {
+        "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+        "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+        "test": "marketing-journeys-test.js",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "sha256": "26e8bd2d80442ea51a85d673375b68393b83e0c9cf552cb46b3b4fefcb1c9ee8"
+      },
+      {
+        "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+        "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+        "test": "marketing-journeys-api-test.js",
+        "exit_code": 0,
+        "seconds": 7.95,
+        "sha256": "df3448a4615f31bb6c14f770ecac303ee2f2d72d93de7e4110076a98c2a90717"
+      },
+      {
+        "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+        "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+        "test": "marketing-journeys-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.5,
+        "sha256": "5a95f3fbe54e73dfdecad0dcaa7ed08c0b5916fdc7589895bef7acb80edaaea5"
+      },
+      {
+        "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+        "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+        "test": "marketing-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.11,
+        "sha256": "2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373"
+      },
+      {
+        "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+        "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.56,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "fb208f83473a797653f8d78d192959b04a44a806",
+        "source_tree": "40bc47e8baa671da6127916d17340ceacfe0ab04",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 1.67,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      }
+    ],
+    "permanent_new_tests": 15,
+    "preserved_failures": [
+      {
+        "file": "audience-recovery-before.log",
+        "sha256": "eddc8da04b0e7d290580eb29a663b3728904cf3e01ded22b87bdf61ed4d454b6",
+        "bytes": 11692,
+        "retained_head": "\u2716 audience member and filter writes retain exact scoped acknowledgements and recovery through restart (34.00889ms)\n\u2716 recovering an earlier consent record cannot replace a later opt-out or present the old member as current (8.817287ms)\n\u2716 earlier filter confirmation remains distinct from a newer native audience revision and cannot overwrite it (15.603869ms)\n\u2716 absent member and filter requests can be durably retired and delayed original bodies cannot execute (8.07247ms)\n\u2716 audience recovery binds exact metadata, actor and realm and rechecks current parent and member ownership (9.05093ms)\n\u2714 hidden newer member revisions cannot be replaced by an accessible historical recovery result (10.056506ms)\n\u2716 audience mutation and absence closure roll back native history, receipt, audit and event changes on persistence failure (12.515298ms)\n\u2716 legacy receipts and corrupted immutable member or retained filter proof cannot become typed recovery evidence (12.669767ms)\n\u2716 recovery rechecks audience capability revocation and bounded receipt storage without deleting existing proof (309.425365ms)\n\u2139 tests 9\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 8\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 975.80389\n\n\u2716 failing tes",
+        "retained_tail": " 'audience_capacity'\n  - }\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:11:381)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: TypeError: service.recover is not a function\n        at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-audience-fixture.js:8:102)\n        at assert.throws.code (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:11:394)\n        at getActual (node:assert:611:5)\n        at strict.throws (node:assert:759:24)\n        at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:11:381)\n        at Test.runInAsyncScope (node:async_hooks:227:14)\n        at Test.run (node:internal/test_runner/test:1382:25)\n        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n        at Test.postRun (node:internal/test_runner/test:1522:19)\n        at Test.run (node:internal/test_runner/test:1447:12),\n    expected: { code: 'audience_capacity' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-metadata-before.log",
+        "sha256": "aeb5913fcbe989395defaf5bb54d159c05ef639eab1292d570e1b9eb262c4c2b",
+        "bytes": 1193,
+        "retained_head": "\u2716 portable audience recovery metadata binds the subject without storing the entered person reference (18.539825ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 272.825991\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-recovery.test.js:12:1\n\u2716 portable audience recovery metadata binds the subject without storing the entered person reference (18.539825ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + undefined\n  - '87461de9c3fcaa21349b519a002206a8692f371ba6a19b428173a4a24cd92ad1'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:12:228)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: '87461de9c3fcaa21349b519a002206a8692f371ba6a19b428173a4a24cd92ad1',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+        "retained_tail": "\u2716 portable audience recovery metadata binds the subject without storing the entered person reference (18.539825ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 272.825991\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-recovery.test.js:12:1\n\u2716 portable audience recovery metadata binds the subject without storing the entered person reference (18.539825ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + undefined\n  - '87461de9c3fcaa21349b519a002206a8692f371ba6a19b428173a4a24cd92ad1'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:12:228)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: '87461de9c3fcaa21349b519a002206a8692f371ba6a19b428173a4a24cd92ad1',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-recovery-private-targeted.log",
+        "sha256": "1cde4e515d1d82693b5431d2c8ad4205e70fbaf7355d7fdce2dd0ffb69bef005",
+        "bytes": 16038,
+        "retained_head": "\u2716 actual native member and filter recovery survives lost replies and encrypted restart without reversing a later opt-out (2668.879002ms)\n\u2716 actual ZERO member and filter recovery survives lost replies and encrypted restart without reversing a later opt-out (2149.058054ms)\n\u2716 retired native member and filter metadata block held original bodies and remain closed after restart (1986.473046ms)\n\u2714 real audience storage failure rolls back both writes and closure, and held recovery rechecks identity revocation (1806.396784ms)\n\u2716 audience member and filter writes retain exact scoped acknowledgements and recovery through restart (33.747935ms)\n\u2716 recovering an earlier consent record cannot replace a later opt-out or present the old member as current (12.568053ms)\n\u2716 earlier filter confirmation remains distinct from a newer native audience revision and cannot overwrite it (10.400775ms)\n\u2716 absent member and filter requests can be durably retired and delayed original bodies cannot execute (4.566379ms)\n\u2716 audience recovery binds exact metadata, actor and realm and rechecks current parent and member ownership (25.591059ms)\n\u2714 hidden newer member revisions cannot be replaced by an accessible historical rec",
+        "retained_tail": "ooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    code: 'audience_member_key_conflict',\n    statusCode: 409\n  }\n\ntest at zero/marketing-audience-recovery.test.js:12:1\n\u2716 portable audience recovery metadata binds the subject without storing the entered person reference (4.205037ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + undefined\n  - '87461de9c3fcaa21349b519a002206a8692f371ba6a19b428173a4a24cd92ad1'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:12:228)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: '87461de9c3fcaa21349b519a002206a8692f371ba6a19b428173a4a24cd92ad1',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "audience-missing-optout-before.log",
+        "sha256": "17d355ef0aecbdde3b7ddea1f99992e4eed271b5af7a134a48a9c8c5088090c6",
+        "bytes": 1032,
+        "retained_head": "\u2716 a missing retained opt-out cannot revive an older consent record in selection, lists or recovery (24.717635ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 234.299536\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-recovery.test.js:13:1\n\u2716 a missing retained opt-out cannot revive an older consent record in selection, lists or recovery (24.717635ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:13:530)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { code: 'audience_history_invalid' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n",
+        "retained_tail": "\u2716 a missing retained opt-out cannot revive an older consent record in selection, lists or recovery (24.717635ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 234.299536\n\n\u2716 failing tests:\n\ntest at zero/marketing-audience-recovery.test.js:13:1\n\u2716 a missing retained opt-out cannot revive an older consent record in selection, lists or recovery (24.717635ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-audience-recovery.test.js:13:530)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { code: 'audience_history_invalid' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "earlier_unpublished_source_checks": [
+      {
+        "command": "npm run test:zero",
+        "source_commit": "c777b2b171e01753d07707e336bb4df4defae4a0",
+        "source_tree": "eac47ef62f2f6e4d047034861bf8cc2f9847e3ee",
+        "exit_code": 0,
+        "seconds": 103.94,
+        "log_sha256": "6def7a8f31d0c3e4257f727b99aae12fe5fcb43f2595e14f4ae5c034e0cd5d98",
+        "log_bytes": 107447,
+        "pass_count": 893,
+        "corpus_pass": 14,
+        "status": "PASS on earlier unpublished source only; superseded by final integrity source"
+      },
+      {
+        "command": "npm run test:zero",
+        "source_commit": "a32ea2be5758728d02b7164be2603935006bcaf6",
+        "source_tree": "2307b5fab90de9a89fd4bb054b93e0aa17b5dccd",
+        "exit_code": 0,
+        "seconds": 84.43,
+        "log_sha256": "193f67531613bd578f00372557e5507c9aaab1ca8ec5020a9aaa8a1de5e94413",
+        "log_bytes": 107526,
+        "pass_count": 894,
+        "corpus_pass": 14,
+        "status": "PASS on earlier unpublished source only; superseded by final integrity source"
+      }
+    ],
+    "scope": "Native and ZERO member and filter acknowledgements and terminal recovery; exact request fingerprint, actor/realm, original parent/member owner, retained immutable member row or filter snapshot, original vs latest revision, and bounded transactional receipts. Portable metadata stores a subject hash rather than the entered person reference. Later opt-out/filter changes remain current and cannot be overwritten by an old replay. Missing receipt-backed member revisions block selection/list/recovery instead of falling back to an earlier consent. Native hidden newer opt-out suppression remains unchanged. Durable absent-key closure, held original bodies, real lost response, encrypted restart, storage rollback, capability denial and authenticated identity revocation verified. Read observations expose typed pagination/context and current can_write.",
+    "remaining": "Own exact-tree complete full CI pending. Audience client still needs scoped browser recovery, strict presentation and eight-locale input-preserving controls; journey definition/activation/execution and other open production screens remain. Wider Run 2 gates remain unaccepted."
   }
 }
