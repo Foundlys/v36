@@ -498,3 +498,14 @@ Inventory is 668 candidates across 47 scripts, with the frozen main dashboard st
 ### CI execution budget after the measured job cap
 
 CI 196 began at 07:09:39 UTC and was cancelled at 07:19:39 UTC by the existing ten-minute job boundary. Its log reports 485 ZERO tests passed, zero failed, and 14 corpus passes, but the npm step/job has no successful conclusion and is not accepted as PASS. The full job budget is now twenty minutes. The npm test command, all assertions and individual test/provider timeouts are unchanged. This is execution capacity for the complete required suite; it does not satisfy or waive the separate performance/cost acceptance gate. Exact-head CI must finish successfully.
+
+
+### Continuation: owned workspace section labels and descriptions
+
+CI 197 passed the evidence-section head `848294fe2a15c19076d77495a470835a9b5c3d4b` and CI 198 passed the CI-budget head `cd69d6898e64880073f4852fefd7732d82633a78`. Both completed the full npm test process, 491 ZERO tests and 14 corpus cases. CI 196 remains a cancellation, not a pass.
+
+All 103 section names used by the shared workspaces now have explicit labels in eight locales. All 72 existing owned descriptions and the generic description also have explicit translations. Actual-controller tests enumerate the registered definitions and exercise repeated locale changes. Tabs, titles, descriptions and eyebrows update without changing canonical identifiers, selected-tab attributes, DOM identity, source names or request counts. Unknown section names remain literal, including prototype-shaped strings and markup-shaped text.
+
+Three permanent tests fail before the corresponding implementation. The final focused run passes 38 tests and native business workspace regression passes. Full CI for this later source tree remains pending; no full 494-test run is inferred from the focused result. The conservative inventory is 667 candidates across 47 scripts, with the main dashboard still at eight. The catalog is excluded from that inventory, so its small reduction is not a measure of translation completeness.
+
+Package/identity settings, shared domain forms and specialist/generated/backend copy remain open. Native browser, layout/accessibility, independent native-speaker and actual voice acceptance remain unverified. Wider cognition, semantic, demo, industry, adversarial and performance/cost gates remain unaccepted. No migration, real credential change, production mutation, main merge, deployment or Run 3 work occurred. Acceptance statuses remain unchanged.

@@ -39,6 +39,8 @@
   const boolean=value=>value===true?copy('yes'):value===false?copy('no'):unknown();
   const knownStates=new Set(['UNKNOWN','UNCONFIGURED','CONFIGURED','AUTHORIZING','AUTHENTICATED','PROBING','SYNCING','CONNECTED','DEGRADED','ERROR','EXPIRED','DISCONNECTED','REALTIME','NEAR_REALTIME','BATCH','STALE','CONFIGURED_UNVERIFIED','NOT_AVAILABLE']);
   const stateText=value=>knownStates.has(value)?copy('analysis.page.state.'+value.toLowerCase()):value===null||value===undefined||value===''?unknown():String(value);
+  const ownedSections=new Set(globalThis.FoundlyLocales?.workspaceSections||[]);
+  const sectionLabel=section=>ownedSections.has(section)?copy('section.'+section.toLowerCase().replaceAll(' ','_')):String(section??'');
   const sourceRows=()=>Array.isArray(state.snapshot?.sources)?state.snapshot.sources:[];
   function retireWorkspace(error){
     accessGeneration++;workspaceLoad++;registryLoad++;zeroTurn++;dashboardWrite=null;connectorSyncRequests.clear();lockDashboard(false);dashboardSession.beginLoad(dashboardSelectionKey());
@@ -53,80 +55,7 @@
     writeText(byId('workspaceRuntime'),copy('runtime_unavailable'));byId('workspaceRuntime').className='ConnectionBadge error';writeText(byId('sidebarStatus'),copy('check_required'));byId('sidebarStatusLight').className='error';
   }
 
-  const SECTION_COPY = Object.freeze({
-    EVENT_PREPARATION:['Afspraak voorbereiden','Van beschrijving naar gecontroleerde afspraakvelden en afzonderlijke bevestiging.'],
-    OVERVIEW: ['Command dashboard', 'Werkelijke tenantdata, actuele bronstatus en operationele signalen voor deze workspace.'],
-    DATASETS: ['Datasets', 'Canonical tenantdatasets met schema-, lineage-, freshness- en retentiecontracten.'],
-    SOURCES: ['Sources', 'Bronbeschikbaarheid, provenance, laatste succesvolle observatie en recorddekking.'],
-    INGESTION: ['Ingestion', 'Provider- en interne ingestie wordt alleen getoond wanneer een echte poging of record bestaat.'],
-    SCHEMAS: ['Schemas', 'Versies en contracten van de canonical data layer; geen afgeleide schijnstatus.'],
-    LINEAGE: ['Lineage', 'Herkomst en transformatieketen van persistente records.'],
-    QUALITY: ['Data quality', 'Gevalideerde issues, afwijzingen en ontbrekende bewijsvelden.'],
-    FRESHNESS: ['Freshness', 'Werkelijk gemeten bron- en recordactualiteit.'],
-    CONFLICTS: ['Conflicts', 'Persistente synchronisatieconflicten die menselijke of deterministische oplossing vragen.'],
-    SYNC: ['Sync', 'Connectorcheckpoints, pogingen en geïsoleerde fouten.'],
-    RETENTION: ['Retention', 'Tenant- en bronspecifieke bewaarbeleidcontracten.'],
-    OFFLINE: ['Offline', 'Durable outbox- en herstelstatus zonder lokale schijnsuccessen.'],
-    EXPORTS: ['Exports', 'Permission-gated exports van uitsluitend zichtbare werkelijke records.'],
-    EVIDENCE: ['Evidence', 'Ondersteunende bronnen en bewijsrelaties voor kennisobjecten.'],
-    INSIGHTS: ['Insights', 'Gevalideerde inzichten met confidence en geldigheid.'],
-    DOCUMENTS: ['Documents', 'Tenantdocumenten die door rechten en provenance worden begrensd.'],
-    MEMORY: ['Memory', 'Begrensd en verwijderbaar tenantgeheugen.'],
-    CONFIDENCE: ['Confidence', 'Vastgelegde confidence; niet beschikbare scores blijven onbekend.'],
-    VALIDITY: ['Validity', 'Geldigheidsvensters en freshness van kennis.'],
-    SUPERSESSION: ['Supersession', 'Versies en expliciete vervanging van achterhaalde kennis.'],
-    SEARCH: ['Search', 'Zoeken binnen de werkelijke records en bronnen van deze workspace.'],
-    AUDIT: ['Audit', 'Tenant-scoped acties en beslissingen met redacted metadata.'],
-    RECOMMENDATIONS: ['Recommendations', 'Persistente aanbevelingen; modeloutput is geen bewezen resultaat.'],
-    OUTCOMES: ['Outcomes', 'Werkelijk vastgelegde uitkomsten gekoppeld aan aanbevelingen.'],
-    FEEDBACK: ['Feedback', 'Expliciete gebruikers- en systeemfeedback.'],
-    SUCCESS: ['Confirmed success', 'Alleen geëvalueerde, bevestigde succesvolle uitkomsten.'],
-    FAILURES: ['Failures', 'Geïsoleerde fouten en bevestigde negatieve uitkomsten.'],
-    CALIBRATION: ['Calibration', 'Regelkalibratie op geëvalueerde uitkomsten; geen claim van automatische modeltraining.'],
-    'RULE VERSIONS': ['Rule versions', 'Versiebeheer voor deterministische regels en besliscontracten.'],
-    'MODEL VERSIONS': ['Model versions', 'Vastgelegde modelversies zonder onbewezen retrainingclaim.'],
-    LESSONS: ['Lessons', 'Evidence-backed lessen uit feedback en uitkomsten.'],
-    WORKFLOWS: ['Workflows', 'Versiebeheerde workflows binnen de bestaande Foundly Automation-engine.'],
-    TRIGGERS: ['Triggers', 'Audited triggers met tenant- en idempotencygrenzen.'],
-    ACTIONS: ['Actions', 'Geregistreerde acties; risicovolle uitvoer vereist expliciete bevestiging.'],
-    RUNS: ['Runs', 'Werkelijke workflow-uitvoeringen met status en poging.'],
-    APPROVALS: ['Approvals', 'Openstaande menselijke goedkeuringen voor high-risk acties.'],
-    RETRIES: ['Retries', 'Begrensde retries met back-off en foutisolatie.'],
-    DEPENDENCIES: ['Dependencies', 'Connector- en capability-afhankelijkheden per workflow.'],
-    CONNECTED: ['Connected', 'Alleen connectors met autorisatie, geslaagde probe en vereiste bootstrap of sync.'],
-    'AWAITING ACCESS': ['Awaiting access', 'Adapters die gereed zijn maar legitieme provider- of partnergoedkeuring vereisen.'],
-    UNCONFIGURED: ['Unconfigured', 'Beschikbare connectorcontracten waarvoor nog configuratie nodig is.'],
-    DEGRADED: ['Degraded', 'Gekoppelde providers met een aantoonbaar gedeeltelijk probleem.'],
-    ERROR: ['Error', 'Connectorpogingen met een veilige foutcode; geheimen worden nooit weergegeven.'],
-    ALL: ['Connector catalog', 'Het volledige centrale connectorregister met één truthful lifecycle.'],
-    INBOX: ['Inbox', 'Tenantcommunicatie over werkelijk gekoppelde kanalen.'],
-    EMAIL: ['Email', 'E-mailcapaciteit en records, alleen wanneer de provider werkelijk is gekoppeld.'],
-    WHATSAPP: ['WhatsApp', 'WhatsApp Business-status en gesigneerde webhookrecords.'],
-    CALENDAR: ['Calendar', 'Agenda-items uit interne of werkelijk gekoppelde agenda’s.'],
-    VOICE: ['Voice', 'ZERO Realtime-capability zonder claim van voice cloning.'],
-    NOTIFICATIONS: ['Notifications', 'Werkelijke tenantnotificaties en afleverstatus.'],
-    TEMPLATES: ['Templates', 'Beheerde communicatieformats zonder automatische verzending.'],
-    AUTOMATIONS: ['Automations', 'Veilige koppeling met de bestaande audited Automation-engine.'],
-    CAMPAIGNS: ['Campaigns', 'Campagnegegevens uit canonical events en gekoppelde providers.'],
-    META: ['Meta', 'Meta, Facebook en Instagram-capabilities met gescheiden configuratie en runtimebewijs.'],
-    'GOOGLE ADS': ['Google Ads', 'Google Ads-data en measurementstatus zonder fictieve performance.'],
-    SOCIAL: ['Social', 'Sociale kanalen en werkelijk beschikbare content- of leadrecords.'],
-    LEADS: ['Leads', 'Canonical en CRM-gekoppelde leads met bronprovenance.'],
-    ATTRIBUTION: ['Attribution', 'Versiebeheerde attributie zonder omzet- of margedubbeltelling.'],
-    CONVERSIONS: ['Conversions', 'Provider- en canonical conversies met aparte ontvangst- en processingstatus.'],
-    CREATIVE_REVIEWS: ['Creatieve beoordelingen', 'Exacte inhoud, aangewezen beoordelaars en vastgelegde besluiten. Goedkeuring publiceert niets.'],
-    AUDIENCES: ['Audiences', 'Alleen providerbevestigde of persistente audience-objecten.'],
-    CREATIVES: ['Creatives', 'Werkelijke creative records; niets wordt als live gepubliceerd zonder providerreceipt.'],
-    MEASUREMENT: ['Measurement', 'Meta CAPI, GA4 Measurement Protocol en enhanced-conversion contracten.'],
-    PROVISIONER: ['Auto-Provisioner', 'Configureert één tenant op de gedeelde Foundly Core; maakt geen klantfork of demo-businessdata.'],
-    SECURITY: ['Security', 'Authenticatie, encryptie, toestemming en permission boundaries.'],
-    PERSISTENCE: ['Persistence', 'Werkelijke storage- en mountstatus van de runtime.'],
-    TENANT: ['Tenant', 'Actieve tenantidentiteit en capability-profiel.'],
-    USERS: ['Users', 'Gebruikersbeheer blijft permission-gated.'],
-    ROLES: ['Roles', 'Actieve rol- en permissioncontext.'],
-    CAPABILITIES: ['Capabilities', 'Capability-aware toegang tot één gedeeld Foundly-systeem.'],
-    ZERO: ['ZERO', 'De ene Foundly-assistent met gedeelde context, tools, geheugen en provenance.']
-  });
+  const describedSections=new Set(globalThis.FoundlyLocales?.workspaceSectionDescriptions||[]);
 
   function node(tag, className, text) {
     const element = document.createElement(tag);
@@ -206,7 +135,7 @@
 
   function renderTabs() {
     const tabs = (state.workspace?.sections || []).map((section, index) => {
-      const button = node('button', index === 0 ? 'active' : '', section === 'FORECAST_HIERARCHIES' ? 'Prognosehiërarchie' : section === 'FORECAST_SNAPSHOTS' ? 'Bewaarde prognoses' : section === 'AWARDS' ? 'Voorstellen en beoordelingen' : section);
+      const button = node('button', index === 0 ? 'active' : '', sectionLabel(section));
       button.type = 'button';
       button.id = `workspace-tab-${index}`;
       button.setAttribute('role', 'tab');
@@ -701,10 +630,11 @@
   }
 
   function renderContext(section) {
-    const [title, description] = SECTION_COPY[section] || [section.replaceAll('_', ' '), `Dit onderdeel gebruikt uitsluitend de bestaande ${state.workspace?.label || 'Foundly'}-contracten en werkelijke tenantdata.`];
-    byId('contextEyebrow').textContent = `${state.workspace?.short_label || 'WORKSPACE'} · ${section}`;
-    byId('contextTitle').textContent = title;
-    byId('contextDescription').textContent = description;
+    const description = describedSections.has(section)?copy('section_description.'+section.toLowerCase().replaceAll(' ','_')):copy('section_description_fallback',{workspace:state.workspace?.label||'Foundly'});
+    const workspaceLabel=state.workspace?.short_label||'WORKSPACE';
+    writeText(byId('contextEyebrow'),live(()=>`${workspaceLabel} · ${sectionLabel(section)}`));
+    writeText(byId('contextTitle'),sectionLabel(section));
+    writeText(byId('contextDescription'),description);
     const content = byId('contextContent'), items = [];
     if(state.workspaceId==='settings'&&['USERS','ROLES'].includes(section)){renderIdentityUsers(section,content);return;}
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}

@@ -3519,13 +3519,29 @@
     "targeted_tests": 60,
     "targeted_pass": 60,
     "native_regression": "business-workspaces-regression-test.js completed exit 0. Its static design/accessibility assertions are not actual browser/layout/assistive technology acceptance.",
-    "full_zero_current_tree": "PENDING full CI; prior exact connector checkpoint has 485/485 ZERO and 14/14 corpus passes. No full 491-test run is claimed here.",
+    "full_zero_current_tree": "CI 197 PASS: complete npm test, 491 ZERO tests and 14 corpus cases for the published evidence-section head.",
     "before_fix": "All six initial controller tests fail locale binding, observation validation, same-section request ordering, retired-workspace response suppression, explicit field coverage or typed status copy. A later contradictory unavailable-with-records case also fails before tightening the observation contract.",
     "scope": "Shared generic evidence sections localize owned loading/status/empty/export/open messages and registered field labels across all eight locales. Known UTC dates, exact integer counts and bounded confidence retain unknown values without zero coercion. Money fields use their declared currency. Customer/provider strings, unknown field names, IDs and nested source objects remain literal and inert. Locale changes retain DOM nodes, source values and request count. Explicit null fields remain visible as unknown; the existing 18-field display limit now states shown versus returned fields. Responses must match the requested workspace and section, explicit status and valid item shape; missing/malformed/contradictory observations cannot become a successful empty list. Per-container observation tokens, workspace/section identity and access generation suppress old results/errors after refresh, navigation or denial.",
     "remaining": "SECTION_COPY/context headings, workspace tabs, package composition, identity/settings controls, shared domain forms and specialist/generated/backend content remain open; conservative inventory is 668 candidates across 47 scripts and is not exhaustive. Native browser, layout/accessibility and native-speaker acceptance remain unverified. Generic connector slices do not close specialized/bulk provider authority, profile identity/OAuth races, receipt retention, invalid limits or the broader cognition/semantic/demo/industry/adversarial/performance/voice gates.",
     "storage_change": "None. No server API contract change, migration, credential change, actual data/provider mutation, main merge or deployment. Frozen main dashboard source remains unchanged.",
     "evidence_limit": "The actual shared controller runs in a minimal DOM with explicitly controlled HTTP responses, plus native workspace regression. This is not native browser, live provider, layout, assistive technology or native-speaker evidence.",
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 197,
+      "id": 36107162591,
+      "job_id": 107982223922,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "848294fe2a15c19076d77495a470835a9b5c3d4b",
+      "tree": "2d9d3ec1fea50bb94be13a684b02a97028597b2a",
+      "full_npm_test": "PASS",
+      "zero_tests": 491,
+      "zero_pass": 491,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "be0d7f412710abbea1961105b00f53cf520214ba019bd71446c6d3560a6490b5",
+        "bytes": 311815
+      }
+    },
     "dynamic_candidates": 668
   },
   "ci_budget_checkpoint": {
@@ -3555,6 +3571,90 @@
     "scope": "Raises the existing complete CI job limit from 10 to 20 minutes because the expanded sequential regression reached the actual ten-minute job cap immediately after reporting ZERO/corpus results. The existing npm test command, required tests, per-test/provider timeouts, assertions and failure behavior are unchanged. A successful process/job conclusion remains mandatory; cancellation is not accepted as PASS. No performance/cost gate is waived.",
     "workflow_sha256": "edea10937ef38ca34a60be527676cf0875502db0ae09a089b417b785b3962481",
     "validation": "Diff reviewed: comments and timeout-minutes only; npm test/package.json unchanged. New exact-head CI pending.",
-    "current_ci": "PENDING_PUBLICATION"
+    "current_ci": {
+      "number": 198,
+      "id": 36107446165,
+      "job_id": 107983119316,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "cd69d6898e64880073f4852fefd7732d82633a78",
+      "tree": "3d148395c936dad501399b0a48d99b180a30e970",
+      "full_npm_test": "PASS",
+      "zero_tests": 491,
+      "zero_pass": 491,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "44b5104ab5b93d324131b500c6bce77a3ba39158015ee662d20c0188b8aca1e9",
+        "bytes": 311855
+      }
+    }
+  },
+  "workspace_section_copy_checkpoint": {
+    "recorded_at": "2026-09-25T07:42:29.919795+00:00",
+    "prior_ci": {
+      "number": 198,
+      "id": 36107446165,
+      "job_id": 107983119316,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "cd69d6898e64880073f4852fefd7732d82633a78",
+      "tree": "3d148395c936dad501399b0a48d99b180a30e970",
+      "full_npm_test": "PASS",
+      "zero_tests": 491,
+      "zero_pass": 491,
+      "corpus_pass": 14,
+      "log": {
+        "sha256": "44b5104ab5b93d324131b500c6bce77a3ba39158015ee662d20c0188b8aca1e9",
+        "bytes": 311855
+      }
+    },
+    "source_sha256": {
+      "foundly-workspace.js": "f72eccb48830dfd7de72ba987d2f7798e029e4235609daeeaf1cdfa93580c8fc",
+      "foundly-locales.js": "24719af3a3710405df6979981d9d6df00f544f9b7efb914343c6146fa363c600",
+      "zero/workspace-section-labels.test.js": "d257286d672355838dedacf6e4684dd58d7fd1428fd21477122c54727a0f69a4"
+    },
+    "new_tests": 3,
+    "targeted_tests": 38,
+    "targeted_pass": 38,
+    "logs": {
+      "run2-workspace-section-labels-before.log": {
+        "sha256": "47189917258b557abb86f3f8621c5ac810fe82364e0b5067a0d8053bde614983",
+        "bytes": 2055,
+        "exit_code": 1
+      },
+      "run2-workspace-section-labels-after.log": {
+        "sha256": "f4cbb249aa01a6edc09caaf21d21b3ce23159ddb9103aff0a21ee62de7bb5a84",
+        "bytes": 355,
+        "exit_code": 0
+      },
+      "run2-workspace-section-descriptions-before.log": {
+        "sha256": "6bef105b0748b7d362a8362c608b7871542c7d9f7647872122320f63fa1e985b",
+        "bytes": 1483,
+        "exit_code": 1
+      },
+      "run2-workspace-section-copy-targeted.log": {
+        "sha256": "af5e6f6a98e46a83d7406a1a381c33a223e4c34ec98e32864f90f88252c960df",
+        "bytes": 4725,
+        "exit_code": 0
+      },
+      "run2-workspace-section-copy-verified.log": {
+        "sha256": "12bf35776ea43be4e6e41e40869d14a0670a40cf6818ccffa3a60b6fa136b59f",
+        "bytes": 4723,
+        "exit_code": 0
+      },
+      "run2-workspace-section-native.log": {
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254,
+        "exit_code": 0
+      }
+    },
+    "scope": "All 103 registered shared-workspace section names have explicit labels in each of the eight locales. All 72 existing owned section descriptions and the parameterised generic description are explicitly translated. The actual workspace controller updates tabs, context titles, eyebrows and descriptions in place. Canonical section IDs, selected-tab attributes, DOM identities, literal workspace/source names and request counts are preserved. Unknown section names, including prototype-shaped names, remain literal and inert. Coverage enumerates actual WORKSPACE_DEFINITIONS rather than a hand-maintained test subset.",
+    "native_regression": "business-workspaces-regression-test.js PASS (exit 0); its static design/accessibility assertions are not browser, layout or assistive-technology acceptance.",
+    "full_zero_current_tree": "PENDING exact published-head CI; no full 494-test run is claimed from the 38-test focused run.",
+    "current_ci": "PENDING_PUBLICATION",
+    "evidence_limit": "Actual controller in a minimal DOM and native server workspace regression. Explicit translations are not independent native-speaker review. Real browser, layout/accessibility and native-speaker gates remain unverified.",
+    "dynamic_candidates": 667,
+    "remaining": "Package composition, identity/settings controls, shared domain forms and specialist/generated/backend copy remain code-controlled Phase 8 gaps. Full localization and broader cognition, semantic, demo, industry, security/adversarial, performance/cost and voice gates remain unaccepted. Specialized/bulk provider authority, profile/OAuth races, receipt retention and invalid limits remain open.",
+    "storage_change": "None. No migration, credential change, production operation, main merge or deployment. Frozen main dashboard source unchanged; Run 3 not started."
   }
 }
