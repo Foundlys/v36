@@ -3069,11 +3069,11 @@
       "number": 192,
       "id": 36078945131,
       "job_id": 107896333555,
+      "status": "completed",
+      "conclusion": "success",
       "head": "f6331e8cb72e5f6ca545ad03c1b523d7e9ee9f93",
       "tree": "6a1d0a37cc5d36fa9d2f23599bda1bcfab19796f",
-      "status": "in_progress",
-      "conclusion": null,
-      "observed_at": "2026-09-25T00:52:40.465633+00:00"
+      "full_npm_test": "PASS"
     }
   },
   "connector_registry_observation_checkpoint": {
@@ -3123,6 +3123,125 @@
     "storage_change": "No storage change, migration, credential mutation or deployment. Public metadata enum now includes UNKNOWN; retained-record availability is distinct from proven synchronization.",
     "remaining": "Generic native sync still fetches without ingestion, and older integratedSync must be reconciled safely, not duplicated. Current-principal checks around provider waits, atomic import/receipt/count bounds, source-of-truth isolation and first authorized bootstrap interaction remain code-controlled gaps. OAuth rollback concurrency, legacy credential caller recovery, shared section/domain localization and wider Run-2 acceptance remain open.",
     "evidence_limit": "Real registry builders and production controllers plus native masterbuild HTTP with isolated provider fixtures; not live provider, complete ingestion, real browser/accessibility, native-speaker or Run-2 PASS evidence.",
+    "current_ci": {
+      "number": 193,
+      "id": 36079687054,
+      "job_id": 107898664567,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "dced1b127dd8e5251d39321b52394342835b48fc",
+      "tree": "597fd2398410c217ae299ce0f9345b1f3d76c88a",
+      "full_npm_test": "PASS"
+    },
+    "dynamic_candidates": 674
+  },
+  "connector_source_import_checkpoint": {
+    "recorded_at": "2026-09-25T06:37:53.793469+00:00",
+    "prior_published_head": "dced1b127dd8e5251d39321b52394342835b48fc",
+    "prior_published_tree": "597fd2398410c217ae299ce0f9345b1f3d76c88a",
+    "prior_ci": {
+      "number": 193,
+      "id": 36079687054,
+      "job_id": 107898664567,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "dced1b127dd8e5251d39321b52394342835b48fc",
+      "tree": "597fd2398410c217ae299ce0f9345b1f3d76c88a",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "connector-source-sync.js": "3e582ce4fa2d5d0cdb40b58ddee9407ace1a7a5247663d46e21b283ace1802d6",
+      "server.js": "cb3bd9118c77e52c17c67be61e3e7503cc1d3c6379aa157e94de4274f64cc213",
+      "foundly-workspace.js": "a7ec441d981b55739d0cd24f603b7a1e606a317c7f821a668c272043453e9027",
+      "foundly-locales.js": "1de89cd6d0c83cd999db339f8e5954bc72ea3bd2ec49e1f2c250301fd8eef3eb",
+      "zero-evaluation/connector-source-fixture.js": "212a085fced7b6714507c80c24b81c51768579a66a6288f66b35fcdbeec16794",
+      "zero/connector-source-sync-api.test.js": "21843a321d3526ec7e198a2804d5906cb923e96955f0911cae68572ef6487bf9",
+      "zero/workspace-connector-integrity.test.js": "2e87e2728330dbb2081755fbbb34997592184bbd25428a8c76ad975f52d0eb09"
+    },
+    "logs": {
+      "run2-connector-sync-before.log": {
+        "exit_code": 1,
+        "sha256": "0a280dcfb13092daa157438d56fa5fc5656e31d337ead59ea9e8b4a57319adff",
+        "bytes": 4569
+      },
+      "run2-connector-sync-targeted.log": {
+        "exit_code": 1,
+        "sha256": "628cfa692418d5cef0c1873aad2f59b3b04b90b19d5829d069b8594a7606c22e",
+        "bytes": 2238
+      },
+      "run2-connector-sync-source-followup.log": {
+        "exit_code": 1,
+        "sha256": "84a08b02255ae751e01d79bc94808f58e3e7192e24223d2936a2c41a679f1d86",
+        "bytes": 5022
+      },
+      "run2-connector-sync-revision-before.log": {
+        "exit_code": 1,
+        "sha256": "582b552db84e64ee860120c676ea6b9961b2d849c6e0b046843a2333adcfc585",
+        "bytes": 2024
+      },
+      "run2-connector-sync-boundary-before.log": {
+        "exit_code": 1,
+        "sha256": "d34cd719ed008506d249d4c50d13c82c0de8523f595a96f44553848b13c9638c",
+        "bytes": 4763
+      },
+      "run2-connector-sync-native-final.log": {
+        "exit_code": 0,
+        "sha256": "b41ab4fa523e0c5a44a0bb684c66c301153847030648b628aa368c9377fa21df",
+        "bytes": 854
+      },
+      "run2-connector-sync-ui-before.log": {
+        "exit_code": 1,
+        "sha256": "b4ebda6c40e89f58f0e749c941ec839590a0a40e2d371421931c5d934331fbf3",
+        "bytes": 1819
+      },
+      "run2-connector-sync-ui-targeted.log": {
+        "exit_code": 0,
+        "sha256": "600ca934409451ec91a769b6e40a871a4a055655b1e46c158687de321c4440d0",
+        "bytes": 1871
+      },
+      "run2-connector-sync-time-before.log": {
+        "exit_code": 1,
+        "sha256": "44054a35e0906f12215dbfabb1eb9da8c4b4aa557efc4220f5637712cb63776d",
+        "bytes": 1149
+      },
+      "run2-connector-sync-verified.log": {
+        "exit_code": 0,
+        "sha256": "169aa2ca2e7dccfcc65c8d1f926a258c43295428a5e6fccb442d7e101aa275df",
+        "bytes": 3590
+      },
+      "run2-connector-sync-dns-before.log": {
+        "exit_code": 1,
+        "sha256": "7710af2ffd1fb527b6713e330ca03aa939580f002cdff0b705241c603eaedc0e",
+        "bytes": 1005
+      },
+      "run2-connector-sync-visibility-before.log": {
+        "exit_code": 1,
+        "sha256": "167c405ab67b9bf1edd9bbb8f47708ca55184ef6aa263e4f41d058ed7e98ff2f",
+        "bytes": 1096
+      },
+      "run2-connector-sync-authority-targeted.log": {
+        "exit_code": 0,
+        "sha256": "aa3baca1c95bc0820525779014ddc6b6c8124e0c0503f9ec9e8d0c2ec5ce6d2d",
+        "bytes": 351
+      },
+      "run2-connector-sync-zero.log": {
+        "exit_code": 0,
+        "sha256": "08b4eb161e479dd525e6a660ca024f35861754b752e6a53e65890bdfa3799a0e",
+        "bytes": 54989
+      }
+    },
+    "new_tests": 10,
+    "full_zero_tests": 465,
+    "full_zero_pass": 465,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": "Masterbuild and current-principal connector regressions passed after initial source/metadata corrections. Later DNS/current-read authority amendments pass their targeted native cases and the final full 465 ZERO suite. Complete new-tree npm regression is pending exact published-head CI.",
+    "before_fix": "Five original native tests all failed missing ingestion, malformed page acceptance, permission/configuration changes during provider waits and absent atomic recovery. Follow-ups reproduce truncated source strings, ignored same-content configuration revisions, divergent legacy/native retry identity, invented provider observation time, provider request release after DNS revocation and source-body disclosure to a reader/disabled module. Two actual-controller tests fail first bootstrap availability and wrong-request success acknowledgement. All failures and fixture mistakes remain recorded.",
+    "scope": "The generic runtime and older generic integratedSync branch now share one bounded native source importer over the existing transport and encrypted adapter. GET JSON record pages (array or one explicit data/items/results array) up to 2 MiB/1000 items are validated before mutation. Missing/ambiguous mappings, duplicate identities with contradictory content and unrepresentable integers reject without partial writes. Stable source envelopes remain separate from customer-owned objects; provider fields cannot change tenant, connector, provenance or canonical records. Source text is redacted without the old 8000-character truncation, and explicit unknown provider observation dates remain unknown on read. Atomic source rows, per-actor request receipts and audit recover failed disk commits, dropped HTTP replies and restart. Concurrent retries share one provider read. Exact changed/unchanged/created/duplicate counts describe only the fetched page; source_complete remains false. Permission and configuration are checked after DNS before the provider request and after its response before persistence. Imported bodies require current connector management and the relevant enabled owner module. Current matching durable import proof supplies sync-state evidence and scheduling time. UI permits first import after a confirmed probe, freezes key/revision through uncertainty, and requires matching proof and coherent counts before confirming source storage.",
+    "storage_change": "Adds encrypted platform:connector_import_receipts and typed connector_source_observation rows within existing Data persistence. Receipts, source rows and native audit commit in one existing atomic encrypted snapshot. No destructive backfill, removal of historical rows or customer-entity promotion. Source capacity fails before adding beyond the configured retained-record limit; receipt capacity fails at 200000 rather than silently forgetting old requests. Configuration remains in its existing encrypted store. No real credentials, provider writes, production mutation, main merge or deployment.",
+    "fixture_corrections": "Early follow-up tests looked for external source envelopes in the canonical-only workspace Data list, then used an incorrect /api/data/data route. The fixture now reads the existing /api/module/data/data contract and verifies its actual retained source rows. The erroneous test attempts are preserved and are not represented as product persistence failures. A correct-path follow-up separately demonstrated real source-text truncation, revision and legacy-replay defects.",
+    "remaining": "Provider-specific older bootstrap paths (Meta/Google/LinkedIn/TikTok/Wix), generic native probe authorization/configuration races, unsupported provider JSON/XML/POST mappings, governed promotion into customer objects, first-class workspace source browsing, broader source field/schema localization, browser-reload recovery and receipt retention remain open. No full enterprise migration/Connector Factory or Run 3 is claimed. Credential OAuth rollback/concurrent profile identity handling, legacy unguarded writes/deletes, invalid environment limit validation, Finance compound recovery, CRM/Analysis metadata and the larger cognition/adversarial/performance/demo/voice/browser/native-speaker gates remain code-controlled or honestly externally unverified as recorded.",
+    "evidence_limit": "Real HTTP, identities, composition, encrypted persistence and restart; controlled provider response/DNS/disk/socket boundaries are explicit isolated fixtures with no live provider evidence. Current Data source envelopes are read through the existing module Data API; the canonical-record workspace list is not claimed to include them. Page persistence does not establish full provider synchronization, customer truth, browser accessibility, voice or Run-2 PASS.",
     "current_ci": "PENDING_PUBLICATION",
     "dynamic_candidates": 674
   }

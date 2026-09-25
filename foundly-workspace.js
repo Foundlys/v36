@@ -22,7 +22,7 @@
 
   let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0,dashboardWrite=null;
   const dashboardControlState=new Map();
-  let connectorView=0,connectorSession=null;const connectorForms=new WeakMap(),connectorActions=new Set();
+  let connectorView=0,connectorSession=null;const connectorForms=new WeakMap(),connectorActions=new Set(),connectorSyncRequests=new Map();
   const liveMessages=new WeakMap(),liveBindings=new Set();
   const i18n=()=>globalThis.FoundlyI18n;
   const copy=(key,params={})=>i18n()?.message(key.startsWith('common.')||key.startsWith('module.')||key.startsWith('analysis.')?key:'workspace.page.'+key,params)||key;
@@ -41,7 +41,7 @@
   const stateText=value=>knownStates.has(value)?copy('analysis.page.state.'+value.toLowerCase()):value===null||value===undefined||value===''?unknown():String(value);
   const sourceRows=()=>Array.isArray(state.snapshot?.sources)?state.snapshot.sources:[];
   function retireWorkspace(error){
-    accessGeneration++;workspaceLoad++;registryLoad++;zeroTurn++;dashboardWrite=null;lockDashboard(false);dashboardSession.beginLoad(dashboardSelectionKey());
+    accessGeneration++;workspaceLoad++;registryLoad++;zeroTurn++;dashboardWrite=null;connectorSyncRequests.clear();lockDashboard(false);dashboardSession.beginLoad(dashboardSelectionKey());
     document.title='Foundly OS';
     Object.assign(state,{workspace:null,dashboard:null,snapshot:null,sources:[],connectors:[],navigation:[],editing:false,draggedWidget:null,conversationId:null,communicationZeroToken:(state.communicationZeroToken||0)+1});
     for(const id of ['dashboardGrid','recordHead','recordRows','sourceMatrix','sourceRegistryGrid','connectorGrid','globalSearchResults','contextContent','metricDialogContent','connectorDetail','zeroActions','globalNav','workspaceTabs'])replaceChildren(byId(id));
@@ -619,11 +619,12 @@
       if (!form.children.length) form.append(node('p', 'panel-copy', String(connector.auth_type||'').includes('PUBLIC')?copy('connector_public'):copy('connector_no_fields')));
       const session={id:connectorId,form,current,busy:false,revision:config?.ok===true&&Number.isSafeInteger(config.revision)&&config.revision>=0?config.revision:null,pending:null,conflict:false};connectorForms.set(form,session);connectorSession=session;
       setupChildren.push(form);
+      const canSync=connector.configuration_state==='CONFIGURED'&&connector.probe_state==='PASS'&&['AUTHENTICATED','AUTHENTICATED_PUBLIC'].includes(connector.authentication_state);
       const actions = node('div', 'connector-actions');
       if (form.querySelector('input')) { const save = node('button', 'primary-button', copy('connector_save')); save.type = 'submit'; actions.append(save); form.addEventListener('submit', saveConnector); }
       if (connector.callback_contract?.required===true) { const authorize = node('a', 'primary-button',copy('connector_authorize')); authorize.href = oauthPath(connector);authorize.addEventListener('click',event=>{if(!current()||session.busy)event.preventDefault();}); actions.append(authorize); }
       const test = node('button', 'secondary-button',copy('connector_test')); test.type = 'button'; test.addEventListener('click', () => current()&&test.isConnected&&!session.busy?testConnector(connector.connector_id):undefined); actions.append(test);
-      if (connector.connection_state === 'CONNECTED') { const sync = node('button', 'secondary-button',copy('connector_sync')); sync.type = 'button'; sync.addEventListener('click', () => current()&&sync.isConnected&&!session.busy?syncConnector(connector.connector_id):undefined); actions.append(sync); }
+      if (canSync) { const sync = node('button', 'secondary-button',copy('connector_sync')); sync.type='button';session.syncControl=sync;sync.addEventListener('click', () => current()&&sync.isConnected&&!session.busy?syncConnector(connector.connector_id):undefined); actions.append(sync); }
       form.append(actions);
       const setup = panel('SETUP', setupChildren);
       const authentication = panel('AUTHENTICATION', [
@@ -632,7 +633,7 @@
         node('p','panel-copy',live(()=>copy('connector_scopes',{scopes:(connector.required_scopes||[]).join(', ')||String(copy('connector_no_scopes'))})))
       ]);
       const data=panel('DATA',[detailFact(copy('records'),count(connector.records)),detailFact(copy('freshness'),connectorState(connector.freshness)),detailFact(copy('scope'),connector.tenant_scope),node('p','panel-copy',copy('connector_records_note'))]);
-      const syncPanel=panel('SYNC',[detailFact(copy('sync'),connectorState(connector.sync_state)),detailFact(copy('last_sync'),connector.last_sync?time(connector.last_sync):connector.sync_state==='NOT_RUN'?copy('not_run'):unknown()),node('p','panel-copy',copy(connector.connection_state==='CONNECTED'?'connector_sync_available':'connector_sync_disabled'))]);
+      const syncPanel=panel('SYNC',[detailFact(copy('sync'),connectorState(connector.sync_state)),detailFact(copy('last_sync'),connector.last_sync?time(connector.last_sync):connector.sync_state==='NOT_RUN'?copy('not_run'):unknown()),node('p','panel-copy',copy(canSync?'connector_sync_available':'connector_sync_disabled'))]);
       const eventsPanel=panel('EVENTS',[node('div','EmptyState NoDataState',copy('connector_no_events'))]);
       const errors=panel('ERRORS',[connector.safe_error?node('p','connector-safe-error',connector.safe_error):node('div','EmptyState NoDataState',copy('connector_no_errors'))]);
       const audit=panel('AUDIT',[detailFact(copy('contract'),connector.documentation_reference),node('p','panel-copy',copy('connector_audit_note'))]);
@@ -680,14 +681,22 @@
   }
 
   async function syncConnector(connectorId) {
-    const key='sync:'+connectorId;if(connectorActions.has(key))return;connectorActions.add(key);
-    const session=connectorSession,current=()=>!session||session.current();
+    const session=connectorSession?.id===connectorId?connectorSession:null,ticket=connectorView,current=()=>session?session.current():ticket===connectorView;
+    const key='sync:'+connectorId;if(connectorActions.has(key)||session?.syncConflict)return;connectorActions.add(key);
+    let pending=connectorSyncRequests.get(connectorId);if(!pending){pending=Object.freeze({key:crypto.randomUUID(),expectedRevision:session?.revision??null,body:JSON.stringify(session?.revision===null||!session?{}:{expected_revision:session.revision})});connectorSyncRequests.set(connectorId,pending);}
+    if(session?.syncControl)session.syncControl.disabled=true;
     try{
-      const result=await request(`/api/connector-runtime/sync/${encodeURIComponent(connectorId)}`,{method:'POST',body:'{}'});if(!current())return;
-      const verified=result?.ok===true&&result.id===connectorId&&Number.isSafeInteger(result.ingested)&&result.ingested>=0;
+      const result=await request(`/api/connector-runtime/sync/${encodeURIComponent(connectorId)}`,{method:'POST',body:pending.body,headers:{'idempotency-key':pending.key}});if(!current())return;
+      const counts=['ingested','received','duplicate_items','created','updated','unchanged'];
+      const verified=result?.ok===true&&result.id===connectorId&&result.request_id===pending.key&&typeof result.proof_id==='string'&&/^[a-f0-9]{64}$/.test(result.proof_id)&&Number.isSafeInteger(result.configuration_revision)&&result.configuration_revision>=0&&(pending.expectedRevision===null||result.configuration_revision===pending.expectedRevision)&&counts.every(name=>Number.isSafeInteger(result[name])&&result[name]>=0)&&result.received-result.ingested===result.duplicate_items&&result.created+result.updated+result.unchanged===result.ingested&&result.target==='data'&&result.source_class==='EXTERNAL_PROVIDER_OBSERVATIONS'&&result.source_complete===false&&result.customer_objects_changed===false;
       toast(verified?live(()=>copy('connector_sync_count',{count:i18n().number(result.ingested)})):copy('connector_sync_unconfirmed'),!verified);
-      if(verified)await loadWorkspaceData();
-    }catch(error){if(current()&&!error.stale)toast(friendlyError(error),true);}finally{connectorActions.delete(key);}
+      if(verified){connectorSyncRequests.delete(connectorId);try{await loadWorkspaceData();}catch(error){if(current()&&!error.stale)toast(copy('connector_sync_refresh_failed'),true);}}
+    }catch(error){
+      if([400,404,409,412,413,422,428].includes(error.status)){connectorSyncRequests.delete(connectorId);if(session&&[409,412,428].includes(error.status))session.syncConflict=true;}
+      if(current()&&!error.stale)toast(error.status?friendlyError(error):copy('connector_sync_unconfirmed'),true);
+    }finally{
+      connectorActions.delete(key);if(session?.syncControl){session.syncControl.disabled=Boolean(session.syncConflict);writeText(session.syncControl,copy(connectorSyncRequests.has(connectorId)?'connector_retry':'connector_sync'));}
+    }
   }
 
   function renderContext(section) {
