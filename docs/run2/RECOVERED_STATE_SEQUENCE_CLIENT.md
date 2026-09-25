@@ -1,0 +1,11 @@
+# Same Run 2: Sales sequence production controls
+
+Frozen source `d081dabef40e30942b3d7cf11651229a3857def1`, tree `b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3`: all 1029 ZERO tests, 14 corpus cases and eight affected native commands PASS. Thirty-five new permanent tests cover the actual component, shared Sales navigation and native/ZERO HTTP reply loss across fresh browser VMs and encrypted server restart. Exact published full CI is pending.
+
+Definition authoring, exact plan preview/start, native execution, task completion, controls and outcome notes now preserve literal input and uncertain requests. Scoped browser storage retains only six metadata fields. Verified recovery separates original task/run/feedback proof from later reopened work or source observations; it never repeats a body. Eight locales update owned copy in place, including the selected operation, confirmation, mail input, transport and outcome note. Source catalogs paginate beyond one hundred records and global recovery reaches hidden-page runs. Shared navigation, current denial, readonly access, storage/cleanup failures and retired replies are guarded.
+
+Existing native and ZERO controls tests retain immutable versions, literal mail, preview invalidation, separate task completion and verification, native draft links, no messages/send effects, current-revision non-causal feedback, restart and access checks. Lost replies now require one mutation and exact metadata recovery. Actual HTTP tests explicitly assert both recovery transports, including fresh pending views. The public `refresh()` contract still returns an awaited read and respects unsaved input.
+
+The initial implementation and translation alias failure are preserved. The earlier exact freeze passed 1028 ZERO/corpus/native checks; a later compatibility inspection then reproduced the broken public refresh method. Its before/after test and superseded frozen evidence remain recorded. The final evidence comes from a clean source freeze after that correction. Native Sales recovery has complete exact-tree CI 230 PASS.
+
+The next open gate is Sales pipeline native recovery and production controls, followed by other open Run 2 acceptance gates. No global acceptance rows are promoted from these narrow behavioral checks. No main merge, deployment or Run 3 action.

@@ -8143,7 +8143,7 @@
   "native_sequence_recovery_20260925": {
     "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
     "source_tree": "cfab0f7b0035fd974e0c703ef2c9250a199bd55d",
-    "status": "Frozen full local ZERO/CORPUS/AFFECTED NATIVE PASS; exact published full CI pending",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE and exact published full CI 230 PASS",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "f5daee107cdbf465339f4f1c8054d9981827dae5",
@@ -8246,6 +8246,165 @@
     ],
     "evidence_notes": "Twelve baseline failures reproduced missing durable proof, an old start acknowledging a later paused run, and resume reactivating a closed opportunity. Both behavior defects are fixed. The initial draft-rights fixture removed explicit permissions but Sales retains default Communication read authority; the final fixture disables the Communication module and verifies the actual current denial. Original canonical sorted native fingerprints remain intact. Frozen source was clean for both accepted full runners.",
     "scope": "Private bounded six-field recovery for definition, start, advance, task completion, pause, resume, cancel and outcome feedback. Exact native snapshots, source/parent owners, task/draft effects and current records remain separate. Delayed bodies cannot execute after durable absence closure. Recovery never advances automatic work, reopens tasks, sends messages or changes opportunity observations. Native and ZERO explicit request identities, current capability checks after body wait, encrypted restart, rollback, tamper/legacy denial and metadata privacy are exercised. New sequence task completion uses existing native Sales tasks; generic task mutation remains compatible.",
-    "remaining": "Sales production browser controls still need scoped recovery, strict source verification, pagination and all eight locales. Other genuinely open Run 2 gates remain unaccepted."
+    "remaining": "Sales production browser controls still need scoped recovery, strict source verification, pagination and all eight locales. Other genuinely open Run 2 gates remain unaccepted.",
+    "published_ci_230": {
+      "published_commit": "f33671759633f48a9253ce7ac3fcd00188d42d87",
+      "published_tree": "fd18848f955f7c2a3bb95ca53eb657f6c62203d8",
+      "ci_merge_commit": "af65c50fd429e5b2515aee6b550d86a33971f07c",
+      "ci_merge_tree": "fd18848f955f7c2a3bb95ca53eb657f6c62203d8",
+      "run_id": 36177773868,
+      "job_id": 108212465359,
+      "run_number": 230,
+      "status": "PASS",
+      "zero_pass": 994,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "3a1c1099e06edbd1ec63094bad796bddaba434c5031421dc0e8c8317218320f2",
+      "log_bytes": 518919
+    }
+  },
+  "sequence_client_20260925": {
+    "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+    "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+    "status": "Frozen full local ZERO/CORPUS/AFFECTED NATIVE PASS; exact published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+      "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+      "exit_code": 0,
+      "seconds": 91.58,
+      "log_sha256": "3a23ed249db5acbedbaee7feb921271d339ff00597e99215b46d17ba949287a4",
+      "log_bytes": 123530,
+      "pass_count": 1029,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "sales-sequences-test.js",
+        "exit_code": 0,
+        "seconds": 0.45,
+        "sha256": "b2239191006ca83d4df7e97318f7956b5a766448954279870dc6a02d6eb90b1d"
+      },
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "sales-sequences-api-test.js",
+        "exit_code": 0,
+        "seconds": 9.55,
+        "sha256": "e9c5153e17e5a244c7e77d79c1f1560e8adac92a79c9f4cf7fe943fe84512266"
+      },
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "sales-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f"
+      },
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "sales-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 8.93,
+        "sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4"
+      },
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "sales-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.97,
+        "sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60"
+      },
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "sales-sequences-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.92,
+        "sha256": "dc44c79ecf00be9494a0250b86502eff2c2e7738d64f1c1a7f13dfa4ac380819"
+      },
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.4,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "d081dabef40e30942b3d7cf11651229a3857def1",
+        "source_tree": "b24b222e2c1ee50ed50bae006e3aa7681c7dd6e3",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 1.11,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      }
+    ],
+    "permanent_new_tests": 35,
+    "new_test_breakdown": {
+      "client": 27,
+      "shared_page": 4,
+      "native_and_zero_http": 4
+    },
+    "preserved_failures": [
+      {
+        "file": "sequence-client-before.log",
+        "sha256": "14070c83adfb0dbf828ec3d1acdb39963d8e3fcee922b8e27c0e642f5d1d006a",
+        "bytes": 8280,
+        "retained_head": "TAP version 13\n# Subtest: Sales sequence controls localize eight locales in place without changing literal input confirmation or native calls\nnot ok 1 - Sales sequence controls localize eight locales in place without changing literal input confirmation or native calls\n  ---\n  duration_ms: 110.583155\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:3:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    + actual - expected\n    \n    + 'Actie vastleggen'\n    - '⟦sales.sequence.save:nl-NL⟧'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: '⟦sales.sequence.save:nl-NL⟧'\n  actual: 'Actie vastleggen'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:3:293)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n  ...\n# Subtest: uncertain Sales execution recovers only metadata and cannot replay changed input or advance another step\nnot ok 2 - uncertain Sales execution recovers only metadata and cannot replay changed input or advance another step\n  ---\n  duration_ms: 85.237903\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:4:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    2 !== 1\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 1\n  actual: 2\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:4:261)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async Test.processPendingSubtests (node:internal/test_runner/",
+        "retained_tail": " '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:10:1'\n  failureType: 'testCodeFailure'\n  error: \"Cannot set properties of undefined (setting 'value')\"\n  code: 'ERR_TEST_FAILURE'\n  name: 'TypeError'\n  stack: |-\n    Object.fill (/workspace/scratch/foundly-run2/zero-evaluation/sales-sequence-client-fixture.js:11:500)\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:10:389)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n  ...\n# Subtest: sequence transport changes cannot discard an unsaved confirmation or an uncertain request\nnot ok 9 - sequence transport changes cannot discard an unsaved confirmation or an uncertain request\n  ---\n  duration_ms: 53.761612\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:11:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    'ZERO' !== 'NATIVE'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 'NATIVE'\n  actual: 'ZERO'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:11:240)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n  ...\n# Subtest: sequence recovery of a reopened task reports the superseded original completion without completing it again\nnot ok 10 - sequence recovery of a reopened task reports the superseded original completion without completing it again\n  ---\n  duration_ms: 51.712984\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:12:1'\n  failureType: 'testCodeFailure'\n  error: \"Cannot set properties of undefined (setting 'value')\"\n  code: 'ERR_TEST_FAILURE'\n  name: 'TypeError'\n  stack: |-\n    Object.fill (/workspace/scratch/foundly-run2/zero-evaluation/sales-sequence-client-fixture.js:11:500)\n    Object.save (/workspace/scratch/foundly-run2/zero-evaluation/sales-sequence-client-fixture.js:11:795)\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:12:233)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n  ...\n1..10\n# tests 10\n# suites 0\n# pass 1\n# fail 9\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 905.693167\n"
+      },
+      {
+        "file": "sequence-client-initial.log",
+        "sha256": "2e221850e9a84984b0c6f5b1c5ec99a95fa2e292bb0f68ff4a42235463da3451",
+        "bytes": 3434,
+        "retained_head": "TAP version 13\n# Subtest: Sales sequence controls localize eight locales in place without changing literal input confirmation or native calls\nnot ok 1 - Sales sequence controls localize eight locales in place without changing literal input confirmation or native calls\n  ---\n  duration_ms: 151.94944\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:3:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    The expression evaluated to a falsy value:\n    \n      assert.ok(!f.box.textContent.includes('sales.sequence.'))\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: true\n  actual: false\n  operator: '=='\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:3:547)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n  ...\n# Subtest: uncertain Sales execution recovers only metadata and cannot replay changed input or advance another step\nok 2 - uncertain Sales execution recovers only metadata and cannot replay changed input or advance another step\n  ---\n  duration_ms: 89.25281\n  type: 'test'\n  ...\n# Subtest: fresh sequence clients recover a committed task after restart without storing private literal input\nok 3 - fresh sequence clients recover a committed task after restart without storing private literal input\n  ---\n  duration_ms: 186.098658\n  type: 'test'\n  ...\n# Subtest: an undispatched sequence request is durably closed before its delayed original body arrives\nok 4 - an undispatched sequence request is durably closed before its delayed original body arrives\n  ---\n  duration_ms: 123.752869\n  type: 'test'\n  ...\n# Subtest: unavailable sequence browser storage prevents a native write",
+        "retained_tail": " uncertain Sales execution recovers only metadata and cannot replay changed input or advance another step\nok 2 - uncertain Sales execution recovers only metadata and cannot replay changed input or advance another step\n  ---\n  duration_ms: 89.25281\n  type: 'test'\n  ...\n# Subtest: fresh sequence clients recover a committed task after restart without storing private literal input\nok 3 - fresh sequence clients recover a committed task after restart without storing private literal input\n  ---\n  duration_ms: 186.098658\n  type: 'test'\n  ...\n# Subtest: an undispatched sequence request is durably closed before its delayed original body arrives\nok 4 - an undispatched sequence request is durably closed before its delayed original body arrives\n  ---\n  duration_ms: 123.752869\n  type: 'test'\n  ...\n# Subtest: unavailable sequence browser storage prevents a native write from dispatching\nok 5 - unavailable sequence browser storage prevents a native write from dispatching\n  ---\n  duration_ms: 58.890777\n  type: 'test'\n  ...\n# Subtest: current sequence denial clears private source and input while retaining the pending request metadata\nok 6 - current sequence denial clears private source and input while retaining the pending request metadata\n  ---\n  duration_ms: 88.949351\n  type: 'test'\n  ...\n# Subtest: old sequence forms cannot dispatch after explicit refresh retires their source observation\nok 7 - old sequence forms cannot dispatch after explicit refresh retires their source observation\n  ---\n  duration_ms: 66.005401\n  type: 'test'\n  ...\n# Subtest: sequence definition authoring preserves literal version and step fields across locales and recovers one immutable write\nok 8 - sequence definition authoring preserves literal version and step fields across locales and recovers one immutable write\n  ---\n  duration_ms: 140.932641\n  type: 'test'\n  ...\n# Subtest: sequence transport changes cannot discard an unsaved confirmation or an uncertain request\nok 9 - sequence transport changes cannot discard an unsaved confirmation or an uncertain request\n  ---\n  duration_ms: 57.483057\n  type: 'test'\n  ...\n# Subtest: sequence recovery of a reopened task reports the superseded original completion without completing it again\nok 10 - sequence recovery of a reopened task reports the superseded original completion without completing it again\n  ---\n  duration_ms: 77.568144\n  type: 'test'\n  ...\n1..10\n# tests 10\n# suites 0\n# pass 9\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1252.527113\n"
+      },
+      {
+        "file": "sequence-client-localized.log",
+        "sha256": "898735a1325aae72c77a020a0741a3e2fc51c269afab58a236fe1e65174b2232",
+        "bytes": 1429,
+        "retained_head": "TAP version 13\n# /workspace/scratch/foundly-run2/foundly-locales.js:2558\n#   rows[\"sales.sequence.source_status_active\"]=[...rows[\"workspace.page.domain_status.active\"]];\n#                                                       ^\n# TypeError: rows.workspace.page.domain_status.active is not iterable\n#     at /workspace/scratch/foundly-run2/foundly-locales.js:2558:55\n#     at /workspace/scratch/foundly-run2/foundly-locales.js:1:50\n#     at Object.<anonymous> (/workspace/scratch/foundly-run2/foundly-locales.js:1:258)\n#     at Module._compile (node:internal/modules/cjs/loader:1872:14)\n#     at Object..js (node:internal/modules/cjs/loader:2003:10)\n#     at Module.load (node:internal/modules/cjs/loader:1594:32)\n#     at Module._load (node:internal/modules/cjs/loader:1396:12)\n#     at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n#     at Module.require (node:internal/modules/cjs/loader:1617:12)\n#     at require (node:internal/modules/helpers:153:16)\n# Node.js v24.19.0\n# Subtest: zero/sales-sequence-client.test.js\nnot ok 1 - zero/sales-sequence-client.test.js\n  ---\n  duration_ms: 139.68722\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:1:1'\n  failureType: 'testCodeFailure'\n  exitCode: 1\n  signal: ~\n  error: 'test failed'\n  code: 'ERR_TEST_FAILURE'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 148.841755\n",
+        "retained_tail": "TAP version 13\n# /workspace/scratch/foundly-run2/foundly-locales.js:2558\n#   rows[\"sales.sequence.source_status_active\"]=[...rows[\"workspace.page.domain_status.active\"]];\n#                                                       ^\n# TypeError: rows.workspace.page.domain_status.active is not iterable\n#     at /workspace/scratch/foundly-run2/foundly-locales.js:2558:55\n#     at /workspace/scratch/foundly-run2/foundly-locales.js:1:50\n#     at Object.<anonymous> (/workspace/scratch/foundly-run2/foundly-locales.js:1:258)\n#     at Module._compile (node:internal/modules/cjs/loader:1872:14)\n#     at Object..js (node:internal/modules/cjs/loader:2003:10)\n#     at Module.load (node:internal/modules/cjs/loader:1594:32)\n#     at Module._load (node:internal/modules/cjs/loader:1396:12)\n#     at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n#     at Module.require (node:internal/modules/cjs/loader:1617:12)\n#     at require (node:internal/modules/helpers:153:16)\n# Node.js v24.19.0\n# Subtest: zero/sales-sequence-client.test.js\nnot ok 1 - zero/sales-sequence-client.test.js\n  ---\n  duration_ms: 139.68722\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:1:1'\n  failureType: 'testCodeFailure'\n  exitCode: 1\n  signal: ~\n  error: 'test failed'\n  code: 'ERR_TEST_FAILURE'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 148.841755\n"
+      },
+      {
+        "file": "sequence-client-fresh-zero-before.log",
+        "sha256": "6e50a3d3dba6a642e3dd5b329dcd6d607e71080cf71f6ca36cb21e0da326cdf4",
+        "bytes": 1008,
+        "retained_head": "TAP version 13\n# Subtest: a fresh sequence view can select ZERO for metadata-only recovery without discarding an earlier uncertain native request\nnot ok 1 - a fresh sequence view can select ZERO for metadata-only recovery without discarding an earlier uncertain native request\n  ---\n  duration_ms: 227.642929\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:27:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    'NATIVE' !== 'ZERO'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 'ZERO'\n  actual: 'NATIVE'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:27:347)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 460.249543\n",
+        "retained_tail": "TAP version 13\n# Subtest: a fresh sequence view can select ZERO for metadata-only recovery without discarding an earlier uncertain native request\nnot ok 1 - a fresh sequence view can select ZERO for metadata-only recovery without discarding an earlier uncertain native request\n  ---\n  duration_ms: 227.642929\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:27:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    \n    'NATIVE' !== 'ZERO'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 'ZERO'\n  actual: 'NATIVE'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:27:347)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 460.249543\n"
+      },
+      {
+        "file": "sequence-client-refresh-before.log",
+        "sha256": "6a766b43d2374e12478f2c885cc94c5bf17e95e42ecc4694648138fd8824bb4c",
+        "bytes": 1012,
+        "retained_head": "TAP version 13\n# Subtest: the public sequence refresh method awaits current native state and preserves an unsaved confirmation\nnot ok 1 - the public sequence refresh method awaits current native state and preserves an unsaved confirmation\n  ---\n  duration_ms: 150.531442\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:28:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    + actual - expected\n    \n    + 'undefined'\n    - 'function'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 'function'\n  actual: 'undefined'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:28:240)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 375.687649\n",
+        "retained_tail": "TAP version 13\n# Subtest: the public sequence refresh method awaits current native state and preserves an unsaved confirmation\nnot ok 1 - the public sequence refresh method awaits current native state and preserves an unsaved confirmation\n  ---\n  duration_ms: 150.531442\n  type: 'test'\n  location: '/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:28:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    + actual - expected\n    \n    + 'undefined'\n    - 'function'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: 'function'\n  actual: 'undefined'\n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-sequence-client.test.js:28:240)\n    async Test.run (node:internal/test_runner/test:1389:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 375.687649\n"
+      }
+    ],
+    "pre_refresh_freeze": {
+      "command": "npm run test:zero",
+      "source_commit": "07d41c65ef5a05deace57937a79f952a229daaee",
+      "source_tree": "b7ce266b5787ca05ae6b6d113153bd9ba41b48c0",
+      "exit_code": 0,
+      "seconds": 88.47,
+      "log_sha256": "d0df455cf5187a8c731a1d61499827227d19f08000640c76f934c6e882a3fa17",
+      "log_bytes": 123371,
+      "pass_count": 1028,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "status": "PASS on superseded source before the public refresh compatibility correction; not the final source gate"
+    },
+    "evidence_notes": "The original controls failed nine of ten baseline cases. The first localized implementation exposed an undefined active-status translation alias; it now references the existing eight-locale active status. A fresh pending view initially could not choose ZERO: transport can now change when no literal unsaved input would be discarded, retaining the exact pending metadata, while dirty original forms remain guarded. Real HTTP tests assert the actual recovery lane in both native and ZERO. A complete initial source freeze passed 1028 ZERO plus 14 corpus and all eight native commands; a subsequent compatibility check reproduced that public refresh() no longer returned an awaited read. The restored async method preserves the prior unsaved-input guard and has a permanent before/after test. Only the later clean verified freeze at the recorded source is the final gate. All earlier failure and frozen logs remain retained.",
+    "scope": "Production Sales definition, preview/start, execution/control, scoped task completion and non-causal outcome feedback. Strict canonical native source, plan, input, snapshot and metadata verification. Private titles, reasons and mail input remain out of browser recovery storage. Eight locales preserve field nodes, selected operation, confirmation checkbox, transport, literal mail and feedback. Lists load beyond one hundred records; global recovery reaches off-page runs. Current denial retires private content; storage/cleanup faults, concurrent actions and retired replies cannot repeat writes. Existing native and ZERO UI tests now use the actual shared fixtures, retain their business assertions and strengthen lost replies from body replay to one native write plus metadata recovery. Native task/draft preparation stays separate from completion, mail review and sending. The public refresh() method remains awaited and respects unsaved input.",
+    "remaining": "Sales pipeline native recovery and production browser localization/state are next, then other genuinely open Run 2 gates. Synthetic DOM is behavioral evidence only, not rendered browser layout, responsive or accessibility acceptance."
   }
 }
