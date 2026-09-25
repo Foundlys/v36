@@ -8537,7 +8537,248 @@
       "native": 15,
       "actual_http": 6
     },
-    "exact_published_full_ci": "PENDING",
-    "acceptance_scope": "Native pipeline proof, absence retirement, current access, encrypted restart and paged reads only; global Run 2 acceptance unchanged."
+    "exact_published_full_ci": "PASS_232",
+    "acceptance_scope": "Native pipeline proof, absence retirement, current access, encrypted restart and paged reads only; global Run 2 acceptance unchanged.",
+    "published_ci_232": {
+      "run_number": 232,
+      "run_id": 36182680415,
+      "job_id": 108228571611,
+      "conclusion": "success",
+      "published_head": "dbdb0b4273d0b4568e9a38131c556188c3a7d142",
+      "ci_merge_commit": "366a735dc76a5b6706dedde942db8c2a972a6086",
+      "tree": "838aca28d66b09e5a2625e45b872cff76d45c826",
+      "exact_tree_match": true,
+      "zero_tests": 1050,
+      "zero_pass": 1050,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "log_bytes": 541736,
+      "log_sha256": "ad625c7764ae538384471162dab916a5a5de19d7a763bd2c37b01bcca98b50d8"
+    }
+  },
+  "pipeline_browser_20260925": {
+    "status": "LOCAL_ZERO_CORPUS_AFFECTED_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+    "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+      "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+      "exit_code": null,
+      "wrapper_exit_code": 1,
+      "log_file": "pipeline-ui-frozen-zero.log",
+      "log_bytes": 129937,
+      "log_sha256": "ce66e009d52079f00bf4245fb9d3aad0d31f5f87ced804195ac2c3b0287bd701",
+      "evidence_note": "Complete log has all 1082 node:test results and all 14 final corpus cases passing. Post-test Python report parser looked for schema_version instead of head and failed before saving the process exit code. The raw exit code is unavailable; no exit code is inferred. Exact-published full npm CI remains the required broader gate.",
+      "corpus": {
+        "head": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "tests": 1082,
+      "pass": 1082,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "clean_after": true
+    },
+    "affected_native": [
+      {
+        "command": "node sales-pipeline-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "log_file": "pipeline-ui-frozen-sales-pipeline-test.js.log",
+        "log_bytes": 337,
+        "log_sha256": "20b9725002cf0a3f2ef1cefc7fbe033409d0c28fb94b4ea93e67ac9afd12de1c",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-pipeline-api-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 7.13,
+        "log_file": "pipeline-ui-frozen-sales-pipeline-api-test.js.log",
+        "log_bytes": 341,
+        "log_sha256": "250947d3234a8e1b040fee0b425610ca0df6e98b78491e403d7d33ddcbf40426",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-pipeline-client-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 0.55,
+        "log_file": "pipeline-ui-frozen-sales-pipeline-client-test.js.log",
+        "log_bytes": 306,
+        "log_sha256": "9445e2d239d7e7d4e6e815142b62cb51073b97b0159599e16441e255f3faf101",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-forecast-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 0.36,
+        "log_file": "pipeline-ui-frozen-sales-forecast-test.js.log",
+        "log_bytes": 162,
+        "log_sha256": "0016bb0b73ba8391154cda987bda0c1b575eeab782298021449c812278c75f21",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 0.4,
+        "log_file": "pipeline-ui-frozen-sales-hierarchy-test.js.log",
+        "log_bytes": 295,
+        "log_sha256": "413a7cdf79bc1c1ff2793a5b735862aaf2940bbb022dd0ac0c1cebd5a0dc367e",
+        "clean_after": true
+      },
+      {
+        "command": "node sales-hierarchy-api-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 5.75,
+        "log_file": "pipeline-ui-frozen-sales-hierarchy-api-test.js.log",
+        "log_bytes": 272,
+        "log_sha256": "5248efa687d206a33a058293b0f4efadc0dd983ca6d5359973164bd291d5c1ff",
+        "clean_after": true
+      },
+      {
+        "command": "node module-access-contracts-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 0.43,
+        "log_file": "pipeline-ui-frozen-module-access-contracts-test.js.log",
+        "log_bytes": 332,
+        "log_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true
+      },
+      {
+        "command": "node business-workspaces-regression-test.js",
+        "source_commit": "8200b9089e52a03e5bc97c5dc41f3d9fe0a89f54",
+        "source_tree": "8a5ea6ed6f45694ce53cf92423280b42b775b6ab",
+        "exit_code": 0,
+        "seconds": 0.98,
+        "log_file": "pipeline-ui-frozen-business-workspaces-regression-test.js.log",
+        "log_bytes": 254,
+        "log_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true
+      }
+    ],
+    "permanent_new_tests": 32,
+    "new_test_breakdown": {
+      "client": 24,
+      "shared_page": 5,
+      "actual_http": 3
+    },
+    "scope": "Eight-locale production pipeline definition and move controls; exact source, stage, revision, native acknowledgement and metadata proof validation. Native server text normalization is accounted for without altering retained form input. Full observed stage totals must match their source rows, missing values remain unknown and safe-integer cents stay exact. Scoped browser session metadata is recorded before dispatch and survives reload without title/reason/body storage. Current denial and retired views cannot restore private data or execute old forms. Shared Sales navigation preserves unsaved input and uncertain requests; catalogs page beyond 200 records and off-page recovery is independent. Real HTTP destroys committed replies, restarts encrypted persistence and recovers in fresh VM clients. Native UI regression retains its business assertions and strengthens reply-loss checks to one write plus metadata-only recovery.",
+    "prior_evidence": [
+      {
+        "file": "pipeline-client-before.log",
+        "bytes": 9867,
+        "sha256": "4339ea77d5b52e82171409639449a36dd65bb28c563ccc74085dc3063826ba2d",
+        "retained_tail": "te boards do not render writable empty success (48.178672ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + ''\n  - '⟦sales.pipeline.invalid:en-GB⟧'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:11:223)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: '',\n    expected: '⟦sales.pipeline.invalid:en-GB⟧',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-pipeline-client.test.js:12:1\n✖ late replies from retired pipeline views retain metadata for explicit fresh recovery (60.431627ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:12:354)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-pipeline-client.test.js:13:1\n✖ the public pipeline refresh awaits current native state and guards unsaved literal confirmation (64.268599ms)\n  TypeError: Cannot set properties of undefined (setting 'value')\n      at Object.prepare (/workspace/scratch/foundly-run2/zero-evaluation/sales-pipeline-client-fixture.js:10:385)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:13:425)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/sales-pipeline-client.test.js:14:1\n✖ contradictory pipeline recovery flags retain metadata and cannot unlock another mutation (54.11668ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:14:296)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "pipeline-client-expanded.log",
+        "bytes": 3737,
+        "sha256": "643180967e80a5c6850d9d068a894f0e09cc85eeb907ffba2547dd16e04ad08c",
+        "retained_tail": "resh awaits current native state and guards unsaved literal confirmation (76.266656ms)\n✔ contradictory pipeline recovery flags retain metadata and cannot unlock another mutation (66.893727ms)\n✔ pipeline definition controls preserve every literal editor field across locales and recover one saved configuration (65.636696ms)\n✔ a forged pipeline save acknowledgement cannot substitute a different literal configuration (97.461413ms)\n✔ pipeline catalogs page beyond two hundred records once per concurrent click while retaining unsaved editor fields (618.667788ms)\n✖ pipeline board pagination preserves authoritative totals and rejects stale counts rather than reporting empty success (109.279179ms)\n✔ pipeline amounts retain exact cents at the safe integer limit and keep missing amounts distinct from zero across locales (61.865213ms)\n✖ pipeline keyboard and drag paths only prepare a separate confirmation and a detached form cannot write (53.388614ms)\n✔ read-only pipeline views display literal current records without editor or move authority (44.477078ms)\n✔ pipeline stale-source conflicts retain one request until metadata absence is confirmed and all literal input survives (64.811572ms)\nℹ tests 20\nℹ suites 0\nℹ pass 18\nℹ fail 2\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2428.626005\n\n✖ failing tests:\n\ntest at zero/sales-pipeline-client.test.js:18:1\n✖ pipeline board pagination preserves authoritative totals and rejects stale counts rather than reporting empty success (109.279179ms)\n  TypeError: Cannot read properties of undefined (reading 'fire')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:18:619)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/sales-pipeline-client.test.js:20:1\n✖ pipeline keyboard and drag paths only prepare a separate confirmation and a detached form cannot write (53.388614ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(f.field('reason'))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:20:416)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "pipeline-client-read-retry-before.log",
+        "bytes": 1688,
+        "sha256": "97a4ee45954a396d20c71d5079ff58b8839d4bafe03a0d97231f4e195e95eca4",
+        "retained_tail": "✖ a failed initial pipeline read leaves a visible retry that can load current data (122.124777ms)\n✖ denial during additional pipeline loading clears unsaved private fields without trapping navigation (232.347928ms)\nℹ tests 2\nℹ suites 0\nℹ pass 0\nℹ fail 2\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 609.137726\n\n✖ failing tests:\n\ntest at zero/sales-pipeline-client.test.js:23:1\n✖ a failed initial pipeline read leaves a visible retry that can load current data (122.124777ms)\n  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  \n    assert.ok(f.control('refresh'))\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:23:259)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n\ntest at zero/sales-pipeline-client.test.js:24:1\n✖ denial during additional pipeline loading clears unsaved private fields without trapping navigation (232.347928ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  false !== true\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:24:659)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "pipeline-client-drag-fixed.log",
+        "bytes": 3052,
+        "sha256": "a68841ad28e1cb62175881d577fcff737c692ab6ab26149a80f419380c3c7eb0",
+        "retained_tail": "re blocks dispatch and confirmed cleanup failure cannot duplicate a move (122.552396ms)\n✔ current pipeline denial clears private board labels and literal editor input but preserves request metadata (56.079106ms)\n✔ pipeline recovery shows original and superseding native state without reopening a closed opportunity (63.592785ms)\n✔ contradictory pipeline acknowledgements cannot change the confirmed stage even with a coherent forged digest (55.61018ms)\n✔ malformed pipeline catalogs and aggregate boards do not render writable empty success (64.861113ms)\n✔ late replies from retired pipeline views retain metadata for explicit fresh recovery (132.411852ms)\n✔ the public pipeline refresh awaits current native state and guards unsaved literal confirmation (57.895043ms)\n✔ contradictory pipeline recovery flags retain metadata and cannot unlock another mutation (70.443103ms)\n✔ pipeline definition controls preserve every literal editor field across locales and recover one saved configuration (68.780349ms)\n✔ a forged pipeline save acknowledgement cannot substitute a different literal configuration (65.641443ms)\n✔ pipeline catalogs page beyond two hundred records once per concurrent click while retaining unsaved editor fields (655.104204ms)\n✖ pipeline board pagination preserves authoritative totals and rejects stale counts rather than reporting empty success (187.164505ms)\n✔ pipeline amounts retain exact cents at the safe integer limit and keep missing amounts distinct from zero across locales (66.938836ms)\n✔ pipeline keyboard and drag paths only prepare a separate confirmation and a detached form cannot write (62.154649ms)\n✔ read-only pipeline views display literal current records without editor or move authority (49.712918ms)\n✔ pipeline stale-source conflicts retain one request until metadata absence is confirmed and all literal input survives (57.450742ms)\nℹ tests 20\nℹ suites 0\nℹ pass 19\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2494.665489\n\n✖ failing tests:\n\ntest at zero/sales-pipeline-client.test.js:18:1\n✖ pipeline board pagination preserves authoritative totals and rejects stale counts rather than reporting empty success (187.164505ms)\n  TypeError: Cannot read properties of undefined (reading 'fire')\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:18:619)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "pipeline-legacy-fixture-before.log",
+        "bytes": 766,
+        "sha256": "3803f89306be6a8d976dbe33fda58054da9cd90ddfdcd6da961882d6c7c4b0a7",
+        "retained_tail": "TypeError: document.addEventListener is not a function\n    at Object.create (evalmachine.<anonymous>:7:12)\n    at create (/workspace/scratch/foundly-run2/sales-pipeline-client-test.js:20:238)\n    at /workspace/scratch/foundly-run2/sales-pipeline-client-test.js:22:10\n    at Object.<anonymous> (/workspace/scratch/foundly-run2/sales-pipeline-client-test.js:27:3)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n"
+      },
+      {
+        "file": "pipeline-observation-boundary-before.log",
+        "bytes": 4627,
+        "sha256": "b23f53c5a01e315116b3df0189a8f14991fbf79c0024798c1f5fb8e15c12228b",
+        "retained_tail": "form cannot write (59.838271ms)\n✔ read-only pipeline views display literal current records without editor or move authority (53.816992ms)\n✔ pipeline stale-source conflicts retain one request until metadata absence is confirmed and all literal input survives (55.649079ms)\n✔ a failed initial pipeline read leaves a visible retry that can load current data (54.350211ms)\n✔ denial during additional pipeline loading clears unsaved private fields without trapping navigation (191.200984ms)\n✖ fully observed pipeline stages reject invented currency totals and missing-value counts (58.266873ms)\n✖ literal pipeline whitespace remains correctly acknowledged by the native source normalization contract (53.59816ms)\nℹ tests 24\nℹ suites 0\nℹ pass 22\nℹ fail 2\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2859.369142\n\n✖ failing tests:\n\ntest at zero/sales-pipeline-client.test.js:25:1\n✖ fully observed pipeline stages reject invented currency totals and missing-value counts (58.266873ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Current pipeline board loaded.'\n  - 'The received pipeline details could not be verified.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:25:394)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Current pipeline board loaded.',\n    expected: 'The received pipeline details could not be verified.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/sales-pipeline-client.test.js:26:1\n✖ literal pipeline whitespace remains correctly acknowledged by the native source normalization contract (53.59816ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'The result is not yet confirmed. Check the original request.'\n  - 'Pipeline change saved.'\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/sales-pipeline-client.test.js:26:396)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'The result is not yet confirmed. Check the original request.',\n    expected: 'Pipeline change saved.',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "published_ci": "PENDING",
+    "remaining": "Sales forecast, scenario and hierarchy production controls remain untranslated and lack complete typed observations and durable browser request recovery. Continue those code-controlled gaps and the remaining authoritative Run 2 gates. DOM fixtures are state evidence, not rendered-browser, responsive, accessibility or native-speaker acceptance. No acceptance matrix status is upgraded."
   }
 }
