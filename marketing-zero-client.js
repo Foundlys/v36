@@ -15,6 +15,8 @@
     if(parts[2]==='audience_activations'&&parts.length===3&&options.method==='POST')action={operation:'ACTIVATE',input};
     if(parts[2]==='journey_runs'&&parts.length>=4)action={operation:parts.length===4?'JOURNEY_READ':'JOURNEY_'+parts[4].toUpperCase().replace(/-/g,'_'),input:{run_id:parts[3],...input}};
     if(parts[2]==='measurement'&&['query','drilldown'].includes(parts[3]))action={operation:parts[3]==='query'?'METRICS':'SOURCES',input};
+    else if(parts[2]==='creative-review-requests'&&parts[3]==='recover'&&(parts.length===4||parts.length===5&&parts[4]==='approve'))action={operation:input.operation==='REVIEW'?'REVIEW_DECISION_RECOVER':'REVIEW_RECOVER',input};
+    else if((parts[2]==='creative_reviews'&&['approve','withdraw'].includes(parts[4])||parts[2]==='creatives'&&parts[4]==='reviews')&&parts.length===5&&options.method==='POST')action={operation:parts[4]==='reviews'?'REVIEW_PREPARE':parts[4]==='approve'?'REVIEW_DECIDE':'REVIEW_WITHDRAW',input:{source_id:parts[3],...input,...(options.headers?.['idempotency-key']?{request_id:options.headers['idempotency-key']}:{})}};
     else if(parts[2]==='creative-requests'&&parts[3]==='recover'&&parts.length===4)action={operation:'CREATIVE_RECOVER',input};
     else if(parts[2]==='creatives'){
      if(parts.length===5&&parts[4]==='revisions')action={operation:'HISTORY',input:{creative_id:parts[3],...Object.fromEntries([...url.searchParams].map(([key,value])=>[key,Number(value)]))}};

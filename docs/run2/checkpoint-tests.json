@@ -7139,7 +7139,7 @@
   "creative_client_recovery_20260925": {
     "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
     "source_tree": "4cdf64326434b8ae90237d3441d2bae4aa0ced00",
-    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "status": "PASS for bounded creative client checkpoint, including exact-tree complete CI 223; wider Run 2 gates remain open",
     "zero": {
       "command": "npm run test:zero",
       "source_commit": "7d0098b6d04e33aedd0d0b6f0437b421bcb29ce7",
@@ -7244,6 +7244,155 @@
       }
     ],
     "scope": "Actual creative history client and shared workspace page. Metadata-only, actor/tenant/dealer-scoped session recovery; exact acknowledgement and retained native snapshot binding; no changed or duplicate write after uncertain replies; durable absence closure; current permission denial clears private history while retaining attribution; dirty/pending close guards and fresh authorized reopen; stale controls and responses blocked. Native and ZERO actual HTTP lost completed reply plus encrypted restart and fresh VM; global pending controls for sources outside visible page. Eight locales preserve form/reason and source literals; native status and dates use owned presentation. Approved creative fork and superseded result are identified without overwriting newer input. Storage and post-confirmation read failures stay truthful.",
-    "remaining": "Own complete full CI on this exact published tree is pending. Shared creative review commands and journey controls, other production-facing localization/state gaps and all wider unaccepted Run 2 gates remain open. Fixture DOM evidence does not establish browser layout/responsive acceptance."
+    "remaining": "Shared creative review commands and journey controls, other production-facing localization/state gaps and all wider unaccepted Run 2 gates remain open. Fixture DOM evidence does not establish browser layout/responsive acceptance.",
+    "published_ci_223": {
+      "published_commit": "e019809d944138b25abd84c00f503132f8dcb5e2",
+      "published_tree": "1569d9455725eac41f501645557ce5665d51f4fe",
+      "ci_merge_commit": "e87bf64e9a5980f791395288553e9302cee823b9",
+      "ci_merge_tree": "1569d9455725eac41f501645557ce5665d51f4fe",
+      "run_id": 36162248536,
+      "job_id": 108161391309,
+      "run_number": 223,
+      "status": "PASS",
+      "zero_pass": 845,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "6d9deb85fd1b4373f5b93baaa41aee1eade7f0f47eb3eb6b2ededf737e7efb44",
+      "log_bytes": 458720
+    }
+  },
+  "native_creative_review_recovery_20260925": {
+    "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+    "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+    "status": "ZERO/CORPUS/AFFECTED NATIVE PASS; own published full CI pending",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+      "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+      "exit_code": 0,
+      "seconds": 76.27,
+      "log_sha256": "e457ddbd94b1bebc00d99a05fb93dcc61c9f50e96d1dce5125d4e7dd51ae2eba",
+      "log_bytes": 103336,
+      "pass_count": 860,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "affected_native": [
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-creative-history-test.js",
+        "exit_code": 0,
+        "seconds": 0.26,
+        "sha256": "893840958facac09683b3a6987cca712089fb63f6c0927afb397bc5dae380697"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-creative-history-api-test.js",
+        "exit_code": 0,
+        "seconds": 6.04,
+        "sha256": "96c38c6779d2c2725ea51e234cd78b5daf37e93ad9470c1682b6b691e23fc735"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-creative-history-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.5,
+        "sha256": "06f764749c91d163e6055926719574b3c4424a26707d61744dd969418a814442"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.1,
+        "sha256": "2caf4a7b2229cd4132a711282e43079cb5166457637b96c2ebb9dddeff7a4373"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-creative-reviews-test.js",
+        "exit_code": 0,
+        "seconds": 0.39,
+        "sha256": "e9b9fb9888d788d5a273a93abf2afcdd9b8404079561924bf17a38bced072e46"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-creative-reviews-api-test.js",
+        "exit_code": 0,
+        "seconds": 7.84,
+        "sha256": "ba9426e7fe342179561176aadfeaf58bd88cc52300ce6402bdba4fa5ba5c65a8"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "module-access-contracts-test.js",
+        "exit_code": 0,
+        "seconds": 0.42,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "business-workspaces-regression-test.js",
+        "exit_code": 0,
+        "seconds": 0.99,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-journeys-test.js",
+        "exit_code": 0,
+        "seconds": 0.56,
+        "sha256": "26e8bd2d80442ea51a85d673375b68393b83e0c9cf552cb46b3b4fefcb1c9ee8"
+      },
+      {
+        "source_commit": "5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb",
+        "source_tree": "b9d817b576a2cdf433c8be076abdc7c01dfc31f9",
+        "test": "marketing-journeys-api-test.js",
+        "exit_code": 0,
+        "seconds": 7.72,
+        "sha256": "df3448a4615f31bb6c14f770ecac303ee2f2d72d93de7e4110076a98c2a90717"
+      }
+    ],
+    "permanent_new_tests": 15,
+    "preserved_failures": [
+      {
+        "file": "review-recovery-before.log",
+        "sha256": "6956e0aae39b7d2c8d54770d2e5eb2efff669fe666fa77e3ac909672ac1f46c4",
+        "bytes": 12500,
+        "retained_head": "\u2716 review prepare, ordered decision and final approval retain exact native acknowledgements through restart (29.13496ms)\n\u2716 an older review receipt distinguishes the applied revision from later decisions without overwriting current state (15.664957ms)\n\u2716 metadata-only retirement closes prepare, decision and withdrawal keys across restart and blocks delayed bodies (1.339541ms)\n\u2716 review recovery binds exact actor, metadata, source and current source and review ownership (4.433433ms)\n\u2716 current campaign permissions and original step identity are rechecked on review replay and recovery (4.033082ms)\n\u2716 review mutation, audit, outbox and receipt or absence closure roll back together on persistence failure (3.631507ms)\n\u2716 legacy, corrupt snapshots and contradictory review prefixes cannot become recovery evidence (2.299142ms)\n\u2716 withdrawal and rejection retain typed exact terminal outcomes without publication (7.062905ms)\n\u2716 bounded review receipt capacity preserves earlier proofs and refuses new writes or retirements atomically (300.558522ms)\n\u2139 tests 9\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 9\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 740.994729\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-recovery.test.js:3:1\n\u2716 review prepare, ordered decision and final approval retain exact native acknowledgements through restart (29.13496ms)\n  TypeError: Cannot read properties of undefined (reading 'request'",
+        "retained_tail": "ifiable' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-recovery.test.js:10:1\n\u2716 withdrawal and rejection retain typed exact terminal outcomes without publication (7.062905ms)\n  TypeError: service.recover is not a function\n      at Object.recover (/workspace/scratch/foundly-run2/zero-evaluation/marketing-review-fixture.js:9:117)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery.test.js:10:286)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/marketing-review-recovery.test.js:11:1\n\u2716 bounded review receipt capacity preserves earlier proofs and refuses new writes or retirements atomically (300.558522ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery.test.js:11:397)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { code: 'creative_review_capacity' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "review-recovery-http.log",
+        "sha256": "3ccb115818929fd50c3afd4463a8d61a0e92031cca85c753b95cc0d4d19b75bf",
+        "bytes": 3045,
+        "retained_head": "\u2716 real native and ZERO review requests recover lost committed preparation and ordered decisions through encrypted restart (5114.218164ms)\n\u2716 real held prepare, decision and withdrawal bodies cannot execute after metadata-only retirement or restart (3118.860566ms)\n\u2716 review persistence failure and current identity revocation after authenticated body wait cannot create partial approval or recovery (3482.54514ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 3\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 11852.196979\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-recovery-api.test.js:12:1\n\u2716 real native and ZERO review requests recover lost committed preparation and ordered decisions through encrypted restart (5114.218164ms)\n  AssertionError [ERR_ASSERTION]: Missing expected rejection.\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:12:809)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: undefined,\n    operator: 'rejects',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-recovery-api.test.js:13:1\n\u2716 real held prepare, decision and withdrawal ",
+        "retained_tail": "ndefined,\n    expected: undefined,\n    operator: 'rejects',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-recovery-api.test.js:13:1\n\u2716 real held prepare, decision and withdrawal bodies cannot execute after metadata-only retirement or restart (3118.860566ms)\n  AssertionError [ERR_ASSERTION]: {\"ok\":false,\"code\":\"composition_forbidden\",\"error\":\"Deze capability is niet toegestaan\"}\n  \n  403 !== 200\n  \n      at recover (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:11:277)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:13:612)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 403,\n    expected: 200,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at zero/marketing-review-recovery-api.test.js:14:1\n\u2716 review persistence failure and current identity revocation after authenticated body wait cannot create partial approval or recovery (3482.54514ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  403 !== 500\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:14:763)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 403,\n    expected: 500,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "review-ancestry-before.log",
+        "sha256": "c5c45bc4c8f78db87090dc3d2c3963f5ae9e55d90aa9dc506cede695ab2105be",
+        "bytes": 1040,
+        "retained_head": "\u2716 review reads and shared projections cannot expose a snapshot whose creative ancestry is no longer readable (20.835485ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 248.238358\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-recovery.test.js:12:1\n\u2716 review reads and shared projections cannot expose a snapshot whose creative ancestry is no longer readable (20.835485ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery.test.js:12:338)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { code: 'record_not_found' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n",
+        "retained_tail": "\u2716 review reads and shared projections cannot expose a snapshot whose creative ancestry is no longer readable (20.835485ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 248.238358\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-recovery.test.js:12:1\n\u2716 review reads and shared projections cannot expose a snapshot whose creative ancestry is no longer readable (20.835485ms)\n  AssertionError [ERR_ASSERTION]: Missing expected exception.\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery.test.js:12:338)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { code: 'record_not_found' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n"
+      },
+      {
+        "file": "review-approval-route-before.log",
+        "sha256": "872c138c762ea163c50a09e70a4e79758e0447c2f3c9f90318cede2b2221718a",
+        "bytes": 1106,
+        "retained_head": "\u2716 an approval-only current reviewer can reconcile a decision without gaining write authority (6117.589034ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 6273.9969\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-recovery-api.test.js:9:1\n\u2716 an approval-only current reviewer can reconcile a decision without gaining write authority (6117.589034ms)\n  AssertionError [ERR_ASSERTION]: {\"ok\":false,\"code\":\"entity_unknown\"}\n  \n  404 !== 200\n  \n      at recover (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:13:285)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:9:1138)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 404,\n    expected: 200,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+        "retained_tail": "\u2716 an approval-only current reviewer can reconcile a decision without gaining write authority (6117.589034ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 6273.9969\n\n\u2716 failing tests:\n\ntest at zero/marketing-review-recovery-api.test.js:9:1\n\u2716 an approval-only current reviewer can reconcile a decision without gaining write authority (6117.589034ms)\n  AssertionError [ERR_ASSERTION]: {\"ok\":false,\"code\":\"entity_unknown\"}\n  \n  404 !== 200\n  \n      at recover (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:13:285)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/marketing-review-recovery-api.test.js:9:1138)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 404,\n    expected: 200,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "failure_interpretation": "Nine baseline missing recovery failures; three first HTTP fixture failures caused by using an unsupported enrollment argument rather than actually granting approval rights (corrected through native identity update and fresh login, no product permission weakening); a genuine review snapshot disclosure through unreadable creative ancestry; and the missing typed approval-only recovery route. Native and ZERO long HTTP cases now run separately under the unchanged 15 second timeout, with all assertions retained.",
+    "scope": "Atomic metadata-bound receipts for native and ZERO preparation, ordered decision, final approval and withdrawal. APPLIED recovery verifies exact retained review snapshot, current immutable source and review ownership, current actor/role/campaign authority, review prefix and final native creative revision. Superseded direct replay cannot claim current success. NOT_APPLIED durably closes absent keys and rejects delayed bodies. Legacy receipts do not gain invented typed recovery proof. Receipts excluded from shared Data; bounds and persistence rollback enforced. Read-only review projections now obey full creative ancestry access. Approval-only reviewers use the existing approve permission, without acquiring write permission.",
+    "remaining": "Connect the actual shared creative review UI to scoped metadata-only recovery, strict response validation, eight-locale presentation and stale/denied control guards. Native recovery does not imply browser acceptance. Wider unaccepted Run 2 gates remain open."
   }
 }

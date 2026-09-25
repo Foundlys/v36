@@ -1,0 +1,11 @@
+# Same Run 2: native creative review recovery
+
+Frozen source `5d44c2cc5eb1b96a7ed1e602eeff71eccb1d92bb`, tree `b9d817b576a2cdf433c8be076abdc7c01dfc31f9`: all 860 ZERO tests, 14 corpus cases and ten affected native commands PASS. Fifteen new tests include actual native and ZERO lost completed replies, encrypted restart, delayed body retirement, failed persistence and current identity revocation during an authenticated body wait.
+
+Preparation, ordered decisions, final approval and withdrawal atomically retain typed acknowledgements and exact review snapshots in the existing private native idempotency bucket. Recovery identifies the original result separately from later review steps. Direct replay of a superseded result cannot claim current success. Final approval recovery also verifies the retained approved creative revision; nothing is published. Absent request keys can be durably closed so a delayed body cannot execute afterward.
+
+Current tenant, actor, permissions, campaign capability, source ownership, review ownership and original step identity are rechecked. Approval-only reviewers reconcile using their existing approval authority. Review reads and shared projections now respect the complete creative ancestry access rule, closing a reproduced snapshot disclosure. Legacy receipts remain untyped and cannot be promoted to invented recovery evidence. Failed persistence restores native record, history, audit, outbox and receipt together; receipt capacity preserves existing proof.
+
+The failed baseline and both product defects are retained in the manifest. Initial HTTP fixture failures came from an unsupported enrollment argument; fixtures now grant rights through the actual identity endpoint and log in again. Native and ZERO HTTP cases run separately with the unchanged 15-second timeout and all assertions retained.
+
+The previous creative client checkpoint has matching complete CI 223. This newer native review checkpoint needs its own exact published full CI. The shared review UI still requires metadata-only reload recovery, strict result binding and eight-locale presentation. All wider unaccepted Run 2 gates remain open; no main merge, deployment, real credentials or Run 3 action.
