@@ -5487,5 +5487,140 @@
     },
     "current_ci": "PENDING_PUBLICATION",
     "scope": "Fixture correction only; no application source change, no Run 2 gate promotion."
+  },
+  "native_manual_run_checkpoint": {
+    "source_commit": "b1ca39b0a6da4bf798e51b2db79d5301d2533271",
+    "source_tree": "9364625518cb165e8a1e35cf325b9d0f48ff1d5c",
+    "scope": "Native manual review/confirmation uses the shared ZERO controller with independent native endpoints and the existing durable non-executing run-request journal. Native and ZERO controls share input ownership; reload restores one scoped recovery control. Sixteen owned rows localize in eight locales without replacing source input nodes.",
+    "failure_history": "Original native manual retry resumed a due waiting step; changed event input created a second document; native uncertainty had no reload metadata and could dispatch without storage. These failures are retained in manual-before.log. An initial localization change replaced label children; the new reference-preservation test failed, and localized text is now isolated in spans.",
+    "new_permanent_tests": 11,
+    "focused": {
+      "tests": 53,
+      "pass": 53,
+      "fail": 0
+    },
+    "native_regression": [
+      {
+        "file": "workflow-manual-run-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-run-zero-client-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-run-zero-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-run-zero-api-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-execution-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-retry-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-authoring-api-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "module-access-contracts-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "business-workspaces-regression-test.js",
+        "exit_code": 0
+      }
+    ],
+    "full_zero": {
+      "tests": 711,
+      "pass": 711,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "command": "npm run test:zero",
+      "source_commit": "b1ca39b0a6da4bf798e51b2db79d5301d2533271",
+      "source_tree": "9364625518cb165e8a1e35cf325b9d0f48ff1d5c",
+      "exit_code": 0,
+      "seconds": 47.36,
+      "log_sha256": "353668f79963f154c90c8da0d68fa85a79c533fdcc6f507e0a8dcbaa7b960584",
+      "log_bytes": 84994
+    },
+    "http": "Actual production controller and native HTTP: dropped successful reply, encrypted restart, due waiting state unchanged, separate explicit resume creates exactly one multiline document, exact input/confirmation checks, terminal closure versus held body, EIO rollback, capability revocation during authenticated body wait.",
+    "logs": {
+      "manual-native-workflow-authoring-api-test.js.log": {
+        "sha256": "f211a1f4c217e20eac95de0c5e58da18fb0f0eb3ea03d09efe2e141b9c8af66c",
+        "bytes": 235
+      },
+      "manual-full-zero.log": {
+        "sha256": "353668f79963f154c90c8da0d68fa85a79c533fdcc6f507e0a8dcbaa7b960584",
+        "bytes": 84994
+      },
+      "manual-native-workflow-run-zero-api-test.js.log": {
+        "sha256": "e05ce558e891c0bb90d4f60b02e489000f66271bf382349761e727b39169ec77",
+        "bytes": 270
+      },
+      "manual-controls-after.log": {
+        "sha256": "ec26b2a340a34ac7111a1bc1fc2b9d552ea1793a82ec2074904a7b6c600ff401",
+        "bytes": 2559
+      },
+      "manual-first-after.log": {
+        "sha256": "678900e0edf1283fefc82afba4bedf9b85901181726404ca4a5f560c346e73b7",
+        "bytes": 87066
+      },
+      "manual-native-workflow-retry-test.js.log": {
+        "sha256": "e4e9855801e77dbe9d83972afce4b8e6c19f7b018fe02b207a5d39922a1dd347",
+        "bytes": 178
+      },
+      "manual-native-module-access-contracts-test.js.log": {
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "bytes": 332
+      },
+      "manual-before.log": {
+        "sha256": "7d321a95195b91087bfc40289b1e80daeea766bb844734463f6c7d8b498fdad7",
+        "bytes": 5538
+      },
+      "manual-native-workflow-manual-run-test.js.log": {
+        "sha256": "b05496eb546d81a52dd97a24853cbfcf8b19b0e55d54216ef6c0eae3017c17fd",
+        "bytes": 260
+      },
+      "manual-http.log": {
+        "sha256": "6b52c08ebddbefa1689286696760f0abd4d28a43c7980b2d964051329f68f767",
+        "bytes": 517
+      },
+      "manual-native-workflow-run-zero-client-test.js.log": {
+        "sha256": "ee1d28d357bcf8674e44020e0b3b06613350e2ff99667e282df4386bbdc23a75",
+        "bytes": 233
+      },
+      "manual-native-business-workspaces-regression-test.js.log": {
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      "manual-native-workflow-execution-test.js.log": {
+        "sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb",
+        "bytes": 899
+      },
+      "manual-native-workflow-run-zero-test.js.log": {
+        "sha256": "364e211d828350347a2bc0c4600787c0ae211f3372bd2eadefaa1ba88ccd1db6",
+        "bytes": 268
+      },
+      "manual-focused-final.log": {
+        "sha256": "3a4c479288574ce37b2386a60a92bdb4557edfda882b98033500e808c27564f9",
+        "bytes": 6684
+      }
+    },
+    "prior_ci": {
+      "number": 214,
+      "run_id": 36143342793,
+      "head": "91d3eb0e0deaa79382214abb89bfbf2a4e6fe969",
+      "observed_status": "in_progress"
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Shared approval, explicit resume, recovery and activation confirmation/reload paths; wider authoritative Run 2 gates unchanged. No rendered browser/native-speaker/provider or production acceptance claim."
   }
 }

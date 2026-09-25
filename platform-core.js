@@ -341,6 +341,8 @@ class FoundlyPlatformCore{
   recoverAutomationRunRequest(context,principalInput,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return require('./workflow-run-requests').recover(this,ctx,principal,input);}
   recoverAutomation(context,principalInput,runId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return recoverWorkflow(this,ctx,principal,runId,input);}
   setAutomationActivation(context,principalInput,automationId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return setWorkflowActivation(this,ctx,principal,automationId,input);}
+  previewConfirmedAutomationRun(context,principalInput,automationId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return require('./workflow-run-confirmation').preview(this,ctx,principal,automationId,input);}
+  submitConfirmedAutomationRun(context,principalInput,automationId,input){const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');return require('./workflow-run-confirmation').submit(this,ctx,principal,automationId,input);}
   previewAutomationRun(context,principalInput,automationId,input){
     const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'automation:manage');
     const workflow=this.bucket(ctx,'automations').find(row=>row?.id===automationId&&row.enabled);if(!workflow)throw platformError(404,'automation_missing','Automation niet gevonden');

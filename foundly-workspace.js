@@ -940,28 +940,28 @@
   }
 
   function appendManualWorkflowRun(workflow,card,content,isCurrent=()=>true,requestContext){
-    const contract=window.FoundlyWorkflowAuthoring,form=node('form','domain-record-form'),referenceLabel=node('label','','Unieke referentie voor deze handmatige uitvoering'),reference=node('input'),button=node('button','','Workflow uitvoeren'),notice=node('output'),fields={};
-    const active=()=>form.isConnected&&content.isConnected&&isCurrent();
-    reference.required=true;reference.maxLength=200;reference.value=crypto.randomUUID();referenceLabel.append(reference);form.append(referenceLabel);notice.setAttribute('role','status');
+    const contract=window.FoundlyWorkflowAuthoring,controls=window.FoundlyWorkflowRunZero,form=node('form','domain-record-form'),fields={};
+    const active=()=>form.isConnected&&content.isConnected&&isCurrent(),text=(key,params={})=>i18n()?.t('workflow.manual.'+key,params)||key,owned=(key,params={})=>live(()=>text(key,params));
+    const referenceLabel=node('label'),reference=node('input');referenceLabel.append(node('span','',owned('reference')));reference.required=true;reference.maxLength=200;reference.value=crypto.randomUUID();referenceLabel.append(reference);form.append(referenceLabel);
     try{
       for(const field of contract.runFields(workflow)){
-        if(field.fixed){form.append(node('p','',field.path+' volgt de uitvoerreferentie en de huidige workflowcontext.'));continue;}
-        const holder=node('fieldset'),legend=node('legend','',field.path),typeLabel=node('label','','Invoertype'),type=node('select'),valueLabel=node('label','',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.cfbf51fd"):'Waarde')),value=node('input');value.maxLength=12000;
-        for(const [id,label]of [['absent','Niet meegeven'],['text','Tekst'],['number','Getal'],['boolean','Boolean (true / false)'],['null','Leeg (null)']]){const option=node('option','',label);option.value=id;type.append(option);}type.value='absent';typeLabel.append(type);valueLabel.append(value);holder.append(legend,typeLabel,valueLabel);form.append(holder);
+        if(field.fixed){form.append(node('p','',owned('fixed',{path:field.path})));continue;}
+        const holder=node('fieldset'),legend=node('legend','',field.path),typeLabel=node('label'),type=node('select'),valueLabel=node('label'),value=node('input');typeLabel.append(node('span','',owned('type')));valueLabel.append(node('span','',owned('value')));value.maxLength=12000;
+        for(const id of ['absent','text','number','boolean','null']){const option=node('option','',owned('type_'+id));option.value=id;type.append(option);}type.value='absent';typeLabel.append(type);valueLabel.append(value);holder.append(legend,typeLabel,valueLabel);form.append(holder);
         const sync=()=>{valueLabel.hidden=['absent','null'].includes(type.value);value.disabled=valueLabel.hidden;value.required=['number','boolean'].includes(type.value);};type.addEventListener('change',sync);sync();fields[field.path]={type,value};
       }
-    }catch(error){card.append(node('p','ErrorState',friendlyError(error)));return;}
-    form.append(node('p','','Deze invoer hoort bij een handmatige uitvoering. Dezelfde referentie met dezelfde invoer herhaalt geen voltooide stappen. Een andere invoer vereist een nieuwe referentie.'),button,notice);button.type='submit';button.disabled=!workflow.effective_enabled;card.append(form);let pending=false;
-    if(window.FoundlyWorkflowRunZero){const zero=window.FoundlyWorkflowRunZero.create({document,workflow,requestContext,request:(path,options)=>request(path,options,active),inputHost:form,getInput:()=>contract.manualRunInput(workflow,reference.value.trim(),Object.fromEntries(Object.entries(fields).map(([path,field])=>[path,{type:field.type.value,value:field.value.value}]))),isActive:active,canRequest:()=>!pending&&workflow.effective_enabled&&active(),onBusy:value=>{if(!active())return;pending=value;form.inert=value;button.disabled=value||!workflow.effective_enabled;},zeroRequest:async(action,turnId)=>{if(!active())throw Error('De workflowweergave is niet meer actief.');const response=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:action.operation==='RUN_PREVIEW'?'Controleer deze workflowuitvoering':'Start de afzonderlijk bevestigde workflowuitvoering',conversation_id:state.conversationId,turn_id:turnId,preferred_module:'automation',client_context:{automation_action:action}})},active);if(!active())throw Error('De workflowweergave is niet meer actief.');state.conversationId=response.conversation_id||state.conversationId;return response.automation_data;}});card.append(zero);}
-    form.addEventListener('submit',async event=>{
-      event.preventDefault();if(pending||!workflow.effective_enabled||!active())return;
-      try{
-        const payload=contract.manualRunInput(workflow,reference.value.trim(),Object.fromEntries(Object.entries(fields).map(([path,field])=>[path,{type:field.type.value,value:field.value.value}])));
-        pending=true;button.disabled=true;form.inert=true;
-        const run=await request(`/api/automation/workflows/${workflow.id}/runs`,{method:'POST',body:JSON.stringify(payload)},active);
-        if(!active())return;notice.textContent=`Uitkomst: ${run.status}${run.replayed?' · bestaande uitvoering opnieuw opgehaald':''}`;
-      }catch(error){if(active())notice.textContent=friendlyError(error);}finally{pending=false;if(active()){form.inert=false;button.disabled=!workflow.effective_enabled;}}
-    });
+    }catch{card.append(node('p','ErrorState',owned('invalid')));return;}
+    form.append(node('p','',owned('help')));card.append(form);
+    if(!controls?.createNative||!requestContext){card.append(node('p','ErrorState',owned('unavailable')));return;}
+    const locks=new Map(),busy=()=>[...locks.values()].some(Boolean),available=()=>workflow.effective_enabled===true&&active(),getInput=()=>contract.manualRunInput(workflow,reference.value.trim(),Object.fromEntries(Object.entries(fields).map(([path,field])=>[path,{type:field.type.value,value:field.value.value}])));
+    const options=mode=>({document,workflow,requestContext,inputHost:form,getInput,isActive:active,canRequest:()=>!busy()&&available(),request:(path,options)=>request(path,options,active),onBusy:value=>{if(!active())return;locks.set(mode,value);form.inert=busy()||!available();}});
+    const native=controls.createNative(options('native'));card.append(native);
+    form.addEventListener('submit',event=>{event.preventDefault();});
+    const zero=controls.create({...options('zero'),restorePending:false,zeroRequest:async(action,turnId)=>{
+      if(!active())throw Error('automation_view_retired');
+      const response=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:action.operation==='RUN_PREVIEW'?'Controleer deze workflowuitvoering':'Start de afzonderlijk bevestigde workflowuitvoering',conversation_id:state.conversationId,turn_id:turnId,preferred_module:'automation',client_context:{automation_action:action}})},active);
+      if(!active())throw Error('automation_view_retired');state.conversationId=response.conversation_id||state.conversationId;return response.automation_data;
+    }});card.append(zero);
   }
 
   async function renderScheduling(content){

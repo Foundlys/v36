@@ -7,10 +7,12 @@
  const digest=async value=>Array.from(new Uint8Array(await root.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(value)))),byte=>byte.toString(16).padStart(2,'0')).join('');
  const statuses=new Set(['RUNNING','PLANNED','SUCCEEDED','ERROR','BLOCKED','AWAITING_APPROVAL','WAITING_TIME','WAITING_RETRY','DEAD_LETTER','RECOVERY_READY']),stepStatuses=new Set([...statuses,'FAILED','PLANNED_INTERNAL','SKIPPED_CONDITION']);
  const invalid=()=>Object.assign(Error('automation_run_ack_invalid'),{code:'automation_run_ack_invalid'}),shape=row=>({name:row.name,version:row.version,trigger:row.trigger,actions:row.actions,enabled:row.enabled!==false,approval_required:Boolean(row.approval_required)});
- function create({document,workflow,inputHost,getInput,canRequest,onBusy,zeroRequest,request=null,isActive=()=>true,requestContext}){
+ function create({document,workflow,inputHost,getInput,canRequest,onBusy,zeroRequest,request=null,isActive=()=>true,requestContext,mode='zero',restorePending=true}){
   workflow=clone(workflow);if(requestContext)requestContext=Object.freeze({...requestContext});
   const i18n=root.FoundlyI18n,bindings=new Map(),el=tag=>document.createElement(tag),box=el('fieldset'),active=()=>box.isConnected&&inputHost.isConnected&&isActive();
-  const copy=(key,params={})=>i18n?i18n.t('workflow.run.'+key,params):(fallback[key]||key).replace(/\{(\w+)\}/g,(_,name)=>String(params[name])),shared=(key,fallback,params={})=>i18n?i18n.t(key,params):fallback.replace(/\{(\w+)\}/g,(_,name)=>String(params[name])),number=value=>i18n?i18n.number(value,{maximumSignificantDigits:21}):String(value),status=value=>shared('workflow.status.'+value.toLowerCase(),value);
+  const modeKeys=new Set(['legend','prepare','confirm','retry']),nativeCopy={legend:'Handmatige uitvoering controleren',prepare:'Uitvoering voorbereiden',confirm:'Bevestig handmatige uitvoering',retry:'Dezelfde uitvoeraanvraag controleren'};
+  box.setAttribute('data-workflow-run-mode',mode);
+  const copy=(key,params={})=>mode==='native'&&modeKeys.has(key)?i18n?i18n.t('workflow.manual.'+key,params):nativeCopy[key]:i18n?i18n.t('workflow.run.'+key,params):(fallback[key]||key).replace(/\{(\w+)\}/g,(_,name)=>String(params[name])),shared=(key,fallback,params={})=>i18n?i18n.t(key,params):fallback.replace(/\{(\w+)\}/g,(_,name)=>String(params[name])),number=value=>i18n?i18n.number(value,{maximumSignificantDigits:21}):String(value),status=value=>shared('workflow.status.'+value.toLowerCase(),value);
   function bind(node,read){const value={read,last:read()};node.textContent=value.last;bindings.set(node,value);return node;}
   const owned=(tag,key)=>bind(el(tag),()=>copy(key)),legend=owned('legend','legend'),prepare=owned('button','prepare'),confirm=el('button'),reasonLabel=el('label'),reason=el('input'),output=el('pre'),notice=el('output');box.append(legend);reasonLabel.append(owned('span','reason'),reason);reason.maxLength=500;prepare.type=confirm.type='button';prepare.setAttribute('data-workflow-run-action','prepare');confirm.setAttribute('data-workflow-run-action','confirm');notice.setAttribute('aria-live','polite');box.append(prepare,output,reasonLabel,confirm,notice);
   let preview=null,pending=null,generation=0,busy=false;bind(confirm,()=>copy(pending?'retry':'confirm'));confirm.disabled=true;
@@ -63,7 +65,7 @@
    const run=await verifyRecovery(data,meta,current);if(!active()||current&&pending!==current)return;
    const clean=forget(meta);if(row)row.done=true;if(current)pending=null;preview=null;clear();if(run)confirmed(run,clean);else message(clean?'recovery_not_applied':'confirmed_metadata');
   }
-  if(recoverable){try{for(const meta of readPending()){const button=owned('button','recover');button.type='button';button.setAttribute('data-workflow-run-action','recover');const row={meta,button,done:false};prior.push(row);box.append(button);button.addEventListener('click',async()=>{if(!active()||busy||row.done||pending)return;busy=true;lock();message('recovery_loading');try{await reconcile(meta,null,row);}catch(error){if(active()){if(error.code==='automation_run_request_unavailable'){row.done=true;forget(meta);message('recovery_unavailable');}else feedback(error,true);}}finally{busy=false;lock();}});}if(prior.length)message('recovery_pending');}catch{storageReady=false;message('storage_required');}prepare.disabled=unresolved()||!storageReady;reason.disabled=prepare.disabled;Promise.resolve().then(lock);}
+  if(recoverable){try{const restored=readPending();for(const meta of restorePending?restored:[]){const button=owned('button','recover');button.type='button';button.setAttribute('data-workflow-run-action','recover');const row={meta,button,done:false};prior.push(row);box.append(button);button.addEventListener('click',async()=>{if(!active()||busy||row.done||pending)return;busy=true;lock();message('recovery_loading');try{await reconcile(meta,null,row);}catch(error){if(active()){if(error.code==='automation_run_request_unavailable'){row.done=true;forget(meta);message('recovery_unavailable');}else feedback(error,true);}}finally{busy=false;lock();}});}if(prior.length)message('recovery_pending');}catch{storageReady=false;message('storage_required');}prepare.disabled=unresolved()||!storageReady;reason.disabled=prepare.disabled;Promise.resolve().then(lock);}
   prepare.addEventListener('click',async()=>{
    if(busy||blocked()||!active()||!canRequest())return;busy=true;preview=null;clear();lock();message('loading');const start=generation;
    try{const payload=getInput(),input=clone({event:payload.event,inputs:payload.options.inputs}),data=await zeroRequest({operation:'RUN_PREVIEW',workflow_id:workflow.id,input},root.crypto.randomUUID());if(!active()||generation!==start)return;await verifyPreview(data,input);if(!active()||generation!==start)return;preview={input,data:clone(data),signature:JSON.stringify(input),generation:start};const shown=preview.data;bind(output,()=>describe(shown));message('review');}
@@ -84,5 +86,8 @@
    }catch(error){if(active()&&pending===current){current.uncertain=current.submitted;feedback(error,current.uncertain);}}finally{busy=false;lock();}
   });return box;
  }
- root.FoundlyWorkflowRunZero={create};
+ function createNative(options){
+  return create({...options,mode:'native',zeroRequest:async action=>options.request('/api/automation/workflows/'+encodeURIComponent(action.workflow_id)+(action.operation==='RUN_PREVIEW'?'/run-preview':'/run-confirmation'),{method:'POST',body:JSON.stringify(action.input)})});
+ }
+ root.FoundlyWorkflowRunZero={create,createNative};
 })(globalThis);
