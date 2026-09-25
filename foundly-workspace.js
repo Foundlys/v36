@@ -22,6 +22,7 @@
 
   let accessGeneration=0,workspaceLoad=0,registryLoad=0,zeroTurn=0,dashboardWrite=null;
   const dashboardControlState=new Map();
+  let connectorView=0,connectorSession=null;const connectorForms=new WeakMap(),connectorActions=new Set();
   const liveMessages=new WeakMap(),liveBindings=new Set();
   const i18n=()=>globalThis.FoundlyI18n;
   const copy=(key,params={})=>i18n()?.message(key.startsWith('common.')||key.startsWith('module.')||key.startsWith('analysis.')?key:'workspace.page.'+key,params)||key;
@@ -547,20 +548,33 @@
     return `/api/connector-runtime/oauth/${encodeURIComponent(id)}/start?return_to=${encodeURIComponent('/connectors')}`;
   }
 
+  function connectorState(value){
+    const keys={NOT_RUN:'not_run',NOT_CONFIGURED:'configuration',AUTHENTICATED_PUBLIC:'public_access',LIVE_REFERENCE:'live_reference',AVAILABLE:'available'};
+    if(value==='NOT_VERIFIED')return i18n().message('integrations.unproven');if(value==='NOT_CONFIGURED')return i18n().message('integrations.unconfigured');
+    if(value==='PASS'||value==='FAIL')return i18n().message(value==='PASS'?'integrations.pass':'integrations.error');
+    return keys[value]?copy(keys[value]):stateText(value);
+  }
+
   async function openConnector(connectorId) {
+    if(connectorSession?.busy)return toast(copy('connector_busy'),true);
+    const dialog=byId('connectorDialog'),root=byId('connectorDetail'),ticket=++connectorView;
+    const current=()=>ticket===connectorView&&dialog.open;
+    connectorSession=null;dialog.onclose=()=>{if(dialog.open)return;connectorView++;connectorSession=null;replaceChildren(root);writeText(byId('connectorDialogTitle'),unknown());};
+    replaceChildren(root,[node('p','panel-copy',copy('connector_loading'))]);writeText(byId('connectorDialogTitle'),copy('connector_loading'));if(!dialog.open)dialog.showModal();
     try {
       const [{ connector }, config] = await Promise.all([
         request(`/api/connector-registry/${encodeURIComponent(connectorId)}`),
         request(`/api/connector-runtime/config/${encodeURIComponent(connectorId)}`).catch(error => error.status === 404 ? null : Promise.reject(error))
       ]);
-      byId('connectorDialogTitle').textContent = connector.name;
-      const root = byId('connectorDetail'), summary = node('div', 'connector-detail-summary');
+      if(!current())return;if(!connector||connector.connector_id!==connectorId)throw Error('connector_observation_unconfirmed');
+      writeText(byId('connectorDialogTitle'),connector.name);
+      const summary = node('div', 'connector-detail-summary');
       summary.append(
-        detailFact('Lifecycle', connector.connection_state), detailFact('Configuration', connector.configuration_state),
-        detailFact('Authentication', connector.authentication_state), detailFact('Probe', connector.probe_state),
-        detailFact('Sync', connector.sync_state), detailFact((globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.593ef94d"):'Records'), connector.records),
-        detailFact('Last probe', connector.last_probe ? new Date(connector.last_probe).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'),
-        detailFact('Latency', Number.isFinite(connector.latency) ? `${connector.latency} ms` : '—'), detailFact('Freshness', connector.freshness)
+        detailFact(copy('lifecycle'), connectorState(connector.connection_state)), detailFact(copy('configuration'), connectorState(connector.configuration_state)),
+        detailFact(copy('authentication'), connectorState(connector.authentication_state)), detailFact(copy('probe'), connectorState(connector.probe_state)),
+        detailFact(copy('sync'), connectorState(connector.sync_state)), detailFact(copy('records'),count(connector.records)),
+        detailFact(copy('last_probe'),connector.last_probe?time(connector.last_probe):copy('not_run')),
+        detailFact(copy('latency'),typeof connector.latency==='number'&&Number.isFinite(connector.latency)&&connector.latency>=0?live(()=>i18n().number(connector.latency)+' ms'):unknown()), detailFact(copy('freshness'),connectorState(connector.freshness))
       );
       const labels = ['OVERVIEW', 'CAPABILITIES', 'SETUP', 'AUTHENTICATION', 'DATA', 'SYNC', 'EVENTS', 'ERRORS', 'AUDIT'];
       const initialTab = connector.setup_action === 'INSPECT' ? 'OVERVIEW' : 'SETUP', tabs = node('div', 'connector-tabs');
@@ -568,97 +582,112 @@
       const panels = new Map();
       const panel = (label, children) => {
         const element = node('section', 'connector-tab-panel');
-        element.id = `connector-panel-${label.toLowerCase()}`; element.setAttribute('role', 'tabpanel'); element.hidden = label !== initialTab;
+        element.id = `connector-panel-${label.toLowerCase()}`; element.setAttribute('role', 'tabpanel');element.setAttribute('aria-labelledby','connector-tab-'+label.toLowerCase()); element.hidden = label !== initialTab;
         replaceChildren(element, children); panels.set(label, element); return element;
       };
 
       const overview = panel('OVERVIEW', [
-        node('p', 'panel-copy', `${connector.name} is AVAILABLE in de canonieke registry. CONNECTED wordt uitsluitend gebruikt na geldige configuratie, autorisatie, providerprobe en vereiste bootstrap of sync.`),
-        detailFact('Provider', connector.provider), detailFact('Documentatiecontract', connector.documentation_reference)
+        node('p','panel-copy',copy('connector_overview')),
+        detailFact(copy('field.provider'),connector.provider),detailFact(copy('contract'),connector.documentation_reference)
       ]);
       const capabilityList = node('div', 'capability-list');
       for (const capability of connector.capabilities || []) capabilityList.append(node('span', '', capability));
-      const capabilities = panel('CAPABILITIES', [capabilityList, node('p', 'panel-copy', `Industrieën: ${(connector.industries || []).join(', ') || 'ALL'} · Tenant: ${connector.tenant_scope || 'CURRENT_TENANT_AND_DEALER'}.`)]);
+      const capabilities = panel('CAPABILITIES', [capabilityList, node('p', 'panel-copy', live(()=>copy('connector_industries',{industries:(connector.industries||[]).join(', ')||String(unknown()),scope:connector.tenant_scope||String(unknown())})))]);
 
       const setupChildren = [];
-      setupChildren.push(node('p', 'connector-warning', connector.requires_partner_approval && connector.connection_state !== 'CONNECTED' ? 'Deze connector wacht op legitieme externe toegang. Configureer uitsluitend credentials die aan deze tenant zijn verstrekt.' : 'Geheimen worden encrypted opgeslagen en nooit teruggetoond. Reeds opgeslagen waarden blijven behouden wanneer een veld leeg blijft.'));
+      setupChildren.push(node('p', 'connector-warning', connector.requires_partner_approval===true && connector.connection_state !== 'CONNECTED' ? copy('connector_partner'):copy('connector_secrets')));
       const variableStatuses = connector.credential_contract?.environment_variable_status || (connector.credential_contract?.environment_variables || []).map(name => ({ name, present: false, runtime_visible: false }));
       if (variableStatuses.length) {
-        setupChildren.push(node('p', 'panel-copy', 'Ondersteunde Railway-runtimevariabelen (alleen naam en runtimezichtbaarheid):'));
+        setupChildren.push(node('p', 'panel-copy', copy('connector_variables')));
         const list = node('ul', 'runtime-variable-list');
         for (const variable of variableStatuses) {
-          const item = node('li'), status = node('strong', variable.runtime_visible ? 'present' : 'absent', variable.runtime_visible ? 'RUNTIME VISIBLE' : 'ABSENT');
+          const item = node('li'), status = node('strong', variable.runtime_visible===true?'present':'absent',variable.runtime_visible===true?copy('connector_visible'):variable.runtime_visible===false?copy('connector_absent'):unknown());
           item.append(node('span', '', variable.name), status); list.append(item);
         }
         setupChildren.push(list);
       }
       const form = node('form', 'connector-setup-form'); form.dataset.connectorId = connector.connector_id;
-      const configuredFields = connector.credential_contract?.accepts_tenant_encrypted_configuration ? (connector.credential_contract?.fields || config?.credential_fields || []) : [];
+      const configuredFields = connector.credential_contract?.accepts_tenant_encrypted_configuration===true ? (connector.credential_contract?.fields || config?.credential_fields || []) : [];
       const fieldKeys = new Set();
       for (const field of configuredFields) {
         if (!field?.key || fieldKeys.has(field.key)) continue;
         fieldKeys.add(field.key);
         const label = node('label', '', field.label || field.key), input = node('input');
-        input.name = field.key; input.type = field.secret === false ? 'text' : 'password'; input.autocomplete = 'new-password'; input.placeholder = config?.configured ? 'Opgeslagen — leeg laten om te behouden' : 'Voer tenantcredential in';
+        input.name = field.key; input.type = field.secret === false ? 'text' : 'password'; input.autocomplete = 'new-password'; writeText(input,copy(config?.configured===true?'connector_saved_placeholder':'connector_enter_placeholder'),'placeholder');
         label.append(input); form.append(label);
       }
-      if (!form.children.length) form.append(node('p', 'panel-copy', connector.auth_type.includes('PUBLIC') ? 'Deze bron gebruikt publieke toegang en vereist geen credentials.' : 'Deze connector gebruikt centrale Railway- of OAuth-configuratie; er zijn geen losse tenantcredentialvelden nodig.'));
+      if (!form.children.length) form.append(node('p', 'panel-copy', String(connector.auth_type||'').includes('PUBLIC')?copy('connector_public'):copy('connector_no_fields')));
+      const session={id:connectorId,form,current,busy:false,revision:config?.ok===true&&Number.isSafeInteger(config.revision)&&config.revision>=0?config.revision:null,pending:null,conflict:false};connectorForms.set(form,session);connectorSession=session;
       setupChildren.push(form);
       const actions = node('div', 'connector-actions');
-      if (form.querySelector('input')) { const save = node('button', 'primary-button', 'Encrypted opslaan'); save.type = 'submit'; actions.append(save); form.addEventListener('submit', saveConnector); }
-      if (connector.callback_contract?.required) { const authorize = node('a', 'primary-button', 'Autoriseren'); authorize.href = oauthPath(connector); actions.append(authorize); }
-      const test = node('button', 'secondary-button', 'Verbinding testen'); test.type = 'button'; test.addEventListener('click', () => testConnector(connector.connector_id)); actions.append(test);
-      if (connector.connection_state === 'CONNECTED') { const sync = node('button', 'secondary-button', 'Synchroniseren'); sync.type = 'button'; sync.addEventListener('click', () => syncConnector(connector.connector_id)); actions.append(sync); }
-      setupChildren.push(actions);
+      if (form.querySelector('input')) { const save = node('button', 'primary-button', copy('connector_save')); save.type = 'submit'; actions.append(save); form.addEventListener('submit', saveConnector); }
+      if (connector.callback_contract?.required===true) { const authorize = node('a', 'primary-button',copy('connector_authorize')); authorize.href = oauthPath(connector);authorize.addEventListener('click',event=>{if(!current()||session.busy)event.preventDefault();}); actions.append(authorize); }
+      const test = node('button', 'secondary-button',copy('connector_test')); test.type = 'button'; test.addEventListener('click', () => current()&&test.isConnected&&!session.busy?testConnector(connector.connector_id):undefined); actions.append(test);
+      if (connector.connection_state === 'CONNECTED') { const sync = node('button', 'secondary-button',copy('connector_sync')); sync.type = 'button'; sync.addEventListener('click', () => current()&&sync.isConnected&&!session.busy?syncConnector(connector.connector_id):undefined); actions.append(sync); }
+      form.append(actions);
       const setup = panel('SETUP', setupChildren);
       const authentication = panel('AUTHENTICATION', [
-        detailFact('Auth type', connector.auth_type), detailFact('State', connector.authentication_state),
-        detailFact('Callback', connector.callback_contract?.required ? connector.callback_contract.route : 'NOT APPLICABLE'),
-        node('p', 'panel-copy', `Required scopes: ${(connector.required_scopes || []).join(', ') || 'Geen expliciete scopes in het huidige contract.'}`)
+        detailFact(copy('auth_type'),connector.auth_type),detailFact(copy('authentication'),connectorState(connector.authentication_state)),
+        detailFact(copy('callback'),connector.callback_contract?.required===true?connector.callback_contract.route:copy('not_applicable')),
+        node('p','panel-copy',live(()=>copy('connector_scopes',{scopes:(connector.required_scopes||[]).join(', ')||String(copy('connector_no_scopes'))})))
       ]);
-      const data = panel('DATA', [detailFact((globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.593ef94d"):'Records'), connector.records), detailFact('Freshness', connector.freshness), detailFact('Tenant scope', connector.tenant_scope), node('p', 'panel-copy', 'Records worden alleen geteld vanuit de bestaande tenant-scoped persistence- en provenanceketen.')]);
-      const syncPanel = panel('SYNC', [detailFact('Sync state', connector.sync_state), detailFact('Last sync', connector.last_sync ? new Date(connector.last_sync).toLocaleString((globalThis.FoundlyI18n?.locale||'nl-NL')) : 'NOT RUN'), node('p', 'panel-copy', connector.connection_state === 'CONNECTED' ? 'Een handmatige sync is beschikbaar via SETUP.' : 'Sync blijft uitgeschakeld totdat de connector werkelijk CONNECTED is.')]);
-      const eventsPanel = panel('EVENTS', [node('div', 'EmptyState NoDataState', 'Geen afzonderlijke connector-events zijn in dit registryantwoord opgenomen. Providerpogingen blijven in de bestaande audit- en attempt stores.')]);
-      const errors = panel('ERRORS', [connector.safe_error ? node('p', 'connector-safe-error', connector.safe_error) : node('div', 'EmptyState NoDataState', 'Geen veilige providerfout geregistreerd.')]);
-      const audit = panel('AUDIT', [detailFact('Contract', connector.documentation_reference), node('p', 'panel-copy', 'Configureer-, test- en syncacties lopen via de bestaande tenant-scoped runtime- en auditpaden; geheimwaarden worden niet gelogd of teruggestuurd.')]);
-      for (const label of labels) {
-        const button = node('button', label === initialTab ? 'active' : '', label); button.type = 'button'; button.setAttribute('role', 'tab'); button.setAttribute('aria-selected', String(label === initialTab)); button.setAttribute('aria-controls', panels.get(label).id);
-        button.addEventListener('click', () => { for (const candidate of tabs.querySelectorAll('button')) { const active = candidate === button; candidate.classList.toggle('active', active); candidate.setAttribute('aria-selected', String(active)); } for (const [name, candidate] of panels) candidate.hidden = name !== label; });
-        tabs.append(button);
+      const data=panel('DATA',[detailFact(copy('records'),count(connector.records)),detailFact(copy('freshness'),connectorState(connector.freshness)),detailFact(copy('scope'),connector.tenant_scope),node('p','panel-copy',copy('connector_records_note'))]);
+      const syncPanel=panel('SYNC',[detailFact(copy('sync'),connectorState(connector.sync_state)),detailFact(copy('last_sync'),connector.last_sync?time(connector.last_sync):copy('not_run')),node('p','panel-copy',copy(connector.connection_state==='CONNECTED'?'connector_sync_available':'connector_sync_disabled'))]);
+      const eventsPanel=panel('EVENTS',[node('div','EmptyState NoDataState',copy('connector_no_events'))]);
+      const errors=panel('ERRORS',[connector.safe_error?node('p','connector-safe-error',connector.safe_error):node('div','EmptyState NoDataState',copy('connector_no_errors'))]);
+      const audit=panel('AUDIT',[detailFact(copy('contract'),connector.documentation_reference),node('p','panel-copy',copy('connector_audit_note'))]);
+      const activate=button=>{for(const candidate of tabs.querySelectorAll('button')){const active=candidate===button;candidate.classList.toggle('active',active);candidate.setAttribute('aria-selected',String(active));candidate.tabIndex=active?0:-1;}for(const candidate of panels.values())candidate.hidden=candidate.id!==button.getAttribute('aria-controls');};
+      for(const label of labels){
+        const button=node('button',label===initialTab?'active':'',copy(label.toLowerCase()));button.type='button';button.id='connector-tab-'+label.toLowerCase();button.setAttribute('role','tab');button.setAttribute('aria-selected',String(label===initialTab));button.setAttribute('aria-controls',panels.get(label).id);button.tabIndex=label===initialTab?0:-1;
+        button.addEventListener('click',()=>activate(button));button.addEventListener('keydown',event=>{const options=[...tabs.querySelectorAll('button')],index=options.indexOf(button),target=event.key==='Home'?0:event.key==='End'?options.length-1:event.key==='ArrowRight'?(index+1)%options.length:event.key==='ArrowLeft'?(index+options.length-1)%options.length:null;if(target!==null){event.preventDefault();activate(options[target]);options[target].focus();}});tabs.append(button);
       }
       replaceChildren(root, [summary, tabs, overview, capabilities, setup, authentication, data, syncPanel, eventsPanel, errors, audit]);
-      byId('connectorDialog').showModal();
-    } catch (error) { toast(friendlyError(error), true); }
+    } catch (error) {if(!current())return;connectorSession=null;replaceChildren(root,[node('p','connector-safe-error',friendlyError(error))]);writeText(byId('connectorDialogTitle'),unknown());toast(friendlyError(error),true);}
   }
 
   async function saveConnector(event) {
-    event.preventDefault();
-    const form = event.currentTarget, credentials = {};
-    for (const input of form.querySelectorAll('input')) if (input.value) credentials[input.name] = input.value;
-    if (!Object.keys(credentials).length) return toast('Geen nieuwe credentialwaarden ingevuld.', true);
-    try {
-      await request(`/api/connector-runtime/config/${encodeURIComponent(form.dataset.connectorId)}`, { method: 'PUT', body: JSON.stringify({ credentials }) });
-      for (const input of form.querySelectorAll('input')) input.value = '';
-      toast('Connectorconfiguratie encrypted opgeslagen. Status wordt pas CONNECTED na verificatie.');
-      await reloadRegistries();
-    } catch (error) { toast(friendlyError(error), true); }
+    event.preventDefault();const form=event.currentTarget,session=connectorForms.get(form);if(!session||!session.current()||!form.isConnected||session.busy||session.conflict)return;
+    if(!session.pending){
+      if(session.revision===null)return toast(copy('connector_save_unconfirmed'),true);
+      const credentials=Object.create(null);for(const input of form.querySelectorAll('input'))if(input.value)credentials[input.name]=input.value;
+      if(!Object.keys(credentials).length)return toast(copy('connector_no_values'),true);
+      session.pending=Object.freeze({body:JSON.stringify({credentials,expected_revision:session.revision}),key:crypto.randomUUID()});
+    }
+    const pending=session.pending,controls=[...form.querySelectorAll('input,button')];session.busy=true;controls.forEach(control=>control.disabled=true);
+    try{
+      const result=await request(`/api/connector-runtime/config/${encodeURIComponent(session.id)}`,{method:'PUT',body:pending.body,headers:{'idempotency-key':pending.key}});
+      if(result?.ok!==true||result.id!==session.id||result.request_id!==pending.key||!Number.isSafeInteger(result.revision)||result.revision!==session.revision+1)throw Error('connector_save_unconfirmed');
+      session.pending=null;session.revision=result.revision;
+      if(!session.current()||!form.isConnected)return;for(const input of form.querySelectorAll('input'))input.value='';toast(copy('connector_saved'));
+      try{await reloadRegistries();}catch(error){if(session.current()&&!error.stale)toast(copy('connector_saved_refresh_failed'),true);}
+    }catch(error){
+      if([400,404,409,412,428].includes(error.status)){session.pending=null;session.conflict=true;}
+      if(session.current()&&!error.stale)toast(session.conflict?copy('connector_conflict'):copy('connector_save_unconfirmed'),true);
+    }finally{
+      session.busy=false;for(const control of controls){control.disabled=session.conflict||Boolean(session.pending&&control.type!=='submit');if(control.type==='submit')writeText(control,copy(session.pending?'connector_retry':'connector_save'));}
+    }
   }
 
   async function testConnector(connectorId) {
-    try {
-      const result = await request(`/api/connector-runtime/test/${encodeURIComponent(connectorId)}`, { method: 'POST', body: '{}' });
-      const connected = Boolean(result.connector?.connected);
-      toast(connected ? 'Providerprobe geslaagd.' : `Probe niet geslaagd: ${result.connector?.error || 'geen geverifieerde verbinding'}`, !connected);
-      await reloadRegistries();
-    } catch (error) { toast(friendlyError(error), true); }
+    const key='test:'+connectorId;if(connectorActions.has(key))return;connectorActions.add(key);
+    const session=connectorSession,current=()=>!session||session.current();
+    try{
+      const result=await request(`/api/connector-runtime/test/${encodeURIComponent(connectorId)}`,{method:'POST',body:'{}'});if(!current())return;
+      const connected=result?.ok===true&&result.connector?.id===connectorId&&result.connector.connected===true;
+      const smtp=result?.ok===true&&connectorId==='email'&&result.connector?.id==='email'&&result.connector.authenticated===true&&result.connector.authentication_verified===true&&result.connector.tls_verified===true&&result.external_send===false&&result.connector.connected===false&&result.connector.mailbox_access_verified===false&&result.connector.send_verified===false;
+      toast(copy(connected?'connector_probe_pass':smtp?'connector_smtp_verified':'connector_probe_unconfirmed'),!connected&&!smtp);await reloadRegistries();
+    }catch(error){if(current()&&!error.stale)toast(friendlyError(error),true);}finally{connectorActions.delete(key);}
   }
 
   async function syncConnector(connectorId) {
-    try {
-      const result = await request(`/api/connector-runtime/sync/${encodeURIComponent(connectorId)}`, { method: 'POST', body: '{}' });
-      toast(`Sync afgerond: ${Number(result.ingested || 0)} records verwerkt.`);
-      await loadWorkspaceData();
-    } catch (error) { toast(friendlyError(error), true); }
+    const key='sync:'+connectorId;if(connectorActions.has(key))return;connectorActions.add(key);
+    const session=connectorSession,current=()=>!session||session.current();
+    try{
+      const result=await request(`/api/connector-runtime/sync/${encodeURIComponent(connectorId)}`,{method:'POST',body:'{}'});if(!current())return;
+      const verified=result?.ok===true&&result.id===connectorId&&Number.isSafeInteger(result.ingested)&&result.ingested>=0;
+      toast(verified?live(()=>copy('connector_sync_count',{count:i18n().number(result.ingested)})):copy('connector_sync_unconfirmed'),!verified);
+      if(verified)await loadWorkspaceData();
+    }catch(error){if(current()&&!error.stale)toast(friendlyError(error),true);}finally{connectorActions.delete(key);}
   }
 
   function renderContext(section) {

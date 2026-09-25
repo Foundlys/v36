@@ -1,0 +1,47 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),{fixture}=require('../zero-evaluation/workspace-connector-fixture');
+test('actual connector save button belongs to its credential form',async()=>{
+ const f=fixture();await f.ui.openConnector('alpha');const form=f.form(),save=f.nodes.connectorDetail.all().find(node=>node.tag==='button'&&node.type==='submit');assert.ok(form);assert.ok(save);assert.equal(save.closest('form'),form);
+});
+test('late connector details cannot replace a newer selected source',async()=>{
+ const f=fixture(),release=f.holdConnector('/api/connector-registry/alpha'),pending=f.ui.openConnector('alpha');await release.started;await f.ui.openConnector('beta');release();await pending;assert.equal(f.nodes.connectorDialogTitle.textContent,f.responses.beta.connector.name);assert.equal(f.form().dataset.connectorId,'beta');
+});
+test('closing connector details cancels a pending refresh without reopening the private dialog',async()=>{
+ const f=fixture();await f.ui.openConnector('alpha');const release=f.holdConnector('/api/connector-registry/alpha'),pending=f.ui.openConnector('alpha');await release.started;f.nodes.connectorDialog.close();release();await pending;assert.equal(f.nodes.connectorDialog.open,false);assert.equal(f.nodes.connectorDetail.textContent,'');
+});
+test('connector save blocks duplicate submission and editing while its request is pending',async()=>{
+ const f=fixture();await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input');input.value='isolated-fixture-value';const release=f.holdConnector('/api/connector-runtime/config/alpha'),pending=f.ui.saveConnector({preventDefault(){},currentTarget:form});await release.started;const locked=input.disabled;await f.ui.saveConnector({preventDefault(){},currentTarget:form});release();await pending;assert.equal(locked,true);assert.equal(f.calls.filter(row=>row.options.method==='PUT').length,1);
+});
+test('malformed connector save acknowledgement cannot clear input or claim persistence',async()=>{
+ const f=fixture();f.responses.save={ok:true,id:'different-source'};await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input');input.value='isolated-fixture-value';await f.ui.saveConnector({preventDefault(){},currentTarget:form});assert.equal(input.value,'isolated-fixture-value');assert.ok(f.nodes.toastRegion.children.at(-1).className.includes('error'));
+});
+test('connector probe does not turn a string false into verified connection',async()=>{
+ const f=fixture();f.responses.probe={ok:true,connector:{connected:'false'}};await f.ui.testConnector('alpha');assert.ok(f.nodes.toastRegion.children.at(-1).className.includes('error'));
+});
+test('connector sync never reports missing or malformed ingestion counts as a successful zero',async()=>{
+ for(const ingested of [undefined,null,'',false,'3',-1,.5]){const f=fixture();f.responses.sync={ok:true,id:'alpha',ingested};await f.ui.syncConnector('alpha');assert.ok(f.nodes.toastRegion.children.at(-1).className.includes('error'),'Unknown count cannot become completed ingestion');}
+});
+test('connector details retain literal source text and draft inputs while every owned label follows all eight locales',async()=>{
+ const {locales}=require('../foundly-i18n'),f=fixture(),c=f.responses.alpha.connector;c.records=1234;c.last_probe='2026-09-24T12:34:56Z';c.latency=1234.5;c.safe_error='Literal provider failure <img>';await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input'),calls=f.calls.length;input.value='unchanged private draft';
+ for(const locale of locales){f.i.setLocale(locale);const text=f.nodes.connectorDetail.textContent;assert.ok(text.includes(f.i.t('workspace.page.configuration')));assert.ok(text.includes(f.i.t('workspace.page.connector_overview')));assert.ok(text.includes(f.i.t('workspace.page.connector_secrets')));assert.ok(text.includes(f.i.number(1234)));assert.ok(text.includes(f.i.date(c.last_probe,{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'})));assert.ok(text.includes(c.safe_error));assert.equal(f.nodes.connectorDialogTitle.textContent,c.name);assert.equal(f.form(),form);assert.equal(input.value,'unchanged private draft');assert.equal(f.calls.length,calls);assert.equal(f.i.missingKeys().length,0);}
+});
+test('uncertain connector save retries the frozen request and exact key before permitting a new draft',async()=>{
+ const f=fixture();f.responses.config.revision=8;await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input');input.value='first isolated draft';f.responses.save={ok:true,id:'wrong source'};
+ await f.ui.saveConnector({preventDefault(){},currentTarget:form});const first=f.calls.find(row=>row.options.method==='PUT');assert.ok(first.options.headers['idempotency-key']);assert.equal(JSON.parse(first.options.body).expected_revision,8);assert.equal(input.disabled,true);
+ input.value='later unconfirmed draft';f.responses.save={ok:true,id:'alpha',revision:9,request_id:first.options.headers['idempotency-key']};await f.ui.saveConnector({preventDefault(){},currentTarget:form});const second=f.calls.filter(row=>row.options.method==='PUT')[1];assert.equal(second.options.body,first.options.body);assert.equal(second.options.headers['idempotency-key'],first.options.headers['idempotency-key']);assert.equal(input.value,'');assert.equal(input.disabled,false);assert.ok(!f.nodes.toastRegion.children.at(-1).className.includes('error'));
+});
+test('native email authentication evidence is distinguished from connected inbox or delivered messages',async()=>{
+ const f=fixture();f.responses.probe={ok:true,external_send:false,connector:{id:'email',authenticated:true,authentication_verified:true,tls_verified:true,connected:false,mailbox_access_verified:false,send_verified:false}};await f.ui.testConnector('email');assert.equal(f.nodes.toastRegion.children.at(-1).textContent,f.i.t('workspace.page.connector_smtp_verified'));assert.ok(!f.nodes.toastRegion.children.at(-1).className.includes('error'));
+});
+test('confirmed connector writes clear the saved input and bind a later draft to the acknowledged revision',async()=>{
+ const f=fixture();await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input');input.value='first isolated draft';await f.ui.saveConnector({preventDefault(){},currentTarget:form});assert.equal(input.value,'');assert.equal(input.disabled,false);input.value='second isolated draft';await f.ui.saveConnector({preventDefault(){},currentTarget:form});const writes=f.calls.filter(row=>row.options.method==='PUT');assert.equal(writes.length,2);assert.equal(JSON.parse(writes[1].options.body).expected_revision,1);assert.notEqual(writes[0].options.headers['idempotency-key'],writes[1].options.headers['idempotency-key']);
+});
+test('connector revision refusal keeps the draft and blocks automatic overwriting until details are reopened',async()=>{
+ const f=fixture();await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input');input.value='preserved conflicted draft';f.responses.status=409;f.responses.save={ok:false,code:'connector_revision_conflict'};await f.ui.saveConnector({preventDefault(){},currentTarget:form});await f.ui.saveConnector({preventDefault(){},currentTarget:form});assert.equal(f.calls.filter(row=>row.options.method==='PUT').length,1);assert.equal(input.value,'preserved conflicted draft');assert.equal(input.disabled,true);assert.ok(f.nodes.toastRegion.children.at(-1).className.includes('error'));
+});
+test('connector tab keyboard selection has reciprocal tab and panel relationships and keeps draft values',async()=>{
+ const f=fixture();await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input'),tabs=f.nodes.connectorDetail.all().filter(n=>n.getAttribute('role')==='tab');input.value='kept draft';const selected=tabs.find(n=>n.getAttribute('aria-selected')==='true');await selected.fire('keydown',{key:'End',preventDefault(){}});const last=tabs.at(-1);assert.equal(last.getAttribute('aria-selected'),'true');assert.equal(last.tabIndex,0);assert.equal(tabs.filter(n=>n.tabIndex===0).length,1);const panel=f.nodes.connectorDetail.all().find(n=>n.id===last.getAttribute('aria-controls'));assert.equal(panel.hidden,false);assert.equal(panel.getAttribute('aria-labelledby'),last.id);assert.equal(input.value,'kept draft');
+});
+test('denied connector access retires the dialog and suppresses a late successful credential acknowledgement',async()=>{
+ const f=fixture();await f.ui.openConnector('alpha');const form=f.form(),input=form.querySelector('input');input.value='private pending draft';const release=f.holdConnector('/api/connector-runtime/config/alpha'),pending=f.ui.saveConnector({preventDefault(){},currentTarget:form});await release.started;f.responses.status=403;await f.ui.testConnector('alpha');release();await pending;assert.equal(f.nodes.connectorDialog.open,false);assert.equal(f.nodes.connectorDetail.textContent,'');assert.equal(f.nodes.connectorDialogTitle.textContent,f.i.t('common.unknown'));assert.ok(!f.nodes.toastRegion.textContent.includes(f.i.t('workspace.page.connector_saved')));
+});

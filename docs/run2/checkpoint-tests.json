@@ -2960,6 +2960,111 @@
     "remaining": "Finance compound write atomicity/exact uncertain-response recovery, complete report-range semantics and schema monetary terminology still need separate evidence. CRM/Analysis workspace currency metadata, shared workspace section/domain/connector-detail copy and form integrity, generated/backend localization, browser-reload retry and every-trigger automation dispatch remain open, alongside full cognition/adversarial/performance/demo/voice/browser/native-speaker acceptance.",
     "evidence_limit": "Actual native core, real member HTTP, encrypted restart and production controller with minimal DOM. Monetary source fixtures are isolated recorded inputs, not customer/provider data. Aggregate scope is retained authorized records; no external-ledger completeness, automatic FX, live provider, browser/accessibility or native-speaker acceptance is inferred.",
     "dynamic_candidates": 707,
+    "current_ci": {
+      "number": 191,
+      "id": 36076867912,
+      "job_id": 107889920094,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "e75c2b11e14b7adef8a59846dcb325cf4cb8b440",
+      "tree": "052dfba077137842f5bde8b425f18e5c603d379a",
+      "full_npm_test": "PASS"
+    }
+  },
+  "workspace_connector_detail_checkpoint": {
+    "recorded_at": "2026-09-25T00:42:35.950243+00:00",
+    "prior_published_head": "e75c2b11e14b7adef8a59846dcb325cf4cb8b440",
+    "prior_published_tree": "052dfba077137842f5bde8b425f18e5c603d379a",
+    "prior_ci": {
+      "number": 191,
+      "id": 36076867912,
+      "job_id": 107889920094,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "e75c2b11e14b7adef8a59846dcb325cf4cb8b440",
+      "tree": "052dfba077137842f5bde8b425f18e5c603d379a",
+      "full_npm_test": "PASS"
+    },
+    "source_sha256": {
+      "foundly-workspace.js": "1628ab90cffd3e95e5f526a68bf8e20e0c0882c0f16e47eaf81631a54f288660",
+      "foundly-locales.js": "da6405dfec591fc6547d8d6a7c3a1cd94b5cee1b0c66cec73a2afd67fcf6b958",
+      "server.js": "bab5070a70ec534b93c582544fd101dd0377cc81923f3c2ee873b697a711a4a2",
+      "connector-config-journal.js": "95e2cce93e3bd639f7a81717ecf6665d20a0b9f1d556ecfa7e33bce0fdf7fdd8",
+      "zero-evaluation/workspace-page-fixture.js": "d463c38d94e9fa1e6de5b4aee9b5d93666ff5d3fbcf3489f25670f9fc2b7fd4d",
+      "zero-evaluation/workspace-connector-fixture.js": "eb031a59d7c02f0ebe9d6fe94b78f2b22c6dfe228bb14a997dce199716259723",
+      "zero-evaluation/connector-ack-drop.js": "23ab90e98a3cd5d385fd9598851c3429ad2d6c768e97b65f5cede629d7d8e0f9",
+      "zero/workspace-connector-integrity.test.js": "88dd501ec3e86a0b9b3ebfe615c98d11c10419d2d71bc2bd7d54aa4a20987f82",
+      "zero/connector-config-recovery-api.test.js": "ce4a4ac5dc09ad70a960b5239e7e9d4107e0a6827ea06e8185485b49089f7ce4"
+    },
+    "logs": {
+      "run2-connector-detail-before.log": {
+        "exit_code": 1,
+        "sha256": "0138aba9bae095b0f3e82b1333e7926bb08e74b121c847271c6a18a01bececc4",
+        "bytes": 467897
+      },
+      "run2-connector-detail-targeted.log": {
+        "exit_code": 0,
+        "sha256": "ed35d6200af8946e17429fccacf6a9785de07664a54b831aa607d2bca5f9c95e",
+        "bytes": 776
+      },
+      "run2-connector-config-before.log": {
+        "exit_code": 1,
+        "sha256": "48f5c6a80c68542df4b4cff571eb7f502029230f96ef854659702f050e26a117",
+        "bytes": 1912
+      },
+      "run2-connector-config-targeted.log": {
+        "exit_code": 0,
+        "sha256": "9d9fd74514223a3b6ed1b5fc9020728622995ff3ef75a2e48d20b1f4f2c798c0",
+        "bytes": 360
+      },
+      "run2-connector-detail-followup-before.log": {
+        "exit_code": 1,
+        "sha256": "92d6f95cf29147912ec31ee93e9687472977deb300c654761c5fb9370261c4f9",
+        "bytes": 3465
+      },
+      "run2-connector-detail-localized.log": {
+        "exit_code": 0,
+        "sha256": "22594ff99f6fda0baec46d1b19193cd4baed65ddf75ad52cf50072882e5060a7",
+        "bytes": 1135
+      },
+      "run2-connector-details-security-before.log": {
+        "exit_code": 1,
+        "sha256": "648401cce945371186935e951e6bc36343de0b0bb36308086d503210167617e5",
+        "bytes": 2824
+      },
+      "run2-connector-final-targeted.log": {
+        "exit_code": 0,
+        "sha256": "75d336a3c01c5a002e412c072ee7bf49a295f441b6c64ffa376af5ca0dc39bef",
+        "bytes": 1973
+      },
+      "run2-connector-complete-targeted.log": {
+        "exit_code": 0,
+        "sha256": "1fa67797594e9f4c3ebf4deb893a813cb176bcd23117f3f6f142bf66adf4aed0",
+        "bytes": 3415
+      },
+      "run2-connector-zero.log": {
+        "exit_code": 0,
+        "sha256": "848af5b0c21d32b5b72da11ebecefa3f9f61544b12043551236c19b35e7a8d3f",
+        "bytes": 52221
+      },
+      "run2-connector-zero-final.log": {
+        "exit_code": 0,
+        "sha256": "b58520d75284112fa64024d11dd977e543ac3c3358991811b3463fa852962e6b",
+        "bytes": 52151
+      }
+    },
+    "new_tests": 18,
+    "full_zero_tests": 446,
+    "full_zero_pass": 446,
+    "corpus_pass": 14,
+    "corpus_total": 14,
+    "native_regression": "PASS current-principal connector, mail-authentication API and OAuth production regressions; complete new-tree npm regression requires exact published-head CI. Prior full npm CI 191 passed the Finance tree.",
+    "before_fix": "Seven original controller tests failed: submit ownership, late selection and close races, duplicate writes, malformed save/probe/count success. Two native tests failed missing durable revisions/receipts and fail-open corrupt encrypted state. Three follow-up controller tests failed owned detail localization, exact frozen-request retry and distinguishing SMTP evidence. Another native test failed because undeclared credential names were returned unmasked. Four positive/controller safety tests and one actual dropped-HTTP-response test supplement those failing-before observations.",
+    "scope": "Connector actions now belong to their form. Selected/closed/denied observation generations suppress old private responses. Owned detail tabs, descriptions, controls, attributes, states, counts and UTC timestamps have explicit eight-locale bindings; source field labels/provider text remain literal and drafts are not reloaded. Keyboard tab/panel relationships are exercised in the minimal DOM. Save locks duplicate writes, retains the exact request/key for an uncertain-response retry, validates its exact acknowledgement and retires conflicted revisions without automatic overwrite. Native PUT/POST guarded writes atomically store encrypted per-actor receipts and a monotonic revision, preserve newer changes across retry/restart, and retain receipts in deletion tombstones. An actual dropped HTTP response after persistence recovers without a duplicate revision. Corrupt encrypted configuration fails closed and undeclared credentials are masked. SMTP authentication is not represented as inbox access/delivery; invalid ingestion counts cannot become a claimed zero.",
+    "storage_change": "Existing encrypted connector files acquire _revision and _write_receipts on authorized writes. Old revisionless files remain readable as revision zero; no migration/backfill rewrites existing production data. Deletion keeps an encrypted receipt tombstone. Receipts are not silently evicted: capacity 1024 fails closed pending explicit retention policy. Legacy unguarded callers remain compatible and advance revision but do not gain guarded retry/CAS acceptance. No real credentials, main merge or deployment changed.",
+    "remaining": "Generic connector-runtime sync only fetches data; safe governed ingestion is still CODE_CONTROLLED. Existing integratedSync is a separate older ingestion path and must be reconciled rather than duplicated; it also needs current-principal/atomicity and bounded-count evidence. Connector registry state/count/latency coercions need review. OAuth rollback/configuration concurrency, legacy unguarded edits/deletes, credential-draft recovery after closing/reloading the browser and receipt retention policy remain separate open contracts. Shared workspace section/domain/localization, CRM/Analysis currency metadata, Finance compound writes/report range/schema terminology, generated/backend localization and every-trigger automation remain open along with full cognition/adversarial/performance/demo/voice/browser/native-speaker acceptance.",
+    "evidence_limit": "Actual native HTTP/member authorization, encrypted persistence/restart and a dropped socket after native persistence; isolated fixture credentials only. Controller/keyboard checks use the actual production controller with a minimal DOM and do not establish real browser layout, screen-reader, native-speaker, live-provider or overall Run-2 acceptance. Only confirmed nonnegative safe integer ingestion counts can display a successful count; current generic native route provides no such proof.",
+    "dynamic_candidates": 674,
     "current_ci": "PENDING_PUBLICATION"
   }
 }
