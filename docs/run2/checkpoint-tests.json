@@ -5406,5 +5406,86 @@
     },
     "current_ci": "PENDING_PUBLICATION",
     "remaining": "Shared native manual execution, run recovery/approval/activation confirmation copy, exact uncertain request binding and durable recovery remain code-controlled gaps. Legacy native keyless run API retains explicit resume semantics; ZERO no longer uses it as retry. All wider hard exit gates, eight-locale full-surface acceptance, browser/native speaker/real voice/provider/demo/performance/security gaps remain open. Matrix unchanged. No main/production/deployment or Run 3."
+  },
+  "workflow_run_request_recovery_ci_correction": {
+    "source_head": "db6dd86b60384e92b298551c0e900c60e8936103",
+    "prior_ci": {
+      "run_number": 213,
+      "run_id": 36139289432,
+      "job_id": 108084869223,
+      "head": "db6dd86b60384e92b298551c0e900c60e8936103",
+      "conclusion": "failure",
+      "zero": {
+        "tests": 700,
+        "pass": 699,
+        "fail": 1
+      },
+      "failure": [
+        "2026-09-25T13:20:39.3459317Z # Subtest: actual fresh ZERO control reconciles a lost waiting-run HTTP reply after encrypted restart without executing a due step",
+        "2026-09-25T13:20:39.3474688Z not ok 576 - actual fresh ZERO control reconciles a lost waiting-run HTTP reply after encrypted restart without executing a due step",
+        "2026-09-25T13:20:39.3475903Z   ---",
+        "2026-09-25T13:20:39.3476314Z   duration_ms: 1801.578528",
+        "2026-09-25T13:20:39.3477248Z   location: '/home/runner/work/v36/v36/zero/workflow-run-request-recovery-api.test.js:6:1'",
+        "2026-09-25T13:20:39.3478235Z   failureType: 'testCodeFailure'",
+        "2026-09-25T13:20:39.3478801Z   error: |-",
+        "2026-09-25T13:20:39.3479321Z     The expression evaluated to a falsy value:",
+        "2026-09-25T13:20:39.3480139Z     ",
+        "2026-09-25T13:20:39.3480700Z       assert.ok(Date.now()>=Date.parse(waiting.next_wakeup_at))",
+        "2026-09-25T13:20:39.3481301Z     ",
+        "2026-09-25T13:20:39.3481635Z   code: 'ERR_ASSERTION'",
+        "2026-09-25T13:20:39.3482160Z   name: 'AssertionError'",
+        "2026-09-25T13:20:39.3482636Z   expected: true",
+        "2026-09-25T13:20:39.3483068Z   actual: false",
+        "2026-09-25T13:20:39.3483493Z   operator: '=='",
+        "2026-09-25T13:20:39.3483922Z   stack: |-",
+        "2026-09-25T13:20:39.3485375Z     TestContext.<anonymous> (/home/runner/work/v36/v36/zero/workflow-run-request-recovery-api.test.js:9:582)",
+        "2026-09-25T13:20:39.3486821Z     process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+        "2026-09-25T13:20:39.3487882Z     async Test.run (node:internal/test_runner/test:797:9)",
+        "2026-09-25T13:20:39.3488903Z     async Test.processPendingSubtests (node:internal/test_runner/test:526:7)",
+        "2026-09-25T13:20:39.3489677Z   ...",
+        "2026-09-25T13:20:39.3491251Z # Subtest: real HTTP terminal closure and initial reservation roll back on EIO and a held ZERO body cannot start after durable closure or restart",
+        "2026-09-25T13:20:39.3493364Z ok 577 - real HTTP terminal closure and initial reservation roll back on EIO and a held ZERO body cannot start after durable closure or restart",
+        "2026-09-25T13:20:39.3494526Z   ---",
+        "2026-09-25T13:20:39.3494940Z   duration_ms: 732.698709",
+        "2026-09-25T13:20:39.3495402Z   ...",
+        "2026-09-25T13:20:39.3496681Z # Subtest: run request recovery enforces current workflow/run capabilities and actor authority after authenticated body waits"
+      ]
+    },
+    "reproduced_locally": true,
+    "fix": "Wait explicitly for the finite, one-second-bounded persisted deadline before asserting recovery never resumes the due step; all original behavioral assertions retained.",
+    "focused": {
+      "pass": 28,
+      "fail": 0
+    },
+    "full_zero": {
+      "tests": 700,
+      "pass": 700,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "command": "npm run test:zero",
+      "source_commit": "4e963888726f10a883fc9daf5330967229cea01a",
+      "source_tree": "3ad64f201583b0c9b05d1caa6e183665cf2be558",
+      "exit_code": 0,
+      "seconds": 44.38,
+      "log_sha256": "ce3e4eebea5b6e6a48baf84c7c4a0df57db462d3c7d0c293102f8002414babe8",
+      "log_bytes": 83979
+    },
+    "logs": {
+      "request-recovery-before.log": {
+        "sha256": "9a2fb65cd730ca7ffd3fb1de97fb4039f11550f59f915c2bc3d0391ba802c27e",
+        "bytes": 1402
+      },
+      "request-recovery-after.log": {
+        "sha256": "bc572d20e6f57adf9f1741e0d36af792ea6c3c234bb845cead53dd8366eb1b6a",
+        "bytes": 3709
+      },
+      "request-recovery-full-zero.log": {
+        "sha256": "ce3e4eebea5b6e6a48baf84c7c4a0df57db462d3c7d0c293102f8002414babe8",
+        "bytes": 83979
+      }
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "scope": "Fixture correction only; no application source change, no Run 2 gate promotion."
   }
 }
