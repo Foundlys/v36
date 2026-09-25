@@ -5485,7 +5485,14 @@
         "bytes": 83979
       }
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 214,
+      "run_id": 36143342793,
+      "head": "91d3eb0e0deaa79382214abb89bfbf2a4e6fe969",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS"
+    },
     "scope": "Fixture correction only; no application source change, no Run 2 gate promotion."
   },
   "native_manual_run_checkpoint": {
@@ -5620,7 +5627,254 @@
       "head": "91d3eb0e0deaa79382214abb89bfbf2a4e6fe969",
       "observed_status": "in_progress"
     },
-    "current_ci": "PENDING_PUBLICATION",
+    "current_ci": {
+      "number": 215,
+      "run_id": 36144567531,
+      "head": "7b7f8df1f05690c3f89c8fdd678ae65b865aad4b",
+      "status": "completed",
+      "conclusion": "success",
+      "full_npm_test": "PASS"
+    },
     "remaining": "Shared approval, explicit resume, recovery and activation confirmation/reload paths; wider authoritative Run 2 gates unchanged. No rendered browser/native-speaker/provider or production acceptance claim."
+  },
+  "shared_approval_recovery_checkpoint": {
+    "scope": "Every new native approval reference (including legacy callers) binds the exact actor/run/request/step/payload. A journal and grant/audit commit atomically before effects. Exact replay and dedicated recovery only read the current retained run; absent references close durably against late bodies. Actual shared UI reviews full literal definitions and retains only scoped metadata across reload, independently of runs disappearing from the approvals list. Nine owned rows support all eight locales.",
+    "failure_history": "Five native regressions fail before correction: approval retry advanced a due wait; modified reason reused identity; completed-run replay skipped current approval permission; failed persistence retained an in-memory grant; no durable acknowledgement. An older execution fixture reused one approval reference for two different runs: the new conflict is now asserted and the second intended review uses a separate identity. The first denial UI fixture used a detached alternate content target; mapping it to the production contextContent node preserves the privacy assertion. Original failure logs are retained.",
+    "targeted": {
+      "tests": 55,
+      "pass": 55,
+      "fail": 0,
+      "new_permanent_tests": 18
+    },
+    "native_regression": [
+      {
+        "file": "workflow-execution-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-retry-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-recovery-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-recovery-api-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-recovery-ui-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-activation-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-run-zero-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-run-zero-api-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-authoring-api-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-run-query-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "workflow-run-query-api-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "module-access-contracts-test.js",
+        "exit_code": 0
+      },
+      {
+        "file": "business-workspaces-regression-test.js",
+        "exit_code": 0
+      }
+    ],
+    "full_zero": {
+      "tests": 729,
+      "pass": 729,
+      "fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "command": "npm run test:zero",
+      "source_commit": "84e832614d11084f191045826b63ddc29a1d5178",
+      "source_tree": "ccc79d604d4f65e8462f7d4f5b426f973ebf9aa8",
+      "exit_code": 0,
+      "seconds": 49.79,
+      "log_sha256": "a1b8395c9eb8c5ef8d3251b0b6af9c4457289b50dccfb6f799cde5442ed6e64e",
+      "log_bytes": 87083
+    },
+    "http": "Actual shared controller/native HTTP destroyed committed approval reply, encrypted restart, now-due waiting state unchanged, exactly one first document and subsequent separate resume, terminal closure versus held body, EIO grant/receipt rollback, role revocation during authenticated body wait, private journal excluded from Data.",
+    "storage": "Additive encrypted platform:automation_approval_requests, bounded at 10000 per realm without eviction. No migration, provider, production or credential change.",
+    "logs": {
+      "approval-native-final-workflow-recovery-api-test.js.log": {
+        "sha256": "d068c3fcb80e971f0d48c2c2e09dd0141ef8b5b0c892e2e22c200c923b36e943",
+        "bytes": 198
+      },
+      "approval-zero-native-regression.log": {
+        "sha256": "364e211d828350347a2bc0c4600787c0ae211f3372bd2eadefaa1ba88ccd1db6",
+        "bytes": 268
+      },
+      "approval-page-tests.log": {
+        "sha256": "94fb571e57a2048adbaa4d2567f454b70d559a4ee54975c5ed4377cbb4dda7cb",
+        "bytes": 1858
+      },
+      "approval-focused-after.log": {
+        "sha256": "516c1f0fafa2e655c7672f9c9cf9ba78b638c6ce38969fcc07c9d3833ab1e7ff",
+        "bytes": 3524
+      },
+      "approval-final-workflow-recovery-ui-test.js.log": {
+        "sha256": "0db0306560d779be3c738c0462cd612d7528739a63682bcad5b4d12506846770",
+        "bytes": 182
+      },
+      "approval-native-final-workflow-recovery-test.js.log": {
+        "sha256": "60797b562009fa8c2b1c1ec2859aac7acb4ac42b821f79384bc88e93f76a4541",
+        "bytes": 182
+      },
+      "approval-full-zero.log": {
+        "sha256": "a1b8395c9eb8c5ef8d3251b0b6af9c4457289b50dccfb6f799cde5442ed6e64e",
+        "bytes": 87083
+      },
+      "approval-final-workflow-retry-test.js.log": {
+        "sha256": "e4e9855801e77dbe9d83972afce4b8e6c19f7b018fe02b207a5d39922a1dd347",
+        "bytes": 178
+      },
+      "approval-final-workflow-run-query-api-test.js.log": {
+        "sha256": "538bfc5c88057082b4a0b40d46fe8909d8d8fdb446200aabf4375c8d9cae9fa0",
+        "bytes": 142
+      },
+      "approval-final-workflow-authoring-api-test.js.log": {
+        "sha256": "f211a1f4c217e20eac95de0c5e58da18fb0f0eb3ea03d09efe2e141b9c8af66c",
+        "bytes": 235
+      },
+      "approval-native-final-workflow-retry-test.js.log": {
+        "sha256": "e4e9855801e77dbe9d83972afce4b8e6c19f7b018fe02b207a5d39922a1dd347",
+        "bytes": 178
+      },
+      "approval-native-final-workflow-run-query-api-test.js.log": {
+        "sha256": "538bfc5c88057082b4a0b40d46fe8909d8d8fdb446200aabf4375c8d9cae9fa0",
+        "bytes": 142
+      },
+      "approval-native-after.log": {
+        "sha256": "2931cd8ad7a72aef286a079390b768c48157b918c677e113f8beba8560742509",
+        "bytes": 599
+      },
+      "approval-final-workflow-run-query-test.js.log": {
+        "sha256": "4ce75cc7c5b28c1257454165f5e87f720dd842e72b6b3ddb48b334e1b0315660",
+        "bytes": 171
+      },
+      "approval-native-final-workflow-run-query-test.js.log": {
+        "sha256": "4ce75cc7c5b28c1257454165f5e87f720dd842e72b6b3ddb48b334e1b0315660",
+        "bytes": 171
+      },
+      "approval-native-final-workflow-authoring-api-test.js.log": {
+        "sha256": "f211a1f4c217e20eac95de0c5e58da18fb0f0eb3ea03d09efe2e141b9c8af66c",
+        "bytes": 235
+      },
+      "approval-final-workflow-run-zero-test.js.log": {
+        "sha256": "364e211d828350347a2bc0c4600787c0ae211f3372bd2eadefaa1ba88ccd1db6",
+        "bytes": 268
+      },
+      "approval-execution-regression-after.log": {
+        "sha256": "01d5e809135330965bd25f98ffbf143a6e00e9d20fdbad7c63c506046df97e17",
+        "bytes": 1176
+      },
+      "approval-final-workflow-activation-test.js.log": {
+        "sha256": "e1358886f260fda7f6d29968a83bcff05a2bbaef6c5386a5d96d08a23746f80b",
+        "bytes": 191
+      },
+      "approval-native-final-workflow-activation-test.js.log": {
+        "sha256": "e1358886f260fda7f6d29968a83bcff05a2bbaef6c5386a5d96d08a23746f80b",
+        "bytes": 191
+      },
+      "approval-native-final-workflow-recovery-ui-test.js.log": {
+        "sha256": "0db0306560d779be3c738c0462cd612d7528739a63682bcad5b4d12506846770",
+        "bytes": 182
+      },
+      "approval-native-before.log": {
+        "sha256": "0c5fcd334094e1d426aef06aaf6604685070c60cc899de09ff5911b7ea8bcc27",
+        "bytes": 5153
+      },
+      "approval-final-workflow-execution-test.js.log": {
+        "sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb",
+        "bytes": 899
+      },
+      "approval-final-business-workspaces-regression-test.js.log": {
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      "approval-native-first-after.log": {
+        "sha256": "014d418c29b6308a35bd0514bfbadd59e5d1acf03dcd93cbbab2d5dd22632159",
+        "bytes": 599
+      },
+      "approval-native-final-workflow-run-zero-test.js.log": {
+        "sha256": "364e211d828350347a2bc0c4600787c0ae211f3372bd2eadefaa1ba88ccd1db6",
+        "bytes": 268
+      },
+      "approval-native-final-workflow-run-zero-api-test.js.log": {
+        "sha256": "e05ce558e891c0bb90d4f60b02e489000f66271bf382349761e727b39169ec77",
+        "bytes": 270
+      },
+      "approval-http.log": {
+        "sha256": "b6984bc50fa8bbd5b48f296ae968563d7e892e964066a1807a94e3a89c147c8f",
+        "bytes": 526
+      },
+      "approval-native-final-module-access-contracts-test.js.log": {
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "bytes": 332
+      },
+      "approval-final-workflow-recovery-test.js.log": {
+        "sha256": "60797b562009fa8c2b1c1ec2859aac7acb4ac42b821f79384bc88e93f76a4541",
+        "bytes": 182
+      },
+      "approval-focused-final.log": {
+        "sha256": "ac9e89c2de68c891fe1e8c64532af37656485a557f49bd06af7cf1cf6743643f",
+        "bytes": 6692
+      },
+      "approval-focused-first.log": {
+        "sha256": "9b57b73b8aabc4811de8106a8f2ef7bdcb1d89a0ae2e0e71efaea2104e05fdf3",
+        "bytes": 2151
+      },
+      "approval-final-workflow-run-zero-api-test.js.log": {
+        "sha256": "e05ce558e891c0bb90d4f60b02e489000f66271bf382349761e727b39169ec77",
+        "bytes": 270
+      },
+      "approval-native-final-business-workspaces-regression-test.js.log": {
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      "approval-final-module-access-contracts-test.js.log": {
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "bytes": 332
+      },
+      "approval-native-workflow-execution-test.js.log": {
+        "sha256": "01d5e809135330965bd25f98ffbf143a6e00e9d20fdbad7c63c506046df97e17",
+        "bytes": 1176
+      },
+      "approval-execution-regression.log": {
+        "sha256": "e9a3fc03810202ed11e37e8745b416ac8af7b6d6641baa7360c7d504033956b3",
+        "bytes": 1787
+      },
+      "approval-final-workflow-recovery-api-test.js.log": {
+        "sha256": "d068c3fcb80e971f0d48c2c2e09dd0141ef8b5b0c892e2e22c200c923b36e943",
+        "bytes": 198
+      },
+      "approval-native-final-workflow-execution-test.js.log": {
+        "sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb",
+        "bytes": 899
+      }
+    },
+    "current_ci": "PENDING_PUBLICATION",
+    "remaining": "Activation confirmation/reload, explicit resume and native result-recovery controls, all wider Run 2 hard gates. Real browser/accessibility/native-speaker/provider acceptance not established. No matrix promotion."
   }
 }

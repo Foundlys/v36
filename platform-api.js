@@ -286,6 +286,9 @@ function createPlatformApi(options = {}) {
       if(url.pathname==='/api/automation/publications/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationPublication(ctx,actor,await readBody(req)));
       if(url.pathname==='/api/automation/run-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationRunRequest(ctx,actor,await readBody(req)));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
+      if(url.pathname==='/api/automation/approval-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationApprovalRequest(ctx,actor,await readBody(req)));
+      const approvalPreview=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/approval-preview$/);
+      if(approvalPreview&&req.method==='GET')return sendJson(res,200,platform.previewAutomationApproval(ctx,actor,approvalPreview[1]));
       const reviewedRun=url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/(run-preview|run-confirmation)$/);
       if(reviewedRun&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,reviewedRun[2]==='run-preview'?platform.previewConfirmedAutomationRun(ctx,actor,reviewedRun[1],input):platform.submitConfirmedAutomationRun(ctx,actor,reviewedRun[1],input));}
       const inspection=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/inspection$/);
