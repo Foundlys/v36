@@ -1,4 +1,5 @@
 'use strict';
+const {resume}=require('../zero-evaluation/workflow-resume-http');
 const test=require('node:test'),assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=require('node:fs'),path=require('node:path'),os=require('node:os'),http=require('node:http');
 const {fixture}=require('../zero-evaluation/fixture'),{fixture:client}=require('../zero-evaluation/workflow-manual-fixture');
 const hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -20,7 +21,7 @@ test('actual native manual controls recover a lost HTTP response after encrypted
     const run=(await f.request('/api/automation/status')).body.runs[0];assert.equal(run.status,'WAITING_TIME');assert.equal((await f.request('/api/automation/documents')).body.total,0);first.retire();await f.stop();await f.start();owner.cookie=await f.login(owner);
     const due=Date.parse(run.next_wakeup_at);assert.ok(Number.isFinite(due)&&due-Date.now()<=1000);while(Date.now()<due)await new Promise(resolve=>setTimeout(resolve,due-Date.now()));
     const fresh=client({workflow,realm,ctx:{tenant_id:realm.tenant_id,dealer_id:realm.dealer_id},actor:{id:realm.actor_id,roles:['ADMIN']},requestOverride,storage:first.storage});fresh.reference().value='New unsent reference';await fresh.control('recover').fire('click');assert.equal(fresh.calls.length,1);assert.equal(fresh.calls[0].route,'/api/automation/run-requests/recover');assert.equal(fresh.storage.size,0);assert.equal(fresh.reference().value,'New unsent reference');assert.equal((await f.request('/api/automation/status')).body.runs[0].status,'WAITING_TIME');assert.equal((await f.request('/api/automation/documents')).body.total,0);
-    const resumed=await f.request('/api/automation/workflows/'+workflow.id+'/runs','POST',{event:run.trigger,options:{inputs:run.inputs}},owner.cookie);assert.equal(resumed.status,202);assert.equal(resumed.body.status,'SUCCEEDED');const documents=(await f.request('/api/automation/documents')).body;assert.equal(documents.total,1);assert.equal(documents.items[0].content,'Private first line\nPrivate second line');assert.ok(!fs.readFileSync(path.join(f.dir,'foundly-core-state.json'),'utf8').includes('Private native title'));
+    const resumed=await resume((route,method,body)=>f.request(route,method,body,owner.cookie),run);assert.equal(resumed.status,202);assert.equal(resumed.body.status,'SUCCEEDED');const documents=(await f.request('/api/automation/documents')).body;assert.equal(documents.total,1);assert.equal(documents.items[0].content,'Private first line\nPrivate second line');assert.ok(!fs.readFileSync(path.join(f.dir,'foundly-core-state.json'),'utf8').includes('Private native title'));
   }finally{await f.close();}
 });
 test('native manual confirmations bind the reviewed input and terminal closure rejects a held original body across restart',async()=>{

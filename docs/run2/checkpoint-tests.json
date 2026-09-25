@@ -6166,6 +6166,322 @@
       "Full exact-head CI required",
       "Remaining native explicit resume and result-recovery controls are open",
       "No main, credential, production or deployment mutation"
-    ]
+    ],
+    "published_ci_217": {
+      "published_commit": "9129a3efab41fba2674c9ac30f2f37c6d9725b19",
+      "published_tree": "8abc6b6f57cb23e79ab6b4d89fe3bfd08df1abb0",
+      "ci_merge_commit": "0e2c27d56237d3d093b9c68a86bb4d4a5be1dff0",
+      "ci_merge_tree": "8abc6b6f57cb23e79ab6b4d89fe3bfd08df1abb0",
+      "run_id": 36150109918,
+      "job_id": 108120937875,
+      "run_number": 217,
+      "status": "PASS",
+      "zero_pass": 748,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "4b5ac5c945a9650cb12c08dda9b435da928b30aec1f654c01bc503d8fbea3f42",
+      "log_bytes": 418623,
+      "previous_incomplete_local_npm_test": "NON-CONCLUSIVE; unchanged, not counted as PASS"
+    }
+  },
+  "native_resume_recovery_20260925": {
+    "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+    "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+    "status": "TARGETED/ZERO/CORPUS/NATIVE PASS; full regression awaits CI on publication",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+      "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+      "exit_code": 0,
+      "seconds": 63.22,
+      "log_sha256": "811307189ce511d3076843c259fba0b3df19eb9241153d8a8efbc296dc530c99",
+      "log_bytes": 92587,
+      "pass_count": 774,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "native": [
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-absence-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.02,
+        "sha256": "fd7a96856d0d0d7b60d88c1be6bb3f7448c7e006e81642ae6bc5ef2ac150e046"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-absence-test.js",
+        "exit_code": 0,
+        "seconds": 0.2,
+        "sha256": "7829e28d946065ecebd498ecee1ee26b23cae66616f33361074cf70d5c51a2f9"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-activation-test.js",
+        "exit_code": 0,
+        "seconds": 0.28,
+        "sha256": "e1358886f260fda7f6d29968a83bcff05a2bbaef6c5386a5d96d08a23746f80b"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-authoring-api-test.js",
+        "exit_code": 0,
+        "seconds": 5.34,
+        "sha256": "f211a1f4c217e20eac95de0c5e58da18fb0f0eb3ea03d09efe2e141b9c8af66c"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-authoring-test.js",
+        "exit_code": 0,
+        "seconds": 0.18,
+        "sha256": "ad403f05d4f0bdf4d2c524c33786e2b81ab66a031fdcd4b453b15b81e4cc0ff1"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-branching-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.91,
+        "sha256": "1ea1e56edda7cad0aa2b38781c5b868989d4770236eb7a15f9006142bd1df8bd"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-branching-test.js",
+        "exit_code": 0,
+        "seconds": 0.24,
+        "sha256": "102bfac28d790828e1d377954c1fa7e91ec6d5ba70f6f6af9ce2848f5a409841"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-conditions-test.js",
+        "exit_code": 0,
+        "seconds": 0.65,
+        "sha256": "82f3d8c64cb90d6aea0eb726418f1cb2c468084174a684deceb1dc1264a4fef9"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-drafts-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.94,
+        "sha256": "c197e72aac86676f65721785eaf94dff0f3c7be8f9c5b78ce179539ca4d27563"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-drafts-test.js",
+        "exit_code": 0,
+        "seconds": 0.31,
+        "sha256": "4a6ec0a9148f205bb09966fd9477f111660dd466ee963bad9018053bcbf28c21"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-editor-test.js",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "sha256": "acb5b87bd33ddaaebe4241ae09577d840fcce35166db7f0ea988d933db7812d5"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-execution-test.js",
+        "exit_code": 0,
+        "seconds": 0.25,
+        "sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-generator-test.js",
+        "exit_code": 0,
+        "seconds": 0.25,
+        "sha256": "142826208b2ba006fc9d2aa74e886f59aad88d2bef2df05b8205b2d05a81a227"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-inspection-api-test.js",
+        "exit_code": 0,
+        "seconds": 4.61,
+        "sha256": "a06d62ed562e8dfde1d0a1ba71227b09ffb377bdcb37704e7a6d482f2ac5c0ed"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-inspection-test.js",
+        "exit_code": 0,
+        "seconds": 0.41,
+        "sha256": "68645dcf193ae850f1b6860e9f5449cc220590d65d5f745c38f87842938d03c3"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-inspector-test.js",
+        "exit_code": 0,
+        "seconds": 0.13,
+        "sha256": "25bf56aa7ee428225065d932396b32d5422a9dac935420c0c204beb319ce3d37"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-language-api-test.js",
+        "exit_code": 0,
+        "seconds": 8.05,
+        "sha256": "b8327cf8563703d0e06e356859fe04200094f3fef7841b30dd74ae79b77e241b"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-language-test.js",
+        "exit_code": 0,
+        "seconds": 0.57,
+        "sha256": "5500a3bbbd6f4ffb241620953566e421b01df164330bb546b15be557dced67cb"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-manual-run-test.js",
+        "exit_code": 0,
+        "seconds": 0.87,
+        "sha256": "b05496eb546d81a52dd97a24853cbfcf8b19b0e55d54216ef6c0eae3017c17fd"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-recovery-api-test.js",
+        "exit_code": 0,
+        "seconds": 5.19,
+        "sha256": "d068c3fcb80e971f0d48c2c2e09dd0141ef8b5b0c892e2e22c200c923b36e943"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-recovery-test.js",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "sha256": "60797b562009fa8c2b1c1ec2859aac7acb4ac42b821f79384bc88e93f76a4541"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-recovery-ui-test.js",
+        "exit_code": 0,
+        "seconds": 0.19,
+        "sha256": "0db0306560d779be3c738c0462cd612d7528739a63682bcad5b4d12506846770"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-retry-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.96,
+        "sha256": "04b17c287c9cd8176c5ae09e178bc295c1ab6b4f827cf0cf9e51fd0c757f4514"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-retry-test.js",
+        "exit_code": 0,
+        "seconds": 0.77,
+        "sha256": "e4e9855801e77dbe9d83972afce4b8e6c19f7b018fe02b207a5d39922a1dd347"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-run-query-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.17,
+        "sha256": "538bfc5c88057082b4a0b40d46fe8909d8d8fdb446200aabf4375c8d9cae9fa0"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-run-query-test.js",
+        "exit_code": 0,
+        "seconds": 0.42,
+        "sha256": "4ce75cc7c5b28c1257454165f5e87f720dd842e72b6b3ddb48b334e1b0315660"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-run-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 4.58,
+        "sha256": "e05ce558e891c0bb90d4f60b02e489000f66271bf382349761e727b39169ec77"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-run-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.33,
+        "sha256": "ee1d28d357bcf8674e44020e0b3b06613350e2ff99667e282df4386bbdc23a75"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-run-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.3,
+        "sha256": "364e211d828350347a2bc0c4600787c0ae211f3372bd2eadefaa1ba88ccd1db6"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 6.76,
+        "sha256": "311455ad78f0b131b53df394e264f6973482345599d129ec041cb5df9da78fbd"
+      },
+      {
+        "source_commit": "eb9b127be850d9ba483f76fd824e5fd5f400a9d9",
+        "source_tree": "b18abd655869f059aae95bf8ee174d4ca355b0ac",
+        "test": "workflow-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.24,
+        "sha256": "efdd25b37586cd8031d7a11e1e3e7d786a07e8a890600c1e9201bc9abdd11f09"
+      }
+    ],
+    "permanent_new_tests": 26,
+    "focused_related_tests": 82,
+    "final_resume_tests": 26,
+    "preserved_failures": [
+      {
+        "file": "native-resume-before.log",
+        "sha256": "4ddd5bfed076b7e0e820dffc31688e8a514fa9e88739b89937041c850429a8ae",
+        "bytes": 355,
+        "retained_tail": "AssertionError [ERR_ASSERTION]: Repeating the same native execute request must not serve as new resume authority\n\n1 !== 0\n\n    at [stdin]:2:908\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 1,\n  expected: 0,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n"
+      },
+      {
+        "file": "resume-native-before.log",
+        "sha256": "60247e49634ef08fe8d82dbaaf485b2a7104fab4790d5bc16af43cfab0ab8b71",
+        "bytes": 5786,
+        "retained_tail": "ts.test.js:5:157)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)\n\ntest at zero/workflow-resume-requests.test.js:6:1\n✖ resume recovery reads the exact durable run after restart without execution and rejects mutated confirmation or forged step (2.401394ms)\n  TypeError: core.previewAutomationResume is not a function\n      at Object.review (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:4:1335)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:6:177)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)\n\ntest at zero/workflow-resume-requests.test.js:7:1\n✖ an early explicit resume is recorded without advancing and never becomes authority when the wait later expires (3.509883ms)\n  TypeError: core.previewAutomationResume is not a function\n      at Object.review (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:4:1335)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:7:146)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/workflow-resume-requests.test.js:8:1\n✖ terminal resume closure survives restart and prevents a delayed original confirmation (2.29077ms)\n  TypeError: core.previewAutomationResume is not a function\n      at Object.review (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:4:1335)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:8:139)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/workflow-resume-requests.test.js:9:1\n✖ failed resume reservation or terminal closure leaves no partial in-memory authority (1.873525ms)\n  TypeError: core.previewAutomationResume is not a function\n      at Object.review (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:4:1335)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:9:137)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n\ntest at zero/workflow-resume-requests.test.js:10:1\n✖ current original owner and exact immutable run binding apply before resume replay or recovery (1.138203ms)\n  TypeError: core.previewAutomationResume is not a function\n      at Object.review (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:4:1335)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2-next/zero/workflow-resume-requests.test.js:10:147)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)\n"
+      },
+      {
+        "file": "resume-http-first.log",
+        "sha256": "aaef1f5508e4fcfc399d13b2ad36fcdd370d8d46f0c7dfc33fd09c38447d40b0",
+        "bytes": 892,
+        "retained_tail": "✖ actual shared resume controls recover a lost native reply after encrypted restart without advancing a later due wait (3651.956977ms)\n✔ legacy native execute retry cannot resume and a new explicit step confirmation has one durable identity (2512.823351ms)\n✔ terminal resume closure rejects a held original request and survives encrypted restart without effects (1805.072596ms)\n✔ resume reservation and status roll back on EIO and authenticated authority is rechecked after a held body (3170.040262ms)\nℹ tests 4\nℹ suites 0\nℹ pass 3\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 11350.817455\n\n✖ failing tests:\n\ntest at zero/workflow-resume-api.test.js:9:1\n✖ actual shared resume controls recover a lost native reply after encrypted restart without advancing a later due wait (3651.956977ms)\n  [TypeError: Request with GET/HEAD method cannot have body.]\n"
+      },
+      {
+        "file": "resume-static-before.log",
+        "sha256": "8caf56bdcfa80127bee198d61f161ab9c089ff91afbe3ca8339421ad4db6d7db",
+        "bytes": 1029,
+        "retained_tail": "✖ actual shared resume controls recover a lost native reply after encrypted restart without advancing a later due wait (434.863176ms)\nℹ tests 1\nℹ suites 0\nℹ pass 0\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 771.734109\n\n✖ failing tests:\n\ntest at zero/workflow-resume-api.test.js:9:1\n✖ actual shared resume controls recover a lost native reply after encrypted restart without advancing a later due wait (434.863176ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  404 !== 200\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-resume-api.test.js:10:82)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 404,\n    expected: 200,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "fixture_corrections": "Explicit resume fixtures now review the next step and confirm a new identity. Raw execution repeats are asserted read-only. Existing effect/branch/restart assertions remain. Cookie transport callback passes cookie as fourth argument. HTTP serving regression first reproduced 404, now checks exact served production script.",
+    "scope": "Original owner, exact run/step/workflow/activation binding, one-time reservation, read-only replay, WAITING_TIME/WAITING_RETRY/RECOVERY_READY, metadata-only browser reload recovery, terminal NOT_APPLIED closure, current permission checks, EIO rollback, eight locales and stale view protection.",
+    "remaining": "Native result recovery UI and remaining Phase 8 / authoritative Run 2 hard gates remain open."
   }
 }

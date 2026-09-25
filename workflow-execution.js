@@ -95,13 +95,16 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   let row = rows.find(item => item.automation_id === workflow.id && item.event_id === eventId);
   if (row && (row.request_signature || signature({ workflow: workflow.signature, trigger: row.trigger, inputs: row.inputs })) !== requestSignature) fail('automation_replay_conflict', 'Event-ID heeft andere workflow-invoer');
   if (row && row.actor_id !== actor.id && !actor.permissions.has('*')) fail('automation_run_forbidden', 'Run behoort tot een andere gebruiker', 403);
+  if(options.resume&&(options.approval||Object.hasOwn(options,'request_id')||Object.hasOwn(options,'request_fingerprint')))fail('automation_resume_request_separate','Bevestig hervatting als afzonderlijke aanvraag',422);
+  const resumeRequest=require('./workflow-resume-requests').prepare(core,ctx,actor,workflow,row,options.resume);
+  if(resumeRequest?.record)return {...resumeRequest.record,replayed:true,resume_acknowledgement:resumeRequest.envelope};
   const approvalRequest=require('./workflow-approval-requests').prepare(core,ctx,actor,workflow,row,options.approval);
   if(approvalRequest?.record)return {...approvalRequest.record,replayed:true,approval_acknowledgement:approvalRequest.envelope};
   const request=require('./workflow-run-requests').prepare(core,ctx,actor,workflow,eventId,requestSignature,options,row);
   if(request?.record)return {...request.record,replayed:true,request_acknowledgement:request.envelope};
   if (row?.steps.some(step => step.status === 'RUNNING')) fail('automation_outcome_indeterminate', 'Controleer het resultaat van de onderbroken stap vóór hervatten');
   const resuming = row?.status==='RECOVERY_READY'||row?.status === 'AWAITING_APPROVAL' && options.approval || ['WAITING_TIME','WAITING_RETRY'].includes(row?.status)&&Date.parse(row.next_wakeup_at)<=core.adapter.now().getTime();
-  if (row && !resuming) return { ...clone(row), replayed: true };
+  if (row && !resuming) {if(resumeRequest)core.moduleMutation(ctx,[require('./workflow-resume-requests').NAME],()=>resumeRequest.retain());return { ...clone(row), replayed: true,...(resumeRequest?{resume_acknowledgement:resumeRequest.envelope}:{}) };}
   if(resuming)for(const step of row.steps)if((step.status==='WAITING_RETRY'||step.recovery_retry===true)&&core.adapter.automationActionContract?.(step.type)?.idempotent!==true)fail('automation_retry_contract_missing','Het retrycontract is niet meer beschikbaar',409);
 
   let approval = null;
@@ -117,7 +120,8 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
     if(request)core.moduleMutation(ctx,['automation_runs',require('./workflow-run-requests').NAME],()=>{rows.push(row);request.retain(row);});
     else rows.push(row);
   }
-  if(approvalRequest)core.moduleMutation(ctx,['automation_runs',require('./workflow-approval-requests').NAME],()=>{row.approval=approval;row.status='RUNNING';approvalRequest.retain(row);core.audit(ctx,actor,'APPROVE','automation',workflow.id,{run_id:row.run_id,step_index:approvalRequest.envelope.step_index,request_id:approvalRequest.envelope.request_id,content_logged:false});});
+  if(resumeRequest)core.moduleMutation(ctx,['automation_runs',require('./workflow-resume-requests').NAME],()=>{row.status='RUNNING';resumeRequest.retain();core.audit(ctx,actor,'RESUME_REQUEST','automation',workflow.id,{run_id:row.run_id,step_index:resumeRequest.envelope.step_index,request_id:resumeRequest.envelope.request_id,content_logged:false});});
+  else if(approvalRequest)core.moduleMutation(ctx,['automation_runs',require('./workflow-approval-requests').NAME],()=>{row.approval=approval;row.status='RUNNING';approvalRequest.retain(row);core.audit(ctx,actor,'APPROVE','automation',workflow.id,{run_id:row.run_id,step_index:approvalRequest.envelope.step_index,request_id:approvalRequest.envelope.request_id,content_logged:false});});
   else{if(approval)row.approval=approval;row.status='RUNNING';if(!request)core.commit();}
   for (let index = 0; index < workflow.actions.length; index++) {
     const action = workflow.actions[index], type = String(action.type).toLowerCase();
@@ -174,6 +178,6 @@ function executeWorkflow(core, ctx, actor, workflow, event, options, helpers) {
   queueOwnedEvent(core,ctx,actor,'automation','run',row,'updated');
   core.commit();
   flushOwnedEvents(core,ctx,actor);
-  return {...clone(row),...(request?{request_acknowledgement:request.envelope}:{}),...(approvalRequest?{approval_acknowledgement:approvalRequest.envelope}:{})};
+  return {...clone(row),...(request?{request_acknowledgement:request.envelope}:{}),...(approvalRequest?{approval_acknowledgement:approvalRequest.envelope}:{}),...(resumeRequest?{resume_acknowledgement:resumeRequest.envelope}:{})};
 }
 module.exports = { matchesCondition:matches,validateCondition,sanitizeAction,AUTOMATIC_EVENT_ALIASES,executeWorkflow,validateWorkflow,validateTrigger,retryPolicy,validateRetryContracts,signature };

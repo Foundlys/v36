@@ -886,6 +886,7 @@
         const navigation=node('div');for(const [title,offset]of [['previous',page.offset>=50?page.offset-50:null],['next',page.next_offset]]){const button=node('button','secondary-button',owned(title));button.type='button';button.disabled=offset===null;button.addEventListener('click',()=>{if(current()&&!button.disabled)return renderAutomationSection(section,content,{...query,offset:String(offset)});});navigation.append(button);}result.push(navigation);
       }
       if(section==='WORKFLOWS'&&data.can_manage&&window.FoundlyWorkflowActivation)result.push(window.FoundlyWorkflowActivation.create({document,request:read,requestContext:data.request_context,isActive:current}));
+      if(['RUNS','FAILURES','RETRIES'].includes(section)&&data.can_manage&&window.FoundlyWorkflowResume)result.push(window.FoundlyWorkflowResume.create({document,request:read,requestContext:data.request_context,isActive:current}));
       if(section==='APPROVALS'&&data.can_approve&&window.FoundlyWorkflowApproval)result.push(window.FoundlyWorkflowApproval.create({document,request:read,requestContext:data.request_context,isActive:current}));
       if(section==='WORKFLOWS'&&data.can_manage){
         const drafts=await read('/api/automation/drafts');if(!current())return;if(!object(drafts)||!Array.isArray(drafts.items)||!object(drafts.request_context))throw invalid();const editorBox=node('div'),chooser=node('select'),label=node('label','','Bewaard concept'),open=node('button','secondary-button','Concept openen'),message=node('output');
@@ -912,7 +913,7 @@
         if(row.steps)for(const step of row.steps)card.append(node('p','',live(()=>text('step',{index:integer(step.index)?numeric(step.index+1):String(unknown()),action:registered('action',step.type),status:statusText(step.status)})+(integer(step.attempts)?text('attempts',{count:numeric(step.attempts)}):'')+(step.error?text('step_error'):''))));
         if(['WAITING_RETRY','WAITING_TIME'].includes(row.status)){
           card.append(node('p','',live(()=>text('wake',{time:typeof row.next_wakeup_at==='string'&&Number.isFinite(Date.parse(row.next_wakeup_at))&&/(?:Z|[+-]\d{2}:\d{2})$/.test(row.next_wakeup_at)?String(time(row.next_wakeup_at)):String(unknown())}))));
-          if(data.can_manage){const resume=node('button','','Hervatten zodra wachttijd verstreken is'),notice=node('output');resume.type='button';notice.setAttribute('role','status');card.append(resume,notice);resume.addEventListener('click',async()=>{if(!current()||resume.disabled)return;resume.disabled=true;try{const result=await read(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs}})});if(current())notice.textContent=['WAITING_RETRY','WAITING_TIME'].includes(result.status)?'De wachttijd is nog niet verstreken.':`Uitkomst: ${result.status}`;}catch(error){if(current())notice.textContent=friendlyError(error);}finally{if(current())resume.disabled=false;}});}
+
         }
         if(data.can_manage&&row.can_recover&&row.steps?.some(step=>['RUNNING','FAILED','DEAD_LETTER','BLOCKED'].includes(step.status)&&(data.retryable_actions||[]).includes(step.type))){
           const inspect=node('button','','Controleer opgeslagen resultaat'),notice=node('output');inspect.type='button';notice.setAttribute('role','status');card.append(inspect,notice);
@@ -920,9 +921,7 @@
             form.addEventListener('submit',async event=>{event.preventDefault();if(!current()||save.disabled)return;save.disabled=true;try{await read(`/api/automation/runs/${row.run_id}/recovery`,{method:'POST',body:JSON.stringify({preview_fingerprint:preview.preview_fingerprint,reason:reason.value.trim(),confirm:confirm.checked})});if(current())await renderAutomationSection(section,content);}catch(error){if(current())notice.textContent=friendlyError(error);if(current())save.disabled=false;}});
           }catch(error){if(current())notice.textContent=friendlyError(error);if(current())inspect.disabled=false;}});
         }
-        if(row.status==='RECOVERY_READY'&&data.can_manage&&row.can_recover){
-          const resume=node('button','','Gecontroleerde run verder uitvoeren'),notice=node('output');resume.type='button';notice.setAttribute('role','status');card.append(resume,notice);resume.addEventListener('click',async()=>{if(!current()||resume.disabled)return;resume.disabled=true;try{await read(`/api/automation/workflows/${row.automation_id}/runs`,{method:'POST',body:JSON.stringify({event:row.trigger,options:{inputs:row.inputs}})});if(current())await renderAutomationSection(section,content);}catch(error){if(current())notice.textContent=friendlyError(error);if(current())resume.disabled=false;}});
-        }
+        if(['WAITING_TIME','WAITING_RETRY','RECOVERY_READY'].includes(row.status)&&data.can_manage&&row.can_recover&&window.FoundlyWorkflowResume)card.append(window.FoundlyWorkflowResume.create({document,row,request:read,requestContext:data.request_context,isActive:current}));
         if(row.status==='DEAD_LETTER')card.append(node('p','',owned('dead_letter')));
         if(section==='WORKFLOWS'&&data.can_manage&&row.can_activate===true&&window.FoundlyWorkflowActivation)card.append(window.FoundlyWorkflowActivation.create({document,workflow:row,request:read,requestContext:data.request_context,isActive:current}));
         if(section==='WORKFLOWS'&&data.can_manage)appendManualWorkflowRun(row,card,content,current,data.request_context);
