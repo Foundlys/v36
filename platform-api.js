@@ -289,6 +289,7 @@ function createPlatformApi(options = {}) {
       if(url.pathname==='/api/automation/activation-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationActivationRequest(ctx,actor,await readBody(req)));
       if(url.pathname==='/api/automation/approval-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationApprovalRequest(ctx,actor,await readBody(req)));
       if(url.pathname==='/api/automation/resume-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationResumeRequest(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/result-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationResultRequest(ctx,actor,await readBody(req)));
       const resume=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/(resume-preview|resume-confirmation)$/);
       if(resume&&req.method==='GET'&&resume[2]==='resume-preview')return sendJson(res,200,platform.previewAutomationResume(ctx,actor,resume[1]));
       if(resume&&req.method==='POST'&&resume[2]==='resume-confirmation')return sendJson(res,202,platform.resumeAutomation(ctx,actor,resume[1],await readBody(req)));

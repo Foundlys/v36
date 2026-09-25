@@ -9,3 +9,5 @@ The browser stores only scoped recovery metadata before dispatch. Lost replies, 
 Activation/pause predecessor CI 217 completed full regression on the exact published tree. The incomplete prior local npm log remains NON-CONCLUSIVE. Publish this resume source plus evidence to the same PR #21 and verify its own full CI. Do not attribute CI 217 to this newer source.
 
 Continue with native result-recovery request/locale controls and the remaining Run 2 gates. This checkpoint is not global acceptance. No production/main merge, deployment, credentials or Run 3 action.
+
+CI 218 is now **PASS**: run `36152660195`, job `108129517279`, published head `2d778ee1081e13f54c85d70bba1fee97c4aa3e2d`. CI merge `fc28c69492a74600ae134450f03517b43135fabb` has the same tree `739084ba33ba4d0b5d006e84a914fa195273523c`. The complete npm log reaches 774 ZERO PASS / zero failures and all 14 corpus cases PASS.

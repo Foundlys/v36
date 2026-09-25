@@ -6482,6 +6482,313 @@
     ],
     "fixture_corrections": "Explicit resume fixtures now review the next step and confirm a new identity. Raw execution repeats are asserted read-only. Existing effect/branch/restart assertions remain. Cookie transport callback passes cookie as fourth argument. HTTP serving regression first reproduced 404, now checks exact served production script.",
     "scope": "Original owner, exact run/step/workflow/activation binding, one-time reservation, read-only replay, WAITING_TIME/WAITING_RETRY/RECOVERY_READY, metadata-only browser reload recovery, terminal NOT_APPLIED closure, current permission checks, EIO rollback, eight locales and stale view protection.",
-    "remaining": "Native result recovery UI and remaining Phase 8 / authoritative Run 2 hard gates remain open."
+    "remaining": "Native result recovery UI and remaining Phase 8 / authoritative Run 2 hard gates remain open.",
+    "published_ci_218": {
+      "published_commit": "2d778ee1081e13f54c85d70bba1fee97c4aa3e2d",
+      "published_tree": "739084ba33ba4d0b5d006e84a914fa195273523c",
+      "ci_merge_commit": "fc28c69492a74600ae134450f03517b43135fabb",
+      "ci_merge_tree": "739084ba33ba4d0b5d006e84a914fa195273523c",
+      "run_id": 36152660195,
+      "job_id": 108129517279,
+      "run_number": 218,
+      "status": "PASS",
+      "zero_pass": 774,
+      "corpus_pass": 14,
+      "complete_npm_test": "PASS",
+      "log_sha256": "c4d1ccd4c41ae8ce1bfb564aec47dc8cfc17d77bf2d05f37d8a65dfaf905267f",
+      "log_bytes": 429091
+    }
+  },
+  "native_result_recovery_20260925": {
+    "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+    "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+    "status": "ZERO/CORPUS/NATIVE PASS; full regression awaits own published CI",
+    "zero": {
+      "command": "npm run test:zero",
+      "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+      "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+      "exit_code": 0,
+      "seconds": 60.39,
+      "log_sha256": "e88de9148979febcb0382eb45215df40f69e04afbdf94595c9caadb7a9d2822e",
+      "log_bytes": 94757,
+      "pass_count": 792,
+      "fail_count": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "native": [
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-absence-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.96,
+        "sha256": "fd7a96856d0d0d7b60d88c1be6bb3f7448c7e006e81642ae6bc5ef2ac150e046"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-absence-test.js",
+        "exit_code": 0,
+        "seconds": 0.43,
+        "sha256": "7829e28d946065ecebd498ecee1ee26b23cae66616f33361074cf70d5c51a2f9"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-activation-test.js",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "sha256": "e1358886f260fda7f6d29968a83bcff05a2bbaef6c5386a5d96d08a23746f80b"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-authoring-api-test.js",
+        "exit_code": 0,
+        "seconds": 5.47,
+        "sha256": "f211a1f4c217e20eac95de0c5e58da18fb0f0eb3ea03d09efe2e141b9c8af66c"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-authoring-test.js",
+        "exit_code": 0,
+        "seconds": 0.25,
+        "sha256": "ad403f05d4f0bdf4d2c524c33786e2b81ab66a031fdcd4b453b15b81e4cc0ff1"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-branching-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.25,
+        "sha256": "1ea1e56edda7cad0aa2b38781c5b868989d4770236eb7a15f9006142bd1df8bd"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-branching-test.js",
+        "exit_code": 0,
+        "seconds": 0.22,
+        "sha256": "102bfac28d790828e1d377954c1fa7e91ec6d5ba70f6f6af9ce2848f5a409841"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-conditions-test.js",
+        "exit_code": 0,
+        "seconds": 0.82,
+        "sha256": "82f3d8c64cb90d6aea0eb726418f1cb2c468084174a684deceb1dc1264a4fef9"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-drafts-api-test.js",
+        "exit_code": 0,
+        "seconds": 4.08,
+        "sha256": "c197e72aac86676f65721785eaf94dff0f3c7be8f9c5b78ce179539ca4d27563"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-drafts-test.js",
+        "exit_code": 0,
+        "seconds": 0.33,
+        "sha256": "4a6ec0a9148f205bb09966fd9477f111660dd466ee963bad9018053bcbf28c21"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-editor-test.js",
+        "exit_code": 0,
+        "seconds": 0.67,
+        "sha256": "acb5b87bd33ddaaebe4241ae09577d840fcce35166db7f0ea988d933db7812d5"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-execution-test.js",
+        "exit_code": 0,
+        "seconds": 0.22,
+        "sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-generator-test.js",
+        "exit_code": 0,
+        "seconds": 0.52,
+        "sha256": "142826208b2ba006fc9d2aa74e886f59aad88d2bef2df05b8205b2d05a81a227"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-inspection-api-test.js",
+        "exit_code": 0,
+        "seconds": 5.26,
+        "sha256": "a06d62ed562e8dfde1d0a1ba71227b09ffb377bdcb37704e7a6d482f2ac5c0ed"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-inspection-test.js",
+        "exit_code": 0,
+        "seconds": 0.37,
+        "sha256": "68645dcf193ae850f1b6860e9f5449cc220590d65d5f745c38f87842938d03c3"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-inspector-test.js",
+        "exit_code": 0,
+        "seconds": 0.19,
+        "sha256": "25bf56aa7ee428225065d932396b32d5422a9dac935420c0c204beb319ce3d37"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-language-api-test.js",
+        "exit_code": 0,
+        "seconds": 6.31,
+        "sha256": "b8327cf8563703d0e06e356859fe04200094f3fef7841b30dd74ae79b77e241b"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-language-test.js",
+        "exit_code": 0,
+        "seconds": 0.39,
+        "sha256": "5500a3bbbd6f4ffb241620953566e421b01df164330bb546b15be557dced67cb"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-manual-run-test.js",
+        "exit_code": 0,
+        "seconds": 0.7,
+        "sha256": "b05496eb546d81a52dd97a24853cbfcf8b19b0e55d54216ef6c0eae3017c17fd"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-recovery-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.99,
+        "sha256": "d068c3fcb80e971f0d48c2c2e09dd0141ef8b5b0c892e2e22c200c923b36e943"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-recovery-test.js",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "sha256": "60797b562009fa8c2b1c1ec2859aac7acb4ac42b821f79384bc88e93f76a4541"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-recovery-ui-test.js",
+        "exit_code": 0,
+        "seconds": 0.48,
+        "sha256": "0128089b509dd84501fd24d4341ce5c2e4f931cfc9dd9abfc180383b5cd5ed3e"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-retry-api-test.js",
+        "exit_code": 0,
+        "seconds": 3.0,
+        "sha256": "04b17c287c9cd8176c5ae09e178bc295c1ab6b4f827cf0cf9e51fd0c757f4514"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-retry-test.js",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "sha256": "e4e9855801e77dbe9d83972afce4b8e6c19f7b018fe02b207a5d39922a1dd347"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-run-query-api-test.js",
+        "exit_code": 0,
+        "seconds": 2.08,
+        "sha256": "538bfc5c88057082b4a0b40d46fe8909d8d8fdb446200aabf4375c8d9cae9fa0"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-run-query-test.js",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "sha256": "4ce75cc7c5b28c1257454165f5e87f720dd842e72b6b3ddb48b334e1b0315660"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-run-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 4.63,
+        "sha256": "e05ce558e891c0bb90d4f60b02e489000f66271bf382349761e727b39169ec77"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-run-zero-client-test.js",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "sha256": "ee1d28d357bcf8674e44020e0b3b06613350e2ff99667e282df4386bbdc23a75"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-run-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.31,
+        "sha256": "364e211d828350347a2bc0c4600787c0ae211f3372bd2eadefaa1ba88ccd1db6"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-zero-api-test.js",
+        "exit_code": 0,
+        "seconds": 6.87,
+        "sha256": "311455ad78f0b131b53df394e264f6973482345599d129ec041cb5df9da78fbd"
+      },
+      {
+        "source_commit": "3d5504e284ae16228ab0fd8d29d2f4619b791080",
+        "source_tree": "45adf5e385b074bb22fca54b3075c98eff8a6caf",
+        "test": "workflow-zero-test.js",
+        "exit_code": 0,
+        "seconds": 0.26,
+        "sha256": "efdd25b37586cd8031d7a11e1e3e7d786a07e8a890600c1e9201bc9abdd11f09"
+      }
+    ],
+    "permanent_new_tests": 18,
+    "preserved_failures": [
+      {
+        "file": "result-native-before.log",
+        "sha256": "1a86283fbeb0158cfe2382d939cdf27c09ad1d454515eb786a841aab1cd6757e",
+        "bytes": 7410,
+        "retained_tail": "s:348:170)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-result-requests.test.js:5:136)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    code: 'automation_recovery_invalid',\n    statusCode: 422\n  }\n\ntest at zero/workflow-result-requests.test.js:6:1\n✖ recovery journal, source run, history and outbox roll back together when storage fails (4.794564ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n    Comparison {\n  +   code: 'automation_recovery_invalid'\n  -   code: 'EIO'\n    }\n  \n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-result-requests.test.js:6:186)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: Error: Bevestig het exacte bewijs met een reden\n        at fail (/workspace/scratch/foundly-run2/workflow-recovery.js:7:64)\n        at recover (/workspace/scratch/foundly-run2/workflow-recovery.js:34:248)\n        at FoundlyPlatformCore.recoverAutomation (/workspace/scratch/foundly-run2/platform-core.js:348:170)\n        at assert.throws.code (/workspace/scratch/foundly-run2/zero/workflow-result-requests.test.js:6:204)\n        at getActual (node:assert:611:5)\n        at strict.throws (node:assert:759:24)\n        at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-result-requests.test.js:6:186)\n        at Test.runInAsyncScope (node:async_hooks:227:14)\n        at Test.run (node:internal/test_runner/test:1382:25)\n        at Test.processPendingSubtests (node:internal/test_runner/test:960:18),\n    expected: { code: 'EIO' },\n    operator: 'throws',\n    diff: 'simple'\n  }\n\ntest at zero/workflow-result-requests.test.js:7:1\n✖ current original owner and untampered native reconciliation evidence precede outcome disclosure (2.751474ms)\n  Error: Bevestig het exacte bewijs met een reden\n      at fail (/workspace/scratch/foundly-run2/workflow-recovery.js:7:64)\n      at recover (/workspace/scratch/foundly-run2/workflow-recovery.js:34:248)\n      at FoundlyPlatformCore.recoverAutomation (/workspace/scratch/foundly-run2/platform-core.js:348:170)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-result-requests.test.js:7:161)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    code: 'automation_recovery_invalid',\n    statusCode: 422\n  }\n\ntest at zero/workflow-result-requests.test.js:8:1\n✖ observing an old reconciliation after separate continuation cannot execute or overwrite a newer run state (2.559525ms)\n  Error: Bevestig het exacte bewijs met een reden\n      at fail (/workspace/scratch/foundly-run2/workflow-recovery.js:7:64)\n      at recover (/workspace/scratch/foundly-run2/workflow-recovery.js:34:248)\n      at FoundlyPlatformCore.recoverAutomation (/workspace/scratch/foundly-run2/platform-core.js:348:170)\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/workflow-result-requests.test.js:8:157)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    code: 'automation_recovery_invalid',\n    statusCode: 422\n  }\n"
+      },
+      {
+        "file": "result-ui-native.log",
+        "sha256": "9aed66dd7bf77585edf867859b32d58568bfa0e4d4a76e7a0a81c1f9f9825683",
+        "bytes": 343,
+        "retained_tail": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(f.box().textContent.includes('Dit is geen voltooiing'))\n\n    at /workspace/scratch/foundly-run2/workflow-recovery-ui-test.js:4:95 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n"
+      },
+      {
+        "file": "result-related-first.log",
+        "sha256": "c8c30226d25c5df7c6b064f9f7ce2cf333557e9315c47acd379a07fb859c61cd",
+        "bytes": 7779,
+        "retained_tail": "ations without losing the uncertain request identity (131.215774ms)\n✔ result recovery has a durable exact identity for both present and proven absent internal results (46.386284ms)\n✔ terminal closure prevents an original result-recovery body from changing the run after restart (11.366367ms)\n✔ result recovery rejects mutated reason, reference collision and forged recovery step (8.833997ms)\n✔ recovery journal, source run, history and outbox roll back together when storage fails (9.779003ms)\n✔ current original owner and untampered native reconciliation evidence precede outcome disclosure (7.80703ms)\n✔ observing an old reconciliation after separate continuation cannot execute or overwrite a newer run state (15.064283ms)\n✔ actual shared resume controls recover a lost native reply after encrypted restart without advancing a later due wait (4209.868744ms)\n✔ legacy native execute retry cannot resume and a new explicit step confirmation has one durable identity (2425.300992ms)\n✔ terminal resume closure rejects a held original request and survives encrypted restart without effects (1758.797875ms)\n✔ resume reservation and status roll back on EIO and authenticated authority is rechecked after a held body (2892.604987ms)\n✔ resume controls created before page attachment require a preview before confirmation (166.036566ms)\n✔ actual shared resume retries only reconcile the original step request and never resume the next due step (111.841835ms)\n✔ reload offers pending resume recovery even when the run is outside the selected list (226.48711ms)\n✔ a forged step or contradictory completed run cannot clear an uncertain resume reference (418.264757ms)\n✔ resume locale changes preserve the reason, literal full review and exact controls without requests (109.288708ms)\n✔ resume recovery storage failure prevents dispatch and cleanup failure preserves a known native outcome (143.947092ms)\n✔ retired or overlapping resume previews cannot dispatch a resumption or update the new view (106.897339ms)\n✔ access denial during resume recovery preserves attribution and cannot report success or execute a step (112.10633ms)\n✔ an early confirmed resume stays consumed when the wait expires and a new explicit review is required (127.806897ms)\n✔ late confirmation retains recovery metadata without updating a retired view or dispatching a second resume (70.997566ms)\n✔ one explicit resume request advances its reviewed waiting step once and cannot advance a later due wait (38.205708ms)\n✔ resume recovery reads the exact durable run after restart without execution and rejects mutated confirmation or forged step (9.491573ms)\n✔ an early explicit resume is recorded without advancing and never becomes authority when the wait later expires (2.216917ms)\n✔ terminal resume closure survives restart and prevents a delayed original confirmation (4.137393ms)\n✔ failed resume reservation or terminal closure leaves no partial in-memory authority (5.200066ms)\n✔ current original owner and exact immutable run binding apply before resume replay or recovery (4.485346ms)\n✔ missing or unconfirmed resume input cannot become an implicit native continuation (2.46429ms)\n✔ legacy native execution is observed through a stable request reference and cannot bypass separate resume confirmation (4.962855ms)\n✔ a changed activation revision or forged target cannot authorize a previously reviewed resume (9.837927ms)\n✔ a contradictory stored completion or missing effect evidence cannot be recovered as successful resumption (13.015141ms)\n✔ a repeated explicit retry cannot spend the next retry attempt when its longer backoff expires (2.815855ms)\n✔ a verified absence preparation resumes once under its recovery revision and cannot later advance the next wait (5.994832ms)\nℹ tests 58\nℹ suites 0\nℹ pass 57\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 11644.880907\n\n✖ failing tests:\n\ntest at zero/automation-page-readout.test.js:36:1\n✖ retired shared resume, recovery, approval, activation and manual controls cannot dispatch native operations (112.993116ms)\n  AssertionError [ERR_ASSERTION]: recovery control\n      at TestContext.<anonymous> (/workspace/scratch/foundly-run2/zero/automation-page-readout.test.js:37:1293)\n      at async Test.run (node:internal/test_runner/test:1389:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: true,\n    operator: '==',\n    diff: 'simple'\n  }\n"
+      }
+    ],
+    "scope": "Present internal proof versus proven absence; exact native reconciliation and receipt in one atomic transaction; immutable request identity, terminal closure, metadata-only browser reload recovery, encrypted restart, non-executing observation, eight locales, checkbox/reason/source preservation, current owner/capabilities/roles, EIO rollback, lost response and stale view protection.",
+    "fixture_updates": "Legacy recovery UI extraction replaced by the actual shared page/component fixture while retaining absence-not-completion, no-next-effect and stale-proof rejection assertions. The native test explicitly selects nl-NL for its Dutch assertions. The retired-control test uses the canonical recovery control attribute instead of a hardcoded Dutch label. No effect/security/restart assertion removed.",
+    "remaining": "Shared draft chooser and industry-template controls, remaining full-surface localization and every genuinely open authoritative gate. Minimal DOM tests do not establish browser/layout/native-speaker acceptance."
   }
 }
