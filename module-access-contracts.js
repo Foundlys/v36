@@ -25,6 +25,8 @@ function methodOperation(method){return String(method).startsWith('export')?'exp
 // Legacy provider routes must enforce the same capability as native workspaces.
 // Reporting POSTs are reads; an internal cache is not user mutation authority.
 const PROVIDER_ROUTES=[
+  // Typed recovery performs its own current write or approve authority check.
+  [/^\/api\/procurement\/action-requests\/recover$/, 'procurement:approvals','read'],
   // Shared board movers need pipeline read plus opportunity write. The native
   // recovery handler rechecks that combination, or pipeline write for SAVE.
   [/^\/api\/sales\/pipeline-requests\/recover$/, 'sales:pipeline','read'],

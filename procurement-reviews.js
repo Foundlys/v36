@@ -58,9 +58,9 @@ function prepareOrderApproval(domain,ctx,actor,orderId,input,options={}){
 function currentAward(domain,ctx,actor,id){const row=domain.get(ctx,actor,'awards',id);if(row.deleted_at)fail('record_not_found','Record niet gevonden',404);return row;}
 function action(domain,ctx,actor,operation,input,options,callback){
   const key=options?.idempotency_key;if(typeof key!=='string'||!key.length||key.length>200)fail('award_idempotency_required','Een unieke actie-ID is verplicht');
-  const fingerprint=hash({operation,input}),keys=domain.adapter.bucket(ctx,'procurement:idempotency'),prior=keys.find(row=>row.key===key&&row.actor_id===actor.id);
-  if(prior){if(prior.fingerprint!==fingerprint)fail('idempotency_conflict','Actie-ID heeft andere inhoud',409);return {record:currentAward(domain,ctx,actor,prior.record_id),deduplicated:true,external_commitment:false};}
-  const result=domain.mutate(ctx,()=>{const record=callback();keys.push({key,actor_id:actor.id,fingerprint,record_id:record.id});return {record:clone(record),deduplicated:false,external_commitment:false};});
+  const recovery=require('./procurement-action-recovery'),meta=recovery.metadata(operation,input,key),keys=domain.adapter.bucket(ctx,'procurement:idempotency'),prior=keys.find(row=>row.key===key&&row.actor_id===actor.id);
+  if(prior){if(prior.state==='ABANDONED')fail('procurement_action_abandoned','Deze aanvraag is afgesloten zonder uitvoering',409);if(prior.fingerprint!==meta.request_fingerprint)fail('idempotency_conflict','Actie-ID heeft andere inhoud',409);if(prior.receipt_version===1)return recovery.replay(domain,ctx,actor,meta,prior);return {record:currentAward(domain,ctx,actor,prior.record_id),deduplicated:true,external_commitment:false};}
+  const result=domain.mutate(ctx,()=>{const record=callback(),request_acknowledgement=recovery.store(domain,ctx,actor,meta,record);return {record:clone(record),deduplicated:false,external_commitment:false,action_executed:true,request_acknowledgement};});
   try{domain.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
 function prepareAward(domain,ctx,actor,rfqId,input,options={}){
@@ -118,4 +118,4 @@ function cancelAward(domain,ctx,actor,id,input,options={}){
     row.status='CANCELLED';row.revision++;row.updated_at=new Date().toISOString();domain.recordEvent(ctx,actor,'awards',row,'updated');return row;
   });
 }
-module.exports={mandatoryPolicy,previewAllocation,validatePolicy,previewAward,prepareAward,reviewAward,cancelAward,previewOrderApproval,prepareOrderApproval};
+module.exports={recoverAction:require('./procurement-action-recovery').recover,mandatoryPolicy,previewAllocation,validatePolicy,previewAward,prepareAward,reviewAward,cancelAward,previewOrderApproval,prepareOrderApproval};

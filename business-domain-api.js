@@ -44,6 +44,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       if(id==='procurement'&&parts[0]==='rfqs'&&parts[2]==='comparison'&&parts.length===3&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./procurement-sourcing').compareBids(core,ctx,actor,parts[1])});
       if(id==='procurement'){
         const reviews=require('./procurement-reviews'),options={idempotency_key:req.headers['idempotency-key']};
+        if(parts[0]==='action-requests'&&parts.length===2&&parts[1]==='recover'&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,{ok:true,...reviews.recoverAction(core,ctx,principal(),input)});}
         if(parts[0]==='orders'&&parts.length===3&&parts[2]==='approval-preview'&&req.method==='GET')return sendJson(res,200,{ok:true,...reviews.previewOrderApproval(core,ctx,actor,parts[1])});
         if(parts[0]==='orders'&&parts.length===3&&parts[2]==='approvals'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareOrderApproval(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='award-preview'&&req.method==='GET')return sendJson(res,200,{ok:true,...reviews.previewAward(core,ctx,actor,parts[1],url.searchParams.get('bid_id'))});
