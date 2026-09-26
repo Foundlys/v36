@@ -35113,7 +35113,7 @@
     }
   },
   "communication_review_context_controls_20260926": {
-    "status": "FROZEN_1750_ZERO_14_CORPUS_46_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "status": "FROZEN_1750_ZERO_14_CORPUS_46_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_264_PASS",
     "source_commit": "16d895734631636375a1830109c0f6de0d5279bb",
     "source_tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
     "permanent_new_tests": 11,
@@ -36068,10 +36068,546 @@
         "sha256": "a3adb2ea8ec42b3248aec7ced4a08b1a6db4f3ea354016e4b6ac4b22b4095b19"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": {
+      "run": {
+        "id": 36259890794,
+        "head_sha": "89f7ff54b4088a133141d0e72b7bff34d4488c42",
+        "run_number": 264,
+        "status": "completed",
+        "conclusion": "success",
+        "run_started_at": "2026-09-26T17:40:58Z",
+        "updated_at": "2026-09-26T17:54:00Z",
+        "html_url": "https://github.com/Foundlys/v36/actions/runs/36259890794"
+      },
+      "published_tree": "97256260fe3bdbf8c2b50541591bb96ce74afc0f",
+      "merge_commit": "4144bd89ebc4b73b9e4d0e0e0033d332b0da4b4e",
+      "counts": [
+        "# tests 1750",
+        "# pass 1750",
+        "# fail 0"
+      ],
+      "corpus": {
+        "head": "4144bd89ebc4b73b9e4d0e0e0033d332b0da4b4e",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "merge_tree": "97256260fe3bdbf8c2b50541591bb96ce74afc0f",
+      "exact_tree_verified": true,
+      "verification_time": "2026-09-26T17:59:52.466Z",
+      "raw_log": "ci264-full-job.log",
+      "log_sha256": "2d1b835403fd0478c471318c5b56336c3793b741ae780c335fb6971303ee1d09",
+      "log_bytes": 830556
+    },
     "scope": "Reply-source context in native and explicit ZERO send-review preview/history distinguishes REPLY, REPLY_ALL and FORWARD; ten owned rows cover eight locales. Bounded typed source references/header policies reject invalid context before enabling preparation. Native source conflict clears previously displayed private preview while preserving authored reason/confirmation. Historical reviews retain their original source revision and literal text after current source changes; corrupt retained context releases no history. Actual HTTP covers native/ZERO previews after encrypted restart and source becoming an excluded provider draft without further provider reads or submission.",
     "regression_evidence": "The original reply-all label/locale failures and strengthened stale-preview failure are preserved. The earlier seven-case source-change test precleared the preview through its purpose-input helper and did not establish stale-result removal; it was corrected to click the current preview button directly. Existing reply-context assertions now use the actual workspace/native services. All 48 frozen raw logs are hash verified with unchanged source, including 46 native scripts, 1750 ZERO and 14 corpus passes.",
     "evidence_limits": "Shape validation of reply context is not complete cryptographic/current-user binding of the entire send-review response. Broader review lists/forms, action acknowledgements, durable recovery and localization remain open. Minimal DOM/isolated provider fixtures do not prove real-browser/focus/accessibility/native-speaker/live-provider acceptance.",
-    "remaining": "Conversation CI 263 is verified PASS. Publish this frozen review-context checkpoint to the same draft PR. User priority: complete Demo Universe Law/Engine, optimized Automotive data and ZERO correctness on desktop/iPhone/Android before returning to other Run 2 work. All unfinished work remains preserved."
+    "remaining": "Conversation CI 263 is verified PASS. Publish this frozen review-context checkpoint to the same draft PR. User priority: complete Demo Universe Law/Engine, optimized Automotive data and ZERO correctness on desktop/iPhone/Android before returning to other Run 2 work. All unfinished work remains preserved.",
+    "published_checkpoint": {
+      "head": "89f7ff54b4088a133141d0e72b7bff34d4488c42",
+      "tree": "97256260fe3bdbf8c2b50541591bb96ce74afc0f",
+      "run": 264,
+      "full_ci": "PASS"
+    }
+  },
+  "demo_universe_native_20260926": {
+    "status": "FROZEN_1779_ZERO_14_CORPUS_12_RELEVANT_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "recorded_at": "2026-09-26T18:09:58.267592+00:00",
+    "source_commit": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+    "source_tree": "f842c312d595236cb41a527df0c308920292568b",
+    "permanent_new_tests": 29,
+    "new_test_breakdown": {
+      "law": 10,
+      "native_engine": 11,
+      "native_and_http_zero_memory": 4,
+      "actual_http_demo": 4
+    },
+    "frozen_results": [
+      {
+        "name": "crm-core-regression-test.js",
+        "command": [
+          "node",
+          "crm-core-regression-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 0.15,
+        "finished_at": "2026-09-26T18:03:35.122674+00:00",
+        "log": "demo-universe-native-frozen-00.log",
+        "bytes": 506,
+        "sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "crm-api-regression-test.js",
+        "command": [
+          "node",
+          "crm-api-regression-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T18:03:35.750880+00:00",
+        "log": "demo-universe-native-frozen-01.log",
+        "bytes": 550,
+        "sha256": "3327f57e439a017631744e414308381f451c0d1a72b6abb7cbf458b5fa4f3a16",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 0.21,
+        "finished_at": "2026-09-26T18:03:35.967101+00:00",
+        "log": "demo-universe-native-frozen-02.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "tenant-identities-test.js",
+        "command": [
+          "node",
+          "tenant-identities-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 2.33,
+        "finished_at": "2026-09-26T18:03:38.305883+00:00",
+        "log": "demo-universe-native-frozen-03.log",
+        "bytes": 190,
+        "sha256": "f4acc1990da2964fe83e8f1ebbd449c9af482c2f81a5a6f86244752e9f2aed3e",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "tenant-identity-api-test.js",
+        "command": [
+          "node",
+          "tenant-identity-api-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 2.74,
+        "finished_at": "2026-09-26T18:03:41.059132+00:00",
+        "log": "demo-universe-native-frozen-04.log",
+        "bytes": 221,
+        "sha256": "271e79736bed53c3d93af3d8786ac11d9728f60ca0dba79834ec1a9cac6bdff4",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "core-access-api-test.js",
+        "command": [
+          "node",
+          "core-access-api-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 1.0,
+        "finished_at": "2026-09-26T18:03:42.064261+00:00",
+        "log": "demo-universe-native-frozen-05.log",
+        "bytes": 160,
+        "sha256": "055e041c483f06b12fcac3b88cd98abc52bbbf92925e3f684e0c6fde7e2af492",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 0.18,
+        "finished_at": "2026-09-26T18:03:42.252485+00:00",
+        "log": "demo-universe-native-frozen-06.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "crm-current-principal-api-test.js",
+        "command": [
+          "node",
+          "crm-current-principal-api-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 2.93,
+        "finished_at": "2026-09-26T18:03:45.193742+00:00",
+        "log": "demo-universe-native-frozen-07.log",
+        "bytes": 231,
+        "sha256": "a202f651c8d7ee63741f4a71f5a54453e3ef37c47be109f73064a8f64980547d",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "crm-zero-replay-api-test.js",
+        "command": [
+          "node",
+          "crm-zero-replay-api-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 2.24,
+        "finished_at": "2026-09-26T18:03:47.442121+00:00",
+        "log": "demo-universe-native-frozen-08.log",
+        "bytes": 205,
+        "sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "domain-zero-replay-api-test.js",
+        "command": [
+          "node",
+          "domain-zero-replay-api-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 2.92,
+        "finished_at": "2026-09-26T18:03:50.374698+00:00",
+        "log": "demo-universe-native-frozen-09.log",
+        "bytes": 239,
+        "sha256": "ad1093d4c71e27227e36bfe99f09d1c0939aa11362becae49e92394d40acf0b3",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 0.55,
+        "finished_at": "2026-09-26T18:03:50.930511+00:00",
+        "log": "demo-universe-native-frozen-10.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "capability-resolver-test.js",
+        "command": [
+          "node",
+          "capability-resolver-test.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 0.09,
+        "finished_at": "2026-09-26T18:03:51.033321+00:00",
+        "log": "demo-universe-native-frozen-11.log",
+        "bytes": 135,
+        "sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 195.28,
+        "finished_at": "2026-09-26T18:07:06.322323+00:00",
+        "log": "demo-universe-native-frozen-12.log",
+        "bytes": 491898,
+        "sha256": "03fb211be21ccf8d2a6ef8a68b40639b471819fbfb3fd673580c8a7b62683881",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "test_summary": [
+          "# tests 1779",
+          "# pass 1779",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "tree": "f842c312d595236cb41a527df0c308920292568b",
+        "exit_code": 0,
+        "seconds": 2.8,
+        "finished_at": "2026-09-26T18:07:09.134799+00:00",
+        "log": "demo-universe-native-frozen-13.log",
+        "bytes": 1066,
+        "sha256": "3f914ccb3f0f3126dc2a14bf1f07c069adf39e73fd02092cb1b1494eee39fef4",
+        "clean_after": true,
+        "head_after": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+        "corpus": {
+          "head": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "intermediate_logs": [
+      {
+        "log": "demo-law-scenario-bound.log",
+        "sha256": "081ccc8379317883223485b00d0443d3d8f064da0a08edd7aa9eeb0c0d04f439",
+        "bytes": 1342,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-memory-idempotency-composed.log",
+        "sha256": "35ac6c371e24d2568c3d103bf1129dad183100565146d044cafb6a59f1ef9e49",
+        "bytes": 2887,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-memory-idempotency-initial.log",
+        "sha256": "a109b66e41e6d76445568047c6c2aaf13d57bb96136dfa60b1e92e010a59e6d9",
+        "bytes": 3709,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-native-crm-retention-baseline.log",
+        "sha256": "33da42b777a4e2fa3ced9fb3f77308232d1ffb5a77f4f588af229c439b3c1730",
+        "bytes": 1306,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-native-retention-fixed.log",
+        "sha256": "7930163573b9aac9c178025b35b4fe4d499b27164f6b7d505d9337566b0489b1",
+        "bytes": 493,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-api-bootstrap-fixed.log",
+        "sha256": "8b695e3735a622e984591254a9dddae0a33b3346788ede9514c2bf44da802dbf",
+        "bytes": 899,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-api-initial.log",
+        "sha256": "e8422bfd85102db9169ee993b8d69f2fd80681bb88c204a3743941ec21eacae0",
+        "bytes": 2517,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-engine-native-date-fixed.log",
+        "sha256": "2dba01c233398bdaa167a848aae3d15b196e8f37cda868c7757c4053e450d08c",
+        "bytes": 1829,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-engine-native-focused.log",
+        "sha256": "e59fd72bd3391bd195c112f8dddbb63a61aaa6936e470b5a24c05158c5787477",
+        "bytes": 4484,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-engine-native-full-batched.log",
+        "sha256": "da087a80ecc3622f9f71cfc62157e0651da3d6d4afecf9ae13c68c803c87707a",
+        "bytes": 364,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-engine-native-initial.log",
+        "sha256": "072f043a9e861ff0be2f2ac1cfee5f44b856e0d84095f0a49a03af5d487a2394",
+        "bytes": 4484,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-engine-native-probability-fixed.log",
+        "sha256": "86843e5dc63efead3ce254caf87bb8eb20668c887a5d9b2f58fee897e5e3d997",
+        "bytes": 3011,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-isolation-recovery.log",
+        "sha256": "91a71be62d8e4374af3b0e1c7ec90de87991bb663457fc4e561321534d9050e5",
+        "bytes": 1329,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-law-calendar-fixed.log",
+        "sha256": "54288f15cb77757d50a270c04eff75f907e8481433a5c3dd6c004328e2294458",
+        "bytes": 2618,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      },
+      {
+        "log": "demo-universe-law-initial.log",
+        "sha256": "6bc2e5ba307ac423cd8a31f986f512f3fc76e039d114011890c16e3a36ce01a2",
+        "bytes": 4170,
+        "status": "PRESERVED_INTERMEDIATE_NOT_ACCEPTANCE"
+      }
+    ],
+    "findings": {
+      "corrected_product_defects": [
+        "Generated calendar collisions",
+        "Native sales probability and date contracts",
+        "Empty demo guard confused bootstrap metadata with business records; now also checks memory/tasks/decisions",
+        "CRM receipt eviction produced a duplicate after lost receipt, 2001 later requests and restart; native receipts now retained up to an explicit capacity bound with new effects refused at capacity"
+      ],
+      "fixture_corrections": [
+        "Temporal mutation fixture now creates an actually invalid dependency",
+        "ZERO memory HTTP fixture configures composition first",
+        "Negative test-name filter unintentionally included a full native run; both logs preserved"
+      ],
+      "new_native_contracts": [
+        "Optional durable actor/input-bound ZERO memory idempotency; atomic assertion/audit/receipt and current access/expiry/deletion checks"
+      ],
+      "limitations": [
+        "Native full flagship seed does not measure actual encrypted HTTP bulk performance",
+        "No completed browser, iPhone, Android or live ZERO model evaluation",
+        "Finance/workflows/events/approvals/trade-ins/all module variants/General still open",
+        "Source discovery and copyright review do not establish a runtime provider connection",
+        "No new completion percentage; all broader demo gates remain FAIL"
+      ]
+    },
+    "exact_published_full_ci": "PENDING",
+    "remaining": "First complete all registered industry packs/modules, rich coherent data, actual public reference integration, ZERO and desktop/iPhone/Android. Then other Run-2 work. Preserve all previous work."
   }
 }

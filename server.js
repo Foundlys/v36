@@ -700,6 +700,8 @@ const FINANCE_CORE=guardDomain(new FoundlyFinanceCore({
   id,
   now:()=>new Date()
 }),'finance',()=>COMPOSITION);
+const DEMO_UNIVERSE=new (require('./demo-universe-engine').DemoUniverseEngine)({adapter:{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),isDemoScope:c=>cleanEnv('FOUNDLY_DEMO_UNIVERSE_ENABLED')==='true'&&/^demo[-:]/.test(c.tenant_id)&&c.tenant_id===cleanEnv('FOUNDLY_DEMO_TENANT_ID')&&c.dealer_id===cleanEnv('FOUNDLY_DEMO_DEALER_ID','default')&&Boolean(encKey()),hasBusinessData:c=>require('./demo-universe-engine').hasBusinessData(c,{records,memory,tasks,decisions})},resolver:COMPOSITION,crm:CRM_CORE,domains:BUSINESS_DOMAINS,identities:IDENTITIES,memory:ZERO_MEMORY});
+const DEMO_UNIVERSE_API=require('./demo-universe-api').createDemoUniverseApi({engine:DEMO_UNIVERSE,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
 function automotiveProviderConfig(provider,c){
   const stored=CONNECTOR_RUNTIME.readConfig(c,provider)||{},credentials=stored.credentials||{},tokens=stored.tokens||{},profile=stored.profile_overrides||{};
   if(provider==='rdw')return {base_url:cleanEnv('RDW_BASE_URL')||profile.base_url||'https://opendata.rdw.nl'};
@@ -1771,6 +1773,7 @@ async function api(req,res,u){
   // transport alias so existing clients and stored integrations keep working.
   const assistantPath=u.pathname.replace(/^\/api\/jarvis(?=\/|$)/,'/api/zero');
   const zeroHandled=await ZERO_API(req,res,u);if(zeroHandled!==false)return true;
+  const demoHandled=await DEMO_UNIVERSE_API(req,res,u);if(demoHandled!==false)return true;
 
 
   // Universal connector OAuth + live probes

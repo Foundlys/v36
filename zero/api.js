@@ -27,7 +27,7 @@ function createZeroApi({context,principal,body,json,memory,stack,declareStack,di
           const query={};for(const [key,value]of url.searchParams){if(!['q','session_id','task_id','workflow_id','limit'].includes(key))C.fail('zero_query_invalid');query[key]=value;}
           return json(res,200,{ok:true,...memory.search(ctx,principal(),query)});
         }
-        if(req.method==='POST'){const input=await body(req);return json(res,201,{ok:true,memory:memory.create(ctx,principal(),input)});}
+        if(req.method==='POST'){const input=await body(req);return json(res,201,{ok:true,memory:memory.create(ctx,principal(),input,{idempotencyKey:req.headers?.['idempotency-key']})});}
       }
       const match=route.match(/^\/api\/zero\/memories\/([a-zA-Z0-9-]{1,100})$/);
       if(match&&req.method==='DELETE'){

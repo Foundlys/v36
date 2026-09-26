@@ -53,6 +53,10 @@ const AUTOMATION_ACTIONS=new Set(['task','notify','assign','message','email','fo
 const SENSITIVE_FIELD=/^(?:password|secret|token|authorization|cookie|api[_-]?key|private[_-]?key|credential)s?$/i;
 const SAFE_FIELD=/^[a-z][a-z0-9_]{0,63}$/;
 const MAX_COLLECTION_SIZE=25000;
+// Request receipts are recovery evidence, not a cache. Eviction can turn a
+// lost acknowledgement into a second mutation. At capacity refuse NEW keyed
+// writes before the effect; exact authorized replays remain available.
+const MAX_IDEMPOTENCY_RECEIPTS=100000;
 const ENTITY_SINGULAR=Object.freeze({companies:'company',activities:'activity',inventory_relations:'inventory_relation',opportunities:'opportunity',consents:'consent',people:'person'});
 const MARKETING_ENTITIES=new Set(['campaigns','sources','attributions','segments','campaign','source','attribution','segment']);
 const ANALYTICS_FILTERS=new Set(['owner_id','team_id','pipeline_id','stage_id','source_id','campaign_id','status']);
@@ -176,7 +180,8 @@ class FoundlyCrmCore{
     if(!key)return execute(operation);const normalized=safeString(key,200);if(!/^[A-Za-z0-9_.:-]{8,200}$/.test(normalized))throw crmError(400,'crm_idempotency_invalid','Ongeldige Idempotency-Key');
     const digest=sha(`${principal.id}:${normalized}`),bucket=this.adapter.bucket(ctx,'crm:idempotency'),existing=bucket.find(row=>row.digest===digest);
     if(existing){if(existing.signature!==signature&&!options.legacySignatures?.includes(existing.signature))throw crmError(409,'crm_idempotency_conflict','Idempotency-Key is al voor een andere mutatie gebruikt');options.authorizeReplay?.(existing.result);return {...deepClone(existing.result),idempotent_replay:true}}
-    const result=execute(()=>{const result=operation();bucket.push({digest,signature,result:deepClone(result),created_at:this.adapter.now().toISOString()});if(bucket.length>2000)bucket.splice(0,bucket.length-2000);return result;});if(!options.atomicScopes)this.commit();return result;
+    if(bucket.length>=MAX_IDEMPOTENCY_RECEIPTS)throw crmError(507,'crm_request_capacity','De bewaarlimiet voor herstelbare CRM-aanvragen is bereikt');
+    const result=execute(()=>{const result=operation();bucket.push({digest,signature,result:deepClone(result),created_at:this.adapter.now().toISOString()});return result;});if(!options.atomicScopes)this.commit();return result;
   }
   create(context,principalInput,entityInput,input,options={}){
     if(typeof this.adapter.publish==='function'&&!this.stagedTransaction)return this.atomicState(normalizeContext(context),core=>core.create(context,principalInput,entityInput,input,options));

@@ -12,6 +12,7 @@ class ZeroMemory {
     this.adapter=adapter;this.now=adapter.now||(()=>new Date());this.id=adapter.id||(()=>crypto.randomUUID());
   }
   bucket(ctx) { return this.adapter.bucket(ctx,RECORDS); }
+  get(ctx,actor,id) { C.scope(ctx,actor);const row=this.bucket(ctx).find(r=>r.id===id);if(!row||!this.authorize(ctx,actor,row))C.fail('zero_memory_missing',404);return C.clone(row); }
   authorize(ctx,actor,row,write=false) {
     C.scope(ctx,actor);
     if(!C.sameScope(row,ctx))return false;
@@ -31,12 +32,25 @@ class ZeroMemory {
     rows.push({id:this.id(),...C.scope(ctx,actor),operation,memory_id:row.id,revision:row.revision,at:this.now().toISOString()});
     if(rows.length>2000)rows.splice(0,rows.length-2000);
   }
-  create(ctx,actor,input) {
+  create(ctx,actor,input,options={}) {
     const identity=C.scope(ctx,actor);
     C.keys(input,['layer','key','text','confidence','expires_at','effective_from','effective_until','roles','capabilities','sensitivity','session_id','task_id','workflow_id','supersedes','expected_revision']);
     const layer=String(input.layer||'').toUpperCase();
     if(!C.LAYERS.includes(layer))C.fail('zero_memory_layer_invalid');
     if(!C.PRIVATE_LAYERS.has(layer))C.permit(actor,'knowledge:write');
+    const requestId=options.idempotencyKey;let requestKey,requestHash,requests;
+    if(requestId!==undefined){
+      if(typeof requestId!=='string'||!/^[A-Za-z0-9_.:-]{8,160}$/.test(requestId))C.fail('zero_memory_request_invalid',422);
+      requestKey=C.hash([identity.owner_id,requestId]);requestHash=C.hash(input);requests=this.adapter.bucket(ctx,'zero:memory-requests');const prior=requests.find(r=>r.key===requestKey);
+      if(prior){
+        if(prior.input_hash!==requestHash)C.fail('zero_memory_request_conflict',409);
+        const row=this.bucket(ctx).find(r=>r.id===prior.memory_id);
+        if(!row||!this.authorize(ctx,actor,row,true))C.fail('zero_memory_missing',404);
+        if(row.status!=='ACTIVE'||row.expires_at<=this.now().toISOString()||C.hash(row)!==prior.record_hash)C.fail('zero_memory_request_superseded',409);
+        return {...C.clone(row),idempotent_replay:true};
+      }
+      if(requests.length>=25000)C.fail('zero_memory_request_capacity',429);
+    }
     const key=C.identifier(input.key), raw=C.string(input.text,12000);
     const text=this.adapter.redact?this.adapter.redact(raw):raw;
     const confidence=input.confidence===undefined?null:input.confidence;
@@ -70,9 +84,9 @@ class ZeroMemory {
       row.revision=previous.revision+1;
     }
     if(this.bucket(ctx).filter(x=>C.sameScope(x,ctx)&&x.owner_id===actor.id&&x.status==='ACTIVE').length>=1000)C.fail('zero_memory_capacity',429);
-    return scopedMutation(this.adapter,ctx,[RECORDS,AUDIT],()=>{
+    return scopedMutation(this.adapter,ctx,[RECORDS,AUDIT,...(requests?['zero:memory-requests']:[])],()=>{
       if(previous){previous.status='SUPERSEDED';previous.superseded_by=row.id;previous.effective_until=at;}
-      this.bucket(ctx).push(row);this.audit(ctx,actor,'CREATE',row);return C.clone(row);
+      this.bucket(ctx).push(row);this.audit(ctx,actor,'CREATE',row);if(requests)requests.push({key:requestKey,input_hash:requestHash,memory_id:row.id,record_hash:C.hash(row),created_at:at});return C.clone(row);
     });
   }
   search(ctx,actor,query={}) {
