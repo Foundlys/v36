@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-24T19:35:27.852894+00:00",
+  "recorded_at": "2026-09-26T05:16:57.508112+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -9597,7 +9597,7 @@
     }
   },
   "hierarchy_native_recovery_20260925": {
-    "status": "TARGETED_AND_AFFECTED_NATIVE_PASS_LOCAL_ZERO_UNVERIFIED_FULL_PUBLISHED_CI_PENDING",
+    "status": "TARGETED_AFFECTED_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS_LOCAL_ZERO_RESULT_UNAVAILABLE",
     "source_commit": "1ad5e59c025b4bd00cfdc28d0935c32b2a225487",
     "source_tree": "ed14e3337965ba36620d0c1ae9017e457f76f205",
     "permanent_new_tests": 15,
@@ -9660,7 +9660,477 @@
       "matches_frozen_tree": true,
       "verification": "GitHub create_tree returned the exact already-frozen local Git tree SHA before any branch ref change. This preserves all eight native hierarchy source/test files without inventing new code."
     },
+    "exact_published_full_ci": "PASS_237",
+    "remaining": "The hierarchy control gap is addressed by source 454cc2e with its own evidence below; real browser/accessibility and wider Run 2 gates remain open.",
+    "published_ci_237": {
+      "summary": [
+        "# tests 1153",
+        "# pass 1153",
+        "# fail 0"
+      ],
+      "corpus": {
+        "head": "37d2feb446cf0f305997fadcfc644c431bf7e009",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "merge_sha": "37d2feb446cf0f305997fadcfc644c431bf7e009",
+      "run_number": 237,
+      "run_id": 36193489704,
+      "job_id": 108263875396,
+      "conclusion": "success",
+      "published_head": "e5b89b3d29185d3a22dfc645353b42ce0a72cc87",
+      "tree": "3b13eeb974a1d2c5958865bd7c6c60cb3853d30e",
+      "exact_tree_match": true,
+      "log_file": "ci237-success.log",
+      "log_bytes": 584010,
+      "log_sha256": "00502544c93af6819275b4c142705a6d0539fa6ef09fd131f9ce7d8b9750251d",
+      "zero_tests": 1153,
+      "zero_pass": 1153,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    },
+    "resumed_at": "2026-09-26T05:16:57.508112+00:00",
+    "resumption_note": "The restored scratch workspace contained an older clean tracked checkout. The source was recovered by a normal merge from e5b89b3; the old local ZERO logs/session were not present. Their exit code remains unknown. Full CI 237 independently passed on the exact published tree."
+  },
+  "hierarchy_controls_20260926": {
+    "status": "FROZEN_ZERO_CORPUS_AND_14_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "source_commit": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+    "source_tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+    "permanent_new_tests": 23,
+    "new_test_breakdown": {
+      "client_integrity": 18,
+      "shared_page": 3,
+      "actual_http_client": 2
+    },
+    "frozen_results": [
+      {
+        "name": "sales-pipeline-test.js",
+        "command": [
+          "node",
+          "sales-pipeline-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T05:11:29.142840+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-pipeline-test.js.log",
+        "sha256": "20b9725002cf0a3f2ef1cefc7fbe033409d0c28fb94b4ea93e67ac9afd12de1c",
+        "bytes": 337
+      },
+      {
+        "name": "sales-pipeline-api-test.js",
+        "command": [
+          "node",
+          "sales-pipeline-api-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 8.9,
+        "finished_at": "2026-09-26T05:11:38.095914+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-pipeline-api-test.js.log",
+        "sha256": "250947d3234a8e1b040fee0b425610ca0df6e98b78491e403d7d33ddcbf40426",
+        "bytes": 341
+      },
+      {
+        "name": "sales-pipeline-client-test.js",
+        "command": [
+          "node",
+          "sales-pipeline-client-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.93,
+        "finished_at": "2026-09-26T05:11:39.080615+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-pipeline-client-test.js.log",
+        "sha256": "9445e2d239d7e7d4e6e815142b62cb51073b97b0159599e16441e255f3faf101",
+        "bytes": 306
+      },
+      {
+        "name": "sales-forecast-test.js",
+        "command": [
+          "node",
+          "sales-forecast-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T05:11:39.756217+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-forecast-test.js.log",
+        "sha256": "0016bb0b73ba8391154cda987bda0c1b575eeab782298021449c812278c75f21",
+        "bytes": 162
+      },
+      {
+        "name": "sales-quotas-test.js",
+        "command": [
+          "node",
+          "sales-quotas-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.58,
+        "finished_at": "2026-09-26T05:11:40.389910+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-quotas-test.js.log",
+        "sha256": "e1de957d1760912ffd38514ddcc25e3a2ee2afc317d13a986554e06a17c057f2",
+        "bytes": 164
+      },
+      {
+        "name": "sales-quotas-api-test.js",
+        "command": [
+          "node",
+          "sales-quotas-api-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 3.39,
+        "finished_at": "2026-09-26T05:11:43.840338+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-quotas-api-test.js.log",
+        "sha256": "40ebeb598b5e3270dcd2233e9d81dc6a0ad3f9d3874637985354ae9b16c8adc9",
+        "bytes": 152
+      },
+      {
+        "name": "sales-scenarios-test.js",
+        "command": [
+          "node",
+          "sales-scenarios-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T05:11:44.532856+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-scenarios-test.js.log",
+        "sha256": "1879de17b33c911f65baefc821dea98edadb138311d626b9563806f421146562",
+        "bytes": 211
+      },
+      {
+        "name": "sales-scenarios-api-test.js",
+        "command": [
+          "node",
+          "sales-scenarios-api-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 4.25,
+        "finished_at": "2026-09-26T05:11:48.839490+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-scenarios-api-test.js.log",
+        "sha256": "329e59583454d2a24b84181677a2f1e6704d11e18beffa081000d06c319bdd48",
+        "bytes": 225
+      },
+      {
+        "name": "sales-scenarios-client-test.js",
+        "command": [
+          "node",
+          "sales-scenarios-client-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.93,
+        "finished_at": "2026-09-26T05:11:49.829020+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-scenarios-client-test.js.log",
+        "sha256": "9ea936a3aef18621639da149359b8100ee7ae6e60ff23e2503e29f1d94cb8761",
+        "bytes": 343
+      },
+      {
+        "name": "sales-hierarchy-test.js",
+        "command": [
+          "node",
+          "sales-hierarchy-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "finished_at": "2026-09-26T05:11:50.496925+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-hierarchy-test.js.log",
+        "sha256": "413a7cdf79bc1c1ff2793a5b735862aaf2940bbb022dd0ac0c1cebd5a0dc367e",
+        "bytes": 295
+      },
+      {
+        "name": "sales-hierarchy-api-test.js",
+        "command": [
+          "node",
+          "sales-hierarchy-api-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 9.17,
+        "finished_at": "2026-09-26T05:11:59.731616+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-hierarchy-api-test.js.log",
+        "sha256": "5248efa687d206a33a058293b0f4efadc0dd983ca6d5359973164bd291d5c1ff",
+        "bytes": 272
+      },
+      {
+        "name": "sales-hierarchy-client-test.js",
+        "command": [
+          "node",
+          "sales-hierarchy-client-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 1.09,
+        "finished_at": "2026-09-26T05:12:00.892294+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-sales-hierarchy-client-test.js.log",
+        "sha256": "f31228c48941883ad412422aaeb6955d52c455242fd682f308647fedb0161a73",
+        "bytes": 385
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 0.65,
+        "finished_at": "2026-09-26T05:12:01.601638+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-module-access-contracts-test.js.log",
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "bytes": 332
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 1.66,
+        "finished_at": "2026-09-26T05:12:03.317751+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-business-workspaces-regression-test.js.log",
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      {
+        "name": "zero",
+        "command": [
+          "npm",
+          "run",
+          "test:zero"
+        ],
+        "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+        "exit_code": 0,
+        "seconds": 203.95,
+        "finished_at": "2026-09-26T05:15:27.321584+00:00",
+        "clean_after": true,
+        "head_after": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+        "log": "hierarchy-controls-frozen-zero.log",
+        "sha256": "f456bf1390d2120b2b80fab7be0efb89e418fc655d4c8e6f697eed77288ac918",
+        "bytes": 141607,
+        "test_summary": [
+          "ℹ tests 1176",
+          "ℹ pass 1176",
+          "ℹ fail 0"
+        ],
+        "corpus": {
+          "head": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "hierarchy-controls-baseline.log",
+        "status": "EXPECTED_BASELINE_FAILURE_3_OF_3",
+        "bytes": 2719,
+        "sha256": "263da538c0172c1cf87f2b44b0c4e6556a7a9c9628f08b6470c0b8b398f0fb2e"
+      },
+      {
+        "file": "hierarchy-controls-initial.log",
+        "status": "PASS_3",
+        "bytes": 461,
+        "sha256": "d5adb3ef0442bb1fc52af15e025a38005650241d92694d8261de7a5e251d8f8d"
+      },
+      {
+        "file": "hierarchy-controls-targeted.log",
+        "status": "PASS_19_BEFORE_TWO_ADDITIONAL_CASES",
+        "bytes": 2181,
+        "sha256": "62f3d36a49cdc5a4a333049b6544d9ef7dc8e54c1fbb5dd5e0415d9faa4367c0"
+      },
+      {
+        "file": "hierarchy-controls-http.log",
+        "status": "PASS_2_ACTUAL_HTTP",
+        "bytes": 391,
+        "sha256": "0d5d76006d1233fda26d6d79985820b33826dc242befedceff3e27c1d16970da"
+      },
+      {
+        "file": "hierarchy-controls-integrated.log",
+        "status": "PASS_92_BEFORE_FINAL_DENIAL_GUARD",
+        "bytes": 11037,
+        "sha256": "450595dfd90af495a2565ca7ffd9aa1a48129daaac53ff8cad4d575d4c7f7f01"
+      },
+      {
+        "file": "hierarchy-controls-integrity-final.log",
+        "status": "PASS_18",
+        "bytes": 2037,
+        "sha256": "773e3c9e813279eccb40b1f87666b7f47bfce7553968f14e7af73dff85e82005"
+      }
+    ],
     "exact_published_full_ci": "PENDING",
-    "remaining": "Hierarchy controls still need eight-locale authoring, typed catalog/acknowledgement validation and metadata-only reload recovery. The next worktree work/run2-hierarchy-controls was created at the frozen source, but its first attempted UI fixture/test command failed before a process could be created. Inspect actual files if the environment returns. No browser, accessibility, Phase 8 or whole Run 2 acceptance is implied."
+    "scope": "Eight explicit interface locales preserve literal hierarchy definitions, DOM inputs and confirmation without requests. Exact typed catalog and context; current management authority; WebCrypto-bound native immutable record/definition and acknowledgement; only scoped opaque metadata persists before PUT. Fresh VM after encrypted server restart recovers lost writes using metadata-only POST, no replay. Atomic absence retirement, independent panel recovery, stale/detached replies, malformed/contradictory evidence, storage/cleanup faults and permission loss remain truthful. Shared query/scenario/snapshot business regressions retain root/child scope, totals and input guards.",
+    "remaining": "DOM/VM and HTTP evidence is not real-browser visual, keyboard, assistive-technology, native-speaker or live-provider acceptance. Other domain summary weighted rounding/unknown handling remains a concrete next defect. The locked wider matrix remains IN_PROGRESS_NOT_ACCEPTED."
   }
 }

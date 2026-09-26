@@ -585,7 +585,7 @@
         "zero/agents-api.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Request/token budgets exist; verified hard spend ceilings for research and Realtime are incomplete."
+      "note": "Native router already reserves daily requests/tokens/USD and retains charges for unknown usage. Complete hard monetary control and live usage reconciliation across research, Realtime and parallel tasks remain unverified."
     },
     {
       "id": "R2-043",
@@ -807,10 +807,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-057",
@@ -856,10 +864,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-058",
@@ -905,10 +921,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-059",
@@ -954,10 +978,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-060",
@@ -1003,10 +1035,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-061",
@@ -1052,10 +1092,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-062",
@@ -1101,10 +1149,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-063",
@@ -1150,10 +1206,18 @@
         "zero/workspace-section-labels.test.js",
         "zero/workspace-composer-integrity.test.js",
         "zero/workspace-identity-integrity.test.js",
-        "zero/workspace-domain-integrity.test.js"
+        "zero/workspace-domain-integrity.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Bounded module/shared workspace presentation, registered sections, composer, identity and common domain forms support eight locales. Specialist/generated/backend copy remains open; the conservative inventory has 620 candidates and is not exhaustive. Minimal DOM fixtures do not establish browser/layout or native-speaker quality. Full-surface acceptance remains FAIL."
+      "note": "Eight-locale Marketing/workflow and Sales sequence/pipeline/forecast/hierarchy controls now have scoped authoring, observation and recovery evidence in checkpoint-tests.json. Hierarchy source 454cc2e passes 1176 ZERO tests, 14 corpus cases and 14 affected native suites; exact published full CI is pending. Current conservative scan: 307 candidates across 59 scripts, including 8 on the frozen dashboard; this is neither exhaustive nor a progress metric. Shared/specialist/generated/backend surfaces and native-speaker/browser acceptance remain open. Full-surface verdict stays FAIL."
     },
     {
       "id": "R2-064",
@@ -1614,7 +1678,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "NONE",
-      "note": "Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance."
+      "note": "Permanent versioned HTTP corpus remains a narrow 14-case contract suite. Latest frozen source 454cc2e passes all 14 plus 1176 ZERO unit/HTTP/DOM contracts. Behavioral, live-provider and adversarial completeness are separate open gates."
     },
     {
       "id": "R2-098",
@@ -1628,7 +1692,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "NONE",
-      "note": "Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance."
+      "note": "Permanent versioned HTTP corpus remains a narrow 14-case contract suite. Latest frozen source 454cc2e passes all 14 plus 1176 ZERO unit/HTTP/DOM contracts. Behavioral, live-provider and adversarial completeness are separate open gates."
     },
     {
       "id": "R2-099",
@@ -1642,7 +1706,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "NONE",
-      "note": "Versioned permanent HTTP regression infrastructure passes its narrow 14-case corpus. Not evidence of full Run 2 acceptance."
+      "note": "Permanent versioned HTTP corpus remains a narrow 14-case contract suite. Latest frozen source 454cc2e passes all 14 plus 1176 ZERO unit/HTTP/DOM contracts. Behavioral, live-provider and adversarial completeness are separate open gates."
     },
     {
       "id": "R2-100",
@@ -1668,7 +1732,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
+      "note": "Actual shared client handlers, fresh VM recovery and real HTTP/encrypted restart have narrow passing evidence. Earlier supported-browser localhost attempts returned ERR_BLOCKED_BY_CLIENT; this was not rechecked this turn. No real visual, keyboard, assistive-technology or responsive acceptance is claimed."
     },
     {
       "id": "R2-102",
@@ -1680,7 +1744,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
+      "note": "Actual shared client handlers, fresh VM recovery and real HTTP/encrypted restart have narrow passing evidence. Earlier supported-browser localhost attempts returned ERR_BLOCKED_BY_CLIENT; this was not rechecked this turn. No real visual, keyboard, assistive-technology or responsive acceptance is claimed."
     },
     {
       "id": "R2-103",
@@ -1692,7 +1756,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
+      "note": "Actual shared client handlers, fresh VM recovery and real HTTP/encrypted restart have narrow passing evidence. Earlier supported-browser localhost attempts returned ERR_BLOCKED_BY_CLIENT; this was not rechecked this turn. No real visual, keyboard, assistive-technology or responsive acceptance is claimed."
     },
     {
       "id": "R2-104",
@@ -1704,7 +1768,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
+      "note": "Actual shared client handlers, fresh VM recovery and real HTTP/encrypted restart have narrow passing evidence. Earlier supported-browser localhost attempts returned ERR_BLOCKED_BY_CLIENT; this was not rechecked this turn. No real visual, keyboard, assistive-technology or responsive acceptance is claimed."
     },
     {
       "id": "R2-105",
@@ -1716,7 +1780,7 @@
         "docs/run2/checkpoint-tests.json"
       ],
       "classification": "ENVIRONMENT_UNVERIFIED",
-      "note": "Actual client-handler checks pass; local preview is blocked in the supported browser. No visual, responsive or assistive-technology acceptance."
+      "note": "Actual shared client handlers, fresh VM recovery and real HTTP/encrypted restart have narrow passing evidence. Earlier supported-browser localhost attempts returned ERR_BLOCKED_BY_CLIENT; this was not rechecked this turn. No real visual, keyboard, assistive-technology or responsive acceptance is claimed."
     },
     {
       "id": "R2-106",
@@ -1784,7 +1848,7 @@
         "docs/run2/ZERO_FOUNDATIONS.md"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Routing budgets and telemetry exist; complete hard monetary control including live research/audio is not verified."
+      "note": "Native router already reserves daily requests/tokens/USD and retains charges for unknown usage. Complete hard monetary control and live usage reconciliation across research, Realtime and parallel tasks remain unverified."
     },
     {
       "id": "R2-111",
@@ -1811,7 +1875,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "NONE",
-      "note": "Full local npm test passes including 69 ZERO unit/HTTP tests and 14 corpus cases."
+      "note": "Frozen hierarchy-control source 454cc2e/tree 59981e8 passes 1176 ZERO tests, all 14 permanent corpus cases and 14 affected native scripts. New permanent coverage: 18 client integrity, 3 actual shared page and 2 actual HTTP/fresh VM cases. Narrow contract evidence, not full Run 2 acceptance."
     },
     {
       "id": "R2-113",
@@ -1824,7 +1888,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "NONE",
-      "note": "Full local npm test passes including 69 ZERO unit/HTTP tests and 14 corpus cases."
+      "note": "Latest completed full npm CI 237 passed on published e5b89b3, exact tree 3b13eeb, with 1153 ZERO and 14 corpus cases. New hierarchy controls pass their full local ZERO/corpus and affected native suites; their exact published full CI is pending. PASS applies to the recorded completed regression scope, not untested newer source."
     },
     {
       "id": "R2-114",
@@ -1838,7 +1902,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 194/195 failures and CI 196 cancellation remain recorded. CI 202 passed complete npm test, 540 ZERO tests and 14 corpus cases on head ff75df2. The newer terminal-recovery code passes 21 focused tests, 546 ZERO tests, 14 corpus cases and affected native suites; its exact-head full npm CI remains pending."
+      "note": "CI 237 completed successfully on e5b89b3; CI merge 37d2feb has the exact published tree 3b13eeb. Older failures/cancellations are preserved in checkpoint-tests.json. New hierarchy controls source 454cc2e awaits full CI on its published tree; current-head CI gate remains UNVERIFIED until that result is inspected."
     },
     {
       "id": "R2-115",
@@ -1979,10 +2043,18 @@
         "zero/domain-request-guards.test.js",
         "zero/workspace-domain-integrity.test.js",
         "zero/domain-terminal-recovery-api.test.js",
-        "zero/workspace-domain-terminal.test.js"
+        "zero/workspace-domain-terminal.test.js",
+        "zero/sales-hierarchy-client-integrity.test.js",
+        "zero/sales-hierarchy-page-recovery.test.js",
+        "zero/sales-hierarchy-client-api.test.js",
+        "zero/sales-hierarchy-recovery.test.js",
+        "zero/sales-hierarchy-recovery-api.test.js",
+        "zero/sales-forecast-observation.test.js",
+        "zero/sales-forecast-page-recovery.test.js",
+        "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Partial security/source regression includes current-permission writes/replay, atomic rollback, durable events, native snapshot/knowledge scope and Finance currency/unsafe amount/current bank-source checks. Native member HTTP and encrypted restart are covered. Full enumerated Run-2 adversarial acceptance remains open. Native connector receipts recover an actual dropped HTTP response through encrypted restart; stale writes, corrupt storage and secret metadata exposure are covered. Wider adversarial acceptance stays open. Generic source imports additionally exercise DNS/response authorization, configuration races, bounded pages, atomic recovery, scoped raw-source reads and actual lost-response replay. Broader provider/adversarial contracts remain open. Generic native probes now refuse revoked rights, disabled owners and changed configurations across DNS/provider waits; activity is atomic and exactly recovered with source receipts. Legacy/bulk/provider-specific observation and broader adversarial coverage remain open. Generic legacy tests now contact only the selected source and bind current native/legacy configuration across waits; encoded and custom connector IDs retain current owner-module authorization. Specialized/bulk provider paths remain open. Shared section observations refuse mismatched/malformed/contradictory payloads and suppress stale results after navigation, refresh or access denial; wider security acceptance remains open. Package review binds exact input and native profile evidence, rejects truthy management authority, suppresses stale views/duplicate writes and retains newer native compositions on retry. Wider adversarial acceptance remains open. Identity mutations bind request/actor/tenant and current revisions, keep receipts encrypted and atomically resolve absent keys before delayed HTTP bodies can commit. Wider adversarial acceptance remains open. Generic domain replay now checks recorded result revisions and current owner/module authority; retired editors cannot redirect writes into another module. Wider adversarial acceptance remains open. Generic request reconciliation survives controller reload with scoped opaque metadata and blocks late original HTTP bodies after a terminal reservation. Current-result access loss stays private and does not block independent records."
+      "note": "Partial security/source regression includes current-permission writes/replay, atomic rollback, durable events, native snapshot/knowledge scope and Finance currency/unsafe amount/current bank-source checks. Native member HTTP and encrypted restart are covered. Full enumerated Run-2 adversarial acceptance remains open. Native connector receipts recover an actual dropped HTTP response through encrypted restart; stale writes, corrupt storage and secret metadata exposure are covered. Wider adversarial acceptance stays open. Generic source imports additionally exercise DNS/response authorization, configuration races, bounded pages, atomic recovery, scoped raw-source reads and actual lost-response replay. Broader provider/adversarial contracts remain open. Generic native probes now refuse revoked rights, disabled owners and changed configurations across DNS/provider waits; activity is atomic and exactly recovered with source receipts. Legacy/bulk/provider-specific observation and broader adversarial coverage remain open. Generic legacy tests now contact only the selected source and bind current native/legacy configuration across waits; encoded and custom connector IDs retain current owner-module authorization. Specialized/bulk provider paths remain open. Shared section observations refuse mismatched/malformed/contradictory payloads and suppress stale results after navigation, refresh or access denial; wider security acceptance remains open. Package review binds exact input and native profile evidence, rejects truthy management authority, suppresses stale views/duplicate writes and retains newer native compositions on retry. Wider adversarial acceptance remains open. Identity mutations bind request/actor/tenant and current revisions, keep receipts encrypted and atomically resolve absent keys before delayed HTTP bodies can commit. Wider adversarial acceptance remains open. Generic domain replay now checks recorded result revisions and current owner/module authority; retired editors cannot redirect writes into another module. Wider adversarial acceptance remains open. Generic request reconciliation survives controller reload with scoped opaque metadata and blocks late original HTTP bodies after a terminal reservation. Current-result access loss stays private and does not block independent records. Sales forecast and hierarchy native/HTTP/client recovery now verify actor/tenant/definition or calculation fingerprints, current authority, immutable result hashes, encrypted restart, absence retirement, no blind replay, input retention and contradictory-response refusal. Wider security coverage remains open."
     },
     {
       "id": "R2-124",
@@ -2009,7 +2081,490 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-25T09:14:21.036125+00:00",
+  "updated_at": "2026-09-26T05:18:56.093959+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
-  "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker."
+  "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker.",
+  "remaining_work_review": {
+    "reviewed_at": "2026-09-26T05:15:58.762161+00:00",
+    "timezone": "Europe/Amsterdam",
+    "basis": "Existing locked acceptance matrix and current repository/checkpoint evidence; bounded gap review, not a restarted global audit.",
+    "time_estimate_policy": {
+      "unit": "active hours of one executing engineer/agent, including active evaluation/review; waiting excluded",
+      "method": "Bottom-up work packages stated per component; lower bound assumes existing contracts reusable and no new major defect, upper bound includes an additional correction/evidence round. These are planning estimates, not measured completion forecasts.",
+      "no_percentage_or_test_count_extrapolation": true,
+      "do_not_sum": "Shared dependencies overlap (semantic/context/search, Automotive/demo/cross-module, economics/performance, localization/UX). Rows must not be added into a promised total date.",
+      "waiting": "Known automated run durations are separated from external scheduling. Unknown access/reviewer waits have no honest upper bound until availability is established.",
+      "scope": "No parallel agents assumed; no Run 3–7 expansion; no automatic authorization for credentials, paid provider use, merge or production changes."
+    },
+    "components": [
+      {
+        "id": "cognition",
+        "component": "ZERO-cognitie",
+        "requirement_ids": [
+          "R2-001",
+          "R2-002",
+          "R2-003",
+          "R2-004",
+          "R2-005",
+          "R2-006",
+          "R2-007",
+          "R2-008",
+          "R2-009",
+          "R2-010",
+          "R2-011",
+          "R2-012",
+          "R2-013",
+          "R2-014"
+        ],
+        "remaining_code": "Gespreks-, referentie-, ambiguïteits-, plannings- en bedrijfsredenering verbeteren op concrete falende scenario’s; bestaand beleid en native specialisten behouden.",
+        "missing_evidence": "Representatieve meertalige gesprekken, correcties, lange taken, causale vragen en onafhankelijke kwaliteitsbeoordeling; vergelijkbare benchmarktaken uit COMPETITIVE_LEDGER.md.",
+        "external_dependency": "Modelkwaliteit en vergelijking vereisen een toegestane live modelconfiguratie; beschikbaarheid is hier niet bewezen.",
+        "active_hours": {
+          "min": 20,
+          "max": 48
+        },
+        "waiting_time": "Automatische evaluaties circa 10–30 min per ronde; toegang en beoordelaars: geen betrouwbare kalenderband zolang beschikbaarheid onbekend is.",
+        "estimate_basis": "Meerdere samenhangende gedragspaden plus corpus/rubrics en ten minste één correctieronde; de huidige 14 corpusgevallen meten vooral contracten, geen volledige cognitie.",
+        "dependencies": [
+          "retrieval_context",
+          "cross_module"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "semantic_memory",
+        "component": "Semantisch geheugen",
+        "requirement_ids": [
+          "R2-020"
+        ],
+        "remaining_code": "Semantisch ophalen, herindexeren, verwijderen en herkomstcontrole toevoegen aan de bestaande geheugenlagen.",
+        "missing_evidence": "Relevantie, supersessie, verwijdering, veroudering en intrekking van rechten over index en huidige bron.",
+        "external_dependency": "Een eventuele embeddingdienst is een keuze/afhankelijkheid, geen nu bewezen externe blokkade.",
+        "active_hours": {
+          "min": 8,
+          "max": 20
+        },
+        "waiting_time": "Lokale index-/regressieruns circa 5–20 min per ronde; eventuele providerwachttijd onbekend.",
+        "estimate_basis": "Opslag/lifecycle bestaat al; ontbrekend werk is het ophalen en de veiligheids- en relevantieproef, geen herbouw van acht lagen.",
+        "dependencies": [],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "retrieval_context",
+        "component": "Contextselectie en relevantie",
+        "requirement_ids": [
+          "R2-029",
+          "R2-033",
+          "R2-034"
+        ],
+        "remaining_code": "Semantische relevantie en taakbudgetbewuste selectie verbinden met de bestaande begrensde contextbouw.",
+        "missing_evidence": "Representatieve relevantiebeoordeling, bronintrekking tijdens ophalen, gemeten vertraging en taakniveau kosten/kwaliteit.",
+        "external_dependency": "Live modelkosten en representatieve belasting zijn nog niet geverifieerd.",
+        "active_hours": {
+          "min": 6,
+          "max": 16
+        },
+        "waiting_time": "Meetseries circa 15–60 min per profiel; providerbeschikbaarheid onbekend.",
+        "estimate_basis": "zero/context.js scoort nu lexicaal en heeft byte-/tijdsgrenzen; rangschikking, budgetkeuze en meting vormen drie afgebakende werkpakketten.",
+        "dependencies": [
+          "semantic_memory",
+          "economics",
+          "performance"
+        ],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "economics",
+        "component": "Model-/agentkosten en operationele beheersing",
+        "requirement_ids": [
+          "R2-042",
+          "R2-110"
+        ],
+        "remaining_code": "Bestaande reserveringen en token/aanvraaglimieten doortrekken naar aantoonbare geldplafonds voor research en Realtime, inclusief onbekend verbruik en gelijktijdigheid.",
+        "missing_evidence": "Hard plafond bij parallelle taken, retries, provideruitval, onvolledige usage en audio/research-afrekening.",
+        "external_dependency": "Live prijzen/verbruiksrapporten zijn nog niet als kostenacceptatie bewezen; geen credentialwijziging verondersteld.",
+        "active_hours": {
+          "min": 8,
+          "max": 20
+        },
+        "waiting_time": "Gerichte regressie circa 5–20 min per ronde; live verbruiksrapportage/providerafrekening afhankelijk van provider, onbekend.",
+        "estimate_basis": "Router heeft reeds dagelijkse USD-controles en conservatieve reserveringen; de open grens is gecombineerde research/audio-afrekening, niet ontbreken van een router.",
+        "dependencies": [],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "research",
+        "component": "Research en kennisverificatie",
+        "requirement_ids": [
+          "R2-043",
+          "R2-044",
+          "R2-045",
+          "R2-046"
+        ],
+        "remaining_code": "Tegenstrijdige claims systematisch beoordelen en verificatie van bron, datum, jurisdictie en actualiteit versterken.",
+        "missing_evidence": "Echte primaire bronnen, foutieve citaties, conflicten, verlopen informatie en adversariële inhoud via productiepad; activatie/rollback blijft behouden.",
+        "external_dependency": "Toegestane research/providerroute nodig voor live bewijs; deze beurt heeft die beschikbaarheid niet opnieuw getest.",
+        "active_hours": {
+          "min": 8,
+          "max": 20
+        },
+        "waiting_time": "Bron-/modelruns circa 5–30 min per ronde; externe toegang of inhoudelijke beoordeling: onbekend.",
+        "estimate_basis": "Bronmetadata en quarantaine/activatie bestaan; claimconflicten en brongebonden acceptatie ontbreken.",
+        "dependencies": [
+          "cognition"
+        ],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "stack",
+        "component": "Stack Discovery en bronautoriteit",
+        "requirement_ids": [
+          "R2-049",
+          "R2-122"
+        ],
+        "remaining_code": "Ontbrekende heterogene systeem-, identiteit-, schema- en datamappingpaden plus expliciete klantbronautoriteit sluiten.",
+        "missing_evidence": "Meerdere systemen, dubbele autoriteiten, gewijzigde scopes, ongedocumenteerde schema’s/webhooks, storing en herstelde verbindingen.",
+        "external_dependency": "Representatieve toegestane sandbox/systemen en eventuele klantmapping zijn nodig; niet als reeds beschikbaar opgevoerd.",
+        "active_hours": {
+          "min": 16,
+          "max": 40
+        },
+        "waiting_time": "Lokale/contractruns circa 10–30 min per ronde; externe sandbox/klanttoegang: geen onderbouwde bovengrens.",
+        "estimate_basis": "Native configuratie, verklaringen en publieke schema-observaties bestaan; meerdere aanvullende adapter-/mappingfamilies en conflictcases blijven open.",
+        "dependencies": [],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "localization",
+        "component": "Lokalisatie van alle huidige oppervlakken",
+        "requirement_ids": [
+          "R2-056",
+          "R2-057",
+          "R2-058",
+          "R2-059",
+          "R2-060",
+          "R2-061",
+          "R2-062",
+          "R2-063"
+        ],
+        "remaining_code": "Resterende gedeelde/specialistische bediening en backend-/gegenereerde producttekst in acht talen afwerken; exacte Sales-samenvattingen en UNKNOWN-behandeling repareren. Afgeronde Marketing-, workflow-, Sales-pipeline/prognose/hiërarchiecontroles behouden.",
+        "missing_evidence": "Eigenaarschap van tekst, invoer-/focusbehoud, fout- en herstelpaden, native taalkwaliteit en alle aangeraakte layouts.",
+        "external_dependency": "Taalbeoordeling en een toegankelijke browseromgeving zijn nog niet bewezen; lokale codewerkzaamheden zijn uitvoerbaar.",
+        "active_hours": {
+          "min": 24,
+          "max": 64
+        },
+        "waiting_time": "Per checkpoint CI circa 8–20 min; reviewer/browserbeschikbaarheid onbekend.",
+        "estimate_basis": "Actuele conservatieve scan noemt nog shared workspace, Calendar, Procurement en kleinere specialistische paden. Scan is geen complete teller of voortgangspercentage. Acht talen, toestanden en herstelgedrag bepalen de bandbreedte.",
+        "dependencies": [
+          "ux"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "voice",
+        "component": "Stemkwaliteit en realtime gedrag",
+        "requirement_ids": [
+          "R2-064",
+          "R2-065",
+          "R2-066",
+          "R2-067",
+          "R2-068",
+          "R2-069",
+          "R2-070",
+          "R2-071",
+          "R2-072",
+          "R2-073",
+          "R2-074",
+          "R2-075",
+          "R2-076",
+          "R2-077",
+          "R2-078",
+          "R2-079",
+          "R2-081"
+        ],
+        "remaining_code": "Alleen gemeten live tekorten in streaming, onderbreking, uitspraak en prosodie bijstellen; bestaande 48 instellingen en bevestigingsregels behouden.",
+        "missing_evidence": "Man/vrouw, drie modi, acht talen, luisterbeoordeling, eerste-audiolatentie, echte microfoon/barge-in, namen/merken/getallen en continuïteit.",
+        "external_dependency": "Live voiceprovider, microfoon/audioomgeving en taalbeoordelaars zijn vereist. Er is geen actueel bewijs van hun beschikbaarheid.",
+        "active_hours": {
+          "min": 12,
+          "max": 32
+        },
+        "waiting_time": "Synthese-/luistersessies circa 15–60 min per batch; toegang/hardware/reviewplanning: onbekend, geen beloofde einddatum.",
+        "estimate_basis": "Configuratie- en transcriptcontracten zijn getest; productkwaliteit vergt een aparte audiomatrix en waarschijnlijk een afstelronde. Band bevat actieve uitvoering/review, geen wachten op mensen.",
+        "dependencies": [
+          "economics"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "demo",
+        "component": "Demo Universe Engine en Automotive-universum",
+        "requirement_ids": [
+          "R2-082",
+          "R2-083",
+          "R2-084",
+          "R2-085",
+          "R2-086",
+          "R2-087"
+        ],
+        "remaining_code": "Herbruikbare scenario-engine, deterministische samenhangende seeds, Automotive-scenario’s, afwijkingen en storingen via bestaande productiecontracten bouwen.",
+        "missing_evidence": "Reproduceerbare scenario’s, tijdlijn/relaties, herkomstlabeling, composities, herstel en een volledige demonstratie zonder gesimuleerde liveclaims.",
+        "external_dependency": "Geen externe blokkade voor native scenario-implementatie; externe providers blijven afzonderlijke acceptatie.",
+        "active_hours": {
+          "min": 24,
+          "max": 60
+        },
+        "waiting_time": "Seed-/integratieruns circa 10–30 min per ronde; CI circa 8–20 min.",
+        "estimate_basis": "De bestaande matrix bevat hier geen implementatiebewijs; engine, Automotivepakket en coherence/failure-evaluatie zijn afzonderlijke ontwikkelpakketten.",
+        "dependencies": [
+          "industry",
+          "cross_module"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "industry",
+        "component": "Automotive-kennis en gegevensbetekenis",
+        "requirement_ids": [
+          "R2-021",
+          "R2-088",
+          "R2-089",
+          "R2-090",
+          "R2-091",
+          "R2-092"
+        ],
+        "remaining_code": "Gestructureerde kennis, historische/geografische geldigheid, afleidingen en scheiding van klantfeiten en externe referenties uitwerken.",
+        "missing_evidence": "Bronherkomst, tijd/geografie, voorraadleeftijd, kapitaal/marge, tegenstrijdige referenties en uitlegbare bedrijfsuitkomsten.",
+        "external_dependency": "Rechten op referentiedata en inhoudelijke Automotive-review moeten waar nodig beschikbaar zijn; klantproductiedata is geen voorwaarde voor native codewerk.",
+        "active_hours": {
+          "min": 16,
+          "max": 40
+        },
+        "waiting_time": "Import-/validatieruns circa 10–30 min per ronde; datarechten en domeinreview: onbekend.",
+        "estimate_basis": "Run-1 Automotive en reviewed knowledge blijven basis; ontbreken betreft gestructureerde diepte en toetsbare dekking, niet opslag alleen.",
+        "dependencies": [
+          "research"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "cross_module",
+        "component": "Complexe cross-module ZERO-scenario’s",
+        "requirement_ids": [
+          "R2-093",
+          "R2-096"
+        ],
+        "remaining_code": "Concrete gaten uit moeilijke Sales/Procurement/Finance/Analytics/Automotive-taken sluiten; bestaande bevoegde native specialisten benutten.",
+        "missing_evidence": "Meertraps brongebonden antwoorden, exacte bedragen, afwezige data, conflicten, gewijzigde rechten en causale bedrijfsbeoordeling.",
+        "external_dependency": "Live model en inhoudelijke beoordeling nodig voor antwoordkwaliteit; native scenario’s kunnen lokaal worden uitgevoerd.",
+        "active_hours": {
+          "min": 12,
+          "max": 28
+        },
+        "waiting_time": "Scenario-/modelbatches circa 10–45 min; externe model/reviewerwachttijd onbekend.",
+        "estimate_basis": "Eén echte ZERO-turn met meerdere bronnen bestaat; moeilijke taken en kwaliteitsscores zijn een apart corpus plus correctiewerk.",
+        "dependencies": [
+          "cognition",
+          "industry"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "security",
+        "component": "Adversariële en beveiligingsacceptatie",
+        "requirement_ids": [
+          "R2-100",
+          "R2-123"
+        ],
+        "remaining_code": "Alleen gereproduceerde hiaten uit ontbrekende aanvalsscenario’s oplossen; bestaande herstel-, autorisatie-, scope- en atomiciteitscontroles behouden.",
+        "missing_evidence": "Volledige contractlijst koppelen aan injectie, data-exfiltratie, rol/tenantgrenzen, bronvervalsing, race/replay, intrekking en fouten; live paden aanvullend beoordelen.",
+        "external_dependency": "Lokale aanvalstests niet extern geblokkeerd; echte providerpaden alleen met toegestane toegang.",
+        "active_hours": {
+          "min": 12,
+          "max": 32
+        },
+        "waiting_time": "Regressie-/fuzzbatches circa 10–60 min; CI circa 8–20 min; providerwachttijd indien nodig onbekend.",
+        "estimate_basis": "Veel specifieke regressies bestaan, maar de opgesomde aanvalsdimensies zijn niet volledig aantoonbaar gedekt. Schatting betreft resterende dekking en één correctieronde.",
+        "dependencies": [],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "ux",
+        "component": "Browserkwaliteit, toegankelijkheid en responsive gedrag",
+        "requirement_ids": [
+          "R2-101",
+          "R2-102",
+          "R2-103",
+          "R2-104",
+          "R2-105",
+          "R2-106"
+        ],
+        "remaining_code": "Alleen via echte interactie gevonden layout-, toetsenbord-, focus- en toegankelijkheidsdefecten repareren; dashboardfreeze bewaren.",
+        "missing_evidence": "Browseropnamen en interactie, schermbreedtes, acht talen, toetsenbord/screenreader, herladen en onafhankelijke gebruiksbeoordeling.",
+        "external_dependency": "Eerder ondersteunde browser wees localhost af met ERR_BLOCKED_BY_CLIENT; niet deze beurt herbevestigd. Een toegestane bereikbare testomgeving ontbreekt als geverifieerd bewijs.",
+        "active_hours": {
+          "min": 12,
+          "max": 32
+        },
+        "waiting_time": "Browser-/reviewtoegang: onbekend. Zodra beschikbaar, 10–30 min automatische runs per viewport/flow; actieve handmatige review zit in urenband.",
+        "estimate_basis": "DOM-fixtures bewijzen handlers, geen pixels/focus/assistive technology. Meerdere talen en werkstromen plus herstel van gevonden fouten bepalen de ruime band.",
+        "dependencies": [
+          "localization"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "universal_search",
+        "component": "Permission-aware universeel zoeken",
+        "requirement_ids": [
+          "R2-116"
+        ],
+        "remaining_code": "Gedeelde retrieval-/zoekroute over bevoegde bronnen toevoegen, met actuele zichtbaarheid en bronverwijzing.",
+        "missing_evidence": "Gemengde bronnen, gedeeltelijke beschikbaarheid, actuele intrekking, ranking, paginering en afwezig versus onbekend.",
+        "external_dependency": "Geen bewezen externe blokkade voor native bronnen; extra externe bronnen volgen geautoriseerde adapters.",
+        "active_hours": {
+          "min": 12,
+          "max": 28
+        },
+        "waiting_time": "Zoek-/integratieruns circa 5–20 min; CI circa 8–20 min.",
+        "estimate_basis": "Domeinzoekfuncties bestaan, maar niet één complete permission-aware surface. Retrieval, presentatie en autorisatie-evaluatie vormen aparte pakketten.",
+        "dependencies": [
+          "semantic_memory",
+          "stack"
+        ],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "attention",
+        "component": "Aandachtsprioritering",
+        "requirement_ids": [
+          "R2-117"
+        ],
+        "remaining_code": "Gedeelde rangschikking naar rol, urgentie en risico plus niet-onderdrukbare kritieke signalen implementeren.",
+        "missing_evidence": "Conflicterende prioriteiten, vergeten/stale signalen, toestemming, verklaarbare volgorde en kritieke uitzonderingen.",
+        "external_dependency": "Geen aangetoonde externe blokkade voor native regels en scenario’s.",
+        "active_hours": {
+          "min": 12,
+          "max": 24
+        },
+        "waiting_time": "Scenarioruns circa 5–20 min; CI circa 8–20 min.",
+        "estimate_basis": "Eenheid voor deze prioritering ontbreekt volgens de matrix; broncontracten, ranking en UI/evaluatie moeten samen worden bewezen.",
+        "dependencies": [],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "data_quality",
+        "component": "Datakwaliteit en beheerste correctie",
+        "requirement_ids": [
+          "R2-118"
+        ],
+        "remaining_code": "Herkomstbewuste detectie van duplicaten, tegenspraak, veroudering en ongeldige waarden plus expliciete correctievoorstellen verbinden.",
+        "missing_evidence": "Vals-positieven, onvolledige bronnen, bewezen eigenaarschap, bevestigde correctie/rollback en ongewijzigde klantwaarheid.",
+        "external_dependency": "Geen aangetoonde externe blokkade voor native implementatie; representatieve klantreview afzonderlijk.",
+        "active_hours": {
+          "min": 12,
+          "max": 28
+        },
+        "waiting_time": "Data-/integratiebatches circa 10–30 min; CI circa 8–20 min.",
+        "estimate_basis": "Losse validaties bestaan; overkoepelende detectie en governed remediation zijn nog niet aanwezig. Exacte Sales-samenvatting is een concrete eerstvolgende reparatie, geen volledige sluiting.",
+        "dependencies": [],
+        "estimate_confidence": "LOW"
+      },
+      {
+        "id": "configuration",
+        "component": "Configuratieversies en rollback",
+        "requirement_ids": [
+          "R2-119"
+        ],
+        "remaining_code": "Resterende Run-2-configuraties aan consistente revisie-, audit- en rollbacksemantiek toetsen en gevonden gaten sluiten.",
+        "missing_evidence": "Huidige rechten, stale revisies, verlies van antwoord, exact herstel en rollback over model/research/voice/stack-configuratie.",
+        "external_dependency": "Geen geverifieerde externe blokkade voor native configuratiepaden.",
+        "active_hours": {
+          "min": 6,
+          "max": 16
+        },
+        "waiting_time": "Gerichte hersteltests circa 5–20 min; CI circa 8–20 min.",
+        "estimate_basis": "Workflow-/referentieversies bestaan; resterende configuratiefamilies vragen begrensde harmonisatie en bewijzen.",
+        "dependencies": [],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "business_personal",
+        "component": "Business/Personal-scheiding",
+        "requirement_ids": [
+          "R2-120"
+        ],
+        "remaining_code": "Alleen aangetoonde grensdefecten repareren; geen Personal-integratie toevoegen om de test te vullen.",
+        "missing_evidence": "Data-, context-, autorisatie- en commerciële grenzen expliciet negatief testen en vastgelegde productafspraken controleren.",
+        "external_dependency": "Eventueel ontbrekende commerciële beleidskeuze kan alleen door producteigenaar worden ingevuld; nog niet als bewezen blokkade aangemerkt.",
+        "active_hours": {
+          "min": 4,
+          "max": 10
+        },
+        "waiting_time": "Lokale grenstests circa 5–20 min; eventuele beleidsreview: onbekend.",
+        "estimate_basis": "Geen Personal-integratie geïntroduceerd. Werk is grensinventarisatie/negatieve tests en review, geen nieuw product.",
+        "dependencies": [],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "performance",
+        "component": "Representatieve latency en kosten",
+        "requirement_ids": [
+          "R2-124"
+        ],
+        "remaining_code": "Representatieve workload/telemetriemeting toevoegen en uitsluitend gemeten knelpunten aanpakken.",
+        "missing_evidence": "p50/p95/p99, koud/warm, gelijktijdigheid, provideruitval en kosten per taak; reproduceerbare datasets en meetomgeving.",
+        "external_dependency": "Representatieve runtime en live kosten zijn niet geverifieerd; synthetische lokale meting blijft mogelijk.",
+        "active_hours": {
+          "min": 8,
+          "max": 20
+        },
+        "waiting_time": "Circa 0,5–3 uur meettijd per workloadronde, grotendeels onbeheerd; externe runtime/providerbeschikbaarheid onbekend.",
+        "estimate_basis": "Losse casetijden bestaan; workloadharnas, herhaalbare meting en één tuning/hermeetronde ontbreken. Geen afgeleide prestatieclaim uit aantallen tests.",
+        "dependencies": [
+          "economics",
+          "retrieval_context"
+        ],
+        "estimate_confidence": "MEDIUM_LOW"
+      },
+      {
+        "id": "regression_release",
+        "component": "Regressie, CI en resterende integratie",
+        "requirement_ids": [
+          "R2-114",
+          "R2-115"
+        ],
+        "remaining_code": "Nieuwe defecten uit integratie oplossen en definitieve bewijzen vastleggen; geen bestaand geldend werk opnieuw bouwen.",
+        "missing_evidence": "Elke uiteindelijke bronversie: relevante native regressie, volledige ZERO/corpus, complete npm CI en een onveranderde matrix met alle materiële gates gesloten.",
+        "external_dependency": "CI is bereikbaar. Merge/deployment/productie wijzigen is niet in deze voortzetting geautoriseerd; dit blokkeert code en PR-werk niet.",
+        "active_hours": {
+          "min": 2,
+          "max": 6
+        },
+        "waiting_time": "Circa 8–20 min per volledige CI-job plus queue; CI 237 duurde gemeten 11,02 min. Falen vraagt extra actieve reparatie, geen passieve wachttijd.",
+        "estimate_basis": "Band betreft laatste integratie/evidence-werk, niet de optelsom van alle open hoofdonderdelen. CI per tussentijds checkpoint kan met ander werk overlappen.",
+        "dependencies": [
+          "all_open_components"
+        ],
+        "estimate_confidence": "MEDIUM_LOW"
+      }
+    ],
+    "next_action": "Repair exact currency arithmetic and explicit UNKNOWN/partial coverage in native Sales domain summary; then continue remaining shared/specialist localization and recovery gaps.",
+    "latest_verified_checkpoint": {
+      "source_commit": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
+      "source_tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
+      "local_zero": 1176,
+      "local_corpus": 14,
+      "affected_native_scripts": 14,
+      "exact_published_full_ci": "PENDING",
+      "last_completed_full_ci": {
+        "run": 237,
+        "head": "e5b89b3d29185d3a22dfc645353b42ce0a72cc87",
+        "tree": "3b13eeb974a1d2c5958865bd7c6c60cb3853d30e",
+        "zero": 1153,
+        "corpus": 14
+      }
+    }
+  }
 }

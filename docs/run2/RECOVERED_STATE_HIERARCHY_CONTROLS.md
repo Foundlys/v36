@@ -1,0 +1,13 @@
+# Run 2 hierarchy controls checkpoint, 26 September 2026
+
+The restored workspace initially held `a0eb386`, an older tracked-clean checkout plus an existing untracked Python cache. A normal fetch/merge recovered published PR #21 head `e5b89b3`; no reset, cleanup, force push, merge to main or production change was used. Earlier scratch worktrees/logs were not present. Their missing local exit results remain unverified; no result was invented.
+
+CI 237 completed full `npm test`: 1153 ZERO and 14 corpus cases pass. CI merge `37d2feb446cf0f305997fadcfc644c431bf7e009` has exact published tree `3b13eeb974a1d2c5958865bd7c6c60cb3853d30e`. Native hierarchy source and immutable recovery remain preserved.
+
+New source `454cc2ec6a97c4efd59a0505ca46cebd0712330b`, tree `59981e8d6458c42ee4f2f55a94d618e06c64e23f`, implements eight-locale hierarchy controls, typed/scoped catalogs and immutable acknowledgements, opaque metadata persistence before PUT and recovery by metadata-only POST. Locale changes preserve literal input and confirmation without requests. Reload and encrypted restart cannot cause a blind replay. Invalid evidence, terminal absence, storage failure, cleanup failure, another panel, late replies and access loss are covered. Shared root/child forecast/scenario/snapshot business assertions are retained.
+
+Three baseline regressions failed before implementation. Frozen source passes 1176 ZERO tests, all 14 permanent corpus cases and fourteen affected native scripts. Logs, hashes, source identity and scope are recorded in `checkpoint-tests.json`. Full CI on the new published tree remains pending. Synthetic DOM/VM tests are not real-browser, accessibility, responsive, native-speaker or live-provider acceptance.
+
+After this local checkpoint, the existing `acceptance-matrix.json` and `ACCEPTANCE_MATRIX.md` were reconciled with current evidence. The original 125 gate identities and authority stay intact; every open gate maps to a remaining work component, code/evidence/external dependency, an explicit active-time band and separate waiting time. Estimates are conditional work-package ranges, not percentages inferred from test totals. No broad gate is promoted by these hierarchy tests. The conservative locale scan now records 307 candidates across 59 scripts; that count is not completeness or a progress percentage.
+
+Continue with the concrete Sales domain summary defect: floating probability arithmetic can lose cents and missing probability is still indistinguishable from zero. Preserve current scoped source and recovery contracts. Then continue other genuinely open Run-2 work. Run 2 remains IN_PROGRESS_NOT_ACCEPTED.
