@@ -38,7 +38,7 @@ async function request(route,options={}){
  if(route.endsWith('/outcome-observations')){result=outcomes.record(core,ctx,buyer,input,{idempotency_key:key});if(lostReport){lostReport=false;throw Error('Lost observation response');}return result;}
  throw Error('Unexpected path '+route);
 }
-const sandbox={crypto,URL,Intl,document:{createElement:tag=>new Element(tag)}};vm.createContext(sandbox);for(const file of ['procurement-intelligence-client.js','procurement-zero-client.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);
+const sandbox={crypto,URL,Intl,FoundlyI18n:require('./foundly-i18n').create('nl-NL'),document:{createElement:tag=>new Element(tag),addEventListener(){}}};vm.createContext(sandbox);for(const file of ['procurement-intelligence-client.js','procurement-zero-client.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);
 let active=true,view;const make=options=>sandbox.FoundlyProcurementTransport.create({document:sandbox.document,request,isActive:()=>active,build:call=>{view=sandbox.FoundlyProcurementIntelligence.create({document:sandbox.document,request:call,isActive:()=>active,...options});return view;}});
 (async()=>{
  let host=make({rfqId:rfq.id});await host.ready;if(process.argv.includes('--zero')){find(host,'select').value='zero';await find(host,'select').fire('change');}

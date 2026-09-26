@@ -320,7 +320,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "4ae0997e16d266be9210fe0da3afe9bd5e6550eebac3bbdd3147b5b50d928a52",
+      "sha256": "7f2b0754a8f36a5a433a1d4dc74775a1610ac1154bed7687f1809826c6bd82ec",
       "items": [
         {
           "line": 49,
@@ -2078,18 +2078,9 @@
           "rich_text": false
         },
         {
-          "line": 1568,
-          "start": 229121,
-          "end": 229153,
-          "context": "element_text",
-          "text": "Vragen en leveranciersreacties",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
           "line": 1569,
-          "start": 229722,
-          "end": 229745,
+          "start": 229809,
+          "end": 229832,
           "context": "element_text",
           "text": "Biedingen vergelijken",
           "parameters": [],
@@ -2097,8 +2088,8 @@
         },
         {
           "line": 1570,
-          "start": 230056,
-          "end": 230079,
+          "start": 230143,
+          "end": 230166,
           "context": "element_text",
           "text": "Order ter beoordeling",
           "parameters": [],
@@ -2106,8 +2097,8 @@
         },
         {
           "line": 1572,
-          "start": 230440,
-          "end": 230459,
+          "start": 230527,
+          "end": 230546,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
@@ -2115,8 +2106,8 @@
         },
         {
           "line": 1638,
-          "start": 237657,
-          "end": 237696,
+          "start": 237744,
+          "end": 237783,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -2126,8 +2117,8 @@
         },
         {
           "line": 1769,
-          "start": 250896,
-          "end": 250921,
+          "start": 250983,
+          "end": 251008,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
@@ -2135,8 +2126,8 @@
         },
         {
           "line": 1772,
-          "start": 251122,
-          "end": 251245,
+          "start": 251209,
+          "end": 251332,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -2146,8 +2137,8 @@
         },
         {
           "line": 1787,
-          "start": 252577,
-          "end": 252658,
+          "start": 252664,
+          "end": 252745,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
@@ -2155,8 +2146,8 @@
         },
         {
           "line": 1814,
-          "start": 254997,
-          "end": 255076,
+          "start": 255084,
+          "end": 255163,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
@@ -2164,8 +2155,8 @@
         },
         {
           "line": 1818,
-          "start": 255369,
-          "end": 255384,
+          "start": 255456,
+          "end": 255471,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
@@ -2173,8 +2164,8 @@
         },
         {
           "line": 1819,
-          "start": 255490,
-          "end": 255506,
+          "start": 255577,
+          "end": 255593,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],
@@ -2317,252 +2308,8 @@
     },
     {
       "file": "procurement-clarifications-client.js",
-      "sha256": "d82e4e7de568f90767d1abfefc50df242d483191a9f881cdf831a859a3885c2b",
-      "items": [
-        {
-          "line": 7,
-          "start": 999,
-          "end": 1019,
-          "context": "element_text",
-          "text": "Open invoer wissen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 9,
-          "start": 1348,
-          "end": 1355,
-          "context": "element_text",
-          "text": "Reden",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 9,
-          "start": 1417,
-          "end": 1429,
-          "context": "element_text",
-          "text": "Bevestigen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 9,
-          "start": 2127,
-          "end": 2185,
-          "context": "textContent",
-          "text": "Intern vastgelegd; niets naar een leverancier verstuurd.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 10,
-          "start": 2525,
-          "end": 2547,
-          "context": "element_text",
-          "text": "Medebewerkers zoeken",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 13,
-          "start": 4179,
-          "end": 4211,
-          "context": "element_text",
-          "text": "Vragen en leveranciersreacties",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 13,
-          "start": 4222,
-          "end": 4356,
-          "context": "element_text",
-          "text": "Werk samen met toegewezen medewerkers. Een handmatig vastgelegde reactie is geen geverifieerde leveranciersidentiteit of aflevering.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 4408,
-          "end": 4421,
-          "context": "element_text",
-          "text": "Leverancier",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 4458,
-          "end": 4479,
-          "context": "element_text",
-          "text": "Leveranciers zoeken",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 4502,
-          "end": 4522,
-          "context": "element_text",
-          "text": "Leveranciers laden",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 4539,
-          "end": 4560,
-          "context": "element_text",
-          "text": "Bieding (optioneel)",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 4591,
-          "end": 4614,
-          "context": "element_text",
-          "text": "Vraag aan leverancier",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 4734,
-          "end": 4756,
-          "context": "element_text",
-          "text": "Kies een leverancier",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 14,
-          "start": 4790,
-          "end": 4806,
-          "context": "element_text",
-          "text": "Zonder bieding",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 15,
-          "start": 5008,
-          "end": 5024,
-          "context": "element_text",
-          "text": "Zonder bieding",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 16,
-          "start": 5536,
-          "end": 5558,
-          "context": "element_text",
-          "text": "Kies een leverancier",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 16,
-          "start": 5614,
-          "end": 5630,
-          "context": "element_text",
-          "text": "Zonder bieding",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 17,
-          "start": 5896,
-          "end": 5937,
-          "context": "element_text",
-          "text": "Ik bevestig deze vraag en medebewerkers",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 18,
-          "start": 6454,
-          "end": 6475,
-          "context": "element_text",
-          "text": "Meer uitwisselingen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 22,
-          "start": 7677,
-          "end": 7696,
-          "context": "element_text",
-          "text": "Terug naar vragen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 23,
-          "start": 7872,
-          "end": 7888,
-          "context": "element_text",
-          "text": "Soort bijdrage",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 23,
-          "start": 8150,
-          "end": 8160,
-          "context": "element_text",
-          "text": "Bijdrage",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 23,
-          "start": 8193,
-          "end": 8233,
-          "context": "element_text",
-          "text": "Bronverwijzing bij leveranciersreactie",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 23,
-          "start": 8464,
-          "end": 8491,
-          "context": "element_text",
-          "text": "Ik bevestig deze bijdrage",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 24,
-          "start": 8818,
-          "end": 8841,
-          "context": "element_text",
-          "text": "Medebewerkers beheren",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 24,
-          "start": 9171,
-          "end": 9206,
-          "context": "element_text",
-          "text": "Medebewerkers wijzigen (eigenaar)",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 24,
-          "start": 9369,
-          "end": 9399,
-          "context": "element_text",
-          "text": "Ik bevestig de medebewerkers",
-          "parameters": [],
-          "rich_text": false
-        }
-      ]
+      "sha256": "7c7cfe3aba21c9485430d415ea94df92a8981f46689b2e751af203f9fc36443a",
+      "items": []
     },
     {
       "file": "procurement-intelligence-client.js",
@@ -2815,8 +2562,18 @@
     },
     {
       "file": "procurement-zero-client.js",
-      "sha256": "3be20bd283493748dd1405b1bbcbc91fb1b39fc0b0d87e3aee9d1680f2c467e5",
-      "items": []
+      "sha256": "09589962f9d3358f32ad81673647175b476fa231985fbf3f56bd86e895c140b6",
+      "items": [
+        {
+          "line": 5,
+          "start": 681,
+          "end": 687,
+          "context": "textContent",
+          "text": "ZERO",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
     },
     {
       "file": "sales-forecast-client-state.js",
