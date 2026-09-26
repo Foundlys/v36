@@ -35,7 +35,7 @@ function detail(core,ctx,actor,id){
   authorize(core,ctx,actor);const row=core.get(ctx,actor,'messages',id);if(row.deleted_at)fail('record_not_found','Bericht niet gevonden',404);
  let canDraft=false;try{core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'communication:drafts','write');canDraft=true;}catch(error){if(error.statusCode!==403)throw error;}
  let canThreads=false;try{core.resolver.assertCapability(ctx,actor,'communication:threads');canThreads=true;}catch(error){if(error.statusCode!==403)throw error;}
- return {record:row,can_view_conversation:canThreads,local_state:stateView(stateMap(core,ctx,actor).get(id),row.revision),can_write:canWrite(core,ctx,actor)&&Number.isSafeInteger(row.revision)&&row.revision>0,can_prepare_draft:canDraft,content_kind:'UNTRUSTED_RETAINED_MESSAGE',provider_updated:false};
+ return {request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},record:row,can_view_conversation:canThreads,local_state:stateView(stateMap(core,ctx,actor).get(id),row.revision),can_write:canWrite(core,ctx,actor)&&Number.isSafeInteger(row.revision)&&row.revision>0,can_prepare_draft:canDraft,content_kind:'UNTRUSTED_RETAINED_MESSAGE',provider_updated:false};
 }
 function update(core,ctx,actor,id,input,options={}){
  authorize(core,ctx,actor,'write');const source=core.get(ctx,actor,'messages',id);if(source.deleted_at)fail('record_not_found','Bericht niet gevonden',404);

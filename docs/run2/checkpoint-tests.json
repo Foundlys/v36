@@ -20901,7 +20901,7 @@
     }
   },
   "communication_template_recovery_native_20260926": {
-    "status": "FROZEN_1515_ZERO_14_CORPUS_26_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "status": "FROZEN_1515_ZERO_14_CORPUS_26_NATIVE_PASS_BUNDLED_WITH_CONTROLS_EXACT_FULL_CI_254_PASS",
     "source_commit": "7a783d8666cca930ac01d1787a4850f04c05774d",
     "source_tree": "83da14bd3d4324dd3938cd66d0ac7750305bb6a4",
     "permanent_new_tests": 22,
@@ -21492,13 +21492,13 @@
         "sha256": "8127ebe3c5831520bdfbb8f431d2dadbe7f44fa5ed9d883c54328bd3b5349a2d"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": "PASS_254",
     "scope": "Atomic original draft receipts with four opaque request metadata fields, unchanged original versus currently accessible edited draft, complete revision lineage and retained source binding. Replay and recovery remain valid after template edits without re-substituting current template content. Deleted or inaccessible sources/drafts and corrupt or incomplete receipt/history chains fail closed. Durable non-execution atomically retires the request; held late requests cannot create a draft. Capacity and storage faults fail closed without partial mutations. Explicit ZERO request IDs survive new conversations without retaining private payloads. Seven actual HTTP cases cover destroyed replies, encrypted restart, edited draft and template, held final-body-byte retirement, three current-principal checks, atomic faults and new ZERO conversations. No mail is sent.",
     "evidence_limits": "This frozen native checkpoint excludes the active UI worktree. A native fixture restart is not encryption evidence; separate actual HTTP cases establish encrypted restart. One intermediate failure was a fixture snapshot including a newly created empty foreign-realm read bucket, not a business-data mutation. Actual browser/accessibility/native-speaker/live-provider acceptance remains open.",
-    "remaining": "Native proof is preserved and integrated with verified fresh-page recovery controls below; combined publication and complete exact-tree CI remain pending."
+    "remaining": "Preserved with integrated template recovery controls in complete CI 254. Broader acceptance continues."
   },
   "communication_template_recovery_controls_20260926": {
-    "status": "FROZEN_1529_ZERO_14_CORPUS_26_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "status": "FROZEN_1529_ZERO_14_CORPUS_26_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "01a33d810e27ca720a383ca5952a987e1b81e158",
     "source_tree": "1eaa771042089c156d60491f7cedfd1c43c735b7",
     "permanent_new_tests": 14,
@@ -22108,9 +22108,915 @@
         "sha256": "fd78472e9c20b92b181b9ac5667e59ac33b95368c7a5a9dec4b2d1df5bb1236a"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": "PASS_254",
     "scope": "Fresh native/ZERO pages retain only four opaque request metadata fields partitioned by realm/actor. Creation stores metadata before transmission, freezes original fields, validates acknowledgements and supports explicit manual recovery without re-creation or sending. Recovery validates original/current draft identity, hashes, actor/source binding and typed outcomes; edited current drafts and source changes remain distinct. Storage failure blocks transmission; cleanup failure retains metadata. Durable absence preserves reviewed values until explicit clear. Late responses cannot overwrite recovered current content or unlock newer requests. Fifteen owned copy rows in eight locales preserve literal source text and recipients. The shared current-result heading is corrected from proposal-specific wording to a neutral state label. A newly exposed work-retention regression from prematurely removing unmounted template editors is fixed with a permanent multi-editor case. Two actual native/ZERO HTTP cases destroy successful replies, restart encrypted storage, edit draft and template, restart again and recover in a new VM without a second create; static assets and execution order are verified.",
     "evidence_limits": "Minimal DOM and actual HTTP fixtures do not establish browser sessionStorage/focus/layout/accessibility/native-speaker/live-provider acceptance. Intermediate product and fixture failures remain recorded. The already started reply/forward controls are a separate active worktree and excluded from this checkpoint.",
-    "remaining": "Publish this exact combined template recovery checkpoint and inspect full CI. Continue the active reply/forward controls, their missing durable recovery and the remaining Communication/shared/generated/backend surfaces."
+    "remaining": "Complete exact-tree CI 254 passed. Reply/forward controls and durable recovery continue below; broad acceptance remains open.",
+    "ci_proof": {
+      "run": 254,
+      "run_id": 36241006687,
+      "job_id": 108401369273,
+      "published_head": "0ba74e4cbb7e6693167b922b1e01e99a9f6887b3",
+      "tree": "f38012ae7bde1f5734392e4e9a3f588fd1a16c8c",
+      "ci_merge_commit": "61764a5819c99b5fb64f7fda2c77ecf7b7ac2e52",
+      "merge_tree": "f38012ae7bde1f5734392e4e9a3f588fd1a16c8c",
+      "exact_tree_match": true,
+      "conclusion": "success",
+      "zero_tests": 1529,
+      "corpus": 14,
+      "started_at": "2026-09-26T12:08:48Z",
+      "finished_at": "2026-09-26T12:22:29Z",
+      "raw_log": "ci254-success.log"
+    }
+  },
+  "communication_reply_controls_20260926": {
+    "status": "FROZEN_1548_ZERO_14_CORPUS_39_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "source_commit": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+    "source_tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+    "permanent_new_tests": 19,
+    "new_test_breakdown": {
+      "actual_workspace_dom": 17,
+      "actual_http_with_workspace_dom": 2
+    },
+    "frozen_results": [
+      {
+        "name": "procurement-clarifications-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.73,
+        "finished_at": "2026-09-26T12:16:34.079986+00:00",
+        "log": "communication-reply-controls-frozen-00.log",
+        "bytes": 303,
+        "sha256": "4f39ead721f59855d2c2606f2b078cbbd2d9a28dc462da458f0259bfbe02d15c",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 1.31,
+        "finished_at": "2026-09-26T12:16:35.459332+00:00",
+        "log": "communication-reply-controls-frozen-01.log",
+        "bytes": 279,
+        "sha256": "6069e7d9a41cf9efa7b3b676e3c72d09e6d93fa4d20d3817f1eacbddcdcff13c",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js",
+          "--zero"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 1.03,
+        "finished_at": "2026-09-26T12:16:36.571282+00:00",
+        "log": "communication-reply-controls-frozen-02.log",
+        "bytes": 277,
+        "sha256": "fa18e2ccae889bc2025052ab3179104cddd29532095ccc0f6f171133db73660e",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-clarifications-api-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 12.82,
+        "finished_at": "2026-09-26T12:16:49.468149+00:00",
+        "log": "communication-reply-controls-frozen-03.log",
+        "bytes": 311,
+        "sha256": "96bfda052ef6f774f68e34068bde1bc70da43dae3c432eb7c406e487111a342e",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-economics-outcomes-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.7,
+        "finished_at": "2026-09-26T12:16:50.231910+00:00",
+        "log": "communication-reply-controls-frozen-04.log",
+        "bytes": 336,
+        "sha256": "e7faf20953581e55620a7de64ba6764c668de0cc512dd3603e44943920e2f47c",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 1.03,
+        "finished_at": "2026-09-26T12:16:51.324824+00:00",
+        "log": "communication-reply-controls-frozen-05.log",
+        "bytes": 286,
+        "sha256": "6f77b37a6034551d17b5c9a0558ed327877ff30c4e796d277e578e2fa11a69d3",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js",
+          "--zero"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 1.1,
+        "finished_at": "2026-09-26T12:16:52.478079+00:00",
+        "log": "communication-reply-controls-frozen-06.log",
+        "bytes": 284,
+        "sha256": "be904f1c969269c841e8c147cfbfd13750c8b91eb002ec69a3732823f72d4581",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-economics-outcomes-api-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 9.56,
+        "finished_at": "2026-09-26T12:17:02.104068+00:00",
+        "log": "communication-reply-controls-frozen-07.log",
+        "bytes": 340,
+        "sha256": "8c3f9aa33e89f8228e9636164e55bc5fc31698db583d6c975b795ba8bdd0a6cf",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T12:17:02.789924+00:00",
+        "log": "communication-reply-controls-frozen-08.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.72,
+        "finished_at": "2026-09-26T12:17:03.572666+00:00",
+        "log": "communication-reply-controls-frozen-09.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 1.72,
+        "finished_at": "2026-09-26T12:17:05.371972+00:00",
+        "log": "communication-reply-controls-frozen-10.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-sourcing-test.js",
+        "command": [
+          "node",
+          "procurement-sourcing-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.56,
+        "finished_at": "2026-09-26T12:17:05.990674+00:00",
+        "log": "communication-reply-controls-frozen-11.log",
+        "bytes": 115,
+        "sha256": "f99a0a50c771cb70b26560e25f066930d50a4b89ab707e24b47ab6f407d66cbe",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-reviews-test.js",
+        "command": [
+          "node",
+          "procurement-reviews-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.68,
+        "finished_at": "2026-09-26T12:17:06.729694+00:00",
+        "log": "communication-reply-controls-frozen-12.log",
+        "bytes": 220,
+        "sha256": "300feae0cb6bc500d1e4f7ffa8baddd78b74a9ae514ac1bf48a984b12d3e14b5",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "finished_at": "2026-09-26T12:17:07.462587+00:00",
+        "log": "communication-reply-controls-frozen-13.log",
+        "bytes": 188,
+        "sha256": "0d9afab4542c06d7944ef3885199cfabedbf340fbdc85d03a81df4e116d5fa3a",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-incremental-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T12:17:08.157187+00:00",
+        "log": "communication-reply-controls-frozen-14.log",
+        "bytes": 250,
+        "sha256": "b0526d077946233728cfa22994a897b6283928618e41ae7f31e18d561383a16a",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-order-review-test.js",
+        "command": [
+          "node",
+          "procurement-order-review-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.64,
+        "finished_at": "2026-09-26T12:17:08.861848+00:00",
+        "log": "communication-reply-controls-frozen-15.log",
+        "bytes": 173,
+        "sha256": "c784b9103a31dc6693a7d63feb18cd019b36f43256f91dd88ee5889081c9b1cf",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 2.96,
+        "finished_at": "2026-09-26T12:17:11.879720+00:00",
+        "log": "communication-reply-controls-frozen-16.log",
+        "bytes": 178,
+        "sha256": "9fbb5b34d686a4283cd2cb48507bb1fa90fb8ada6ddb05da16d8db6a0ea2e8c4",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-incremental-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 7.18,
+        "finished_at": "2026-09-26T12:17:19.118294+00:00",
+        "log": "communication-reply-controls-frozen-17.log",
+        "bytes": 231,
+        "sha256": "f9ed1086b1896e7160f7300fe739b8e387f9e0bf1594aae966710185c0e7e3b9",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "procurement-incremental-client-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.87,
+        "finished_at": "2026-09-26T12:17:20.043936+00:00",
+        "log": "communication-reply-controls-frozen-18.log",
+        "bytes": 260,
+        "sha256": "3648222b98420d01f59043afdeb8865cec239055961e625f3831e1b4e52307b3",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-templates-test.js",
+        "command": [
+          "node",
+          "communication-templates-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "finished_at": "2026-09-26T12:17:20.784654+00:00",
+        "log": "communication-reply-controls-frozen-19.log",
+        "bytes": 273,
+        "sha256": "64b3ed32183eb95492ada4ddef670a00db1dce60c8d63ebf5d8764dbfb0b688b",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-templates-client-test.js",
+        "command": [
+          "node",
+          "communication-templates-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 1.24,
+        "finished_at": "2026-09-26T12:17:22.087004+00:00",
+        "log": "communication-reply-controls-frozen-20.log",
+        "bytes": 255,
+        "sha256": "12e945595397d1159bfb0a828236776c64b04140a8dbe7a3c3f8ed74322e3abe",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-templates-api-test.js",
+        "command": [
+          "node",
+          "communication-templates-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 9.35,
+        "finished_at": "2026-09-26T12:17:31.504354+00:00",
+        "log": "communication-reply-controls-frozen-21.log",
+        "bytes": 275,
+        "sha256": "0c1cb69a397cc69c58246e1239c8b2a96e3ce67b11404c4aa7c565b789bae243",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-zero-test.js",
+        "command": [
+          "node",
+          "communication-zero-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.71,
+        "finished_at": "2026-09-26T12:17:32.279276+00:00",
+        "log": "communication-reply-controls-frozen-22.log",
+        "bytes": 284,
+        "sha256": "83d6225c79d1e119ab5a5f1c97fa746cff46d68a2809f8677661423a3abea356",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-zero-client-test.js",
+        "command": [
+          "node",
+          "communication-zero-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.56,
+        "finished_at": "2026-09-26T12:17:32.896208+00:00",
+        "log": "communication-reply-controls-frozen-23.log",
+        "bytes": 219,
+        "sha256": "fd78472e9c20b92b181b9ac5667e59ac33b95368c7a5a9dec4b2d1df5bb1236a",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-zero-api-test.js",
+        "command": [
+          "node",
+          "communication-zero-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 10.61,
+        "finished_at": "2026-09-26T12:17:43.564554+00:00",
+        "log": "communication-reply-controls-frozen-24.log",
+        "bytes": 286,
+        "sha256": "711232fa0173c01869eac5460fc38cfa6898b47e0412a7f2dd627b911a56b28e",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-send-reviews-client-test.js",
+        "command": [
+          "node",
+          "communication-send-reviews-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "finished_at": "2026-09-26T12:17:43.945638+00:00",
+        "log": "communication-reply-controls-frozen-25.log",
+        "bytes": 226,
+        "sha256": "a3adb2ea8ec42b3248aec7ced4a08b1a6db4f3ea354016e4b6ac4b22b4095b19",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-delivery-reports-api-test.js",
+        "command": [
+          "node",
+          "communication-delivery-reports-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 7.19,
+        "finished_at": "2026-09-26T12:17:51.197230+00:00",
+        "log": "communication-reply-controls-frozen-26.log",
+        "bytes": 236,
+        "sha256": "bd66c4dcc3fd491d0738692041f1f5c7c175e2a360609ba08664652f79f81ea7",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-reply-all-test.js",
+        "command": [
+          "node",
+          "communication-reply-all-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.7,
+        "finished_at": "2026-09-26T12:17:51.966093+00:00",
+        "log": "communication-reply-controls-frozen-27.log",
+        "bytes": 295,
+        "sha256": "6bf582026d0e70728c33bd6809af6f35da9f3c9bd1bfd9d339bdb1050de9c476",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-threads-api-test.js",
+        "command": [
+          "node",
+          "communication-threads-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 7.16,
+        "finished_at": "2026-09-26T12:17:59.183741+00:00",
+        "log": "communication-reply-controls-frozen-28.log",
+        "bytes": 230,
+        "sha256": "91cec38fdbf1d5dfbdcb497e9165c847bf11fb754bc3a8026cc865cc650389d1",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-reply-all-api-test.js",
+        "command": [
+          "node",
+          "communication-reply-all-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 4.59,
+        "finished_at": "2026-09-26T12:18:03.838056+00:00",
+        "log": "communication-reply-controls-frozen-29.log",
+        "bytes": 228,
+        "sha256": "a2aff7f4e679021e0db4c0d751fa8393ab3d3ae1e29c848904e761881a038812",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-inbox-test.js",
+        "command": [
+          "node",
+          "communication-inbox-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.77,
+        "finished_at": "2026-09-26T12:18:04.713407+00:00",
+        "log": "communication-reply-controls-frozen-30.log",
+        "bytes": 253,
+        "sha256": "98d23d9c3f89dd669915e65671e511edd8b604f30a33bcafb977f333cd5c5e82",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-threads-client-test.js",
+        "command": [
+          "node",
+          "communication-threads-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "finished_at": "2026-09-26T12:18:05.126774+00:00",
+        "log": "communication-reply-controls-frozen-31.log",
+        "bytes": 204,
+        "sha256": "b2143fb912598960de9c031007da299625372057354778e3d59a8759d5d45aa8",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-replies-api-test.js",
+        "command": [
+          "node",
+          "communication-replies-api-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 8.13,
+        "finished_at": "2026-09-26T12:18:13.324453+00:00",
+        "log": "communication-reply-controls-frozen-32.log",
+        "bytes": 348,
+        "sha256": "94a0b73eeeea5dee254b931db5d5cb109c6764c9e53a21b741256b44007b8b3a",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-threads-test.js",
+        "command": [
+          "node",
+          "communication-threads-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.76,
+        "finished_at": "2026-09-26T12:18:14.171445+00:00",
+        "log": "communication-reply-controls-frozen-33.log",
+        "bytes": 282,
+        "sha256": "e9f6aa986f60052708b12f6e3924a587b62757c1a33f228c9bd6b5b7566e9b81",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-inbox-client-test.js",
+        "command": [
+          "node",
+          "communication-inbox-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "finished_at": "2026-09-26T12:18:14.554164+00:00",
+        "log": "communication-reply-controls-frozen-34.log",
+        "bytes": 235,
+        "sha256": "321e99fa83a1d0bfcddce6eac3da9d87170f65cc9374eef88a78a40af1ec2d91",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-delivery-reports-client-test.js",
+        "command": [
+          "node",
+          "communication-delivery-reports-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.32,
+        "finished_at": "2026-09-26T12:18:14.940144+00:00",
+        "log": "communication-reply-controls-frozen-35.log",
+        "bytes": 240,
+        "sha256": "b9d0e63a5e0e6504ef4cb73c9bee75a1a385858863f0a0d095271b57fc83e295",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-replies-test.js",
+        "command": [
+          "node",
+          "communication-replies-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.69,
+        "finished_at": "2026-09-26T12:18:15.685005+00:00",
+        "log": "communication-reply-controls-frozen-36.log",
+        "bytes": 209,
+        "sha256": "6083691d6be3725d5e26e593bdc058cdaf49262363d587778702b97284e7a84a",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-reply-all-client-test.js",
+        "command": [
+          "node",
+          "communication-reply-all-client-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.95,
+        "finished_at": "2026-09-26T12:18:16.691972+00:00",
+        "log": "communication-reply-controls-frozen-37.log",
+        "bytes": 233,
+        "sha256": "a5788e7152e830b826752835e94e3310c38e29a81682ae46b714e7e3c1d5c74e",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "communication-delivery-reports-test.js",
+        "command": [
+          "node",
+          "communication-delivery-reports-test.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T12:18:17.381612+00:00",
+        "log": "communication-reply-controls-frozen-38.log",
+        "bytes": 272,
+        "sha256": "d5f01a64ff233c0c914c7800bb14b1d0fdca4150c35d13fc297c862c8b8987b9",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 318.16,
+        "finished_at": "2026-09-26T12:23:35.604761+00:00",
+        "log": "communication-reply-controls-frozen-39.log",
+        "bytes": 425517,
+        "sha256": "bb37f1d2ae6c237ddc82f1b8566a104d9c083b06e532375e6d25bb8dfe7c8ba2",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "test_summary": [
+          "# tests 1548",
+          "# pass 1548",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "tree": "634f7de45c19cb9199ce26deb2828b3794881290",
+        "exit_code": 0,
+        "seconds": 9.14,
+        "finished_at": "2026-09-26T12:23:44.824618+00:00",
+        "log": "communication-reply-controls-frozen-40.log",
+        "bytes": 1066,
+        "sha256": "a21bb02cd74616c64ce56c0120138c6b14df5333dee4bbf719cd0c8fa890e8a0",
+        "clean_after": true,
+        "head_after": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+        "corpus": {
+          "head": "18da2bdac2a5673a627835373cf8535ed5dd9b5e",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "communication-reply-controls-baseline.log",
+        "status": "FIXTURE_INITIALLY_DID_NOT_ROUTE_REAL_INBOX_LIST_OR_DETAIL",
+        "bytes": 1780,
+        "sha256": "06d38a70e4c8bdab54c69c9025353908e478d2643b43db7b5fe1c457e02aba1e"
+      },
+      {
+        "file": "communication-reply-controls-product-baseline.log",
+        "status": "FIXED_DUTCH_LABEL_REPRODUCED_AND_FIXTURE_MODE_LOOKUP_FAILED",
+        "bytes": 1911,
+        "sha256": "af78fd1bd8b69573e42b866e85efd5e0f67b434287fa492c2bb670459cc25e3a"
+      },
+      {
+        "file": "communication-reply-controls-baseline-fixed-fixture.log",
+        "status": "TWO_PRODUCT_FAILURES_REPRODUCED_FIXED_DUTCH_LABEL_AND_DUPLICATE_REPLY_AFTER_CHANGED_UNCERTAIN_BODY",
+        "bytes": 1936,
+        "sha256": "2bd85439945f5f78272b2d42c43a3412d5a13b77720c1941d0c63d2d91aefe94"
+      },
+      {
+        "file": "communication-reply-controls-initial.log",
+        "status": "TWO_INITIAL_CASES_PASS",
+        "bytes": 369,
+        "sha256": "940de38fb854c8c5736ef6464ac46b957769503cb99e48704069531d20f018a9"
+      },
+      {
+        "file": "communication-reply-controls-expanded.log",
+        "status": "EXPANDED_TEST_PROCESS_FAILED_BEFORE_USABLE_FIELD_IDENTITY_DIAGNOSTIC",
+        "bytes": 599,
+        "sha256": "ce724fd91d671ec92f065a3cfcbe861e4b6bc575e8c862f1a8a8e93bae49a2c5"
+      },
+      {
+        "file": "communication-reply-single-diagnostic.log",
+        "status": "FOCUSED_PROCESS_FAILED_BEFORE_BOUNDED_IDENTITY_ASSERTION",
+        "bytes": 346,
+        "sha256": "90f65431a52396452b2f44a3c2f38e77713fdcb68e05ea2c919efaeb01ef32e8"
+      },
+      {
+        "file": "communication-reply-single-bounded-diagnostic.log",
+        "status": "NEW_LABEL_BINDING_REPLACED_INPUT_NODES_ON_LOCALE_CHANGE_REPRODUCED",
+        "bytes": 1114,
+        "sha256": "e0c0bc00021158e708867e8b5e9ebfb3a8c184df4a7d8dbd5c6f5670c9996210"
+      },
+      {
+        "file": "communication-reply-controls-label-preservation.log",
+        "status": "SEVENTEEN_DOM_CASES_PASS_AFTER_LABEL_TEXT_CHILD_FIX",
+        "bytes": 2396,
+        "sha256": "ec2adfe7899145dcc4c6e1b7412485a6ffba1bad11bec7cf4ed70ec65fe9ec6d"
+      },
+      {
+        "file": "communication-reply-controls-http.log",
+        "status": "TWO_REAL_HTTP_CASES_PASS_NATIVE_REPLY_AND_ZERO_FORWARD",
+        "bytes": 419,
+        "sha256": "c46282fd7d7219646bb09bd9ae2f73414a6d452d2f6c1bd09124fdc315e68509"
+      },
+      {
+        "file": "communication-reply-controls-native-client-baseline.log",
+        "status": "EXTRACTED_OLD_REPLY_FIXTURE_MISSING_NEW_CONTROLLER_DEPENDENCIES",
+        "bytes": 816,
+        "sha256": "3558ae07f01a3381fca1052c6186a0c7ffbd5eba03bd4ebf542ae8a11cad2e56"
+      },
+      {
+        "file": "communication-reply-controls-native-client-fixed.log",
+        "status": "MIGRATED_ACTUAL_WORKSPACE_REPLY_ALL_REGRESSION_PASS",
+        "bytes": 233,
+        "sha256": "a5788e7152e830b826752835e94e3310c38e29a81682ae46b714e7e3c1d5c74e"
+      },
+      {
+        "file": "communication-reply-controls-inbox-baseline.log",
+        "status": "EXTRACTED_INBOX_FIXTURE_MISSING_ACTUAL_WORK_GUARD",
+        "bytes": 839,
+        "sha256": "121c4de04b827b9078d48195cffe5b6d4efa2f0cb7b500eee0640113ce22aafd"
+      },
+      {
+        "file": "communication-reply-controls-inbox-fixed.log",
+        "status": "EXISTING_INBOX_REGRESSION_PASS_WITH_ACTUAL_GUARD",
+        "bytes": 235,
+        "sha256": "321e99fa83a1d0bfcddce6eac3da9d87170f65cc9374eef88a78a40af1ec2d91"
+      },
+      {
+        "file": "communication-reply-controls-zero-client.log",
+        "status": "EXTRACTED_ZERO_FIXTURE_MISSING_ACTUAL_LOCALIZED_OUTPUT_HELPER",
+        "bytes": 226,
+        "sha256": "5c5cd74101e019c9d107afa55efc3d96a946e1c517c518b56ce16849c51a300f"
+      },
+      {
+        "file": "communication-reply-controls-zero-client-fixed.log",
+        "status": "MINIMAL_ZERO_ELEMENT_MISSING_REMOVE_ATTRIBUTE",
+        "bytes": 435,
+        "sha256": "e9cb9ee310b8e6c3c0fc6c7395179265a89e4cc901406634d068625af009ce32"
+      },
+      {
+        "file": "communication-reply-controls-zero-client-complete-fixture.log",
+        "status": "EXISTING_ZERO_SOURCE_WHITELIST_AND_REVIEW_REGRESSION_PASS",
+        "bytes": 219,
+        "sha256": "fd78472e9c20b92b181b9ac5667e59ac33b95368c7a5a9dec4b2d1df5bb1236a"
+      },
+      {
+        "file": "ci254-success.log",
+        "status": "COMPLETE_CI_PASS_EXACT_PUBLISHED_TEMPLATE_RECOVERY_TREE",
+        "bytes": 736719,
+        "sha256": "628f7d180a07814db221215616addfa5116a2ea1df77906bd039904efadf7ac8"
+      }
+    ],
+    "exact_published_full_ci": "PENDING",
+    "scope": "Twenty-six owned reply/forward copy rows in eight locales retain literal authored/source content, subject, mode and separate To/Cc. Source previews bind exact retained message identity/revision/hash/excerpt, recipient availability and reply-all sender/recipient binding. Internal save acknowledgements bind current realm/actor and reviewed source/content. Uncertain writes freeze exact body/key and pinned ZERO conversation, block duplicate submission, prevent changed content from creating another draft and retain dirty work across close/mode/inbox-filter/page/new-ZERO requests until explicit clear. A-B-A previews, detached controls, denied reads, malformed observations and missing sender identity are covered. Two actual HTTP cases destroy native REPLY and ZERO FORWARD acknowledgements, restart encrypted storage and retry the same request without another draft or mail. Existing reply-all tests now use the actual workspace fixture; inbox and ZERO extraction fixtures load the real work guard/localization helpers while retaining their original assertions.",
+    "evidence_limits": "This checkpoint covers the same retained page and exact retry, not metadata-only recovery after reload or original/current reply distinction after later edits. Native durable reply recovery is active in another preserved worktree. An introduced label binding replaced inputs on locale change; focused node-identity evidence reproduced it and child-text labels fixed it before freeze. Other intermediate fixture/process failures are preserved. Minimal DOM/HTTP do not establish real browser/accessibility/native-speaker/live-provider acceptance.",
+    "remaining": "Publish the reply controls after exact local evidence. Continue the active native reply recovery, connect its localized reload UI, then remaining Communication/shared/generated/backend surfaces."
   }
 }
