@@ -34153,7 +34153,7 @@
     }
   },
   "communication_conversation_controls_20260926": {
-    "status": "FROZEN_1739_ZERO_14_CORPUS_44_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "status": "FROZEN_1739_ZERO_14_CORPUS_44_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_263_PASS",
     "source_commit": "21cc75caff162d6b3518f8528ea0c05c7cac2dea",
     "source_tree": "bee5caad2ef19d1d0b61b10c886ea529703f032d",
     "permanent_new_tests": 12,
@@ -35074,10 +35074,1004 @@
         "sha256": "91cec38fdbf1d5dfbdcb497e9165c847bf11fb754bc3a8026cc865cc650389d1"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": {
+      "run_number": 263,
+      "run_id": 36258293713,
+      "job_id": 108449140427,
+      "status": "completed",
+      "conclusion": "success",
+      "published_head": "ee217d851fbcf2677dc4f8d837f0cfd4781cb40b",
+      "ci_merge_commit": "794f607a263a1d9d6f31fd35edd5de57215902b4",
+      "tree": "bd3fafd0db069dda99ef452812ffac9dea6eaa15",
+      "merge_tree": "bd3fafd0db069dda99ef452812ffac9dea6eaa15",
+      "zero": {
+        "tests": 1739,
+        "pass": 1739,
+        "fail": 0
+      },
+      "corpus": {
+        "pass": 14,
+        "fail": 0
+      },
+      "started_at": "2026-09-26T17:14:07Z",
+      "finished_at": "2026-09-26T17:28:34Z",
+      "raw_log": "ci263-success.log",
+      "log_sha256": "eb68cc1bdd8c71853c8e536520c71037a849ea16501c5128ad8e8ec704ab868c",
+      "log_bytes": 825659
+    },
     "scope": "Related-message pages bind current tenant/dealer/actor and exact selected source revision. Typed count/offset/limit, participant limits, ambiguous or unavailable headers and snapshot metadata preserve unknown external thread completeness and unverified identities. Explicit detail reads bind current IDs, revisions, addresses, title, direction, timestamps and retained untrusted content classification. Fifteen owned rows switch across eight locales while timestamps use the locale and source titles/bodies remain literal. Native pagination, collapse/reopen, duplicate reads, preserved mailbox reasons and late list/detail replies are covered. Provider-draft exclusion and current thread capability are enforced through actual HTTP after opening and encrypted restart.",
     "regression_evidence": "Nine actual-workspace DOM/native and three real HTTP cases pass. Initial baseline and first implementation runs never reached the intended assertions because the fixture selected a source outside the first inbox page; authored_at did not change inbox ordering. Setting the fixture received_at before rendering makes the source selectable and preserves the failures as fixture evidence, not product-defect reproductions. Existing conversation client assertions now use actual workspace/native query/detail contracts; separate pre-existing reply-context assertions remain preserved. All 46 final frozen logs are hash verified and source stayed unchanged.",
     "evidence_limits": "Minimal DOM/isolated IMAP fixtures do not establish browser focus/layout/accessibility, native-language quality or live external conversation completeness. Headers and participants remain explicitly unverified. Latest complete CI remains pending.",
-    "remaining": "Delivery CI 262 is verified PASS. Publish the locally frozen conversation checkpoint to the same draft PR, then finish the active send-review reply-source context correction/validation and remaining Communication/shared/generated/backend work."
+    "remaining": "Delivery CI 262 is verified PASS. Publish the locally frozen conversation checkpoint to the same draft PR, then finish the active send-review reply-source context correction/validation and remaining Communication/shared/generated/backend work.",
+    "published_checkpoint": {
+      "head": "ee217d851fbcf2677dc4f8d837f0cfd4781cb40b",
+      "tree": "bd3fafd0db069dda99ef452812ffac9dea6eaa15",
+      "run_number": 263,
+      "run_id": 36258293713,
+      "job_id": 108449140427,
+      "full_ci": "PASS"
+    }
+  },
+  "communication_review_context_controls_20260926": {
+    "status": "FROZEN_1750_ZERO_14_CORPUS_46_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "source_commit": "16d895734631636375a1830109c0f6de0d5279bb",
+    "source_tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+    "permanent_new_tests": 11,
+    "new_test_breakdown": {
+      "actual_workspace_dom_native": 9,
+      "actual_http": 2
+    },
+    "frozen_results": [
+      {
+        "name": "procurement-clarifications-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.19,
+        "finished_at": "2026-09-26T17:16:31.628014+00:00",
+        "log": "communication-review-context-controls-frozen-00.log",
+        "bytes": 303,
+        "sha256": "4f39ead721f59855d2c2606f2b078cbbd2d9a28dc462da458f0259bfbe02d15c",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.31,
+        "finished_at": "2026-09-26T17:16:31.954089+00:00",
+        "log": "communication-review-context-controls-frozen-01.log",
+        "bytes": 279,
+        "sha256": "6069e7d9a41cf9efa7b3b676e3c72d09e6d93fa4d20d3817f1eacbddcdcff13c",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js",
+          "--zero"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.33,
+        "finished_at": "2026-09-26T17:16:32.291384+00:00",
+        "log": "communication-review-context-controls-frozen-02.log",
+        "bytes": 277,
+        "sha256": "fa18e2ccae889bc2025052ab3179104cddd29532095ccc0f6f171133db73660e",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-clarifications-api-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 3.94,
+        "finished_at": "2026-09-26T17:16:36.241131+00:00",
+        "log": "communication-review-context-controls-frozen-03.log",
+        "bytes": 311,
+        "sha256": "96bfda052ef6f774f68e34068bde1bc70da43dae3c432eb7c406e487111a342e",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-economics-outcomes-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.2,
+        "finished_at": "2026-09-26T17:16:36.455036+00:00",
+        "log": "communication-review-context-controls-frozen-04.log",
+        "bytes": 336,
+        "sha256": "e7faf20953581e55620a7de64ba6764c668de0cc512dd3603e44943920e2f47c",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.33,
+        "finished_at": "2026-09-26T17:16:36.800525+00:00",
+        "log": "communication-review-context-controls-frozen-05.log",
+        "bytes": 286,
+        "sha256": "6f77b37a6034551d17b5c9a0558ed327877ff30c4e796d277e578e2fa11a69d3",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js",
+          "--zero"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.35,
+        "finished_at": "2026-09-26T17:16:37.162114+00:00",
+        "log": "communication-review-context-controls-frozen-06.log",
+        "bytes": 284,
+        "sha256": "be904f1c969269c841e8c147cfbfd13750c8b91eb002ec69a3732823f72d4581",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-economics-outcomes-api-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 3.04,
+        "finished_at": "2026-09-26T17:16:40.207472+00:00",
+        "log": "communication-review-context-controls-frozen-07.log",
+        "bytes": 340,
+        "sha256": "8c3f9aa33e89f8228e9636164e55bc5fc31698db583d6c975b795ba8bdd0a6cf",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.21,
+        "finished_at": "2026-09-26T17:16:40.424195+00:00",
+        "log": "communication-review-context-controls-frozen-08.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.24,
+        "finished_at": "2026-09-26T17:16:40.669490+00:00",
+        "log": "communication-review-context-controls-frozen-09.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.57,
+        "finished_at": "2026-09-26T17:16:41.253949+00:00",
+        "log": "communication-review-context-controls-frozen-10.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-sourcing-test.js",
+        "command": [
+          "node",
+          "procurement-sourcing-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.17,
+        "finished_at": "2026-09-26T17:16:41.432372+00:00",
+        "log": "communication-review-context-controls-frozen-11.log",
+        "bytes": 115,
+        "sha256": "f99a0a50c771cb70b26560e25f066930d50a4b89ab707e24b47ab6f407d66cbe",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-reviews-test.js",
+        "command": [
+          "node",
+          "procurement-reviews-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.2,
+        "finished_at": "2026-09-26T17:16:41.642897+00:00",
+        "log": "communication-review-context-controls-frozen-12.log",
+        "bytes": 220,
+        "sha256": "300feae0cb6bc500d1e4f7ffa8baddd78b74a9ae514ac1bf48a984b12d3e14b5",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.21,
+        "finished_at": "2026-09-26T17:16:41.863358+00:00",
+        "log": "communication-review-context-controls-frozen-13.log",
+        "bytes": 188,
+        "sha256": "0d9afab4542c06d7944ef3885199cfabedbf340fbdc85d03a81df4e116d5fa3a",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-incremental-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.19,
+        "finished_at": "2026-09-26T17:16:42.062864+00:00",
+        "log": "communication-review-context-controls-frozen-14.log",
+        "bytes": 250,
+        "sha256": "b0526d077946233728cfa22994a897b6283928618e41ae7f31e18d561383a16a",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-order-review-test.js",
+        "command": [
+          "node",
+          "procurement-order-review-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.18,
+        "finished_at": "2026-09-26T17:16:42.246818+00:00",
+        "log": "communication-review-context-controls-frozen-15.log",
+        "bytes": 173,
+        "sha256": "c784b9103a31dc6693a7d63feb18cd019b36f43256f91dd88ee5889081c9b1cf",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.87,
+        "finished_at": "2026-09-26T17:16:43.124842+00:00",
+        "log": "communication-review-context-controls-frozen-16.log",
+        "bytes": 178,
+        "sha256": "9fbb5b34d686a4283cd2cb48507bb1fa90fb8ada6ddb05da16d8db6a0ea2e8c4",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-incremental-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.27,
+        "finished_at": "2026-09-26T17:16:45.402320+00:00",
+        "log": "communication-review-context-controls-frozen-17.log",
+        "bytes": 231,
+        "sha256": "f9ed1086b1896e7160f7300fe739b8e387f9e0bf1594aae966710185c0e7e3b9",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "procurement-incremental-client-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.26,
+        "finished_at": "2026-09-26T17:16:45.674200+00:00",
+        "log": "communication-review-context-controls-frozen-18.log",
+        "bytes": 260,
+        "sha256": "3648222b98420d01f59043afdeb8865cec239055961e625f3831e1b4e52307b3",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-templates-test.js",
+        "command": [
+          "node",
+          "communication-templates-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.23,
+        "finished_at": "2026-09-26T17:16:45.912087+00:00",
+        "log": "communication-review-context-controls-frozen-19.log",
+        "bytes": 273,
+        "sha256": "64b3ed32183eb95492ada4ddef670a00db1dce60c8d63ebf5d8764dbfb0b688b",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-templates-client-test.js",
+        "command": [
+          "node",
+          "communication-templates-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.4,
+        "finished_at": "2026-09-26T17:16:46.318328+00:00",
+        "log": "communication-review-context-controls-frozen-20.log",
+        "bytes": 255,
+        "sha256": "12e945595397d1159bfb0a828236776c64b04140a8dbe7a3c3f8ed74322e3abe",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-templates-api-test.js",
+        "command": [
+          "node",
+          "communication-templates-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.9,
+        "finished_at": "2026-09-26T17:16:49.231639+00:00",
+        "log": "communication-review-context-controls-frozen-21.log",
+        "bytes": 275,
+        "sha256": "0c1cb69a397cc69c58246e1239c8b2a96e3ce67b11404c4aa7c565b789bae243",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-zero-test.js",
+        "command": [
+          "node",
+          "communication-zero-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.21,
+        "finished_at": "2026-09-26T17:16:49.451167+00:00",
+        "log": "communication-review-context-controls-frozen-22.log",
+        "bytes": 284,
+        "sha256": "83d6225c79d1e119ab5a5f1c97fa746cff46d68a2809f8677661423a3abea356",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-zero-client-test.js",
+        "command": [
+          "node",
+          "communication-zero-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.13,
+        "finished_at": "2026-09-26T17:16:49.587286+00:00",
+        "log": "communication-review-context-controls-frozen-23.log",
+        "bytes": 219,
+        "sha256": "fd78472e9c20b92b181b9ac5667e59ac33b95368c7a5a9dec4b2d1df5bb1236a",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-zero-api-test.js",
+        "command": [
+          "node",
+          "communication-zero-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 3.65,
+        "finished_at": "2026-09-26T17:16:53.242148+00:00",
+        "log": "communication-review-context-controls-frozen-24.log",
+        "bytes": 286,
+        "sha256": "711232fa0173c01869eac5460fc38cfa6898b47e0412a7f2dd627b911a56b28e",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-send-reviews-client-test.js",
+        "command": [
+          "node",
+          "communication-send-reviews-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.07,
+        "finished_at": "2026-09-26T17:16:53.319862+00:00",
+        "log": "communication-review-context-controls-frozen-25.log",
+        "bytes": 226,
+        "sha256": "a3adb2ea8ec42b3248aec7ced4a08b1a6db4f3ea354016e4b6ac4b22b4095b19",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-send-reviews-test.js",
+        "command": [
+          "node",
+          "communication-send-reviews-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.26,
+        "finished_at": "2026-09-26T17:16:53.587178+00:00",
+        "log": "communication-review-context-controls-frozen-26.log",
+        "bytes": 222,
+        "sha256": "1967a5a9197bffc0b34c88e47831889d5bd0de9acf067821f5995f439affb066",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-send-reviews-api-test.js",
+        "command": [
+          "node",
+          "communication-send-reviews-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 3.16,
+        "finished_at": "2026-09-26T17:16:56.762782+00:00",
+        "log": "communication-review-context-controls-frozen-27.log",
+        "bytes": 229,
+        "sha256": "d75019074958185784656a8e391a69ded9f57846aac5b647e4817b9274694e3d",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-delivery-reports-api-test.js",
+        "command": [
+          "node",
+          "communication-delivery-reports-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.01,
+        "finished_at": "2026-09-26T17:16:58.780293+00:00",
+        "log": "communication-review-context-controls-frozen-28.log",
+        "bytes": 236,
+        "sha256": "bd66c4dcc3fd491d0738692041f1f5c7c175e2a360609ba08664652f79f81ea7",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-reply-all-test.js",
+        "command": [
+          "node",
+          "communication-reply-all-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.22,
+        "finished_at": "2026-09-26T17:16:59.007923+00:00",
+        "log": "communication-review-context-controls-frozen-29.log",
+        "bytes": 295,
+        "sha256": "6bf582026d0e70728c33bd6809af6f35da9f3c9bd1bfd9d339bdb1050de9c476",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-threads-api-test.js",
+        "command": [
+          "node",
+          "communication-threads-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.06,
+        "finished_at": "2026-09-26T17:17:01.079422+00:00",
+        "log": "communication-review-context-controls-frozen-30.log",
+        "bytes": 230,
+        "sha256": "91cec38fdbf1d5dfbdcb497e9165c847bf11fb754bc3a8026cc865cc650389d1",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-reply-all-api-test.js",
+        "command": [
+          "node",
+          "communication-reply-all-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 1.31,
+        "finished_at": "2026-09-26T17:17:02.401617+00:00",
+        "log": "communication-review-context-controls-frozen-31.log",
+        "bytes": 228,
+        "sha256": "a2aff7f4e679021e0db4c0d751fa8393ab3d3ae1e29c848904e761881a038812",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-inbox-test.js",
+        "command": [
+          "node",
+          "communication-inbox-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.19,
+        "finished_at": "2026-09-26T17:17:02.601303+00:00",
+        "log": "communication-review-context-controls-frozen-32.log",
+        "bytes": 253,
+        "sha256": "98d23d9c3f89dd669915e65671e511edd8b604f30a33bcafb977f333cd5c5e82",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-threads-client-test.js",
+        "command": [
+          "node",
+          "communication-threads-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.44,
+        "finished_at": "2026-09-26T17:17:03.051758+00:00",
+        "log": "communication-review-context-controls-frozen-33.log",
+        "bytes": 204,
+        "sha256": "b2143fb912598960de9c031007da299625372057354778e3d59a8759d5d45aa8",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-replies-api-test.js",
+        "command": [
+          "node",
+          "communication-replies-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.41,
+        "finished_at": "2026-09-26T17:17:05.468880+00:00",
+        "log": "communication-review-context-controls-frozen-34.log",
+        "bytes": 348,
+        "sha256": "94a0b73eeeea5dee254b931db5d5cb109c6764c9e53a21b741256b44007b8b3a",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-threads-test.js",
+        "command": [
+          "node",
+          "communication-threads-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.23,
+        "finished_at": "2026-09-26T17:17:05.709199+00:00",
+        "log": "communication-review-context-controls-frozen-35.log",
+        "bytes": 282,
+        "sha256": "e9f6aa986f60052708b12f6e3924a587b62757c1a33f228c9bd6b5b7566e9b81",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-inbox-client-test.js",
+        "command": [
+          "node",
+          "communication-inbox-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.3,
+        "finished_at": "2026-09-26T17:17:06.018640+00:00",
+        "log": "communication-review-context-controls-frozen-36.log",
+        "bytes": 267,
+        "sha256": "d624d890e964d3f294156e9602c18085231c0e7f5dca9802891a0c7900925d01",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-delivery-reports-client-test.js",
+        "command": [
+          "node",
+          "communication-delivery-reports-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.29,
+        "finished_at": "2026-09-26T17:17:06.320522+00:00",
+        "log": "communication-review-context-controls-frozen-37.log",
+        "bytes": 259,
+        "sha256": "6fc643f1fd18eea5793dfb80651d51dd283d90c3e97fca6891f5e09db2d4258a",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-replies-test.js",
+        "command": [
+          "node",
+          "communication-replies-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.19,
+        "finished_at": "2026-09-26T17:17:06.518048+00:00",
+        "log": "communication-review-context-controls-frozen-38.log",
+        "bytes": 209,
+        "sha256": "6083691d6be3725d5e26e593bdc058cdaf49262363d587778702b97284e7a84a",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-reply-all-client-test.js",
+        "command": [
+          "node",
+          "communication-reply-all-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.3,
+        "finished_at": "2026-09-26T17:17:06.831111+00:00",
+        "log": "communication-review-context-controls-frozen-39.log",
+        "bytes": 233,
+        "sha256": "a5788e7152e830b826752835e94e3310c38e29a81682ae46b714e7e3c1d5c74e",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-delivery-reports-test.js",
+        "command": [
+          "node",
+          "communication-delivery-reports-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.18,
+        "finished_at": "2026-09-26T17:17:07.023346+00:00",
+        "log": "communication-review-context-controls-frozen-40.log",
+        "bytes": 272,
+        "sha256": "d5f01a64ff233c0c914c7800bb14b1d0fdca4150c35d13fc297c862c8b8987b9",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-mailboxes-client-test.js",
+        "command": [
+          "node",
+          "communication-mailboxes-client-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.51,
+        "finished_at": "2026-09-26T17:17:07.544500+00:00",
+        "log": "communication-review-context-controls-frozen-41.log",
+        "bytes": 257,
+        "sha256": "9aae000b8de8c6a2d70f001914598b8261a615b2e7765bc72e648a17bbc5a9d5",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-mailboxes-test.js",
+        "command": [
+          "node",
+          "communication-mailboxes-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.27,
+        "finished_at": "2026-09-26T17:17:07.826240+00:00",
+        "log": "communication-review-context-controls-frozen-42.log",
+        "bytes": 319,
+        "sha256": "16d73f8e2a1f5603a01d320b65ea56de2a4d10c59f439f7a9c43b80b6b7e1f2f",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-mailboxes-api-test.js",
+        "command": [
+          "node",
+          "communication-mailboxes-api-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.94,
+        "finished_at": "2026-09-26T17:17:10.777584+00:00",
+        "log": "communication-review-context-controls-frozen-43.log",
+        "bytes": 474,
+        "sha256": "90c4648dbf44d24a4703d706b2ceefc2adb49e86dd6b20a412b8e2e4652f7683",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-imap-test.js",
+        "command": [
+          "node",
+          "communication-imap-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.77,
+        "finished_at": "2026-09-26T17:17:13.556888+00:00",
+        "log": "communication-review-context-controls-frozen-44.log",
+        "bytes": 508,
+        "sha256": "1517ace686df872352f15a7f6184b82e7906f1461d1df455b64cd193157ca253",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "communication-rfc822-test.js",
+        "command": [
+          "node",
+          "communication-rfc822-test.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 0.06,
+        "finished_at": "2026-09-26T17:17:13.625605+00:00",
+        "log": "communication-review-context-controls-frozen-45.log",
+        "bytes": 226,
+        "sha256": "06d420d6c4cdcd29c5d42d008f1496fb84b8d8e09a85f4eff9ee5644f46ba93d",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 101.13,
+        "finished_at": "2026-09-26T17:18:54.768228+00:00",
+        "log": "communication-review-context-controls-frozen-46.log",
+        "bytes": 483748,
+        "sha256": "8d1217add9550fa4646710b34deccd5924c22642a4a7e043aba21f927f42c95d",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb",
+        "test_summary": [
+          "# tests 1750",
+          "# pass 1750",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "16d895734631636375a1830109c0f6de0d5279bb",
+        "tree": "b2897d23f880c8b38330d01fcd61be2ec4881c17",
+        "exit_code": 0,
+        "seconds": 2.73,
+        "finished_at": "2026-09-26T17:18:57.511947+00:00",
+        "log": "communication-review-context-controls-frozen-47.log",
+        "bytes": 1066,
+        "sha256": "987aea8b05629c402a208110a7b29aded1c0545a49c1309a77d69fdbfe6aac9b",
+        "clean_after": true,
+        "head_after": "16d895734631636375a1830109c0f6de0d5279bb",
+        "corpus": {
+          "head": "16d895734631636375a1830109c0f6de0d5279bb",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "communication-review-context-controls-baseline.log",
+        "status": "TWO_PRODUCT_FAILURES_REPLY_ALL_MISLABELLED_AND_OWNED_LOCALES_ABSENT",
+        "bytes": 2319,
+        "sha256": "b7b2cfb317d2ddc3ce94285559bfb27a182b58858da474e73496da6a14602ca6"
+      },
+      {
+        "file": "communication-review-context-controls-initial.log",
+        "status": "TWO_INITIAL_CONTEXT_CASES_PASS",
+        "bytes": 705,
+        "sha256": "12be21e513e920b94a3db6c409b88e46c5962d7262937572bb4b690815df8d19"
+      },
+      {
+        "file": "communication-review-context-controls-expanded.log",
+        "status": "SEVEN_CASES_PASS_BUT_SOURCE_CHANGE_CASE_PRECLEARED_PREVIEW_AND_WAS_NOT_SUFFICIENT_STALE_PREVIEW_EVIDENCE",
+        "bytes": 2126,
+        "sha256": "731574e4d2189e95210e8e363351eb0a142e06034cb7be4d48fd410f28130cb6"
+      },
+      {
+        "file": "communication-review-context-controls-stale-baseline.log",
+        "status": "STRENGTHENED_DIRECT_REPEAT_PREVIEW_REPRODUCES_RETAINED_OLD_PRIVATE_PREVIEW_AFTER_NATIVE_SOURCE_CONFLICT",
+        "bytes": 1109,
+        "sha256": "b34e60e1b2473d2bcb7812591e835da64c77bedc31fb11d9884b1da96064f46b"
+      },
+      {
+        "file": "communication-review-context-controls-stale-fixed.log",
+        "status": "SEVEN_PASS_WITH_ACTUAL_STALE_PREVIEW_CORRECTION",
+        "bytes": 2125,
+        "sha256": "caac9c9e144cdf47d2cf7fe444c3785913e9326b3bd6f516c59423d7a114c2a6"
+      },
+      {
+        "file": "communication-review-context-controls-combined.log",
+        "status": "TEN_PASS_EIGHT_DOM_NATIVE_AND_TWO_REAL_HTTP",
+        "bytes": 3162,
+        "sha256": "67e2479bcfb46ea61fd7fde90570626a4d02f46cbf9eb50da1e63ed0fa2556ac"
+      },
+      {
+        "file": "communication-review-context-controls-final-targeted.log",
+        "status": "ELEVEN_PASS_NINE_DOM_NATIVE_AND_TWO_REAL_HTTP_INCLUDING_HISTORICAL_CONTEXT",
+        "bytes": 3540,
+        "sha256": "75869281acc92fcde9bbdf0a3794b1a2f471b5a170d0d82c7dd4e32167c84418"
+      },
+      {
+        "file": "communication-review-context-controls-native-client.log",
+        "status": "EXISTING_CONVERSATION_AND_REPLY_CONTEXT_ASSERTIONS_PASS_THROUGH_ACTUAL_WORKSPACE_NATIVE_CONTRACTS",
+        "bytes": 204,
+        "sha256": "b2143fb912598960de9c031007da299625372057354778e3d59a8759d5d45aa8"
+      },
+      {
+        "file": "communication-review-context-controls-native-send-client.log",
+        "status": "EXISTING_SEND_REVIEW_CLIENT_ASSERTIONS_PASS",
+        "bytes": 226,
+        "sha256": "a3adb2ea8ec42b3248aec7ced4a08b1a6db4f3ea354016e4b6ac4b22b4095b19"
+      }
+    ],
+    "exact_published_full_ci": "PENDING",
+    "scope": "Reply-source context in native and explicit ZERO send-review preview/history distinguishes REPLY, REPLY_ALL and FORWARD; ten owned rows cover eight locales. Bounded typed source references/header policies reject invalid context before enabling preparation. Native source conflict clears previously displayed private preview while preserving authored reason/confirmation. Historical reviews retain their original source revision and literal text after current source changes; corrupt retained context releases no history. Actual HTTP covers native/ZERO previews after encrypted restart and source becoming an excluded provider draft without further provider reads or submission.",
+    "regression_evidence": "The original reply-all label/locale failures and strengthened stale-preview failure are preserved. The earlier seven-case source-change test precleared the preview through its purpose-input helper and did not establish stale-result removal; it was corrected to click the current preview button directly. Existing reply-context assertions now use the actual workspace/native services. All 48 frozen raw logs are hash verified with unchanged source, including 46 native scripts, 1750 ZERO and 14 corpus passes.",
+    "evidence_limits": "Shape validation of reply context is not complete cryptographic/current-user binding of the entire send-review response. Broader review lists/forms, action acknowledgements, durable recovery and localization remain open. Minimal DOM/isolated provider fixtures do not prove real-browser/focus/accessibility/native-speaker/live-provider acceptance.",
+    "remaining": "Conversation CI 263 is verified PASS. Publish this frozen review-context checkpoint to the same draft PR. User priority: complete Demo Universe Law/Engine, optimized Automotive data and ZERO correctness on desktop/iPhone/Android before returning to other Run 2 work. All unfinished work remains preserved."
   }
 }
