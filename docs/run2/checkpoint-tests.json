@@ -12318,7 +12318,7 @@
     "superseded_by": "calendar_external_page_wiring_20260926"
   },
   "calendar_external_page_wiring_20260926": {
-    "status": "FROZEN_1240_ZERO_14_CORPUS_16_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "status": "FROZEN_1240_ZERO_14_CORPUS_16_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "8e217cad01d9123579805c6116bdb4ad191e3ee0",
     "source_tree": "a571cab61957f174e627d7feacd6dba2eaa9ffca",
     "frozen_results": [
@@ -12767,9 +12767,523 @@
         "sha256": "a9910e64176eacb3109b6a0a18b1b9e727c026a04188cf140e0ef1e98e0f663c"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": "PASS_242",
     "scope": "The real served Calendar page now loads the external coverage client in dependency order, before the event client and workspace. The actual-HTTP regression checks that production HTML order and exact served asset, in addition to retained-state recovery and encrypted restart. All previous external-control, event, scheduling, reminder and module regressions remain preserved.",
     "evidence_limits": "The production HTML/asset and HTTP/DOM tests do not establish real-browser rendering, accessibility, native-speaker or live-provider acceptance. Provider responses remain isolated fixtures. No broader matrix gate is promoted from test counts.",
-    "remaining": "Full CI on the exact published tree remains pending. In the preserved scheduling worktree, eight targeted native cases now pass for deleted sources, replacement booking, explicit zero rejection and complete versus incomplete count boundaries; these are not a frozen checkpoint. Scheduling HTTP/page proof and broader controls/recovery remain open."
+    "remaining": "Full CI on the exact published tree remains pending. In the preserved scheduling worktree, eight targeted native cases now pass for deleted sources, replacement booking, explicit zero rejection and complete versus incomplete count boundaries; these are not a frozen checkpoint. Scheduling HTTP/page proof and broader controls/recovery remain open.",
+    "ci_proof": {
+      "run_number": 242,
+      "run_id": 36225826534,
+      "job_id": 108359548825,
+      "conclusion": "success",
+      "published_head": "6137a830aa20be2023064e33adb5cadefbaaa901",
+      "ci_merge_commit": "fc48c7f626c215e6dafc6cdb35be601ad57298aa",
+      "summary": [
+        "# tests 1240",
+        "# pass 1240",
+        "# fail 0"
+      ],
+      "corpus": {
+        "head": "fc48c7f626c215e6dafc6cdb35be601ad57298aa",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "zero_tests": 1240,
+      "zero_pass": 1240,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "started_at": "2026-09-26T07:07:37Z",
+      "finished_at": "2026-09-26T07:19:02Z",
+      "tree": "9c29d38c655b443bc3787642b99015db3e9647d8",
+      "exact_tree_match": true
+    }
+  },
+  "calendar_slot_observations_20260926": {
+    "status": "FROZEN_1252_ZERO_14_CORPUS_16_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "source_commit": "63a1348d8812ad2cbdf030084443517e81e11ead",
+    "source_tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+    "permanent_new_tests": 12,
+    "test_breakdown": {
+      "native": 8,
+      "actual_http": 2,
+      "actual_shared_page_minimal_dom": 2
+    },
+    "frozen_results": [
+      {
+        "name": "calendar-time-test.js",
+        "command": [
+          "node",
+          "calendar-time-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T07:12:36.800276+00:00",
+        "log": "calendar-slot-frozen-00.log",
+        "bytes": 198,
+        "sha256": "b429bc90c2063dc612798ad44749ab8a2395e63c0d22764a982c00a78f9046ce",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-time-api-test.js",
+        "command": [
+          "node",
+          "calendar-time-api-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 5.17,
+        "finished_at": "2026-09-26T07:12:42.035100+00:00",
+        "log": "calendar-slot-frozen-01.log",
+        "bytes": 322,
+        "sha256": "f00bd8ab8a9c87874d4a6ec020742aeea2cb7fa266a4f3437d4ce97b73cbe45c",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-google-reader-test.js",
+        "command": [
+          "node",
+          "calendar-google-reader-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.35,
+        "finished_at": "2026-09-26T07:12:42.438305+00:00",
+        "log": "calendar-slot-frozen-02.log",
+        "bytes": 155,
+        "sha256": "c6eae3a47485ed816036b7b4971f8afd0e4ce71068167c080cf2e996a3b5a26c",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-external-test.js",
+        "command": [
+          "node",
+          "calendar-external-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "finished_at": "2026-09-26T07:12:43.172291+00:00",
+        "log": "calendar-slot-frozen-03.log",
+        "bytes": 219,
+        "sha256": "153a918ffd988de0cfb401ee40818d7d8dc2d65fd98ac3da58196f0d1836a8ca",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-external-api-test.js",
+        "command": [
+          "node",
+          "calendar-external-api-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 8.57,
+        "finished_at": "2026-09-26T07:12:51.796819+00:00",
+        "log": "calendar-slot-frozen-04.log",
+        "bytes": 201,
+        "sha256": "67f611f9976d455809e109a2015e71a4628baa0d9e1a8c369965da7d09649740",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-external-client-test.js",
+        "command": [
+          "node",
+          "calendar-external-client-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.9,
+        "finished_at": "2026-09-26T07:12:52.769353+00:00",
+        "log": "calendar-slot-frozen-05.log",
+        "bytes": 180,
+        "sha256": "650ba501b6d9f4b66f363fe76b1e0ff87969f9a064cc66f7f2ac52cc9e04062b",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-event-preparation-test.js",
+        "command": [
+          "node",
+          "calendar-event-preparation-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.72,
+        "finished_at": "2026-09-26T07:12:53.543446+00:00",
+        "log": "calendar-slot-frozen-06.log",
+        "bytes": 140,
+        "sha256": "440795d8d758aa09d22721113620bde4858798d160eb0efaca138d36110eb41f",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-event-preparation-api-test.js",
+        "command": [
+          "node",
+          "calendar-event-preparation-api-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 15.25,
+        "finished_at": "2026-09-26T07:13:08.854266+00:00",
+        "log": "calendar-slot-frozen-07.log",
+        "bytes": 243,
+        "sha256": "65b7ddd9646fa68279b359c677b7901f0e015be35500861f0c9ee3b293a89672",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-event-client-test.js",
+        "command": [
+          "node",
+          "calendar-event-client-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.83,
+        "finished_at": "2026-09-26T07:13:09.741036+00:00",
+        "log": "calendar-slot-frozen-08.log",
+        "bytes": 231,
+        "sha256": "2b635a8d13f5466261cbef67057f6d0c81ed47004d793deb4d59be97e8853f23",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-event-client-test.js --zero",
+        "command": [
+          "node",
+          "calendar-event-client-test.js",
+          "--zero"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.88,
+        "finished_at": "2026-09-26T07:13:10.681572+00:00",
+        "log": "calendar-slot-frozen-09.log",
+        "bytes": 229,
+        "sha256": "1e05a6b02b047ba6d7c151051226d09c9a0421ea8926d137995c34cd1ca20c9d",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-scheduling-test.js",
+        "command": [
+          "node",
+          "calendar-scheduling-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T07:13:11.365489+00:00",
+        "log": "calendar-slot-frozen-10.log",
+        "bytes": 138,
+        "sha256": "ceb6b8a835d3810810a8b5f69771cd7f78ee27fb51fdc405ab929fd038ffcf64",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-reminder-principal-api-test.js",
+        "command": [
+          "node",
+          "calendar-reminder-principal-api-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 8.08,
+        "finished_at": "2026-09-26T07:13:19.522831+00:00",
+        "log": "calendar-slot-frozen-11.log",
+        "bytes": 201,
+        "sha256": "1352dd4271172f59449ea458d061cdc745d68875fbef75d95239257767b4c96d",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "calendar-reminder-principal-test.js",
+        "command": [
+          "node",
+          "calendar-reminder-principal-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 1.14,
+        "finished_at": "2026-09-26T07:13:20.719005+00:00",
+        "log": "calendar-slot-frozen-12.log",
+        "bytes": 228,
+        "sha256": "109bbe3a1aa7ec39dac6c7425cedb132702ddc21f22e0af44f84a40bcef0e7b8",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.68,
+        "finished_at": "2026-09-26T07:13:21.456439+00:00",
+        "log": "calendar-slot-frozen-13.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T07:13:22.149625+00:00",
+        "log": "calendar-slot-frozen-14.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 1.57,
+        "finished_at": "2026-09-26T07:13:23.786568+00:00",
+        "log": "calendar-slot-frozen-15.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 213.81,
+        "finished_at": "2026-09-26T07:16:57.666928+00:00",
+        "log": "calendar-slot-frozen-16.log",
+        "bytes": 342391,
+        "sha256": "42a35a1ec09d9719cc173488539a14b8154f416c2025bba45dc5c4e9a3a381e8",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "test_summary": [
+          "# tests 1252",
+          "# pass 1252",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+        "exit_code": 0,
+        "seconds": 9.11,
+        "finished_at": "2026-09-26T07:17:06.858647+00:00",
+        "log": "calendar-slot-frozen-17.log",
+        "bytes": 1066,
+        "sha256": "c2b12cda7c72921edbbf9ad34545f678edf1aba5e3d571d6c1fb3ab52d652045",
+        "clean_after": true,
+        "head_after": "63a1348d8812ad2cbdf030084443517e81e11ead",
+        "corpus": {
+          "head": "63a1348d8812ad2cbdf030084443517e81e11ead",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "calendar-slot-observations-baseline.log",
+        "status": "FOUR_EXPECTED_NATIVE_FAILURES",
+        "bytes": 4284,
+        "sha256": "f1f0d5bce2484cb99ada65069089535f9390646523c5fe6920acc638817b341b"
+      },
+      {
+        "file": "calendar-slot-observations-expanded.log",
+        "status": "FIVE_PASS_THREE_EXPECTED_NATIVE_FAILURES",
+        "bytes": 4859,
+        "sha256": "4769251ee08a3d4c663722a21a11cc375f8740d0753d6a04db986768a30d768b"
+      },
+      {
+        "file": "calendar-slot-observations-fixed.log",
+        "status": "EIGHT_NATIVE_PASS",
+        "bytes": 2039,
+        "sha256": "a9910e64176eacb3109b6a0a18b1b9e727c026a04188cf140e0ef1e98e0f663c"
+      },
+      {
+        "file": "calendar-slot-observations-boundaries.log",
+        "status": "ELEVEN_PASS_ONE_FIXTURE_ERROR_UNSUPPORTED_no-NO_INSTEAD_OF_nb-NO",
+        "bytes": 3877,
+        "sha256": "3b566ab08fe6e6393cc2e9a4564f9a3957e7c3627743629e4e2d0a7bd725bec3"
+      },
+      {
+        "file": "calendar-slot-observations-boundaries-fixed.log",
+        "status": "TWELVE_TARGETED_PASS_INCLUDING_TWO_ACTUAL_HTTP_AND_TWO_SHARED_PAGE_CASES",
+        "bytes": 3243,
+        "sha256": "65d5230eeef62d6cd79a2b887563d95ba555987e496912d1e4b7c6f46e860e08"
+      }
+    ],
+    "exact_published_full_ci": "PENDING",
+    "scope": "Deleted calendars/availability/events no longer affect slot eligibility or native booking conflict checks. Explicit zero duration/step is rejected. Calendar/candidate source limits yield an unknown total; a fully enumerated but paginated result retains its exact known total. Typed observation includes current realm, normalized query, current booking authority and explicit limit flags. The shared page distinguishes unknown source totals from known totals with only fifty shown slots in eight locales, preserving literal input and issuing no reads on locale change. Actual HTTP proves boundaries, current role withdrawal, stale source rejection and encrypted restart.",
+    "evidence_limits": "Native/HTTP/minimal-DOM contract tests do not prove browser/accessibility/native-speaker/live-provider acceptance. The wider scheduling editor is still not fully localized or protected across all stale-view and uncertain-write scenarios. No whole scheduling or Run-2 acceptance claim is made.",
+    "remaining": "A separate preserved worktree continues native booking recovery. Eight baseline failures and eleven subsequent native passes are retained there; the first four-case HTTP run passed three and rejected a stale session with 401 where its test expected 403. The test is being aligned with actual session invalidation while retaining fresh-viewer 403 and no-private-data assertions. That work is not frozen or part of this source checkpoint. Full exact-published CI for 63a1348 remains pending."
   }
 }

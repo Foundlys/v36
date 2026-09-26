@@ -1,0 +1,13 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),{fixture}=require('../zero-evaluation/workspace-domain-fixture'),{calendarOperations}=require('../calendar-operations');
+async function page(hours,step=5){
+ const f=await fixture({workspaceId:'calendar',entity:'scheduling',start:false});Object.assign(f.context,{URL,URLSearchParams});f.ui.state.workspace.sections=['SCHEDULING'];const cal=f.core.save(f.ctx,f.actor,'calendars',{name:'Literal calendar',timezone:'Europe/Amsterdam'}).record,from='2026-10-02T08:00:00.000Z',to=new Date(Date.parse(from)+hours*3600000).toISOString(),ops=calendarOperations(f.core);f.core.save(f.ctx,f.actor,'availability',{title:'Literal availability',calendar_id:cal.id,start_at:from,end_at:to,timezone:'Europe/Amsterdam'});let reads=0,observation;
+ const previous=f.context.fetch;f.context.fetch=async(route,options={})=>{const url=new URL(route,'https://fixture.test');if(url.pathname!=='/api/calendar/scheduling/slots')return previous(route,options);reads++;observation=ops.slots(f.ctx,f.actor,{...Object.fromEntries(url.searchParams),step_minutes:step});return {ok:true,status:200,json:async()=>JSON.parse(JSON.stringify({ok:true,...observation}))};};
+ f.ui.renderContext('SCHEDULING');const form=f.content.querySelector('form'),field=name=>form.querySelectorAll('input').find(n=>n.name===name);for(const [name,value]of Object.entries({from,to,duration_minutes:'5',title:'Literal PRIVATE appointment'}))field(name).value=value;await form.fire('submit');return {...f,form,field,reads:()=>reads,observation:()=>observation,notice:()=>f.content.querySelector('output'),buttons:()=>f.content.all().filter(n=>n.tag==='button'&&n.type==='button')};
+}
+test('actual scheduling page distinguishes unknown capped totals and retains literal inputs during eight-locale status changes',async()=>{
+ const f=await page(72),first=f.form;assert.equal(f.observation().total,null);assert.equal(f.buttons().length,50);for(const locale of ['nl-NL','en-GB','de-DE','fr-FR','es-ES','da-DK','nb-NO','sv-SE']){f.i.setLocale(locale);assert.equal(f.notice().textContent,f.i.t('calendar.scheduling.partial',{count:f.i.number(50)}));assert.equal(f.form===first,true,'Locale change must preserve the actual input form');assert.equal(f.field('title').value,'Literal PRIVATE appointment');}assert.equal(f.reads(),1);
+});
+test('actual scheduling page reports the fifty shown slots when the native source total is complete',async()=>{
+ const f=await page(5);assert.equal(f.observation().total,60);assert.equal(f.observation().truncated,false);assert.equal(f.buttons().length,50);assert.equal(f.notice().textContent,f.i.t('calendar.scheduling.limited_known',{count:f.i.number(50),total:f.i.number(60)}));
+});

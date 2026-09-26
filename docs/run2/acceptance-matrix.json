@@ -818,7 +818,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-057",
@@ -875,7 +875,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-058",
@@ -932,7 +932,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-059",
@@ -989,7 +989,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-060",
@@ -1046,7 +1046,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-061",
@@ -1103,7 +1103,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-062",
@@ -1160,7 +1160,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-063",
@@ -1217,7 +1217,7 @@
         "zero/sales-forecast-client-state.test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "Prior Marketing/workflow/Sales work remains preserved. Calendar event controls have exact full CI 241 on 6b45379/tree 6f4b881 (1228 ZERO/14 corpus). External coverage controls including the production HTML wiring fix 8e217ca pass 1240 ZERO, 14 corpus and 16 native scripts locally. Original 3cac478 proof is retained with the later-discovered HTML gap; a failing actual-HTTP baseline and fixed dependency-order check are recorded. Scheduling and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, including 8 on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
+      "note": "Prior Marketing/workflow/Sales/Calendar work remains preserved. External Calendar controls and actual HTML wiring have exact full CI 242 on 6137a83/tree 9c29d38 (1240 ZERO/14 corpus). Scheduling source and boundary checkpoint 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; 12 new native/HTTP/shared-page cases include encrypted restart and eight-locale limit notices. The rest of scheduling controls/recovery and other shared/specialist/generated/backend surfaces remain open. Conservative scan: 277 candidates/62 scripts, eight on frozen dashboard; nonexhaustive and not a completion metric. Real-browser/native-speaker/accessibility/live-provider acceptance remains open."
     },
     {
       "id": "R2-064",
@@ -1888,7 +1888,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "NONE",
-      "note": "Full npm CI 241 passed on 6b45379, exact tree 6f4b881: 1228 ZERO and 14 corpus. New external Calendar source including production HTML wiring 8e217ca passes 1240 ZERO, 14 corpus and 16 native scripts. Complete full CI for that newer source remains pending. Earlier failures and incomplete proof remain recorded; PASS is scoped to completed regression evidence."
+      "note": "Full npm CI 242 passed on 6137a83, exact tree 9c29d38: 1240 ZERO and 14 corpus. New scheduling source 63a1348 passes 1252 ZERO, 14 corpus and 16 native scripts; full exact-published CI is pending. Earlier failed/incomplete evidence remains preserved. PASS is scoped to completed regression proof."
     },
     {
       "id": "R2-114",
@@ -1902,7 +1902,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 241 PASS on 6b45379; merge 3b39a43 matches exact tree 6f4b881. New external Calendar source 8e217ca awaits full published CI, so this gate remains UNVERIFIED for the newer source."
+      "note": "CI 242 PASS on 6137a83; merge fc48c7f matches exact tree 9c29d38. New scheduling source 63a1348 awaits full published CI, so the newer-source gate remains UNVERIFIED."
     },
     {
       "id": "R2-115",
@@ -2087,11 +2087,11 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-26T07:06:02.757427+00:00",
+  "updated_at": "2026-09-26T07:22:25.244099+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker.",
   "remaining_work_review": {
-    "reviewed_at": "2026-09-26T07:06:02.757427+00:00",
+    "reviewed_at": "2026-09-26T07:22:25.244099+00:00",
     "timezone": "Europe/Amsterdam",
     "basis": "Existing locked acceptance matrix and current repository/checkpoint evidence; bounded gap review, not a restarted global audit.",
     "time_estimate_policy": {
@@ -2253,7 +2253,7 @@
           "R2-062",
           "R2-063"
         ],
-        "remaining_code": "Resterende gedeelde/specialistische bediening en backend-/gegenereerde producttekst in acht talen afwerken. Afgeronde Marketing-, workflow-, Sales-, Calendar-afspraak- en externe-dekkingscontroles behouden. Calendar-scheduling en andere gedeelde/specialistische paden blijven open.",
+        "remaining_code": "Resterende gedeelde/specialistische bediening en backend-/gegenereerde producttekst in acht talen afwerken. Afgeronde Marketing-, workflow-, Sales-, Calendar-afspraak-, externe-dekkings- en tijdslotgrensmeldingen behouden. Overige scheduling-bediening en herstelpaden blijven open.",
         "missing_evidence": "Eigenaarschap van tekst, invoer-/focusbehoud, fout- en herstelpaden, native taalkwaliteit en alle aangeraakte layouts.",
         "external_dependency": "Taalbeoordeling en een toegankelijke browseromgeving zijn nog niet bewezen; lokale codewerkzaamheden zijn uitvoerbaar.",
         "active_hours": {
@@ -2261,7 +2261,7 @@
           "max": 64
         },
         "waiting_time": "Per checkpoint CI circa 8–20 min; reviewer/browserbeschikbaarheid onbekend.",
-        "estimate_basis": "De actuele conservatieve scan en concrete scheduling-bronfouten bepalen de volgende werkpakketten. Afspraak- en externe-dekkingsbediening, inclusief de werkelijke scriptkoppeling, zijn lokaal afgedekt; tijdslotcorrecties hebben alleen gericht native bewijs. De brede band blijft conditioneel totdat resterende toestanden, herstelpaden en taalkwaliteit zijn beoordeeld. Acht talen en scenario’s bepalen de raming; tellingen zijn geen voortgangsmaat.",
+        "estimate_basis": "De conservatieve inventaris en concrete scheduling-bedienings-/herstelpaden bepalen de volgende pakketten. Bronlimieten en hun meldingen zijn nu lokaal bewezen; veilig native boekingsherstel is nog actief werk. De brede band blijft conditioneel totdat alle resterende toestanden en taalkwaliteit zijn beoordeeld. Acht talen en scenario’s bepalen de raming; tellingen zijn geen voortgangsmaat.",
         "dependencies": [
           "ux"
         ],
@@ -2473,7 +2473,7 @@
           "max": 28
         },
         "waiting_time": "Data-/integratiebatches circa 10–30 min; CI circa 8–20 min.",
-        "estimate_basis": "Losse validaties bestaan; overkoepelende detectie en beheerste correctie ontbreken. Exacte Sales-samenvatting en UNKNOWN/partial-dekking hebben CI 239. Nieuwe scheduling-grenstests slagen gericht, maar zijn nog geen volledig checkpoint. Deze afgebakende verbeteringen sluiten de brede datakwaliteitsgate niet.",
+        "estimate_basis": "Losse validaties bestaan; overkoepelende detectie en beheerste correctie ontbreken. Exacte Sales-bedragen hebben CI 239; tijdslotbronnen, onbekende/gekende totalen en huidige boekingsrechten zijn nu bewezen in 63a1348. Dit sluit de brede datakwaliteitsgate niet.",
         "dependencies": [],
         "estimate_confidence": "LOW"
       },
@@ -2548,7 +2548,7 @@
           "min": 2,
           "max": 6
         },
-        "waiting_time": "Circa 8–20 min per volledige CI-job plus queue; CI 237/239/241 duurden ongeveer 11 min. Falen vraagt extra actieve diagnose/reparatie. De aparte lokale testbatches kunnen met ander werk overlappen.",
+        "waiting_time": "Circa 8–20 min per volledige CI-job plus queue; CI 237/239/241/242 duurden circa 11–12 min. Falen vraagt extra actieve diagnose/reparatie. Lokale testbatches kunnen met ander werk overlappen.",
         "estimate_basis": "Band betreft laatste integratie/evidence-werk, niet de optelsom van alle open hoofdonderdelen. CI per tussentijds checkpoint kan met ander werk overlappen.",
         "dependencies": [
           "all_open_components"
@@ -2556,19 +2556,19 @@
         "estimate_confidence": "MEDIUM_LOW"
       }
     ],
-    "next_action": "Externe Calendar-bediening inclusief werkelijke HTML-koppeling is lokaal bewezen op 8e217ca; publiceer exact deze bron met bijgewerkte bewijzen voor volledige CI. Ga direct door met scheduling: acht gerichte native correctietests slagen in de behouden werkboom; HTTP-/paginabewijs en vervolgens veilige boekingsbediening/herstel blijven open. Calendar-afspraakbediening heeft CI 241 PASS.",
+    "next_action": "Tijdslotbronnen en begrensde resultaten zijn lokaal bewezen op 63a1348; volledige CI volgt op de exact gepubliceerde tree. CI 242 voor externe Calendar-bediening inclusief HTML-koppeling is PASS. Werk loopt direct door aan native boekingsherstel, gevolgd door veilige, volledig gelokaliseerde scheduling-bediening; die zijn nog open.",
     "latest_verified_checkpoint": {
-      "source_commit": "8e217cad01d9123579805c6116bdb4ad191e3ee0",
-      "source_tree": "a571cab61957f174e627d7feacd6dba2eaa9ffca",
-      "local_zero": 1240,
+      "source_commit": "63a1348d8812ad2cbdf030084443517e81e11ead",
+      "source_tree": "5634acb4d6ef9ae7c6e68d141546e14d5e9efc06",
+      "local_zero": 1252,
       "local_corpus": 14,
       "affected_native_scripts": 16,
       "exact_published_full_ci": "PENDING",
       "last_completed_full_ci": {
-        "run": 241,
-        "head": "6b4537983088d855472e875d177e3e86432c8a0a",
-        "tree": "6f4b8811d642d06dcdd88b69b098ed2922d47cd4",
-        "zero": 1228,
+        "run": 242,
+        "head": "6137a830aa20be2023064e33adb5cadefbaaa901",
+        "tree": "9c29d38c655b443bc3787642b99015db3e9647d8",
+        "zero": 1240,
         "corpus": 14
       }
     }

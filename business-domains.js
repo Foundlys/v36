@@ -88,7 +88,7 @@ class BusinessDomain {
   get(ctx,actor,entity,id){if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const row=this.bucket(ctx,entity).find(row=>row.id===id&&!(this.id==='communication'&&entity==='messages'&&row.provider_currently_draft===true)&&this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row));if(!row)fail('record_not_found','Record niet gevonden',404);return clone(row);}
   conflicts(ctx,actor,input,exclude){
     this.scope(ctx,actor);const times=occurrences(input),people=new Set(input.participants||[]);
-    const candidates=this.bucket(ctx,'events').filter(row=>row.id!==exclude&&!['CANCELLED','ARCHIVED'].includes(row.status)&&row.start_at&&row.end_at&&((row.calendar_id||'default')===(input.calendar_id||'default')||(row.participants||[]).some(p=>people.has(p))));
+    const candidates=this.bucket(ctx,'events').filter(row=>!row.deleted_at&&row.id!==exclude&&!['CANCELLED','ARCHIVED'].includes(row.status)&&row.start_at&&row.end_at&&((row.calendar_id||'default')===(input.calendar_id||'default')||(row.participants||[]).some(p=>people.has(p))));
     let count=0;const visible=[];
     for(const row of candidates){if(occurrences(row).some(a=>times.some(b=>timestamp(a.start_at)<timestamp(b.end_at)&&timestamp(b.start_at)<timestamp(a.end_at)))){count++;if(this.visible(row,actor))visible.push(row.id);}}
     const external=this.id==='calendar'&&this.external?this.external.busy(ctx,input.calendar_id,times):{items:[]};
