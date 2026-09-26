@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-26T05:16:57.508112+00:00",
+  "recorded_at": "2026-09-26T05:35:58.199883+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -9754,7 +9754,7 @@
     "resumption_note": "The restored scratch workspace contained an older clean tracked checkout. The source was recovered by a normal merge from e5b89b3; the old local ZERO logs/session were not present. Their exit code remains unknown. Full CI 237 independently passed on the exact published tree."
   },
   "hierarchy_controls_20260926": {
-    "status": "FROZEN_ZERO_CORPUS_AND_14_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "status": "FROZEN_ZERO_CORPUS_14_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "454cc2ec6a97c4efd59a0505ca46cebd0712330b",
     "source_tree": "59981e8d6458c42ee4f2f55a94d618e06c64e23f",
     "permanent_new_tests": 23,
@@ -10129,8 +10129,538 @@
         "sha256": "773e3c9e813279eccb40b1f87666b7f47bfce7553968f14e7af73dff85e82005"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": "PASS_238",
     "scope": "Eight explicit interface locales preserve literal hierarchy definitions, DOM inputs and confirmation without requests. Exact typed catalog and context; current management authority; WebCrypto-bound native immutable record/definition and acknowledgement; only scoped opaque metadata persists before PUT. Fresh VM after encrypted server restart recovers lost writes using metadata-only POST, no replay. Atomic absence retirement, independent panel recovery, stale/detached replies, malformed/contradictory evidence, storage/cleanup faults and permission loss remain truthful. Shared query/scenario/snapshot business regressions retain root/child scope, totals and input guards.",
-    "remaining": "DOM/VM and HTTP evidence is not real-browser visual, keyboard, assistive-technology, native-speaker or live-provider acceptance. Other domain summary weighted rounding/unknown handling remains a concrete next defect. The locked wider matrix remains IN_PROGRESS_NOT_ACCEPTED."
+    "remaining": "Real-browser/keyboard/accessibility/native-speaker/live-provider gates remain open. Sales summary numerical/source gaps are addressed separately in source 7326232 below; no broad Run 2 gate is promoted.",
+    "published_ci_238": {
+      "run_number": 238,
+      "run_id": 36220508808,
+      "job_id": 108344751188,
+      "conclusion": "success",
+      "published_head": "4c5be882d54e3f03ba37f4692b5a1e07dbc62ee2",
+      "ci_merge_commit": "bd91befe0ecf60dc8270b279ced53ca107aab927",
+      "tree": "167264cd4ee3721b32d3dedb608abef1c1a49ddb",
+      "exact_tree_match": true,
+      "summary": [
+        "# tests 1176",
+        "# pass 1176",
+        "# fail 0"
+      ],
+      "corpus": {
+        "head": "bd91befe0ecf60dc8270b279ced53ca107aab927",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "zero_tests": 1176,
+      "zero_pass": 1176,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "log_file": "ci238-success.log",
+      "log_bytes": 592986,
+      "log_sha256": "9a59ef705fbda6d6efe441d4bfa27ea9bdb570885f697511520f4479b498048e"
+    }
+  },
+  "sales_summary_20260926": {
+    "status": "FROZEN_ZERO_CORPUS_18_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "source_commit": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+    "source_tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+    "permanent_new_tests": 11,
+    "new_test_breakdown": {
+      "native_and_zero_tool": 9,
+      "actual_http": 2
+    },
+    "frozen_results": [
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.76,
+        "finished_at": "2026-09-26T05:26:00.366520+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-business-domains-test.js.log",
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "bytes": 212
+      },
+      {
+        "name": "sales-zero-test.js",
+        "command": [
+          "node",
+          "sales-zero-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.61,
+        "finished_at": "2026-09-26T05:26:01.053684+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-zero-test.js.log",
+        "sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f",
+        "bytes": 374
+      },
+      {
+        "name": "sales-zero-api-test.js",
+        "command": [
+          "node",
+          "sales-zero-api-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 11.11,
+        "finished_at": "2026-09-26T05:26:12.233738+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-zero-api-test.js.log",
+        "sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4",
+        "bytes": 345
+      },
+      {
+        "name": "sales-zero-client-test.js",
+        "command": [
+          "node",
+          "sales-zero-client-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 1.05,
+        "finished_at": "2026-09-26T05:26:13.340890+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-zero-client-test.js.log",
+        "sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60",
+        "bytes": 354
+      },
+      {
+        "name": "sales-pipeline-test.js",
+        "command": [
+          "node",
+          "sales-pipeline-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T05:26:14.038342+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-pipeline-test.js.log",
+        "sha256": "20b9725002cf0a3f2ef1cefc7fbe033409d0c28fb94b4ea93e67ac9afd12de1c",
+        "bytes": 337
+      },
+      {
+        "name": "sales-pipeline-api-test.js",
+        "command": [
+          "node",
+          "sales-pipeline-api-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 9.23,
+        "finished_at": "2026-09-26T05:26:23.317281+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-pipeline-api-test.js.log",
+        "sha256": "250947d3234a8e1b040fee0b425610ca0df6e98b78491e403d7d33ddcbf40426",
+        "bytes": 341
+      },
+      {
+        "name": "sales-pipeline-client-test.js",
+        "command": [
+          "node",
+          "sales-pipeline-client-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.9,
+        "finished_at": "2026-09-26T05:26:24.280710+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-pipeline-client-test.js.log",
+        "sha256": "9445e2d239d7e7d4e6e815142b62cb51073b97b0159599e16441e255f3faf101",
+        "bytes": 306
+      },
+      {
+        "name": "sales-forecast-test.js",
+        "command": [
+          "node",
+          "sales-forecast-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.59,
+        "finished_at": "2026-09-26T05:26:24.940631+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-forecast-test.js.log",
+        "sha256": "0016bb0b73ba8391154cda987bda0c1b575eeab782298021449c812278c75f21",
+        "bytes": 162
+      },
+      {
+        "name": "sales-quotas-test.js",
+        "command": [
+          "node",
+          "sales-quotas-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.58,
+        "finished_at": "2026-09-26T05:26:25.578691+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-quotas-test.js.log",
+        "sha256": "e1de957d1760912ffd38514ddcc25e3a2ee2afc317d13a986554e06a17c057f2",
+        "bytes": 164
+      },
+      {
+        "name": "sales-quotas-api-test.js",
+        "command": [
+          "node",
+          "sales-quotas-api-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 3.32,
+        "finished_at": "2026-09-26T05:26:28.958777+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-quotas-api-test.js.log",
+        "sha256": "40ebeb598b5e3270dcd2233e9d81dc6a0ad3f9d3874637985354ae9b16c8adc9",
+        "bytes": 152
+      },
+      {
+        "name": "sales-scenarios-test.js",
+        "command": [
+          "node",
+          "sales-scenarios-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T05:26:29.642526+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-scenarios-test.js.log",
+        "sha256": "1879de17b33c911f65baefc821dea98edadb138311d626b9563806f421146562",
+        "bytes": 211
+      },
+      {
+        "name": "sales-scenarios-api-test.js",
+        "command": [
+          "node",
+          "sales-scenarios-api-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 4.05,
+        "finished_at": "2026-09-26T05:26:33.761870+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-scenarios-api-test.js.log",
+        "sha256": "329e59583454d2a24b84181677a2f1e6704d11e18beffa081000d06c319bdd48",
+        "bytes": 225
+      },
+      {
+        "name": "sales-scenarios-client-test.js",
+        "command": [
+          "node",
+          "sales-scenarios-client-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.88,
+        "finished_at": "2026-09-26T05:26:34.694967+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-scenarios-client-test.js.log",
+        "sha256": "9ea936a3aef18621639da149359b8100ee7ae6e60ff23e2503e29f1d94cb8761",
+        "bytes": 343
+      },
+      {
+        "name": "sales-hierarchy-test.js",
+        "command": [
+          "node",
+          "sales-hierarchy-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T05:26:35.373522+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-hierarchy-test.js.log",
+        "sha256": "413a7cdf79bc1c1ff2793a5b735862aaf2940bbb022dd0ac0c1cebd5a0dc367e",
+        "bytes": 295
+      },
+      {
+        "name": "sales-hierarchy-api-test.js",
+        "command": [
+          "node",
+          "sales-hierarchy-api-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 9.05,
+        "finished_at": "2026-09-26T05:26:44.482403+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-hierarchy-api-test.js.log",
+        "sha256": "5248efa687d206a33a058293b0f4efadc0dd983ca6d5359973164bd291d5c1ff",
+        "bytes": 272
+      },
+      {
+        "name": "sales-hierarchy-client-test.js",
+        "command": [
+          "node",
+          "sales-hierarchy-client-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 1.11,
+        "finished_at": "2026-09-26T05:26:45.664170+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-sales-hierarchy-client-test.js.log",
+        "sha256": "f31228c48941883ad412422aaeb6955d52c455242fd682f308647fedb0161a73",
+        "bytes": 385
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 0.65,
+        "finished_at": "2026-09-26T05:26:46.369489+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-module-access-contracts-test.js.log",
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "bytes": 332
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 1.44,
+        "finished_at": "2026-09-26T05:26:47.865218+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-business-workspaces-regression-test.js.log",
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      {
+        "name": "zero",
+        "command": [
+          "npm",
+          "run",
+          "test:zero"
+        ],
+        "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
+        "exit_code": 0,
+        "seconds": 200.56,
+        "finished_at": "2026-09-26T05:30:08.485283+00:00",
+        "clean_after": true,
+        "head_after": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+        "log": "sales-summary-frozen-zero.log",
+        "sha256": "6e0168a6acbf9aa86206e805d3edc2fef83f25b4bf97229ad320d245e37d5384",
+        "bytes": 142693,
+        "test_summary": [
+          "ℹ tests 1187",
+          "ℹ pass 1187",
+          "ℹ fail 0"
+        ],
+        "corpus": {
+          "head": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "sales-summary-baseline.log",
+        "status": "EXPECTED_BASELINE_FAILURE_3_OF_3",
+        "bytes": 3178,
+        "sha256": "c2d64197c62bcdcf79c4afc92231f402dbf930587840d17ce5808a3f7e4d4b8e"
+      },
+      {
+        "file": "sales-summary-targeted.log",
+        "status": "PASS_8",
+        "bytes": 1019,
+        "sha256": "7a6ab738ed5d286bb2cdd5fc0030adfd880c9eba98740a574237ddb66293fafb"
+      },
+      {
+        "file": "sales-summary-http.log",
+        "status": "PASS_11",
+        "bytes": 1387,
+        "sha256": "3ee349561f1b48839eb1c318bc6475b1d7a499e9efa5319a05c5a154f8ce02ec"
+      },
+      {
+        "file": "sales-summary-native-targeted.log",
+        "status": "FAIL_OLD_COMPLETE_TOTAL_ASSERTION",
+        "bytes": 968,
+        "sha256": "00692e5109c33bbaea92105f88351e777b3a3a9f167628f796c32895100e0e0c"
+      },
+      {
+        "file": "sales-summary-native-updated.log",
+        "status": "PASS_STRENGTHENED_UNKNOWN_AND_KNOWN_SUBTOTAL_ASSERTIONS",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300"
+      }
+    ],
+    "scope": "Current authorized native Sales summary uses the existing exact BigInt decimal probability arithmetic. Explicit zero differs from missing/invalid probability. Known subtotals and complete totals are separate; missing/unassigned currency or amount and unsafe aggregate cents cannot become complete or falsely precise totals. Per-currency groups, source availability/empty/partial states and exclusions are explicit; deleted/archived/lost/cancelled or unauthorized rows do not fabricate groups or leak. All current authorized rows contribute beyond list pagination. ZERO native evidence re-verifies source changes. Real HTTP covers encrypted restart, isolation and capability withdrawal. Native records are not modified.",
+    "native_assertion_update": "The existing 105-row aggregation test previously asserted a complete USD total despite earlier records without currency. It now retains the exact 105-row known-subtotal and weighted-subtotal assertions, and additionally requires null complete totals plus explicit unassigned-currency coverage. A separate permanent test proves complete totals on 105 fully assigned sources. No scope/timing/assertion was weakened to bypass a defect.",
+    "exact_published_full_ci": "PENDING",
+    "remaining": "Calendar creation uncertainty/reload recovery and eight-locale authoring are next; broader matrix requirements remain open."
   }
 }
