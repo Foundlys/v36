@@ -693,6 +693,8 @@ const CRM_CORE=guardDomain(new FoundlyCrmCore({
 const CRM_OBJECTS=new (require('./crm-objects').CrmObjects)({bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),readRelated:(c,actor,entity,id)=>CRM_CORE.get(c,actor,entity,id)},COMPOSITION);
 const CRM_OBJECT_API=require('./crm-objects').createCrmObjectApi({objects:CRM_OBJECTS,context:ctx,principal:crmPrincipal,readBody:body,sendJson:json});
 const FINANCE_CORE=guardDomain(new FoundlyFinanceCore({
+  sales:()=>BUSINESS_DOMAINS.sales,
+  crm:()=>CRM_CORE,
   bucket:(c,scope)=>arr(records,key(c,scope)),
   publish:(c,event)=>PLATFORM_CORE.ingestEvent(c,{...platformPrincipal(),permissions:['events:write']},event,{idempotencyKey:event.idempotency_key}),
   persist:()=>persistCore(true),

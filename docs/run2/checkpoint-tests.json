@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-26T21:21:00.721486+00:00",
+  "recorded_at": "2026-09-26T21:52:33.687914+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -37871,7 +37871,27 @@
         "gzip_sha256": "5548485376093a93cbd167731ccc89d46afb32afe66b5bca8ca4985bb55f7d36"
       }
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "status": "PASS",
+      "run_number": 268,
+      "run_id": 36272763915,
+      "job_id": 108489718130,
+      "published_commit": "f287e7e6d91a8060d27488e79569168a8b17615b",
+      "tested_merge_commit": "5ecc47d3b707b50426085ab96aaa48d73d3153d4",
+      "tree": "49a8ca807b90b8a75e4aa8a12deec2b50dc79acf",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T21:23:28Z",
+      "completed_at": "2026-09-26T21:38:43Z",
+      "workflow_elapsed_seconds": 915,
+      "zero_pass": 1826,
+      "corpus_pass": 14,
+      "log": {
+        "file": "docs/run2/evidence/20260926-commerce-finance/ci268-job-108489718130.log.gz",
+        "raw_bytes": 861653,
+        "raw_sha256": "4a7436e3f94686e00b97ac691da4151da4ed6f7b8f8135e5fe93933ee0af2a22",
+        "gzip_sha256": "0db9a6b38b7c0c88e3042589252065e988ca8bf668e887b0626989b717871c97"
+      }
+    },
     "finished_demos": [],
     "complete_demo_acceptance": false,
     "new_features": [
@@ -37900,5 +37920,455 @@
       }
     ],
     "limits": "Unit persistence/event fault adapters are explicit; actual HTTP uses the normal encrypted store and destroys replies. Structured native tools do not prove complete natural/voice/UI quality; internal payment booking moves no external money."
+  },
+  "commerce_finance_link_20260926": {
+    "recorded_at": "2026-09-26T21:52:33.687914+00:00",
+    "status": "BOUNDED_NATIVE_CHECKPOINT_PASS_COMPLETE_DEMOS_OPEN",
+    "source_commit": "ef92929dd6380a1611342227a4d36fcaae75df4c",
+    "source_tree": "29ef4c6a249ef7eb548dea25e95f25e20cecdc7a",
+    "zero_tests": {
+      "pass": 1833,
+      "fail": 0
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 13,
+    "frozen_proof": {
+      "source": {
+        "commit": "ef92929dd6380a1611342227a4d36fcaae75df4c",
+        "tree": "29ef4c6a249ef7eb548dea25e95f25e20cecdc7a",
+        "status_before": "",
+        "status_after": "",
+        "commit_after": "ef92929dd6380a1611342227a4d36fcaae75df4c",
+        "tree_after": "29ef4c6a249ef7eb548dea25e95f25e20cecdc7a"
+      },
+      "results": [
+        {
+          "name": "capability-resolver-test.js",
+          "command": [
+            "node",
+            "capability-resolver-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:48:29.967898+00:00",
+          "finished_at": "2026-09-26T21:48:30.066470+00:00",
+          "elapsed_seconds": 0.099,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-capability-resolver-test.js.log",
+          "sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+          "bytes": 135
+        },
+        {
+          "name": "module-access-contracts-test.js",
+          "command": [
+            "node",
+            "module-access-contracts-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:48:30.066712+00:00",
+          "finished_at": "2026-09-26T21:48:30.255425+00:00",
+          "elapsed_seconds": 0.189,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-module-access-contracts-test.js.log",
+          "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+          "bytes": 332
+        },
+        {
+          "name": "composition-api-test.js",
+          "command": [
+            "node",
+            "composition-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:48:30.255615+00:00",
+          "finished_at": "2026-09-26T21:48:32.136334+00:00",
+          "elapsed_seconds": 1.881,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-composition-api-test.js.log",
+          "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+          "bytes": 110
+        },
+        {
+          "name": "composition-matrix-test.js",
+          "command": [
+            "node",
+            "composition-matrix-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:48:32.136503+00:00",
+          "finished_at": "2026-09-26T21:48:56.209863+00:00",
+          "elapsed_seconds": 24.073,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-composition-matrix-test.js.log",
+          "sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+          "bytes": 4192
+        },
+        {
+          "name": "crm-core-regression-test.js",
+          "command": [
+            "node",
+            "crm-core-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:48:56.210172+00:00",
+          "finished_at": "2026-09-26T21:48:56.360116+00:00",
+          "elapsed_seconds": 0.15,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-crm-core-regression-test.js.log",
+          "sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+          "bytes": 506
+        },
+        {
+          "name": "crm-current-principal-api-test.js",
+          "command": [
+            "node",
+            "crm-current-principal-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:48:56.360290+00:00",
+          "finished_at": "2026-09-26T21:48:59.419800+00:00",
+          "elapsed_seconds": 3.06,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-crm-current-principal-api-test.js.log",
+          "sha256": "a202f651c8d7ee63741f4a71f5a54453e3ef37c47be109f73064a8f64980547d",
+          "bytes": 231
+        },
+        {
+          "name": "crm-zero-replay-api-test.js",
+          "command": [
+            "node",
+            "crm-zero-replay-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:48:59.420017+00:00",
+          "finished_at": "2026-09-26T21:49:01.719074+00:00",
+          "elapsed_seconds": 2.299,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-crm-zero-replay-api-test.js.log",
+          "sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+          "bytes": 205
+        },
+        {
+          "name": "sales-zero-test.js",
+          "command": [
+            "node",
+            "sales-zero-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:49:01.719249+00:00",
+          "finished_at": "2026-09-26T21:49:01.910151+00:00",
+          "elapsed_seconds": 0.191,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-sales-zero-test.js.log",
+          "sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f",
+          "bytes": 374
+        },
+        {
+          "name": "sales-zero-api-test.js",
+          "command": [
+            "node",
+            "sales-zero-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:49:01.910333+00:00",
+          "finished_at": "2026-09-26T21:49:05.836053+00:00",
+          "elapsed_seconds": 3.926,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-sales-zero-api-test.js.log",
+          "sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4",
+          "bytes": 345
+        },
+        {
+          "name": "sales-zero-client-test.js",
+          "command": [
+            "node",
+            "sales-zero-client-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:49:05.836229+00:00",
+          "finished_at": "2026-09-26T21:49:06.265793+00:00",
+          "elapsed_seconds": 0.43,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-sales-zero-client-test.js.log",
+          "sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60",
+          "bytes": 354
+        },
+        {
+          "name": "business-domains-test.js",
+          "command": [
+            "node",
+            "business-domains-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:49:06.265967+00:00",
+          "finished_at": "2026-09-26T21:49:06.485813+00:00",
+          "elapsed_seconds": 0.22,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-business-domains-test.js.log",
+          "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+          "bytes": 212
+        },
+        {
+          "name": "business-workspaces-regression-test.js",
+          "command": [
+            "node",
+            "business-workspaces-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:49:06.486005+00:00",
+          "finished_at": "2026-09-26T21:49:07.060422+00:00",
+          "elapsed_seconds": 0.574,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-business-workspaces-regression-test.js.log",
+          "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+          "bytes": 254
+        },
+        {
+          "name": "production-security-test.js",
+          "command": [
+            "node",
+            "production-security-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:49:07.060621+00:00",
+          "finished_at": "2026-09-26T21:49:07.456025+00:00",
+          "elapsed_seconds": 0.395,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-production-security-test.js.log",
+          "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+          "bytes": 309
+        },
+        {
+          "name": "zero",
+          "command": [
+            "node",
+            "--test",
+            "zero/*.test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:49:07.456207+00:00",
+          "finished_at": "2026-09-26T21:52:26.033829+00:00",
+          "elapsed_seconds": 198.578,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-zero.log",
+          "sha256": "117d99c95d308e0ec91b97f522f02a86562c9d68a4f4106259890d46f10eb95c",
+          "bytes": 220464
+        },
+        {
+          "name": "corpus",
+          "command": [
+            "node",
+            "zero-evaluation/run.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:52:26.034294+00:00",
+          "finished_at": "2026-09-26T21:52:28.803380+00:00",
+          "elapsed_seconds": 2.769,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-finance-frozen-v2-corpus.log",
+          "sha256": "1f353e65070efd13cdea0fd5ba633aa864c4d00185e027a29699b240daec0348",
+          "bytes": 1066
+        }
+      ],
+      "all_pass": true
+    },
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/ci268-job-108489718130.log.gz",
+        "raw_bytes": 861653,
+        "raw_sha256": "4a7436e3f94686e00b97ac691da4151da4ed6f7b8f8135e5fe93933ee0af2a22",
+        "gzip_sha256": "0db9a6b38b7c0c88e3042589252065e988ca8bf668e887b0626989b717871c97"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-capability-resolver-test.js.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "gzip_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-composition-matrix-test.js.log.gz",
+        "raw_bytes": 522,
+        "raw_sha256": "39eff1ac45a3f47675946fc35e415ca7adeaa468786d1332419ee86209cc4f3f",
+        "gzip_sha256": "00321990f3a3049d9777237250dfdc523c9ef280eabcc899ceec8d461ef55e58"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-results.json.gz",
+        "raw_bytes": 2459,
+        "raw_sha256": "830b95ac66b3d6b9e950a547eb71e9af446320fd9192c130eaffcdac79b4d49d",
+        "gzip_sha256": "b93745188b171d96bcf96fb9e4ea6fdb1d506e790565626ed4159d5f13e70950"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-business-domains-test.js.log.gz",
+        "raw_bytes": 212,
+        "raw_sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "gzip_sha256": "618229970a94ffe2f2a8c3d6379d930ab5ea3eb4580c9b2d6512f7803b5a5305"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-business-workspaces-regression-test.js.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "gzip_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-capability-resolver-test.js.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "gzip_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-composition-matrix-test.js.log.gz",
+        "raw_bytes": 4192,
+        "raw_sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+        "gzip_sha256": "a73e3fc80a908da7afc7e042ec3aadcbecf69ea734e0e085b227bcc1c66a5750"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-corpus.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "1f353e65070efd13cdea0fd5ba633aa864c4d00185e027a29699b240daec0348",
+        "gzip_sha256": "ccccd630115cb0f6f242acaa0bc19e029b1ee7ed52468739fe49007eb9364dcf"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-crm-core-regression-test.js.log.gz",
+        "raw_bytes": 506,
+        "raw_sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "gzip_sha256": "9bdacf2977e9a03931f16c77de406500f4293ac42483dbbf9ee2995f39ba32db"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-crm-current-principal-api-test.js.log.gz",
+        "raw_bytes": 231,
+        "raw_sha256": "a202f651c8d7ee63741f4a71f5a54453e3ef37c47be109f73064a8f64980547d",
+        "gzip_sha256": "ba66cfa95b4a6c9ccdec2d64e458fccf72f4a2d626402c6a198d871cbf0a6495"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-crm-zero-replay-api-test.js.log.gz",
+        "raw_bytes": 205,
+        "raw_sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+        "gzip_sha256": "0041b75b15077c2942d66c2d8df089e9c38c32949bb802bcdd73cdf1485a5cd2"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-production-security-test.js.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "gzip_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-results.json.gz",
+        "raw_bytes": 8221,
+        "raw_sha256": "da0b52e1837fa04cc3b7a79ad329b3ab6dd518815f9b7667b2a7a3f2f8f42cba",
+        "gzip_sha256": "8f1d44fe285ff3c4d86a34815571ea5b1e03315581da82c27e3f7661b13a67fe"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-sales-zero-api-test.js.log.gz",
+        "raw_bytes": 345,
+        "raw_sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4",
+        "gzip_sha256": "29a4cf001812a516108b8bbee45df329eaeb1f3bf3b17e3f4fc2723c88c25940"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-sales-zero-client-test.js.log.gz",
+        "raw_bytes": 354,
+        "raw_sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60",
+        "gzip_sha256": "e9f72903ac72412fb4ff986668c5f59201a3c0829a81a5c8dddfe1a1c207bcda"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-sales-zero-test.js.log.gz",
+        "raw_bytes": 374,
+        "raw_sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f",
+        "gzip_sha256": "d8e7e3876de2c28178d0145b2fd6e0e72e914102cec791393b9f70680c3e62c8"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-frozen-v2-zero.log.gz",
+        "raw_bytes": 220464,
+        "raw_sha256": "117d99c95d308e0ec91b97f522f02a86562c9d68a4f4106259890d46f10eb95c",
+        "gzip_sha256": "61d4603e407726024a17ca4b21d7058d6d72348037b32c601f48d14a3493dc50"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-link-combined.log.gz",
+        "raw_bytes": 3879,
+        "raw_sha256": "019c5fdf93a7c873f72da3b313647092fb2b15d8796c3c58095f1366c0b3f30d",
+        "gzip_sha256": "b4bc4ac2d7c89ad3ffebe32f6fa301a6e5bcae0d0f920f930564f11632f3acf3"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-link-http-initial.log.gz",
+        "raw_bytes": 1110,
+        "raw_sha256": "9ed3c3f3332fb54aa2809f09d03e6be903e78505309089eff55e49db88c598f0",
+        "gzip_sha256": "9d592c06fed81a6ee18a6666771c9d85182d6638d000001653c67ff2c14e7301"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-link-initial-regression.log.gz",
+        "raw_bytes": 1406,
+        "raw_sha256": "897e9e55bd8c336143e1d53c1c4cc8213ccf52abbe88b9def421a17852c7acc7",
+        "gzip_sha256": "dfad352cbc211bc230dd90499ce4dbe4bfcbc61e0af79aef00a01b4ed2a77434"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-link-unit-audit-fixture.log.gz",
+        "raw_bytes": 827,
+        "raw_sha256": "d69092e4d0653c405df74e1f83e93a824db90e9b1a82a29295dbea10db43352b",
+        "gzip_sha256": "36cd6aa876e01161ecc9f45a749c0170d3347d387a2788ed728ee687b3595c87"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-finance/commerce-finance-link-unit-initial.log.gz",
+        "raw_bytes": 6411,
+        "raw_sha256": "16ee433cf1fb18fed76ec6d35b681fd0b3148b30d029355c797f3a1fbbbaf403",
+        "gzip_sha256": "2869bfe11e27def4e30073941d50faa67b8c8b091ff58f0418c15928b8986e1c"
+      }
+    ],
+    "prior_complete_ci": {
+      "status": "PASS",
+      "run_number": 268,
+      "run_id": 36272763915,
+      "job_id": 108489718130,
+      "published_commit": "f287e7e6d91a8060d27488e79569168a8b17615b",
+      "tested_merge_commit": "5ecc47d3b707b50426085ab96aaa48d73d3153d4",
+      "tree": "49a8ca807b90b8a75e4aa8a12deec2b50dc79acf",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T21:23:28Z",
+      "completed_at": "2026-09-26T21:38:43Z",
+      "workflow_elapsed_seconds": 915,
+      "zero_pass": 1826,
+      "corpus_pass": 14,
+      "log": {
+        "file": "docs/run2/evidence/20260926-commerce-finance/ci268-job-108489718130.log.gz",
+        "raw_bytes": 861653,
+        "raw_sha256": "4a7436e3f94686e00b97ac691da4151da4ed6f7b8f8135e5fe93933ee0af2a22",
+        "gzip_sha256": "0db9a6b38b7c0c88e3042589252065e988ca8bf668e887b0626989b717871c97"
+      }
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "finished_demos": [],
+    "complete_demo_acceptance": false,
+    "new_features": [
+      "Confirmed billing from actual owned Sales order, readable CRM contact and native Finance legal entity",
+      "Locked order amounts and source-hash confirmation; invoice, order link, audit, both outboxes and receipt commit atomically",
+      "Structured ZERO preview/execute/recover with current mixed read/write capabilities, actual lost reply and encrypted restart",
+      "Accurate INVOICE_LINKED state, separate original/current result, no private CRM billing snapshot in Sales, explicit return review and cancellation refusal"
+    ],
+    "remaining": [
+      "Partial credit allocation/refund and cancellation correction",
+      "ECOMMERCE production pack, full native module histories and localized controls",
+      "Natural-language/voice ZERO quality, market valuation/source freshness, complete seed performance",
+      "Complete desktop download, reachable HTTPS webapp and physical device installation"
+    ],
+    "retained_attempts": [
+      {
+        "log": "commerce-finance-link-unit-initial.log",
+        "result": "0 PASS / 5 FAIL",
+        "cause": "New unit fixture omitted required native audit adapter; fixed fixture, no native contract relaxed."
+      },
+      {
+        "log": "commerce-finance-frozen-composition-matrix-test.js.log",
+        "result": "FAIL; full ZERO suite not started",
+        "source_commit": "0f8e72ba8a749e7c83a073bdd1027c61d07d70d3",
+        "cause": "Existing matrix assumed every Finance tool was standalone. New cross-module billing correctly requires CRM and Sales. Explicit three-module visibility and missing-module profiles added to the test."
+      }
+    ],
+    "limits": "The tested native HTTP tenant is GENERAL. This checkpoint does not establish ECOMMERCE registration, complete demo UI/seed, natural/voice model quality or actual mobile delivery. Internal payment records do not move money."
   }
 }

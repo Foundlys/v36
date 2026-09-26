@@ -59,6 +59,7 @@ const TOOL_MODULES = Object.freeze({
   automotive_economics: 'procurement', automotive_candidate_analysis: 'procurement', automotive_today: 'procurement'
 });
 const WRITE_TOOLS=Object.freeze([...PROCUREMENT_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...MARKETING_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...FINANCE_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...CALENDAR_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...ANALYSIS_ACTION_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...SALES_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...AUTOMATION_DRAFT_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...COMMUNICATION_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),'create_lead','create_task','create_appointment','create_report','draft_message','automation_run']);
+const TOOL_CAPABILITY_OPERATIONS=Object.freeze(Object.fromEntries(FINANCE_OPERATIONS.filter(op=>op.capability_operations).map(op=>[op.tool,op.capability_operations])));
 const TOOL_CAPABILITIES = Object.freeze({
   ...Object.fromEntries(PROCUREMENT_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   ...Object.fromEntries(MARKETING_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
@@ -125,4 +126,4 @@ function routeModule(pathname) {
   const part = pieces[0] === 'api' ? (['workspaces', 'module', 'engine'].includes(pieces[1]) ? pieces[2] : pieces[1]) : pieces[0];
   return moduleId(part);
 }
-module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, TOOL_OPERATIONS, TOOL_CORE_PERMISSIONS, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };
+module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, TOOL_OPERATIONS, TOOL_CAPABILITY_OPERATIONS, TOOL_CORE_PERMISSIONS, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };

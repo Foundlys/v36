@@ -5,6 +5,7 @@ const durability = require('./finance-request-durability');
 const native = require('./finance-operation-transactions').operations;
 const SCOPE = 'finance:action_requests';
 const CONTRACTS = Object.freeze({
+  COMMERCE_INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger', 'sales:quotes', 'crm:contacts'], capability_modes: {'finance:ledger': 'read', 'crm:contacts': 'read'}, commerce: true, entity: 'invoice'},
   INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices'], entity: 'invoice'},
   INVOICE_POST: {method: 'postInvoice', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger'], entity: 'invoice'},
   PAYMENT_RECORD: {method: 'recordPayment', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger', 'finance:payments'], entity: 'payment'}
@@ -24,6 +25,7 @@ function contract(operation) {
 function authority(core, context, actor, operation, mode) {
   const {ctx, principal} = core.scope(context, actor), spec = contract(operation), required = mode === 'preview' ? 'finance:read' : spec.permission;
   if (!principal.permissions.has('*') && !principal.permissions.has(required)) fail('finance_forbidden', 'Onvoldoende actuele Finance-rechten', 403);
+  if (spec.commerce) require('./commerce-finance-source').scope(core, ctx, actor, mode === 'preview' ? 'read' : 'write');
   return {ctx, principal, spec};
 }
 function request(value, complete) {
@@ -40,8 +42,9 @@ function selected(core, ctx, entity, id) {
   if (rows.length !== 1) fail('finance_action_source_missing', 'De exacte actuele financiële bron ontbreekt', 404);
   return rows[0];
 }
-function source(core, ctx, action) {
+function source(core, ctx, action, actor) {
   const {operation, input} = action; let invoice, entity, summary, blockers = [];
+  if (operation === 'COMMERCE_INVOICE_CREATE') return require('./commerce-finance-source').inspect(core, ctx, actor, input);
   if (operation === 'INVOICE_CREATE') {
     const validated = core.validateInvoice(ctx, input);
     entity = selected(core, ctx, 'legal_entities', input.legal_entity_id);
@@ -90,8 +93,8 @@ function source(core, ctx, action) {
   return {basis, summary, blockers};
 }
 function preview(core, context, actor, value) {
-  const action = request(value, false), {ctx} = authority(core, context, actor, action.operation, 'preview'), current = source(core, ctx, action);
-  return {ok: true, operation: action.operation, source_hash: hash({operation: action.operation, input: action.input, basis: current.basis}), ready: current.blockers.length === 0, blockers: current.blockers, summary: current.summary, requires_confirmation: true, financial_posting_performed: false, external_payment_performed: false};
+  const action = request(value, false), {ctx} = authority(core, context, actor, action.operation, 'preview'), current = source(core, ctx, action, actor);
+  return {ok: true, operation: action.operation, source_hash: hash({operation: action.operation, input: action.input, basis: current.basis}), ready: current.blockers.length === 0, blockers: current.blockers, summary: current.summary, ...(current.effective_input ? {prepared_invoice: current.effective_input} : {}), requires_confirmation: true, financial_posting_performed: false, external_payment_performed: false};
 }
 function identity(principal, action) {return {digest: hash([principal.id, action.request_id]), request_hash: hash(action)};}
 function capacity(rows, next) {
@@ -104,7 +107,7 @@ function receipt(core, ctx, principal, action) {
   if (!['COMMITTED', 'ABANDONED'].includes(row.status) || row.receipt_version !== 1 || row.proof_hash !== hash({status: row.status, request_hash: row.request_hash, result: row.result})) fail('finance_action_receipt_invalid', 'Het bewaarde financiële resultaat kan niet worden geverifieerd');
   return row;
 }
-function output(core, ctx, row, deduplicated) {
+function output(core, ctx, row, deduplicated, actor) {
   if (row.status === 'ABANDONED') return {ok: true, state: 'NOT_APPLIED', operation: row.operation, request_id: row.request_id, deduplicated, financial_posting_performed: false, external_payment_performed: false};
   const invoice = selected(core, ctx, 'invoices', row.result.invoice.id);
   const originalEffects = {invoice: row.result.invoice}, current = {invoice};
@@ -121,7 +124,11 @@ function output(core, ctx, row, deduplicated) {
     originalEffects.payment = row.result.payment;
     current.payment = selected(core, ctx, 'payments', row.result.payment.id);
   }
-  return {ok: true, state: 'COMMITTED', operation: row.operation, request_id: row.request_id, deduplicated, original_result: clone(row.result), original_result_hash: hash(row.result), current_invoice: clone(invoice), current_result: clone(current), original_result_is_current: hash(originalEffects) === hash(current), financial_posting_performed: row.operation !== 'INVOICE_CREATE', external_payment_performed: false, bank_settlement_verified: false, payment_evidence_kind: row.operation === 'PAYMENT_RECORD' ? 'USER_RECORDED_INTERNAL_BOOKING' : null};
+  if (row.result.commerce_link) {
+    originalEffects.commerce_link = row.result.commerce_link;
+    current.commerce_link = require('./commerce-finance-source').current(core, ctx, actor, row.result);
+  }
+  return {ok: true, state: 'COMMITTED', operation: row.operation, request_id: row.request_id, deduplicated, original_result: clone(row.result), original_result_hash: hash(row.result), current_invoice: clone(invoice), current_result: clone(current), original_result_is_current: hash(originalEffects) === hash(current), financial_posting_performed: ['INVOICE_POST', 'PAYMENT_RECORD'].includes(row.operation), external_payment_performed: false, bank_settlement_verified: false, payment_evidence_kind: row.operation === 'PAYMENT_RECORD' ? 'USER_RECORDED_INTERNAL_BOOKING' : null};
 }
 function save(core, ctx, principal, action, status, result) {
   const row = {...identity(principal, action), operation: action.operation, request_id: action.request_id, actor_id: principal.id, status, result, receipt_version: 1, created_at: core.now()};
@@ -135,25 +142,27 @@ function execute(core, context, actor, value) {
   const prior = receipt(core, ctx, principal, action);
   if (prior) {
     if (prior.status === 'ABANDONED') fail('finance_action_abandoned', 'Deze aanvraag is definitief zonder uitvoering afgesloten');
-    const result = output(core, ctx, prior, true); return {...result, event_delivery: durability.flush(core, ctx)};
+    const result = output(core, ctx, prior, true, actor); return {...result, event_delivery: durability.flush(core, ctx), ...(spec.commerce ? {sales_event_delivery: require('./commerce-finance-source').flush(core, ctx, actor)} : {})};
   }
   capacity(core.adapter.bucket(ctx, SCOPE));
   const current = preview(core, ctx, actor, {operation: action.operation, input: action.input});
   if (current.source_hash !== action.expected_source_hash) fail('finance_action_source_changed', 'De bron is gewijzigd; bereid de actie opnieuw voor');
   if (!current.ready) fail('finance_action_not_ready', 'De financiële bron bevat blokkades', 422);
-  return durability.transaction(core, ctx, principal, [...native[spec.method].entities, 'action_requests'], () => {
-    const result = action.operation === 'INVOICE_POST' ? core.postInvoice(ctx, actor, action.input.invoice_id) : core[spec.method](ctx, actor, action.input);
+  const committed = durability.transaction(core, ctx, principal, [...native[spec.method].entities, 'action_requests'], () => {
+    const result = action.operation === 'INVOICE_POST' ? core.postInvoice(ctx, actor, action.input.invoice_id) : core[spec.method](ctx, actor, current.prepared_invoice || action.input);
+    if (spec.commerce) result.commerce_link = require('./commerce-finance-source').link(core, ctx, actor, action.input, result.invoice, action.reason);
     const row = save(core, ctx, principal, action, 'COMMITTED', result);
-    return output(core, ctx, row, false);
-  });
+    return output(core, ctx, row, false, actor);
+  }, spec.commerce ? require('./commerce-finance-source').EXTRA_SCOPES : []);
+  return {...committed, ...(spec.commerce ? {sales_event_delivery: require('./commerce-finance-source').flush(core, ctx, actor)} : {})};
 }
 function recover(core, context, actor, value) {
-  const action = request(value, true), {ctx, principal} = authority(core, context, actor, action.operation, 'recover');
+  const action = request(value, true), {ctx, principal, spec} = authority(core, context, actor, action.operation, 'recover');
   const prior = receipt(core, ctx, principal, action);
-  if (prior) {const result = output(core, ctx, prior, true); return {...result, event_delivery: durability.flush(core, ctx)};}
+  if (prior) {const result = output(core, ctx, prior, true, actor); return {...result, event_delivery: durability.flush(core, ctx), ...(spec.commerce ? {sales_event_delivery: require('./commerce-finance-source').flush(core, ctx, actor)} : {})};}
   // An unseen request is durably retired before a delayed original body can
   // execute. It does not execute the command to discover its outcome.
   capacity(core.adapter.bucket(ctx, SCOPE));
-  return durability.transaction(core, ctx, principal, ['action_requests'], () => output(core, ctx, save(core, ctx, principal, action, 'ABANDONED', null), false));
+  return durability.transaction(core, ctx, principal, ['action_requests'], () => output(core, ctx, save(core, ctx, principal, action, 'ABANDONED', null), false, actor));
 }
 module.exports = {SCOPE, CONTRACTS, contract, preview, execute, recover};

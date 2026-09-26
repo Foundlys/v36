@@ -145,6 +145,7 @@ function apply(domain, ctx, actor, operation, input, effects) {
   }
   const order = read(domain, ctx, actor, 'commerce_orders', input.order_id);
   revision(order, input.expected_revision);
+  if (operation === 'ORDER_CANCEL' && order.invoice_id) fail('commerce_linked_invoice_requires_correction', 'Controleer eerst de gekoppelde factuur voordat deze order wordt geannuleerd', 409);
   if (['ORDER_CANCEL', 'ORDER_FULFILL'].includes(operation) && order.status !== 'RESERVED' || operation === 'ORDER_RETURN' && !['FULFILLED', 'PARTIALLY_RETURNED'].includes(order.status)) fail('commerce_transition_invalid', 'Deze orderstatus staat de actie niet toe', 409);
   let status, returned = order.returned_totals;
   if (operation === 'ORDER_RETURN') {
@@ -160,7 +161,7 @@ function apply(domain, ctx, actor, operation, input, effects) {
     for (const line of order.lines) move(domain, ctx, actor, line.product_id, {reserved: -line.quantity, ...(operation === 'ORDER_FULFILL' ? {on_hand: -line.quantity} : {})}, operation, input.evidence_reference || input.reason, order.id, effects);
     status = operation === 'ORDER_CANCEL' ? 'CANCELLED' : 'FULFILLED';
   }
-  return revise(domain, ctx, actor, 'commerce_orders', order.id, {lines: order.lines, status, returned_totals: returned, history: [...order.history, {operation, actor_id: actor.id, at: at(domain), reason: input.reason, ...(input.evidence_reference ? {evidence_reference: input.evidence_reference} : {}), ...(operation === 'ORDER_RETURN' ? {lines: clone(input.lines)} : {})}]}, effects);
+  return revise(domain, ctx, actor, 'commerce_orders', order.id, {lines: order.lines, status, returned_totals: returned, ...(operation === 'ORDER_RETURN' && order.invoice_id ? {financial_followup: 'RETURN_REVIEW_REQUIRED'} : {}), history: [...order.history, {operation, actor_id: actor.id, at: at(domain), reason: input.reason, ...(input.evidence_reference ? {evidence_reference: input.evidence_reference} : {}), ...(operation === 'ORDER_RETURN' ? {lines: clone(input.lines)} : {})}]}, effects);
 }
 function capacity(rows, entry) {
   if (rows.length >= 100000 || rows.reduce((n, r) => n + Buffer.byteLength(JSON.stringify(r)), Buffer.byteLength(JSON.stringify(entry))) > 64 * 1024 * 1024) fail('commerce_operation_capacity', 'De bewaarlimiet voor handelsaanvragen is bereikt', 507);

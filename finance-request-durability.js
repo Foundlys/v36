@@ -30,8 +30,8 @@ function flush(core, ctx) {
   }
   return core.adapter.bucket(ctx, OUTBOX).some(r => r.status === 'PENDING') ? 'QUEUED_RETRY' : 'DELIVERED';
 }
-function transaction(core, ctx, principal, entities, fn) {
-  const declared = scopes(entities), prior = active.get(core);
+function transaction(core, ctx, principal, entities, fn, extraScopes = []) {
+  const declared = [...new Set([...scopes(entities), ...extraScopes])], prior = active.get(core);
   if (prior) {
     if (prior.tenant_id !== ctx.tenant_id || prior.dealer_id !== ctx.dealer_id || declared.some(s => !prior.scopes.includes(s))) fail('finance_transaction_scope', 'De geneste financiële mutatie valt buiten de bevestigde transactie');
     return fn();
