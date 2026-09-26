@@ -344,7 +344,7 @@ const CONNECTORS = Object.keys(CONNECTOR_REGISTRY);
 CONNECTOR_REGISTRY.wix={...CONNECTOR_REGISTRY.wix,auth:'wix_app_install',env:['WIX_APP_ID','WIX_APP_SECRET','WIX_SHARE_URL_ID']};
 const CONNECTOR_RUNTIME = makeRuntime({root:ROOT, registry:CONNECTOR_REGISTRY});
 const CORE_STATE_FILE=path.join(DATA,'foundly-core-state.json');
-let coreDirty=false;
+let coreDirty=false,coreStateTransaction=null;
 function readCoreSnapshot(){try{return JSON.parse(fs.readFileSync(CORE_STATE_FILE,'utf8'))||{}}catch{return {}}}
 function mapFromSnapshot(v){if(v?.__foundly_core_encrypted===true)return new Map(unseal(v.payload));return new Map((Array.isArray(v)?v:[]).map(([scope,value])=>[scope,value?.__foundly_crm_encrypted===true?unseal(value.payload):value]))}
 function protectedMapSnapshot(map){return encKey()?{__foundly_core_encrypted:true,algorithm:'aes-256-gcm',payload:seal([...map.entries()])}:[...map.entries()]}
@@ -361,7 +361,8 @@ if(workerState.get('worker')?.status==='RUNNING'){const previous=workerState.get
 if(!workerState.has('worker')){workerState.set('worker',{status:'IDLE',initialized_at:new Date().toISOString(),last_completed_at:null,processed:0,synced:0});recoveredRuntime=true}
 function markCoreDirty(){coreDirty=true}
 function atomicJsonWrite(file,value){const tmp=`${file}.tmp-${process.pid}-${crypto.randomBytes(8).toString('hex')}`;let fd=null;try{fd=fs.openSync(tmp,'wx',0o600);fs.writeFileSync(fd,JSON.stringify(value,null,2));fs.fsyncSync(fd);fs.closeSync(fd);fd=null;fs.renameSync(tmp,file);try{const dirFd=fs.openSync(path.dirname(file),'r');try{fs.fsyncSync(dirFd)}finally{fs.closeSync(dirFd)}}catch{}}catch(e){if(fd!==null)try{fs.closeSync(fd)}catch{}try{fs.unlinkSync(tmp)}catch{}throw e}}
-function persistCore(force=false){if(!force&&!coreDirty)return;atomicJsonWrite(CORE_STATE_FILE,{version:4,saved_at:new Date().toISOString(),memory:protectedMapSnapshot(memory),records:protectedMapSnapshot(records),decisions:protectedMapSnapshot(decisions),tasks:protectedMapSnapshot(tasks),events:protectedMapSnapshot(events),worker_state:Object.fromEntries(workerState)});coreDirty=false}
+function persistCore(force=false){if(!force&&!coreDirty)return;if(coreStateTransaction?.defer())return;atomicJsonWrite(CORE_STATE_FILE,{version:4,saved_at:new Date().toISOString(),memory:protectedMapSnapshot(memory),records:protectedMapSnapshot(records),decisions:protectedMapSnapshot(decisions),tasks:protectedMapSnapshot(tasks),events:protectedMapSnapshot(events),worker_state:Object.fromEntries(workerState)});coreDirty=false}
+coreStateTransaction=require('./core-state-transaction').createCoreStateTransaction({maps:[memory,records,decisions,tasks,events,workerState],persist:()=>persistCore(true),readDirty:()=>coreDirty,restoreDirty:value=>{coreDirty=value;}});
 if(recoveredRuntime)persistCore(true);
 setInterval(()=>{try{persistCore()}catch(e){console.error('[CORE PERSIST ERROR]',redactJarvisText(e.message,500))}},2000).unref();
 process.on('SIGTERM',()=>{try{persistCore(true)}finally{process.exit(0)}});
@@ -651,6 +652,7 @@ const ZERO_API=createZeroApi({context:trustedContext,principal:platformPrincipal
 const PLATFORM_CORE=guardDomain(new FoundlyPlatformCore({
   bucket:(c,scope)=>arr(records,key(c,scope)),
   persist:()=>persistCore(true),
+  deferEventNotifications:()=>coreStateTransaction.defer(),
   emit:(c,event)=>{addEvent(c,'platform',`Canonical event: ${event.event_name}`,{event_id:event.event_id,event_name:event.event_name,source:event.source});PLATFORM_API?.publish(c,event)},
   enqueue:(c,task)=>addTask(c,{type:task.type||'platform_task',module:'analysis',title:`${task.provider||'platform'} delivery`,payload:task,max_attempts:task.retry?.max_attempts||5}),
   queueDepth:c=>arr(tasks,key(c,'queue')).filter(task=>!['SUCCEEDED','DEAD_LETTER'].includes(task.status)).length,
@@ -702,7 +704,19 @@ const FINANCE_CORE=guardDomain(new FoundlyFinanceCore({
   id,
   now:()=>new Date()
 }),'finance',()=>COMPOSITION);
-const DEMO_UNIVERSE=new (require('./demo-universe-engine').DemoUniverseEngine)({adapter:{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),isDemoScope:c=>cleanEnv('FOUNDLY_DEMO_UNIVERSE_ENABLED')==='true'&&/^demo[-:]/.test(c.tenant_id)&&c.tenant_id===cleanEnv('FOUNDLY_DEMO_TENANT_ID')&&c.dealer_id===cleanEnv('FOUNDLY_DEMO_DEALER_ID','default')&&Boolean(encKey()),hasBusinessData:c=>require('./demo-universe-engine').hasBusinessData(c,{records,memory,tasks,decisions})},resolver:COMPOSITION,crm:CRM_CORE,domains:BUSINESS_DOMAINS,identities:IDENTITIES,memory:ZERO_MEMORY});
+function demoNativeTransaction(c,actor,mutate){
+  let result;
+  try{result=coreStateTransaction.run(mutate);}catch(error){PLATFORM_CORE.factCache.clear();throw error;}
+  // The native outbox is durable before any subscriber sees an event. Delivery
+  // failure cannot roll back committed business effects or invent a new seed.
+  const started=performance.now();let delivery={attempted:0,pending:null};
+  try{
+    let previous=Infinity;
+    do{const next=PLATFORM_CORE.flushEventNotifications(c,actor);delivery={attempted:delivery.attempted+next.attempted,pending:next.pending};if(!next.pending||next.pending>=previous||!next.attempted)break;previous=next.pending;}while(performance.now()-started<1000);
+  }catch(error){delivery={...delivery,state:'PENDING_RETRY',code:error.code||'event_delivery_failed'};}
+  result.batch.event_notifications=delivery;return result;
+}
+const DEMO_UNIVERSE=new (require('./demo-universe-engine').DemoUniverseEngine)({adapter:{bucket:(c,scope)=>arr(records,key(c,scope)),persist:()=>persistCore(true),atomicMutation:demoNativeTransaction,isDemoScope:c=>cleanEnv('FOUNDLY_DEMO_UNIVERSE_ENABLED')==='true'&&/^demo[-:]/.test(c.tenant_id)&&c.tenant_id===cleanEnv('FOUNDLY_DEMO_TENANT_ID')&&c.dealer_id===cleanEnv('FOUNDLY_DEMO_DEALER_ID','default')&&Boolean(encKey()),hasBusinessData:c=>require('./demo-universe-engine').hasBusinessData(c,{records,memory,tasks,decisions})},resolver:COMPOSITION,crm:CRM_CORE,domains:BUSINESS_DOMAINS,identities:IDENTITIES,memory:ZERO_MEMORY});
 const DEMO_UNIVERSE_API=require('./demo-universe-api').createDemoUniverseApi({engine:DEMO_UNIVERSE,context:trustedContext,principal:platformPrincipal,readBody:body,sendJson:json});
 function automotiveProviderConfig(provider,c){
   const stored=CONNECTOR_RUNTIME.readConfig(c,provider)||{},credentials=stored.credentials||{},tokens=stored.tokens||{},profile=stored.profile_overrides||{};
@@ -1019,8 +1033,8 @@ function normalizedLocation(value){
   const latitude=Number(value.latitude),longitude=Number(value.longitude);if(!Number.isFinite(latitude)||!Number.isFinite(longitude)||latitude < -90||latitude > 90||longitude < -180||longitude > 180)return null;
   return {latitude:Number(latitude.toFixed(2)),longitude:Number(longitude.toFixed(2)),accuracy_m:Number.isFinite(Number(value.accuracy))?Math.round(Number(value.accuracy)):null,source:'browser_permission_approximate'};
 }
-function isWeatherRequest(message){return /\b(weer|regent|regen|temperatuur|graden|zonnig|bewolkt|wind|weersverwachting)\b/i.test(message)}
-function isTimeRequest(message){return /\b(hoe laat|welke (?:dag|datum)|tijd(?:stip|zone)?|datum vandaag)\b/i.test(message)}
+function isWeatherRequest(message){return require('./zero/local-intent').isWeatherRequest(message)}
+function isTimeRequest(message){return require('./zero/local-intent').isTimeRequest(message)}
 function retrievalPlan(message,mods=[],previousIntent=''){
   const q=String(message||'').toLowerCase(),followUp=/^(en\b|waarom\b|welke\b|wat bedoel|is dat|vergelijk|nummer\b)/i.test(q.trim());
   const providerSpecific=/\b(meta|facebook|instagram|google ads|ga4|search console|calendar|agenda|linkedin|tiktok|wix|dms|crm|voorraad|campagne|advertentie|connector|integratie)\b/i.test(q);
@@ -1384,7 +1398,7 @@ async function runJarvisTurn(message,c,options={}){
   if(intent==='ui_navigation'&&!communicationReadRequested){const result={ok:true,status:'completed',answer:'Dashboardopdracht uitgevoerd.',risk,voice_mode:'COMMAND',modules:[],plan:{goal:redactJarvisText(effective,1000),steps:['dispatch_semantic_ui_command'],tools:[]},actions:[],syncs:[],web:{used:false,sources:[],error:null},verification:{semantic_ui_only:true}};result.ui_commands=deriveUiCommands(effective,result);if(result.ui_commands.length)return storeJarvisResult(c,conversationId,turnId,raw,intent,result,startedAt)}
   const preferredOwner=commercialModuleId(options.preferred_module);if(COMPOSITION.profile(c)&&preferredOwner)COMPOSITION.assertModule(c,platformPrincipal(),preferredOwner);
   if(!detectRequestedActions(effective).length&&require('./zero/cross-module').mentionedModules(effective).length>1){
-    const cross=await require('./zero/cross-module').crossModule({ctx:c,actor:platformPrincipal(),query:effective,conversation_id:conversationId,preferences:jarvisPreferences(c),agents:ZERO_AGENTS,router:ZERO_ROUTER});
+    const cross=await require('./zero/cross-module').crossModule({ctx:c,actor:platformPrincipal(),query:effective,conversation_id:conversationId,preferences:jarvisPreferences(c),agents:ZERO_AGENTS,router:ZERO_ROUTER,historyProvider:()=>safeJarvisConversation(c,conversationId)});
     if(cross){cross.risk=risk;return storeJarvisResult(c,conversationId,turnId,raw,intent,cross,startedAt);}
   }
   const domainResult=domainIntelligenceResult(effective,c,options.preferred_module);if(domainResult){domainResult.risk=risk;domainResult.ui_commands=deriveUiCommands(effective,domainResult);return storeJarvisResult(c,conversationId,turnId,raw,intent,domainResult,startedAt)}

@@ -5,6 +5,7 @@ const original=globalThis.fetch;
 globalThis.fetch=async(url,options={})=>{
   if(String(url)==='https://api.openai.com/v1/responses'){
     const payload=JSON.parse(options.body),input=String(payload.input);
+    if(process.env.ZERO_EVALUATION_PROVIDER_CAPTURE)fs.writeFileSync(process.env.ZERO_EVALUATION_PROVIDER_CAPTURE,JSON.stringify(payload));
     const barrier=process.env.ZERO_EVALUATION_PROVIDER_BARRIER;
     if(barrier&&input.includes('PAUSE_FOR_REVOCATION')){
       fs.writeFileSync(barrier+'.started','started');

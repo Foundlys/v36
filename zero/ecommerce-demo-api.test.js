@@ -16,8 +16,8 @@ test('actual E-commerce pack seeds native commerce through lost HTTP acknowledge
     const route='/api/demo-universe/runs/'+row.id,advance=cursor=>({expected_cursor:cursor,expected_profile_revision:1,limit:100,confirm:true,reason:'Explicit isolated native continuation'});
     await assert.rejects(call(route+'/advance','POST',advance(0),{'x-demo-drop-reply':'isolated-demo-fixture'}));
     await s.stop();await s.start();member.cookie=await s.login(member);
-    row=(await call(route)).body.universe;assert.equal(row.applied_nodes,100);assert.equal((await call(route+'/advance','POST',advance(0))).status,409);
-    while(row.status!=='SEEDED'){const next=await call(route+'/advance','POST',advance(row.applied_nodes));assert.equal(next.status,200,JSON.stringify(next.body));row=next.body.universe;}
+    row=(await call(route)).body.universe;assert.ok(row.applied_nodes>0&&row.applied_nodes<=100,'Recover the actual acknowledged prefix, not the requested upper limit');assert.equal((await call(route+'/advance','POST',advance(0))).status,409);
+    while(row.status!=='SEEDED'){const before=row.applied_nodes,next=await call(route+'/advance','POST',advance(before));assert.equal(next.status,200,JSON.stringify(next.body));row=next.body.universe;assert.equal(row.applied_nodes-before,row.batch.applied_nodes);assert.ok(row.batch.applied_nodes>0&&row.batch.applied_nodes<=100);assert.equal(row.batch.work_budget_ms,1000);}
     assert.equal(row.full_acceptance,false);assert.equal(row.total_nodes,239);
     const products=(await call('/api/sales/commerce/commerce_products?limit=100')).body,orders=(await call('/api/sales/commerce/commerce_orders?limit=100')).body;
     assert.equal(products.total,12);assert.equal(orders.total,12);assert.ok(products.items.every(r=>r.provenance.classification==='SYNTHETIC_DEMO'));assert.ok(orders.items.every(r=>r.financial_status==='UNPOSTED'));

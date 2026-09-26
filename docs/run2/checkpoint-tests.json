@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-26T22:31:14.047896+00:00",
+  "recorded_at": "2026-09-26T23:14:44.519154+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -38854,7 +38854,32 @@
         "gzip_sha256": "707f012e40c3bd9257626f8db4be85e4d1adb9d57e47a0aa6bd09d36cf91d4ad"
       }
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_id": 36276681836,
+      "run_number": 270,
+      "status": "FAIL",
+      "conclusion": "failure",
+      "head_sha": "0462dbd3903a6be13be9a30cb229db7633421239",
+      "created_at": "2026-09-26T22:33:49Z",
+      "run_started_at": "2026-09-26T22:33:49Z",
+      "updated_at": "2026-09-26T22:49:09Z",
+      "job_id": 108500678075,
+      "tested_merge_commit": "2b9409ae705d3bd5715d43aeb2854c7b4ae81bb3",
+      "tree": "2479151103ea7bd98c42933cb0fc65e197186635",
+      "tree_identity_verified": true,
+      "zero_pass": 1839,
+      "zero_fail": 1,
+      "corpus_not_run": true,
+      "failure": "E-commerce encrypted HTTP seed/billing fixture: request timeout",
+      "local_same_runtime_source_pass": "d5244c40d3a1b7e93b071b7d81d5eaa324b610a3",
+      "log": {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/ci270-job-108500678075.log.gz",
+        "raw_bytes": 865325,
+        "raw_sha256": "9fec9b1062a67dec9ee0401fd15013d8fcbe7caa693c4a27bf8278c08a432cdd",
+        "gzip_sha256": "3b179d6c110afde1de7fc3e232ff69e568cbfef7c44f8cd40177581ad1985708"
+      },
+      "cause_and_response": "One encrypted HTTP E-commerce seed/billing request timed out in the full suite. No timeout was increased. The new source yields at real cursor boundaries and commits native batches with an encrypted atomic snapshot; current authority, receipts, rollback, warmed facts and postcommit notifications are tested. New own full CI is still required."
+    },
     "finished_demos": [],
     "complete_demo_acceptance": false,
     "new_features": [
@@ -38879,5 +38904,726 @@
       "Validated fresh valuation/revenue scenarios, desktop download/start, reachable HTTPS and physical iPhone/Android install"
     ],
     "limits": "1840 deterministic/native tests do not prove empathy, social intelligence, natural language quality, voice or finished demo acceptance. Full 3575-node fixture used memory; bounded actual HTTP fixture has 239 nodes. All default orders remain UNPOSTED until an explicit native billing action. Synthetic prices/history are not public observations."
+  },
+  "zero_social_native_batches_20260927": {
+    "recorded_at": "2026-09-26T23:14:44.519154+00:00",
+    "status": "BOUNDED_LOCAL_CHECKPOINT_PASS_OWN_CI_AND_COMPLETE_DEMOS_OPEN",
+    "source_commit": "d49a579e9a9694a5cfb776fc18ad8d47d4f67720",
+    "source_tree": "783a2e61f5cf9245fdd9a856c6976e5c3b361314",
+    "zero_tests": {
+      "pass": 1854,
+      "fail": 0
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 11,
+    "frozen_proof": {
+      "source": {
+        "commit": "d49a579e9a9694a5cfb776fc18ad8d47d4f67720",
+        "tree": "783a2e61f5cf9245fdd9a856c6976e5c3b361314",
+        "status_before": "",
+        "status_after": "",
+        "commit_after": "d49a579e9a9694a5cfb776fc18ad8d47d4f67720",
+        "tree_after": "783a2e61f5cf9245fdd9a856c6976e5c3b361314"
+      },
+      "results": [
+        {
+          "name": "jarvis-production-regression-test.js",
+          "command": [
+            "node",
+            "jarvis-production-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:32.483326+00:00",
+          "finished_at": "2026-09-26T23:05:33.799901+00:00",
+          "elapsed_seconds": 1.317,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-jarvis-production-regression-test.js.log",
+          "sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+          "bytes": 813
+        },
+        {
+          "name": "jarvis-client-regression-test.js",
+          "command": [
+            "node",
+            "jarvis-client-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:33.800379+00:00",
+          "finished_at": "2026-09-26T23:05:33.883341+00:00",
+          "elapsed_seconds": 0.083,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-jarvis-client-regression-test.js.log",
+          "sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+          "bytes": 458
+        },
+        {
+          "name": "speech-audio-visual-regression-test.js",
+          "command": [
+            "node",
+            "speech-audio-visual-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:33.883739+00:00",
+          "finished_at": "2026-09-26T23:05:34.031876+00:00",
+          "elapsed_seconds": 0.148,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-speech-audio-visual-regression-test.js.log",
+          "sha256": "1964c11023e5cf3792c3b3a33d42552b3d8569d38a8b1d9f6e4c70f03300e67b",
+          "bytes": 471
+        },
+        {
+          "name": "production-security-test.js",
+          "command": [
+            "node",
+            "production-security-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:34.032308+00:00",
+          "finished_at": "2026-09-26T23:05:34.429615+00:00",
+          "elapsed_seconds": 0.397,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-production-security-test.js.log",
+          "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+          "bytes": 309
+        },
+        {
+          "name": "zero-crm-retention-test.js",
+          "command": [
+            "node",
+            "zero-crm-retention-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:34.430023+00:00",
+          "finished_at": "2026-09-26T23:05:34.488516+00:00",
+          "elapsed_seconds": 0.059,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-zero-crm-retention-test.js.log",
+          "sha256": "db0f30133df43131b1d9ea993e0cd5e558cc0ae99341d6d23ad82813060e8a1b",
+          "bytes": 186
+        },
+        {
+          "name": "crm-zero-replay-api-test.js",
+          "command": [
+            "node",
+            "crm-zero-replay-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:34.489038+00:00",
+          "finished_at": "2026-09-26T23:05:36.719436+00:00",
+          "elapsed_seconds": 2.23,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-crm-zero-replay-api-test.js.log",
+          "sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+          "bytes": 205
+        },
+        {
+          "name": "domain-zero-replay-api-test.js",
+          "command": [
+            "node",
+            "domain-zero-replay-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:36.719809+00:00",
+          "finished_at": "2026-09-26T23:05:40.084829+00:00",
+          "elapsed_seconds": 3.365,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-domain-zero-replay-api-test.js.log",
+          "sha256": "ad1093d4c71e27227e36bfe99f09d1c0939aa11362becae49e92394d40acf0b3",
+          "bytes": 239
+        },
+        {
+          "name": "platform-core-regression-test.js",
+          "command": [
+            "node",
+            "platform-core-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:40.085260+00:00",
+          "finished_at": "2026-09-26T23:05:40.197070+00:00",
+          "elapsed_seconds": 0.112,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-platform-core-regression-test.js.log",
+          "sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+          "bytes": 1118
+        },
+        {
+          "name": "workflow-execution-test.js",
+          "command": [
+            "node",
+            "workflow-execution-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:40.197579+00:00",
+          "finished_at": "2026-09-26T23:05:40.319282+00:00",
+          "elapsed_seconds": 0.122,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-workflow-execution-test.js.log",
+          "sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb",
+          "bytes": 899
+        },
+        {
+          "name": "composition-api-test.js",
+          "command": [
+            "node",
+            "composition-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:40.319686+00:00",
+          "finished_at": "2026-09-26T23:05:42.560778+00:00",
+          "elapsed_seconds": 2.241,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-composition-api-test.js.log",
+          "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+          "bytes": 110
+        },
+        {
+          "name": "module-access-contracts-test.js",
+          "command": [
+            "node",
+            "module-access-contracts-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:42.561298+00:00",
+          "finished_at": "2026-09-26T23:05:42.786238+00:00",
+          "elapsed_seconds": 0.225,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-module-access-contracts-test.js.log",
+          "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+          "bytes": 332
+        },
+        {
+          "name": "zero",
+          "command": [
+            "node",
+            "--test",
+            "--test-concurrency=2",
+            "zero/*.test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:05:42.786688+00:00",
+          "finished_at": "2026-09-26T23:13:34.985738+00:00",
+          "elapsed_seconds": 472.199,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-zero.log",
+          "sha256": "29a3d10af9c650a9c924fab6cf1b5d12fa1f72fe35cf98469433479749ae8478",
+          "bytes": 223086
+        },
+        {
+          "name": "corpus",
+          "command": [
+            "node",
+            "zero-evaluation/run.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:13:34.986567+00:00",
+          "finished_at": "2026-09-26T23:13:37.804919+00:00",
+          "elapsed_seconds": 2.818,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-native-batch-frozen-corpus.log",
+          "sha256": "3c919922247600bcd486add3d16c1bd12f1c406f574550c20874b000adfbd5c6",
+          "bytes": 1066
+        }
+      ],
+      "all_pass": true
+    },
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/ci270-job-108500678075.log.gz",
+        "raw_bytes": 865325,
+        "raw_sha256": "9fec9b1062a67dec9ee0401fd15013d8fcbe7caa693c4a27bf8278c08a432cdd",
+        "gzip_sha256": "3b179d6c110afde1de7fc3e232ff69e568cbfef7c44f8cd40177581ad1985708"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/ci270-result.json.gz",
+        "raw_bytes": 691,
+        "raw_sha256": "1f85d3f4420eddae7c81be7ba8d34ebd0cee0a2bfcedccffd11125fc4951cf73",
+        "gzip_sha256": "ba697347000c8a48eedc0e60d0ca60ab6f981b27b06aae8fe6d77a46dba6e865"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-atomic-batch-targeted.log.gz",
+        "raw_bytes": 1385,
+        "raw_sha256": "29cdc085ce552c561ba8dcc3d3097b6dd679cc7f02e15277c44ad4c1b95f3664",
+        "gzip_sha256": "c7bea9e2c34963ad24aeddb5a98ea954201537c66abdf3b85c045c4ff8b4a548"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-atomic-boundary-final.log.gz",
+        "raw_bytes": 367,
+        "raw_sha256": "e16d677f8b431f324ada21a268aa07ecac5b5ff7d7ec89f46a6f5e6e229cc460",
+        "gzip_sha256": "0700d172c02c3023ac5157970690b81fc616729b306da94d8fbdac3e9d403c56"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-atomic-publication-final.log.gz",
+        "raw_bytes": 518,
+        "raw_sha256": "3237fb36223b54b4d3ea3a68b526e70acb73a054aea5ada6d49ea8d45b3f829e",
+        "gzip_sha256": "e48a0c5714ad55011645e653467d2e9c1b980bb294cab33759d9478b9d88f36e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-atomic-publication-targeted.log.gz",
+        "raw_bytes": 518,
+        "raw_sha256": "cd97dc0477e6b0cef19d32f6959ef44c3d7cd8c921bc668917a4c13808b79cbe",
+        "gzip_sha256": "412f148dfada78dcd134abc59098514290171de18961230b2cb47a3d04b6759b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-corpus.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "3c919922247600bcd486add3d16c1bd12f1c406f574550c20874b000adfbd5c6",
+        "gzip_sha256": "d8c3ac250109c5e86fabc2279832044716f2d3cbebbe0a33784440ec820a5e33"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-crm-zero-replay-api-test.js.log.gz",
+        "raw_bytes": 205,
+        "raw_sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+        "gzip_sha256": "0041b75b15077c2942d66c2d8df089e9c38c32949bb802bcdd73cdf1485a5cd2"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-domain-zero-replay-api-test.js.log.gz",
+        "raw_bytes": 239,
+        "raw_sha256": "ad1093d4c71e27227e36bfe99f09d1c0939aa11362becae49e92394d40acf0b3",
+        "gzip_sha256": "3ff16812888a4643d08461f2bc8f0691d0b6284026ee288819b0c36c9ddb4797"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-jarvis-client-regression-test.js.log.gz",
+        "raw_bytes": 458,
+        "raw_sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+        "gzip_sha256": "2f4e06fbc235f38262ecd4833e0250889b93997928c3fbd21b1b5c45f3c7b42b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-jarvis-production-regression-test.js.log.gz",
+        "raw_bytes": 813,
+        "raw_sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+        "gzip_sha256": "8a4dafa497ff6aa0344c3c8cabd70cf8e1bff8fcbdf3427bfb4da195bb7bed5b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-platform-core-regression-test.js.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "gzip_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-production-security-test.js.log.gz",
+        "raw_bytes": 0,
+        "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-results.json.gz",
+        "raw_bytes": 7269,
+        "raw_sha256": "5c810c6036dd0c6a3a41bf0a409d810850d9f9a332f520d1430a62600196c070",
+        "gzip_sha256": "8f91cfd1a03af99c06e2a5703837d0f19eff7e51b894d0a4f2145ce3f3f27d17"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-speech-audio-visual-regression-test.js.log.gz",
+        "raw_bytes": 471,
+        "raw_sha256": "1964c11023e5cf3792c3b3a33d42552b3d8569d38a8b1d9f6e4c70f03300e67b",
+        "gzip_sha256": "1bf33089138338a23b14b2c532e6fd44ce5061cbe694d62f523066dc1579f895"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-workflow-execution-test.js.log.gz",
+        "raw_bytes": 899,
+        "raw_sha256": "b8ed721e1210f8aeafc2083bf89a78cf010e5e4693ba5257327607a928b61ebb",
+        "gzip_sha256": "33e14fa898ade7b97dc509d858bdd1047d2489cfa9e86bf59ea5bfe3829e8f06"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-zero-crm-retention-test.js.log.gz",
+        "raw_bytes": 186,
+        "raw_sha256": "db0f30133df43131b1d9ea993e0cd5e558cc0ae99341d6d23ad82813060e8a1b",
+        "gzip_sha256": "61fc21bbe0b81904a77791aa6293b9f032da5539a245658df232134d30aa8628"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-native-batch-frozen-zero.log.gz",
+        "raw_bytes": 223086,
+        "raw_sha256": "29a3d10af9c650a9c924fab6cf1b5d12fa1f72fe35cf98469433479749ae8478",
+        "gzip_sha256": "ab87c641b237b53963dcb62e74016164df0ea21a2a880b308cc99d56061c66a3"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/demo-pacing-targeted.log.gz",
+        "raw_bytes": 982,
+        "raw_sha256": "fba57001bbb6df886c76906dbc6b44a20cb2c46b35b3a1a1f7340f0212ec23d5",
+        "gzip_sha256": "71237f5160181c1d85cfd55c886736786bf386cb2532b877c81b6b88324b44d4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/ecommerce-encrypted-atomic-checkpoint-summary.json.gz",
+        "raw_bytes": 616,
+        "raw_sha256": "23416253313d3e0eb63d14af8585f33bf32c835a95bdf258948e2027876fef8f",
+        "gzip_sha256": "439ab520c1dc4aa7e6cf2fa4d94311938b7ee3524c574517dd6242b99ace5d2e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/ecommerce-encrypted-baseline-checkpoint-summary.json.gz",
+        "raw_bytes": 619,
+        "raw_sha256": "78ec5c32027bb0c1507c9bad75d0d60ef51b3fd37ac8e8fd829bf57045e25191",
+        "gzip_sha256": "7c14f7db3dd3a7a66b34542c916e6e6752a9c9c5b44a1f84edc8da1c25bba1a6"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-context-initial.log.gz",
+        "raw_bytes": 1375,
+        "raw_sha256": "fd478338c45076f6e037990e5ef7d222031d3064add3151e7153fb85143f2a6b",
+        "gzip_sha256": "8123b5bd70fc289ee4ba1b7ec54a0419ef7c0a316a4c86a1bf98c70921037373"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-context-routing.log.gz",
+        "raw_bytes": 1800,
+        "raw_sha256": "aedea4f703ba21650fc302c3fbb103620395aca632aeff1386ddd8778c6c8188",
+        "gzip_sha256": "0e9a05c636296817325fdd76ec40838269cb796223584e70abbbc2572acc14d1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-corpus.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "f4a97df2be9af009d9447a6b24b780a968d69bc26398e04ae91198d09200ff03",
+        "gzip_sha256": "b46f46e184f5dd26d14a1bb5248338c4b16a5a9273a15204a7efd77b6f16cfb5"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-crm-zero-replay-api-test.js.log.gz",
+        "raw_bytes": 205,
+        "raw_sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+        "gzip_sha256": "0041b75b15077c2942d66c2d8df089e9c38c32949bb802bcdd73cdf1485a5cd2"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-domain-zero-replay-api-test.js.log.gz",
+        "raw_bytes": 239,
+        "raw_sha256": "ad1093d4c71e27227e36bfe99f09d1c0939aa11362becae49e92394d40acf0b3",
+        "gzip_sha256": "3ff16812888a4643d08461f2bc8f0691d0b6284026ee288819b0c36c9ddb4797"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-jarvis-client-regression-test.js.log.gz",
+        "raw_bytes": 458,
+        "raw_sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+        "gzip_sha256": "2f4e06fbc235f38262ecd4833e0250889b93997928c3fbd21b1b5c45f3c7b42b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-jarvis-production-regression-test.js.log.gz",
+        "raw_bytes": 813,
+        "raw_sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+        "gzip_sha256": "8a4dafa497ff6aa0344c3c8cabd70cf8e1bff8fcbdf3427bfb4da195bb7bed5b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-production-security-test.js.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "gzip_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-results.json.gz",
+        "raw_bytes": 5086,
+        "raw_sha256": "36c79388628d9a4412b38cf56c828bf1b2ca7b102484621fdca0909e38f1fd4c",
+        "gzip_sha256": "54bf8561eaaa978c57f7a8764386d149af949746192bdb59f4a5120065b6bb19"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-speech-audio-visual-regression-test.js.log.gz",
+        "raw_bytes": 471,
+        "raw_sha256": "1964c11023e5cf3792c3b3a33d42552b3d8569d38a8b1d9f6e4c70f03300e67b",
+        "gzip_sha256": "1bf33089138338a23b14b2c532e6fd44ce5061cbe694d62f523066dc1579f895"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-zero-crm-retention-test.js.log.gz",
+        "raw_bytes": 186,
+        "raw_sha256": "db0f30133df43131b1d9ea993e0cd5e558cc0ae99341d6d23ad82813060e8a1b",
+        "gzip_sha256": "61fc21bbe0b81904a77791aa6293b9f032da5539a245658df232134d30aa8628"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-frozen-zero.log.gz",
+        "raw_bytes": 222395,
+        "raw_sha256": "99f2b86d0e6787b0d6e847b0126eb12c0a75bc7d696834f8ce3ff178294a0352",
+        "gzip_sha256": "d0a05baa7ec0ea77b1641dc924075d5c693a2f2008d6b94ec34ef522cf519a20"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-automotive-corrected.json.gz",
+        "raw_bytes": 211852,
+        "raw_sha256": "c7f9c0e3a5716182fb51084fb9387883aa33f1069837f2819a7c1fbafececb27",
+        "gzip_sha256": "d416c447b64c3ee2af4dd9812ac72d77c230c4ef9d3c51d3f58a870c14d7b39c"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-automotive-corrected.log.gz",
+        "raw_bytes": 217,
+        "raw_sha256": "a84aa198c6949c15cecb4388aaaa6b3099ea14d1df8ba1f23433ca4a867e28e4",
+        "gzip_sha256": "c5fe977e446ea1e9b76723bc98623e94352464c5fef58972a617a79d53dd65c6"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-automotive-initial.json.gz",
+        "raw_bytes": 197439,
+        "raw_sha256": "73f7ead77a35de728f658fc2be5452230a8b405392fecd65ba5e2c92f676b910",
+        "gzip_sha256": "21201a663810cc7550319dd77fefcf3ea359a83f62228fbedf33f236ba0fc0bd"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-automotive-initial.log.gz",
+        "raw_bytes": 215,
+        "raw_sha256": "7bfd11be89db09dd88e6a7a69ed8c097d8755406437e2d914bad8330e03af291",
+        "gzip_sha256": "d5c62b5cdca84f82eba7e6fe79085e7aad3ab7b4de29d05b236936c4a2cd2209"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-ecommerce-frozen.json.gz",
+        "raw_bytes": 211557,
+        "raw_sha256": "9305165956a284f3fe6997e268b7c9ea79a401180ed7b54fd918a9aa02bde2d3",
+        "gzip_sha256": "275706878d557e85995757de5c5ebbbfb0b7fcbc54c0746ab3753c24f41d069e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-ecommerce-frozen.log.gz",
+        "raw_bytes": 212,
+        "raw_sha256": "5535c03ce796ec5bbe17af421da65aaa623921f5b76594d3cde9b28b06d3a54e",
+        "gzip_sha256": "fb1737e26e46e0cdc1b4c410ce26e998c0bc9eb24fb86b9528423b2ab6a6984c"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-ecommerce.json.gz",
+        "raw_bytes": 39361,
+        "raw_sha256": "1060d9afc7b7eda97ebbcdb83bfce829aca7f0f72e335c3600063de16edb0bed",
+        "gzip_sha256": "df39b41851c49a4a1b7764f7704dfd5039f910e446526811c237104a14b8770c"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/zero-social-rehearsal-ecommerce.log.gz",
+        "raw_bytes": 204,
+        "raw_sha256": "d85f34ab9d18fb6a4991eadb08fec6549f4b2c21e5088a7d6cf93ad810edafdd",
+        "gzip_sha256": "f15a27e8d5a2e780171ec7c6191624027fb460f24af8c8b2fc203ce804d2adce"
+      }
+    ],
+    "latest_complete_passing_ci": {
+      "status": "PASS",
+      "run_number": 269,
+      "run_id": 36274527673,
+      "job_id": 108494575705,
+      "published_commit": "64a304c4df960ae06b3b8a7b0e7c190c4c1e8d19",
+      "tested_merge_commit": "e0f4355a0c9e1167e2ad4f452033feb9ba1192ad",
+      "tree": "1ac2452627a02b09f731ed98fbbe1600b262f45f",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T21:54:47Z",
+      "completed_at": "2026-09-26T22:10:47Z",
+      "workflow_elapsed_seconds": 960,
+      "zero_pass": 1833,
+      "corpus_pass": 14,
+      "log": {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ci269-job-108494575705.log.gz",
+        "raw_bytes": 865514,
+        "raw_sha256": "3eea3a414861fb421134492995bc1e0bf15ba72b3f6911b54545e7b88ee58553",
+        "gzip_sha256": "707f012e40c3bd9257626f8db4be85e4d1adb9d57e47a0aa6bd09d36cf91d4ad"
+      }
+    },
+    "preceding_published_ci_failure": {
+      "run_id": 36276681836,
+      "run_number": 270,
+      "status": "FAIL",
+      "conclusion": "failure",
+      "head_sha": "0462dbd3903a6be13be9a30cb229db7633421239",
+      "created_at": "2026-09-26T22:33:49Z",
+      "run_started_at": "2026-09-26T22:33:49Z",
+      "updated_at": "2026-09-26T22:49:09Z",
+      "job_id": 108500678075,
+      "tested_merge_commit": "2b9409ae705d3bd5715d43aeb2854c7b4ae81bb3",
+      "tree": "2479151103ea7bd98c42933cb0fc65e197186635",
+      "tree_identity_verified": true,
+      "zero_pass": 1839,
+      "zero_fail": 1,
+      "corpus_not_run": true,
+      "failure": "E-commerce encrypted HTTP seed/billing fixture: request timeout",
+      "local_same_runtime_source_pass": "d5244c40d3a1b7e93b071b7d81d5eaa324b610a3",
+      "log": {
+        "file": "docs/run2/evidence/20260927-zero-social-native-batches/ci270-job-108500678075.log.gz",
+        "raw_bytes": 865325,
+        "raw_sha256": "9fec9b1062a67dec9ee0401fd15013d8fcbe7caa693c4a27bf8278c08a432cdd",
+        "gzip_sha256": "3b179d6c110afde1de7fc3e232ff69e568cbfef7c44f8cd40177581ad1985708"
+      },
+      "cause_and_response": "One encrypted HTTP E-commerce seed/billing request timed out in the full suite. No timeout was increased. The new source yields at real cursor boundaries and commits native batches with an encrypted atomic snapshot; current authority, receipts, rollback, warmed facts and postcommit notifications are tested. New own full CI is still required."
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "finished_demos": [],
+    "complete_demo_acceptance": false,
+    "social_quality_acceptance": "UNVERIFIED_REQUIRES_INDEPENDENT_MODEL_REVIEW",
+    "voice_quality_acceptance": "UNVERIFIED_REQUIRES_LISTENING",
+    "new_features": [
+      "Owned retained-safe cross-module conversation history with byte bounds, corrections and before/after source/history/authority rechecks",
+      "Specific shared social guidance: proportionate empathy, useful next step, tone, corrections, honest confidence and only welcome low-stakes humor; voice remains bound to spoken_text",
+      "Fourteen three-turn Dutch assessment scenarios across all nine modules with a rubric and actual HTTP trace collector; seven other locale corpora/review remain open",
+      "Dutch clock/weather shortcut correction closes six observed misroutes in the first 42-turn rehearsal",
+      "Monotonic seed work budget and actual cursor progress; one synchronous encrypted atomic batch with rollback of maps, dirty state and derived cache",
+      "Native notification outbox deferred until persistence, with actual SSE proof that a failed candidate is not released"
+    ],
+    "measurements": [
+      {
+        "name": "baseline",
+        "source": {
+          "commit": "4c29ed80d57e9968439f024b85341a56c543f0d5",
+          "tree": "d6d2003081431e9f09b5199442bb452b7199760f",
+          "worktree_status": "",
+          "uncommitted_code_sha256": {}
+        },
+        "recorded_at": "2026-09-26T23:14:44.519154+00:00",
+        "complete": false,
+        "seed_state": "RUNNING",
+        "total_nodes": 3575,
+        "applied_nodes": 1910,
+        "batch_count": 809,
+        "batch_elapsed_ms": 1191029,
+        "seed_elapsed_ms": null,
+        "collection_error": null,
+        "quality_status": "UNVERIFIED_REQUIRES_INDEPENDENT_REVIEW",
+        "voice_status": "UNVERIFIED_NO_AUDIO",
+        "other_local_work_may_overlap": true
+      },
+      {
+        "name": "atomic",
+        "source": {
+          "commit": "d49a579e9a9694a5cfb776fc18ad8d47d4f67720",
+          "tree": "783a2e61f5cf9245fdd9a856c6976e5c3b361314",
+          "worktree_status": "",
+          "uncommitted_code_sha256": {}
+        },
+        "recorded_at": "2026-09-26T23:14:44.519154+00:00",
+        "complete": false,
+        "seed_state": "RUNNING",
+        "total_nodes": 3575,
+        "applied_nodes": 2540,
+        "batch_count": 336,
+        "batch_elapsed_ms": 521208,
+        "seed_elapsed_ms": null,
+        "collection_error": null,
+        "quality_status": "UNVERIFIED_REQUIRES_INDEPENDENT_REVIEW",
+        "voice_status": "UNVERIFIED_NO_AUDIO",
+        "other_local_work_may_overlap": true
+      }
+    ],
+    "prior_social_runtime_proof": {
+      "source": {
+        "commit": "7a1e4239ea3c4dec19ef45b6d55f7e555ae1ab38",
+        "tree": "e32ace7c6aa8e6cf18b6d3489a41604cff4d2403",
+        "status_before": "",
+        "status_after": "",
+        "commit_after": "7a1e4239ea3c4dec19ef45b6d55f7e555ae1ab38",
+        "tree_after": "e32ace7c6aa8e6cf18b6d3489a41604cff4d2403"
+      },
+      "results": [
+        {
+          "name": "jarvis-production-regression-test.js",
+          "command": [
+            "node",
+            "jarvis-production-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:48.709020+00:00",
+          "finished_at": "2026-09-26T22:46:50.028450+00:00",
+          "elapsed_seconds": 1.319,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-jarvis-production-regression-test.js.log",
+          "sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+          "bytes": 813
+        },
+        {
+          "name": "jarvis-client-regression-test.js",
+          "command": [
+            "node",
+            "jarvis-client-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:50.028875+00:00",
+          "finished_at": "2026-09-26T22:46:50.108104+00:00",
+          "elapsed_seconds": 0.079,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-jarvis-client-regression-test.js.log",
+          "sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+          "bytes": 458
+        },
+        {
+          "name": "speech-audio-visual-regression-test.js",
+          "command": [
+            "node",
+            "speech-audio-visual-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:50.108473+00:00",
+          "finished_at": "2026-09-26T22:46:50.272644+00:00",
+          "elapsed_seconds": 0.164,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-speech-audio-visual-regression-test.js.log",
+          "sha256": "1964c11023e5cf3792c3b3a33d42552b3d8569d38a8b1d9f6e4c70f03300e67b",
+          "bytes": 471
+        },
+        {
+          "name": "production-security-test.js",
+          "command": [
+            "node",
+            "production-security-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:50.273063+00:00",
+          "finished_at": "2026-09-26T22:46:50.670845+00:00",
+          "elapsed_seconds": 0.398,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-production-security-test.js.log",
+          "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+          "bytes": 309
+        },
+        {
+          "name": "zero-crm-retention-test.js",
+          "command": [
+            "node",
+            "zero-crm-retention-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:50.671264+00:00",
+          "finished_at": "2026-09-26T22:46:50.723858+00:00",
+          "elapsed_seconds": 0.053,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-zero-crm-retention-test.js.log",
+          "sha256": "db0f30133df43131b1d9ea993e0cd5e558cc0ae99341d6d23ad82813060e8a1b",
+          "bytes": 186
+        },
+        {
+          "name": "crm-zero-replay-api-test.js",
+          "command": [
+            "node",
+            "crm-zero-replay-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:50.724644+00:00",
+          "finished_at": "2026-09-26T22:46:52.990428+00:00",
+          "elapsed_seconds": 2.266,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-crm-zero-replay-api-test.js.log",
+          "sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+          "bytes": 205
+        },
+        {
+          "name": "domain-zero-replay-api-test.js",
+          "command": [
+            "node",
+            "domain-zero-replay-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:52.990861+00:00",
+          "finished_at": "2026-09-26T22:46:56.295337+00:00",
+          "elapsed_seconds": 3.304,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-domain-zero-replay-api-test.js.log",
+          "sha256": "ad1093d4c71e27227e36bfe99f09d1c0939aa11362becae49e92394d40acf0b3",
+          "bytes": 239
+        },
+        {
+          "name": "zero",
+          "command": [
+            "node",
+            "--test",
+            "--test-concurrency=2",
+            "zero/*.test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:46:56.295728+00:00",
+          "finished_at": "2026-09-26T22:54:24.126037+00:00",
+          "elapsed_seconds": 447.83,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-zero.log",
+          "sha256": "99f2b86d0e6787b0d6e847b0126eb12c0a75bc7d696834f8ce3ff178294a0352",
+          "bytes": 222395
+        },
+        {
+          "name": "corpus",
+          "command": [
+            "node",
+            "zero-evaluation/run.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:54:24.126814+00:00",
+          "finished_at": "2026-09-26T22:54:26.851850+00:00",
+          "elapsed_seconds": 2.725,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/zero-social-frozen-corpus.log",
+          "sha256": "f4a97df2be9af009d9447a6b24b780a968d69bc26398e04ae91198d09200ff03",
+          "bytes": 1066
+        }
+      ],
+      "all_pass": true
+    },
+    "remaining": [
+      "Independent natural language/social model review in actual seeded demos, multilingual follow-ups and meaningful action planning",
+      "Voice listening, microphone/interruptions and physical devices",
+      "Complete native module histories, financial corrections, localized commerce/Finance controls and full load measurements",
+      "Market/source freshness and valuation validation, desktop downloads and reachable HTTPS installable delivery"
+    ],
+    "limits": "No global percentage, no social quality inference from deterministic test counts, no finished demo. Default conversation collection has no live model. Local diagnostic timings may overlap other work. The full passing CI 269 belongs to an older tree; CI 270 failed and is retained rather than replaced by local results."
   }
 }

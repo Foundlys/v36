@@ -1,6 +1,7 @@
 'use strict';
 const L=require('./demo-universe-law'),Automotive=require('./automotive-demo-universe'),{scopedMutation}=require('./scoped-mutation'),{canManage}=require('./capability-resolver'),{ENTITY_CAPABILITIES}=require('./module-access-contracts');
 const SCOPE='demo:universes',AUDIT='demo:universe-audit',MANIFESTS='demo:manifests';
+const ADVANCE_WORK_BUDGET_MS=1000;
 const clone=value=>JSON.parse(JSON.stringify(value)),fail=(code,statusCode=422)=>{throw Object.assign(Error(code),{code,statusCode});};
 const keys=(v,names)=>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).some(k=>!names.includes(k)))fail('demo_request_invalid');};
 function hasBusinessData(ctx,stores){
@@ -13,7 +14,7 @@ function hasBusinessData(ctx,stores){
   return false;
 }
 class DemoUniverseEngine{
-  constructor({adapter,resolver,crm,domains,identities,memory,build=null}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,build});this.cache=new Map();}
+  constructor({adapter,resolver,crm,domains,identities,memory,build=null,clock=()=>performance.now()}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,build,clock});this.cache=new Map();}
   authorize(ctx,actor){
     if(!ctx||!actor?.id||!canManage(actor))fail('demo_manage_forbidden',403);
     // This flag selects an explicitly isolated synthetic tenant. It conveys no
@@ -79,6 +80,13 @@ class DemoUniverseEngine{
     fail('demo_contract_unavailable');
   }
   advance(ctx,actor,id,input){
+    this.authorize(ctx,actor);
+    if(typeof this.adapter.atomicMutation!=='function')return this.advanceChunk(ctx,actor,id,input);
+    const started=this.clock(),result=this.adapter.atomicMutation(ctx,actor,()=>this.advanceChunk(ctx,actor,id,input));
+    result.batch.elapsed_ms=Math.round(this.clock()-started);result.batch.atomic_durable_commit=true;return result;
+  }
+  advanceChunk(ctx,actor,id,input){
+    const started=this.clock();
     keys(input,['expected_cursor','expected_profile_revision','limit','confirm','reason']);let row=this.owned(ctx,actor,id);const profile=this.authorize(ctx,actor),m=this.reservedManifest(ctx,row);
     if(input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>1000||!Number.isSafeInteger(input.limit)||input.limit<1||input.limit>100)fail('demo_confirmation_required');
     if(input.expected_cursor!==row.cursor||input.expected_profile_revision!==profile.revision||profile.industry_id!==m.industry_id||m.fingerprint!==row.plan_fingerprint)fail('demo_plan_changed',409);
@@ -102,6 +110,11 @@ class DemoUniverseEngine{
         const binding={id:record.id,revision:record.revision,record_hash:L.hash(record),module:node.module,entity:node.entity,input_hash:L.hash(nativeInput)};
         bindings[node.id]=binding;cursor++;applied.push({node_id:node.id,native_id:record.id,native_revision:record.revision});
         if(node.contract==='commerce.action')checkpoint();
+        // limit is an upper bound, not a promised batch length. Finish one
+        // native command, retain its actual cursor, then yield so slower disks
+        // and busy hosts do not turn a large batch into a long blocked request.
+        // A single command/persist is never interrupted or reported half done.
+        if(this.clock()-started>=ADVANCE_WORK_BUDGET_MS)break;
       }catch(error){
         // A native effect may already be durable when receipt persistence fails.
         // The next explicit attempt uses exactly the same native request key.
@@ -110,7 +123,7 @@ class DemoUniverseEngine{
       }
     }
     checkpoint();
-    return this.get(ctx,actor,id);
+    return {...this.get(ctx,actor,id),batch:{applied_nodes:cursor-input.expected_cursor,requested_limit:input.limit,work_budget_ms:ADVANCE_WORK_BUDGET_MS,elapsed_ms:Math.round(this.clock()-started),yield_reason:cursor===m.nodes.length?'COMPLETE':cursor<end?'WORK_BUDGET':'LIMIT'}};
   }
 }
-module.exports={DemoUniverseEngine,SCOPE,AUDIT,MANIFESTS,hasBusinessData};
+module.exports={DemoUniverseEngine,SCOPE,AUDIT,MANIFESTS,hasBusinessData,ADVANCE_WORK_BUDGET_MS};

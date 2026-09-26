@@ -148,6 +148,7 @@ class FoundlyPlatformCore{
   }
   flushEventNotifications(context,principalInput){
     const {ctx,principal}=this.scope(context,principalInput);requirePermission(principal,'events:write');let attempted=0;
+    if(this.adapter.deferEventNotifications?.()===true)return {attempted:0,pending:this.bucket(ctx,'event_notifications').filter(row=>row.status==='PENDING').length,deferred_until_commit:true};
     for(const notification of this.bucket(ctx,'event_notifications').filter(row=>row.status==='PENDING').slice(0,50)){
       const event=this.bucket(ctx,'raw_events').find(row=>row.event_id===notification.event_id);if(!event)continue;
       notification.attempts++;attempted++;
