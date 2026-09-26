@@ -959,23 +959,7 @@
     }});card.append(zero);
   }
 
-  async function renderScheduling(content){
-    const form=node('form','domain-record-form'),notice=node('output'),results=node('div','scheduling-slots'),fields={};
-    for(const [name,label,value] of [['from','Vanaf (datum met UTC-offset)',''],['to','Tot (datum met UTC-offset)',''],['duration_minutes','Duur in minuten','30'],['title','Titel voor de afspraak','']]){
-      const holder=node('label','',label),input=node('input');input.name=name;input.required=true;input.value=value;if(name==='duration_minutes'){input.type='number';input.min='5';input.max='480';}if(['from','to'].includes(name))input.placeholder='2026-10-01T09:00:00+02:00';holder.append(input);form.append(holder);fields[name]=input;
-    }
-    const distribution=node('select'),label=node('label','','Verdeling');for(const [value,title] of [['AVAILABILITY','Eerst beschikbaar'],['ROUND_ROBIN','Minste afspraken in deze periode']]){const option=node('option','',title);option.value=value;distribution.append(option);}label.append(distribution);form.append(label);
-    const search=node('button','primary-button','Zoek beschikbare tijdsloten');search.type='submit';notice.setAttribute('aria-live','polite');form.append(search,notice);
-    form.addEventListener('submit',async event=>{event.preventDefault();search.disabled=true;replaceChildren(results,[]);try{
-      const query=new URLSearchParams({from:fields.from.value,to:fields.to.value,duration_minutes:fields.duration_minutes.value,distribution:distribution.value});
-      const slots=await request(`/api/calendar/scheduling/slots?${query}`);if(slots.truncated||slots.items.length>50)writeText(notice,live(()=>i18n().t(slots.total===null?'calendar.scheduling.partial':'calendar.scheduling.limited_known',{count:i18n().number(Math.min(slots.items.length,50)),total:slots.total===null?'':i18n().number(slots.total)})));else notice.textContent=slots.items.length?`${slots.items.length} beschikbare tijdsloten. Bevestig één tijdslot om te boeken.`:'Geen beschikbaarheid geregistreerd binnen deze periode.';
-      for(const slot of slots.items.slice(0,50)){
-        const card=node('article','context-item'),at=new Intl.DateTimeFormat((globalThis.FoundlyI18n?.locale||'nl-NL'),{timeZone:slot.timezone,dateStyle:'medium',timeStyle:'short'}).format(new Date(slot.start_at)),button=node('button','secondary-button',`Bevestig ${at}`);button.type='button';card.append(node('p','',`${at} · ${slot.timezone}`),button);
-        const key=crypto.randomUUID();button.addEventListener('click',async()=>{button.disabled=true;try{await request('/api/calendar/scheduling/book',{method:'POST',headers:{'idempotency-key':key},body:JSON.stringify({...slot,title:fields.title.value.trim(),confirm:true})});notice.textContent='Afspraak opgeslagen in de interne agenda.';replaceChildren(results,[]);}catch(error){notice.textContent=friendlyError(error);button.disabled=false;}});results.append(card);
-      }
-    }catch(error){notice.textContent=friendlyError(error);}finally{search.disabled=false;}});
-    replaceChildren(content,[node('p','panel-copy','Tijdsloten volgen de geregistreerde beschikbaarheid en afspraken. Externe agenda’s tellen alleen mee na een geverifieerde import.'),form,results]);
-  }
+  function renderScheduling(content){const epoch=accessGeneration,active=()=>state.activeSection==='SCHEDULING'&&state.workspaceId==='calendar'&&epoch===accessGeneration,view=window.FoundlyCalendarScheduling.create({document,request:(path,options,current=()=>true)=>request(path,options,()=>active()&&current()),isActive:active});state.creativeHistoryViews=[...(state.creativeHistoryViews||[]).filter(v=>v.isConnected),view];replaceChildren(content,[view]);}
 
   const forecastCopy=(key,params={})=>live(()=>i18n().t('sales.forecast.'+key,typeof params==='function'?params():params));
   const forecastMoney=(value,currency)=>i18n().currencyCents(value,currency),forecastDate=value=>i18n().date(value,{dateStyle:'medium'}),forecastProbability=value=>value===null?i18n().t('common.unknown'):i18n().number(value,{style:'percent',maximumFractionDigits:6});

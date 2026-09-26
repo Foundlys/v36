@@ -9,6 +9,7 @@ const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).di
 const {timestamp:instant}=require('./calendar-time');
 function calendarOperations(core){
   return {
+    catalog(ctx,actor){core.scope(ctx,actor);core.resolver.assertCapability(ctx,actor,'calendar:availability','read');let can_book=false;try{require('./calendar-booking-recovery').scope(core,ctx,actor);can_book=true;}catch(error){if(![401,403].includes(error.statusCode))throw error;}return {...core.list(ctx,actor,'calendars',{limit:100}),request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},can_book};},
     slots(ctx,actor,input={}){
       core.scope(ctx,actor);core.resolver.assertCapability(ctx,actor,'calendar:availability');
       const from=instant(input.from),to=instant(input.to),duration=Number(input.duration_minutes===undefined?30:input.duration_minutes),step=Number(input.step_minutes===undefined?15:input.step_minutes);
@@ -30,7 +31,7 @@ function calendarOperations(core){
           for(let at=starts;at+duration*60000<=ends;at+=step*60000){
             const end=at+duration*60000;
             if(busy.some(row=>Date.parse(row.start_at)<end&&at<Date.parse(row.end_at)))continue;
-            candidates.push({calendar_id:calendar.id,start_at:new Date(at).toISOString(),end_at:new Date(end).toISOString(),timezone:calendar.timezone,availability_revision:revision,distribution_load:load});
+            candidates.push({calendar_id:calendar.id,calendar_name:calendar.name,calendar_revision:calendar.revision,start_at:new Date(at).toISOString(),end_at:new Date(end).toISOString(),timezone:calendar.timezone,availability_revision:revision,distribution_load:load});
             calendarCandidateCount++;
             if(calendarCandidateCount>=500){if(at+step*60000+duration*60000<=ends||windowIndex+1<windows.length)candidateLimitApplied=true;break;}
           }
@@ -52,6 +53,7 @@ function calendarOperations(core){
       const duration=(instant(input.end_at)-instant(input.start_at))/60000;
       const matching=this.slots(ctx,actor,{calendar_ids:[input.calendar_id],from:input.start_at,to:input.end_at,duration_minutes:duration}).items[0];
       if(!matching||input.availability_revision!==matching.availability_revision)fail('availability_changed','Beschikbaarheid is gewijzigd; kies opnieuw',409);
+      if((Object.hasOwn(input,'calendar_name')||Object.hasOwn(input,'calendar_revision'))&&(input.calendar_name!==matching.calendar_name||input.calendar_revision!==matching.calendar_revision))fail('availability_changed','Beschikbaarheid is gewijzigd; kies opnieuw',409);
       const scopes=[...core.definition.entities.map(e=>e===core.definition.primary?core.definition.legacy:'calendar:'+e),'calendar:idempotency','calendar:outbox','platform:audit',recovery.SCOPE];
       const result=scopedMutation(core.adapter,ctx,scopes,()=>{const saved=core.saveOwned(ctx,actor,'events',{title:input.title,calendar_id:matching.calendar_id,start_at:matching.start_at,end_at:matching.end_at,timezone:matching.timezone,participants:input.participants||[],related_refs:input.related_refs||[],status:'CONFIRMED'}),row=core.bucket(ctx,'events').find(r=>r.id===saved.record.id);row.creation_kind='TYPED_CALENDAR_BOOKING';row.booking_confirmation={actor_id:actor.id,...meta};const request_acknowledgement=recovery.store(core,ctx,actor,meta,row);return {record:JSON.parse(JSON.stringify(row)),created_record:JSON.parse(JSON.stringify(row)),created_revision:row.revision,current_revision:row.revision,created_record_snapshot_sha256:request_acknowledgement.created_record_snapshot_sha256,booking_status:'RETAINED_BOOKING',event_created:true,external_invitation:false,request_acknowledgement};});
       try{core.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}
@@ -61,7 +63,7 @@ function calendarOperations(core){
     tickReminders(ctx,actor,now=new Date()){
       core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'calendar:events','write');
       if(!Number.isFinite(now.getTime()))fail('reminder_clock_invalid','Ongeldige uitvoertijd');
-      const eligible=core.bucket(ctx,'reminders').filter(row=>reminderPrincipal(row)===actor.id&&!['ARCHIVED','CANCELLED','COMPLETED'].includes(row.status)&&typeof row.due_at==='string'&&Date.parse(row.due_at)<=now.getTime());
+      const eligible=core.bucket(ctx,'reminders').filter(row=>!row.deleted_at&&reminderPrincipal(row)===actor.id&&!['ARCHIVED','CANCELLED','COMPLETED'].includes(row.status)&&typeof row.due_at==='string'&&Date.parse(row.due_at)<=now.getTime());
       if(!reminderCursors.has(core))reminderCursors.set(core,new Map());const cursors=reminderCursors.get(core),cursorKey=JSON.stringify([ctx.tenant_id,ctx.dealer_id,actor.id]),last=cursors.get(cursorKey),after=last?eligible.findIndex(row=>row.id===last):-1,start=eligible.length?(after+1)%eligible.length:0;
       const due=Array.from({length:Math.min(100,eligible.length)},(_,index)=>eligible[(start+index)%eligible.length]).map(row=>({id:row.id,revision:row.revision})),results=[];
       if(due.length)cursors.set(cursorKey,due[due.length-1].id);else cursors.delete(cursorKey);
@@ -70,7 +72,7 @@ function calendarOperations(core){
           scopedMutation(core.adapter,ctx,['calendar:reminders','calendar:notifications','calendar:outbox','platform:audit'],()=>{
             const matches=core.bucket(ctx,'reminders').filter(row=>row?.id===reference.id),reminder=matches[0];
             if(matches.length!==1||typeof reminder?.id!=='string'||!reminder.id||!Number.isSafeInteger(reminder.revision)||reminder.revision<1||typeof reminder.title!=='string'||!reminder.title.trim()||reminder.content!==undefined&&typeof reminder.content!=='string')fail('reminder_invalid','De herinnering heeft geen geldige broninhoud');
-            if(instant(reminder.due_at)>now.getTime()||reminderPrincipal(reminder)!==actor.id||reminder.revision!==reference.revision||['ARCHIVED','CANCELLED','COMPLETED'].includes(reminder.status))fail('reminder_changed','De herinnering is intussen gewijzigd',409);
+            if(reminder.deleted_at||instant(reminder.due_at)>now.getTime()||reminderPrincipal(reminder)!==actor.id||reminder.revision!==reference.revision||['ARCHIVED','CANCELLED','COMPLETED'].includes(reminder.status))fail('reminder_changed','De herinnering is intussen gewijzigd',409);
             core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'calendar:events','write');
             const notifications=core.bucket(ctx,'notifications'),deliveryKey=`reminder:${reminder.id}:${reminder.revision}`,at=now.toISOString();
             if(!notifications.some(row=>row.delivery_key===deliveryKey)){
