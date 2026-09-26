@@ -46,12 +46,12 @@ function parse(raw){
 }
 function inspect(core,ctx,actor,id){
  core.scope(ctx,actor);core.resolver.assertCapability(ctx,actor,'communication:inbox');
- const record=core.get(ctx,actor,'messages',id),base={source_message_id:id,source_revision:record.revision,external_send:false,provider_updated:false,delivery_verified:false,correlation:{status:'UNAVAILABLE',outbound_id:null}};
- if(!Number.isSafeInteger(record.revision)||record.revision<1||record.direction!=='INBOUND'||record.provenance?.source!=='IMAP_READ_ONLY'||record.provider_currently_draft===true)return {...base,report:{available:false,reason:'NO_RETAINED_IMAP_SOURCE'}};
+ const record=core.get(ctx,actor,'messages',id),base={request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},source_message_id:id,source_revision:record.revision,external_send:false,provider_updated:false,delivery_verified:false,correlation:{status:'UNAVAILABLE',outbound_id:null}};
+ if(!Number.isSafeInteger(record.revision)||record.revision<1||record.direction!=='INBOUND'||record.provenance?.source!=='IMAP_READ_ONLY'||record.provider_currently_draft===true)return {...base,report:{available:false,reason:'NO_RETAINED_IMAP_SOURCE',sender_identity_verified:false,delivery_verified:false}};
  const items=core.adapter.bucket(ctx,'communication:mailbox_items').filter(row=>row.message_id===id);
- if(items.length!==1)return {...base,report:{available:false,reason:'SOURCE_UNAVAILABLE'}};
+ if(items.length!==1)return {...base,report:{available:false,reason:'SOURCE_UNAVAILABLE',sender_identity_verified:false,delivery_verified:false}};
  const item=items[0],raw=typeof item.raw_base64==='string'?Buffer.from(item.raw_base64,'base64'):null;
- if(!raw||raw.length>262144||raw.length!==item.retained_bytes||raw.toString('base64')!==item.raw_base64||digest(raw)!==item.raw_sha256||record.provenance.source_sha256!==item.raw_sha256||item.is_provider_draft||item.mailbox_id!==record.mailbox_id||item.uid!==record.provider_uid||item.uidvalidity!==record.provider_uidvalidity)return {...base,report:{available:false,reason:'SOURCE_INTEGRITY_UNAVAILABLE'}};
+ if(!raw||raw.length>262144||raw.length!==item.retained_bytes||raw.toString('base64')!==item.raw_base64||digest(raw)!==item.raw_sha256||record.provenance.source_sha256!==item.raw_sha256||item.is_provider_draft||item.mailbox_id!==record.mailbox_id||item.uid!==record.provider_uid||item.uidvalidity!==record.provider_uidvalidity)return {...base,report:{available:false,reason:'SOURCE_INTEGRITY_UNAVAILABLE',sender_identity_verified:false,delivery_verified:false}};
  const report=parse(raw);base.report=report;if(!report.available)return base;
  if(!report.original_message_id)return {...base,correlation:{status:'NO_ORIGINAL_MESSAGE_ID',outbound_id:null}};
  const messages=core.bucket(ctx,'messages');if(messages.length>25000)return {...base,correlation:{status:'CAPACITY_UNAVAILABLE',outbound_id:null}};
