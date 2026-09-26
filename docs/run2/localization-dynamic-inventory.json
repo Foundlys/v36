@@ -128,6 +128,16 @@
       "items": []
     },
     {
+      "file": "communication-mailbox-client-state.js",
+      "sha256": "2fe1a4bf852b7e1048860e9a515556d21088c860b937406ec919dc5d7a644155",
+      "items": []
+    },
+    {
+      "file": "communication-mailbox-recovery-client.js",
+      "sha256": "28d474d62a5e72fd6d1fa510518084c049d7e7c24c8be0e161fd971442414083",
+      "items": []
+    },
+    {
       "file": "communication-reply-client-state.js",
       "sha256": "72f34b8b750b75056c5f689845b974284ca361e9c4117f851e2751b211d09000",
       "items": []
@@ -350,7 +360,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "f9c90c8f36dde22c7cc419bd79bd6288a55b0762d5361a29f4cb6e843f8acc5e",
+      "sha256": "f089189e4b29187b95cf9cfdee7bf7330fb68ead22a3b1ae1d5181338a167281",
       "items": [
         {
           "line": 49,
@@ -1433,63 +1443,63 @@
           "rich_text": false
         },
         {
-          "line": 1491,
-          "start": 227029,
-          "end": 227071,
+          "line": 1492,
+          "start": 227501,
+          "end": 227543,
           "context": "element_text",
           "text": "Oorspronkelijk bericht downloaden (.eml)",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1495,
-          "start": 228044,
-          "end": 228135,
+          "line": 1496,
+          "start": 228516,
+          "end": 228607,
           "context": "textContent",
           "text": "Oorspronkelijk bericht gedownload. Afzenderidentiteit en bijlagen zijn niet geverifieerd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1617,
-          "start": 252564,
-          "end": 252582,
+          "line": 1618,
+          "start": 253036,
+          "end": 253054,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1618,
-          "start": 252631,
-          "end": 252636,
+          "line": 1619,
+          "start": 253103,
+          "end": 253108,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1619,
-          "start": 252704,
-          "end": 252731,
+          "line": 1620,
+          "start": 253176,
+          "end": 253203,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1698,
-          "start": 270625,
-          "end": 270644,
+          "line": 1699,
+          "start": 271097,
+          "end": 271116,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1764,
-          "start": 278396,
-          "end": 278435,
+          "line": 1765,
+          "start": 278868,
+          "end": 278907,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -1498,18 +1508,18 @@
           "rich_text": false
         },
         {
-          "line": 1895,
-          "start": 291635,
-          "end": 291660,
+          "line": 1896,
+          "start": 292107,
+          "end": 292132,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1898,
-          "start": 291861,
-          "end": 291984,
+          "line": 1899,
+          "start": 292333,
+          "end": 292456,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -1518,36 +1528,36 @@
           "rich_text": false
         },
         {
-          "line": 1913,
-          "start": 293316,
-          "end": 293397,
+          "line": 1914,
+          "start": 293788,
+          "end": 293869,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1940,
-          "start": 295736,
-          "end": 295815,
+          "line": 1941,
+          "start": 296208,
+          "end": 296287,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1944,
-          "start": 296108,
-          "end": 296123,
+          "line": 1945,
+          "start": 296580,
+          "end": 296595,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1945,
-          "start": 296229,
-          "end": 296245,
+          "line": 1946,
+          "start": 296701,
+          "end": 296717,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],

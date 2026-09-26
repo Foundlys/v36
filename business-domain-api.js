@@ -73,6 +73,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       if(id==='communication'&&parts[0]==='mailboxes'){
         const service=mailboxes();if(!service)return sendJson(res,503,{ok:false,code:'mailbox_unavailable'});
         if(parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...service.status(ctx,actor)});
+        if(parts.length===2&&parts[1]==='recover'&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,{ok:true,...service.recover(ctx,principal(),input)});}
         if(parts.length===2&&parts[1]==='sync'&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,{ok:true,...await service.sync(ctx,principal(),input,{idempotency_key:req.headers['idempotency-key']})});}
         return sendJson(res,405,{ok:false,code:'method_not_allowed'});
       }

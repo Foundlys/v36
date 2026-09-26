@@ -25,6 +25,7 @@ function methodOperation(method){return String(method).startsWith('export')?'exp
 // Legacy provider routes must enforce the same capability as native workspaces.
 // Reporting POSTs are reads; an internal cache is not user mutation authority.
 const PROVIDER_ROUTES=[
+  [/^\/api\/communication\/mailboxes\/recover$/, 'communication:inbox','write'],
   [/^\/api\/procurement\/clarification-requests\/recover$/, 'procurement:sourcing','write'],
   [/^\/api\/procurement\/economic-requests\/recover$/, 'procurement:opportunities','write'],
   [/^\/api\/communication\/inbox-requests\/recover$/, 'communication:inbox','write'],
