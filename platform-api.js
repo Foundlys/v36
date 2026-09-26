@@ -320,13 +320,16 @@ function createPlatformApi(options = {}) {
         return sendJson(res, 200, { ok: true, product: 'Foundly Finance', version, schema: finance.schema(), persistence: persistenceStatus(), no_fake_data: true });
       }
       if (url.pathname === '/api/finance/dashboard' && req.method === 'GET') return sendJson(res, 200, finance.dashboard(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
+      if (url.pathname === '/api/finance/invoice-actions/preview' && req.method === 'POST') return sendJson(res, 200, finance.previewInvoiceAction(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/invoice-actions/execute' && req.method === 'POST') return sendJson(res, 200, finance.executeInvoiceAction(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/invoice-actions/recover' && req.method === 'POST') return sendJson(res, 200, finance.recoverInvoiceAction(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/forecast-scenarios' && req.method === 'POST') return sendJson(res, 200, finance.forecastScenario(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/reports' && req.method === 'GET') return sendJson(res, 200, finance.reports(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
       if (url.pathname === '/api/finance/legal-entities' && req.method === 'POST') return sendJson(res, 201, finance.createLegalEntity(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
-      if (url.pathname === '/api/finance/periods' && req.method === 'POST') return sendJson(res, 201, finance.createPeriod(ctx, actor, await readBody(req)));
-      if (url.pathname === '/api/finance/accounts' && req.method === 'POST') return sendJson(res, 201, finance.createAccount(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/periods' && req.method === 'POST') return sendJson(res, 201, finance.createPeriod(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
+      if (url.pathname === '/api/finance/accounts' && req.method === 'POST') return sendJson(res, 201, finance.createAccount(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const chart = url.pathname.match(/^\/api\/finance\/legal-entities\/([A-Za-z0-9_.:-]{1,200})\/bootstrap-chart$/);
-      if (chart && req.method === 'POST') return sendJson(res, 201, { ok: true, accounts: finance.bootstrapDutchChart(ctx, actor, chart[1]) });
+      if (chart && req.method === 'POST') return sendJson(res, 201, { ok: true, accounts: finance.bootstrapDutchChart(ctx, actor, chart[1], { idempotencyKey: req.headers['idempotency-key'] }) });
       if (url.pathname === '/api/finance/journals' && req.method === 'POST') return sendJson(res, 201, finance.postJournal(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const reverse = url.pathname.match(/^\/api\/finance\/journals\/([A-Za-z0-9_.:-]{1,200})\/reverse$/);
       if (reverse && req.method === 'POST') {
@@ -337,16 +340,16 @@ function createPlatformApi(options = {}) {
       const invoicePost = url.pathname.match(/^\/api\/finance\/invoices\/([A-Za-z0-9_.:-]{1,200})\/post$/);
       if (invoicePost && req.method === 'POST') return sendJson(res, 200, finance.postInvoice(ctx, actor, invoicePost[1], { idempotencyKey: req.headers['idempotency-key'] }));
       const invoiceApprove = url.pathname.match(/^\/api\/finance\/invoices\/([A-Za-z0-9_.:-]{1,200})\/approve$/);
-      if (invoiceApprove && req.method === 'POST') return sendJson(res, 200, finance.approveInvoice(ctx, actor, invoiceApprove[1], await readBody(req)));
+      if (invoiceApprove && req.method === 'POST') return sendJson(res, 200, finance.approveInvoice(ctx, actor, invoiceApprove[1], await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const credit = url.pathname.match(/^\/api\/finance\/invoices\/([A-Za-z0-9_.:-]{1,200})\/credit-notes$/);
-      if (credit && req.method === 'POST') return sendJson(res, 201, finance.createCreditNote(ctx, actor, credit[1], await readBody(req)));
+      if (credit && req.method === 'POST') return sendJson(res, 201, finance.createCreditNote(ctx, actor, credit[1], await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/payments' && req.method === 'POST') return sendJson(res, 201, finance.recordPayment(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/collection-actions' && req.method === 'POST') return sendJson(res, 201, finance.createCollectionAction(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/counterparty-balances' && req.method === 'GET') return sendJson(res, 200, finance.counterpartyBalances(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined }));
       if (url.pathname === '/api/finance/bank-transactions' && req.method === 'POST') return sendJson(res, 201, finance.importBankTransaction(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const proposals = url.pathname.match(/^\/api\/finance\/bank-transactions\/([A-Za-z0-9_.:-]{1,200})\/reconciliation-proposals$/);
       if (proposals && req.method === 'GET') return sendJson(res, 200, finance.reconciliationProposals(ctx, actor, proposals[1]));
-      if (url.pathname === '/api/finance/reconciliations' && req.method === 'POST') return sendJson(res, 201, finance.confirmReconciliation(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/reconciliations' && req.method === 'POST') return sendJson(res, 201, finance.confirmReconciliation(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/document-proposals' && req.method === 'POST') return sendJson(res, 201, finance.ingestDocumentProposal(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/assets' && req.method === 'POST') return sendJson(res, 201, finance.createAsset(ctx, actor, await readBody(req)));
       const schedule = url.pathname.match(/^\/api\/finance\/assets\/([A-Za-z0-9_.:-]{1,200})\/depreciation$/);

@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-26T05:35:58.199883+00:00",
+  "recorded_at": "2026-09-26T21:21:00.721486+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -37476,5 +37476,429 @@
         }
       ]
     }
+  },
+  "finance_native_recovery_20260926": {
+    "recorded_at": "2026-09-26T21:21:00.721486+00:00",
+    "status": "BOUNDED_NATIVE_CHECKPOINT_PASS_COMPLETE_DEMOS_OPEN",
+    "source_commit": "869c7d025e75b34cb8b051d1919a3dbbbf6adbea",
+    "source_tree": "efb03484f36e20ce65ea1ba9198e3e4e66085c0f",
+    "zero_tests": {
+      "pass": 1826,
+      "fail": 0
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 12,
+    "frozen_proof": {
+      "source": {
+        "commit": "869c7d025e75b34cb8b051d1919a3dbbbf6adbea",
+        "tree": "efb03484f36e20ce65ea1ba9198e3e4e66085c0f",
+        "status_before": "",
+        "status_after": "",
+        "commit_after": "869c7d025e75b34cb8b051d1919a3dbbbf6adbea",
+        "tree_after": "efb03484f36e20ce65ea1ba9198e3e4e66085c0f"
+      },
+      "results": [
+        {
+          "name": "platform-core-regression-test.js",
+          "command": [
+            "node",
+            "platform-core-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:47.061083+00:00",
+          "finished_at": "2026-09-26T21:13:47.177044+00:00",
+          "elapsed_seconds": 0.116,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-platform-core-regression-test.js.log",
+          "sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+          "bytes": 1118
+        },
+        {
+          "name": "module-access-contracts-test.js",
+          "command": [
+            "node",
+            "module-access-contracts-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:47.177323+00:00",
+          "finished_at": "2026-09-26T21:13:47.385496+00:00",
+          "elapsed_seconds": 0.208,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-module-access-contracts-test.js.log",
+          "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+          "bytes": 332
+        },
+        {
+          "name": "composition-api-test.js",
+          "command": [
+            "node",
+            "composition-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:47.385678+00:00",
+          "finished_at": "2026-09-26T21:13:49.588950+00:00",
+          "elapsed_seconds": 2.203,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-composition-api-test.js.log",
+          "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+          "bytes": 110
+        },
+        {
+          "name": "finance-period-closing-test.js",
+          "command": [
+            "node",
+            "finance-period-closing-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:49.589155+00:00",
+          "finished_at": "2026-09-26T21:13:49.681869+00:00",
+          "elapsed_seconds": 0.093,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-period-closing-test.js.log",
+          "sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+          "bytes": 297
+        },
+        {
+          "name": "finance-period-closing-api-test.js",
+          "command": [
+            "node",
+            "finance-period-closing-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:49.682081+00:00",
+          "finished_at": "2026-09-26T21:13:52.165514+00:00",
+          "elapsed_seconds": 2.483,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-period-closing-api-test.js.log",
+          "sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+          "bytes": 220
+        },
+        {
+          "name": "finance-period-closing-client-test.js",
+          "command": [
+            "node",
+            "finance-period-closing-client-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:52.165674+00:00",
+          "finished_at": "2026-09-26T21:13:52.221186+00:00",
+          "elapsed_seconds": 0.056,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-period-closing-client-test.js.log",
+          "sha256": "560589e80b4f77d54ddfe1d71849ecb28b444af819770e612cc340e4e30b308f",
+          "bytes": 192
+        },
+        {
+          "name": "finance-cash-scenarios-test.js",
+          "command": [
+            "node",
+            "finance-cash-scenarios-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:52.221398+00:00",
+          "finished_at": "2026-09-26T21:13:52.332130+00:00",
+          "elapsed_seconds": 0.111,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-cash-scenarios-test.js.log",
+          "sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+          "bytes": 267
+        },
+        {
+          "name": "finance-cash-scenarios-api-test.js",
+          "command": [
+            "node",
+            "finance-cash-scenarios-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:52.332306+00:00",
+          "finished_at": "2026-09-26T21:13:53.957782+00:00",
+          "elapsed_seconds": 1.625,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-cash-scenarios-api-test.js.log",
+          "sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+          "bytes": 221
+        },
+        {
+          "name": "finance-cash-scenarios-client-test.js",
+          "command": [
+            "node",
+            "finance-cash-scenarios-client-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:53.957964+00:00",
+          "finished_at": "2026-09-26T21:13:54.027232+00:00",
+          "elapsed_seconds": 0.069,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-cash-scenarios-client-test.js.log",
+          "sha256": "cf1b03d63112331bdea37af239bfa5e5f11dd029ce7dbcef4883f9581780aa7a",
+          "bytes": 190
+        },
+        {
+          "name": "finance-loading-test.js",
+          "command": [
+            "node",
+            "finance-loading-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:54.027397+00:00",
+          "finished_at": "2026-09-26T21:13:54.087320+00:00",
+          "elapsed_seconds": 0.06,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-loading-test.js.log",
+          "sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+          "bytes": 130
+        },
+        {
+          "name": "finance-loading-api-test.js",
+          "command": [
+            "node",
+            "finance-loading-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:54.087485+00:00",
+          "finished_at": "2026-09-26T21:13:54.688931+00:00",
+          "elapsed_seconds": 0.601,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-finance-loading-api-test.js.log",
+          "sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+          "bytes": 165
+        },
+        {
+          "name": "production-security-test.js",
+          "command": [
+            "node",
+            "production-security-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:54.689144+00:00",
+          "finished_at": "2026-09-26T21:13:55.091455+00:00",
+          "elapsed_seconds": 0.402,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-production-security-test.js.log",
+          "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+          "bytes": 309
+        },
+        {
+          "name": "zero",
+          "command": [
+            "node",
+            "--test",
+            "zero/*.test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:13:55.091627+00:00",
+          "finished_at": "2026-09-26T21:17:37.912279+00:00",
+          "elapsed_seconds": 222.821,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-zero.log",
+          "sha256": "0751865032ff325c9b42191fdf5117072299b4a5ae5e15d4b7ee00cbdf39e61a",
+          "bytes": 219507
+        },
+        {
+          "name": "corpus",
+          "command": [
+            "node",
+            "zero-evaluation/run.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T21:17:37.912751+00:00",
+          "finished_at": "2026-09-26T21:17:40.790220+00:00",
+          "elapsed_seconds": 2.877,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/finance-frozen-corpus.log",
+          "sha256": "06da2d7369214827c194f76979fcdbfc985542f96e3746dae5323ad7e635496c",
+          "bytes": 1066
+        }
+      ],
+      "all_pass": true
+    },
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/ci267-job-108482998386.log.gz",
+        "raw_bytes": 854955,
+        "raw_sha256": "69ae23aec9ba4e6b8bab01910fcad9bc9420c27974033422874c3dfbcc1571a2",
+        "gzip_sha256": "5548485376093a93cbd167731ccc89d46afb32afe66b5bca8ca4985bb55f7d36"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-actions-delayed-request.log.gz",
+        "raw_bytes": 790,
+        "raw_sha256": "37fe91b61b5605f72e6c0ab37251e985248fe49e8f3fb833fcdeb4f58f90a8c0",
+        "gzip_sha256": "8b1efec55962827c2238dd59a761293f548c1cf0b3b5cf828e5c8092a31970d0"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-chart-replay-contract.log.gz",
+        "raw_bytes": 1193,
+        "raw_sha256": "f974a067f208e2be0c87d84e8c4b4455daa9ebca687d8a35d48d2cbd087f13fc",
+        "gzip_sha256": "4c36d693355f311bf8d274a503acf030e475b1a11125ece7e77de90e60691770"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-combined-precheckpoint.log.gz",
+        "raw_bytes": 3991,
+        "raw_sha256": "203557559c059db5595535b6c888777f9e231017ecfd75bc69d1b17290f9bfe9",
+        "gzip_sha256": "a83ae46a85b0564021ab8fba55223000ea4b0d0847688db9bb8105f397e3e0db"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-durability-http-corrected-routes.log.gz",
+        "raw_bytes": 385,
+        "raw_sha256": "b1b0efa20308a0f2d3bf97dd2dbf2d267fbe14d140f7ed27333191b4d40599d5",
+        "gzip_sha256": "5933047bb175fa54f05cee0bdb28d86a71992afdb7a17b117c6269e356480d03"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-durability-http-initial.log.gz",
+        "raw_bytes": 3931,
+        "raw_sha256": "b721d5f8b2fdaedaa023b1111ea9e0e0e109fc2b793833e038efa091937e4d2c",
+        "gzip_sha256": "b7fb7d0efc1c2b70188e2583a0867af0f95d4d3ae62d328400602ac03103bf61"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-durability-platform-initial.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "gzip_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-corpus.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "06da2d7369214827c194f76979fcdbfc985542f96e3746dae5323ad7e635496c",
+        "gzip_sha256": "cb102c9116e28abf70efcc45211e6c6202ac13513bf35c7136ec39d7ecac45e8"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-cash-scenarios-api-test.js.log.gz",
+        "raw_bytes": 221,
+        "raw_sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+        "gzip_sha256": "703912e957405749278dcd12958d10bc134fa19c553cdf2a481f7c3d14ca878e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-cash-scenarios-client-test.js.log.gz",
+        "raw_bytes": 190,
+        "raw_sha256": "cf1b03d63112331bdea37af239bfa5e5f11dd029ce7dbcef4883f9581780aa7a",
+        "gzip_sha256": "4ad808c62fd8eaf8d238beb77b3f541e4f490457199462b628259e9df613a2b4"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-cash-scenarios-test.js.log.gz",
+        "raw_bytes": 267,
+        "raw_sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+        "gzip_sha256": "df751f6e758d8e8c0ece7ca3626633e5543c860b26ddbb37c69e7a40756b22c7"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-loading-api-test.js.log.gz",
+        "raw_bytes": 165,
+        "raw_sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+        "gzip_sha256": "97781cd134ad426dacffa28ffc71d1867c77e00f94f7abdb38d35238c33e5f18"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-loading-test.js.log.gz",
+        "raw_bytes": 130,
+        "raw_sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+        "gzip_sha256": "07737a290583150aa2d63383d0379f52da304da41d44cd65a05b3f44e4bcb36e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-period-closing-api-test.js.log.gz",
+        "raw_bytes": 220,
+        "raw_sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+        "gzip_sha256": "df4a6084a50bb2e93b7cd321e1e9f393ce1dfbccbc7ecc0132bcb65503326341"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-period-closing-client-test.js.log.gz",
+        "raw_bytes": 192,
+        "raw_sha256": "560589e80b4f77d54ddfe1d71849ecb28b444af819770e612cc340e4e30b308f",
+        "gzip_sha256": "a4a1715c8a1450045d483abc97d46b92649da60eb241d73f51728d77f91ba504"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-finance-period-closing-test.js.log.gz",
+        "raw_bytes": 297,
+        "raw_sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+        "gzip_sha256": "eeb6375590b9d5ef43a7dffa131e5436d21673b73640efe6a17e438e7f4b7390"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-platform-core-regression-test.js.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "gzip_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-production-security-test.js.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "gzip_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-results.json.gz",
+        "raw_bytes": 7656,
+        "raw_sha256": "d681a0cb3dd1041cf620aadcb324119e67c911d7691886387201ee466b3e5578",
+        "gzip_sha256": "fbe5f52080e6cdbd6b49abb0d933e5488c75f878c218e3b368106dfbf5210099"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-frozen-zero.log.gz",
+        "raw_bytes": 219507,
+        "raw_sha256": "0751865032ff325c9b42191fdf5117072299b4a5ae5e15d4b7ee00cbdf39e61a",
+        "gzip_sha256": "71015b6a07dd06d52d592fe4f1f097d141fb066f35a87e9b7bb979b0d15b890f"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-invoice-actions-corrected-pagination.log.gz",
+        "raw_bytes": 790,
+        "raw_sha256": "d4cc991b841a1a59b033c6cea0e0a85e5dcd68cb9012d2c80ca0af65ad6b945a",
+        "gzip_sha256": "5deecc927854399d9799ccab4cd553da0b345a177441e6fc32349b38546da9a1"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-invoice-actions-initial.log.gz",
+        "raw_bytes": 3089,
+        "raw_sha256": "c53d680737f50fc0c649293f95db2ba2320fa429b9525d1726f29756b73eec58",
+        "gzip_sha256": "c473a537bdb3a43ac2fcf402a386265c4cd3bd73246c9f46ad5aec3821bfbc13"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-finance-recovery/finance-request-durability-initial.log.gz",
+        "raw_bytes": 1114,
+        "raw_sha256": "0d643768484da007a537318ac6a4c727db386309fa9c0f0a10340ee0fd81a1ed",
+        "gzip_sha256": "2fbe2abbbc2bbaf4497d15b989110c8e84c47cca665a8cc327d62f2d3c781581"
+      }
+    ],
+    "prior_complete_ci": {
+      "status": "PASS",
+      "run_number": 267,
+      "run_id": 36270352842,
+      "job_id": 108482998386,
+      "published_commit": "20611e4ea36f9c03684db4d432834d58824d46f6",
+      "tested_merge_commit": "96847c8c4e12f6c645ac67f507ef3b7d7bfd7fab",
+      "tree": "bbd15478211c624c60480ec62560426a3353607d",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T20:40:48Z",
+      "completed_at": "2026-09-26T20:57:39Z",
+      "workflow_elapsed_seconds": 1011,
+      "zero_pass": 1810,
+      "corpus_pass": 14,
+      "log": {
+        "file": "docs/run2/evidence/20260926-finance-recovery/ci267-job-108482998386.log.gz",
+        "raw_bytes": 854955,
+        "raw_sha256": "69ae23aec9ba4e6b8bab01910fcad9bc9420c27974033422874c3dfbcc1571a2",
+        "gzip_sha256": "5548485376093a93cbd167731ccc89d46afb32afe66b5bca8ca4985bb55f7d36"
+      }
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "finished_demos": [],
+    "complete_demo_acceptance": false,
+    "new_features": [
+      "Atomic native invoice/journal/payment/reconciliation/chart/account/period/approval/credit creation with retained receipts and stable native event outbox",
+      "Exact decimal half-up minor-unit calculation, strict overflow/retained precision and bank-source reuse refusal",
+      "Nine current-capability structured ZERO prepare/execute/recover tools for invoice creation, invoice posting and internal payment recording",
+      "Original/current invoice, lines, journal and payment observations; absent-request retirement blocks a delayed actual HTTP original",
+      "Current authority after an actual body wait and dropped replies through encrypted restart"
+    ],
+    "remaining": [
+      "Complete native CRM/order/Finance links and partial credit allocation/refunds",
+      "Full module/seed histories, E-commerce production pack, complete localized action controls",
+      "Natural-language/voice ZERO, actual iPhone/Android/desktop installation and runnable packages",
+      "Complete provider/model/source freshness and performance/quality acceptance"
+    ],
+    "retained_attempts": [
+      {
+        "log": "finance-durability-http-initial.log",
+        "result": "18 PASS / 2 FAIL",
+        "cause": "New test used /api/finance/invoices as a GET list; actual route is /api/finance/records/invoices. Corrected fixture routes, no endpoint relaxation."
+      },
+      {
+        "log": "finance-invoice-actions-initial.log",
+        "result": "4 PASS / 1 FAIL",
+        "cause": "New event assertion omitted explicit limit; actual native response reported total=2 with a one-item page. Added limit=100 to the test query, no event synthesis."
+      }
+    ],
+    "limits": "Unit persistence/event fault adapters are explicit; actual HTTP uses the normal encrypted store and destroys replies. Structured native tools do not prove complete natural/voice/UI quality; internal payment booking moves no external money."
   }
 }

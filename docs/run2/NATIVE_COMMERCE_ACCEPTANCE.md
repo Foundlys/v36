@@ -35,3 +35,8 @@ The registered entities are `commerce_products`, `commerce_inventory`, `commerce
 This continuation does not activate providers, send mail, submit payments or deploy a demo. Previous checkpoints and every failed log remain retained.
 
 Recovery metadata follow-up `145e48c`: ten targeted tests and fourteen corpus cases pass. Closing an unseen request returns NOT_APPLIED and no completed-action record through the real ZERO HTTP route; later replay remains blocked and stock is unchanged. The previous full 1810-test run remains explicitly bound to 4ab780e.
+
+
+## Native Finance continuation — 869c7d0
+
+Atomic invoice/journal/payment/reconciliation recovery and confirmed structured ZERO prepare/execute/recover actions now pass the exact local checkpoint (1826 ZERO, 14 corpus, twelve involved native scripts). The earlier CI 267 is complete and tree-verified. See [FINANCE_NATIVE_RECOVERY.md](FINANCE_NATIVE_RECOVERY.md) and checkpoint-tests.json for source hashes, original/current semantics, failed attempts and limits. Commerce orders remain UNPOSTED until the actual CRM/order/Finance link is implemented. Partial credit/refunds, complete module histories and action UI, natural/voice ZERO, desktop packaging and actual phone/browser delivery remain open. No complete demo has been accepted or delivered. All previous work remains retained; the Automotive/E-commerce delivery block precedes the remaining Run 2.

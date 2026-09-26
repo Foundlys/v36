@@ -34,3 +34,8 @@ E-commerce is currently a legacy starter profile; it is not yet a registered, fu
 The next native checkpoint adds Sales-owned product variants, stock receipts, reservations, fulfilment registrations, cancellation and partial returns, with atomic persistence, original/current replay evidence and the same structured ZERO actions. Financial status remains explicitly UNPOSTED. These records still require the CRM/Finance links, full module histories, production E-commerce pack registration and complete user interfaces before delivery. See NATIVE_COMMERCE_ACCEPTANCE.md.
 
 Per accepted pack, the user handoff must contain the actual web URL, direct downloadable file, version/date, short installation instructions and any material operating prerequisites. Record failures and limitations without erasing earlier work. No global completion percentage may be inferred from test totals.
+
+
+## Native Finance continuation — 869c7d0
+
+Atomic invoice/journal/payment/reconciliation recovery and confirmed structured ZERO prepare/execute/recover actions now pass the exact local checkpoint (1826 ZERO, 14 corpus, twelve involved native scripts). The earlier CI 267 is complete and tree-verified. See [FINANCE_NATIVE_RECOVERY.md](FINANCE_NATIVE_RECOVERY.md) and checkpoint-tests.json for source hashes, original/current semantics, failed attempts and limits. Commerce orders remain UNPOSTED until the actual CRM/order/Finance link is implemented. Partial credit/refunds, complete module histories and action UI, natural/voice ZERO, desktop packaging and actual phone/browser delivery remain open. No complete demo has been accepted or delivered. All previous work remains retained; the Automotive/E-commerce delivery block precedes the remaining Run 2.

@@ -28,6 +28,7 @@ function guardDomain(service, owner, resolverProvider) {
           const entityCapability=entity?routeCapability(`/api/${id}/${entity}`,id):null;
           if(entityCapability&&operation!=='export')resolverProvider().assertCapability(ctx,actor,entityCapability,operation);
           for(const capability of METHOD_CAPABILITIES[id]?.[property]||[])resolverProvider().assertCapability(ctx,actor,capability,operation);
+          if(owner==='finance'&&['previewInvoiceAction','executeInvoiceAction','recoverInvoiceAction'].includes(property))for(const capability of require('./finance-invoice-actions').contract(args[2]?.operation).capabilities)resolverProvider().assertCapability(ctx,actor,capability,operation);
           if(property==='runAutomation'&&args[4]?.approval||['previewAutomationApproval','recoverAutomationApprovalRequest'].includes(property))resolverProvider().assertCapability(ctx,actor,'automation:approvals','approve');
           if (owner === 'procurement' && resolverProvider().resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') {
             throw Object.assign(new Error('Automotive is niet actief voor deze tenant'), { statusCode: 403, code: 'industry_disabled' });
