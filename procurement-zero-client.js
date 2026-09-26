@@ -15,6 +15,7 @@
     if(parts[2]==='suppliers'&&parts.length===5&&parts[4]==='outcomes')action={operation:'OUTCOMES',input:{supplier_id:parts[3]}};
     if(parts[2]==='outcome-observations'&&parts.length===3)action={operation:'OBSERVE',input};
    }
+   if(action?.operation==='PREPARE'&&options.headers?.['idempotency-key'])action.request_id=options.headers['idempotency-key'];
    if(!action)return request(path,options,isCurrent);if(!active()||!isCurrent())throw Object.assign(Error('procurement_view_inactive'),{stale:true});
    const data=await request('/api/zero/turn',{method:'POST',body:JSON.stringify({message:'Gekozen Procurement-actie',conversation_id:conversation,turn_id:options.headers?.['idempotency-key']||root.crypto.randomUUID(),preferred_module:'procurement',client_context:{procurement_action:action}})},isCurrent);if(!active()||!isCurrent())throw Object.assign(Error('procurement_view_inactive'),{stale:true});if(!data.procurement_data)throw Error('procurement_result_missing');return data.procurement_data;
   };
