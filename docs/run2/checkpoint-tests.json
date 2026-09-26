@@ -15810,7 +15810,7 @@
     "review_gap": "The green UI source did not yet close native deleted-source behavior. Five actual failing native cases were reproduced in the preserved current-source worktree and corrected in the checkpoint below. The initial UI proof is retained without being presented as proof of those later fixes."
   },
   "procurement_current_sources_20260926": {
-    "status": "FROZEN_1328_ZERO_14_CORPUS_18_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "status": "FROZEN_1328_ZERO_14_CORPUS_18_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
     "source_tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
     "additional_permanent_tests": 7,
@@ -16298,9 +16298,981 @@
         "sha256": "b62fd19a60a7d4d99bbde40a3fa863cbda694a02f249c31055c89d2bc331cee1"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": "PASS_247",
     "scope": "Live bid comparison/allocation and economic calculation require non-deleted RFQ, bid and supplier sources. Saved scenarios and replay require current non-deleted snapshot/source records. Current outcomes and replay require non-deleted observations, awards, suppliers and linked economic sources. Latest-row selection precedes the deletion/readability filter, preventing an older observation from reappearing after latest-row deletion; blind correction is refused. Existing authorized historical export remains available under the prior export contract. Relevant real allocation/incremental HTTP regressions are included in the 18 native scripts.",
     "evidence_limits": "New deletion cases are native domain tests; the unchanged actual allocation/outcome HTTP regressions cover transport/authority integration but are not a dedicated mid-body deletion proof. DOM/VM and actual HTTP are not real-browser, accessibility, native-speaker or live-supplier acceptance. Procurement confirmations still use existing in-memory bodies and same-key retries; durable metadata-only browser-reload recovery and immutable original/current action receipts are not established. No supplier send, purchase or financial posting occurs.",
-    "remaining": "Full CI for the next exact published tree is pending. Continue current shared Procurement bid/allocation/approval controls and remaining shared/generated/backend localization; preserve all completed flows. Durable Procurement recovery and broad Run-2 gates remain open."
+    "remaining": "Exact published full CI 247 passed. Shared proposal/review controls and later current approval-source guards are recorded separately below. Durable Procurement recovery remains open.",
+    "ci_proof": {
+      "conclusion": "success",
+      "run_number": 247,
+      "run_id": 36231652532,
+      "job_id": 108375824754,
+      "published_head": "569079a602c0ebc5b614eef442a12545232c88dc",
+      "ci_merge_commit": "a79e8f1d61f3e358216570e33dc3dc605541cd97",
+      "tree": "f45162704406ba012f046ea252abcd2290309d80",
+      "exact_tree_match": true,
+      "zero_tests": 1328,
+      "zero_pass": 1328,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "started_at": "2026-09-26T09:04:08Z",
+      "finished_at": "2026-09-26T09:15:02Z"
+    }
+  },
+  "procurement_award_controls_20260926": {
+    "status": "FROZEN_1348_ZERO_14_CORPUS_19_NATIVE_PASS_INCLUDED_IN_REVIEW_SOURCE_CHECKPOINT",
+    "source_commit": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+    "source_tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+    "permanent_new_tests": 20,
+    "new_test_breakdown": {
+      "production_client_dom": 19,
+      "actual_http": 1
+    },
+    "frozen_results": [
+      {
+        "name": "procurement-clarifications-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.64,
+        "finished_at": "2026-09-26T09:20:24.539182+00:00",
+        "log": "procurement-award-controls-frozen-00.log",
+        "bytes": 303,
+        "sha256": "4f39ead721f59855d2c2606f2b078cbbd2d9a28dc462da458f0259bfbe02d15c",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.72,
+        "finished_at": "2026-09-26T09:20:25.311909+00:00",
+        "log": "procurement-award-controls-frozen-01.log",
+        "bytes": 238,
+        "sha256": "50215bbd18c5a75e62be319202a9775d5984ede904647c17b8107331e3bad88f",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js",
+          "--zero"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.71,
+        "finished_at": "2026-09-26T09:20:26.107749+00:00",
+        "log": "procurement-award-controls-frozen-02.log",
+        "bytes": 236,
+        "sha256": "144bd03f52dd613f65769e21f1034d0ef0ba3c4a0a5690c9625ed7559c2382d0",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-clarifications-api-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-api-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 13.03,
+        "finished_at": "2026-09-26T09:20:39.212281+00:00",
+        "log": "procurement-award-controls-frozen-03.log",
+        "bytes": 311,
+        "sha256": "96bfda052ef6f774f68e34068bde1bc70da43dae3c432eb7c406e487111a342e",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-economics-outcomes-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.61,
+        "finished_at": "2026-09-26T09:20:39.896024+00:00",
+        "log": "procurement-award-controls-frozen-04.log",
+        "bytes": 336,
+        "sha256": "e7faf20953581e55620a7de64ba6764c668de0cc512dd3603e44943920e2f47c",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.68,
+        "finished_at": "2026-09-26T09:20:40.647694+00:00",
+        "log": "procurement-award-controls-frozen-05.log",
+        "bytes": 247,
+        "sha256": "3e8311fd64087352971b207b18dbb330945e88e68fae5f0b6ff80231f99e7b38",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js",
+          "--zero"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.67,
+        "finished_at": "2026-09-26T09:20:41.372393+00:00",
+        "log": "procurement-award-controls-frozen-06.log",
+        "bytes": 245,
+        "sha256": "2c2bc57b7adae31adadd71a93bfd115011f4d507f8e0dc69dcf9583e74112643",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-economics-outcomes-api-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-api-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 9.36,
+        "finished_at": "2026-09-26T09:20:50.787141+00:00",
+        "log": "procurement-award-controls-frozen-07.log",
+        "bytes": 340,
+        "sha256": "8c3f9aa33e89f8228e9636164e55bc5fc31698db583d6c975b795ba8bdd0a6cf",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.64,
+        "finished_at": "2026-09-26T09:20:51.492947+00:00",
+        "log": "procurement-award-controls-frozen-08.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.72,
+        "finished_at": "2026-09-26T09:20:52.264836+00:00",
+        "log": "procurement-award-controls-frozen-09.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 1.57,
+        "finished_at": "2026-09-26T09:20:53.890567+00:00",
+        "log": "procurement-award-controls-frozen-10.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-sourcing-test.js",
+        "command": [
+          "node",
+          "procurement-sourcing-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.61,
+        "finished_at": "2026-09-26T09:20:54.560622+00:00",
+        "log": "procurement-award-controls-frozen-11.log",
+        "bytes": 115,
+        "sha256": "f99a0a50c771cb70b26560e25f066930d50a4b89ab707e24b47ab6f407d66cbe",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-reviews-test.js",
+        "command": [
+          "node",
+          "procurement-reviews-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T09:20:55.239622+00:00",
+        "log": "procurement-award-controls-frozen-12.log",
+        "bytes": 220,
+        "sha256": "300feae0cb6bc500d1e4f7ffa8baddd78b74a9ae514ac1bf48a984b12d3e14b5",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T09:20:55.919550+00:00",
+        "log": "procurement-award-controls-frozen-13.log",
+        "bytes": 188,
+        "sha256": "0d9afab4542c06d7944ef3885199cfabedbf340fbdc85d03a81df4e116d5fa3a",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-incremental-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.61,
+        "finished_at": "2026-09-26T09:20:56.588545+00:00",
+        "log": "procurement-award-controls-frozen-14.log",
+        "bytes": 250,
+        "sha256": "b0526d077946233728cfa22994a897b6283928618e41ae7f31e18d561383a16a",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-order-review-test.js",
+        "command": [
+          "node",
+          "procurement-order-review-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "finished_at": "2026-09-26T09:20:57.251591+00:00",
+        "log": "procurement-award-controls-frozen-15.log",
+        "bytes": 173,
+        "sha256": "c784b9103a31dc6693a7d63feb18cd019b36f43256f91dd88ee5889081c9b1cf",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-api-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 2.7,
+        "finished_at": "2026-09-26T09:21:00.014550+00:00",
+        "log": "procurement-award-controls-frozen-16.log",
+        "bytes": 178,
+        "sha256": "9fbb5b34d686a4283cd2cb48507bb1fa90fb8ada6ddb05da16d8db6a0ea2e8c4",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-incremental-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-api-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 7.09,
+        "finished_at": "2026-09-26T09:21:07.164809+00:00",
+        "log": "procurement-award-controls-frozen-17.log",
+        "bytes": 231,
+        "sha256": "f9ed1086b1896e7160f7300fe739b8e387f9e0bf1594aae966710185c0e7e3b9",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "procurement-incremental-client-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-client-test.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 0.84,
+        "finished_at": "2026-09-26T09:21:08.071174+00:00",
+        "log": "procurement-award-controls-frozen-18.log",
+        "bytes": 260,
+        "sha256": "3648222b98420d01f59043afdeb8865cec239055961e625f3831e1b4e52307b3",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 247.04,
+        "finished_at": "2026-09-26T09:25:15.170507+00:00",
+        "log": "procurement-award-controls-frozen-19.log",
+        "bytes": 368391,
+        "sha256": "e236c24d20855faa2cdc797b6689459caa36cc047e59e01d9bb128bd2d3b9ea3",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "test_summary": [
+          "# tests 1348",
+          "# pass 1348",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "tree": "b0a7aab43b76ce2eb15a22877d51ff874f2e6d74",
+        "exit_code": 0,
+        "seconds": 12.99,
+        "finished_at": "2026-09-26T09:25:28.295819+00:00",
+        "log": "procurement-award-controls-frozen-20.log",
+        "bytes": 1066,
+        "sha256": "a6f0c19497c4358bdd7c1a401c4dc6dd913d67434fa348e1ddc3a3f7f953359d",
+        "clean_after": true,
+        "head_after": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+        "corpus": {
+          "head": "cadf691aa418ecf6d0aeecb7fe755f472c7390c9",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "scope": "Fifty-nine explicit eight-locale rows cover bid comparisons, full/incremental allocations, order submission, reviewer decisions, withdrawals and current-result notices. Live owned bindings retain literal evidence, editable quantities/reasons, selection, mounted controls and native/ZERO transport identity. Exact cent formatting replaces floating-point display. Confirmation bodies/keys are frozen after explicit submission; uncertain actions block changed payloads, competing review/withdrawal actions, navigation, discarded drafts and transport switches. Newer comparisons, allocation edits, detached proposals, access retirement, malformed previews and mismatched acknowledgements cannot restore or confirm stale work. Every review on multi-record pages retains its draft. Native cumulative reviewer policy and no-duplicate/no-order guarantees remain covered. Actual HTTP submits a 9007199254740990-cent allocation through ZERO and a separate review, deliberately loses each committed reply and retries identical bodies after two encrypted SERVER restarts.",
+    "review_gap": "The frozen green UI source did not establish current deleted-source enforcement during native approvals. Seven failing cases were reproduced afterwards; the additional source checkpoint below closes those specific cases. Native/DOM/HTTP evidence does not establish real-browser behavior or durable browser-reload recovery."
+  },
+  "procurement_review_current_sources_20260926": {
+    "status": "FROZEN_1356_ZERO_14_CORPUS_19_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "source_commit": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+    "source_tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+    "additional_permanent_tests": 8,
+    "permanent_new_tests_since_ci247": 28,
+    "frozen_results": [
+      {
+        "name": "procurement-clarifications-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.09,
+        "finished_at": "2026-09-26T09:23:56.287462+00:00",
+        "log": "procurement-review-sources-frozen-00.log",
+        "bytes": 303,
+        "sha256": "4f39ead721f59855d2c2606f2b078cbbd2d9a28dc462da458f0259bfbe02d15c",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 0.92,
+        "finished_at": "2026-09-26T09:23:57.363130+00:00",
+        "log": "procurement-review-sources-frozen-01.log",
+        "bytes": 238,
+        "sha256": "50215bbd18c5a75e62be319202a9775d5984ede904647c17b8107331e3bad88f",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js",
+          "--zero"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.01,
+        "finished_at": "2026-09-26T09:23:58.469176+00:00",
+        "log": "procurement-review-sources-frozen-02.log",
+        "bytes": 236,
+        "sha256": "144bd03f52dd613f65769e21f1034d0ef0ba3c4a0a5690c9625ed7559c2382d0",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-clarifications-api-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-api-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 19.0,
+        "finished_at": "2026-09-26T09:24:17.625648+00:00",
+        "log": "procurement-review-sources-frozen-03.log",
+        "bytes": 311,
+        "sha256": "96bfda052ef6f774f68e34068bde1bc70da43dae3c432eb7c406e487111a342e",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-economics-outcomes-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.0,
+        "finished_at": "2026-09-26T09:24:18.727925+00:00",
+        "log": "procurement-review-sources-frozen-04.log",
+        "bytes": 336,
+        "sha256": "e7faf20953581e55620a7de64ba6764c668de0cc512dd3603e44943920e2f47c",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.01,
+        "finished_at": "2026-09-26T09:24:19.815103+00:00",
+        "log": "procurement-review-sources-frozen-05.log",
+        "bytes": 247,
+        "sha256": "3e8311fd64087352971b207b18dbb330945e88e68fae5f0b6ff80231f99e7b38",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js",
+          "--zero"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.14,
+        "finished_at": "2026-09-26T09:24:21.053209+00:00",
+        "log": "procurement-review-sources-frozen-06.log",
+        "bytes": 245,
+        "sha256": "2c2bc57b7adae31adadd71a93bfd115011f4d507f8e0dc69dcf9583e74112643",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-economics-outcomes-api-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-api-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 15.13,
+        "finished_at": "2026-09-26T09:24:36.278371+00:00",
+        "log": "procurement-review-sources-frozen-07.log",
+        "bytes": 340,
+        "sha256": "8c3f9aa33e89f8228e9636164e55bc5fc31698db583d6c975b795ba8bdd0a6cf",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.13,
+        "finished_at": "2026-09-26T09:24:37.527835+00:00",
+        "log": "procurement-review-sources-frozen-08.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.31,
+        "finished_at": "2026-09-26T09:24:38.970237+00:00",
+        "log": "procurement-review-sources-frozen-09.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 2.61,
+        "finished_at": "2026-09-26T09:24:41.721635+00:00",
+        "log": "procurement-review-sources-frozen-10.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-sourcing-test.js",
+        "command": [
+          "node",
+          "procurement-sourcing-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 0.88,
+        "finished_at": "2026-09-26T09:24:42.683669+00:00",
+        "log": "procurement-review-sources-frozen-11.log",
+        "bytes": 115,
+        "sha256": "f99a0a50c771cb70b26560e25f066930d50a4b89ab707e24b47ab6f407d66cbe",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-reviews-test.js",
+        "command": [
+          "node",
+          "procurement-reviews-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.03,
+        "finished_at": "2026-09-26T09:24:43.819195+00:00",
+        "log": "procurement-review-sources-frozen-12.log",
+        "bytes": 220,
+        "sha256": "300feae0cb6bc500d1e4f7ffa8baddd78b74a9ae514ac1bf48a984b12d3e14b5",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 0.97,
+        "finished_at": "2026-09-26T09:24:44.891302+00:00",
+        "log": "procurement-review-sources-frozen-13.log",
+        "bytes": 188,
+        "sha256": "0d9afab4542c06d7944ef3885199cfabedbf340fbdc85d03a81df4e116d5fa3a",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-incremental-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.18,
+        "finished_at": "2026-09-26T09:24:46.192322+00:00",
+        "log": "procurement-review-sources-frozen-14.log",
+        "bytes": 250,
+        "sha256": "b0526d077946233728cfa22994a897b6283928618e41ae7f31e18d561383a16a",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-order-review-test.js",
+        "command": [
+          "node",
+          "procurement-order-review-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.15,
+        "finished_at": "2026-09-26T09:24:47.490765+00:00",
+        "log": "procurement-review-sources-frozen-15.log",
+        "bytes": 173,
+        "sha256": "c784b9103a31dc6693a7d63feb18cd019b36f43256f91dd88ee5889081c9b1cf",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-api-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 4.43,
+        "finished_at": "2026-09-26T09:24:52.033088+00:00",
+        "log": "procurement-review-sources-frozen-16.log",
+        "bytes": 178,
+        "sha256": "9fbb5b34d686a4283cd2cb48507bb1fa90fb8ada6ddb05da16d8db6a0ea2e8c4",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-incremental-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-api-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 13.09,
+        "finished_at": "2026-09-26T09:25:05.213382+00:00",
+        "log": "procurement-review-sources-frozen-17.log",
+        "bytes": 231,
+        "sha256": "f9ed1086b1896e7160f7300fe739b8e387f9e0bf1594aae966710185c0e7e3b9",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "procurement-incremental-client-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-client-test.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 1.25,
+        "finished_at": "2026-09-26T09:25:06.585602+00:00",
+        "log": "procurement-review-sources-frozen-18.log",
+        "bytes": 260,
+        "sha256": "3648222b98420d01f59043afdeb8865cec239055961e625f3831e1b4e52307b3",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 231.95,
+        "finished_at": "2026-09-26T09:28:58.656583+00:00",
+        "log": "procurement-review-sources-frozen-19.log",
+        "bytes": 370471,
+        "sha256": "2f777c050cafece51b6fd0a23ff203d5fda91f20bb69607b31d0a07e74ea1f52",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "test_summary": [
+          "# tests 1356",
+          "# pass 1356",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "tree": "c4e1b473edd83e8c9f17b63508362754e1c81385",
+        "exit_code": 0,
+        "seconds": 8.32,
+        "finished_at": "2026-09-26T09:29:07.054502+00:00",
+        "log": "procurement-review-sources-frozen-20.log",
+        "bytes": 1066,
+        "sha256": "868a8c9ff5a256ffc847e4e88b697ef54ab2b24c348f7623927a39ee8cd30c29",
+        "clean_after": true,
+        "head_after": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+        "corpus": {
+          "head": "8255b50ccc08dd06156885fe49a3d2e76918d3ee",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "procurement-award-baseline.log",
+        "status": "TWO_EXPECTED_FAILURES_DUTCH_HEADING_AND_CHANGED_REASON_UNDER_SAME_IDENTITY",
+        "bytes": 3953,
+        "sha256": "62cc1e868f080ff75b22ad51cb2dbc109acdefdc59a844a5aa9a7d0732aee1a4"
+      },
+      {
+        "file": "procurement-award-initial.log",
+        "status": "TWO_PRODUCTION_CLIENT_CASES_PASS",
+        "bytes": 341,
+        "sha256": "6112e38e592bc48c2f8680ce9325860370a88ab2f26c2861f82b47340297b249"
+      },
+      {
+        "file": "procurement-award-expanded.log",
+        "status": "SEVENTEEN_PRODUCTION_CLIENT_CASES_PASS",
+        "bytes": 1990,
+        "sha256": "b7f42c68266555429a4cda0117778c3c7f87dd5d8031eeb20c639776a1000789"
+      },
+      {
+        "file": "procurement-award-http-expanded.log",
+        "status": "EIGHTEEN_PASS_INCLUDING_ACTUAL_HTTP_AND_TWO_ENCRYPTED_SERVER_RESTARTS",
+        "bytes": 2155,
+        "sha256": "bb67a76129a2ef7bf4e0afbb572d1b15976d917214f3eee925161a1ea338c0b0"
+      },
+      {
+        "file": "procurement-award-multirecord-review.log",
+        "status": "ONE_REVIEW_FAILURE_MULTIPLE_UNMOUNTED_REVIEW_VIEWS_WERE_NOT_ALL_TRACKED",
+        "bytes": 927,
+        "sha256": "3a21d894ffba9a85143907fc498b39a7bf416447324de71ab55e03dbfdbae0d4"
+      },
+      {
+        "file": "procurement-award-boundaries.log",
+        "status": "TWENTY_PASS_AFTER_MULTIRECORD_FIX_AND_CONTRADICTORY_ALLOCATION_GUARD",
+        "bytes": 2371,
+        "sha256": "49c62ee7c69a3631cf5f027fb47ce005891f08798f7f9c69ab448250efcbfb40"
+      },
+      {
+        "file": "procurement-award-incremental-preserved.log",
+        "status": "EXISTING_INCREMENTAL_CLIENT_CONTRACT_PASS_WITH_ACTUAL_WORKSPACE_CONTROLLER",
+        "bytes": 260,
+        "sha256": "3648222b98420d01f59043afdeb8865cec239055961e625f3831e1b4e52307b3"
+      },
+      {
+        "file": "procurement-review-source-deletion-baseline.log",
+        "status": "SEVEN_EXPECTED_NATIVE_FAILURES_DELETED_CURRENT_APPROVAL_SOURCES_ONE_PRESERVED_HISTORY_PASS",
+        "bytes": 6004,
+        "sha256": "4051f16c7d5a53a8a4b4ab1bdb91f03c5808641dff4a2c169d538ccf83a9bac6"
+      },
+      {
+        "file": "procurement-review-source-deletion-initial.log",
+        "status": "EIGHT_NATIVE_SOURCE_AND_HISTORY_CASES_PASS",
+        "bytes": 1022,
+        "sha256": "8c792ed01c8d2602656ed50c6c3338b5f447c109cb06cff3ea75fea3d1957e50"
+      },
+      {
+        "file": "procurement-review-source-deletion-final.log",
+        "status": "EIGHT_PASS_WITH_CURRENT_SUPPLIER_SET_REUSED_PER_REVIEW",
+        "bytes": 1023,
+        "sha256": "3a6925d1374cfda8286b74b3d600ac312563ef8306fd9d77577a15a718f8cac1"
+      },
+      {
+        "file": "ci247-success.log",
+        "status": "COMPLETE_REMOTE_NPM_CI_PASS_EXACT_PUBLISHED_INTELLIGENCE_CURRENT_SOURCE_TREE",
+        "bytes": 653910,
+        "sha256": "99a10d6131a9e6c94761866a934a47661281d0282b1f926271077d423595c917"
+      }
+    ],
+    "exact_published_full_ci": "PENDING",
+    "scope": "Deleted mandatory policies do not authorize previews or block a deliberate replacement policy. Deleted orders cannot be previewed or submitted. Full-bid, split and incremental reviews revalidate non-deleted RFQ/bid/supplier/policy/award sources; order review checks order/policy/award. Failure leaves review revision, decisions, idempotency and outbox unchanged. Deleted proposals cannot be cancelled or returned by mutation replay. Historical approved quantities still consume incremental quantity/value capacity after retained award deletion; authorized historical export remains unchanged.",
+    "evidence_limits": "Deletion cases exercise the native domain with controlled current-record tombstones; transport integration is covered by the unchanged affected HTTP scripts, not a dedicated mid-body deletion proof. There is no real-browser/accessibility/native-speaker/live-provider acceptance. Existing in-memory exact-body retry is preserved, but metadata-only browser-reload recovery, durable non-execution retirement and immutable original/current Procurement action receipts still require implementation and proof.",
+    "remaining": "Publish exact checked tree and verify full CI. Continue durable Procurement action recovery and remaining generated/backend/shared copy, preserving all finished work. Run 2 remains IN_PROGRESS_NOT_ACCEPTED."
   }
 }
