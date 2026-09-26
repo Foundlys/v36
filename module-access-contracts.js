@@ -26,6 +26,7 @@ function methodOperation(method){return String(method).startsWith('export')?'exp
 // Reporting POSTs are reads; an internal cache is not user mutation authority.
 const PROVIDER_ROUTES=[
   [/^\/api\/procurement\/clarification-requests\/recover$/, 'procurement:sourcing','write'],
+  [/^\/api\/procurement\/economic-requests\/recover$/, 'procurement:opportunities','write'],
   // Typed recovery performs its own current write or approve authority check.
   [/^\/api\/procurement\/action-requests\/recover$/, 'procurement:approvals','read'],
   // Shared board movers need pipeline read plus opportunity write. The native
