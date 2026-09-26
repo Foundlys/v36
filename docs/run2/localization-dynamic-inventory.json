@@ -350,7 +350,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "236c316e5ec353a4b1786602759d342ba2599c1ad565bd713cfc4a6a9e51c365",
+      "sha256": "f9c90c8f36dde22c7cc419bd79bd6288a55b0762d5361a29f4cb6e843f8acc5e",
       "items": [
         {
           "line": 49,
@@ -1433,117 +1433,63 @@
           "rich_text": false
         },
         {
-          "line": 1459,
-          "start": 218297,
-          "end": 218320,
-          "context": "element_text",
-          "text": "Externe inbox ophalen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1461,
-          "start": 218392,
-          "end": 218414,
-          "context": "textContent",
-          "text": "Mailboxstatus laden…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1466,
-          "start": 219327,
-          "end": 219347,
-          "context": "element_text",
-          "text": "Reden voor ophalen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1466,
-          "start": 219722,
-          "end": 219805,
-          "context": "element_text",
-          "text": "Ik bevestig het ophalen en lokaal bewaren; de providerinbox wordt niet gewijzigd.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1467,
-          "start": 220305,
-          "end": 220342,
-          "context": "textContent",
-          "text": "Mailboxpagina alleen-lezen ophalen…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1467,
-          "start": 220685,
-          "end": 220711,
-          "context": "element_text",
-          "text": "Mailboxstatus vernieuwen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1473,
-          "start": 221149,
-          "end": 221191,
+          "line": 1491,
+          "start": 227029,
+          "end": 227071,
           "context": "element_text",
           "text": "Oorspronkelijk bericht downloaden (.eml)",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1477,
-          "start": 222164,
-          "end": 222255,
+          "line": 1495,
+          "start": 228044,
+          "end": 228135,
           "context": "textContent",
           "text": "Oorspronkelijk bericht gedownload. Afzenderidentiteit en bijlagen zijn niet geverifieerd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1599,
-          "start": 246684,
-          "end": 246702,
+          "line": 1617,
+          "start": 252564,
+          "end": 252582,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1600,
-          "start": 246751,
-          "end": 246756,
+          "line": 1618,
+          "start": 252631,
+          "end": 252636,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1601,
-          "start": 246824,
-          "end": 246851,
+          "line": 1619,
+          "start": 252704,
+          "end": 252731,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1680,
-          "start": 264745,
-          "end": 264764,
+          "line": 1698,
+          "start": 270625,
+          "end": 270644,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1746,
-          "start": 272516,
-          "end": 272555,
+          "line": 1764,
+          "start": 278396,
+          "end": 278435,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -1552,18 +1498,18 @@
           "rich_text": false
         },
         {
-          "line": 1877,
-          "start": 285755,
-          "end": 285780,
+          "line": 1895,
+          "start": 291635,
+          "end": 291660,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1880,
-          "start": 285981,
-          "end": 286104,
+          "line": 1898,
+          "start": 291861,
+          "end": 291984,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -1572,36 +1518,36 @@
           "rich_text": false
         },
         {
-          "line": 1895,
-          "start": 287436,
-          "end": 287517,
+          "line": 1913,
+          "start": 293316,
+          "end": 293397,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1922,
-          "start": 289856,
-          "end": 289935,
+          "line": 1940,
+          "start": 295736,
+          "end": 295815,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1926,
-          "start": 290228,
-          "end": 290243,
+          "line": 1944,
+          "start": 296108,
+          "end": 296123,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1927,
-          "start": 290349,
-          "end": 290365,
+          "line": 1945,
+          "start": 296229,
+          "end": 296245,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],
