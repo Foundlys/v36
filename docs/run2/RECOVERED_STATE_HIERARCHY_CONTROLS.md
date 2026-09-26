@@ -13,3 +13,11 @@ After this local checkpoint, the existing `acceptance-matrix.json` and `ACCEPTAN
 Continue with the concrete Sales domain summary defect: floating probability arithmetic can lose cents and missing probability is still indistinguishable from zero. Preserve current scoped source and recovery contracts. Then continue other genuinely open Run-2 work. Run 2 remains IN_PROGRESS_NOT_ACCEPTED.
 
 The following Sales-summary checkpoint is source 7326232, tree f6a3824: 1187 ZERO, 14 corpus and 18 affected native scripts pass. Its full published CI remains pending. Calendar creation recovery has begun in a separate worktree; no Calendar acceptance is yet claimed.
+
+## Native Calendar creation recovery — 26 September 2026
+
+Source `8debd3936d18815f371c31e8785de38c9f94c6f8`, tree `56db617e3ecaa9b07d7b0cef226dbc55c16d101e`, passes 1205 ZERO tests, all 14 corpus cases and 16 affected native scripts. The original ZERO invocation exited zero with an empty log and remains unverified; the complete same-source TAP/corpus recheck is the actual proof. Eighteen new permanent cases cover native and ZERO lost-response recovery, encrypted restart, immutable original creation versus current revision, terminal absence/late-body retirement, current authority/deletion, receipt corruption, legacy safety and storage rollback. Full CI for this new Calendar tree is pending.
+
+Sales summary now has full CI 239 PASS: published `a2d9959d918f03a11fad9d66e035697d3a0b25fc`, exact tree `0ee9b15fa712bbc182768d8f915986545792691f`, CI merge `217c907d08740383f7b5346f0976210948f8ca47`, 1187 ZERO and 14 corpus cases. Prior hierarchy and Sales checkpoints remain preserved.
+
+The existing 125-gate matrix retains all 20 open component estimates, with code/evidence/external dependencies and separate active hours/waiting time. New local evidence does not close broad localization, security, business-quality or browser gates. No overall percentage is inferred from test counts. Calendar browser authoring is the next active checkpoint: three shared-page baseline regressions reproduce locale retention, blind replay after an uncertain create, and absent recovery after reload. Continue implementing these controls in the separate preserved worktree. Run 2 remains IN_PROGRESS_NOT_ACCEPTED; no deployment or main merge has occurred.

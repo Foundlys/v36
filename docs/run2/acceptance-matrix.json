@@ -1888,7 +1888,7 @@
         "docs/run2/evaluation-current.json"
       ],
       "classification": "NONE",
-      "note": "Full npm CI 238 passed on 4c5be88, exact tree 167264c: 1176 ZERO and 14 corpus cases. New Sales summary source 7326232 passes complete local ZERO/corpus and 18 affected native scripts; full published CI remains pending. PASS refers to recorded completed regression scope."
+      "note": "Full npm CI 239 passed on a2d9959, exact tree 0ee9b15: 1187 ZERO and 14 corpus cases. New native Calendar source 8debd39 passes 1205 ZERO, 14 corpus and 16 affected native scripts; full published CI remains pending. The first empty ZERO log remains unverified. PASS refers to recorded completed regression scope."
     },
     {
       "id": "R2-114",
@@ -1902,7 +1902,7 @@
         "business-workspaces-regression-test.js"
       ],
       "classification": "CODE_CONTROLLED",
-      "note": "CI 238 completed successfully on 4c5be88; CI merge bd91bef matches exact published tree 167264c. Earlier failures/cancellations remain recorded. The newer Sales-summary source 7326232 awaits full published CI; this gate remains UNVERIFIED for newer source."
+      "note": "CI 239 completed successfully on a2d9959; CI merge 217c907 matches exact published tree 0ee9b15. Earlier failures/cancellations remain recorded. Newer native Calendar source 8debd39 awaits full published CI; this gate remains UNVERIFIED for newer source."
     },
     {
       "id": "R2-115",
@@ -2087,11 +2087,11 @@
       "note": "No PostgreSQL migration, Digital Twin, mobile release, autonomous implementation or future-run acceptance is claimed."
     }
   ],
-  "updated_at": "2026-09-26T05:35:58.199883+00:00",
+  "updated_at": "2026-09-26T08:00:00+02:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker.",
   "remaining_work_review": {
-    "reviewed_at": "2026-09-26T05:35:58.199883+00:00",
+    "reviewed_at": "2026-09-26T08:00:00+02:00",
     "timezone": "Europe/Amsterdam",
     "basis": "Existing locked acceptance matrix and current repository/checkpoint evidence; bounded gap review, not a restarted global audit.",
     "time_estimate_policy": {
@@ -2253,7 +2253,7 @@
           "R2-062",
           "R2-063"
         ],
-        "remaining_code": "Resterende gedeelde/specialistische bediening en backend-/gegenereerde producttekst in acht talen afwerken. Afgeronde Marketing-, workflow-, Sales-pipeline/prognose/hiërarchiecontroles behouden. Sales-samenvatting is afzonderlijk gerepareerd in bron 7326232; Calendar-herstel/bediening is nu actief.",
+        "remaining_code": "Resterende gedeelde/specialistische bediening en backend-/gegenereerde producttekst in acht talen afwerken. Afgeronde Marketing-, workflow- en Sales-controles behouden. Native Calendar-aanmaakherstel is lokaal bewezen op 8debd39; Calendar-schermbediening en herladen zijn nu actief.",
         "missing_evidence": "Eigenaarschap van tekst, invoer-/focusbehoud, fout- en herstelpaden, native taalkwaliteit en alle aangeraakte layouts.",
         "external_dependency": "Taalbeoordeling en een toegankelijke browseromgeving zijn nog niet bewezen; lokale codewerkzaamheden zijn uitvoerbaar.",
         "active_hours": {
@@ -2362,7 +2362,7 @@
           "R2-096"
         ],
         "remaining_code": "Concrete gaten uit moeilijke Sales/Procurement/Finance/Analytics/Automotive-taken sluiten; bestaande bevoegde native specialisten benutten.",
-        "missing_evidence": "Meertraps brongebonden antwoorden, exacte bedragen, afwezige data, conflicten, gewijzigde rechten en causale bedrijfsbeoordeling.",
+        "missing_evidence": "Meertraps brongebonden antwoorden, afwezige data, conflicten, gewijzigde rechten en causale bedrijfsbeoordeling. Exacte native Sales-bedragen/UNKNOWN/overflow hebben nu CI 239; dit sluit het moeilijke bedrijfsscenario-corpus niet.",
         "external_dependency": "Live model en inhoudelijke beoordeling nodig voor antwoordkwaliteit; native scenario’s kunnen lokaal worden uitgevoerd.",
         "active_hours": {
           "min": 12,
@@ -2548,7 +2548,7 @@
           "min": 2,
           "max": 6
         },
-        "waiting_time": "Circa 8–20 min per volledige CI-job plus queue; CI 237 duurde gemeten 11,02 min. Falen vraagt extra actieve reparatie, geen passieve wachttijd.",
+        "waiting_time": "Circa 8–20 min per volledige CI-job plus queue; CI 237 duurde 11,02 min en CI 239 10,98 min. Falen vraagt extra actieve reparatie, geen passieve wachttijd.",
         "estimate_basis": "Band betreft laatste integratie/evidence-werk, niet de optelsom van alle open hoofdonderdelen. CI per tussentijds checkpoint kan met ander werk overlappen.",
         "dependencies": [
           "all_open_components"
@@ -2556,19 +2556,19 @@
         "estimate_confidence": "MEDIUM_LOW"
       }
     ],
-    "next_action": "Calendar-aanmaak en metadataherstel van onzekere afspraken afwerken, daarna de acht talen en invoer-/herstelbediening. De Sales-samenvatting is lokaal gerepareerd en wacht op volledige CI.",
+    "next_action": "Calendar-bediening afwerken: metadata bewaren vóór aanmaak, herstel na herladen, behoud van invoer en bevestiging in acht talen, en navigatie-/toegangsgrenzen. Native herstel is lokaal bewezen; volledige CI voor die nieuwe bron volgt. Sales heeft volledige CI 239 PASS.",
     "latest_verified_checkpoint": {
-      "source_commit": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
-      "source_tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
-      "local_zero": 1187,
+      "source_commit": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+      "source_tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+      "local_zero": 1205,
       "local_corpus": 14,
-      "affected_native_scripts": 18,
+      "affected_native_scripts": 16,
       "exact_published_full_ci": "PENDING",
       "last_completed_full_ci": {
-        "run": 238,
-        "head": "4c5be882d54e3f03ba37f4692b5a1e07dbc62ee2",
-        "tree": "167264cd4ee3721b32d3dedb608abef1c1a49ddb",
-        "zero": 1176,
+        "run": 239,
+        "head": "a2d9959d918f03a11fad9d66e035697d3a0b25fc",
+        "tree": "0ee9b15fa712bbc182768d8f915986545792691f",
+        "zero": 1187,
         "corpus": 14
       }
     }

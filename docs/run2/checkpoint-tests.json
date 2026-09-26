@@ -10222,7 +10222,7 @@
     }
   },
   "sales_summary_20260926": {
-    "status": "FROZEN_ZERO_CORPUS_18_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "status": "FROZEN_ZERO_CORPUS_18_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "732623237f2caaf8bc6b6d56fdde10fe9b448442",
     "source_tree": "f6a382421caed101bff9297bec4f4757f7e6d76c",
     "permanent_new_tests": 11,
@@ -10660,7 +10660,566 @@
     ],
     "scope": "Current authorized native Sales summary uses the existing exact BigInt decimal probability arithmetic. Explicit zero differs from missing/invalid probability. Known subtotals and complete totals are separate; missing/unassigned currency or amount and unsafe aggregate cents cannot become complete or falsely precise totals. Per-currency groups, source availability/empty/partial states and exclusions are explicit; deleted/archived/lost/cancelled or unauthorized rows do not fabricate groups or leak. All current authorized rows contribute beyond list pagination. ZERO native evidence re-verifies source changes. Real HTTP covers encrypted restart, isolation and capability withdrawal. Native records are not modified.",
     "native_assertion_update": "The existing 105-row aggregation test previously asserted a complete USD total despite earlier records without currency. It now retains the exact 105-row known-subtotal and weighted-subtotal assertions, and additionally requires null complete totals plus explicit unassigned-currency coverage. A separate permanent test proves complete totals on 105 fully assigned sources. No scope/timing/assertion was weakened to bypass a defect.",
+    "exact_published_full_ci": "PASS_239",
+    "remaining": "Sales source is verified by full CI 239; wider business-quality acceptance stays open. Calendar native creation recovery is locally verified and browser authoring/reload work is in progress.",
+    "ci_proof": {
+      "run_number": 239,
+      "run_id": 36221345264,
+      "job_id": 108347073500,
+      "conclusion": "success",
+      "published_head": "a2d9959d918f03a11fad9d66e035697d3a0b25fc",
+      "ci_merge_commit": "217c907d08740383f7b5346f0976210948f8ca47",
+      "tree": "0ee9b15fa712bbc182768d8f915986545792691f",
+      "exact_tree_match": true,
+      "summary": [
+        "# tests 1187",
+        "# pass 1187",
+        "# fail 0"
+      ],
+      "corpus": {
+        "head": "217c907d08740383f7b5346f0976210948f8ca47",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "zero_tests": 1187,
+      "zero_pass": 1187,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0
+    }
+  },
+  "calendar_creation_native_20260926": {
+    "status": "FROZEN_1205_ZERO_14_CORPUS_16_NATIVE_PASS_FULL_PUBLISHED_CI_PENDING",
+    "source_commit": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+    "source_tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+    "implementation_commit": "1451d7d772c2c200b2c436a4b9517a760f493f9d",
+    "permanent_new_tests": 18,
+    "new_test_breakdown": {
+      "native_recovery": 12,
+      "actual_http": 6
+    },
+    "frozen_results": [
+      {
+        "name": "calendar-time-test.js",
+        "command": [
+          "node",
+          "calendar-time-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "finished_at": "2026-09-26T05:45:31.354370+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-time-test.js.log",
+        "sha256": "b429bc90c2063dc612798ad44749ab8a2395e63c0d22764a982c00a78f9046ce",
+        "bytes": 198
+      },
+      {
+        "name": "calendar-time-api-test.js",
+        "command": [
+          "node",
+          "calendar-time-api-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 5.2,
+        "finished_at": "2026-09-26T05:45:36.621325+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-time-api-test.js.log",
+        "sha256": "f00bd8ab8a9c87874d4a6ec020742aeea2cb7fa266a4f3437d4ce97b73cbe45c",
+        "bytes": 322
+      },
+      {
+        "name": "calendar-google-reader-test.js",
+        "command": [
+          "node",
+          "calendar-google-reader-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.31,
+        "finished_at": "2026-09-26T05:45:37.012043+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-google-reader-test.js.log",
+        "sha256": "c6eae3a47485ed816036b7b4971f8afd0e4ce71068167c080cf2e996a3b5a26c",
+        "bytes": 155
+      },
+      {
+        "name": "calendar-external-test.js",
+        "command": [
+          "node",
+          "calendar-external-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.61,
+        "finished_at": "2026-09-26T05:45:37.692935+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-external-test.js.log",
+        "sha256": "153a918ffd988de0cfb401ee40818d7d8dc2d65fd98ac3da58196f0d1836a8ca",
+        "bytes": 219
+      },
+      {
+        "name": "calendar-external-api-test.js",
+        "command": [
+          "node",
+          "calendar-external-api-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 8.82,
+        "finished_at": "2026-09-26T05:45:46.593417+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-external-api-test.js.log",
+        "sha256": "67f611f9976d455809e109a2015e71a4628baa0d9e1a8c369965da7d09649740",
+        "bytes": 201
+      },
+      {
+        "name": "calendar-external-client-test.js",
+        "command": [
+          "node",
+          "calendar-external-client-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.57,
+        "finished_at": "2026-09-26T05:45:47.243306+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-external-client-test.js.log",
+        "sha256": "650ba501b6d9f4b66f363fe76b1e0ff87969f9a064cc66f7f2ac52cc9e04062b",
+        "bytes": 180
+      },
+      {
+        "name": "calendar-event-preparation-test.js",
+        "command": [
+          "node",
+          "calendar-event-preparation-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.57,
+        "finished_at": "2026-09-26T05:45:47.887114+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-event-preparation-test.js.log",
+        "sha256": "440795d8d758aa09d22721113620bde4858798d160eb0efaca138d36110eb41f",
+        "bytes": 140
+      },
+      {
+        "name": "calendar-event-preparation-api-test.js",
+        "command": [
+          "node",
+          "calendar-event-preparation-api-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 15.56,
+        "finished_at": "2026-09-26T05:46:03.517090+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-event-preparation-api-test.js.log",
+        "sha256": "65b7ddd9646fa68279b359c677b7901f0e015be35500861f0c9ee3b293a89672",
+        "bytes": 243
+      },
+      {
+        "name": "calendar-event-client-test.js",
+        "command": [
+          "node",
+          "calendar-event-client-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.68,
+        "finished_at": "2026-09-26T05:46:04.260200+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-event-client-test.js.log",
+        "sha256": "a8493b3df129cbe09a20c9612454e86234d411efd154d4ad734db9c5b826342c",
+        "bytes": 212
+      },
+      {
+        "name": "calendar-event-client-test.js --zero",
+        "command": [
+          "node",
+          "calendar-event-client-test.js",
+          "--zero"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T05:46:04.967522+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-event-client-test.js --zero.log",
+        "sha256": "2d3fc1c5af48b5bb336baea0c6220520e44b63bf71f280a1211a6c7bbc809959",
+        "bytes": 210
+      },
+      {
+        "name": "calendar-scheduling-test.js",
+        "command": [
+          "node",
+          "calendar-scheduling-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T05:46:05.689747+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-scheduling-test.js.log",
+        "sha256": "ceb6b8a835d3810810a8b5f69771cd7f78ee27fb51fdc405ab929fd038ffcf64",
+        "bytes": 138
+      },
+      {
+        "name": "calendar-reminder-principal-api-test.js",
+        "command": [
+          "node",
+          "calendar-reminder-principal-api-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 8.2,
+        "finished_at": "2026-09-26T05:46:13.955422+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-reminder-principal-api-test.js.log",
+        "sha256": "1352dd4271172f59449ea458d061cdc745d68875fbef75d95239257767b4c96d",
+        "bytes": 201
+      },
+      {
+        "name": "calendar-reminder-principal-test.js",
+        "command": [
+          "node",
+          "calendar-reminder-principal-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 1.16,
+        "finished_at": "2026-09-26T05:46:15.192511+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-calendar-reminder-principal-test.js.log",
+        "sha256": "109bbe3a1aa7ec39dac6c7425cedb132702ddc21f22e0af44f84a40bcef0e7b8",
+        "bytes": 228
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "finished_at": "2026-09-26T05:46:15.925283+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-business-domains-test.js.log",
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "bytes": 212
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "finished_at": "2026-09-26T05:46:16.674899+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-module-access-contracts-test.js.log",
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "bytes": 332
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 1.65,
+        "finished_at": "2026-09-26T05:46:18.410189+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-business-workspaces-regression-test.js.log",
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "bytes": 254
+      },
+      {
+        "name": "zero",
+        "command": [
+          "npm",
+          "run",
+          "test:zero"
+        ],
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+        "exit_code": 0,
+        "seconds": 207.41,
+        "finished_at": "2026-09-26T05:49:45.891119+00:00",
+        "clean_after": true,
+        "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "log": "calendar-native-frozen-zero.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "test_summary": [],
+        "corpus": null
+      }
+    ],
+    "verified_zero_recheck": {
+      "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+      "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+      "commands": [
+        {
+          "command": [
+            "node",
+            "--test",
+            "--test-reporter=tap"
+          ],
+          "exit_code": 0
+        },
+        {
+          "command": [
+            "node",
+            "zero-evaluation/run.js"
+          ],
+          "exit_code": 0
+        }
+      ],
+      "seconds": 209.25,
+      "finished_at": "2026-09-26T05:56:11.594022+00:00",
+      "log": "calendar-native-frozen-zero-recheck.log",
+      "bytes": 330933,
+      "sha256": "57f8adb7bde3ce7a9a4b834b430701a783414927d383c9be3e3e3f3abc83fa85",
+      "test_summary": [
+        "# tests 1205",
+        "# pass 1205",
+        "# fail 0"
+      ],
+      "corpus": {
+        "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "clean_after": true,
+      "head_after": "8debd3936d18815f371c31e8785de38c9f94c6f8"
+    },
+    "verified_module_access_recheck": {
+      "command": [
+        "node",
+        "module-access-contracts-test.js"
+      ],
+      "head": "8debd3936d18815f371c31e8785de38c9f94c6f8",
+      "tree": "56db617e3ecaa9b07d7b0cef226dbc55c16d101e",
+      "exit_code": 0,
+      "seconds": 0.73,
+      "log": "calendar-native-module-access-recheck.log",
+      "bytes": 332,
+      "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+      "finished_at": "2026-09-26T06:02:12.806084+00:00",
+      "reason": "Original recorded log had 332 bytes but available file is now empty; repeat only this script on unchanged source, preserve original metadata."
+    },
+    "prior_evidence": [
+      {
+        "file": "calendar-creation-recovery-baseline.log",
+        "status": "EXPECTED_BASELINE_FAILURE_3_OF_3",
+        "bytes": 2887,
+        "sha256": "2e6d5525bbbd7f47bccaaf0cb1c6ef1a094781671695871142aa43a1446e41ad"
+      },
+      {
+        "file": "calendar-creation-recovery-expanded.log",
+        "status": "FAIL_2_OF_10_DELETED_EVENT_DEFECT_AND_FOREIGN_REALM_EXPECTATION",
+        "bytes": 3127,
+        "sha256": "129a2136e03ab21e626533e24112eac6ef048fabca399c60ba7cdf8c1f9185cf"
+      },
+      {
+        "file": "calendar-creation-recovery-fixed.log",
+        "status": "PASS_10",
+        "bytes": 1292,
+        "sha256": "2365bce019725da874314dea454a7c84f42012895739233fc6dee88025452cd7"
+      },
+      {
+        "file": "calendar-creation-recovery-http-expanded.log",
+        "status": "PASS_17_BEFORE_FINAL_LEGACY_CASE",
+        "bytes": 2225,
+        "sha256": "a3c3d171e10a3c10e4b63ce28d83154bb6fb20f0d801f82e31c807d9b02cd335"
+      },
+      {
+        "file": "calendar-creation-recovery-native-final.log",
+        "status": "PASS_12_NATIVE",
+        "bytes": 1506,
+        "sha256": "7289940615ba5be68bf5e0f2447bb4f01dfc9c7894da93b60130f303b15e5f36"
+      },
+      {
+        "file": "calendar-native-frozen-precondition.log",
+        "status": "NO_TESTS_EXECUTED_FROZEN_HEAD_PRECONDITION",
+        "bytes": 238,
+        "sha256": "3eaac1a9209b73de3e63b2af719d5857c4271150d368685ce89d0d0d5db84fc6"
+      },
+      {
+        "file": "calendar-native-frozen-zero.log",
+        "status": "UNVERIFIED_CAPTURE_MISSING_EXIT_ZERO_IS_NOT_SUFFICIENT",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "calendar-event-controls-baseline.log",
+        "status": "EXPECTED_BASELINE_FAILURE_3_OF_3_NEXT_UNIMPLEMENTED_BROWSER_CHECKPOINT",
+        "bytes": 2675,
+        "sha256": "2f2aa726bd6c6630e167a1ec5220048e26df2cf9ecedc1e4211d6ec0a909e145"
+      }
+    ],
+    "scope": "Native Calendar creation recovery persists exact opaque request metadata and immutable creation snapshots in the encrypted journal. Metadata-only recovery revalidates current actor/tenant/dealer, module/capability, original/current calendar and event access, deletion and proof integrity. Original creation revision and current event are separate. Durable NOT_APPLIED retirement blocks every late original POST. Missing/corrupt receipts cannot establish false absence. Atomic rollback, legacy replay safeguards, retained receipts/capacity, native and ZERO explicit request IDs, lost replies and encrypted restart are covered. No external invitation is sent.",
+    "evidence_limit": "The initial full ZERO command exited 0 but captured zero bytes: permanently UNVERIFIED_CAPTURE_MISSING. Only the complete same-source TAP/corpus recheck supplies full ZERO evidence. The original module-access log is now empty despite the recorded 332 bytes: its metadata is retained and only that script was rechecked with a complete fresh log on unchanged source. DOM/VM fixtures and HTTP contracts do not establish real-browser, native-speaker, accessibility or provider acceptance.",
+    "preservation": "Normal merge preserved published Sales and hierarchy work. Five duplicate-history documentation conflicts were resolved only after both sides matched known checkpoints; there were no source conflicts or discarded user changes. Separate Calendar browser baseline files are preserved in work/run2-calendar-controls.",
     "exact_published_full_ci": "PENDING",
-    "remaining": "Calendar creation uncertainty/reload recovery and eight-locale authoring are next; broader matrix requirements remain open."
+    "remaining": "Calendar browser metadata persistence/reload recovery, eight-locale input and confirmation retention, shared navigation guards and scoped response validation are active. Three actual shared-page baseline regressions fail before implementation. All broader open gates remain."
   }
 }
