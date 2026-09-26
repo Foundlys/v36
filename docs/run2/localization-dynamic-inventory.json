@@ -118,6 +118,16 @@
       "items": []
     },
     {
+      "file": "communication-reply-client-state.js",
+      "sha256": "72f34b8b750b75056c5f689845b974284ca361e9c4117f851e2751b211d09000",
+      "items": []
+    },
+    {
+      "file": "communication-reply-recovery-client.js",
+      "sha256": "7e3e38eee99956d990c95434d0dfb2db9878df9dc8402608600daa12f69703b5",
+      "items": []
+    },
+    {
       "file": "communication-template-client-state.js",
       "sha256": "61d4ca46633409add8cc2aa1b26beb3b653e1660e73d6c7c0fdd10065a80b832",
       "items": []
@@ -330,7 +340,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "e439245f866fe48b67ddf42aab5e00fd4727bda5dcaf90f54c82afa083a3c0ed",
+      "sha256": "db641915785f6337aa07de7aa77236c9fe4f492d9c86199950665efe8b0885c7",
       "items": [
         {
           "line": 49,
@@ -381,135 +391,135 @@
           "rich_text": false
         },
         {
-          "line": 1186,
-          "start": 164735,
-          "end": 164755,
+          "line": 1188,
+          "start": 164761,
+          "end": 164781,
           "context": "element_text",
           "text": "Verzendbeoordeling",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1189,
-          "start": 165426,
-          "end": 165433,
+          "line": 1191,
+          "start": 165452,
+          "end": 165459,
           "context": "element_text",
           "text": "Reden",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1189,
-          "start": 165486,
-          "end": 165516,
+          "line": 1191,
+          "start": 165512,
+          "end": 165542,
           "context": "element_text",
           "text": "Ik bevestig deze beoordeling",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1190,
-          "start": 166081,
-          "end": 166093,
+          "line": 1192,
+          "start": 166107,
+          "end": 166119,
           "context": "element_text",
           "text": "Beslissing",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1194,
-          "start": 166931,
-          "end": 166954,
+          "line": 1196,
+          "start": 166957,
+          "end": 166980,
           "context": "element_text",
           "text": "Reden voor verzending",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1194,
-          "start": 167007,
-          "end": 167082,
+          "line": 1196,
+          "start": 167033,
+          "end": 167108,
           "context": "element_text",
           "text": "Ik bevestig dat deze exacte inhoud en ontvangers extern worden aangeboden",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1194,
-          "start": 167122,
-          "end": 167153,
+          "line": 1196,
+          "start": 167148,
+          "end": 167179,
           "context": "element_text",
           "text": "Goedgekeurd bericht aanbieden",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1194,
-          "start": 167345,
-          "end": 167437,
+          "line": 1196,
+          "start": 167371,
+          "end": 167463,
           "context": "element_text",
           "text": "De mailprovider kan het bericht accepteren. Bezorging bij de ontvanger blijft onbevestigd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1198,
-          "start": 168292,
-          "end": 168312,
+          "line": 1200,
+          "start": 168318,
+          "end": 168338,
           "context": "element_text",
           "text": "Reden voor herstel",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1198,
-          "start": 168365,
-          "end": 168410,
+          "line": 1200,
+          "start": 168391,
+          "end": 168436,
           "context": "element_text",
           "text": "Ik bevestig herstel uit het bewaarde bewijs",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1198,
-          "start": 168448,
-          "end": 168476,
+          "line": 1200,
+          "start": 168474,
+          "end": 168502,
           "context": "element_text",
           "text": "Verzenduitkomst herstellen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1198,
-          "start": 168945,
-          "end": 169007,
+          "line": 1200,
+          "start": 168971,
+          "end": 169033,
           "context": "element_text",
           "text": "Deze actie verzendt geen mail. Bezorging blijft onbevestigd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1202,
-          "start": 169870,
-          "end": 169892,
+          "line": 1204,
+          "start": 169896,
+          "end": 169918,
           "context": "textContent",
           "text": "Beoordelingen laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1204,
-          "start": 170013,
-          "end": 170095,
+          "line": 1206,
+          "start": 170039,
+          "end": 170121,
           "context": "textContent",
           "text": "Beoordelen verzendt niets. Een bericht aanbieden is een aparte bevestigde actie.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1205,
-          "start": 170202,
-          "end": 170234,
+          "line": 1207,
+          "start": 170228,
+          "end": 170260,
           "context": "element_text",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -519,9 +529,9 @@
           "rich_text": false
         },
         {
-          "line": 1205,
-          "start": 170248,
-          "end": 170353,
+          "line": 1207,
+          "start": 170274,
+          "end": 170379,
           "context": "element_text",
           "text": "Van: {p0} · Aan: {p1} · Cc: {p2}",
           "parameters": [
@@ -532,9 +542,9 @@
           "rich_text": false
         },
         {
-          "line": 1205,
-          "start": 170436,
-          "end": 170515,
+          "line": 1207,
+          "start": 170462,
+          "end": 170541,
           "context": "element_text",
           "text": "Bijlagen: {p0}",
           "parameters": [
@@ -543,99 +553,99 @@
           "rich_text": false
         },
         {
-          "line": 1206,
-          "start": 171752,
-          "end": 171784,
+          "line": 1208,
+          "start": 171778,
+          "end": 171810,
           "context": "element_text",
           "text": "Nog geen verzendbeoordelingen.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 171904,
-          "end": 171944,
+          "line": 1210,
+          "start": 171930,
+          "end": 171970,
           "context": "element_text",
           "text": "Doel volgens de vastgelegde voorkeuren",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 171993,
-          "end": 172017,
+          "line": 1210,
+          "start": 172019,
+          "end": 172043,
           "context": "element_text",
           "text": "Exacte inhoud bekijken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 172092,
-          "end": 172112,
+          "line": 1210,
+          "start": 172118,
+          "end": 172138,
           "context": "element_text",
           "text": "Beoordelaar zoeken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 172160,
-          "end": 172181,
+          "line": 1210,
+          "start": 172186,
+          "end": 172207,
           "context": "element_text",
           "text": "Beoordelaars zoeken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 172237,
-          "end": 172259,
+          "line": 1210,
+          "start": 172263,
+          "end": 172285,
           "context": "element_text",
           "text": "Bevoegde beoordelaar",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 172313,
-          "end": 172337,
+          "line": 1210,
+          "start": 172339,
+          "end": 172363,
           "context": "element_text",
           "text": "Reden voor beoordeling",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 172390,
-          "end": 172429,
+          "line": 1210,
+          "start": 172416,
+          "end": 172455,
           "context": "element_text",
           "text": "Ik bevestig deze inhoud en ontvangers",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1208,
-          "start": 172469,
-          "end": 172492,
+          "line": 1210,
+          "start": 172495,
+          "end": 172518,
           "context": "element_text",
           "text": "Beoordeling aanvragen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1210,
-          "start": 173101,
-          "end": 173123,
+          "line": 1212,
+          "start": 173127,
+          "end": 173149,
           "context": "element_text",
           "text": "Kies een beoordelaar",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1213,
-          "start": 173937,
-          "end": 174048,
+          "line": 1215,
+          "start": 173963,
+          "end": 174074,
           "context": "element_text",
           "text": "Van: {p0} · Aan: {p1} · Cc: {p2}",
           "parameters": [
@@ -646,9 +656,9 @@
           "rich_text": false
         },
         {
-          "line": 1213,
-          "start": 174135,
-          "end": 174216,
+          "line": 1215,
+          "start": 174161,
+          "end": 174242,
           "context": "element_text",
           "text": "Bijlagen: {p0}",
           "parameters": [
@@ -657,36 +667,36 @@
           "rich_text": false
         },
         {
-          "line": 1215,
-          "start": 175561,
-          "end": 175612,
+          "line": 1217,
+          "start": 175587,
+          "end": 175638,
           "context": "error_message_requires_control_flow_review",
           "text": "Bekijk de actuele inhoud en kies een beoordelaar.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1248,
-          "start": 182763,
-          "end": 182781,
+          "line": 1250,
+          "start": 182814,
+          "end": 182832,
           "context": "element_text",
           "text": "Interne reacties",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1250,
-          "start": 183183,
-          "end": 183200,
+          "line": 1252,
+          "start": 183234,
+          "end": 183251,
           "context": "textContent",
           "text": "Reacties laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1250,
-          "start": 183371,
-          "end": 183462,
+          "line": 1252,
+          "start": 183422,
+          "end": 183513,
           "context": "textContent",
           "text": "{p0} bewaarde interne reacties · conceptrevisie {p1}",
           "parameters": [
@@ -696,27 +706,27 @@
           "rich_text": false
         },
         {
-          "line": 1251,
-          "start": 183573,
-          "end": 183591,
+          "line": 1253,
+          "start": 183624,
+          "end": 183642,
           "context": "element_text",
           "text": "Reactie plaatsen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1251,
-          "start": 183662,
-          "end": 183692,
+          "line": 1253,
+          "start": 183713,
+          "end": 183743,
           "context": "element_text",
           "text": "Geen antwoord op een reactie",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1252,
-          "start": 183834,
-          "end": 183956,
+          "line": 1254,
+          "start": 183885,
+          "end": 184007,
           "context": "element_text",
           "text": "{p0} · bij conceptrevisie {p1}{p2}",
           "parameters": [
@@ -727,9 +737,9 @@
           "rich_text": false
         },
         {
-          "line": 1252,
-          "start": 184101,
-          "end": 184196,
+          "line": 1254,
+          "start": 184152,
+          "end": 184247,
           "context": "element_text",
           "text": "{p0}: {p1}",
           "parameters": [
@@ -739,108 +749,108 @@
           "rich_text": false
         },
         {
-          "line": 1253,
-          "start": 184383,
-          "end": 184407,
+          "line": 1255,
+          "start": 184434,
+          "end": 184458,
           "context": "element_text",
           "text": "Mijn reactie intrekken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1256,
-          "start": 185695,
-          "end": 185781,
+          "line": 1258,
+          "start": 185746,
+          "end": 185832,
           "context": "element_text",
           "text": "Deze reactie is alleen zichtbaar voor huidige medebewerkers en wordt niet verzonden.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1258,
-          "start": 186466,
-          "end": 186483,
+          "line": 1260,
+          "start": 186517,
+          "end": 186534,
           "context": "element_text",
           "text": "Vorige reacties",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1259,
-          "start": 186691,
-          "end": 186710,
+          "line": 1261,
+          "start": 186742,
+          "end": 186761,
           "context": "element_text",
           "text": "Volgende reacties",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1261,
-          "start": 187016,
-          "end": 187037,
+          "line": 1263,
+          "start": 187067,
+          "end": 187088,
           "context": "element_text",
           "text": "Reacties vernieuwen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1265,
-          "start": 187460,
-          "end": 187476,
+          "line": 1267,
+          "start": 187511,
+          "end": 187527,
           "context": "element_text",
           "text": "Samen bewerken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1269,
-          "start": 188514,
-          "end": 188545,
+          "line": 1271,
+          "start": 188565,
+          "end": 188596,
           "context": "element_text",
           "text": "Werktekst als concept opslaan",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1278,
-          "start": 190143,
-          "end": 190280,
+          "line": 1280,
+          "start": 190194,
+          "end": 190331,
           "context": "textContent",
           "text": "Je sessie is verlopen of overgenomen. Je lokale tekst blijft hieronder staan; bekijk de actuele werktekst voordat je opnieuw overneemt.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1282,
-          "start": 192126,
-          "end": 192193,
+          "line": 1284,
+          "start": 192177,
+          "end": 192244,
           "context": "error_message_requires_control_flow_review",
           "text": "Het concept is gewijzigd tijdens het starten; vernieuw de status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1282,
-          "start": 192437,
-          "end": 192539,
+          "line": 1284,
+          "start": 192488,
+          "end": 192590,
           "context": "textContent",
           "text": "Wijzigingen worden als gedeelde werktekst zichtbaar. Alleen Opslaan maakt een nieuwe conceptrevisie.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1282,
-          "start": 192572,
-          "end": 192634,
+          "line": 1284,
+          "start": 192623,
+          "end": 192685,
           "context": "textContent",
           "text": "Bewerking vrijgegeven. De gedeelde werktekst blijft bewaard.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1288,
-          "start": 194689,
-          "end": 194759,
+          "line": 1290,
+          "start": 194740,
+          "end": 194810,
           "context": "textContent",
           "text": "Conceptrevisie {p0} opgeslagen. Er is niets verzonden.",
           "parameters": [
@@ -849,27 +859,27 @@
           "rich_text": false
         },
         {
-          "line": 1289,
-          "start": 195041,
-          "end": 195070,
+          "line": 1291,
+          "start": 195092,
+          "end": 195121,
           "context": "element_text",
           "text": "Bewerkingsstatus vernieuwen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1295,
-          "start": 195791,
-          "end": 195801,
+          "line": 1297,
+          "start": 195842,
+          "end": 195852,
           "context": "element_text",
           "text": "Bijlagen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1299,
-          "start": 196230,
-          "end": 196591,
+          "line": 1301,
+          "start": 196281,
+          "end": 196642,
           "context": "element_text",
           "text": "Tekst tot {p0}; PDF, PNG, JPEG en Office-documenten tot {p1} vereisen een lokale malwarecontrole. Maximaal {p2} bijlagen en {p3} per concept. Bestanden worden niet inline geopend of verzonden. Geef een actieve bewerking vrij voordat je bijlagen wijzigt.",
           "parameters": [
@@ -881,18 +891,18 @@
           "rich_text": false
         },
         {
-          "line": 1300,
-          "start": 196649,
-          "end": 196683,
+          "line": 1302,
+          "start": 196700,
+          "end": 196734,
           "context": "element_text",
           "text": "Dit concept heeft geen bijlagen.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1303,
-          "start": 197164,
-          "end": 197195,
+          "line": 1305,
+          "start": 197215,
+          "end": 197246,
           "context": "aria-label",
           "text": "{p0} downloaden",
           "parameters": [
@@ -901,9 +911,9 @@
           "rich_text": false
         },
         {
-          "line": 1303,
-          "start": 197221,
-          "end": 197274,
+          "line": 1305,
+          "start": 197272,
+          "end": 197325,
           "context": "element_text",
           "text": "{p0} · {p1} bytes",
           "parameters": [
@@ -913,36 +923,36 @@
           "rich_text": false
         },
         {
-          "line": 1308,
-          "start": 198099,
-          "end": 198141,
+          "line": 1310,
+          "start": 198150,
+          "end": 198192,
           "context": "error_message_requires_control_flow_review",
           "text": "De bijlage kon niet worden geverifieerd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1309,
-          "start": 198443,
-          "end": 198464,
+          "line": 1311,
+          "start": 198494,
+          "end": 198515,
           "context": "textContent",
           "text": "Bestand gedownload.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1312,
-          "start": 198706,
-          "end": 198731,
+          "line": 1314,
+          "start": 198757,
+          "end": 198782,
           "context": "element_text",
           "text": "Uit concept verwijderen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1312,
-          "start": 198787,
-          "end": 198831,
+          "line": 1314,
+          "start": 198838,
+          "end": 198882,
           "context": "aria-label",
           "text": "{p0} uit concept verwijderen",
           "parameters": [
@@ -951,36 +961,36 @@
           "rich_text": false
         },
         {
-          "line": 1312,
-          "start": 199193,
-          "end": 199270,
+          "line": 1314,
+          "start": 199244,
+          "end": 199321,
           "context": "textContent",
           "text": "Bijlage verwijderd uit het huidige concept; de geschiedenis blijft bewaard.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1315,
-          "start": 199461,
-          "end": 199477,
+          "line": 1317,
+          "start": 199512,
+          "end": 199528,
           "context": "element_text",
           "text": "Bestand kiezen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1315,
-          "start": 199517,
-          "end": 199534,
+          "line": 1317,
+          "start": 199568,
+          "end": 199585,
           "context": "element_text",
           "text": "Bijlage opslaan",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1319,
-          "start": 200172,
-          "end": 200236,
+          "line": 1321,
+          "start": 200223,
+          "end": 200287,
           "context": "error_message_requires_control_flow_review",
           "text": "Kies een ondersteund bestand van maximaal {p0}.",
           "parameters": [
@@ -989,72 +999,72 @@
           "rich_text": false
         },
         {
-          "line": 1322,
-          "start": 200769,
-          "end": 200806,
+          "line": 1324,
+          "start": 200820,
+          "end": 200857,
           "context": "textContent",
           "text": "Bijlage bij het concept opgeslagen.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1327,
-          "start": 201034,
-          "end": 201051,
+          "line": 1329,
+          "start": 201085,
+          "end": 201102,
           "context": "textContent",
           "text": "Bijlagen laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1327,
-          "start": 201101,
-          "end": 201179,
+          "line": 1329,
+          "start": 201152,
+          "end": 201230,
           "context": "textContent",
           "text": "Downloads behouden de originele bytes. Een scan is geen veiligheidsgarantie.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1331,
-          "start": 201375,
-          "end": 201404,
+          "line": 1333,
+          "start": 201426,
+          "end": 201455,
           "context": "element_text",
           "text": "Delen en versiegeschiedenis",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1336,
-          "start": 201784,
-          "end": 201791,
+          "line": 1338,
+          "start": 201835,
+          "end": 201842,
           "context": "element_text",
           "text": "Reden",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1336,
-          "start": 201844,
-          "end": 201872,
+          "line": 1338,
+          "start": 201895,
+          "end": 201923,
           "context": "element_text",
           "text": "Ik bevestig deze wijziging",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1353,
-          "start": 203099,
-          "end": 203117,
+          "line": 1355,
+          "start": 203150,
+          "end": 203168,
           "context": "element_text",
           "text": "Revisie bekijken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1354,
-          "start": 203199,
-          "end": 203279,
+          "line": 1356,
+          "start": 203250,
+          "end": 203330,
           "context": "element_text",
           "text": "Revisie {p0} · {p1}",
           "parameters": [
@@ -1064,9 +1074,9 @@
           "rich_text": false
         },
         {
-          "line": 1359,
-          "start": 203757,
-          "end": 203859,
+          "line": 1361,
+          "start": 203808,
+          "end": 203910,
           "context": "element_text",
           "text": "Aan: {p0} · Cc: {p1}",
           "parameters": [
@@ -1076,9 +1086,9 @@
           "rich_text": false
         },
         {
-          "line": 1360,
-          "start": 203907,
-          "end": 203988,
+          "line": 1362,
+          "start": 203958,
+          "end": 204039,
           "context": "element_text",
           "text": "Bijlagen: {p0}",
           "parameters": [
@@ -1087,45 +1097,45 @@
           "rich_text": false
         },
         {
-          "line": 1361,
-          "start": 204099,
-          "end": 204142,
+          "line": 1363,
+          "start": 204150,
+          "end": 204193,
           "context": "element_text",
           "text": "Deze inhoud als nieuwe revisie herstellen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1366,
-          "start": 204500,
-          "end": 204515,
+          "line": 1368,
+          "start": 204551,
+          "end": 204566,
           "context": "element_text",
           "text": "Meer revisies",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1371,
-          "start": 204812,
-          "end": 204902,
+          "line": 1373,
+          "start": 204863,
+          "end": 204953,
           "context": "error_message_requires_control_flow_review",
           "text": "Het concept is gewijzigd. Open de concepten opnieuw om de actuele geschiedenis te laden.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1378,
-          "start": 205249,
-          "end": 205270,
+          "line": 1380,
+          "start": 205300,
+          "end": 205321,
           "context": "element_text",
           "text": "Medebewerker zoeken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1382,
-          "start": 205827,
-          "end": 205848,
+          "line": 1384,
+          "start": 205878,
+          "end": 205899,
           "context": "aria-label",
           "text": "{p0} verwijderen",
           "parameters": [
@@ -1134,54 +1144,54 @@
           "rich_text": false
         },
         {
-          "line": 1383,
-          "start": 206011,
-          "end": 206070,
+          "line": 1385,
+          "start": 206062,
+          "end": 206121,
           "context": "element_text",
           "text": "Alleen de eigenaar en bevoegde beheerders hebben toegang.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1386,
-          "start": 206156,
-          "end": 206175,
+          "line": 1388,
+          "start": 206207,
+          "end": 206226,
           "context": "element_text",
           "text": "Toegang bijwerken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1392,
-          "start": 206621,
-          "end": 206797,
+          "line": 1394,
+          "start": 206672,
+          "end": 206848,
           "context": "element_text",
           "text": "Delen geeft toegang tot dit concept en zijn geschiedenis. Bewerken vereist eigen Communication-schrijfrechten. Verwijder medebewerkers en sla op om hun toegang in te trekken.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1398,
-          "start": 207414,
-          "end": 207452,
+          "line": 1400,
+          "start": 207465,
+          "end": 207503,
           "context": "textContent",
           "text": "Kies maximaal twintig medebewerkers.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1404,
-          "start": 208001,
-          "end": 208022,
+          "line": 1406,
+          "start": 208052,
+          "end": 208073,
           "context": "textContent",
           "text": "Geschiedenis laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1407,
-          "start": 208136,
-          "end": 208236,
+          "line": 1409,
+          "start": 208187,
+          "end": 208287,
           "context": "textContent",
           "text": "{p0} bewaarde revisies. Herstellen bewaart de huidige toegangsrechten en verzendt niets.",
           "parameters": [
@@ -1190,45 +1200,45 @@
           "rich_text": false
         },
         {
-          "line": 1415,
-          "start": 208605,
-          "end": 208632,
+          "line": 1417,
+          "start": 208656,
+          "end": 208683,
           "context": "element_text",
           "text": "Bezorgmelding onderzoeken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1415,
-          "start": 208672,
-          "end": 208708,
+          "line": 1417,
+          "start": 208723,
+          "end": 208759,
           "context": "element_text",
           "text": "Bezorgmelding met ZERO onderzoeken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1417,
-          "start": 209080,
-          "end": 209108,
+          "line": 1419,
+          "start": 209131,
+          "end": 209159,
           "context": "textContent",
           "text": "Bewaarde bron controleren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1421,
-          "start": 209600,
-          "end": 209742,
+          "line": 1423,
+          "start": 209651,
+          "end": 209793,
           "context": "textContent",
           "text": "Onbevestigde bezorgmelding. Afzender en daadwerkelijke bezorging zijn niet geverifieerd. De verzendstatus en voorkeuren blijven ongewijzigd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1423,
-          "start": 209919,
-          "end": 210235,
+          "line": 1425,
+          "start": 209970,
+          "end": 210286,
           "context": "element_text",
           "text": "{p0}Laatste ontvanger: {p1} · {p2} · {p3} · {p4}\n{p5}",
           "parameters": [
@@ -1242,9 +1252,9 @@
           "rich_text": false
         },
         {
-          "line": 1424,
-          "start": 210322,
-          "end": 210396,
+          "line": 1426,
+          "start": 210373,
+          "end": 210447,
           "context": "element_text",
           "text": "Geen melding voor: {p0}",
           "parameters": [
@@ -1253,27 +1263,27 @@
           "rich_text": false
         },
         {
-          "line": 1429,
-          "start": 210874,
-          "end": 210907,
+          "line": 1431,
+          "start": 210925,
+          "end": 210958,
           "context": "element_text",
           "text": "Gerelateerde bewaarde berichten",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1430,
-          "start": 211048,
-          "end": 211064,
+          "line": 1432,
+          "start": 211099,
+          "end": 211115,
           "context": "textContent",
           "text": "Gesprek laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1431,
-          "start": 211289,
-          "end": 211590,
+          "line": 1433,
+          "start": 211340,
+          "end": 211641,
           "context": "textContent",
           "text": "{p0} zichtbare bewaarde berichten verbonden via onbevestigde mailheaders. Externe gespreksvolledigheid is onbekend. {p1} {p2}",
           "parameters": [
@@ -1284,9 +1294,9 @@
           "rich_text": false
         },
         {
-          "line": 1432,
-          "start": 211623,
-          "end": 211804,
+          "line": 1434,
+          "start": 211674,
+          "end": 211855,
           "context": "element_text",
           "text": "Genoemde adressen: {p0}. {p1} Identiteiten zijn niet geverifieerd.",
           "parameters": [
@@ -1296,9 +1306,9 @@
           "rich_text": false
         },
         {
-          "line": 1433,
-          "start": 212037,
-          "end": 212151,
+          "line": 1435,
+          "start": 212088,
+          "end": 212202,
           "context": "element_text",
           "text": "{p0} · {p1}",
           "parameters": [
@@ -1308,9 +1318,9 @@
           "rich_text": false
         },
         {
-          "line": 1440,
-          "start": 213537,
-          "end": 213663,
+          "line": 1442,
+          "start": 213588,
+          "end": 213714,
           "context": "element_text",
           "text": "{p0} op bewaard bronbericht {p1}, revisie {p2}.",
           "parameters": [
@@ -1321,9 +1331,9 @@
           "rich_text": false
         },
         {
-          "line": 1442,
-          "start": 214031,
-          "end": 214093,
+          "line": 1444,
+          "start": 214082,
+          "end": 214144,
           "context": "element_text",
           "text": "Gespreksverwijzingen: {p0}",
           "parameters": [
@@ -1332,180 +1342,180 @@
           "rich_text": false
         },
         {
-          "line": 1446,
-          "start": 214226,
-          "end": 214246,
+          "line": 1448,
+          "start": 214277,
+          "end": 214297,
           "context": "element_text",
           "text": "Google-mailtoegang",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1447,
-          "start": 214508,
-          "end": 214528,
+          "line": 1449,
+          "start": 214559,
+          "end": 214579,
           "context": "textContent",
           "text": "Mailtoegang laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1450,
-          "start": 215352,
-          "end": 215359,
+          "line": 1452,
+          "start": 215403,
+          "end": 215410,
           "context": "element_text",
           "text": "Reden",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1451,
-          "start": 216527,
-          "end": 216551,
+          "line": 1453,
+          "start": 216578,
+          "end": 216602,
           "context": "textContent",
           "text": "Mailtoegang verwerken…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1451,
-          "start": 217019,
-          "end": 217041,
+          "line": 1453,
+          "start": 217070,
+          "end": 217092,
           "context": "element_text",
           "text": "Doorgaan naar Google",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1451,
-          "start": 217139,
-          "end": 217253,
+          "line": 1453,
+          "start": 217190,
+          "end": 217304,
           "context": "textContent",
           "text": "Verleen toestemming bij Google met deze Foundly-sessie actief. De algemene Google-koppeling blijft afzonderlijk.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1451,
-          "start": 217454,
-          "end": 217484,
+          "line": 1453,
+          "start": 217505,
+          "end": 217535,
           "context": "element_text",
           "text": "Mailtoegang opnieuw bekijken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1452,
-          "start": 217771,
-          "end": 217795,
+          "line": 1454,
+          "start": 217822,
+          "end": 217846,
           "context": "element_text",
           "text": "Mailtoegang vernieuwen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1452,
-          "start": 217837,
-          "end": 217869,
+          "line": 1454,
+          "start": 217888,
+          "end": 217920,
           "context": "element_text",
           "text": "Mailtoegang lokaal ontkoppelen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1457,
-          "start": 218246,
-          "end": 218269,
+          "line": 1459,
+          "start": 218297,
+          "end": 218320,
           "context": "element_text",
           "text": "Externe inbox ophalen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1459,
-          "start": 218341,
-          "end": 218363,
+          "line": 1461,
+          "start": 218392,
+          "end": 218414,
           "context": "textContent",
           "text": "Mailboxstatus laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1464,
-          "start": 219276,
-          "end": 219296,
+          "line": 1466,
+          "start": 219327,
+          "end": 219347,
           "context": "element_text",
           "text": "Reden voor ophalen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1464,
-          "start": 219671,
-          "end": 219754,
+          "line": 1466,
+          "start": 219722,
+          "end": 219805,
           "context": "element_text",
           "text": "Ik bevestig het ophalen en lokaal bewaren; de providerinbox wordt niet gewijzigd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1465,
-          "start": 220254,
-          "end": 220291,
+          "line": 1467,
+          "start": 220305,
+          "end": 220342,
           "context": "textContent",
           "text": "Mailboxpagina alleen-lezen ophalen…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1465,
-          "start": 220634,
-          "end": 220660,
+          "line": 1467,
+          "start": 220685,
+          "end": 220711,
           "context": "element_text",
           "text": "Mailboxstatus vernieuwen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1471,
-          "start": 221098,
-          "end": 221140,
+          "line": 1473,
+          "start": 221149,
+          "end": 221191,
           "context": "element_text",
           "text": "Oorspronkelijk bericht downloaden (.eml)",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1475,
-          "start": 222113,
-          "end": 222204,
+          "line": 1477,
+          "start": 222164,
+          "end": 222255,
           "context": "textContent",
           "text": "Oorspronkelijk bericht gedownload. Afzenderidentiteit en bijlagen zijn niet geverifieerd.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1485,
-          "start": 223851,
-          "end": 223871,
+          "line": 1487,
+          "start": 223946,
+          "end": 223966,
           "context": "element_text",
           "text": "Bewaarde berichten",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1487,
-          "start": 224196,
-          "end": 224214,
+          "line": 1489,
+          "start": 224304,
+          "end": 224322,
           "context": "textContent",
           "text": "Berichten laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1490,
-          "start": 224561,
-          "end": 224733,
+          "line": 1492,
+          "start": 224979,
+          "end": 225151,
           "context": "textContent",
           "text": "{p0} passende bewaarde berichten. De volledigheid van de externe mailbox is onbekend. Leesstatus en archief gelden alleen voor jou in Foundly.",
           "parameters": [
@@ -1514,18 +1524,18 @@
           "rich_text": false
         },
         {
-          "line": 1491,
-          "start": 224793,
-          "end": 224844,
+          "line": 1493,
+          "start": 225211,
+          "end": 225262,
           "context": "element_text",
           "text": "Geen bewaarde berichten voldoen aan deze filters.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1494,
-          "start": 225162,
-          "end": 225332,
+          "line": 1496,
+          "start": 225580,
+          "end": 225750,
           "context": "element_text",
           "text": "{p0} · {p1} · {p2}",
           "parameters": [
@@ -1536,18 +1546,18 @@
           "rich_text": false
         },
         {
-          "line": 1496,
-          "start": 225502,
-          "end": 225518,
+          "line": 1498,
+          "start": 225920,
+          "end": 225936,
           "context": "textContent",
           "text": "Bericht laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1499,
-          "start": 225889,
-          "end": 226045,
+          "line": 1501,
+          "start": 226307,
+          "end": 226463,
           "context": "element_text",
           "text": "Aan: {p0} · Cc: {p1}",
           "parameters": [
@@ -1557,72 +1567,72 @@
           "rich_text": false
         },
         {
-          "line": 1511,
-          "start": 228158,
-          "end": 228177,
+          "line": 1513,
+          "start": 228599,
+          "end": 228618,
           "context": "aria-label",
           "text": "Berichtenpagina’s",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1512,
-          "start": 228249,
-          "end": 228267,
+          "line": 1514,
+          "start": 228690,
+          "end": 228708,
           "context": "element_text",
           "text": "Vorige berichten",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1513,
-          "start": 228470,
-          "end": 228490,
+          "line": 1515,
+          "start": 228911,
+          "end": 228931,
           "context": "element_text",
           "text": "Volgende berichten",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1565,
-          "start": 239180,
-          "end": 239198,
+          "line": 1568,
+          "start": 239848,
+          "end": 239866,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1566,
-          "start": 239247,
-          "end": 239252,
+          "line": 1569,
+          "start": 239915,
+          "end": 239920,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1567,
-          "start": 239320,
-          "end": 239347,
+          "line": 1570,
+          "start": 239988,
+          "end": 240015,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1646,
-          "start": 257241,
-          "end": 257260,
+          "line": 1649,
+          "start": 257909,
+          "end": 257928,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1712,
-          "start": 264885,
-          "end": 264924,
+          "line": 1715,
+          "start": 265680,
+          "end": 265719,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -1631,18 +1641,18 @@
           "rich_text": false
         },
         {
-          "line": 1843,
-          "start": 278124,
-          "end": 278149,
+          "line": 1846,
+          "start": 278919,
+          "end": 278944,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1846,
-          "start": 278350,
-          "end": 278473,
+          "line": 1849,
+          "start": 279145,
+          "end": 279268,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -1651,36 +1661,36 @@
           "rich_text": false
         },
         {
-          "line": 1861,
-          "start": 279805,
-          "end": 279886,
+          "line": 1864,
+          "start": 280600,
+          "end": 280681,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1888,
-          "start": 282225,
-          "end": 282304,
+          "line": 1891,
+          "start": 283020,
+          "end": 283099,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1892,
-          "start": 282597,
-          "end": 282612,
+          "line": 1895,
+          "start": 283392,
+          "end": 283407,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1893,
-          "start": 282718,
-          "end": 282734,
+          "line": 1896,
+          "start": 283513,
+          "end": 283529,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],
