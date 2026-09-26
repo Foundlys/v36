@@ -1,4 +1,5 @@
 'use strict';
+require('./zero-evaluation/provider-network-fixture');
 
 require('./test-oauth-fetch-mock');
 const upstreamFetch=globalThis.fetch;

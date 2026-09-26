@@ -4,11 +4,12 @@ const fs=require('fs');
 const path=require('path');
 const crypto=require('crypto');
 const assert=require('assert');
+const http=require('http');
 const PORT=19300+Math.floor(Math.random()*400);
 const tmp=fs.mkdtempSync('/tmp/foundly-v410-test-');
 const base=`http://127.0.0.1:${PORT}`;
 const commonEnv={...process.env,NODE_ENV:'test',PORT:String(PORT),FOUNDLY_DATA_DIR:tmp,FOUNDLY_ENCRYPTION_KEY:'test-encryption-key',OPENAI_API_KEY:'',FOUNDLY_AI_API_KEY:'',META_APP_ID:'123456789',META_APP_SECRET:'test-secret',META_REDIRECT_URI:`${base}/api/connect/meta/callback`,GOOGLE_CLIENT_ID:'',GOOGLE_CLIENT_SECRET:'',WHATSAPP_ACCESS_TOKEN:'',WHATSAPP_PHONE_NUMBER_ID:'',FOUNDLY_WORKER_INTERVAL_MS:'99999999'};
-let child=null,logs='';
+let child=null,logs='',sourceProvider=null;
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function start(){logs='';child=spawn(process.execPath,['server.js'],{cwd:__dirname,env:commonEnv,stdio:['ignore','pipe','pipe']});child.stdout.on('data',d=>logs+=d);child.stderr.on('data',d=>logs+=d);for(let i=0;i<60;i++){try{const r=await fetch(base+'/api/health');if(r.ok)return}catch{}await wait(100)}throw new Error('server start timeout\n'+logs)}
 async function stop(){if(!child)return;child.kill('SIGTERM');for(let i=0;i<30&&child.exitCode===null;i++)await wait(50);child=null}
@@ -30,10 +31,16 @@ async function main(){
   x=await req(`/api/connect/meta/callback?state=${encodeURIComponent(state)}`,{redirect:'manual'});assert.equal(x.r.status,302);assert((x.r.headers.get('location')||'').includes('meta=error'));assert((x.r.headers.get('location')||'').includes('error_code=oauth_authorization_incomplete'));assert.equal(Object.values(JSON.parse(fs.readFileSync(stateFile,'utf8')))[0].status,'PENDING');
 
   // Runtime connector full lifecycle and ingest-through-sync.
+  // A health response is not a record page. Keep that rejection and use an
+  // explicit local HTTP record source for the positive persistence assertion.
+  sourceProvider=http.createServer((req,res)=>{res.setHeader('content-type','application/json');res.end(JSON.stringify([{id:'smoke-source-1',name:'Literal smoke provider source'},{id:'smoke-source-2',value:0}]))});await new Promise(resolve=>sourceProvider.listen(0,'127.0.0.1',resolve));
   const profile={id:'self_test',naam:'Self Test',categorie:'test',auth_strategy:'public',connection_mode:'direct',base_url:base,health:{path:'/api/ping',method:'GET'},sync:{path:'/api/ping',method:'GET'},credential_fields:[],modules:['data'],capabilities:['connect','test','sync','data_ingest']};
   x=await req('/api/connector-runtime/profiles',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(profile)});assert.equal(x.r.status,201);
   x=await req('/api/connector-runtime/test/self_test',{method:'POST'});assert.equal(x.r.status,200);assert.equal(x.data.connector.connected,true);
-  x=await req('/api/integration-sync/self_test',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});assert.equal(x.r.status,200);assert.equal(x.data.ok,true);assert(x.data.ingested>=1);
+  x=await req('/api/integration-sync/self_test',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});assert.equal(x.r.status,422);assert.equal(x.data.code,'connector_sync_mapping_required');
+  x=await req('/api/connector-runtime/profile/self_test',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify({base_url:`http://127.0.0.1:${sourceProvider.address().port}`,health:{path:'/health',method:'GET'},sync:{path:'/records',method:'GET'}})});assert.equal(x.r.status,200);
+  x=await req('/api/integration-sync/self_test',{method:'POST',headers:{'content-type':'application/json','idempotency-key':'smoke-source-page'},body:'{}'});assert.equal(x.r.status,200);assert.equal(x.data.ok,true);assert.equal(x.data.ingested,2);assert.equal(x.data.created,2);assert.equal(x.data.source_complete,false);assert.equal(x.data.customer_objects_changed,false);
+  x=await req('/api/module/data/data');assert.equal(x.r.status,200);assert.equal(x.data.records.filter(row=>row.connector_id==='self_test'&&row.entity_type==='connector_source_observation').length,2);
   x=await req('/api/connectors');assert.equal(x.r.status,200);assert.equal(x.data.total,101);assert(x.data.connectors.some(c=>c.id==='self_test'));
 
   // Commands execute internal actions and expose execution metadata.
@@ -59,13 +66,17 @@ async function main(){
   // UI contract: all primary controls wired; no fake activity stream; backend mapping fixed.
   const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8'),js=fs.readFileSync(path.join(__dirname,'index-script.js'),'utf8'),ui=html+'\n'+js;
   const required=['resetView','mic','send','close','googleConnect','googleRefresh','googleSearch','googleDisconnect','integrationRefresh','integrationSelfCheck','integrationAdd'];
-  for(const id of required){assert(ui.includes(`id="${id}"`),`UI button missing ${id}`);assert(js.includes(`$('#${id}')`)||js.includes(`getElementById('${id}')`),`handler missing ${id}`)}
+  // Dynamic controls are now constructed in-place with localised DOM nodes.
+  // Exercise their real controller instead of requiring an HTML string literal.
+  const {fixture:moduleFixture}=require('./zero-evaluation/module-overlay-fixture'),moduleUi=moduleFixture(),dynamicControls=new Map();
+  for(const module of ['google','integraties']){await moduleUi.context.openModule(module);for(const id of required){const node=moduleUi.nodes.layerBody.all().find(node=>node.id===id);if(node)dynamicControls.set(id,node);}}
+  for(const id of required){const dynamic=dynamicControls.get(id);if(dynamic){assert.equal(dynamic.tag,'button',`UI button missing ${id}`);assert.equal(typeof dynamic.onclick,'function',`handler missing ${id}`)}else{assert(ui.includes(`id="${id}"`),`UI button missing ${id}`);assert(js.includes(`$('#${id}')`)||js.includes(`getElementById('${id}')`),`handler missing ${id}`)}}
   for(const attr of ['data-connect','data-test','data-sync','data-profile','data-disconnect','data-quick-oauth'])assert(js.includes(attr),`integration action missing ${attr}`);
   assert(js.includes("BACKEND_MODULE={social:'social_media',google:'google_ads'}"));
   assert(js.includes('/api/zero/turn'));assert(js.includes('/api/integration-sync/'));assert(js.includes('/api/events'));x=await req('/api/jarvis/status');assert.equal(x.r.status,200);assert.equal(x.data.assistant.official_name,'ZERO');
-  assert(!ui.includes('EU listings scanner verwerkt nieuwe voertuigen'),'fake event stream still present');assert(!ui.includes('eigen datastroom'));assert(!ui.includes('EIGEN DATABASE'));assert(ui.includes('FOUNDLY DATA LAYER'));assert(ui.includes('Live providerprobes'));
+  assert(!ui.includes('EU listings scanner verwerkt nieuwe voertuigen'),'fake event stream still present');assert(!ui.includes('eigen datastroom'));assert(!ui.includes('EIGEN DATABASE'));assert(moduleUi.nodes.layerBody.all().some(node=>node.getAttribute('data-i18n')==='overlay.data_layer'));assert(moduleUi.nodes.layerBody.all().some(node=>Object.values(JSON.parse(node.getAttribute('data-i18n-text')||'{}')).includes('overlay.probes')));
   assert(!/Yoo bro/i.test(ui));assert(html.includes('index-script.js'));assert(!html.includes('<script>'));assert(js.includes('UICommandBus'));assert(js.includes('semantic_vad')||js.includes('input_audio_buffer.speech_started'));
   x=await req('/api/dashboard/summary');assert.equal(x.r.status,200);assert.equal(x.data.version,'6.0.0');assert.equal(x.data.source.method,'server_aggregate');assert.equal(x.data.sources.connected_providers,x.data.sources.connected.length);assert(Number.isInteger(x.data.data_layer.total_records));
   console.log(JSON.stringify({ok:true,version:'6.0.0',oauth_state:'pass',persistence:'pass',worker_recovery:'pass',orchestration:'pass',runtime_connectors:'pass',source_contracts:'pass',provenance:'pass',ui_actions:'pass',zero_ui_contract:'pass',legacy_assistant_api:'pass',dashboard_summary:'pass',base_connectors:100},null,2));
 }
-main().catch(e=>{console.error(logs);console.error(e);process.exitCode=1}).finally(async()=>{await stop()});
+main().catch(e=>{console.error(logs);console.error(e);process.exitCode=1}).finally(async()=>{await stop();if(sourceProvider)await new Promise(resolve=>sourceProvider.close(resolve))});

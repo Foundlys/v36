@@ -27,7 +27,8 @@ function preview(domain,ctx,actor,rfqId,allocations){
  const data={...bound,policy_id:policy.id,policy_revision:policy.revision,approval_steps:policy.approval_steps,allow_self_approval:policy.allow_self_approval===true};return {...data,preview_fingerprint:hash(data),external_commitment:false,provider_verified:false};
 }
 function current(domain,ctx,row){
- const rfq=domain.bucket(ctx,'rfqs').find(r=>r.id===row.rfq_id);if(!rfq||rfq.revision!==row.rfq_revision||['CANCELLED','ARCHIVED'].includes(rfq.status))return false;
- try{const proposal=require('./procurement-allocations').allocationFromRecords(rfq,id=>domain.bucket(ctx,'bids').find(b=>b.id===id),row.allocations,{partial:true}),bound=bind(domain,ctx,rfq,proposal);return hash(bound)===hash(Object.fromEntries(Object.keys(bound).map(k=>[k,row[k]])));}catch{return false;}
+ const rfq=domain.bucket(ctx,'rfqs').find(r=>r.id===row.rfq_id);if(!rfq||rfq.deleted_at||rfq.revision!==row.rfq_revision||['CANCELLED','ARCHIVED'].includes(rfq.status))return false;
+ const currentSuppliers=new Set(domain.bucket(ctx,'suppliers').filter(s=>!s.deleted_at).map(s=>s.id));
+ try{const proposal=require('./procurement-allocations').allocationFromRecords(rfq,id=>domain.bucket(ctx,'bids').find(b=>b.id===id&&!b.deleted_at&&currentSuppliers.has(b.supplier_id)),row.allocations,{partial:true}),bound=bind(domain,ctx,rfq,proposal);return hash(bound)===hash(Object.fromEntries(Object.keys(bound).map(k=>[k,row[k]])));}catch{return false;}
 }
 module.exports={approvedBasis,bind,preview,current};

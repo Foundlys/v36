@@ -1,21 +1,8 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
-class Element{
- get firstChild(){return this.children[0]||null;}
- constructor(tag){Object.assign(this,{tag,children:[],handlers:{},dataset:{},value:'',checked:false,textContent:'',isConnected:true});}
- append(...children){for(const child of children){if(child.parentElement)child.remove();child.parentElement=this;child.isConnected=this.isConnected;this.children.push(child);if(this.tag==='select'&&this.children.length===1)this.value=child.value;}}
- replaceChildren(...children){for(const child of this.children){child.parentElement=null;for(const node of child.all())node.isConnected=false;}this.children=[];this.append(...children);}
- setAttribute(key,value){this[key]=value;}
- addEventListener(name,handler){(this.handlers[name]??=[]).push(handler);}
- async fire(name,extra={}){for(const handler of this.handlers[name]||[])await handler({preventDefault(){},...extra});}
- all(){return [this,...this.children.flatMap(child=>child.all())];}
- querySelector(tag){return this.all().find(child=>child.tag===tag);}
- remove(){if(this.parentElement){const p=this.parentElement;p.children=p.children.filter(child=>child!==this);this.parentElement=null;}}
- prepend(child){this.append(child);this.children.unshift(this.children.pop());}
- focus(){this.focused=true;}
-}
+const {browserFixture}=require('./zero-evaluation/dom-fixture'),{WorkspaceView}=require('./zero-evaluation/workspace-page-fixture');
 const find=(root,tag,label)=>root.all().find(el=>el.tag===tag&&(label===undefined||el.textContent===label));
-const field=(root,label)=>find(root,'label',label).children[0];
+const field=(root,label)=>root.all().find(el=>el.tag==='label'&&el.children.find(child=>child.tag==='span')?.textContent===label).children.find(child=>child.tag==='input');
 
 
 const {BusinessDomain}=require('./business-domains'),{CapabilityResolver}=require('./capability-resolver'),{FoundlyPlatformCore}=require('./platform-core'),metrics=require('./marketing-metrics');
@@ -26,7 +13,7 @@ const financial={currency:'USD',financial_outcome_id:'order-1',financial_outcome
 rows.push(event('spend','marketing_spend','meta',{currency:'USD',metric_semantics:'DELTA',spend_cents:1000,impressions:100,clicks:10}),event('won','deal_won','crm',{...financial,value_cents:9000}),event('paid','invoice_paid','finance',{...financial,revenue_cents:12000,attributed_revenue_cents:10000}),event('provider-duplicate','invoice_paid','google',{...financial,attributed_revenue_cents:10000}),event('lead','lead_created','meta',{}, {lead_id:'lead-1'}),event('outside','invoice_paid','finance',{...financial,revenue_cents:999999},{occurred_at:query.to}),event('private','invoice_paid','finance',{...financial,revenue_cents:999999},{permissions:{user_ids:['other']}}));
 
 let active=true,hold=null;const calls=[];const request=async(path,options)=>{const input=JSON.parse(options.body);calls.push({path,input});if(hold)await hold;return path.endsWith('/drilldown')?metrics.drilldown(core,platform,ctx,actor,input):metrics.query(core,platform,ctx,actor,input);};
-const sandbox={document:{createElement:tag=>new Element(tag)}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('marketing-metrics-client.js','utf8'),sandbox);
+const sandbox=browserFixture('nl-NL').context;sandbox.document.createElement=tag=>new WorkspaceView(tag);vm.runInContext(fs.readFileSync('marketing-metrics-client.js','utf8'),sandbox);
 (async()=>{const box=sandbox.FoundlyMarketingMetrics.create({document:sandbox.document,request,isActive:()=>active});await box.ready;assert.equal(calls.length,0);field(box,'Periode begin met UTC-offset').value=query.from;field(box,'Periode einde exclusief met UTC-offset').value=query.to;await find(box,'button','Gekozen periode berekenen').fire('click');assert.ok(box.all().some(n=>n.textContent.includes('US$')));await find(box,'button','Berekening naar bronrecords volgen').fire('click');assert.ok(box.all().some(n=>n.textContent.includes('DUPLICATE_TERMINAL_OBSERVATION')));assert.equal(calls[1].input.query_fingerprint,metrics.query(core,platform,ctx,actor,query).query_fingerprint);
  await field(box,'Periode begin met UTC-offset').fire('input');assert.equal(find(box,'button','Berekening naar bronrecords volgen'),undefined);
  let release;hold=new Promise(r=>release=r);const pending=find(box,'button','Gekozen periode berekenen').fire('click');await Promise.resolve();active=false;const before=find(box,'output').textContent;release();await pending;assert.equal(find(box,'output').textContent,before);

@@ -29,7 +29,7 @@ function validateSourcing(domain,ctx,actor,entity,value){
 }
 function compareBids(domain,ctx,actor,id){
   domain.resolver.assertCapability(ctx,actor,'procurement:sourcing');
-  const rfq=domain.get(ctx,actor,'rfqs',id),rows=domain.bucket(ctx,'bids').filter(row=>row.rfq_id===id&&domain.visible(row,actor)&&!['CANCELLED','ARCHIVED'].includes(row.status));
+  const rfq=domain.get(ctx,actor,'rfqs',id);if(rfq.deleted_at)fail('record_not_found','Record niet gevonden',404);const currentSuppliers=new Set(domain.bucket(ctx,'suppliers').filter(row=>!row.deleted_at).map(row=>row.id)),rows=domain.bucket(ctx,'bids').filter(row=>!row.deleted_at&&row.rfq_id===id&&domain.visible(row,actor)&&!['CANCELLED','ARCHIVED'].includes(row.status)&&currentSuppliers.has(row.supplier_id));
   if(rows.length>500)fail('bid_comparison_limit','Maximaal vijfhonderd actieve biedingen per aanvraag');
   const items=rows.map(row=>{
     const reasons=[];

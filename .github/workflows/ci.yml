@@ -11,7 +11,9 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # The complete regression plus permanent ZERO corpus reached the former
+    # ten-minute job limit in CI 196. Keep the full suite and its own timeouts.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

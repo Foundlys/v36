@@ -4,7 +4,8 @@ const source=fs.readFileSync(require.resolve('./server.js'),'utf8'),start=source
 let calls=0,config={},environment={};
 const proofs=[],MAIL_AUTH=new (require('./communication-mail-auth').MailAuthentication)({adapter:{bucket:()=>proofs}},{configuration:()=>require('./communication-provider-state').smtpConfiguration(config.credentials||{},name=>environment[name]||'')});
 const context={require,MAIL_AUTH,CONNECTOR_RUNTIME:{readConfig:()=>config},cleanEnv:name=>environment[name]||'',tcpProbe:async()=>{calls++;return true;},redactJarvisText:()=> 'redacted',merged:()=>({auth_strategy:'smtp',_credentials:{smtp_host:'fixture.invalid',smtp_port:'465',smtp_user:'fixture-user',smtp_password:'FIXTURE'},credential_fields:['smtp_host','smtp_port','smtp_user','smtp_password'].map(key=>({key})),base_url:'https://fixture.invalid',health:{path:'/health'}}),safeFetch:async()=>{calls++;return {ok:true};},authHeaders:()=>({})};vm.createContext(context);vm.runInContext(source.slice(start,end),context);
-const statusStart=source.indexOf('  async function status(c,id)'),statusEnd=source.indexOf('  async function oauthStart(',statusStart);vm.runInContext(source.slice(statusStart,statusEnd),context);
+context.assertSafeUrl=async url=>url;context.fetch=async()=>{calls++;return {ok:true};};context.timeoutSignal=()=>undefined;
+const statusStart=source.indexOf('  async function status('),statusEnd=source.indexOf('\n  async function ',statusStart+1);assert.ok(statusStart>0&&statusEnd>statusStart,'The fixture must execute the actual native status function');vm.runInContext(source.slice(statusStart,statusEnd),context);
 (async()=>{
  let result=await context.probeEmail();assert.equal(result.configured,false);assert.equal(result.connected,false);assert.equal(calls,0);
  config={credentials:{smtp_host:'fixture.invalid',smtp_port:'465',smtp_user:'fixture-user',smtp_password:'FIXTURE_NOT_A_REAL_PASSWORD'}};

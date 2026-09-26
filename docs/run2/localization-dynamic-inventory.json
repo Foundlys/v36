@@ -1,0 +1,1717 @@
+{
+  "schema_version": 1,
+  "parser": "Acorn 8.17.0",
+  "scope": "Conservative direct UI expression candidates. Conditional/concatenated copy, server-generated messages, UI configuration objects, runtime states and markup fragments need additional review. No automatic translation of arbitrary rendered/customer text.",
+  "files": [
+    {
+      "file": "analysis-actions-client.js",
+      "sha256": "9f593fd58f940fceb1728b4c9661c71ab290c6fdf25d2cc0fc2d96c81507f8a7",
+      "items": []
+    },
+    {
+      "file": "analysis-actions-zero-client.js",
+      "sha256": "661cdef956aeb46faec13a31a3d6d9be9cc5d056f92f1e5837a0049db7d9eb16",
+      "items": []
+    },
+    {
+      "file": "analysis-cohorts-client.js",
+      "sha256": "eb2b40bfebde156cfcfb1c367385085103eb4014b80c13c2aea2ad5914dab1e3",
+      "items": []
+    },
+    {
+      "file": "analysis-definition-history-client.js",
+      "sha256": "c42b5241978b9cdb4199695acf5913d13f1b1b7abb23965184c122625e90c439",
+      "items": []
+    },
+    {
+      "file": "analysis-loading.js",
+      "sha256": "9eba228c6aaa0c9c08a73e9d9e4c5016c021afc1e0788613f6240683523fda9c",
+      "items": [
+        {
+          "line": 5,
+          "start": 360,
+          "end": 411,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Analytics is niet beschikbaar voor deze gebruiker",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "analysis-models-client.js",
+      "sha256": "0a4a6a67291b4e2c894a6d0d7ca2aee48a6818df293aebac2404697555889b5f",
+      "items": []
+    },
+    {
+      "file": "analysis-script.js",
+      "sha256": "3b2de16cb6a2cbeb6c8d564b48a8b758bbba4c459edd64cf113b2a90dd763e5a",
+      "items": []
+    },
+    {
+      "file": "automotive-script.js",
+      "sha256": "c1955d697de3c8d1ba168a668d1bc4c22304f892f3a87695b27b3a21acd5215f",
+      "items": [
+        {
+          "line": 172,
+          "start": 23946,
+          "end": 23982,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Invalid Automotive search response",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 237,
+          "start": 35840,
+          "end": 35878,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Invalid Automotive analysis response",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "calendar-event-client-state.js",
+      "sha256": "5cf3ad1027d915cf5cf11fb4d0cf18217f5ae29e4d63afb39cce7c8992118393",
+      "items": []
+    },
+    {
+      "file": "calendar-event-client.js",
+      "sha256": "578a2a121d6ad60fb752f0dc18079b4fd60fc30963c428aecafbfd2c5920ee5d",
+      "items": []
+    },
+    {
+      "file": "calendar-external-client.js",
+      "sha256": "eaad521e2fa1a678c74e3da2c8d5a9cf841422abbd8b7d2b0b9b33690b0e15b8",
+      "items": []
+    },
+    {
+      "file": "calendar-recurrence.js",
+      "sha256": "3451ec0f346663968ae5cf70d5e606e22f4ab016fe17e14459649182f382dd3f",
+      "items": [
+        {
+          "line": 3,
+          "start": 229,
+          "end": 359,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Kies dagelijkse of wekelijkse herhaling, 1–104 afspraken en een interval van 1–12. Andere herhaalregels worden niet ondersteund.",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "calendar-scheduling-client-state.js",
+      "sha256": "b5b88e54462542eae99ce3a0e37880cc6a05e0b974c43b3bcf4e425799ffe88a",
+      "items": []
+    },
+    {
+      "file": "calendar-scheduling-client.js",
+      "sha256": "cfea6738c7bb0d58c8feccc5f607a78bdd5e4f149190c4daedb7ba5de65fb231",
+      "items": []
+    },
+    {
+      "file": "calendar-time.js",
+      "sha256": "3d62465efa40fbe3a04551e1677ad8ddf8b065cbc08c283c240dec29c1745f46",
+      "items": []
+    },
+    {
+      "file": "communication-inbox-client-state.js",
+      "sha256": "ab1ca7e379d0e3d9b8fefc5d7fc9b1f9beae718426837eb6c0408a23132cc0c1",
+      "items": []
+    },
+    {
+      "file": "communication-inbox-recovery-client.js",
+      "sha256": "4ccc34a494da9611afb81f69f2089c41cb68becb2e1cf222dc96d34aba6ba155",
+      "items": []
+    },
+    {
+      "file": "communication-mailbox-client-state.js",
+      "sha256": "2fe1a4bf852b7e1048860e9a515556d21088c860b937406ec919dc5d7a644155",
+      "items": []
+    },
+    {
+      "file": "communication-mailbox-recovery-client.js",
+      "sha256": "28d474d62a5e72fd6d1fa510518084c049d7e7c24c8be0e161fd971442414083",
+      "items": []
+    },
+    {
+      "file": "communication-reply-client-state.js",
+      "sha256": "72f34b8b750b75056c5f689845b974284ca361e9c4117f851e2751b211d09000",
+      "items": []
+    },
+    {
+      "file": "communication-reply-recovery-client.js",
+      "sha256": "7e3e38eee99956d990c95434d0dfb2db9878df9dc8402608600daa12f69703b5",
+      "items": []
+    },
+    {
+      "file": "communication-template-client-state.js",
+      "sha256": "61d4ca46633409add8cc2aa1b26beb3b653e1660e73d6c7c0fdd10065a80b832",
+      "items": []
+    },
+    {
+      "file": "communication-template-recovery-client.js",
+      "sha256": "6e68fa202e01254ed81af7743d172d409d3125cc35838406ef1fc9820eaa2fef",
+      "items": []
+    },
+    {
+      "file": "crm-automation-editor.js",
+      "sha256": "67aa444a6f198df73b19e9654bf208e50a0046512c02f2bf688482ee2187c657",
+      "items": []
+    },
+    {
+      "file": "crm-objects-client.js",
+      "sha256": "fb517645e36dd80b217662ae75d20c2eb5bdecc40dfbbed6eb10accc19fc9c3f",
+      "items": []
+    },
+    {
+      "file": "crm-pipeline-editor.js",
+      "sha256": "7ed85d549cddaacba04813e1f4c1f37421bdd3c7becdedf349f3049228db4411",
+      "items": []
+    },
+    {
+      "file": "crm-script.js",
+      "sha256": "ee1e820a28ff0dec6059000d089c3185e362ad525bb5c5fe46b42f01edf64ea6",
+      "items": [
+        {
+          "line": 170,
+          "start": 31736,
+          "end": 31772,
+          "context": "error_message_requires_control_flow_review",
+          "text": "CRM dashboard response unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 216,
+          "start": 38220,
+          "end": 38253,
+          "context": "error_message_requires_control_flow_review",
+          "text": "CRM action response unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 292,
+          "start": 52236,
+          "end": 52269,
+          "context": "error_message_requires_control_flow_review",
+          "text": "CRM record response unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 342,
+          "start": 63807,
+          "end": 63838,
+          "context": "error_message_requires_control_flow_review",
+          "text": "CRM ZERO response unavailable",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "customer-spatial-model.js",
+      "sha256": "aecebff33457f50b7d939d853141de6eb744a31deb95a612e1602da4f84707ed",
+      "items": []
+    },
+    {
+      "file": "customer-spatial-runtime.js",
+      "sha256": "d9b3ca5e11a104f01e1684c4251bc5def662571cc55a1ae29277d4d02c3c4088",
+      "items": []
+    },
+    {
+      "file": "customer-spatial-scene.js",
+      "sha256": "00546bf1755e13f65f24e066f6cd51e2c82785c514dc70858d4160729733dd23",
+      "items": []
+    },
+    {
+      "file": "finance-cash-scenarios-client.js",
+      "sha256": "6bd06463892c20288efc9af3e1e5c04476732c9bf239e92f76075c18b944bc48",
+      "items": []
+    },
+    {
+      "file": "finance-loading.js",
+      "sha256": "07fa03a3e50a91d4523bdad6e3a22dd81561d6b71edba06f51c47fee6c4f2157",
+      "items": [
+        {
+          "line": 4,
+          "start": 351,
+          "end": 400,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance is niet beschikbaar voor deze gebruiker",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "finance-period-closing-client.js",
+      "sha256": "7decd08bc4d5213fe21c020c0be68ed7832955b4cdb9e687f0fea0bac89bef84",
+      "items": []
+    },
+    {
+      "file": "finance-script.js",
+      "sha256": "2db229e8e4fb06c0d9dbefda0b6546e57c25afc74d08ffe6002a51e150bd65ad",
+      "items": [
+        {
+          "line": 19,
+          "start": 1261,
+          "end": 1292,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access is unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 22,
+          "start": 1494,
+          "end": 1518,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access changed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 26,
+          "start": 2040,
+          "end": 2064,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access changed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 27,
+          "start": 2424,
+          "end": 2448,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance access changed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 59,
+          "start": 7492,
+          "end": 7502,
+          "context": "textContent",
+          "text": "Onbekend",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 125,
+          "start": 17992,
+          "end": 18031,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Finance authentication is unavailable",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 173,
+          "start": 22811,
+          "end": 22844,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Invalid Finance export response",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "foundly-shell.js",
+      "sha256": "e07a726d8e97fc131799d920746bd8c6cff0470d4a2069a44ac4474671d71da9",
+      "items": [
+        {
+          "line": 14,
+          "start": 483,
+          "end": 495,
+          "context": "element_text",
+          "text": "Foundly OS",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 18,
+          "start": 920,
+          "end": 946,
+          "context": "element_text",
+          "text": "Foundly Operating System",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 46,
+          "start": 3023,
+          "end": 3048,
+          "context": "error_message_requires_control_flow_review",
+          "text": "HTTP {p0}",
+          "parameters": [
+            "response.status"
+          ],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "foundly-workspace.js",
+      "sha256": "a45dc7262d06592e0df067523ffc79163c882fe015700c4ba3ea705db1ab4530",
+      "items": [
+        {
+          "line": 49,
+          "start": 4065,
+          "end": 4077,
+          "context": "title",
+          "text": "Foundly OS",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 458,
+          "start": 30792,
+          "end": 30837,
+          "context": "element_text",
+          "text": "{p0} · {p1}",
+          "parameters": [
+            "source.source_id",
+            "source.provider_id"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1005,
+          "start": 119051,
+          "end": 119056,
+          "context": "placeholder",
+          "text": "EUR",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1110,
+          "start": 145375,
+          "end": 145384,
+          "context": "confirm",
+          "text": "approve",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1110,
+          "start": 145433,
+          "end": 145441,
+          "context": "confirm",
+          "text": "cancel",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1188,
+          "start": 164761,
+          "end": 164781,
+          "context": "element_text",
+          "text": "Verzendbeoordeling",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1191,
+          "start": 165452,
+          "end": 165459,
+          "context": "element_text",
+          "text": "Reden",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1191,
+          "start": 165512,
+          "end": 165542,
+          "context": "element_text",
+          "text": "Ik bevestig deze beoordeling",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1192,
+          "start": 166107,
+          "end": 166119,
+          "context": "element_text",
+          "text": "Beslissing",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1196,
+          "start": 166957,
+          "end": 166980,
+          "context": "element_text",
+          "text": "Reden voor verzending",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1196,
+          "start": 167033,
+          "end": 167108,
+          "context": "element_text",
+          "text": "Ik bevestig dat deze exacte inhoud en ontvangers extern worden aangeboden",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1196,
+          "start": 167148,
+          "end": 167179,
+          "context": "element_text",
+          "text": "Goedgekeurd bericht aanbieden",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1196,
+          "start": 167371,
+          "end": 167463,
+          "context": "element_text",
+          "text": "De mailprovider kan het bericht accepteren. Bezorging bij de ontvanger blijft onbevestigd.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1200,
+          "start": 168318,
+          "end": 168338,
+          "context": "element_text",
+          "text": "Reden voor herstel",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1200,
+          "start": 168391,
+          "end": 168436,
+          "context": "element_text",
+          "text": "Ik bevestig herstel uit het bewaarde bewijs",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1200,
+          "start": 168474,
+          "end": 168502,
+          "context": "element_text",
+          "text": "Verzenduitkomst herstellen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1200,
+          "start": 168971,
+          "end": 169033,
+          "context": "element_text",
+          "text": "Deze actie verzendt geen mail. Bezorging blijft onbevestigd.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1204,
+          "start": 169896,
+          "end": 169918,
+          "context": "textContent",
+          "text": "Beoordelingen laden…",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1206,
+          "start": 170039,
+          "end": 170121,
+          "context": "textContent",
+          "text": "Beoordelen verzendt niets. Een bericht aanbieden is een aparte bevestigde actie.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1207,
+          "start": 170228,
+          "end": 170260,
+          "context": "element_text",
+          "text": "{p0} · {p1}",
+          "parameters": [
+            "row.status",
+            "row.purpose"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1207,
+          "start": 170274,
+          "end": 170379,
+          "context": "element_text",
+          "text": "Van: {p0} · Aan: {p1} · Cc: {p2}",
+          "parameters": [
+            "row.from",
+            "row.snapshot.to.join(', ')",
+            "(row.snapshot.cc||[]).join(', ')||'geen'"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1207,
+          "start": 170462,
+          "end": 170541,
+          "context": "element_text",
+          "text": "Bijlagen: {p0}",
+          "parameters": [
+            "row.snapshot.attachments.map(file=>file.name).join(', ')||'geen'"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1208,
+          "start": 171778,
+          "end": 171810,
+          "context": "element_text",
+          "text": "Nog geen verzendbeoordelingen.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 171930,
+          "end": 171970,
+          "context": "element_text",
+          "text": "Doel volgens de vastgelegde voorkeuren",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 172019,
+          "end": 172043,
+          "context": "element_text",
+          "text": "Exacte inhoud bekijken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 172118,
+          "end": 172138,
+          "context": "element_text",
+          "text": "Beoordelaar zoeken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 172186,
+          "end": 172207,
+          "context": "element_text",
+          "text": "Beoordelaars zoeken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 172263,
+          "end": 172285,
+          "context": "element_text",
+          "text": "Bevoegde beoordelaar",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 172339,
+          "end": 172363,
+          "context": "element_text",
+          "text": "Reden voor beoordeling",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 172416,
+          "end": 172455,
+          "context": "element_text",
+          "text": "Ik bevestig deze inhoud en ontvangers",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1210,
+          "start": 172495,
+          "end": 172518,
+          "context": "element_text",
+          "text": "Beoordeling aanvragen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1212,
+          "start": 173127,
+          "end": 173149,
+          "context": "element_text",
+          "text": "Kies een beoordelaar",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1215,
+          "start": 173963,
+          "end": 174074,
+          "context": "element_text",
+          "text": "Van: {p0} · Aan: {p1} · Cc: {p2}",
+          "parameters": [
+            "value.from",
+            "value.snapshot.to.join(', ')",
+            "(value.snapshot.cc||[]).join(', ')||'geen'"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1215,
+          "start": 174161,
+          "end": 174242,
+          "context": "element_text",
+          "text": "Bijlagen: {p0}",
+          "parameters": [
+            "value.snapshot.attachments.map(file=>file.name).join(', ')||'geen'"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1217,
+          "start": 175733,
+          "end": 175784,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Bekijk de actuele inhoud en kies een beoordelaar.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1250,
+          "start": 183319,
+          "end": 183337,
+          "context": "element_text",
+          "text": "Interne reacties",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1252,
+          "start": 183739,
+          "end": 183756,
+          "context": "textContent",
+          "text": "Reacties laden…",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1252,
+          "start": 183927,
+          "end": 184018,
+          "context": "textContent",
+          "text": "{p0} bewaarde interne reacties · conceptrevisie {p1}",
+          "parameters": [
+            "model.total",
+            "model.current_draft_revision"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1253,
+          "start": 184129,
+          "end": 184147,
+          "context": "element_text",
+          "text": "Reactie plaatsen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1253,
+          "start": 184218,
+          "end": 184248,
+          "context": "element_text",
+          "text": "Geen antwoord op een reactie",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1254,
+          "start": 184390,
+          "end": 184512,
+          "context": "element_text",
+          "text": "{p0} · bij conceptrevisie {p1}{p2}",
+          "parameters": [
+            "row.author_name",
+            "row.source_revision",
+            "row.reply_to_id?' · antwoord op een eerdere reactie':''"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1254,
+          "start": 184657,
+          "end": 184752,
+          "context": "element_text",
+          "text": "{p0}: {p1}",
+          "parameters": [
+            "row.author_name",
+            "row.status==='WITHDRAWN'?'Ingetrokken reactie':row.content.slice(0,80)"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1255,
+          "start": 184939,
+          "end": 184963,
+          "context": "element_text",
+          "text": "Mijn reactie intrekken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1258,
+          "start": 186251,
+          "end": 186337,
+          "context": "element_text",
+          "text": "Deze reactie is alleen zichtbaar voor huidige medebewerkers en wordt niet verzonden.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1260,
+          "start": 187022,
+          "end": 187039,
+          "context": "element_text",
+          "text": "Vorige reacties",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1261,
+          "start": 187247,
+          "end": 187266,
+          "context": "element_text",
+          "text": "Volgende reacties",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1263,
+          "start": 187572,
+          "end": 187593,
+          "context": "element_text",
+          "text": "Reacties vernieuwen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1267,
+          "start": 188016,
+          "end": 188032,
+          "context": "element_text",
+          "text": "Samen bewerken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1271,
+          "start": 189070,
+          "end": 189101,
+          "context": "element_text",
+          "text": "Werktekst als concept opslaan",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1280,
+          "start": 190699,
+          "end": 190836,
+          "context": "textContent",
+          "text": "Je sessie is verlopen of overgenomen. Je lokale tekst blijft hieronder staan; bekijk de actuele werktekst voordat je opnieuw overneemt.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1284,
+          "start": 192682,
+          "end": 192749,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Het concept is gewijzigd tijdens het starten; vernieuw de status.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1284,
+          "start": 192993,
+          "end": 193095,
+          "context": "textContent",
+          "text": "Wijzigingen worden als gedeelde werktekst zichtbaar. Alleen Opslaan maakt een nieuwe conceptrevisie.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1284,
+          "start": 193128,
+          "end": 193190,
+          "context": "textContent",
+          "text": "Bewerking vrijgegeven. De gedeelde werktekst blijft bewaard.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1290,
+          "start": 195245,
+          "end": 195315,
+          "context": "textContent",
+          "text": "Conceptrevisie {p0} opgeslagen. Er is niets verzonden.",
+          "parameters": [
+            "workingRevision"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1291,
+          "start": 195597,
+          "end": 195626,
+          "context": "element_text",
+          "text": "Bewerkingsstatus vernieuwen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1297,
+          "start": 196347,
+          "end": 196357,
+          "context": "element_text",
+          "text": "Bijlagen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1301,
+          "start": 196786,
+          "end": 197147,
+          "context": "element_text",
+          "text": "Tekst tot {p0}; PDF, PNG, JPEG en Office-documenten tot {p1} vereisen een lokale malwarecontrole. Maximaal {p2} bijlagen en {p3} per concept. Bestanden worden niet inline geopend of verzonden. Geef een actieve bewerking vrij voordat je bijlagen wijzigt.",
+          "parameters": [
+            "sizeLabel(model.max_bytes)",
+            "sizeLabel(model.max_binary_bytes)",
+            "model.max_current",
+            "sizeLabel(model.max_current_bytes)"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1302,
+          "start": 197205,
+          "end": 197239,
+          "context": "element_text",
+          "text": "Dit concept heeft geen bijlagen.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1305,
+          "start": 197720,
+          "end": 197751,
+          "context": "aria-label",
+          "text": "{p0} downloaden",
+          "parameters": [
+            "attachment.name"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1305,
+          "start": 197777,
+          "end": 197830,
+          "context": "element_text",
+          "text": "{p0} · {p1} bytes",
+          "parameters": [
+            "attachment.name",
+            "attachment.size_bytes"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1310,
+          "start": 198655,
+          "end": 198697,
+          "context": "error_message_requires_control_flow_review",
+          "text": "De bijlage kon niet worden geverifieerd.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1311,
+          "start": 198999,
+          "end": 199020,
+          "context": "textContent",
+          "text": "Bestand gedownload.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1314,
+          "start": 199262,
+          "end": 199287,
+          "context": "element_text",
+          "text": "Uit concept verwijderen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1314,
+          "start": 199343,
+          "end": 199387,
+          "context": "aria-label",
+          "text": "{p0} uit concept verwijderen",
+          "parameters": [
+            "attachment.name"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1314,
+          "start": 199749,
+          "end": 199826,
+          "context": "textContent",
+          "text": "Bijlage verwijderd uit het huidige concept; de geschiedenis blijft bewaard.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1317,
+          "start": 200017,
+          "end": 200033,
+          "context": "element_text",
+          "text": "Bestand kiezen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1317,
+          "start": 200073,
+          "end": 200090,
+          "context": "element_text",
+          "text": "Bijlage opslaan",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1321,
+          "start": 200728,
+          "end": 200792,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Kies een ondersteund bestand van maximaal {p0}.",
+          "parameters": [
+            "sizeLabel(limit)"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1324,
+          "start": 201325,
+          "end": 201362,
+          "context": "textContent",
+          "text": "Bijlage bij het concept opgeslagen.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1329,
+          "start": 201590,
+          "end": 201607,
+          "context": "textContent",
+          "text": "Bijlagen laden…",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1329,
+          "start": 201657,
+          "end": 201735,
+          "context": "textContent",
+          "text": "Downloads behouden de originele bytes. Een scan is geen veiligheidsgarantie.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1333,
+          "start": 201931,
+          "end": 201960,
+          "context": "element_text",
+          "text": "Delen en versiegeschiedenis",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1338,
+          "start": 202340,
+          "end": 202347,
+          "context": "element_text",
+          "text": "Reden",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1338,
+          "start": 202400,
+          "end": 202428,
+          "context": "element_text",
+          "text": "Ik bevestig deze wijziging",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1355,
+          "start": 203655,
+          "end": 203673,
+          "context": "element_text",
+          "text": "Revisie bekijken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1356,
+          "start": 203755,
+          "end": 203835,
+          "context": "element_text",
+          "text": "Revisie {p0} · {p1}",
+          "parameters": [
+            "version.draft_revision??'onbekend'",
+            "version.title||record.title"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1361,
+          "start": 204313,
+          "end": 204415,
+          "context": "element_text",
+          "text": "Aan: {p0} · Cc: {p1}",
+          "parameters": [
+            "(snapshot.to||[]).join(', ')||'niet opgegeven'",
+            "(snapshot.cc||[]).join(', ')||'geen'"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1362,
+          "start": 204463,
+          "end": 204544,
+          "context": "element_text",
+          "text": "Bijlagen: {p0}",
+          "parameters": [
+            "(snapshot.attachments||[]).map(item=>item.name).join(', ')||'geen'"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1363,
+          "start": 204655,
+          "end": 204698,
+          "context": "element_text",
+          "text": "Deze inhoud als nieuwe revisie herstellen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1368,
+          "start": 205056,
+          "end": 205071,
+          "context": "element_text",
+          "text": "Meer revisies",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1373,
+          "start": 205368,
+          "end": 205458,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Het concept is gewijzigd. Open de concepten opnieuw om de actuele geschiedenis te laden.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1380,
+          "start": 205805,
+          "end": 205826,
+          "context": "element_text",
+          "text": "Medebewerker zoeken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1384,
+          "start": 206383,
+          "end": 206404,
+          "context": "aria-label",
+          "text": "{p0} verwijderen",
+          "parameters": [
+            "name"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1385,
+          "start": 206567,
+          "end": 206626,
+          "context": "element_text",
+          "text": "Alleen de eigenaar en bevoegde beheerders hebben toegang.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1388,
+          "start": 206712,
+          "end": 206731,
+          "context": "element_text",
+          "text": "Toegang bijwerken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1394,
+          "start": 207177,
+          "end": 207353,
+          "context": "element_text",
+          "text": "Delen geeft toegang tot dit concept en zijn geschiedenis. Bewerken vereist eigen Communication-schrijfrechten. Verwijder medebewerkers en sla op om hun toegang in te trekken.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1400,
+          "start": 207970,
+          "end": 208008,
+          "context": "textContent",
+          "text": "Kies maximaal twintig medebewerkers.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1406,
+          "start": 208557,
+          "end": 208578,
+          "context": "textContent",
+          "text": "Geschiedenis laden…",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1409,
+          "start": 208692,
+          "end": 208792,
+          "context": "textContent",
+          "text": "{p0} bewaarde revisies. Herstellen bewaart de huidige toegangsrechten en verzendt niets.",
+          "parameters": [
+            "model.total"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1459,
+          "start": 225000,
+          "end": 225020,
+          "context": "element_text",
+          "text": "Google-mailtoegang",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1460,
+          "start": 225282,
+          "end": 225302,
+          "context": "textContent",
+          "text": "Mailtoegang laden…",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1463,
+          "start": 226126,
+          "end": 226133,
+          "context": "element_text",
+          "text": "Reden",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1464,
+          "start": 227301,
+          "end": 227325,
+          "context": "textContent",
+          "text": "Mailtoegang verwerken…",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1464,
+          "start": 227793,
+          "end": 227815,
+          "context": "element_text",
+          "text": "Doorgaan naar Google",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1464,
+          "start": 227913,
+          "end": 228027,
+          "context": "textContent",
+          "text": "Verleen toestemming bij Google met deze Foundly-sessie actief. De algemene Google-koppeling blijft afzonderlijk.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1464,
+          "start": 228228,
+          "end": 228258,
+          "context": "element_text",
+          "text": "Mailtoegang opnieuw bekijken",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1465,
+          "start": 228545,
+          "end": 228569,
+          "context": "element_text",
+          "text": "Mailtoegang vernieuwen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1465,
+          "start": 228611,
+          "end": 228643,
+          "context": "element_text",
+          "text": "Mailtoegang lokaal ontkoppelen",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1632,
+          "start": 265355,
+          "end": 265373,
+          "context": "placeholder",
+          "text": "Europe/Amsterdam",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1633,
+          "start": 265422,
+          "end": 265427,
+          "context": "placeholder",
+          "text": "EUR",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1634,
+          "start": 265495,
+          "end": 265522,
+          "context": "placeholder",
+          "text": "2026-09-06T10:00:00+02:00",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1713,
+          "start": 283416,
+          "end": 283435,
+          "context": "element_text",
+          "text": "Bewaarde prognose",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1779,
+          "start": 291187,
+          "end": 291226,
+          "context": "title",
+          "text": "{p0} · Foundly OS",
+          "parameters": [
+            "state.workspace.label"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1910,
+          "start": 304426,
+          "end": 304451,
+          "context": "textContent",
+          "text": "Configuratie valideren…",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1913,
+          "start": 304652,
+          "end": 304775,
+          "context": "textContent",
+          "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
+          "parameters": [
+            "result.profile?.status || result.status || 'CONFIGURED'"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 1928,
+          "start": 306107,
+          "end": 306188,
+          "context": "toast",
+          "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1955,
+          "start": 308527,
+          "end": 308606,
+          "context": "toast",
+          "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1959,
+          "start": 308899,
+          "end": 308914,
+          "context": "textContent",
+          "text": "RUNTIME ERROR",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 1960,
+          "start": 309020,
+          "end": 309036,
+          "context": "textContent",
+          "text": "CHECK REQUIRED",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "identity-login.js",
+      "sha256": "75a3ecebb7ef506bacd540aed589ad9580403d28b8d7687c69247dfa92bdb9ce",
+      "items": []
+    },
+    {
+      "file": "index-script.js",
+      "sha256": "77699df1eed9d01b7a37a0c34ff495326be45992f23abfb463d6c434a2b29d0a",
+      "items": [
+        {
+          "line": 72,
+          "start": 14613,
+          "end": 14643,
+          "context": "error_message_requires_control_flow_review",
+          "text": "integration_response_invalid",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 72,
+          "start": 14717,
+          "end": 14745,
+          "context": "error_message_requires_control_flow_review",
+          "text": "integration_request_failed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 89,
+          "start": 16071,
+          "end": 16158,
+          "context": "prompt",
+          "text": "{p0} · {p1}{p2}",
+          "parameters": [
+            "p.naam||id",
+            "f.label||f.key",
+            "f.required===false?integrationText('optional'):''"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 90,
+          "start": 16254,
+          "end": 16295,
+          "context": "prompt",
+          "text": "{p0} · {p1}",
+          "parameters": [
+            "p.naam||id",
+            "integrationText(key)"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 105,
+          "start": 17633,
+          "end": 17674,
+          "context": "prompt",
+          "text": "{p0} · {p1}",
+          "parameters": [
+            "p.naam||id",
+            "integrationText(key)"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 109,
+          "start": 17932,
+          "end": 18067,
+          "context": "prompt",
+          "text": "{p0} · {p1}\n(public / basic / bearer / api_key_header / oauth2_authorization_code / webhook)",
+          "parameters": [
+            "p.naam||id",
+            "integrationText('auth_strategy')"
+          ],
+          "rich_text": false
+        },
+        {
+          "line": 211,
+          "start": 29016,
+          "end": 29042,
+          "context": "error_message_requires_control_flow_review",
+          "text": "integration_check_failed",
+          "parameters": [],
+          "rich_text": false
+        },
+        {
+          "line": 437,
+          "start": 94809,
+          "end": 94844,
+          "context": "error_message_requires_control_flow_review",
+          "text": "Vereiste control ontbreekt: {p0}",
+          "parameters": [
+            "id"
+          ],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "marketing-audience-client.js",
+      "sha256": "e4e32bab4a6751ac054d4fd6b6a691ee5d41e3be1fc018ddc01f1392df677a79",
+      "items": []
+    },
+    {
+      "file": "marketing-creative-history-client.js",
+      "sha256": "0c4f2eb82175581dbc5b7f9dd707a84cff537985bffe2a9f29e2235a65f8f824",
+      "items": []
+    },
+    {
+      "file": "marketing-journey-client-state.js",
+      "sha256": "b8e29626d1021f8619011bd5a281816b9e2afe80fff2b3577185aa31668a5fec",
+      "items": []
+    },
+    {
+      "file": "marketing-journeys-client.js",
+      "sha256": "d555007c267db89fc6bc4e62dd2d46b34f708ecd54e39beeab284fae86162b7f",
+      "items": []
+    },
+    {
+      "file": "marketing-metrics-client.js",
+      "sha256": "fcc953ce2956d8bdef29489a4f73b54fe0f0d40e101dd0acf0dd5abf7e8e359b",
+      "items": []
+    },
+    {
+      "file": "marketing-review-client.js",
+      "sha256": "7a76ae6e0d0b1f516d08792fffa674786b6a09ede17d8500a04e1cdac1a8179b",
+      "items": []
+    },
+    {
+      "file": "marketing-zero-client.js",
+      "sha256": "3758c55930e7a6d9d24f73622b02b521105846a5d0db1fa217f1e96bf12ad3ed",
+      "items": []
+    },
+    {
+      "file": "procurement-action-client-state.js",
+      "sha256": "17ef41db7d8026fcc30265b8d1ac2c055a37da5fa42783310f53c95a4df3c0b9",
+      "items": []
+    },
+    {
+      "file": "procurement-action-client.js",
+      "sha256": "de37058875f92b0e8dd0de8a8a3875e832947bf895eff65199d93e30f63223aa",
+      "items": []
+    },
+    {
+      "file": "procurement-clarification-client-state.js",
+      "sha256": "15a7530e0c53106304d61b36ccb2bcb4056fbe5cb3543f042a23ec246b5524ef",
+      "items": []
+    },
+    {
+      "file": "procurement-clarification-recovery-client.js",
+      "sha256": "a433fd3e0788a78e35910883915b2d17b700ad8acfd1564c76325ceb01313bd8",
+      "items": []
+    },
+    {
+      "file": "procurement-clarifications-client.js",
+      "sha256": "d305045496c53d29f570a1cafa47ca173a3543c1706f0689c3b61b1941521bbb",
+      "items": []
+    },
+    {
+      "file": "procurement-economic-client-state.js",
+      "sha256": "d93d640fa39b146876dde78fb1c9d8cd18b98c9612d0c826ca3faa640a8d8fbb",
+      "items": []
+    },
+    {
+      "file": "procurement-economic-recovery-client.js",
+      "sha256": "03ecc38d37e8e6ffa8c99567b4ac2e8d3ec90bc349c33416c158d74ccc15756c",
+      "items": []
+    },
+    {
+      "file": "procurement-intelligence-client.js",
+      "sha256": "f187b5ffdabcf7d153635b537d86c19609ff4da628c4829950f1a9bdec93f599",
+      "items": []
+    },
+    {
+      "file": "procurement-zero-client.js",
+      "sha256": "d0be6d0c3f2291ca9dae9976483501d0231b90d3680b0edfc2344dab787ac6ae",
+      "items": [
+        {
+          "line": 5,
+          "start": 681,
+          "end": 687,
+          "context": "textContent",
+          "text": "ZERO",
+          "parameters": [],
+          "rich_text": false
+        }
+      ]
+    },
+    {
+      "file": "sales-forecast-client-state.js",
+      "sha256": "3285d17f0916895e7f32eb6dd3b2aebee60cd177c159821d7aaaec6b517491ca",
+      "items": []
+    },
+    {
+      "file": "sales-forecast-snapshot-client.js",
+      "sha256": "4646971af01e5400c702878fa080766dde0d1e9b718db63b8b0a5c6efeeec062",
+      "items": []
+    },
+    {
+      "file": "sales-hierarchy-client-state.js",
+      "sha256": "c5557d9ff247f0b7847dd9e69fef1cc8ace395680b4afc327e3a1e240906ec75",
+      "items": []
+    },
+    {
+      "file": "sales-hierarchy-client.js",
+      "sha256": "a0cdac769e36e044a12b3e5a2ab2b06a472e51384bcc9d118699ec298833edda",
+      "items": []
+    },
+    {
+      "file": "sales-pipeline-client-state.js",
+      "sha256": "8f7b474473003d6a2381ef5f83677f1f40ceb6bd95ba90ab4c2214949559b148",
+      "items": []
+    },
+    {
+      "file": "sales-pipeline-client.js",
+      "sha256": "8619a3c7ef8331880032adc8091dba578a743101ea9ae86492e85c8e1855cf0f",
+      "items": []
+    },
+    {
+      "file": "sales-sequence-client-state.js",
+      "sha256": "e18e9085603101366a13f32595ca8174e0bd65e72fb22a2110ed3b863c18bb84",
+      "items": []
+    },
+    {
+      "file": "sales-sequences-client.js",
+      "sha256": "0b5bc7b376135dc1722aeef750f1d5cde4d2bc91da941bc9d5f2dc637dcd3e3b",
+      "items": []
+    },
+    {
+      "file": "sales-zero-client.js",
+      "sha256": "7162a40353335de39d30dc7bbfe096421dfea50a7676e775377f1eb7e51faff8",
+      "items": []
+    },
+    {
+      "file": "speech-formatter.js",
+      "sha256": "dcba8849663504320f1279f9fbc4ba04380ef57d44bcbc5cf071fc5b044beb4d",
+      "items": []
+    },
+    {
+      "file": "workflow-activation-client.js",
+      "sha256": "25966db1b93e903fcc74bc73c2ae15fc6f31dd4782b45741714740c12d7d40d2",
+      "items": []
+    },
+    {
+      "file": "workflow-approval-client.js",
+      "sha256": "3aaa35e244ab90d24d08084f055495e206441a9391ca8689a760514485d349d6",
+      "items": []
+    },
+    {
+      "file": "workflow-authoring.js",
+      "sha256": "41655b145ee3460940d94b6a9b2267a994fb06a699e054f69f126752ac406008",
+      "items": []
+    },
+    {
+      "file": "workflow-draft-session.js",
+      "sha256": "b47e877028f5fcfa8ac6a40ab79435ad948a78efa1c3b0f8e897749fd0f4f789",
+      "items": []
+    },
+    {
+      "file": "workflow-editor.js",
+      "sha256": "379d2b027555869b448add85c6f61d65ae5bfbb51ca72dca498432070dd7a52e",
+      "items": []
+    },
+    {
+      "file": "workflow-generator.js",
+      "sha256": "c1499ea34799ff6bc5a0141b3f7c33a0959f532373012085a5fb32c0e7b9a8a1",
+      "items": []
+    },
+    {
+      "file": "workflow-inspector.js",
+      "sha256": "7f9ade565afd4879d55074b4264bc738375fa025c63ba4b44f64460be219e4ec",
+      "items": []
+    },
+    {
+      "file": "workflow-result-client.js",
+      "sha256": "f614a8c278f236ffc50d491befee4c8080b2e7692701db8524c59adb9ef14699",
+      "items": []
+    },
+    {
+      "file": "workflow-resume-client.js",
+      "sha256": "db4669baf149e9f5ff52dba9b38fab710415ee6d7877382bc0262be874bed82d",
+      "items": []
+    },
+    {
+      "file": "workflow-run-zero-client.js",
+      "sha256": "f06bfdb337b28792a8d7ade98e107abc1a16169ad487042453d64365f9d3eaf7",
+      "items": []
+    },
+    {
+      "file": "workspace-dashboard-session.js",
+      "sha256": "9d08ce29b78320493e64e984f358b535f6de8271073a3f51020d9ccfcaae4e83",
+      "items": []
+    },
+    {
+      "file": "zero-audio.js",
+      "sha256": "d875f48ff8b91e9f521177c9c5718747091660c721929030e98631398ec57213",
+      "items": []
+    },
+    {
+      "file": "zero-confirmation.js",
+      "sha256": "cd1292837b0817bdc10d4a53677b7ba5ec533558d9d5d2abac1931231516eecf",
+      "items": []
+    },
+    {
+      "file": "zero-voice-turns.js",
+      "sha256": "39ec6edd64b7fd87772a34af505d6579bb1aa1886fe743c35c9a04841b5276ac",
+      "items": []
+    }
+  ]
+}

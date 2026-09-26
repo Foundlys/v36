@@ -68,6 +68,7 @@ assert.equal(scopeVisible('crm:leads',resolver,ctx,admin),false);
 assert.equal(scopeVisible('crm:contacts',resolver,ctx,admin),true);
 assert.equal(scopeVisible('platform:automation_runs',resolver,ctx,viewer),false);
 assert.equal(scopeVisible('platform:module_event_outbox',resolver,ctx,admin),false);
+assert.equal(scopeVisible('crm:event_outbox',resolver,ctx,admin),false);
 assert.equal(scopeVisible('automation:idempotency',resolver,ctx,admin),false);
 assert.equal(scopeVisible('platform:canonical_records',resolver,ctx,viewer),true);
 assert.equal(scopeVisible('platform:raw_events',resolver,ctx,viewer),true);

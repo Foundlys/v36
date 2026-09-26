@@ -1,0 +1,15 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto'),{fixture}=require('../zero-evaluation/fixture');
+async function duringProvider(f,marker,route,cookie,mutate){
+ for(const suffix of ['.entered','.release'])if(fs.existsSync(marker+suffix))fs.unlinkSync(marker+suffix);fs.writeFileSync(marker+'.armed','isolated fixture');
+ const response=f.request(route,'GET',undefined,cookie);response.catch(()=>{});
+ try{for(let n=0;n<100&&!fs.existsSync(marker+'.entered');n++)await new Promise(resolve=>setTimeout(resolve,20));assert.ok(fs.existsSync(marker+'.entered'),'Native provider request must actually reach the observation wait');await mutate();}finally{fs.writeFileSync(marker+'.release','continue');}
+ return response;
+}
+async function sourceFixture(){const marker=path.join(os.tmpdir(),'workspace-provider-'+crypto.randomUUID()),f=await fixture({NODE_OPTIONS:'--require '+path.resolve(__dirname,'../zero-evaluation/workspace-provider-wait-fixture.js'),OPENAI_API_KEY:'isolated-readiness-key-never-sent-upstream',FOUNDLY_WORKSPACE_PROVIDER_BARRIER:marker});await f.request('/api/composition','PUT',{entitlements:['sales'],expected_revision:0});const member=await f.enroll('workspace-read-seller',['SALES']),other=await f.enroll('workspace-read-other',['SALES']),created=await f.request('/api/sales/opportunities','POST',{title:'PRIVATE source before provider wait',value_cents:123,currency:'USD'},member.cookie);assert.equal(created.status,201,JSON.stringify(created.body));return {f,marker,member,other,record:created.body.record,async close(){for(const suffix of ['.armed','.entered','.release'])if(fs.existsSync(marker+suffix))fs.unlinkSync(marker+suffix);await f.close();}};}
+test('workspace snapshot refuses a module revoked while its real native provider observation is pending',async()=>{
+ const {f,marker,member,close}=await sourceFixture();try{const result=await duringProvider(f,marker,'/api/workspaces/sales/snapshot',member.cookie,async()=>assert.equal((await f.request('/api/composition','PUT',{entitlements:[],expected_revision:1})).status,200));assert.equal(result.status,403,JSON.stringify(result.body));assert.ok(!JSON.stringify(result.body).includes('PRIVATE source'));}finally{await close();}
+});
+test('workspace snapshot re-reads source ownership after provider wait instead of releasing a previous private summary',async()=>{
+ const {f,marker,member,other,record,close}=await sourceFixture();try{const result=await duringProvider(f,marker,'/api/workspaces/sales/snapshot',member.cookie,async()=>{const changed=await f.request('/api/sales/opportunities/'+record.id,'PUT',{owner_id:other.member.id,expected_revision:record.revision});assert.equal(changed.status,200,JSON.stringify(changed.body));});assert.equal(result.status,200,JSON.stringify(result.body));assert.ok(!JSON.stringify(result.body).includes('PRIVATE source before provider wait'));assert.equal(result.body.metrics.opportunities.value,0);assert.equal(result.body.rows.length,0);}finally{await close();}
+});

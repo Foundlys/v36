@@ -72,7 +72,7 @@ function put(route, payload, headers = {}) {
 
 function unitContracts() {
   assert.equal(SOURCE_SCHEMA_FIELDS.length, 47);
-  assert.deepEqual(CONNECTOR_LIFECYCLE, ['UNCONFIGURED', 'AWAITING_ACCESS', 'CONFIGURED', 'AUTHORIZING', 'AUTHENTICATED', 'PROBING', 'SYNCING', 'CONNECTED', 'DEGRADED', 'ERROR', 'EXPIRED', 'DISCONNECTED']);
+  assert.deepEqual(CONNECTOR_LIFECYCLE, ['UNCONFIGURED', 'AWAITING_ACCESS', 'CONFIGURED', 'AUTHORIZING', 'AUTHENTICATED', 'PROBING', 'SYNCING', 'CONNECTED', 'DEGRADED', 'ERROR', 'EXPIRED', 'DISCONNECTED', 'UNKNOWN']);
 
   const registry = {
     openai: { naam: 'OpenAI', categorie: 'ai_search', auth: 'api_key', env: ['OPENAI_API_KEY'], modules: ['data'], capabilities: ['reasoning'] },
@@ -133,8 +133,13 @@ function staticContracts() {
   const automotiveJs = fs.readFileSync(path.join(__dirname, 'automotive-script.js'), 'utf8');
   for (const section of WORKSPACE_DEFINITIONS.automotive.sections) assert(automotiveHtml.toUpperCase().includes(section), `Automotive-sectie ontbreekt: ${section}`);
   for (const provider of ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc', 'ecb_fx', 'openai']) assert(automotiveJs.includes(provider), `Automotive-bron ontbreekt: ${provider}`);
-  const neuralClient = fs.readFileSync(path.join(__dirname, 'index-script.js'), 'utf8');
-  for (const token of ['AUTOMOTIVE SOURCE REGISTRY', 'ACTIVE SOURCES', 'MARKETPLACE SOURCES', 'VEHICLE / VALUATION SOURCES', 'INTERNAL SOURCES', 'OPEN AUTOMOTIVE WORKSPACE']) assert(neuralClient.includes(token), `Inkoop-bronweergave mist ${token}`);
+  // Inspect the real translated source panel; its headings are no longer
+  // duplicated English string literals in the controller.
+  const sourceUi = require('./zero-evaluation/module-overlay-fixture').fixture();
+  const sourcePanel = sourceUi.context.automotiveSourcePanel().card;
+  for (const key of ['overlay.registry', 'overlay.group.core', 'overlay.group.marketplace', 'overlay.group.vehicle', 'overlay.group.internal', 'overlay.open_automotive']) assert(sourcePanel.all().some(node => node.getAttribute('data-i18n') === key && node.textContent === sourceUi.i.t(key)), `Inkoop-bronweergave mist ${key}`);
+  for (const provider of ['RDW', 'ECB', 'OpenAI Realtime', 'mobile.de', 'Marktplaats', 'AutoScout24', 'VWE', 'Autotelex', 'RDC']) assert(sourcePanel.textContent.includes(provider), `Inkoop-bron ontbreekt: ${provider}`);
+  assert.equal(sourcePanel.children.at(-1).href, '/automotive');
   const acceptedRenderer = execFileSync('git', ['show', 'HEAD:neural-runtime.js'], { cwd: __dirname });
   assert(Buffer.from(fs.readFileSync(path.join(__dirname, 'neural-runtime.js'))).equals(acceptedRenderer), 'geaccepteerde Neural-renderer mag niet wijzigen');
 }

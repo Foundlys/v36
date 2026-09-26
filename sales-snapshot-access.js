@@ -7,9 +7,9 @@ function snapshotReadable(domain,ctx,actor,row){
   const sources=new Map(domain.bucket(ctx,'opportunities').map(source=>[source.id,source])),quotas=new Map(domain.bucket(ctx,'quotas').map(quota=>[quota.id,quota]));
   for(const reference of [...row.forecast.items,...(row.forecast.excluded||[]),...(row.forecast.scenario?.source_records||[])]){
     const current=sources.get(reference.id);
-    if(!current||!domain.visible(current,actor))return false;
+    if(!current||current.deleted_at||!domain.visible(current,actor))return false;
   }
-  for(const reference of row.forecast.quotas?.items||[]){if(!reference.quota)continue;const current=quotas.get(reference.quota.id);if(!current||!domain.visible(current,actor))return false;}
+  for(const reference of row.forecast.quotas?.items||[]){if(!reference.quota)continue;const current=quotas.get(reference.quota.id);if(!current||current.deleted_at||!domain.visible(current,actor))return false;}
   return true;
 }
 module.exports={snapshotReadable};

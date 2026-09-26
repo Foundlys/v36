@@ -1,4 +1,5 @@
 'use strict';
+const {resume}=require('./zero-evaluation/workflow-resume-http');
 const assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),crypto=require('node:crypto');
 const {spawn}=require('node:child_process'),{once}=require('node:events');
 const dir=fs.mkdtempSync(path.join(os.tmpdir(),'foundly-workflow-authoring-'));
@@ -35,7 +36,7 @@ const {compile}=require('./workflow-authoring');
  assert.equal((await call(route,'POST',{event,options:{inputs:{score:8},approval}})).status,409);
  run=(await call(route,'POST',{event,options:{...options,approval}})).body;assert.equal(run.status,'WAITING_TIME');const originalTask=(await call('/api/automation/tasks')).body.items[0];
  await stop();await start();await new Promise(resolve=>setTimeout(resolve,Math.max(0,Date.parse(run.next_wakeup_at)-Date.now()+10)));
- run=(await call(route,'POST',{event,options})).body;assert.equal(run.status,'SUCCEEDED');assert.deepEqual(run.steps.map(s=>s.status),['SUCCEEDED','SUCCEEDED','SUCCEEDED']);assert.equal((await call('/api/automation/tasks')).body.items[0].id,originalTask.id);assert.equal((await call('/api/automation/documents')).body.items[0].content,'Exact reviewed content');
+ assert.equal((await call(route,'POST',{event,options})).body.status,'WAITING_TIME');run=(await resume(call,run)).body;assert.equal(run.status,'SUCCEEDED');assert.deepEqual(run.steps.map(s=>s.status),['SUCCEEDED','SUCCEEDED','SUCCEEDED']);assert.equal((await call('/api/automation/tasks')).body.items[0].id,originalTask.id);assert.equal((await call('/api/automation/documents')).body.items[0].content,'Exact reviewed content');
  assert.equal((await call(route,'POST',{event,options})).body.replayed,true);assert.equal((await call('/api/automation/tasks')).body.total,1);
  assert.equal((await call('/api/automation/workflows','POST',{...definition,actions:[{type:'create_task',title:'Conflicting version'}]})).status,409);
  assert.equal((await call('/api/automation/workflows','POST',{...definition,version:2})).status,201);assert.equal((await call('/api/automation/status')).body.workflow_count,2);
@@ -44,7 +45,13 @@ const {compile}=require('./workflow-authoring');
  assert.deepEqual((await call('/api/automation/status')).body.workflows.find(row=>row.id===created.body.id).actions[0].when,definition.actions[0].when);
  const manualWorkflow=(await call('/api/automation/status')).body.workflows.find(row=>row.id===created.body.id),manual=require('./workflow-authoring').manualRunInput(manualWorkflow,'authoring-http:manual-input',{'inputs.score':{type:'number',value:'10'},'inputs.flag':{type:'boolean',value:'false'}});
  const manualResult=await call(route,'POST',manual);assert.equal(manualResult.status,202,JSON.stringify(manualResult.body));assert.equal(manualResult.body.steps[0].status,'SKIPPED_CONDITION');assert.equal(manualResult.body.inputs.score,10);assert.equal(manualResult.body.inputs.flag,false);assert.equal(manualResult.body.trigger.source,'authorized_manual_run');assert.equal((await call('/api/automation/tasks')).body.total,1);
- await stop();await start();assert.equal((await call(route,'POST',manual)).body.replayed,true);assert.equal((await call('/api/automation/tasks')).body.total,1);
+ // Complete the explicit delay before asserting terminal replay. Restart may
+ // cross its wake time, in which case resuming is correct rather than replay.
+ assert.equal(manualResult.body.status,'WAITING_TIME');await new Promise(resolve=>setTimeout(resolve,Math.max(0,Date.parse(manualResult.body.next_wakeup_at)-Date.now()+10)));
+ assert.equal((await call(route,'POST',manual)).body.status,'WAITING_TIME');const awaitingManual=await resume(call,manualResult.body);assert.equal(awaitingManual.status,202);assert.equal(awaitingManual.body.status,'AWAITING_APPROVAL');assert.equal(awaitingManual.body.steps[0].status,'SKIPPED_CONDITION');assert.equal(awaitingManual.body.steps[1].status,'SUCCEEDED');assert.equal((await call('/api/automation/documents')).body.total,1);
+ const manualApproval={run_id:awaitingManual.body.run_id,request_signature:awaitingManual.body.request_signature,reference:'authoring-http:manual-approval',reason:'Approve the exact document after the skipped task and explicit delay'};
+ const completedManual=await call(route,'POST',{...manual,options:{...manual.options,approval:manualApproval}});assert.equal(completedManual.status,202);assert.equal(completedManual.body.status,'SUCCEEDED');assert.equal((await call('/api/automation/documents')).body.total,2);
+ await stop();await start();const replayedManual=await call(route,'POST',manual);assert.equal(replayedManual.body.replayed,true);assert.equal(replayedManual.body.run_id,completedManual.body.run_id);assert.equal((await call('/api/automation/tasks')).body.total,1);assert.equal((await call('/api/automation/documents')).body.total,2);
  assert.equal((await call(route,'POST',{...manual,options:{inputs:{score:7,flag:false}}})).status,409);
  const activationRoute=`/api/automation/workflows/${created.body.id}/activation`,activate={active:true,confirm:true,expected_revision:0,reason:'Choose the reviewed original version'};
  assert.equal((await call(activationRoute,'PUT',activate)).status,200);assert.equal((await call(activationRoute,'PUT',activate)).body.deduplicated,true);

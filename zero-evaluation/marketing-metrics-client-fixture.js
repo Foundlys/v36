@@ -1,0 +1,26 @@
+'use strict';
+// Production metric controls and native calculations in a minimal DOM.
+// This fixture does not establish browser layout or provider acceptance.
+const fs=require('node:fs'),vm=require('node:vm'),crypto=require('node:crypto'),{browserFixture}=require('./dom-fixture'),{WorkspaceView}=require('./workspace-page-fixture');
+const {BusinessDomain}=require('../business-domains'),{CapabilityResolver}=require('../capability-resolver'),{FoundlyPlatformCore}=require('../platform-core'),metrics=require('../marketing-metrics');
+const clone=value=>JSON.parse(JSON.stringify(value));
+function fixture({locale='en-GB',zero=false,transport=null}={}){
+ const f=browserFixture(locale),state=new Map(),ctx={tenant_id:'marketing-metric-locale-fixture',dealer_id:'default'},actor={id:'metric-reader',roles:['MARKETING'],permissions:['events:read']},admin={id:'admin',roles:['SUPER_ADMIN']},calls=[];
+ const adapter={bucket(c,s){const key=JSON.stringify([c,s]);if(!state.has(key))state.set(key,[]);return state.get(key);},persist(){},audit(){},publish(){}},resolver=new CapabilityResolver(adapter);resolver.configure(ctx,admin,{entitlements:['marketing'],expected_revision:0});
+ const core=new BusinessDomain('marketing',adapter,resolver),platform=new FoundlyPlatformCore(adapter),rows=platform.bucket(ctx,'raw_events'),query={from:'2026-08-01T00:00:00.000Z',to:'2026-09-01T00:00:00.000Z'};
+ const event=(id,name,source,properties,extra={})=>({event_id:id,event_name:name,source,occurred_at:'2026-08-15T12:00:00.000Z',received_at:'2026-08-15T12:00:01.000Z',campaign_id:'Literal <img> campaign',permissions:{user_ids:[actor.id]},properties,...extra});
+ const financial={currency:'USD',financial_outcome_id:'Literal <img> order',financial_outcome_namespace:'Literal merchant ledger',financial_outcome_complete:true};
+ rows.push(event('spend','marketing_spend','Literal <img> source',{currency:'USD',metric_semantics:'DELTA',spend_cents:1000,impressions:100,clicks:10}),event('won','deal_won','crm',{...financial,value_cents:9000}),event('paid','invoice_paid','finance',{...financial,revenue_cents:12000,attributed_revenue_cents:10000}),event('duplicate','invoice_paid','google',{...financial,attributed_revenue_cents:10000}),event('lead','lead_created','Literal <img> source',{}, {lead_id:'literal-lead'}));
+ let active=true,alter=null,error=null,gate=null;const request=async(path,options={})=>{const body=JSON.parse(options.body||'{}');calls.push({path,options:clone(options),body});if(transport)return transport(path,options);let input=body,route=path;if(path==='/api/zero/turn'){const action=body.client_context.marketing_action;input=action.input;route='/api/marketing/measurement/'+(action.operation==='METRICS'?'query':'drilldown');}
+  const held=gate&&route.endsWith(gate.suffix)?gate:null;if(held)gate=null;let data;if(!error)data=route.endsWith('/drilldown')?metrics.drilldown(core,platform,ctx,actor,input):metrics.query(core,platform,ctx,actor,input);if(held){held.started();await held.promise;}if(error)throw error;if(held?.error)throw held.error;if(alter)data=alter(clone(data),route);return path==='/api/zero/turn'?{marketing_data:data}:clone(data);
+ };
+ f.context.document.createElement=tag=>new WorkspaceView(tag);f.context.document.dispatchEvent=event=>{for(const handler of f.context.document.handlers[event.type]||[])handler(event);return true;};Object.assign(f.context,{crypto,URL});
+ for(const file of ['marketing-metrics-client.js','marketing-zero-client.js'])vm.runInContext(fs.readFileSync(require.resolve('../'+file),'utf8'),f.context);
+ let box;const host=zero?f.context.FoundlyMarketingTransport.create({document:f.context.document,request,isActive:()=>active,build:call=>(box=f.context.FoundlyMarketingMetrics.create({document:f.context.document,request:call,isActive:()=>active}))}):(box=f.context.FoundlyMarketingMetrics.create({document:f.context.document,request,isActive:()=>active}));f.nodes.metricBox=host;
+ const labels={query:'Gekozen periode berekenen',sources:'Berekening naar bronrecords volgen',next:'Volgende bronpagina'};
+ const control=key=>box.all().find(n=>n.getAttribute?.('data-metric-action')===key)||box.all().find(n=>n.tag==='button'&&n.textContent===labels[key]);
+ const field=key=>box.all().find(n=>n.getAttribute?.('data-metric-field')===key)||box.all().filter(n=>n.tag==='input')[['from','to','campaign_ids','sources'].indexOf(key)];
+ field('from').value=query.from;field('to').value=query.to;if(zero){const select=host.all().find(n=>n.tag==='select');select.value='zero';select.fire('change');}
+ return {...f,i:f.context.FoundlyI18n,box,host,core,platform,ctx,actor,admin,resolver,rows,event,query,calls,control,field,notice:()=>box.all().find(n=>n.tag==='output'),calculate:()=>control('query').fire('click'),drill:()=>control('sources').fire('click'),alter:fn=>alter=fn,deny:()=>error=Object.assign(Error('RAW_PRIVATE_DENIAL'),{status:403}),fail:()=>error=Error('RAW_PRIVATE_NETWORK'),retire:()=>active=false,hold(suffix,heldError){let release,started;const promise=new Promise(resolve=>release=resolve);release.started=new Promise(resolve=>started=resolve);gate={suffix,promise,started,error:heldError};return release;}};
+}
+module.exports={fixture,clone};

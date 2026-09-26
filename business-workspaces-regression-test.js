@@ -66,7 +66,7 @@ async function call(route, authenticated = true) {
     const css = fs.readFileSync(path.join(__dirname, 'business-workspaces.css'), 'utf8');
 
     for (const token of ['Analysis Command Dashboard', 'analysisKpis', 'analysisFunnel', 'analysisEvents', 'analysisHistory', 'analysisSources', 'analysisAutomation', 'analysisZeroForm']) assert(analysisHtml.includes(token), `Analysis workspace mist ${token}`);
-    for (const token of ['/api/analysis/dashboard', '/api/platform/status', '/api/platform/connectors', '/api/automation/status', '/api/platform/events/stream', '/api/platform/exports', '/api/zero/turn', 'NO_VERIFIED_SOURCE_DATA']) assert(analysisScript.includes(token), `Analysis client mist ${token}`);
+    for (const token of ['/api/analysis/dashboard', '/api/platform/status', '/api/platform/connectors', '/api/automation/status', '/api/platform/events/stream', '/api/platform/exports', '/api/zero/turn']) assert(analysisScript.includes(token), `Analysis client mist ${token}`);
     for (const token of ['Finance Command Center', 'financeKpis', 'financePnl', 'financeAging', 'financeForecast', 'financeCompliance', 'financeJournal', 'exportFinance', 'financeZeroForm']) assert(financeHtml.includes(token), `Finance workspace mist ${token}`);
     for (const token of ['/api/finance/status', '/api/finance/dashboard', '/api/finance/reports', '/api/finance/records/legal_entities', '/api/finance/exports', '/api/zero/turn', 'posted_immutable_journal_entries']) assert(financeScript.includes(token), `Finance client mist ${token}`);
     for (const token of [':root', 'body.finance', '.rail', '.workspace', '.toolbar', '.kpi-grid', '.dashboard-grid', '.zero-dock', '@media (max-width: 760px)', '@media (prefers-reduced-motion: reduce)']) assert(css.includes(token), `Business design system mist ${token}`);
@@ -74,7 +74,28 @@ async function call(route, authenticated = true) {
     assert(!/style\s*=/.test(analysisHtml + financeHtml + analysisScript + financeScript), 'Business workspaces moeten zonder inline styles werken');
     assert(!/\bprompt\s*\(/.test(analysisScript + financeScript), 'Business workspaces mogen niet op native prompt-dialogen steunen');
     assert(!/\b(?:12500|45000|Example Customer|Demo Revenue|Fake KPI)\b/i.test(analysisHtml + financeHtml + analysisScript + financeScript + css), 'Business UI mag geen fake bedrijfswaarden bevatten');
-    assert(/escapeHtml/.test(analysisScript) && /escapeHtml/.test(financeScript), 'Extern geladen tekst moet HTML-geëscapet worden');
+    const financePresentation=require('./zero-evaluation/finance-page-fixture').fixture();
+    await financePresentation.context.load();
+    const account=financePresentation.nodes.financePnl.children[0].children[0];
+    assert.equal(account.textContent,'4000 · Literal private <img> account');
+    assert.equal(account.children.length,0,'Finance source text must remain inert');
+    assert.equal(financePresentation.context.money(null,'EUR'),financePresentation.i.t('common.unknown'));
+    assert.equal(financePresentation.context.money(-1,'EUR'),financePresentation.i.currencyCents(-1,'EUR'));
+    assert.equal(financePresentation.context.money(-1),financePresentation.i.t('common.unknown'));
+    // Exercise the actual Analysis renderer: translated empty-source states and
+    // literal DOM text are behavioral contracts, not a particular helper name.
+    const presentation=require('./zero-evaluation/analysis-page-fixture').fixture();
+    await presentation.context.load();
+    for(const metric of [{available:false,value:null,unavailable_reason:'NO_VERIFIED_SOURCE_DATA'},{available:true,value:false},{available:'true',value:0}]){
+      const formatted=presentation.context.formatMetric(metric);
+      assert.equal(String(formatted.value),presentation.i.t('common.no_data'));
+      assert.equal(String(formatted.meta),presentation.i.t('analysis.page.source_unavailable'));
+    }
+    const sourceText=presentation.nodes.analysisEvents.children[0].children[0];
+    assert.equal(sourceText.textContent,'Literal event <script>');
+    assert.equal(sourceText.children.length,0,'Provider text must be an inert text node');
+    assert.equal(presentation.nodes.analysisSources.children[3].children[0].textContent,'Literal <img> provider');
+    assert.equal(presentation.nodes.analysisSources.children[3].children[0].children.length,0);
 
     await start();
     let result = await call('/analysis', false);
@@ -93,11 +114,22 @@ async function call(route, authenticated = true) {
     assert.equal(analysis.no_fake_data, true);
     assert.equal(analysis.realtime.events, 0);
     assert.equal(analysis.kpis.roas.available, false);
+    Object.assign(presentation.dashboard,analysis);await presentation.context.load();
+    assert.equal(presentation.nodes.analysisKpis.children[2].children[1].textContent,presentation.i.t('common.no_data'),'Actual empty native KPI data must remain unavailable in the renderer');
     result = await call('/api/finance/dashboard');
     assert.equal(result.response.status, 200);
     const finance = JSON.parse(result.text);
     assert.equal(finance.no_fake_data, true);
-    assert.equal(finance.widgets.find(widget => widget.id === 'revenue').value_cents, 0);
+    assert.equal(finance.currency, null);
+    assert.equal(finance.widgets.find(widget => widget.id === 'revenue').value_cents, null);
+    assert.equal(finance.widgets.find(widget => widget.id === 'revenue').available, false);
+    assert.deepEqual(finance.currency_groups, []);
+    const entityResponse = await fetch(base + '/api/finance/legal-entities', {method:'POST',headers:{authorization:auth,'content-type':'application/json'},body:JSON.stringify({name:'Observed empty EUR ledger',legal_form:'BV',currency:'EUR'})});
+    assert.equal(entityResponse.status,201);
+    const configured = JSON.parse((await call('/api/finance/dashboard')).text);
+    assert.equal(configured.currency,'EUR');
+    assert.equal(configured.widgets.find(widget=>widget.id==='revenue').value_cents,0);
+    assert.equal(configured.widgets.find(widget=>widget.id==='revenue').available,true);
 
     console.log(JSON.stringify({
       ok: true,

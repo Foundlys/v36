@@ -283,7 +283,20 @@ function createPlatformApi(options = {}) {
       if(url.pathname==='/api/automation/workflows'&&req.method==='GET')return sendJson(res,200,platform.automationDefinitions(ctx,actor));
       if(url.pathname==='/api/automation/runs'&&req.method==='GET')return sendJson(res,200,platform.queryAutomationRuns(ctx,actor,Object.fromEntries(url.searchParams)));
       if (url.pathname === '/api/automation/status' && req.method === 'GET') return sendJson(res, 200, platform.automationStatus(ctx, actor));
+      if(url.pathname==='/api/automation/publications/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationPublication(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/run-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationRunRequest(ctx,actor,await readBody(req)));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
+      if(url.pathname==='/api/automation/activation-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationActivationRequest(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/approval-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationApprovalRequest(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/resume-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationResumeRequest(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/result-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationResultRequest(ctx,actor,await readBody(req)));
+      const resume=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/(resume-preview|resume-confirmation)$/);
+      if(resume&&req.method==='GET'&&resume[2]==='resume-preview')return sendJson(res,200,platform.previewAutomationResume(ctx,actor,resume[1]));
+      if(resume&&req.method==='POST'&&resume[2]==='resume-confirmation')return sendJson(res,202,platform.resumeAutomation(ctx,actor,resume[1],await readBody(req)));
+      const approvalPreview=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/approval-preview$/);
+      if(approvalPreview&&req.method==='GET')return sendJson(res,200,platform.previewAutomationApproval(ctx,actor,approvalPreview[1]));
+      const reviewedRun=url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/(run-preview|run-confirmation)$/);
+      if(reviewedRun&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,reviewedRun[2]==='run-preview'?platform.previewConfirmedAutomationRun(ctx,actor,reviewedRun[1],input):platform.submitConfirmedAutomationRun(ctx,actor,reviewedRun[1],input));}
       const inspection=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/inspection$/);
       if(inspection&&req.method==='GET')return sendJson(res,200,platform.inspectAutomationRun(ctx,actor,inspection[1],Object.fromEntries(url.searchParams)));
       const recovery=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/recovery$/);
@@ -294,7 +307,7 @@ function createPlatformApi(options = {}) {
       const run = url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/runs$/);
       if (run && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 202, platform.runAutomation(ctx, actor, run[1], payload.event || {}, payload.options || {}));
+        return sendJson(res, 202, platform.submitNativeAutomationRun(ctx, actor, run[1], payload.event || {}, payload.options || {}));
       }
       if (url.pathname === '/api/provisioner/resolve' && req.method === 'POST') return sendJson(res, 201, platform.provision(ctx, actor, await readBody(req)));
 

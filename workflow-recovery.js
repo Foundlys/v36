@@ -13,7 +13,7 @@ function context(core,ctx,actor,runId){
   if(!workflow)fail('automation_missing','Workflowdefinitie ontbreekt',404);
   validateWorkflow(workflow.actions);
   if(signature({workflow:workflow.signature,trigger:run.trigger,inputs:run.inputs})!==run.request_signature)fail('automation_recovery_changed','Workflow of runinvoer komt niet overeen met de oorspronkelijke uitvoering');
-  return {run,workflow};
+  try{return require('./workflow-resume-requests').context(core,ctx,actor,runId);}catch(error){if(error.code?.startsWith('automation_resume_request_'))fail('automation_recovery_changed','De oorspronkelijke run of workflow is niet meer verifieerbaar');throw error;}
 }
 function previewRecovery(core,ctx,actor,runId){
   const {run,workflow}=context(core,ctx,actor,runId);
@@ -28,26 +28,28 @@ function previewRecovery(core,ctx,actor,runId){
   if(!present&&!absent)fail('automation_recovery_unproven','Geen exact intern resultaat of bewezen afwezigheid; de run blijft ongewijzigd');
   const evidence=absent?{outcome:'ABSENT',absence_verified:true,record_fingerprint:proof.record_fingerprint,entity:proof.entity,idempotency_key:proof.idempotency_key,external_write:false}:{record_id:proof.record_id,record_revision:proof.record_revision,record_fingerprint:proof.record_fingerprint,entity:proof.entity,idempotency_key:proof.idempotency_key,external_write:false};
   const fingerprint=hash({request:run.request_signature,workflow:workflow.signature,step:clone(step),recovery_revision:run.recovery_revision||0,evidence});
-  return {run_id:runId,step_index:step.index,step_type:type,previous_status:step.status,evidence,preview_fingerprint:fingerprint,action:absent?'PREPARE_VERIFIED_ABSENT_INTERNAL_RETRY':'RECONCILE_VERIFIED_INTERNAL_RESULT',executes_next_step:false};
+  return {run_id:runId,step_index:step.index,step_type:type,previous_status:step.status,evidence,preview_fingerprint:fingerprint,action:absent?'PREPARE_VERIFIED_ABSENT_INTERNAL_RETRY':'RECONCILE_VERIFIED_INTERNAL_RESULT',executes_next_step:false,execution_performed:false,request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},workflow_id:workflow.id,workflow_signature:workflow.signature,request_signature:run.request_signature,workflow:clone(workflow),run:clone(run)};
 }
 function recover(core,ctx,actor,runId,input){
-  if(!input||Object.keys(input).some(key=>!['confirm','reason','preview_fingerprint'].includes(key))||input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>500||typeof input.preview_fingerprint!=='string')fail('automation_recovery_invalid','Bevestig het exacte bewijs met een reden',422);
-  const {run}=context(core,ctx,actor,runId),requestSignature=hash({actor_id:actor.id,input});
-  if(run.recoveries?.some(row=>row.request_signature===requestSignature))return {...clone(run),deduplicated:true};
+  if(!input||Object.keys(input).some(key=>!['request_id','confirm','reason','preview_fingerprint'].includes(key))||input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>500||typeof input.preview_fingerprint!=='string')fail('automation_recovery_invalid','Bevestig het exacte bewijs met een reden',422);
+  const {run,workflow}=context(core,ctx,actor,runId),requestSignature=hash({actor_id:actor.id,input}),journal=require('./workflow-result-requests'),request=journal.prepare(core,ctx,actor,workflow,run,input);
+  if(request.record)return {...request.record,deduplicated:true,recovery_acknowledgement:request.envelope};
+  const prior=run.recoveries?.find(row=>row.request_signature===requestSignature);if(prior){core.moduleMutation(ctx,[journal.NAME],()=>request.retain(run,prior));return {...clone(run),deduplicated:true,recovery_acknowledgement:request.envelope};}
   const preview=previewRecovery(core,ctx,actor,runId);
   if(input.preview_fingerprint!==preview.preview_fingerprint)fail('automation_recovery_changed','De run of bewijsrecord is gewijzigd; controleer opnieuw');
-  const result=core.moduleMutation(ctx,['automation_runs'],()=>{
+  const result=core.moduleMutation(ctx,['automation_runs',journal.NAME],()=>{
     const step=run.steps.find(step=>step.index===preview.step_index),retry=preview.action==='PREPARE_VERIFIED_ABSENT_INTERNAL_RETRY';
-    run.recoveries=run.recoveries||[];run.recoveries.push({step_index:step.index,previous_status:step.status,previous_error:step.error||null,evidence:preview.evidence,action:preview.action,actor_id:actor.id,reason:input.reason.trim(),at:core.now(),request_signature:requestSignature});
+    run.recoveries=run.recoveries||[];run.recoveries.push({step_index:step.index,previous_status:step.status,previous_error:step.error||null,evidence:preview.evidence,action:preview.action,actor_id:actor.id,reason:input.reason.trim(),at:core.now(),request_signature:requestSignature,preview_fingerprint:preview.preview_fingerprint});
     delete step.error;
     if(retry){step.status='PLANNED_INTERNAL';step.recovery_retry=true;step.next_retry_at=null;step.completed_at=null;delete step.verified_by_recovery;}
     else{step.status='SUCCEEDED';step.completed_at=core.now();step.verified_by_recovery=true;step.output_index=run.outputs.length;run.outputs.push({executed:true,...preview.evidence,verification:'EXACT_DURABLE_INTERNAL_RECORD'});}
 
     run.recovery_revision=(run.recovery_revision||0)+1;run.status='RECOVERY_READY';run.completed_at=null;run.next_wakeup_at=null;
+    request.retain(run,run.recoveries.at(-1));
     core.audit(ctx,actor,retry?'PREPARE_RETRY':'RECONCILE','automation',run.automation_id,{run_id:runId,step_index:step.index,record_id:preview.evidence.record_id||null,action:preview.action,reason:input.reason.trim()});
     queueOwnedEvent(core,ctx,actor,'automation','run',run,'updated');return clone(run);
   });
   try{flushOwnedEvents(core,ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}
-  return result;
+  return {...result,recovery_acknowledgement:request.envelope};
 }
-module.exports={previewRecovery,recover};
+module.exports={context,previewRecovery,recover};
