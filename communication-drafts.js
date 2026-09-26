@@ -78,4 +78,4 @@ function collaborators(core,ctx,actor,id,query={}){
  const members=core.adapter.draftCollaborators(ctx,query.q.trim());
  return {items:members.slice(0,20).map(member=>({id:member.id,display_name:member.display_name})),has_more:members.length>20};
 }
-module.exports={append,readable,revisionAccess,metadata,history,share,restore,collaborators,validateInput};
+module.exports={contentSnapshot:content,append,readable,revisionAccess,metadata,history,share,restore,collaborators,validateInput};

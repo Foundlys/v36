@@ -27,6 +27,7 @@ function methodOperation(method){return String(method).startsWith('export')?'exp
 const PROVIDER_ROUTES=[
   [/^\/api\/procurement\/clarification-requests\/recover$/, 'procurement:sourcing','write'],
   [/^\/api\/procurement\/economic-requests\/recover$/, 'procurement:opportunities','write'],
+  [/^\/api\/communication\/template-requests\/recover$/, 'communication:drafts','write'],
   // Typed recovery performs its own current write or approve authority check.
   [/^\/api\/procurement\/action-requests\/recover$/, 'procurement:approvals','read'],
   // Shared board movers need pipeline read plus opportunity write. The native

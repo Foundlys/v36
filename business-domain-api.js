@@ -55,9 +55,10 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts[0]==='rfqs'&&parts.length===3&&parts[2]==='awards'&&req.method==='POST')return sendJson(res,201,{ok:true,...reviews.prepareAward(core,ctx,actor,parts[1],await readBody(req),options)});
         if(parts[0]==='awards'&&parts.length===3&&['approve','cancel'].includes(parts[2])&&req.method==='POST')return sendJson(res,200,{ok:true,...reviews[parts[2]==='approve'?'reviewAward':'cancelAward'](core,ctx,actor,parts[1],await readBody(req),options)});
       }
+      if(id==='communication'&&parts[0]==='template-requests'&&parts.length===2&&parts[1]==='recover'&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,{ok:true,...require('./communication-template-recovery').recover(core,ctx,principal(),input)});}
       if(id==='communication'&&parts[0]==='templates'&&parts.length===3&&req.method==='POST'){
-        const service=require('./communication-templates');if(parts[2]==='draft-preview')return sendJson(res,200,{ok:true,...service.preview(core,ctx,actor,parts[1],await readBody(req))});
-        if(parts[2]==='drafts'){const result=service.create(core,ctx,actor,parts[1],await readBody(req),{idempotency_key:req.headers['idempotency-key']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
+        const service=require('./communication-templates');if(parts[2]==='draft-preview'){const input=await readBody(req);return sendJson(res,200,{ok:true,...service.preview(core,ctx,principal(),parts[1],input)});}
+        if(parts[2]==='drafts'){const input=await readBody(req),result=service.create(core,ctx,principal(),parts[1],input,{idempotency_key:req.headers['idempotency-key']});return sendJson(res,result.deduplicated?200:201,{ok:true,...result});}
       }
       if(id==='communication'&&parts[0]==='mail-oauth'){
         const service=mailOAuth();if(!service)return sendJson(res,503,{ok:false,code:'mail_oauth_unavailable'});
