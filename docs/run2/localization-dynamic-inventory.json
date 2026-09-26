@@ -118,6 +118,16 @@
       "items": []
     },
     {
+      "file": "communication-inbox-client-state.js",
+      "sha256": "ab1ca7e379d0e3d9b8fefc5d7fc9b1f9beae718426837eb6c0408a23132cc0c1",
+      "items": []
+    },
+    {
+      "file": "communication-inbox-recovery-client.js",
+      "sha256": "4ccc34a494da9611afb81f69f2089c41cb68becb2e1cf222dc96d34aba6ba155",
+      "items": []
+    },
+    {
       "file": "communication-reply-client-state.js",
       "sha256": "72f34b8b750b75056c5f689845b974284ca361e9c4117f851e2751b211d09000",
       "items": []
@@ -340,7 +350,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "8438405d158952f5c56d24f9cff81a1d0d46c40fe5b9f7d0442161eb353736c7",
+      "sha256": "236c316e5ec353a4b1786602759d342ba2599c1ad565bd713cfc4a6a9e51c365",
       "items": [
         {
           "line": 49,
@@ -1495,45 +1505,45 @@
           "rich_text": false
         },
         {
-          "line": 1597,
-          "start": 245811,
-          "end": 245829,
+          "line": 1599,
+          "start": 246684,
+          "end": 246702,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1598,
-          "start": 245878,
-          "end": 245883,
+          "line": 1600,
+          "start": 246751,
+          "end": 246756,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1599,
-          "start": 245951,
-          "end": 245978,
+          "line": 1601,
+          "start": 246824,
+          "end": 246851,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1678,
-          "start": 263872,
-          "end": 263891,
+          "line": 1680,
+          "start": 264745,
+          "end": 264764,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1744,
-          "start": 271643,
-          "end": 271682,
+          "line": 1746,
+          "start": 272516,
+          "end": 272555,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -1542,18 +1552,18 @@
           "rich_text": false
         },
         {
-          "line": 1875,
-          "start": 284882,
-          "end": 284907,
+          "line": 1877,
+          "start": 285755,
+          "end": 285780,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1878,
-          "start": 285108,
-          "end": 285231,
+          "line": 1880,
+          "start": 285981,
+          "end": 286104,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -1562,36 +1572,36 @@
           "rich_text": false
         },
         {
-          "line": 1893,
-          "start": 286563,
-          "end": 286644,
+          "line": 1895,
+          "start": 287436,
+          "end": 287517,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1920,
-          "start": 288983,
-          "end": 289062,
+          "line": 1922,
+          "start": 289856,
+          "end": 289935,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1924,
-          "start": 289355,
-          "end": 289370,
+          "line": 1926,
+          "start": 290228,
+          "end": 290243,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1925,
-          "start": 289476,
-          "end": 289492,
+          "line": 1927,
+          "start": 290349,
+          "end": 290365,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],

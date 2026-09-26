@@ -76,6 +76,7 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
         if(parts.length===2&&parts[1]==='sync'&&req.method==='POST')return sendJson(res,200,{ok:true,...await service.sync(ctx,actor,await readBody(req),{idempotency_key:req.headers['idempotency-key']})});
         return sendJson(res,405,{ok:false,code:'method_not_allowed'});
       }
+      if(id==='communication'&&parts[0]==='inbox-requests'&&parts.length===2&&parts[1]==='recover'&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,{ok:true,...require('./communication-inbox-recovery').recover(core,ctx,principal(),input)});}
       if(id==='communication'&&parts[0]==='inbox'&&parts.length===1&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-inbox').list(core,ctx,actor,Object.fromEntries(url.searchParams))});
       if(id==='communication'&&parts[0]==='messages'&&parts.length===3){
         if(parts[2]==='delivery-report'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./communication-delivery-reports').inspect(core,ctx,actor,parts[1])});
