@@ -16,7 +16,7 @@ class Element{
  focus(){this.focused=true;}
 }
 const find=(root,tag,label)=>root.all().find(el=>el.tag===tag&&(label===undefined||el.textContent===label));
-const field=(root,label)=>find(root,'label',label).children[0];
+const field=(root,label)=>root.all().find(el=>el.tag==='label'&&(el.textContent===label||el.children[0]?.textContent===label)).children.find(el=>['input','textarea','select'].includes(el.tag));
 
 
 const {BusinessDomain}=require('./business-domains'),{CapabilityResolver}=require('./capability-resolver'),economics=require('./procurement-economics'),outcomes=require('./procurement-outcomes'),reviews=require('./procurement-reviews');

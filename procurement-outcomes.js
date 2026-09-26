@@ -4,7 +4,8 @@ const OPERATIONS='procurement:outcome_operations',clone=v=>JSON.parse(JSON.strin
 const integer=v=>Number.isSafeInteger(v)&&v>=0;
 function readable(core,ctx,actor,row,options={}){
  if(core.id!=='procurement'||row.owned_entity!=='outcome_observations')return true;
- const award=core.bucket(ctx,'awards').find(r=>r.id===row.award_id),supplier=core.bucket(ctx,'suppliers').find(r=>r.id===row.supplier_id);if(!award||!supplier||!core.visible(award,actor)||!core.visible(supplier,actor))return false;
+ if(!options.exporting&&row.deleted_at)return false;
+ const award=core.bucket(ctx,'awards').find(r=>r.id===row.award_id),supplier=core.bucket(ctx,'suppliers').find(r=>r.id===row.supplier_id);if(!award||!supplier||!options.exporting&&(award.deleted_at||supplier.deleted_at)||!core.visible(award,actor)||!core.visible(supplier,actor))return false;
  const reference=row.observation?.economic_reference;
  if(reference){const snapshot=core.bucket(ctx,'economics_snapshots').find(r=>r.id===reference.snapshot_id);if(!snapshot||!core.visible(snapshot,actor)||snapshot.comparison_hash!==reference.comparison_hash||!require('./procurement-economics').readable(core,ctx,actor,snapshot,options))return false;}
  if(!options.exporting)try{core.resolver.assertCapability(ctx,actor,'procurement:approvals');core.resolver.assertCapability(ctx,actor,'procurement:suppliers');}catch(error){if(error.statusCode===403)return false;throw error;}
@@ -12,6 +13,7 @@ function readable(core,ctx,actor,row,options={}){
 }
 function source(core,ctx,actor,awardId,supplierId){
  const award=core.get(ctx,actor,'awards',awardId),supplier=core.get(ctx,actor,'suppliers',supplierId);
+ if(award.deleted_at||supplier.deleted_at)fail('record_not_found','Record niet gevonden',404);
  if(award.status!=='APPROVED_INTERNAL')fail('procurement_outcome_award_unapproved','Kies een intern goedgekeurde toekenning',409);
  const lines=(award.allocation_lines||award.bid_lines||[]).filter(line=>(line.supplier_id||award.supplier_id)===supplier.id);if(!lines.length)fail('procurement_outcome_supplier_missing','De leverancier hoort niet bij de bewaarde artikeltoekenning',409);
  const quantities=new Map();let planned=0n;for(const line of lines){if(!integer(line.quantity)||!line.quantity||!integer(line.unit_price_cents))fail('procurement_outcome_source_invalid','De bewaarde toekenningsbasis is ongeldig',409);quantities.set(line.item_id,(quantities.get(line.item_id)||0)+line.quantity);planned+=BigInt(line.quantity)*BigInt(line.unit_price_cents);}
@@ -25,7 +27,7 @@ function record(core,ctx,actor,input,{idempotency_key:key}={}){
  const basis=source(core,ctx,actor,input.award_id,input.supplier_id),all=core.bucket(ctx,'outcome_observations'),own=all.filter(r=>r.award_id===input.award_id&&r.supplier_id===input.supplier_id).sort((a,b)=>b.observation_revision-a.observation_revision),current=own[0],ops=core.adapter.bucket(ctx,OPERATIONS),fingerprint=hash(input),prior=ops.find(r=>r.actor_id===actor.id&&r.key===key);
  if(prior){if(prior.fingerprint!==fingerprint)fail('procurement_outcome_key_conflict','Deze actie-ID hoort bij andere invoer',409);if(current?.id!==prior.record_id)fail('procurement_outcome_result_changed','Er is een nieuwere waarneming vastgelegd',409);return {record:core.get(ctx,actor,'outcome_observations',prior.record_id),deduplicated:true,financial_posting_performed:false,external_commitment:false};}
  if(basis.award.revision!==input.expected_award_revision||(current?.observation_revision||0)!==input.expected_observation_revision)fail('procurement_outcome_source_changed','Toekenning of actuele waarneming is gewijzigd',409);
- if(current&&!core.visible(current,actor))fail('procurement_outcome_access_changed','De actuele waarneming is niet toegankelijk',404);
+ if(current&&(current.deleted_at||!core.visible(current,actor)))fail('procurement_outcome_access_changed','De actuele waarneming is niet toegankelijk',404);
  if(own.some(r=>!readable(core,ctx,actor,r))||new Set(own.map(r=>r.observation_revision)).size!==own.length)fail('procurement_outcome_history_invalid','De bewaarde waarnemingen kunnen niet volledig worden gecontroleerd',409);
  const observed=timestamp(input.observed_at),due=timestamp(input.delivery_due_at);if(observed>Date.now())fail('procurement_outcome_future','Een waarneming mag niet in de toekomst liggen');
  if(!Array.isArray(input.lines)||input.lines.length!==basis.quantities.size||new Set(input.lines.map(l=>l?.item_id)).size!==input.lines.length)fail('procurement_outcome_lines_invalid','Leg voor elk toegewezen artikel een waarneming vast');
@@ -39,7 +41,7 @@ function record(core,ctx,actor,input,{idempotency_key:key}={}){
  const result=core.mutate(ctx,()=>{const now=new Date().toISOString(),row={id:crypto.randomUUID(),owned_entity:'outcome_observations',owner_id:actor.id,tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,award_id:input.award_id,supplier_id:input.supplier_id,award_revision:basis.award.revision,source_hash:basis.source_hash,observation_revision:(current?.observation_revision||0)+1,supersedes_id:current?.id||null,observation_kind:'USER_REPORTED_UNVERIFIED',observation,observation_hash:hash(observation),status:'RECORDED_INTERNAL',revision:1,created_at:now,updated_at:now,financial_posting_performed:false,external_commitment:false};all.push(row);ops.push({key,actor_id:actor.id,fingerprint,record_id:row.id});core.recordEvent(ctx,actor,'outcome_observations',row,'created');return {record:clone(row),deduplicated:false,financial_posting_performed:false,external_commitment:false};});try{core.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
 function supplier(core,ctx,actor,id){
- core.scope(ctx,actor);core.resolver.assertCapability(ctx,actor,'procurement:opportunities');core.get(ctx,actor,'suppliers',id);
+ core.scope(ctx,actor);core.resolver.assertCapability(ctx,actor,'procurement:opportunities');if(core.get(ctx,actor,'suppliers',id).deleted_at)fail('record_not_found','Record niet gevonden',404);
  const all=core.bucket(ctx,'outcome_observations').filter(r=>r.supplier_id===id),latest=new Map();for(const row of all){const current=latest.get(row.award_id);if(!current||current.observation_revision<row.observation_revision)latest.set(row.award_id,row);}
  const rows=[...latest.values()].filter(r=>core.visible(r,actor)&&readable(core,ctx,actor,r)),groups=new Map();for(const row of rows){const o=row.observation;if(!groups.has(o.currency))groups.set(o.currency,{currency:o.currency,planned:0n,actual:0n});const group=groups.get(o.currency);group.planned+=BigInt(o.planned_bid_cents);group.actual+=BigInt(o.actual_cost_cents);}
  const costs=[...groups.values()].map(g=>({currency:g.currency,planned_bid_cents_exact:String(g.planned),reported_actual_cost_cents_exact:String(g.actual),reported_variance_cents_exact:String(g.actual-g.planned)})),late=rows.filter(r=>r.observation.late_reported).length,rejected=rows.reduce((sum,r)=>sum+r.observation.lines.reduce((n,l)=>n+l.rejected_quantity,0),0),underestimated=rows.filter(r=>r.observation.economic_reference?.reported_forecast_error_cents>0).length;

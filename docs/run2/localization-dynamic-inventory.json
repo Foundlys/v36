@@ -320,7 +320,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "7f2b0754a8f36a5a433a1d4dc74775a1610ac1154bed7687f1809826c6bd82ec",
+      "sha256": "52f55f64b19f67f7b6fadb4e950313c9e9356b68575357d2962e8a23f4ac0bc3",
       "items": [
         {
           "line": 49,
@@ -2079,8 +2079,8 @@
         },
         {
           "line": 1569,
-          "start": 229809,
-          "end": 229832,
+          "start": 229880,
+          "end": 229903,
           "context": "element_text",
           "text": "Biedingen vergelijken",
           "parameters": [],
@@ -2088,8 +2088,8 @@
         },
         {
           "line": 1570,
-          "start": 230143,
-          "end": 230166,
+          "start": 230214,
+          "end": 230237,
           "context": "element_text",
           "text": "Order ter beoordeling",
           "parameters": [],
@@ -2097,8 +2097,8 @@
         },
         {
           "line": 1572,
-          "start": 230527,
-          "end": 230546,
+          "start": 230598,
+          "end": 230617,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
@@ -2106,8 +2106,8 @@
         },
         {
           "line": 1638,
-          "start": 237744,
-          "end": 237783,
+          "start": 237815,
+          "end": 237854,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -2117,8 +2117,8 @@
         },
         {
           "line": 1769,
-          "start": 250983,
-          "end": 251008,
+          "start": 251054,
+          "end": 251079,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
@@ -2126,8 +2126,8 @@
         },
         {
           "line": 1772,
-          "start": 251209,
-          "end": 251332,
+          "start": 251280,
+          "end": 251403,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -2137,8 +2137,8 @@
         },
         {
           "line": 1787,
-          "start": 252664,
-          "end": 252745,
+          "start": 252735,
+          "end": 252816,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
@@ -2146,8 +2146,8 @@
         },
         {
           "line": 1814,
-          "start": 255084,
-          "end": 255163,
+          "start": 255155,
+          "end": 255234,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
@@ -2155,8 +2155,8 @@
         },
         {
           "line": 1818,
-          "start": 255456,
-          "end": 255471,
+          "start": 255527,
+          "end": 255542,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
@@ -2164,8 +2164,8 @@
         },
         {
           "line": 1819,
-          "start": 255577,
-          "end": 255593,
+          "start": 255648,
+          "end": 255664,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],
@@ -2313,252 +2313,8 @@
     },
     {
       "file": "procurement-intelligence-client.js",
-      "sha256": "e7435c385439f77b915c9867333ff35f45cb1745226d4e8cefa48be64447cfbb",
-      "items": [
-        {
-          "line": 14,
-          "start": 1811,
-          "end": 1864,
-          "context": "textContent",
-          "text": "Intern vastgelegd. Er is geen bestelling verstuurd.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 16,
-          "start": 2124,
-          "end": 2233,
-          "context": "textContent",
-          "text": "Bewaar of wis eerst de open invoer. Bij een onzekere opslag moet je dezelfde bevestiging opnieuw gebruiken.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 17,
-          "start": 2293,
-          "end": 2313,
-          "context": "element_text",
-          "text": "Open invoer wissen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 17,
-          "start": 2412,
-          "end": 2470,
-          "context": "textContent",
-          "text": "Vraag eerst het resultaat van de lopende bevestiging op.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 23,
-          "start": 3012,
-          "end": 3037,
-          "context": "element_text",
-          "text": "Kosten en alternatieven",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 23,
-          "start": 3048,
-          "end": 3208,
-          "context": "element_text",
-          "text": "Vergelijk dezelfde artikelen en aantallen. Vul alle bijkomende kosten expliciet in; leeg betekent onbekend. Een scenario geeft geen goedkeuring of bestelling.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 24,
-          "start": 3292,
-          "end": 3300,
-          "context": "element_text",
-          "text": "Omvang",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 24,
-          "start": 3330,
-          "end": 3350,
-          "context": "element_text",
-          "text": "Volledige aanvraag",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 24,
-          "start": 3378,
-          "end": 3408,
-          "context": "element_text",
-          "text": "Deel van resterende aanvraag",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 25,
-          "start": 3542,
-          "end": 3560,
-          "context": "element_text",
-          "text": "Naam alternatief",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 29,
-          "start": 4563,
-          "end": 4586,
-          "context": "element_text",
-          "text": "Alternatief toevoegen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 29,
-          "start": 4612,
-          "end": 4632,
-          "context": "element_text",
-          "text": "Kosten vergelijken",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 33,
-          "start": 6231,
-          "end": 6246,
-          "context": "element_text",
-          "text": "Reden bewaren",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 33,
-          "start": 6274,
-          "end": 6301,
-          "context": "element_text",
-          "text": "Ik bevestig deze aannames",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 33,
-          "start": 6335,
-          "end": 6355,
-          "context": "element_text",
-          "text": "Scenario’s bewaren",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 38,
-          "start": 7313,
-          "end": 7352,
-          "context": "element_text",
-          "text": "Gerapporteerde leveranciersuitkomsten",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 38,
-          "start": 7395,
-          "end": 7490,
-          "context": "element_text",
-          "text": "Door gebruikers gerapporteerd; niet door een leverancier of onafhankelijke bron geverifieerd.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 43,
-          "start": 8120,
-          "end": 8151,
-          "context": "element_text",
-          "text": "Levering en kosten vastleggen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 43,
-          "start": 8162,
-          "end": 8351,
-          "context": "element_text",
-          "text": "Leg een eigen waarneming vast met bronverwijzing. Deze informatie is niet door de leverancier geverifieerd en maakt geen financiële boeking. Correcties blijven als nieuwe revisie bewaard.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 44,
-          "start": 8382,
-          "end": 8395,
-          "context": "element_text",
-          "text": "Leverancier",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 48,
-          "start": 10098,
-          "end": 10114,
-          "context": "element_text",
-          "text": "Bronverwijzing",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 48,
-          "start": 10167,
-          "end": 10185,
-          "context": "element_text",
-          "text": "Reden vastleggen",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 49,
-          "start": 10334,
-          "end": 10386,
-          "context": "element_text",
-          "text": "Vergelijken met bewaard kostenscenario (optioneel)",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 49,
-          "start": 10416,
-          "end": 10432,
-          "context": "element_text",
-          "text": "Geen koppeling",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 49,
-          "start": 10502,
-          "end": 10529,
-          "context": "element_text",
-          "text": "Bewaarde scenario’s laden",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 51,
-          "start": 11407,
-          "end": 11451,
-          "context": "element_text",
-          "text": "Ik bevestig deze gerapporteerde waarneming",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 51,
-          "start": 11485,
-          "end": 11508,
-          "context": "element_text",
-          "text": "Waarneming vastleggen",
-          "parameters": [],
-          "rich_text": false
-        }
-      ]
+      "sha256": "fe06b9a413f7843f1b7987ad1f2b0be4b66c05d9b54967c01dfe8f6f309482ad",
+      "items": []
     },
     {
       "file": "procurement-zero-client.js",

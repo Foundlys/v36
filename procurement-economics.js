@@ -32,8 +32,9 @@ function snapshot(core,ctx,actor,rfqId,input,{idempotency_key:key}={}){
 }
 function readable(core,ctx,actor,row,options={}){
  if(core.id!=='procurement'||row.owned_entity!=='economics_snapshots')return true;
- const rfq=core.bucket(ctx,'rfqs').find(r=>r.id===row.rfq_id);if(!rfq||!core.visible(rfq,actor)||row.comparison_hash!==hash(row.comparison))return false;
+ if(!options.exporting&&row.deleted_at)return false;
+ const rfq=core.bucket(ctx,'rfqs').find(r=>r.id===row.rfq_id);if(!rfq||!options.exporting&&rfq.deleted_at||!core.visible(rfq,actor)||row.comparison_hash!==hash(row.comparison))return false;
  if(!options.exporting)try{core.resolver.assertCapability(ctx,actor,'procurement:sourcing');}catch(error){if(error.statusCode===403)return false;throw error;}
- return Array.isArray(row.comparison?.scenarios)&&row.comparison.scenarios.every(s=>Array.isArray(s.allocation_lines)&&s.allocation_lines.every(line=>{const bid=core.bucket(ctx,'bids').find(r=>r.id===line.bid_id);return bid&&core.visible(bid,actor);}));
+ return Array.isArray(row.comparison?.scenarios)&&row.comparison.scenarios.every(s=>Array.isArray(s.allocation_lines)&&s.allocation_lines.every(line=>{const bid=core.bucket(ctx,'bids').find(r=>r.id===line.bid_id);const supplier=bid&&core.bucket(ctx,'suppliers').find(r=>r.id===bid.supplier_id);return bid&&core.visible(bid,actor)&&(options.exporting||!bid.deleted_at&&supplier&&!supplier.deleted_at);}));
 }
 module.exports={COSTS,compare,snapshot,readable};

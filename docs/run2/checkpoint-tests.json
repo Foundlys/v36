@@ -14854,7 +14854,7 @@
     }
   },
   "procurement_clarifications_localization_20260926": {
-    "status": "FROZEN_1303_ZERO_14_CORPUS_16_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "status": "FROZEN_1303_ZERO_14_CORPUS_16_NATIVE_AND_EXACT_PUBLISHED_FULL_CI_PASS",
     "source_commit": "3db0f1fd6548641af61199959fe0e74ef92c66da",
     "source_tree": "c261d972427603de6a2d1907d48c497c94bd942b",
     "permanent_new_tests": 13,
@@ -15324,9 +15324,983 @@
         "sha256": "73833bd342ad086e5b518dcab9950ff1168044b01346bb5bb35f938c855356a7"
       }
     ],
-    "exact_published_full_ci": "PENDING",
+    "exact_published_full_ci": "PASS_246",
     "scope": "Forty-three explicit eight-locale catalog rows cover the actual workspace entry, questions, manually reported responses, collaborator management, owned statuses, source labels, errors and the shared native/ZERO mode selector. Locale changes preserve literal native names/content, selected controls, form nodes, confirmed inputs and exact pending request body/key. Late supplier/member searches cannot overwrite a changed query or selection. Typed unavailable names use explicit availability without translating literal names or deleting checkboxes. Live clarification reads/list/replay/writes and member lookup reject deleted threads/RFQ/supplier/bid sources; authorized retained-export semantics are preserved.",
     "evidence_limits": "DOM/VM and actual HTTP prove handlers, current native authority, unchanged request identity across locales and encrypted SERVER restart, plus real served asset contents/order. They do not prove browser reload recovery: Procurement still uses the existing in-memory pending body and same-confirmation retry contract. Durable metadata-only recovery, immutable original/current action outcomes and all browser/accessibility/native-speaker/live-supplier acceptance are not established here. No supplier message, invitation, purchase or financial posting occurs.",
-    "remaining": "Full CI for this newer exact published tree remains pending. Continue preserved work/run2-procurement-intelligence-locale: costs, alternatives and reported outcomes have owned Dutch copy and a reproduced one-cent prefill error for large retained amounts (the follow-up source is not included in this frozen checkpoint). Broad Run-2 gates remain open."
+    "remaining": "Full CI 246 passed the exact published clarification tree. Costs/outcomes and current-source corrections are separately recorded below. Durable browser-reload recovery and original/current Procurement action proof remain open.",
+    "ci_proof": {
+      "run_number": 246,
+      "run_id": 36230149445,
+      "job_id": 108371644570,
+      "conclusion": "success",
+      "published_head": "53b5b55fa0fe6459a40aa10a2881100f23e42c53",
+      "ci_merge_commit": "9b15b9164a0eb9ea78445733b87a0c6f980f926c",
+      "summary": [
+        "# tests 1303",
+        "# pass 1303",
+        "# fail 0"
+      ],
+      "corpus": {
+        "head": "9b15b9164a0eb9ea78445733b87a0c6f980f926c",
+        "summary": {
+          "pass": 14,
+          "fail": 0
+        },
+        "results": [
+          {
+            "id": "auth-zero",
+            "status": "PASS"
+          },
+          {
+            "id": "composition-tools",
+            "status": "PASS"
+          },
+          {
+            "id": "conversation-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "preference-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "locale-validation",
+            "status": "PASS"
+          },
+          {
+            "id": "no-model-truth",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-api",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-isolation",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-delete",
+            "status": "PASS"
+          },
+          {
+            "id": "memory-readonly",
+            "status": "PASS"
+          },
+          {
+            "id": "stack-discovery",
+            "status": "PASS"
+          },
+          {
+            "id": "model-registry",
+            "status": "PASS"
+          },
+          {
+            "id": "voice-profile",
+            "status": "PASS"
+          },
+          {
+            "id": "encrypted-restart",
+            "status": "PASS"
+          }
+        ]
+      },
+      "zero_tests": 1303,
+      "zero_pass": 1303,
+      "zero_fail": 0,
+      "corpus_pass": 14,
+      "corpus_fail": 0,
+      "started_at": "2026-09-26T08:33:51Z",
+      "finished_at": "2026-09-26T08:46:32Z",
+      "tree": "e009bf430ac243c0f3b1c4128637e309165a7e3e",
+      "exact_tree_match": true
+    }
+  },
+  "procurement_intelligence_localization_20260926": {
+    "status": "FROZEN_1321_ZERO_14_CORPUS_16_NATIVE_PASS_INCLUDED_IN_CURRENT_SOURCE_CHECKPOINT",
+    "source_commit": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+    "source_tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+    "permanent_new_tests": 18,
+    "new_test_breakdown": {
+      "production_client_dom": 17,
+      "actual_http": 1
+    },
+    "frozen_results": [
+      {
+        "name": "procurement-clarifications-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.67,
+        "finished_at": "2026-09-26T08:49:23.675009+00:00",
+        "log": "procurement-intelligence-frozen-00.log",
+        "bytes": 303,
+        "sha256": "4f39ead721f59855d2c2606f2b078cbbd2d9a28dc462da458f0259bfbe02d15c",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "finished_at": "2026-09-26T08:49:24.404431+00:00",
+        "log": "procurement-intelligence-frozen-01.log",
+        "bytes": 238,
+        "sha256": "50215bbd18c5a75e62be319202a9775d5984ede904647c17b8107331e3bad88f",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js",
+          "--zero"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.64,
+        "finished_at": "2026-09-26T08:49:25.102546+00:00",
+        "log": "procurement-intelligence-frozen-02.log",
+        "bytes": 236,
+        "sha256": "144bd03f52dd613f65769e21f1034d0ef0ba3c4a0a5690c9625ed7559c2382d0",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-clarifications-api-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-api-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 12.86,
+        "finished_at": "2026-09-26T08:49:38.033869+00:00",
+        "log": "procurement-intelligence-frozen-03.log",
+        "bytes": 311,
+        "sha256": "96bfda052ef6f774f68e34068bde1bc70da43dae3c432eb7c406e487111a342e",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-economics-outcomes-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "finished_at": "2026-09-26T08:49:38.695744+00:00",
+        "log": "procurement-intelligence-frozen-04.log",
+        "bytes": 336,
+        "sha256": "e7faf20953581e55620a7de64ba6764c668de0cc512dd3603e44943920e2f47c",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "finished_at": "2026-09-26T08:49:39.408823+00:00",
+        "log": "procurement-intelligence-frozen-05.log",
+        "bytes": 247,
+        "sha256": "3e8311fd64087352971b207b18dbb330945e88e68fae5f0b6ff80231f99e7b38",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js",
+          "--zero"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T08:49:40.102693+00:00",
+        "log": "procurement-intelligence-frozen-06.log",
+        "bytes": 245,
+        "sha256": "2c2bc57b7adae31adadd71a93bfd115011f4d507f8e0dc69dcf9583e74112643",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-economics-outcomes-api-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-api-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 9.59,
+        "finished_at": "2026-09-26T08:49:49.756361+00:00",
+        "log": "procurement-intelligence-frozen-07.log",
+        "bytes": 340,
+        "sha256": "8c3f9aa33e89f8228e9636164e55bc5fc31698db583d6c975b795ba8bdd0a6cf",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T08:49:50.462034+00:00",
+        "log": "procurement-intelligence-frozen-08.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.71,
+        "finished_at": "2026-09-26T08:49:51.235634+00:00",
+        "log": "procurement-intelligence-frozen-09.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 1.6,
+        "finished_at": "2026-09-26T08:49:52.894656+00:00",
+        "log": "procurement-intelligence-frozen-10.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-sourcing-test.js",
+        "command": [
+          "node",
+          "procurement-sourcing-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.67,
+        "finished_at": "2026-09-26T08:49:53.628388+00:00",
+        "log": "procurement-intelligence-frozen-11.log",
+        "bytes": 115,
+        "sha256": "f99a0a50c771cb70b26560e25f066930d50a4b89ab707e24b47ab6f407d66cbe",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-reviews-test.js",
+        "command": [
+          "node",
+          "procurement-reviews-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.67,
+        "finished_at": "2026-09-26T08:49:54.360143+00:00",
+        "log": "procurement-intelligence-frozen-12.log",
+        "bytes": 220,
+        "sha256": "300feae0cb6bc500d1e4f7ffa8baddd78b74a9ae514ac1bf48a984b12d3e14b5",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.65,
+        "finished_at": "2026-09-26T08:49:55.067575+00:00",
+        "log": "procurement-intelligence-frozen-13.log",
+        "bytes": 188,
+        "sha256": "0d9afab4542c06d7944ef3885199cfabedbf340fbdc85d03a81df4e116d5fa3a",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-incremental-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.65,
+        "finished_at": "2026-09-26T08:49:55.794573+00:00",
+        "log": "procurement-intelligence-frozen-14.log",
+        "bytes": 250,
+        "sha256": "b0526d077946233728cfa22994a897b6283928618e41ae7f31e18d561383a16a",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "procurement-order-review-test.js",
+        "command": [
+          "node",
+          "procurement-order-review-test.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 0.59,
+        "finished_at": "2026-09-26T08:49:56.447624+00:00",
+        "log": "procurement-intelligence-frozen-15.log",
+        "bytes": 173,
+        "sha256": "c784b9103a31dc6693a7d63feb18cd019b36f43256f91dd88ee5889081c9b1cf",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 223.33,
+        "finished_at": "2026-09-26T08:53:39.847087+00:00",
+        "log": "procurement-intelligence-frozen-16.log",
+        "bytes": 361278,
+        "sha256": "71e90a8f61d3f83b25c92c7430f3d730e48dcdd9ee68a6857144a1cd4386dd61",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "test_summary": [
+          "# tests 1321",
+          "# pass 1321",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "tree": "86f49cf82fb335d919895f213690f6d8a3bf89a5",
+        "exit_code": 0,
+        "seconds": 8.24,
+        "finished_at": "2026-09-26T08:53:48.158677+00:00",
+        "log": "procurement-intelligence-frozen-17.log",
+        "bytes": 1066,
+        "sha256": "839d6e27b76b0bfb262dfd3dae2a7eb704517abce9881cfb188bb64d4278fe54",
+        "clean_after": true,
+        "head_after": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+        "corpus": {
+          "head": "ba4beddfee78f4beedfc52bda42aea75864f49a1",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "scope": "Fifty-five explicit eight-locale rows cover cost alternatives, reported supplier outcomes and outcome corrections. Owned recommendations follow native scope/completeness/quality/calibration fields while literal names, scenarios, evidence, editable values, selected options and exact pending native/ZERO requests remain unchanged during locale switches. Explicit unknown costs and delays remain unknown; negative margins and signed differences use exact currency formatting. BigInt cent-to-input formatting fixes 9007199254740990 cents being prefilled as 90071992547409.91. Native and actual HTTP prove unchanged cents through a confirmed correction, lost acknowledgement and encrypted server restart. Detached confirmations and late comparisons cannot write/restore stale input.",
+    "review_gap": "The green UI source did not yet close native deleted-source behavior. Five actual failing native cases were reproduced in the preserved current-source worktree and corrected in the checkpoint below. The initial UI proof is retained without being presented as proof of those later fixes."
+  },
+  "procurement_current_sources_20260926": {
+    "status": "FROZEN_1328_ZERO_14_CORPUS_18_NATIVE_PASS_EXACT_PUBLISHED_FULL_CI_PENDING",
+    "source_commit": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+    "source_tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+    "additional_permanent_tests": 7,
+    "permanent_new_tests_since_clarifications": 25,
+    "frozen_results": [
+      {
+        "name": "procurement-clarifications-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T08:55:24.648998+00:00",
+        "log": "procurement-current-sources-frozen-00.log",
+        "bytes": 303,
+        "sha256": "4f39ead721f59855d2c2606f2b078cbbd2d9a28dc462da458f0259bfbe02d15c",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T08:55:25.330131+00:00",
+        "log": "procurement-current-sources-frozen-01.log",
+        "bytes": 238,
+        "sha256": "50215bbd18c5a75e62be319202a9775d5984ede904647c17b8107331e3bad88f",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-clarifications-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-clarifications-client-test.js",
+          "--zero"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T08:55:26.009639+00:00",
+        "log": "procurement-current-sources-frozen-02.log",
+        "bytes": 236,
+        "sha256": "144bd03f52dd613f65769e21f1034d0ef0ba3c4a0a5690c9625ed7559c2382d0",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-clarifications-api-test.js",
+        "command": [
+          "node",
+          "procurement-clarifications-api-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 12.27,
+        "finished_at": "2026-09-26T08:55:38.333895+00:00",
+        "log": "procurement-current-sources-frozen-03.log",
+        "bytes": 311,
+        "sha256": "96bfda052ef6f774f68e34068bde1bc70da43dae3c432eb7c406e487111a342e",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-economics-outcomes-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.61,
+        "finished_at": "2026-09-26T08:55:39.003405+00:00",
+        "log": "procurement-current-sources-frozen-04.log",
+        "bytes": 336,
+        "sha256": "e7faf20953581e55620a7de64ba6764c668de0cc512dd3603e44943920e2f47c",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.69,
+        "finished_at": "2026-09-26T08:55:39.748657+00:00",
+        "log": "procurement-current-sources-frozen-05.log",
+        "bytes": 247,
+        "sha256": "3e8311fd64087352971b207b18dbb330945e88e68fae5f0b6ff80231f99e7b38",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-intelligence-client-test.js --zero",
+        "command": [
+          "node",
+          "procurement-intelligence-client-test.js",
+          "--zero"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.65,
+        "finished_at": "2026-09-26T08:55:40.458351+00:00",
+        "log": "procurement-current-sources-frozen-06.log",
+        "bytes": 245,
+        "sha256": "2c2bc57b7adae31adadd71a93bfd115011f4d507f8e0dc69dcf9583e74112643",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-economics-outcomes-api-test.js",
+        "command": [
+          "node",
+          "procurement-economics-outcomes-api-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 9.45,
+        "finished_at": "2026-09-26T08:55:49.974179+00:00",
+        "log": "procurement-current-sources-frozen-07.log",
+        "bytes": 340,
+        "sha256": "8c3f9aa33e89f8228e9636164e55bc5fc31698db583d6c975b795ba8bdd0a6cf",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "module-access-contracts-test.js",
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.7,
+        "finished_at": "2026-09-26T08:55:50.737580+00:00",
+        "log": "procurement-current-sources-frozen-08.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "business-domains-test.js",
+        "command": [
+          "node",
+          "business-domains-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.67,
+        "finished_at": "2026-09-26T08:55:51.463115+00:00",
+        "log": "procurement-current-sources-frozen-09.log",
+        "bytes": 212,
+        "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "business-workspaces-regression-test.js",
+        "command": [
+          "node",
+          "business-workspaces-regression-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 1.57,
+        "finished_at": "2026-09-26T08:55:53.084515+00:00",
+        "log": "procurement-current-sources-frozen-10.log",
+        "bytes": 254,
+        "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-sourcing-test.js",
+        "command": [
+          "node",
+          "procurement-sourcing-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "finished_at": "2026-09-26T08:55:53.744257+00:00",
+        "log": "procurement-current-sources-frozen-11.log",
+        "bytes": 115,
+        "sha256": "f99a0a50c771cb70b26560e25f066930d50a4b89ab707e24b47ab6f407d66cbe",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-reviews-test.js",
+        "command": [
+          "node",
+          "procurement-reviews-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.63,
+        "finished_at": "2026-09-26T08:55:54.438294+00:00",
+        "log": "procurement-current-sources-frozen-12.log",
+        "bytes": 220,
+        "sha256": "300feae0cb6bc500d1e4f7ffa8baddd78b74a9ae514ac1bf48a984b12d3e14b5",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.6,
+        "finished_at": "2026-09-26T08:55:55.105125+00:00",
+        "log": "procurement-current-sources-frozen-13.log",
+        "bytes": 188,
+        "sha256": "0d9afab4542c06d7944ef3885199cfabedbf340fbdc85d03a81df4e116d5fa3a",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-incremental-allocations-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.62,
+        "finished_at": "2026-09-26T08:55:55.787260+00:00",
+        "log": "procurement-current-sources-frozen-14.log",
+        "bytes": 250,
+        "sha256": "b0526d077946233728cfa22994a897b6283928618e41ae7f31e18d561383a16a",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-order-review-test.js",
+        "command": [
+          "node",
+          "procurement-order-review-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 0.65,
+        "finished_at": "2026-09-26T08:55:56.498326+00:00",
+        "log": "procurement-current-sources-frozen-15.log",
+        "bytes": 173,
+        "sha256": "c784b9103a31dc6693a7d63feb18cd019b36f43256f91dd88ee5889081c9b1cf",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-allocations-api-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 2.82,
+        "finished_at": "2026-09-26T08:55:59.392464+00:00",
+        "log": "procurement-current-sources-frozen-16.log",
+        "bytes": 178,
+        "sha256": "9fbb5b34d686a4283cd2cb48507bb1fa90fb8ada6ddb05da16d8db6a0ea2e8c4",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "procurement-incremental-allocations-api-test.js",
+        "command": [
+          "node",
+          "procurement-incremental-allocations-api-test.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 7.26,
+        "finished_at": "2026-09-26T08:56:06.711079+00:00",
+        "log": "procurement-current-sources-frozen-17.log",
+        "bytes": 231,
+        "sha256": "f9ed1086b1896e7160f7300fe739b8e387f9e0bf1594aae966710185c0e7e3b9",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca"
+      },
+      {
+        "name": "zero",
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 223.22,
+        "finished_at": "2026-09-26T08:59:50.023181+00:00",
+        "log": "procurement-current-sources-frozen-18.log",
+        "bytes": 363161,
+        "sha256": "15864be87da1b58dfa5279623757526fd243b666724b1e258074835db0438e87",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "test_summary": [
+          "# tests 1328",
+          "# pass 1328",
+          "# fail 0"
+        ]
+      },
+      {
+        "name": "corpus",
+        "command": [
+          "node",
+          "zero-evaluation/run.js"
+        ],
+        "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "tree": "070d6cf8701a20c839ac84cb09230f7d05e85677",
+        "exit_code": 0,
+        "seconds": 8.39,
+        "finished_at": "2026-09-26T08:59:58.483878+00:00",
+        "log": "procurement-current-sources-frozen-19.log",
+        "bytes": 1066,
+        "sha256": "232100ee73a3a45e02b92924fc7aac3cd2cfb6b50285c5fa0a000cca46e176a7",
+        "clean_after": true,
+        "head_after": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+        "corpus": {
+          "head": "f90f2910a28411f22efe8fdcbdb168947d8e6bca",
+          "summary": {
+            "pass": 14,
+            "fail": 0
+          },
+          "results": [
+            {
+              "id": "auth-zero",
+              "status": "PASS"
+            },
+            {
+              "id": "composition-tools",
+              "status": "PASS"
+            },
+            {
+              "id": "conversation-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "preference-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "locale-validation",
+              "status": "PASS"
+            },
+            {
+              "id": "no-model-truth",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-api",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-isolation",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-delete",
+              "status": "PASS"
+            },
+            {
+              "id": "memory-readonly",
+              "status": "PASS"
+            },
+            {
+              "id": "stack-discovery",
+              "status": "PASS"
+            },
+            {
+              "id": "model-registry",
+              "status": "PASS"
+            },
+            {
+              "id": "voice-profile",
+              "status": "PASS"
+            },
+            {
+              "id": "encrypted-restart",
+              "status": "PASS"
+            }
+          ]
+        }
+      }
+    ],
+    "prior_evidence": [
+      {
+        "file": "procurement-intelligence-locale-baseline.log",
+        "status": "TWO_EXPECTED_FAILURES_FIXED_DUTCH_HEADING_AND_ONE_CENT_PREFILL_ERROR",
+        "bytes": 2153,
+        "sha256": "f8ef4d303359f289425f1a1850b188810f4aa27eaf2dd0f12fb8ebcd1420791c"
+      },
+      {
+        "file": "procurement-intelligence-locale-initial.log",
+        "status": "TWO_PASS_AFTER_OWNED_COPY_AND_EXACT_CENT_FIX",
+        "bytes": 612,
+        "sha256": "3b049a95982128dedfac2d22c664cb23a6dcb9c9e902ca72ad5aa5ebd792fd9b"
+      },
+      {
+        "file": "procurement-intelligence-locale-expanded.log",
+        "status": "ELEVEN_PRODUCTION_CLIENT_CASES_PASS",
+        "bytes": 2978,
+        "sha256": "e263d82a09d809a36d3fa4866773a2cf36194a708482d13ae56e2f9cfc4fc70c"
+      },
+      {
+        "file": "procurement-intelligence-locale-boundaries.log",
+        "status": "SIXTEEN_PRODUCTION_CLIENT_BOUNDARY_CASES_PASS",
+        "bytes": 4396,
+        "sha256": "751adff45ef50a4145399026fd0c5136732a21278ca9d662d60daee20e752f97"
+      },
+      {
+        "file": "procurement-intelligence-http-expanded.log",
+        "status": "EIGHTEEN_PASS_INCLUDING_EXACT_CENTS_AND_REAL_HTTP_SERVER_RESTART",
+        "bytes": 5016,
+        "sha256": "acadbee3fc77d36afdd2517bc04efe5208a5545b37414f0febe036aaadebe6f8"
+      },
+      {
+        "file": "procurement-intelligence-native-localized.log",
+        "status": "EXISTING_NATIVE_CLIENT_PASS",
+        "bytes": 247,
+        "sha256": "3e8311fd64087352971b207b18dbb330945e88e68fae5f0b6ff80231f99e7b38"
+      },
+      {
+        "file": "procurement-intelligence-zero-localized.log",
+        "status": "EXISTING_ZERO_CLIENT_PASS",
+        "bytes": 245,
+        "sha256": "2c2bc57b7adae31adadd71a93bfd115011f4d507f8e0dc69dcf9583e74112643"
+      },
+      {
+        "file": "procurement-current-source-deletion-baseline.log",
+        "status": "FIVE_EXPECTED_FAILURES_LIVE_DELETED_SCENARIOS_OBSERVATIONS_AND_SOURCES",
+        "bytes": 4585,
+        "sha256": "18e2f66f0433f65a8216004fecb73f8bf82827f484a8a36eff95181868fac9c6"
+      },
+      {
+        "file": "procurement-current-source-deletion-initial.log",
+        "status": "FIVE_NATIVE_DELETION_CASES_PASS",
+        "bytes": 1434,
+        "sha256": "02b52f6efc3c3fdc6552b571778592d2a83bf8c2592c5e5a208a0fd4c3ec1c61"
+      },
+      {
+        "file": "procurement-current-source-deletion-expanded.log",
+        "status": "SEVEN_NATIVE_CASES_PASS_INCLUDING_ALLOCATION_AND_RETAINED_EXPORT",
+        "bytes": 1972,
+        "sha256": "112a307e8244fa09e8c70c78f8013064ce6115f7340748ca31ca02fd0382b66d"
+      },
+      {
+        "file": "ci246-success.log",
+        "status": "COMPLETE_REMOTE_NPM_CI_PASS_EXACT_PUBLISHED_CLARIFICATIONS_TREE",
+        "bytes": 643960,
+        "sha256": "b62fd19a60a7d4d99bbde40a3fa863cbda694a02f249c31055c89d2bc331cee1"
+      }
+    ],
+    "exact_published_full_ci": "PENDING",
+    "scope": "Live bid comparison/allocation and economic calculation require non-deleted RFQ, bid and supplier sources. Saved scenarios and replay require current non-deleted snapshot/source records. Current outcomes and replay require non-deleted observations, awards, suppliers and linked economic sources. Latest-row selection precedes the deletion/readability filter, preventing an older observation from reappearing after latest-row deletion; blind correction is refused. Existing authorized historical export remains available under the prior export contract. Relevant real allocation/incremental HTTP regressions are included in the 18 native scripts.",
+    "evidence_limits": "New deletion cases are native domain tests; the unchanged actual allocation/outcome HTTP regressions cover transport/authority integration but are not a dedicated mid-body deletion proof. DOM/VM and actual HTTP are not real-browser, accessibility, native-speaker or live-supplier acceptance. Procurement confirmations still use existing in-memory bodies and same-key retries; durable metadata-only browser-reload recovery and immutable original/current action receipts are not established. No supplier send, purchase or financial posting occurs.",
+    "remaining": "Full CI for the next exact published tree is pending. Continue current shared Procurement bid/allocation/approval controls and remaining shared/generated/backend localization; preserve all completed flows. Durable Procurement recovery and broad Run-2 gates remain open."
   }
 }
