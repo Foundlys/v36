@@ -65,7 +65,7 @@ const TOOL_CAPABILITIES = Object.freeze({
   ...Object.fromEntries(FINANCE_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   ...Object.fromEntries(CALENDAR_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   ...Object.fromEntries(ANALYSIS_ACTION_OPERATIONS.map(op=>[op.tool,'analysis:reports'])),
-  ...Object.fromEntries(SALES_OPERATIONS.map(op=>[op.tool,'sales:opportunities'])),
+  ...Object.fromEntries(SALES_OPERATIONS.map(op=>[op.tool,op.capability||'sales:opportunities'])),
   ...Object.fromEntries(AUTOMATION_DRAFT_OPERATIONS.map(op=>[op.tool,'automation:workflows'])),
   ...Object.fromEntries(COMMUNICATION_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   procurement_summary:'procurement:opportunities',sales_pipeline:'sales:pipeline',calendar_agenda:'calendar:events',communication_drafts:'communication:drafts',marketing_campaigns:'marketing:campaigns',

@@ -2,6 +2,14 @@
 
 User instruction at 19:12:38 UTC / 21:12:38 Europe/Amsterdam: each fully finished demo must immediately be available to download and use on phone, desktop and the web. Automotive and E-commerce are the first complete delivery block, including the actual Foundly production behavior and ZERO. Other work and prior checkpoints are preserved.
 
+Further user steering on 26 September 2026 confirms the order: finish Automotive and E-commerce with CRM, Finance, Marketing, Sales, Procurement, Analytics, Calendar, Communication and Automation; deliver the complete downloads and installable iPhone/Android/desktop web apps; then resume and complete the preserved remainder of Run 2. Each demo may be handed over as soon as its own full gates pass. Continuing unrelated Run-2 work must not displace this first delivery block.
+
+The iPhone handoff includes the HTTPS link and Add to Home Screen instructions. The assistant cannot remotely install on the user's physical phone. Actual installation, authenticated relaunch and required operations on that device remain explicit evidence; a manifest or browser emulation does not establish them.
+
+Latest trends, new models and revenue/value expectations are required in both demos. Each observation needs publisher, URL, publication date, observation date, market/variant scope, period and confidence/provisional status. A forecast needs its native baseline, explicit assumptions, horizon, currency, uncertainty and comparison with later outcomes. A registration count is not used-car sales, an advertised price is not a realised value, and market growth is not an automatic company revenue uplift.
+
+ZERO must retrieve and explain the sources, prepare the actual permitted action, obtain required confirmation, execute through the same production contract, verify the result and recover safely after loss of acknowledgement. Structured native actions are useful proof but do not close natural-language, multi-step, voice or complete product-quality acceptance.
+
 ## Delivery for each accepted pack
 
 | Deliverable | Acceptance evidence |
@@ -22,5 +30,7 @@ The shared install foundation has a Web App Manifest, 180/192/512px icons, regis
 This is infrastructure evidence only. Neither Automotive nor E-commerce has passed full demo acceptance. No finished demo package or live demo deployment is represented as available. Real browser installation, physical-device operation, complete pack workflows, live ZERO quality and the desktop packaging/startup path remain open.
 
 E-commerce is currently a legacy starter profile; it is not yet a registered, fully implemented production pack. The public product/price reference API is a native CRM read capability and does not substitute for product variants, stock reservations, orders, fulfilment, returns, finance and complete ZERO actions.
+
+The next native checkpoint adds Sales-owned product variants, stock receipts, reservations, fulfilment registrations, cancellation and partial returns, with atomic persistence, original/current replay evidence and the same structured ZERO actions. Financial status remains explicitly UNPOSTED. These records still require the CRM/Finance links, full module histories, production E-commerce pack registration and complete user interfaces before delivery. See NATIVE_COMMERCE_ACCEPTANCE.md.
 
 Per accepted pack, the user handoff must contain the actual web URL, direct downloadable file, version/date, short installation instructions and any material operating prerequisites. Record failures and limitations without erasing earlier work. No global completion percentage may be inferred from test totals.

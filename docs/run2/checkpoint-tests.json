@@ -36632,7 +36632,7 @@
   },
   "demo_public_data_delivery_20260926": {
     "recorded_at": "2026-09-26T19:47:08.650347+00:00",
-    "status": "FROZEN_LOCAL_PASS_COMPLETE_CI_PENDING",
+    "status": "FROZEN_LOCAL_AND_COMPLETE_CI_PASS_DEMOS_NOT_ACCEPTED",
     "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
     "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
     "zero_tests": 1800,
@@ -37152,6 +37152,329 @@
         "raw_bytes": 4903,
         "compressed_sha256": "8e63cbfec648ac079075945f189a40c6dbbbc575688c38bd77a8bc9cc91912c8"
       }
-    ]
+    ],
+    "ci_266": {
+      "status": "PASS",
+      "run_number": 266,
+      "run_id": 36267863087,
+      "job_id": 108475875760,
+      "published_commit": "ef0235abde932d226beae7af6387f85f60b72503",
+      "tested_merge_commit": "39d4903ab6abb9d3a36bcf60aa6c16d9c60f65f9",
+      "tree": "d4b1135e07890041de270cfea7d4ba3cab7cc456",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T19:58:05Z",
+      "completed_at": "2026-09-26T20:12:09Z",
+      "elapsed_seconds": 844,
+      "log": {
+        "file": "docs/run2/evidence/20260926-commerce-market/ci266-job-108475875760.log.gz",
+        "raw_bytes": 816002,
+        "raw_sha256": "4c0d959e04b2591d0171f7ee34e4c45827ea1fca986adb4147d42db0646beffe",
+        "gzip_sha256": "c5dae2b02b6dcad305e391617d073acc1ade8c5047f0f727e5b5f44fefcd126a"
+      }
+    }
+  },
+  "commerce_native_market_20260926": {
+    "recorded_at": "2026-09-26T20:35:06.408550+00:00",
+    "status": "FROZEN_LOCAL_PASS_COMPLETE_CI_PENDING",
+    "source_commit": "4ab780e3ea98b7fd5eb1da2e6b951c858d277767",
+    "source_tree": "66aa03eb54e15b9c1b668d0ba3f59dca8862a2c6",
+    "zero_tests": 1810,
+    "corpus_pass": 14,
+    "frozen_proof": {
+      "source_commit": "4ab780e3ea98b7fd5eb1da2e6b951c858d277767",
+      "tree": "66aa03eb54e15b9c1b668d0ba3f59dca8862a2c6",
+      "source_unchanged": true,
+      "results": [
+        {
+          "name": "zero",
+          "exit_code": 0,
+          "seconds": 210.346,
+          "sha256": "eb509f38bc61e8083b5302af69db138fc649da70d326709b96ecb233dd01fef1",
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-verified-zero.log"
+        },
+        {
+          "name": "corpus",
+          "exit_code": 0,
+          "seconds": 2.784,
+          "sha256": "53d2f546242b29c39ce658896018e83743dc38d04d1eb128b51cfaed49c75777",
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-verified-corpus.log"
+        }
+      ]
+    },
+    "underlying_native_script_proof": {
+      "source_commit": "a4327847af82e3da21b3e376e55ce2a10035a66a",
+      "source_unchanged": true,
+      "results": [
+        {
+          "script": "business-domains-test.js",
+          "exit_code": 0,
+          "seconds": 0.345,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-business-domains-test.js.log",
+          "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300"
+        },
+        {
+          "script": "module-access-contracts-test.js",
+          "exit_code": 0,
+          "seconds": 0.292,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-module-access-contracts-test.js.log",
+          "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e"
+        },
+        {
+          "script": "composition-api-test.js",
+          "exit_code": 0,
+          "seconds": 3.57,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-composition-api-test.js.log",
+          "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a"
+        },
+        {
+          "script": "sales-zero-test.js",
+          "exit_code": 0,
+          "seconds": 0.305,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-sales-zero-test.js.log",
+          "sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f"
+        },
+        {
+          "script": "sales-zero-api-test.js",
+          "exit_code": 0,
+          "seconds": 5.425,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-sales-zero-api-test.js.log",
+          "sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4"
+        },
+        {
+          "script": "sales-zero-client-test.js",
+          "exit_code": 0,
+          "seconds": 0.574,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-sales-zero-client-test.js.log",
+          "sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60"
+        },
+        {
+          "script": "sales-scenarios-test.js",
+          "exit_code": 0,
+          "seconds": 0.308,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-sales-scenarios-test.js.log",
+          "sha256": "1879de17b33c911f65baefc821dea98edadb138311d626b9563806f421146562"
+        },
+        {
+          "script": "sales-scenarios-api-test.js",
+          "exit_code": 0,
+          "seconds": 1.978,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-sales-scenarios-api-test.js.log",
+          "sha256": "329e59583454d2a24b84181677a2f1e6704d11e18beffa081000d06c319bdd48"
+        },
+        {
+          "script": "sales-scenarios-client-test.js",
+          "exit_code": 0,
+          "seconds": 0.469,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-sales-scenarios-client-test.js.log",
+          "sha256": "9ea936a3aef18621639da149359b8100ee7ae6e60ff23e2503e29f1d94cb8761"
+        },
+        {
+          "script": "production-security-test.js",
+          "exit_code": 0,
+          "seconds": 0.607,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-frozen-production-security-test.js.log",
+          "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993"
+        }
+      ]
+    },
+    "targeted_current_checks": "Commerce/market targeted 9 PASS; section/model-context follow-up 7 PASS. Full current ZERO count includes all of these tests.",
+    "retained_failed_source": {
+      "commit": "a4327847af82e3da21b3e376e55ce2a10035a66a",
+      "tree": "31cadfc5cb24db05f0ba21961b41d885ec541c3e",
+      "zero_pass": 1808,
+      "zero_fail": 1,
+      "cause": "New commerce workspace section IDs lacked explicit locale labels; repaired in 4ab780e. Failed log retained.",
+      "corpus_run": false
+    },
+    "interrupted_verification": {
+      "source_commit": "4ab780e3ea98b7fd5eb1da2e6b951c858d277767",
+      "source_tree": "66aa03eb54e15b9c1b668d0ba3f59dca8862a2c6",
+      "status": "EXEC_SESSION_LOST_NO_FINAL_RESULT",
+      "session_id": 8006,
+      "raw_log": "/workspace/scratch/be87522d6b82/run2-evidence/commerce-verified-interrupted-zero.log",
+      "bytes": 84105,
+      "sha256": "2bfc830d13ca7375aae9e5ae5b7462db9204f00c188a5a0968373e17fb22424e",
+      "recorded_at": "2026-09-26T20:30:53.659833+00:00",
+      "accepted_as_pass": false
+    },
+    "other_failed_attempt": "Initial scenario test asserted the forecast scenario amount at the baseline group path; corrected to scenario.groups without changing the native calculation. Original failure retained.",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-targeted-1.log.gz",
+        "raw_bytes": 860,
+        "raw_sha256": "abdb09f2fee1914b1d56ba76d79b5af4ef505cc293fc4cdd26095ca6c9c58e2e",
+        "gzip_sha256": "3f771a6823bedc2b971ae878852fe0362d3a5d231188df1a543560fe7d05b914"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-market-targeted-1.log.gz",
+        "raw_bytes": 2020,
+        "raw_sha256": "3b7e4fc62c4f39e1d0bf6ce4853e975c1a2e47a90acd73e2a25127a30a7322f6",
+        "gzip_sha256": "30fee69fb1879185774e7402b447572928089c2e9e0e61fb9f8a7009c3f73edc"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-market-targeted-2.log.gz",
+        "raw_bytes": 1197,
+        "raw_sha256": "30efdd83bc455adacb62f94a12812b26cdd2d90db5762999332c5e161da05eb9",
+        "gzip_sha256": "6f7cac7d6858bb9c0d50ec5fc58f3421ae00e1d0b80b3f7392e4dfe18b5043e5"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-locale-targeted-1.log.gz",
+        "raw_bytes": 940,
+        "raw_sha256": "5a2007a9eabff718cfe54d0cfa2ffd925bced2672a22345c7a6f43b72eac4808",
+        "gzip_sha256": "89481999ddf7463c0e3680353b52bff2f483de6a592725f1a73136b0cc1c1300"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-zero.log.gz",
+        "raw_bytes": 218327,
+        "raw_sha256": "1a700e2e67d57bd7bb99eea13d79c1107a1d5572d55a7eb95eca0c179709dc14",
+        "gzip_sha256": "664f9c7c80fa569d0a8a097a6f578e851739c0ea9a34720e8a91becfd1c3f53c"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-verified-zero.log.gz",
+        "raw_bytes": 217466,
+        "raw_sha256": "eb509f38bc61e8083b5302af69db138fc649da70d326709b96ecb233dd01fef1",
+        "gzip_sha256": "b3f5e570b02c3ed7b62a8c30f058c99da200cabe894fe0ce337bddb9a0ce99e6"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-verified-corpus.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "53d2f546242b29c39ce658896018e83743dc38d04d1eb128b51cfaed49c75777",
+        "gzip_sha256": "7a6d220406cc0b7cbad81f42544e6a19a08d4abafcc39ca054d8641cccbc8cd5"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/ci266-job-108475875760.log.gz",
+        "raw_bytes": 816002,
+        "raw_sha256": "4c0d959e04b2591d0171f7ee34e4c45827ea1fca986adb4147d42db0646beffe",
+        "gzip_sha256": "c5dae2b02b6dcad305e391617d073acc1ade8c5047f0f727e5b5f44fefcd126a"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-verified-interrupted-zero.log.gz",
+        "raw_bytes": 84105,
+        "raw_sha256": "2bfc830d13ca7375aae9e5ae5b7462db9204f00c188a5a0968373e17fb22424e",
+        "gzip_sha256": "e8dd4412e338468fe5e1ce9215abfb87f11c6a6262cc27c39e42e1aa39a1948a"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-verified-interruption.json.gz",
+        "raw_bytes": 479,
+        "raw_sha256": "fc8df716136042bcc769f0d153ddc46e6236090fb8efaa34c5e489fa99dbd85c",
+        "gzip_sha256": "539b0aefb9164468788a433410aeea6c241f498fc2e07af5a0a3bdfb5439a2dc"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-business-domains-test.js.log.gz",
+        "raw_bytes": 212,
+        "raw_sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "gzip_sha256": "618229970a94ffe2f2a8c3d6379d930ab5ea3eb4580c9b2d6512f7803b5a5305"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-sales-zero-test.js.log.gz",
+        "raw_bytes": 374,
+        "raw_sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f",
+        "gzip_sha256": "d8e7e3876de2c28178d0145b2fd6e0e72e914102cec791393b9f70680c3e62c8"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-sales-zero-api-test.js.log.gz",
+        "raw_bytes": 345,
+        "raw_sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4",
+        "gzip_sha256": "29a4cf001812a516108b8bbee45df329eaeb1f3bf3b17e3f4fc2723c88c25940"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-sales-zero-client-test.js.log.gz",
+        "raw_bytes": 354,
+        "raw_sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60",
+        "gzip_sha256": "e9f72903ac72412fb4ff986668c5f59201a3c0829a81a5c8dddfe1a1c207bcda"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-sales-scenarios-test.js.log.gz",
+        "raw_bytes": 211,
+        "raw_sha256": "1879de17b33c911f65baefc821dea98edadb138311d626b9563806f421146562",
+        "gzip_sha256": "f4946e022af81fbe9b9713ebec307d0e5c0e5e923d8598258a93addef67d10b4"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-sales-scenarios-api-test.js.log.gz",
+        "raw_bytes": 225,
+        "raw_sha256": "329e59583454d2a24b84181677a2f1e6704d11e18beffa081000d06c319bdd48",
+        "gzip_sha256": "8d523f69e24c32c4ec8189e4e77b14342bfc6e2c723ca07b8dc89f29a1037ee0"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-sales-scenarios-client-test.js.log.gz",
+        "raw_bytes": 343,
+        "raw_sha256": "9ea936a3aef18621639da149359b8100ee7ae6e60ff23e2503e29f1d94cb8761",
+        "gzip_sha256": "567f7f7fdfc60bf95f092ee4ee2aa125fd000f6f88a8d730206d3735195bd2d8"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-commerce-market/commerce-frozen-production-security-test.js.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "gzip_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      }
+    ],
+    "prior_complete_ci": {
+      "status": "PASS",
+      "run_number": 266,
+      "run_id": 36267863087,
+      "job_id": 108475875760,
+      "published_commit": "ef0235abde932d226beae7af6387f85f60b72503",
+      "tested_merge_commit": "39d4903ab6abb9d3a36bcf60aa6c16d9c60f65f9",
+      "tree": "d4b1135e07890041de270cfea7d4ba3cab7cc456",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T19:58:05Z",
+      "completed_at": "2026-09-26T20:12:09Z",
+      "elapsed_seconds": 844,
+      "log": {
+        "file": "docs/run2/evidence/20260926-commerce-market/ci266-job-108475875760.log.gz",
+        "raw_bytes": 816002,
+        "raw_sha256": "4c0d959e04b2591d0171f7ee34e4c45827ea1fca986adb4147d42db0646beffe",
+        "gzip_sha256": "c5dae2b02b6dcad305e391617d073acc1ade8c5047f0f727e5b5f44fefcd126a"
+      }
+    },
+    "finished_demos": [],
+    "complete_demo_acceptance": false,
+    "new_features": [
+      "Native production Sales variants/stock/orders/returns with current permissions, integer amounts, atomic persistence and durable request recovery",
+      "Same structured ZERO commerce actions and scenario reads through production services",
+      "Twelve selected dated facts from five primary sources, with provisional/model/market meaning retained",
+      "External benchmarks remain context; no automatic company-growth multiplier",
+      "Eight-locale labels for the new shared workspace sections"
+    ],
+    "remaining": [
+      "Native CRM and Finance linkage with durable Finance replay/transaction fixes",
+      "Complete E-commerce pack registration, per-module histories and scenario seeds",
+      "Native action/recovery UI, natural-language/voice quality and cross-module evaluation",
+      "Current source refresh, broader model/spec coverage, valuation uncertainty and backtesting",
+      "Versioned runtime packaging, hosting, installation and physical iPhone/Android/desktop evidence"
+    ],
+    "recovery_followup": {
+      "source_commit": "145e48cdac44c9404368387dd0d32e9eb672db83",
+      "source_tree": "f8373b51a46243db183d993f394500eb33c12c8f",
+      "targeted_tests_pass": 10,
+      "corpus_pass": 14,
+      "scope": "Only sales-zero.js and its actual HTTP commerce test changed since the full 1810-test source, besides documentation. A NOT_APPLIED recovery response no longer reports a completed commerce action. Native stock remains unchanged.",
+      "full_local_zero_rerun": false,
+      "complete_ci": "PENDING",
+      "durable_logs": [
+        {
+          "file": "docs/run2/evidence/20260926-commerce-market/commerce-recovery-followup.log.gz",
+          "raw_sha256": "8bf8521bf01e9c96af130f61754c9d2281bd016fda172fcc8a8b4a1ffce89475",
+          "gzip_sha256": "d6730a681f2162032e07227b23984ebc085fb90e2600b2fd20ed3239c9d2f23f"
+        },
+        {
+          "file": "docs/run2/evidence/20260926-commerce-market/commerce-recovery-corpus.log.gz",
+          "raw_sha256": "1cace0f63dc3d9a3a6e30d1640f54f6f2e81800f3a39efeb406eab524dacb9c8",
+          "gzip_sha256": "5e2a273d6614af4d75cd793548d34b9801eaa08fed95d5f9cc5b2508818a80b4"
+        }
+      ]
+    }
   }
 }

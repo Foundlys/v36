@@ -44,3 +44,9 @@ Public data and exact limits are in [../../public-data/README.md](../../public-d
 ECOMMERCE remains a legacy starter profile pending actual production pack and catalog/variant/stock/order/fulfilment/return/finance integration. Remaining common histories, workflows, approvals, complete scenarios, interfaces and direct desktop package startup/recovery remain code-controlled. Every completed pack must have a usable download and matching reachable web app; a ZIP of source code or install manifest cannot close the gate.
 
 The revised demo scope is conditionally 90–224 active hours, with automated/CI waits and unknown access/device/review waits separate in the existing matrix. This replaces the narrower prior estimate prospectively, preserves historical estimates and is not an end-date promise. No gate closes from row counts or test totals.
+
+## Native commerce, trends en definitieve levervolgorde
+
+Zie `NATIVE_COMMERCE_ACCEPTANCE.md` en `public-data/market/README.md`. Checkpoint 4ab780e bevat native voorraad-/order-/retourtransacties, dezelfde gestructureerde ZERO-acties, twaalf gedateerde primaire bronfeiten en expliciete prognosescenario’s zonder automatische marktgroei-opslag. De volledige lokale ZERO/corpus-ronde slaagt. De eerder ontbrekende labels zijn hersteld; mislukte en geslaagde bewijzen zijn behouden.
+
+Dit sluit de demo-gates niet: CRM/Finance-links en herstel, alle modulehistories, echte E-commerce-packregistratie, interfaces, brede natuurlijke/gesproken ZERO-kwaliteit, actualiteit/waardering/backtesting, downloadbare runtime, hosting en echte iPhone-/Android-/desktopcontrole blijven open. Het eerste volledige leverblok is Automotive plus E-commerce met alle modules; lever iedere daadwerkelijk afgeronde demo direct en hervat daarna de behouden rest van Run 2.

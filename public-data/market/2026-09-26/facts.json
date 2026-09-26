@@ -1,0 +1,286 @@
+{
+  "schema_version": "foundly-market-reference/1",
+  "snapshot_id": "market-20260926-v1",
+  "observed_at": "2026-09-26T20:11:40.452788Z",
+  "coverage": "CURATED_PRIMARY_SOURCE_SAMPLE_NOT_EXHAUSTIVE",
+  "newer_publications_checked_continuously": false,
+  "sources": [
+    {
+      "id": "acea-eu-2026-08",
+      "url": "https://www.acea.auto/pc-registrations/new-car-registrations-5-3-in-august-2026-year-to-date-battery-electric-21-7-market-share/",
+      "publisher": "ACEA",
+      "published_on": "2026-09-24",
+      "observed_at": "2026-09-26T20:11:40.452788Z",
+      "capture_method": "CURATED_FACT_EXTRACTION_FROM_RETRIEVED_PRIMARY_PAGE",
+      "source_page_bytes_sha256": null,
+      "license": null,
+      "attribution_required": true
+    },
+    {
+      "id": "cbs-online-2026-07",
+      "url": "https://www.cbs.nl/nl-nl/nieuws/2026/36/detailhandel-zet-bijna-3-procent-meer-om-in-juli",
+      "publisher": "CBS",
+      "published_on": "2026-09-01",
+      "observed_at": "2026-09-26T20:11:40.452788Z",
+      "capture_method": "CURATED_FACT_EXTRACTION_FROM_RETRIEVED_PRIMARY_PAGE",
+      "source_page_bytes_sha256": null,
+      "license": null,
+      "attribution_required": true
+    },
+    {
+      "id": "vw-id-polo-specification",
+      "url": "https://www.volkswagen-newsroom.com/en/at-a-glance-id-polo-20359",
+      "publisher": "Volkswagen",
+      "published_on": "2026-04-29",
+      "page_update_date": null,
+      "observed_at": "2026-09-26T20:11:40.452788Z",
+      "capture_method": "CURATED_FACT_EXTRACTION_FROM_RETRIEVED_PRIMARY_PAGE",
+      "source_page_bytes_sha256": null,
+      "license": null,
+      "attribution_required": true
+    },
+    {
+      "id": "vw-id-polo-2026-09",
+      "url": "https://www.volkswagen-newsroom.com/en/press-releases/german-car-of-the-year-2027-category-award-for-the-all-new-electric-id-polo-20703",
+      "publisher": "Volkswagen",
+      "published_on": "2026-09-22",
+      "observed_at": "2026-09-26T20:11:40.452788Z",
+      "capture_method": "CURATED_FACT_EXTRACTION_FROM_RETRIEVED_PRIMARY_PAGE",
+      "source_page_bytes_sha256": null,
+      "license": null,
+      "attribution_required": true
+    },
+    {
+      "id": "bmw-i3-announcement",
+      "url": "https://www.bmwgroup.com/en/news/general/2026/bmwi3.html",
+      "publisher": "BMW Group",
+      "published_on": "2026-03-19",
+      "observed_at": "2026-09-26T20:11:40.452788Z",
+      "capture_method": "CURATED_FACT_EXTRACTION_FROM_RETRIEVED_PRIMARY_PAGE",
+      "source_page_bytes_sha256": null,
+      "license": null,
+      "attribution_required": true
+    }
+  ],
+  "records": [
+    {
+      "id": "eu-2026-08-total-growth",
+      "industry": "AUTOMOTIVE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "acea-eu-2026-08",
+      "metric": "new_registration_growth_yoy",
+      "value": "5.3",
+      "unit": "PERCENT",
+      "period": {
+        "from": "2026-01-01",
+        "to": "2026-08-31"
+      },
+      "market_scope": "EU_NEW_PASSENGER_CAR_REGISTRATIONS",
+      "evidence_status": "PUBLISHED_STATISTIC_NOT_USED_VEHICLE_SALES",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "eu-2026-08-bev-share",
+      "industry": "AUTOMOTIVE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "acea-eu-2026-08",
+      "metric": "bev_share_new_registrations",
+      "value": "21.7",
+      "unit": "PERCENT",
+      "period": {
+        "from": "2026-01-01",
+        "to": "2026-08-31"
+      },
+      "market_scope": "EU_NEW_PASSENGER_CAR_REGISTRATIONS",
+      "evidence_status": "PUBLISHED_STATISTIC_NOT_USED_VEHICLE_SALES",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "eu-2026-08-hev-share",
+      "industry": "AUTOMOTIVE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "acea-eu-2026-08",
+      "metric": "hev_share_new_registrations",
+      "value": "36.6",
+      "unit": "PERCENT",
+      "period": {
+        "from": "2026-01-01",
+        "to": "2026-08-31"
+      },
+      "market_scope": "EU_NEW_PASSENGER_CAR_REGISTRATIONS",
+      "evidence_status": "PUBLISHED_STATISTIC_NOT_USED_VEHICLE_SALES",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "eu-2026-08-phev-share",
+      "industry": "AUTOMOTIVE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "acea-eu-2026-08",
+      "metric": "phev_share_new_registrations",
+      "value": "10.0",
+      "unit": "PERCENT",
+      "period": {
+        "from": "2026-01-01",
+        "to": "2026-08-31"
+      },
+      "market_scope": "EU_NEW_PASSENGER_CAR_REGISTRATIONS",
+      "evidence_status": "PUBLISHED_STATISTIC_NOT_USED_VEHICLE_SALES",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "eu-2026-08-bev-count",
+      "industry": "AUTOMOTIVE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "acea-eu-2026-08",
+      "metric": "new_bev_registrations",
+      "value": "1641333",
+      "unit": "VEHICLES",
+      "period": {
+        "from": "2026-01-01",
+        "to": "2026-08-31"
+      },
+      "market_scope": "EU_NEW_PASSENGER_CAR_REGISTRATIONS",
+      "evidence_status": "PUBLISHED_STATISTIC_NOT_USED_VEHICLE_SALES",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "nl-2026-07-online-total",
+      "industry": "ECOMMERCE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "cbs-online-2026-07",
+      "metric": "turnover_growth_yoy",
+      "value": "3.8",
+      "unit": "PERCENT",
+      "period": {
+        "from": "2026-07-01",
+        "to": "2026-07-31"
+      },
+      "market_scope": "NL_ONLINE_RETAIL",
+      "evidence_status": "PROVISIONAL_AGGREGATE_NOT_COMPANY_FORECAST",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "nl-2026-07-online-only",
+      "industry": "ECOMMERCE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "cbs-online-2026-07",
+      "metric": "turnover_growth_yoy",
+      "value": "3.4",
+      "unit": "PERCENT",
+      "period": {
+        "from": "2026-07-01",
+        "to": "2026-07-31"
+      },
+      "market_scope": "NL_RETAILERS_WITH_ONLINE_AS_MAIN_ACTIVITY",
+      "evidence_status": "PROVISIONAL_AGGREGATE_NOT_COMPANY_FORECAST",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "nl-2026-07-multichannel",
+      "industry": "ECOMMERCE",
+      "kind": "MARKET_STATISTIC",
+      "source_id": "cbs-online-2026-07",
+      "metric": "turnover_growth_yoy",
+      "value": "4.5",
+      "unit": "PERCENT",
+      "period": {
+        "from": "2026-07-01",
+        "to": "2026-07-31"
+      },
+      "market_scope": "NL_MULTICHANNEL_ONLINE_SALES",
+      "evidence_status": "PROVISIONAL_AGGREGATE_NOT_COMPANY_FORECAST",
+      "customer_truth": false,
+      "forecast": false
+    },
+    {
+      "id": "vw-id-polo-battery-37",
+      "industry": "AUTOMOTIVE",
+      "kind": "MODEL_ANNOUNCEMENT",
+      "source_id": "vw-id-polo-specification",
+      "make": "Volkswagen",
+      "model": "ID. Polo",
+      "variant_scope": "BATTERY_CONFIGURATION_NOT_COMPLETE_TRIM",
+      "battery_net_kwh": 37,
+      "battery_chemistry": "LFP",
+      "dc_charge_peak_kw": 90,
+      "wltp_range_up_to_km": 329,
+      "drive": "FWD",
+      "power_kw": null,
+      "price": null,
+      "evidence_status": "MANUFACTURER_SPECIFICATION_CONFIGURATION_DEPENDENT",
+      "customer_truth": false,
+      "live_offer": false,
+      "order_availability_verified": false
+    },
+    {
+      "id": "vw-id-polo-battery-52",
+      "industry": "AUTOMOTIVE",
+      "kind": "MODEL_ANNOUNCEMENT",
+      "source_id": "vw-id-polo-specification",
+      "make": "Volkswagen",
+      "model": "ID. Polo",
+      "variant_scope": "BATTERY_CONFIGURATION_NOT_COMPLETE_TRIM",
+      "battery_net_kwh": 52,
+      "battery_chemistry": "NMC",
+      "dc_charge_peak_kw": 105,
+      "wltp_range_up_to_km": 454,
+      "drive": "FWD",
+      "power_kw": null,
+      "price": null,
+      "evidence_status": "MANUFACTURER_SPECIFICATION_CONFIGURATION_DEPENDENT",
+      "customer_truth": false,
+      "live_offer": false,
+      "order_availability_verified": false
+    },
+    {
+      "id": "vw-id-polo-germany-entry-price",
+      "industry": "AUTOMOTIVE",
+      "kind": "MODEL_ANNOUNCEMENT",
+      "source_id": "vw-id-polo-2026-09",
+      "supporting_source_ids": [
+        "vw-id-polo-specification"
+      ],
+      "make": "Volkswagen",
+      "model": "ID. Polo",
+      "variant_scope": "MODEL_FAMILY_ENTRY_PRICE_NOT_EVERY_CONFIGURATION",
+      "market": "DE",
+      "price": {
+        "amount": "24995.00",
+        "currency": "EUR",
+        "basis": "MANUFACTURER_FROM_PRICE",
+        "tax_basis": "NOT_EXTRACTED"
+      },
+      "evidence_status": "MANUFACTURER_ANNOUNCEMENT",
+      "customer_truth": false,
+      "live_offer": false,
+      "order_availability_verified": false
+    },
+    {
+      "id": "bmw-i3-neue-klasse-announcement",
+      "industry": "AUTOMOTIVE",
+      "kind": "MODEL_ANNOUNCEMENT",
+      "source_id": "bmw-i3-announcement",
+      "make": "BMW",
+      "model": "i3",
+      "generation": "NEUE_KLASSE_2026_NOT_PRIOR_I3_HATCHBACK",
+      "variant_scope": "50_XDRIVE_PROVISIONAL_ANNOUNCEMENT",
+      "wltp_range_up_to_km": 900,
+      "dc_charge_peak_kw": 400,
+      "production_start_announced": "2026-08",
+      "delivery_start_announced": "2026-AUTUMN",
+      "production_started_verified": false,
+      "deliveries_started_verified": false,
+      "evidence_status": "PROVISIONAL_MANUFACTURER_TARGET_NOT_FINAL_HOMOLOGATION",
+      "customer_truth": false,
+      "live_offer": false,
+      "order_availability_verified": false
+    }
+  ]
+}
