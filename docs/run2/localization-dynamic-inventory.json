@@ -340,7 +340,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "db641915785f6337aa07de7aa77236c9fe4f492d9c86199950665efe8b0885c7",
+      "sha256": "8438405d158952f5c56d24f9cff81a1d0d46c40fe5b9f7d0442161eb353736c7",
       "items": [
         {
           "line": 49,
@@ -1495,144 +1495,45 @@
           "rich_text": false
         },
         {
-          "line": 1487,
-          "start": 223946,
-          "end": 223966,
-          "context": "element_text",
-          "text": "Bewaarde berichten",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1489,
-          "start": 224304,
-          "end": 224322,
-          "context": "textContent",
-          "text": "Berichten laden…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1492,
-          "start": 224979,
-          "end": 225151,
-          "context": "textContent",
-          "text": "{p0} passende bewaarde berichten. De volledigheid van de externe mailbox is onbekend. Leesstatus en archief gelden alleen voor jou in Foundly.",
-          "parameters": [
-            "model.total_retained_matching"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 1493,
-          "start": 225211,
-          "end": 225262,
-          "context": "element_text",
-          "text": "Geen bewaarde berichten voldoen aan deze filters.",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1496,
-          "start": 225580,
-          "end": 225750,
-          "context": "element_text",
-          "text": "{p0} · {p1} · {p2}",
-          "parameters": [
-            "message.from||'Afzender onbekend'",
-            "message.received_or_sent_at||'Tijdstip onbekend'",
-            "local.read===null?'Leesstatus onbekend':local.read?'Gelezen':'Ongelezen'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 1498,
-          "start": 225920,
-          "end": 225936,
-          "context": "textContent",
-          "text": "Bericht laden…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1501,
-          "start": 226307,
-          "end": 226463,
-          "context": "element_text",
-          "text": "Aan: {p0} · Cc: {p1}",
-          "parameters": [
-            "Array.isArray(record.to)?record.to.join(', '):'niet beschikbaar'",
-            "Array.isArray(record.cc)?record.cc.join(', ')||'geen':'niet beschikbaar'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 1513,
-          "start": 228599,
-          "end": 228618,
-          "context": "aria-label",
-          "text": "Berichtenpagina’s",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1514,
-          "start": 228690,
-          "end": 228708,
-          "context": "element_text",
-          "text": "Vorige berichten",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1515,
-          "start": 228911,
-          "end": 228931,
-          "context": "element_text",
-          "text": "Volgende berichten",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1568,
-          "start": 239848,
-          "end": 239866,
+          "line": 1597,
+          "start": 245811,
+          "end": 245829,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1569,
-          "start": 239915,
-          "end": 239920,
+          "line": 1598,
+          "start": 245878,
+          "end": 245883,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1570,
-          "start": 239988,
-          "end": 240015,
+          "line": 1599,
+          "start": 245951,
+          "end": 245978,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1649,
-          "start": 257909,
-          "end": 257928,
+          "line": 1678,
+          "start": 263872,
+          "end": 263891,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1715,
-          "start": 265680,
-          "end": 265719,
+          "line": 1744,
+          "start": 271643,
+          "end": 271682,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -1641,18 +1542,18 @@
           "rich_text": false
         },
         {
-          "line": 1846,
-          "start": 278919,
-          "end": 278944,
+          "line": 1875,
+          "start": 284882,
+          "end": 284907,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1849,
-          "start": 279145,
-          "end": 279268,
+          "line": 1878,
+          "start": 285108,
+          "end": 285231,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -1661,36 +1562,36 @@
           "rich_text": false
         },
         {
-          "line": 1864,
-          "start": 280600,
-          "end": 280681,
+          "line": 1893,
+          "start": 286563,
+          "end": 286644,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1891,
-          "start": 283020,
-          "end": 283099,
+          "line": 1920,
+          "start": 288983,
+          "end": 289062,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1895,
-          "start": 283392,
-          "end": 283407,
+          "line": 1924,
+          "start": 289355,
+          "end": 289370,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1896,
-          "start": 283513,
-          "end": 283529,
+          "line": 1925,
+          "start": 289476,
+          "end": 289492,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],

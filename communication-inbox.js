@@ -43,13 +43,14 @@ function update(core,ctx,actor,id,input,options={}){
  const states=stateMap(core,ctx,actor),prior=states.get(id),local=stateView(prior,source.revision),operations=core.adapter.bucket(ctx,'communication:draft_operations');
  if(typeof options.idempotency_key!=='string'||!options.idempotency_key||options.idempotency_key.length>200)fail('inbox_idempotency_required','Een unieke actie-ID is verplicht');
  const key=hash(['INBOX_STATE',options.idempotency_key]),fingerprint=hash({id,input}),seen=operations.find(row=>row.key===key&&row.actor_id===actor.id);
- if(seen){if(seen.fingerprint!==fingerprint)fail('inbox_action_conflict','Deze actiesleutel heeft andere inhoud',409);return {local_state:local,receipt:clone(seen.receipt),deduplicated:true,provider_updated:false};}
+ const acknowledgement=receipt=>({request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},current_message_revision:source.revision,request_ack:{request_id:options.idempotency_key,request_fingerprint:fingerprint,operation:'INBOX_STATE',source_id:id,actor_id:actor.id,result_revision:receipt.result_revision}});
+ if(seen){if(seen.fingerprint!==fingerprint)fail('inbox_action_conflict','Deze actiesleutel heeft andere inhoud',409);return {...acknowledgement(seen.receipt),local_state:local,receipt:clone(seen.receipt),deduplicated:true,provider_updated:false};}
  if(!Number.isSafeInteger(source.revision)||source.revision<1||source.revision!==input.expected_message_revision||local.revision!==input.expected_revision||local.revision>=Number.MAX_SAFE_INTEGER)fail('inbox_revision_conflict','Het bericht of de persoonlijke status is gewijzigd',409);
  const rows=core.adapter.bucket(ctx,SCOPE);if(rows.length>=25000&&!prior||operations.length>=25000)fail('inbox_capacity','De limiet voor bewaarde inboxacties is bereikt',507);
  const result=core.mutate(ctx,()=>{
   const now=new Date().toISOString(),row={id:prior?.id||crypto.randomUUID(),message_id:id,owner_id:actor.id,read:Object.hasOwn(input,'read')?input.read:local.read,archived:Object.hasOwn(input,'archived')?input.archived:local.archived,revision:local.revision+1,source_revision:source.revision,updated_at:now,created_at:prior?.created_at||now,owned_entity:'inbox_state',schema_version:1};
   if(prior)rows[rows.indexOf(prior)]=row;else rows.push(row);const receipt={message_id:id,result_revision:row.revision,source_revision:source.revision,at:now};operations.push({key,actor_id:actor.id,fingerprint,receipt});
-  core.recordEvent(ctx,actor,'inbox_state',row,'updated');return {local_state:stateView(row,source.revision),receipt,deduplicated:false,provider_updated:false};
+  core.recordEvent(ctx,actor,'inbox_state',row,'updated');return {...acknowledgement(receipt),local_state:stateView(row,source.revision),receipt,deduplicated:false,provider_updated:false};
  });try{core.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
 function exportOwned(core,ctx,actor,messages){const visible=new Set(messages.filter(row=>!row.deleted_at&&row.provider_currently_draft!==true).map(row=>row.id));return [...stateMap(core,ctx,actor).values()].filter(row=>visible.has(row.message_id)).map(clone);}

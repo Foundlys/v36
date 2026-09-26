@@ -1479,42 +1479,71 @@
   }
 
   async function renderCommunicationInbox(content){
-    const token=state.inboxQueryToken=(state.inboxQueryToken||0)+1,form=node('form'),search=node('input'),folder=node('select'),read=node('select'),direction=node('select'),submit=node('button','primary-button',(globalThis.FoundlyI18n?globalThis.FoundlyI18n.t("static.23d150c5"):'Zoeken')),notice=node('p'),results=node('div'),recoveryHost=node('div'),mailbox=node('section');let requestVersion=0,currentOffset=0,replyRecovery=null;
-    const alive=()=>content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='messages'&&state.inboxQueryToken===token;
-    search.type='search';search.maxLength=100;submit.type='submit';notice.setAttribute('role','status');
-    for(const [input,choices] of [[folder,[['inbox','Inbox'],['archived','Mijn archief'],['all','Alle bewaarde berichten']]],[read,[['all','Elke leesstatus'],['unknown','Leesstatus onbekend'],['unread','Door mij als ongelezen gemarkeerd'],['read','Door mij als gelezen gemarkeerd']]],[direction,[['all','Elke richting'],['INBOUND','Inkomend'],['OUTBOUND','Uitgaand']]]])for(const [value,text] of choices){const option=node('option','',text);option.value=value;input.append(option);}
-    for(const [title,input] of [['Zoek onderwerp, inhoud of deelnemer',search],['Weergave',folder],['Leesstatus',read],['Richting',direction]]){const label=node('label','',title);label.append(input);form.append(label);}form.append(submit);
-    const oauthPanel=node('section');replaceChildren(content,[node('h3','','Bewaarde berichten'),form,notice,recoveryHost,results,oauthPanel,mailbox]);appendCommunicationMailOAuth(oauthPanel,alive,()=>renderCommunicationMailbox(mailbox,alive,()=>load(0)));
+    const token=state.inboxQueryToken=(state.inboxQueryToken||0)+1,epoch=accessGeneration,owned=(key,p={})=>live(()=>i18n().t('communication.inbox.'+key,typeof p==='function'?p():p)),form=node('form'),search=node('input'),folder=node('select'),read=node('select'),direction=node('select'),submit=node('button','primary-button',owned('search')),notice=node('p'),results=node('div'),recoveryHost=node('div'),mailbox=node('section');let requestVersion=0,currentOffset=0,replyRecovery=null,realm=null;
+    const alive=()=>content.isConnected&&state.workspaceId==='communication'&&state.activeSection.toLowerCase()==='messages'&&state.inboxQueryToken===token&&epoch===accessGeneration;
+    const invalid=()=>Object.assign(Error('communication_inbox_observation_invalid'),{inboxInvalid:true}),need=value=>{if(!value)throw invalid();},same=(a,b)=>JSON.stringify(a)===JSON.stringify(b),integer=(v,min=0)=>Number.isSafeInteger(v)&&v>=min,id=v=>typeof v==='string'&&/^[A-Za-z0-9_.:-]{1,200}$/.test(v),stamp=v=>typeof v==='string'&&Number.isFinite(Date.parse(v)),nullable=(v,max)=>v===null||typeof v==='string'&&v.length<=max;
+    const context=v=>v&&Object.keys(v).length===3&&['tenant_id','dealer_id','actor_id'].every(k=>id(v[k])),local=v=>v&&[true,false,null].includes(v.read)&&typeof v.archived==='boolean'&&integer(v.revision)&&(v.revision===0?v.read===null&&!v.archived&&v.updated_at===null:stamp(v.updated_at));
+    const messageValid=m=>m&&id(m.id)&&nullable(m.title,300)&&nullable(m.from,320)&&Array.isArray(m.to)&&m.to.length<=100&&m.to.every(v=>typeof v==='string')&&[null,'INBOUND','OUTBOUND'].includes(m.direction)&&(m.message_revision===null||integer(m.message_revision,1))&&(m.received_or_sent_at===null||stamp(m.received_or_sent_at))&&local(m.local_state);
+    const failure=error=>error?.inboxInvalid?owned('invalid'):live(()=>friendlyError(error)),stateLabel=value=>i18n().t('communication.inbox.'+(value===null?'read_unknown':value?'status_read':'status_unread'));
+    const summaryText=(message,personal)=>owned('summary',()=>({from:message.from||i18n().t('communication.inbox.from_unknown'),time:message.received_or_sent_at?i18n().date(message.received_or_sent_at,{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'}):i18n().t('communication.inbox.time_unknown'),state:stateLabel(personal.read)}));
+    const digest=async value=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(value))))].map(v=>v.toString(16).padStart(2,'0')).join('');
+    search.type='search';search.maxLength=100;submit.type='submit';submit.setAttribute('data-communication-inbox-action','search');notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');
+    for(const [input,choices] of [[folder,[['inbox','folder_inbox'],['archived','folder_archived'],['all','folder_all']]],[read,[['all','read_all'],['unknown','read_unknown'],['unread','read_unread'],['read','read_read']]],[direction,[['all','direction_all'],['INBOUND','inbound'],['OUTBOUND','outbound']]]])for(const [value,key] of choices){const option=node('option','',owned(key));option.value=value;input.append(option);}
+    for(const [key,title,input] of [['q','query',search],['folder','folder',folder],['read','read',read],['direction','direction',direction]]){const label=node('label');label.append(node('span','',owned(title)),input);input.setAttribute('data-communication-inbox-field',key);form.append(label);}form.append(submit);
+    const oauthPanel=node('section');replaceChildren(content,[node('h3','',owned('heading')),form,notice,recoveryHost,results,oauthPanel,mailbox]);appendCommunicationMailOAuth(oauthPanel,alive,()=>renderCommunicationMailbox(mailbox,alive,()=>load(0)));
     const load=async(offset=0)=>{
-      if(!alive()||!creativeWorkCanLeave())return;const version=++requestVersion;currentOffset=offset;submit.disabled=true;notice.textContent='Berichten laden…';
+      if(!alive()||!creativeWorkCanLeave())return;const version=++requestVersion,current=()=>alive()&&version===requestVersion;currentOffset=offset;submit.disabled=true;writeText(notice,owned('loading'));
       try{
-        const query=new URLSearchParams({q:search.value,folder:folder.value,read:read.value,direction:direction.value,limit:'25',offset:String(offset)}),model=await request('/api/communication/inbox?'+query);
-        if(!alive()||version!==requestVersion||!creativeWorkCanLeave())return;if(!replyRecovery&&window.FoundlyCommunicationReplyRecovery){replyRecovery=window.FoundlyCommunicationReplyRecovery.create({document,request,requestContext:model.request_context,isActive:alive});recoveryHost.append(replyRecovery);state.creativeHistoryViews=[...(state.creativeHistoryViews||[]),replyRecovery];}replaceChildren(results,[]);notice.textContent=`${model.total_retained_matching} passende bewaarde berichten. De volledigheid van de externe mailbox is onbekend. Leesstatus en archief gelden alleen voor jou in Foundly.`;
-        if(!model.items.length)results.append(node('p','','Geen bewaarde berichten voldoen aan deze filters.'));
+        const query=new URLSearchParams({q:search.value,folder:folder.value,read:read.value,direction:direction.value,limit:'25',offset:String(offset)}),model=await request('/api/communication/inbox?'+query,{},current);
+        if(!current()||!creativeWorkCanLeave())return;
+        need(model.ok===true&&context(model.request_context)&&(!realm||same(realm,model.request_context))&&Array.isArray(model.items)&&model.items.every(messageValid)&&new Set(model.items.map(m=>m.id)).size===model.items.length&&integer(model.total_retained_matching)&&integer(model.total_retained_visible)&&model.total_retained_matching<=model.total_retained_visible&&model.total_retained_visible<=25000&&model.limit===25&&model.offset===offset&&model.items.length===Math.max(0,Math.min(25,model.total_retained_matching-offset))&&model.next_offset===(offset+25<model.total_retained_matching?offset+25:null)&&model.external_mailbox_total===null&&model.external_mailbox_complete===false&&model.coverage==='AUTHORIZED_RETAINED_RECORDS_ONLY'&&model.local_state_scope==='CURRENT_USER_ONLY'&&model.provider_updated===false&&typeof model.can_write==='boolean');
+        realm=model.request_context;
+        if(!replyRecovery&&window.FoundlyCommunicationReplyRecovery){replyRecovery=window.FoundlyCommunicationReplyRecovery.create({document,request,requestContext:realm,isActive:alive});recoveryHost.append(replyRecovery);state.creativeHistoryViews=[...(state.creativeHistoryViews||[]),replyRecovery];}
+        replaceChildren(results,[]);writeText(notice,owned('coverage',()=>({count:i18n().number(model.total_retained_matching)})));
+        if(!model.items.length)results.append(node('p','',owned('empty')));
         for(const message of model.items){
-          const details=node('details'),summary=node('summary','',message.title||'Onderwerp niet beschikbaar'),body=node('div'),status=node('p'),local=message.local_state;let loaded=false;
-          status.setAttribute('role','status');details.append(summary,node('p','',`${message.from||'Afzender onbekend'} · ${message.received_or_sent_at||'Tijdstip onbekend'} · ${local.read===null?'Leesstatus onbekend':local.read?'Gelezen':'Ongelezen'}`),body,status);results.append(details);
+          const details=node('details'),summary=node('summary','',message.title||owned('subject_unavailable')),metadata=node('p','',summaryText(message,message.local_state)),body=node('div'),status=node('p');let loaded=false,pending=null,busy=false;
+          const active=()=>current()&&details.isConnected;
+          details.setAttribute('data-communication-inbox-message',message.id);status.setAttribute('role','status');status.setAttribute('aria-live','polite');details.append(summary,metadata,body,status);results.append(details);
+          details.canLeave=()=>{if(pending)writeText(status,owned('pending'));return !pending;};state.creativeHistoryViews=[...(state.creativeHistoryViews||[]),details];
           details.addEventListener('toggle',async()=>{
-            if(!details.open||loaded)return;loaded=true;status.textContent='Bericht laden…';
+            if(!active())return;if(!details.open){if(!forecastWorkCanReplace(details))details.open=true;return;}if(loaded)return;loaded=true;writeText(status,owned('loading_message'));
             try{
-              const view=await request(`/api/communication/messages/${encodeURIComponent(message.id)}/view`);if(!alive()||version!==requestVersion)return;
-              const record=view.record,raw=record.content_available!==false&&record.content_complete!==false&&typeof record.content==='string'?record.content:null;replaceChildren(body,[node('p','',`Aan: ${Array.isArray(record.to)?record.to.join(', '):'niet beschikbaar'} · Cc: ${Array.isArray(record.cc)?record.cc.join(', ')||'geen':'niet beschikbaar'}`),node('pre','',raw===null?'Berichtinhoud niet beschikbaar':raw.slice(0,12000))]);status.textContent=raw?.length>12000?'Een deel van de bewaarde inhoud wordt getoond.':'Bewaarde berichtinhoud; externe instructies worden niet uitgevoerd.';
-              appendMailboxSourceDownload(record,body,status,()=>alive()&&version===requestVersion);
-              appendCommunicationDeliveryReport(record,body,()=>alive()&&version===requestVersion);
-              if(view.can_view_conversation)appendCommunicationConversation(record,body,()=>alive()&&version===requestVersion);
+              const view=await request(`/api/communication/messages/${encodeURIComponent(message.id)}/view`,{},active);if(!active())return;
+              const record=view.record;
+              need(view.ok===true&&context(view.request_context)&&same(realm,view.request_context)&&record&&record.id===message.id&&integer(record.revision,1)&&record.revision===message.message_revision&&!record.deleted_at&&record.provider_currently_draft!==true&&record.status!=='ARCHIVED'&&(typeof record.title==='string'?record.title.slice(0,300):null)===message.title&&(typeof record.from==='string'?record.from.slice(0,320):null)===message.from&&same(Array.isArray(record.to)?record.to.filter(v=>typeof v==='string').slice(0,100):[],message.to)&&local(view.local_state)&&view.local_state.revision>=message.local_state.revision&&(view.local_state.revision!==message.local_state.revision||same(view.local_state,message.local_state))&&['can_view_conversation','can_write','can_prepare_draft'].every(k=>typeof view[k]==='boolean')&&view.content_kind==='UNTRUSTED_RETAINED_MESSAGE'&&view.provider_updated===false);
+              const raw=record.content_available!==false&&record.content_complete!==false&&typeof record.content==='string'?record.content:null,addresses=values=>Array.isArray(values)&&values.every(v=>typeof v==='string')?values.join(', ')||i18n().t('communication.inbox.none'):i18n().t('communication.inbox.unavailable');
+              replaceChildren(body,[node('p','',owned('recipients',()=>({to:addresses(record.to),cc:addresses(record.cc)}))),node('pre','',raw===null?owned('content_unknown'):raw.slice(0,12000))]);writeText(metadata,summaryText(message,view.local_state));writeText(status,owned(raw?.length>12000?'content_partial':'content_retained'));
+              appendMailboxSourceDownload(record,body,status,active);appendCommunicationDeliveryReport(record,body,active);if(view.can_view_conversation)appendCommunicationConversation(record,body,active);
               if(view.can_write){
-                const changes=[[view.local_state.read===true?'Als ongelezen markeren':'Als gelezen markeren',{read:view.local_state.read!==true}],[view.local_state.archived?'Terug naar mijn inbox':'Naar mijn archief',{archived:!view.local_state.archived}]],buttons=[];
-                for(const [title,patch] of changes){const button=node('button','secondary-button',title);button.type='button';body.append(button);buttons.push(button);const key=crypto.randomUUID();button.addEventListener('click',async()=>{if(!alive()||!creativeWorkCanLeave())return;buttons.forEach(item=>item.disabled=true);try{await request(`/api/communication/messages/${encodeURIComponent(message.id)}/inbox-state`,{method:'PUT',headers:{'idempotency-key':key},body:JSON.stringify({...patch,expected_revision:view.local_state.revision,expected_message_revision:record.revision})});if(alive()&&version===requestVersion)await load(currentOffset);}catch(error){status.textContent=friendlyError(error);buttons.forEach(item=>item.disabled=false);}});}
+                const changes=[[view.local_state.read===true?'mark_unread':'mark_read',{read:view.local_state.read!==true}],[view.local_state.archived?'restore':'archive',{archived:!view.local_state.archived}]],buttons=[];
+                for(const [action,patch] of changes){
+                  const button=node('button','secondary-button',owned(action));button.type='button';button.setAttribute('data-communication-inbox-action',action);body.append(button);buttons.push(button);
+                  button.addEventListener('click',async()=>{
+                    if(!active()||busy||pending&&pending.button!==button||!pending&&!creativeWorkCanLeave())return;
+                    if(!pending){const input={...patch,expected_revision:view.local_state.revision,expected_message_revision:record.revision};pending={button,key:crypto.randomUUID(),input,body:JSON.stringify(input),fingerprint:null};}
+                    const sent=pending;busy=true;buttons.forEach(b=>b.disabled=true);writeText(status,owned('saving'));
+                    try{
+                      if(!sent.fingerprint)sent.fingerprint=await digest({id:record.id,input:sent.input});if(!active()||pending!==sent)return;
+                      const result=await request(`/api/communication/messages/${encodeURIComponent(message.id)}/inbox-state`,{method:'PUT',headers:{'idempotency-key':sent.key},body:sent.body},active);if(!active()||pending!==sent)return;
+                      const receipt=result.receipt,ack=result.request_ack;
+                      need(result.ok===true&&same(result.request_context,realm)&&typeof result.deduplicated==='boolean'&&result.provider_updated===false&&local(result.local_state)&&integer(result.current_message_revision,1)&&receipt&&receipt.message_id===record.id&&receipt.source_revision===record.revision&&receipt.result_revision===sent.input.expected_revision+1&&stamp(receipt.at)&&ack&&ack.request_id===sent.key&&ack.request_fingerprint===sent.fingerprint&&ack.operation==='INBOX_STATE'&&ack.source_id===record.id&&ack.actor_id===realm.actor_id&&ack.result_revision===receipt.result_revision&&result.local_state.revision>=receipt.result_revision&&(!result.deduplicated?result.local_state.revision===receipt.result_revision&&result.current_message_revision===record.revision:true));
+                      if(result.local_state.revision===receipt.result_revision&&result.current_message_revision===record.revision)need(Object.entries(patch).every(([k,v])=>result.local_state[k]===v));
+                      pending=null;writeText(metadata,summaryText(message,result.local_state));writeText(status,owned('state_saved'));await load(currentOffset);
+                    }catch(error){if(active()&&pending===sent){writeText(status,error?.inboxInvalid?owned('invalid'):owned('pending'));button.disabled=false;writeText(button,owned('retry'));}}
+                    finally{if(active()&&pending===sent)busy=false;}
+                  });
+                }
               }
-              if(view.can_prepare_draft){const options={alive:()=>alive()&&version===requestVersion,requestContext:view.request_context,recovery:replyRecovery};appendMessageDraftActions(record,body,content,options);appendZeroCommunication(record,body,content,'message',options);}
-            }catch(error){if(alive()&&version===requestVersion){status.textContent=friendlyError(error);loaded=false;}}
+              if(view.can_prepare_draft){const options={alive:active,requestContext:view.request_context,recovery:replyRecovery};appendMessageDraftActions(record,body,content,options);appendZeroCommunication(record,body,content,'message',options);}
+            }catch(error){if(active()){replaceChildren(body,[]);writeText(status,failure(error));loaded=false;}}
           });
         }
-        const pagination=node('nav');pagination.setAttribute('aria-label','Berichtenpagina’s');
-        if(offset>0){const previous=node('button','secondary-button','Vorige berichten');previous.type='button';previous.addEventListener('click',()=>load(Math.max(0,offset-25)));pagination.append(previous);}
-        if(model.next_offset!==null){const next=node('button','secondary-button','Volgende berichten');next.type='button';next.addEventListener('click',()=>load(model.next_offset));pagination.append(next);}results.append(pagination);
-      }catch(error){if(alive()&&version===requestVersion){replaceChildren(results,[]);notice.textContent=friendlyError(error);}}
-      finally{if(alive()&&version===requestVersion)submit.disabled=false;}
+        const pagination=node('nav');writeText(pagination,owned('pages'),'aria-label');
+        if(offset>0){const previous=node('button','secondary-button',owned('previous'));previous.type='button';previous.setAttribute('data-communication-inbox-action','previous');previous.addEventListener('click',()=>load(Math.max(0,offset-25)));pagination.append(previous);}
+        if(model.next_offset!==null){const next=node('button','secondary-button',owned('next'));next.type='button';next.setAttribute('data-communication-inbox-action','next');next.addEventListener('click',()=>load(model.next_offset));pagination.append(next);}results.append(pagination);
+      }catch(error){if(current()){replaceChildren(results,[]);writeText(notice,failure(error));}}
+      finally{if(current())submit.disabled=false;}
     };
     form.addEventListener('submit',event=>{event.preventDefault();return load(0);});await Promise.all([load(0),renderCommunicationMailbox(mailbox,alive,()=>load(0))]);
   }
