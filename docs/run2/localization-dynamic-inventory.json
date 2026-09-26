@@ -320,7 +320,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "77efa3ae5260bcd5bf23ca4c87828c55df12c82c07cba6b3a1cf80fd4d25c76e",
+      "sha256": "fd255bd9bc02923606cfd48dedc5b95729991855f50c730d2e6b04a4d70c455f",
       "items": [
         {
           "line": 49,
@@ -1757,45 +1757,45 @@
           "rich_text": false
         },
         {
-          "line": 1540,
-          "start": 226354,
-          "end": 226372,
+          "line": 1541,
+          "start": 226597,
+          "end": 226615,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1541,
-          "start": 226421,
-          "end": 226426,
+          "line": 1542,
+          "start": 226664,
+          "end": 226669,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1542,
-          "start": 226494,
-          "end": 226521,
+          "line": 1543,
+          "start": 226737,
+          "end": 226764,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1621,
-          "start": 244232,
-          "end": 244251,
+          "line": 1622,
+          "start": 244506,
+          "end": 244525,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1687,
-          "start": 251547,
-          "end": 251586,
+          "line": 1688,
+          "start": 251925,
+          "end": 251964,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -1804,18 +1804,18 @@
           "rich_text": false
         },
         {
-          "line": 1818,
-          "start": 264786,
-          "end": 264811,
+          "line": 1819,
+          "start": 265164,
+          "end": 265189,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1821,
-          "start": 265012,
-          "end": 265135,
+          "line": 1822,
+          "start": 265390,
+          "end": 265513,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -1824,36 +1824,36 @@
           "rich_text": false
         },
         {
-          "line": 1836,
-          "start": 266467,
-          "end": 266548,
+          "line": 1837,
+          "start": 266845,
+          "end": 266926,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1863,
-          "start": 268887,
-          "end": 268966,
+          "line": 1864,
+          "start": 269265,
+          "end": 269344,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1867,
-          "start": 269259,
-          "end": 269274,
+          "line": 1868,
+          "start": 269637,
+          "end": 269652,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1868,
-          "start": 269380,
-          "end": 269396,
+          "line": 1869,
+          "start": 269758,
+          "end": 269774,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],
@@ -2005,8 +2005,18 @@
       "items": []
     },
     {
+      "file": "procurement-clarification-client-state.js",
+      "sha256": "15a7530e0c53106304d61b36ccb2bcb4056fbe5cb3543f042a23ec246b5524ef",
+      "items": []
+    },
+    {
+      "file": "procurement-clarification-recovery-client.js",
+      "sha256": "a433fd3e0788a78e35910883915b2d17b700ad8acfd1564c76325ceb01313bd8",
+      "items": []
+    },
+    {
       "file": "procurement-clarifications-client.js",
-      "sha256": "7c7cfe3aba21c9485430d415ea94df92a8981f46689b2e751af203f9fc36443a",
+      "sha256": "d305045496c53d29f570a1cafa47ca173a3543c1706f0689c3b61b1941521bbb",
       "items": []
     },
     {
@@ -2016,7 +2026,7 @@
     },
     {
       "file": "procurement-zero-client.js",
-      "sha256": "b1ea82814910e47d32e5fcdbdf547ce92fbc922cc64e5dfad5db052a31b94fce",
+      "sha256": "d928ffa95bcf3c876712af05af0afb68a3deab8c26cc837c4ad48bb29dcc8833",
       "items": [
         {
           "line": 5,
