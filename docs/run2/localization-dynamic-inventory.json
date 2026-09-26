@@ -360,7 +360,7 @@
     },
     {
       "file": "foundly-workspace.js",
-      "sha256": "e1dc4b0cded7dee4fcd11088ae0f27f3105c497d858b39f7038360d62ab6ed9c",
+      "sha256": "113ed0ebe6a52eb837dc3501bba35632b286f470c9a145be9c75405c77f2ed2b",
       "items": [
         {
           "line": 49,
@@ -1220,64 +1220,9 @@
           "rich_text": false
         },
         {
-          "line": 1435,
-          "start": 215485,
-          "end": 215518,
-          "context": "element_text",
-          "text": "Gerelateerde bewaarde berichten",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1436,
-          "start": 215659,
-          "end": 215675,
-          "context": "textContent",
-          "text": "Gesprek laden…",
-          "parameters": [],
-          "rich_text": false
-        },
-        {
-          "line": 1437,
-          "start": 215900,
-          "end": 216201,
-          "context": "textContent",
-          "text": "{p0} zichtbare bewaarde berichten verbonden via onbevestigde mailheaders. Externe gespreksvolledigheid is onbekend. {p1} {p2}",
-          "parameters": [
-            "result.total_retained_visible",
-            "result.ambiguous_identifiers?'Dubbele bericht-ID’s worden niet samengevoegd.':''",
-            "result.headers_available?'':'Sommige headers zijn niet beschikbaar.'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 1438,
-          "start": 216234,
-          "end": 216415,
-          "context": "element_text",
-          "text": "Genoemde adressen: {p0}. {p1} Identiteiten zijn niet geverifieerd.",
-          "parameters": [
-            "result.participants.join(', ')||'niet beschikbaar'",
-            "result.participants_complete?'':'Onvolledige deelnemersgegevens.'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 1439,
-          "start": 216648,
-          "end": 216762,
-          "context": "element_text",
-          "text": "{p0} · {p1}",
-          "parameters": [
-            "message.from||'Afzender onbekend'",
-            "message.received_at||message.sent_at||'Ontvangst/verzendtijd onbekend'"
-          ],
-          "rich_text": false
-        },
-        {
-          "line": 1446,
-          "start": 218148,
-          "end": 218274,
+          "line": 1451,
+          "start": 222465,
+          "end": 222591,
           "context": "element_text",
           "text": "{p0} op bewaard bronbericht {p1}, revisie {p2}.",
           "parameters": [
@@ -1288,9 +1233,9 @@
           "rich_text": false
         },
         {
-          "line": 1448,
-          "start": 218642,
-          "end": 218704,
+          "line": 1453,
+          "start": 222959,
+          "end": 223021,
           "context": "element_text",
           "text": "Gespreksverwijzingen: {p0}",
           "parameters": [
@@ -1299,126 +1244,126 @@
           "rich_text": false
         },
         {
-          "line": 1452,
-          "start": 218837,
-          "end": 218857,
+          "line": 1457,
+          "start": 223154,
+          "end": 223174,
           "context": "element_text",
           "text": "Google-mailtoegang",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1453,
-          "start": 219119,
-          "end": 219139,
+          "line": 1458,
+          "start": 223436,
+          "end": 223456,
           "context": "textContent",
           "text": "Mailtoegang laden…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1456,
-          "start": 219963,
-          "end": 219970,
+          "line": 1461,
+          "start": 224280,
+          "end": 224287,
           "context": "element_text",
           "text": "Reden",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1457,
-          "start": 221138,
-          "end": 221162,
+          "line": 1462,
+          "start": 225455,
+          "end": 225479,
           "context": "textContent",
           "text": "Mailtoegang verwerken…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1457,
-          "start": 221630,
-          "end": 221652,
+          "line": 1462,
+          "start": 225947,
+          "end": 225969,
           "context": "element_text",
           "text": "Doorgaan naar Google",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1457,
-          "start": 221750,
-          "end": 221864,
+          "line": 1462,
+          "start": 226067,
+          "end": 226181,
           "context": "textContent",
           "text": "Verleen toestemming bij Google met deze Foundly-sessie actief. De algemene Google-koppeling blijft afzonderlijk.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1457,
-          "start": 222065,
-          "end": 222095,
+          "line": 1462,
+          "start": 226382,
+          "end": 226412,
           "context": "element_text",
           "text": "Mailtoegang opnieuw bekijken",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1458,
-          "start": 222382,
-          "end": 222406,
+          "line": 1463,
+          "start": 226699,
+          "end": 226723,
           "context": "element_text",
           "text": "Mailtoegang vernieuwen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1458,
-          "start": 222448,
-          "end": 222480,
+          "line": 1463,
+          "start": 226765,
+          "end": 226797,
           "context": "element_text",
           "text": "Mailtoegang lokaal ontkoppelen",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1625,
-          "start": 259171,
-          "end": 259189,
+          "line": 1630,
+          "start": 263509,
+          "end": 263527,
           "context": "placeholder",
           "text": "Europe/Amsterdam",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1626,
-          "start": 259238,
-          "end": 259243,
+          "line": 1631,
+          "start": 263576,
+          "end": 263581,
           "context": "placeholder",
           "text": "EUR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1627,
-          "start": 259311,
-          "end": 259338,
+          "line": 1632,
+          "start": 263649,
+          "end": 263676,
           "context": "placeholder",
           "text": "2026-09-06T10:00:00+02:00",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1706,
-          "start": 277232,
-          "end": 277251,
+          "line": 1711,
+          "start": 281570,
+          "end": 281589,
           "context": "element_text",
           "text": "Bewaarde prognose",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1772,
-          "start": 285003,
-          "end": 285042,
+          "line": 1777,
+          "start": 289341,
+          "end": 289380,
           "context": "title",
           "text": "{p0} · Foundly OS",
           "parameters": [
@@ -1427,18 +1372,18 @@
           "rich_text": false
         },
         {
-          "line": 1903,
-          "start": 298242,
-          "end": 298267,
+          "line": 1908,
+          "start": 302580,
+          "end": 302605,
           "context": "textContent",
           "text": "Configuratie valideren…",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1906,
-          "start": 298468,
-          "end": 298591,
+          "line": 1911,
+          "start": 302806,
+          "end": 302929,
           "context": "textContent",
           "text": "Tenantconfiguratie gevalideerd: {p0}. Geen businessdata aangemaakt.",
           "parameters": [
@@ -1447,36 +1392,36 @@
           "rich_text": false
         },
         {
-          "line": 1921,
-          "start": 299923,
-          "end": 300004,
+          "line": 1926,
+          "start": 304261,
+          "end": 304342,
           "context": "toast",
           "text": "Branchesjabloon overgenomen. Kies Opslaan om deze dashboardindeling te bewaren.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1948,
-          "start": 302343,
-          "end": 302422,
+          "line": 1953,
+          "start": 306681,
+          "end": 306760,
           "context": "toast",
           "text": "OAuth-callback is afgerond; de actuele probe bepaalt de uiteindelijke status.",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1952,
-          "start": 302715,
-          "end": 302730,
+          "line": 1957,
+          "start": 307053,
+          "end": 307068,
           "context": "textContent",
           "text": "RUNTIME ERROR",
           "parameters": [],
           "rich_text": false
         },
         {
-          "line": 1953,
-          "start": 302836,
-          "end": 302852,
+          "line": 1958,
+          "start": 307174,
+          "end": 307190,
           "context": "textContent",
           "text": "CHECK REQUIRED",
           "parameters": [],
