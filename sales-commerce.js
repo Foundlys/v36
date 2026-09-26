@@ -86,10 +86,10 @@ function validate(operation, input) {
   return input;
 }
 function mutate(domain, ctx, fn) { return scopedMutation(domain.adapter, ctx, [...ENTITIES.map(e => 'sales:' + e), OPERATIONS, 'sales:outbox', 'platform:audit'], fn); }
-function revise(domain, ctx, actor, entity, recordId, changes, effects) {
+function revise(domain, ctx, actor, entity, recordId, changes, effects, origin) {
   const rows = domain.bucket(ctx, entity), previous = rows.find(r => r.id === recordId), time = at(domain);
   if (!previous && rows.length >= (entity === 'commerce_movements' ? 100000 : 25000)) fail('commerce_capacity', 'De bewaarlimiet voor handelsrecords is bereikt', 507);
-  const row = {...previous, ...changes, id: recordId, tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, owner_id: previous?.owner_id || actor.id, source_module: 'sales', owned_entity: entity, revision: (previous?.revision || 0) + 1, created_at: previous?.created_at || time, updated_at: time, status: changes.status || previous?.status || 'ACTIVE', provenance: {source_id: 'authorized_user_input', actor_id: actor.id, observed_at: time, classification: 'USER_ATTESTED', provider_verified: false}};
+  const row = {...previous, ...changes, id: recordId, tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, owner_id: previous?.owner_id || actor.id, source_module: 'sales', owned_entity: entity, revision: (previous?.revision || 0) + 1, created_at: previous?.created_at || time, updated_at: time, status: changes.status || previous?.status || 'ACTIVE', provenance: {source_id: origin?.source_reference || 'authorized_user_input', actor_id: actor.id, observed_at: time, classification: origin?.classification || 'USER_ATTESTED', provider_verified: false, ...(origin ? {customer_truth:false} : {})}};
   if (previous) rows[rows.indexOf(previous)] = row; else rows.push(row);
   domain.recordEvent(ctx, actor, entity, row, previous ? 'updated' : 'created');
   effects.push({entity, id: row.id, owner_id: row.owner_id, revision: row.revision, snapshot: clone(row), sha256: hash(row)});
@@ -101,12 +101,12 @@ function inventory(domain, ctx, actor, productId) {
   if (![stock.on_hand, stock.reserved, stock.quarantined].every(integer) || stock.reserved > stock.on_hand) fail('commerce_inventory_integrity', 'De voorraadregistratie kan niet worden geverifieerd', 409);
   return stock;
 }
-function move(domain, ctx, actor, productId, deltas, operation, evidence, orderId, effects) {
+function move(domain, ctx, actor, productId, deltas, operation, evidence, orderId, effects, origin) {
   const prior = inventory(domain, ctx, actor, productId);
   const values = Object.fromEntries(['on_hand', 'reserved', 'quarantined'].map(k => [k, safe(BigInt(prior[k]) + BigInt(deltas[k] || 0))]));
   if (values.reserved > values.on_hand) fail('commerce_stock_insufficient', 'Er is onvoldoende beschikbare voorraad', 409);
-  const stock = revise(domain, ctx, actor, 'commerce_inventory', productId, {...values, available: values.on_hand - values.reserved}, effects);
-  revise(domain, ctx, actor, 'commerce_movements', crypto.randomUUID(), {product_id: productId, ...(orderId ? {order_id: orderId} : {}), operation, deltas, inventory_revision_before: prior.revision, inventory_revision_after: stock.revision, evidence_reference: evidence, physical_verification: 'USER_ATTESTED', external_dispatch: false}, effects);
+  const stock = revise(domain, ctx, actor, 'commerce_inventory', productId, {...values, available: values.on_hand - values.reserved}, effects, origin);
+  revise(domain, ctx, actor, 'commerce_movements', crypto.randomUUID(), {product_id: productId, ...(orderId ? {order_id: orderId} : {}), operation, deltas, inventory_revision_before: prior.revision, inventory_revision_after: stock.revision, evidence_reference: evidence, physical_verification: origin ? 'SYNTHETIC_DEMO' : 'USER_ATTESTED', external_dispatch: false}, effects, origin);
   return stock;
 }
 function totals(lines, quantityField = 'quantity') {
@@ -114,21 +114,21 @@ function totals(lines, quantityField = 'quantity') {
   for (const line of lines) { const amount = safe(BigInt(line.unit_price_minor) * BigInt(line[quantityField])); net = add(net, amount); taxes = add(taxes, tax(amount, line.tax_rate_bps)); }
   return {net_minor: net, tax_minor: taxes, gross_minor: add(net, taxes)};
 }
-function apply(domain, ctx, actor, operation, input, effects) {
+function apply(domain, ctx, actor, operation, input, effects, origin) {
   const products = domain.bucket(ctx, 'commerce_products');
   if (operation === 'PRODUCT_SAVE') {
     const exists = products.some(r => r.id === input.product_id), old = exists ? raw(domain, ctx, actor, 'commerce_products', input.product_id) : null;
     if (old) revision(old, input.expected_revision); else if (input.expected_revision !== 0) fail('commerce_revision_conflict', 'Het artikel bestaat nog niet', 409);
     if (products.some(r => r.id !== input.product_id && r.sku.toLowerCase() === input.sku.toLowerCase())) fail('commerce_sku_conflict', 'Deze artikelcode is al in gebruik', 409);
     const value = Object.fromEntries(['sku', 'name', 'group_id', 'attributes', 'gtin', 'currency', 'unit_price_minor', 'tax_rate_bps'].filter(k => Object.hasOwn(input, k)).map(k => [k, clone(input[k])]));
-    const row = revise(domain, ctx, actor, 'commerce_products', input.product_id, {...value, price_basis: 'EXCLUDING_TAX', attributes: input.attributes || {}}, effects);
-    if (!old) revise(domain, ctx, actor, 'commerce_inventory', input.product_id, {product_id: input.product_id, on_hand: 0, reserved: 0, quarantined: 0, available: 0}, effects);
+    const row = revise(domain, ctx, actor, 'commerce_products', input.product_id, {...value, price_basis: 'EXCLUDING_TAX', attributes: input.attributes || {}}, effects, origin);
+    if (!old) revise(domain, ctx, actor, 'commerce_inventory', input.product_id, {product_id: input.product_id, on_hand: 0, reserved: 0, quarantined: 0, available: 0}, effects, origin);
     return row;
   }
   if (operation === 'STOCK_RECEIVE') {
     const product = raw(domain, ctx, actor, 'commerce_products', input.product_id), stock = inventory(domain, ctx, actor, product.id);
     revision(product, input.expected_product_revision); revision(stock, input.expected_revision);
-    return move(domain, ctx, actor, product.id, {on_hand: input.quantity}, operation, input.evidence_reference, null, effects);
+    return move(domain, ctx, actor, product.id, {on_hand: input.quantity}, operation, input.evidence_reference, null, effects, origin);
   }
   if (operation === 'ORDER_RESERVE') {
     if (domain.bucket(ctx, 'commerce_orders').some(r => r.id === input.order_id)) fail('commerce_order_exists', 'Dit ordernummer is al in gebruik', 409);
@@ -140,8 +140,8 @@ function apply(domain, ctx, actor, operation, input, effects) {
       return {product_id: product.id, product_revision: product.revision, sku: product.sku, name: product.name, attributes: clone(product.attributes), quantity: line.quantity, returned_quantity: 0, unit_price_minor: product.unit_price_minor, tax_rate_bps: product.tax_rate_bps};
     });
     const amount = totals(lines);
-    for (const line of lines) move(domain, ctx, actor, line.product_id, {reserved: line.quantity}, operation, input.reason, input.order_id, effects);
-    return revise(domain, ctx, actor, 'commerce_orders', input.order_id, {lines, totals: amount, currency: input.currency, customer_reference: input.customer_reference, customer_reference_authority: 'USER_SUPPLIED_NOT_CRM_VERIFIED', status: 'RESERVED', financial_status: 'UNPOSTED', external_dispatch: false, payment_verified: false, returned_totals: totals(lines, 'returned_quantity'), history: [{operation, actor_id: actor.id, at: at(domain), reason: input.reason}]}, effects);
+    for (const line of lines) move(domain, ctx, actor, line.product_id, {reserved: line.quantity}, operation, input.reason, input.order_id, effects, origin);
+    return revise(domain, ctx, actor, 'commerce_orders', input.order_id, {lines, totals: amount, currency: input.currency, customer_reference: input.customer_reference, customer_reference_authority: 'USER_SUPPLIED_NOT_CRM_VERIFIED', status: 'RESERVED', financial_status: 'UNPOSTED', external_dispatch: false, payment_verified: false, returned_totals: totals(lines, 'returned_quantity'), history: [{operation, actor_id: actor.id, at: at(domain), reason: input.reason}]}, effects, origin);
   }
   const order = read(domain, ctx, actor, 'commerce_orders', input.order_id);
   revision(order, input.expected_revision);
@@ -153,15 +153,15 @@ function apply(domain, ctx, actor, operation, input, effects) {
       const line = order.lines.find(l => l.product_id === incoming.product_id);
       if (!line || incoming.quantity > line.quantity - line.returned_quantity) fail('commerce_return_exceeds_fulfilled', 'Het retouraantal overschrijdt de resterende geleverde hoeveelheid', 409);
       line.returned_quantity += incoming.quantity;
-      move(domain, ctx, actor, line.product_id, {[incoming.disposition === 'RESTOCK' ? 'on_hand' : 'quarantined']: incoming.quantity}, operation, input.evidence_reference, order.id, effects);
+      move(domain, ctx, actor, line.product_id, {[incoming.disposition === 'RESTOCK' ? 'on_hand' : 'quarantined']: incoming.quantity}, operation, input.evidence_reference, order.id, effects, origin);
     }
     returned = totals(order.lines, 'returned_quantity');
     status = order.lines.every(l => l.returned_quantity === l.quantity) ? 'RETURNED' : 'PARTIALLY_RETURNED';
   } else {
-    for (const line of order.lines) move(domain, ctx, actor, line.product_id, {reserved: -line.quantity, ...(operation === 'ORDER_FULFILL' ? {on_hand: -line.quantity} : {})}, operation, input.evidence_reference || input.reason, order.id, effects);
+    for (const line of order.lines) move(domain, ctx, actor, line.product_id, {reserved: -line.quantity, ...(operation === 'ORDER_FULFILL' ? {on_hand: -line.quantity} : {})}, operation, input.evidence_reference || input.reason, order.id, effects, origin);
     status = operation === 'ORDER_CANCEL' ? 'CANCELLED' : 'FULFILLED';
   }
-  return revise(domain, ctx, actor, 'commerce_orders', order.id, {lines: order.lines, status, returned_totals: returned, ...(operation === 'ORDER_RETURN' && order.invoice_id ? {financial_followup: 'RETURN_REVIEW_REQUIRED'} : {}), history: [...order.history, {operation, actor_id: actor.id, at: at(domain), reason: input.reason, ...(input.evidence_reference ? {evidence_reference: input.evidence_reference} : {}), ...(operation === 'ORDER_RETURN' ? {lines: clone(input.lines)} : {})}]}, effects);
+  return revise(domain, ctx, actor, 'commerce_orders', order.id, {lines: order.lines, status, returned_totals: returned, ...(operation === 'ORDER_RETURN' && order.invoice_id ? {financial_followup: 'RETURN_REVIEW_REQUIRED'} : {}), history: [...order.history, {operation, actor_id: actor.id, at: at(domain), reason: input.reason, ...(input.evidence_reference ? {evidence_reference: input.evidence_reference} : {}), ...(operation === 'ORDER_RETURN' ? {lines: clone(input.lines)} : {})}]}, effects, origin);
 }
 function capacity(rows, entry) {
   if (rows.length >= 100000 || rows.reduce((n, r) => n + Buffer.byteLength(JSON.stringify(r)), Buffer.byteLength(JSON.stringify(entry))) > 64 * 1024 * 1024) fail('commerce_operation_capacity', 'De bewaarlimiet voor handelsaanvragen is bereikt', 507);
@@ -180,18 +180,19 @@ function receipt(domain, ctx, actor, entry) {
   if (!result) fail('commerce_receipt_invalid', 'De resultaatverwijzing ontbreekt', 409);
   return {state: 'APPLIED', request_id: entry.key, request_fingerprint: entry.fingerprint, result_snapshot: result.snapshot, record: result.current, result_is_current: effects.every(e => e.is_current), effects, external_dispatch: false, payment_verified: false};
 }
-function execute(domain, ctx, actor, operation, input, {idempotency_key: key} = {}) {
+function execute(domain, ctx, actor, operation, input, {idempotency_key: key, demo_provenance: origin} = {}) {
   scope(domain, ctx, actor, 'write'); validate(operation, input);
+  if (origin !== undefined && (!keys(origin, ['classification','source_reference']) || origin.classification !== 'SYNTHETIC_DEMO' || typeof origin.source_reference !== 'string' || !/^demo:\/\/[A-Za-z0-9_.:-]{1,160}\/[A-Za-z0-9_.:-]{1,160}$/.test(origin.source_reference))) fail('commerce_provenance_invalid', 'De synthetische bronverwijzing is ongeldig');
   if (!text(key, 200)) fail('commerce_request_required', 'Gebruik een unieke aanvraag-ID');
-  const rows = domain.adapter.bucket(ctx, OPERATIONS), fingerprint = hash({operation, input}), prior = rows.find(r => r.actor_id === actor.id && r.key === key);
+  const rows = domain.adapter.bucket(ctx, OPERATIONS), fingerprint = hash({operation, input, ...(origin ? {demo_provenance: origin} : {})}), prior = rows.find(r => r.actor_id === actor.id && r.key === key);
   if (prior) {
     if (prior.fingerprint !== fingerprint) fail('commerce_request_conflict', 'Deze aanvraag-ID hoort bij andere invoer', 409);
     if (prior.state === 'ABANDONED') fail('commerce_request_abandoned', 'De eerdere aanvraag is afgesloten zonder uitvoering', 409);
     return {...receipt(domain, ctx, actor, prior), deduplicated: true};
   }
   const result = mutate(domain, ctx, () => {
-    const effects = [], record = apply(domain, ctx, actor, operation, input, effects);
-    const entry = {version: 1, state: 'APPLIED', tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, actor_id: actor.id, key, fingerprint, operation, result_entity: record.owned_entity, result_id: record.id, effects};
+    const effects = [], record = apply(domain, ctx, actor, operation, input, effects, origin);
+    const entry = {version: 1, state: 'APPLIED', tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, actor_id: actor.id, key, fingerprint, operation, ...(origin ? {demo_provenance: clone(origin)} : {}), result_entity: record.owned_entity, result_id: record.id, effects};
     capacity(rows, entry); rows.push(entry);
     return {...receipt(domain, ctx, actor, entry), deduplicated: false};
   });
@@ -202,9 +203,10 @@ function recover(domain, ctx, actor, input) {
   scope(domain, ctx, actor, 'write');
   if (!keys(input, ['operation', 'input', 'request_id', 'confirm']) || input.confirm !== true || !text(input.request_id, 200)) fail('commerce_recovery_invalid', 'Bevestig de exacte eerdere handelsaanvraag');
   validate(input.operation, input.input);
-  const rows = domain.adapter.bucket(ctx, OPERATIONS), fingerprint = hash({operation: input.operation, input: input.input}), prior = rows.find(r => r.actor_id === actor.id && r.key === input.request_id);
+  const rows = domain.adapter.bucket(ctx, OPERATIONS), prior = rows.find(r => r.actor_id === actor.id && r.key === input.request_id);
+  const fingerprint = hash({operation: input.operation, input: input.input, ...(prior?.demo_provenance ? {demo_provenance: prior.demo_provenance} : {})});
   if (prior) { if (prior.fingerprint !== fingerprint) fail('commerce_request_conflict', 'Deze aanvraag-ID hoort bij andere invoer', 409); return receipt(domain, ctx, actor, prior); }
-  if (rows.some(r => r.key === input.request_id && r.fingerprint === fingerprint)) fail('commerce_recovery_invalid', 'De eerdere aanvraag kan niet worden geverifieerd', 409);
+  if (rows.some(r => r.key === input.request_id && r.fingerprint === hash({operation: input.operation, input: input.input, ...(r.demo_provenance ? {demo_provenance: r.demo_provenance} : {})}))) fail('commerce_recovery_invalid', 'De eerdere aanvraag kan niet worden geverifieerd', 409);
   const entry = {version: 1, state: 'ABANDONED', tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, actor_id: actor.id, key: input.request_id, fingerprint, operation: input.operation};
   capacity(rows, entry);
   return mutate(domain, ctx, () => { rows.push(entry); domain.adapter.audit(ctx, actor, 'COMMERCE_REQUEST_ABANDONED', 'sales', null, {request_id: input.request_id}); return receipt(domain, ctx, actor, entry); });

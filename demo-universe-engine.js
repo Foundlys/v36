@@ -13,7 +13,7 @@ function hasBusinessData(ctx,stores){
   return false;
 }
 class DemoUniverseEngine{
-  constructor({adapter,resolver,crm,domains,identities,memory,build=Automotive.build}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,build});this.cache=new Map();}
+  constructor({adapter,resolver,crm,domains,identities,memory,build=null}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,build});this.cache=new Map();}
   authorize(ctx,actor){
     if(!ctx||!actor?.id||!canManage(actor))fail('demo_manage_forbidden',403);
     // This flag selects an explicitly isolated synthetic tenant. It conveys no
@@ -22,7 +22,7 @@ class DemoUniverseEngine{
     const profile=this.resolver.profile(ctx);if(!profile)fail('demo_composition_required',409);return profile;
   }
   rows(ctx){return this.adapter.bucket(ctx,SCOPE);}
-  manifest(options){const key=L.hash(options);if(!this.cache.has(key)){const m=this.build(options);L.validate(m);if(this.cache.size>=4)this.cache.delete(this.cache.keys().next().value);this.cache.set(key,m);}return this.cache.get(key);}
+  manifest(options){const key=L.hash(options);if(!this.cache.has(key)){const build=this.build||(options.industry_id==='ECOMMERCE'?require('./ecommerce-demo-universe').build:Automotive.build),m=build(options);L.validate(m);if(this.cache.size>=4)this.cache.delete(this.cache.keys().next().value);this.cache.set(key,m);}return this.cache.get(key);}
   reservedManifest(ctx,row){
     const retained=this.adapter.bucket(ctx,MANIFESTS).find(m=>m.fingerprint===row.plan_fingerprint);
     // Legacy reservations can only recover with their exact original generator.
@@ -31,12 +31,17 @@ class DemoUniverseEngine{
     if(manifest.fingerprint!==row.plan_fingerprint||manifest.nodes.length!==row.node_count)fail('demo_reserved_manifest_changed',409);
     return manifest;
   }
-  options(input){const options={seed:input.seed,as_of:input.as_of,vehicle_count:input.vehicle_count??200,history_months:input.history_months??18};if(typeof options.as_of!=='string'||Date.parse(options.as_of)>(this.adapter.now?.()||new Date()).getTime())fail('demo_future_reference_time');return options;}
-  preview(ctx,actor,input){keys(input,['seed','as_of','vehicle_count','history_months']);const profile=this.authorize(ctx,actor),options=this.options(input),m=this.manifest(options),proof=L.validate(m);return {schema_version:L.VERSION,request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},options,plan_fingerprint:m.fingerprint,profile_revision:profile.revision,industry_id:m.industry_id,counts:proof.counts,node_count:proof.node_count,classification:'SYNTHETIC_DEMO',native_permissions_required:true,external_effects:false,full_acceptance:false};}
+  options(input,industry){
+    if(!['AUTOMOTIVE','ECOMMERCE'].includes(industry))fail('demo_industry_unavailable',409);
+    if(industry==='ECOMMERCE'?input.vehicle_count!==undefined:['product_count','order_count','customer_count'].some(k=>input[k]!==undefined))fail('demo_request_invalid');
+    const options={seed:input.seed,as_of:input.as_of,history_months:input.history_months??18,...(industry==='ECOMMERCE'?{industry_id:industry,product_count:input.product_count??120,order_count:input.order_count??360,customer_count:input.customer_count??300}:{vehicle_count:input.vehicle_count??200})};
+    if(typeof options.as_of!=='string'||Date.parse(options.as_of)>(this.adapter.now?.()||new Date()).getTime())fail('demo_future_reference_time');return options;
+  }
+  preview(ctx,actor,input){keys(input,['seed','as_of','vehicle_count','history_months','product_count','order_count','customer_count']);const profile=this.authorize(ctx,actor),options=this.options(input,profile.industry_id),m=this.manifest(options),proof=L.validate(m);return {schema_version:L.VERSION,request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},options,plan_fingerprint:m.fingerprint,profile_revision:profile.revision,industry_id:m.industry_id,counts:proof.counts,node_count:proof.node_count,classification:'SYNTHETIC_DEMO',native_permissions_required:true,external_effects:false,full_acceptance:false};}
   start(ctx,actor,input,requestId){
-    keys(input,['seed','as_of','vehicle_count','history_months','plan_fingerprint','expected_profile_revision','confirm','reason']);const profile=this.authorize(ctx,actor);
+    keys(input,['seed','as_of','vehicle_count','history_months','product_count','order_count','customer_count','plan_fingerprint','expected_profile_revision','confirm','reason']);const profile=this.authorize(ctx,actor);
     if(typeof requestId!=='string'||!/^[A-Za-z0-9_.:-]{8,160}$/.test(requestId)||input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>1000)fail('demo_confirmation_required');
-    const options=this.options(input),m=this.manifest(options);if(profile.industry_id!==m.industry_id||input.expected_profile_revision!==profile.revision||input.plan_fingerprint!==m.fingerprint)fail('demo_plan_changed',409);
+    const options=this.options(input,profile.industry_id),m=this.manifest(options);if(profile.industry_id!==m.industry_id||input.expected_profile_revision!==profile.revision||input.plan_fingerprint!==m.fingerprint)fail('demo_plan_changed',409);
     const requestHash=L.hash({actor_id:actor.id,input}),prior=this.rows(ctx).find(r=>r.request_id===requestId);
     if(prior){if(prior.owner_id!==actor.id||prior.request_hash!==requestHash)fail('demo_request_conflict',409);return this.get(ctx,actor,prior.id);}
     if(this.rows(ctx).length)fail('demo_universe_already_reserved',409);
@@ -55,6 +60,7 @@ class DemoUniverseEngine{
     this.access(ctx,actor,node,'read');
     if(node.contract==='crm.create')return this.crm.get(ctx,actor,node.entity,id);
     if(node.contract==='domain.create')return this.domains[node.module].get(ctx,actor,node.entity,id);
+    if(node.contract==='commerce.action')return require('./sales-commerce').read(this.domains.sales,ctx,actor,node.entity,id);
     if(node.contract==='identity.invite'){const row=this.identities.list(ctx,actor).items.find(r=>r.id===id);if(!row)fail('demo_native_record_missing',404);return row;}
     if(node.contract==='memory.create')return this.memory.get(ctx,actor,id);
     fail('demo_contract_unavailable');
@@ -63,6 +69,11 @@ class DemoUniverseEngine{
     this.access(ctx,actor,node,'write');
     if(node.contract==='crm.create')return this.crm.create(ctx,actor,node.entity,{...input,provenance:clone(node.provenance)},{idempotencyKey:key});
     if(node.contract==='domain.create')return this.domains[node.module].save(ctx,actor,node.entity,input,{idempotency_key:key,provenance_classification:'SYNTHETIC_DEMO'}).record;
+    if(node.contract==='commerce.action'){
+      const result=require('./sales-commerce').execute(this.domains.sales,ctx,actor,input.operation,{...input.values,confirm:true,reason:input.reason},{idempotency_key:key,demo_provenance:{classification:'SYNTHETIC_DEMO',source_reference:node.provenance.source_reference}});
+      if(!result.result_is_current)fail('demo_native_source_changed',409);
+      return result.record;
+    }
     if(node.contract==='identity.invite')return this.identities.invite(ctx,actor,input,key).member;
     if(node.contract==='memory.create')return this.memory.create(ctx,actor,input,{idempotencyKey:key});
     fail('demo_contract_unavailable');
@@ -72,15 +83,25 @@ class DemoUniverseEngine{
     if(input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>1000||!Number.isSafeInteger(input.limit)||input.limit<1||input.limit>100)fail('demo_confirmation_required');
     if(input.expected_cursor!==row.cursor||input.expected_profile_revision!==profile.revision||profile.industry_id!==m.industry_id||m.fingerprint!==row.plan_fingerprint)fail('demo_plan_changed',409);
     const nodeMap=new Map(m.nodes.map(n=>[n.id,n])),end=Math.min(row.cursor+input.limit,m.nodes.length),bindings=clone(row.bindings),applied=[];let cursor=row.cursor;
+    const checkpoint=()=>{
+      if(!applied.length)return;
+      scopedMutation(this.adapter,ctx,[SCOPE,AUDIT],()=>{row.bindings=clone(bindings);row.cursor=cursor;row.revision++;row.status=cursor===m.nodes.length?'SEEDED':'SEEDING';row.last_error=null;for(const item of applied)this.audit(ctx,actor,row,'APPLIED',item);});
+      applied.length=0;
+    };
     for(;cursor<end;){
       const node=m.nodes[cursor];
       try{
+        // Inventory/order commands change existing native sources. Retain the
+        // preceding cursor before them and their acknowledgement before the
+        // next command, so later mutations cannot invalidate a batch replay.
+        if(node.contract==='commerce.action')checkpoint();
         this.authorize(ctx,actor);
         for(const ref of node.depends_on){const binding=bindings[ref];if(!binding)fail('demo_dependency_not_applied',409);const actual=this.read(ctx,actor,nodeMap.get(ref),binding.id);if(actual.revision!==binding.revision||L.hash(actual)!==binding.record_hash)fail('demo_dependency_changed',409);}
         const nativeInput=L.resolveInput(node.input,bindings),key='demo:'+L.hash([row.id,node.id]).slice(0,48),result=this.write(ctx,actor,node,nativeInput,key),record=this.read(ctx,actor,node,result.id);
         if(!record?.id||!Number.isSafeInteger(record.revision)||record.revision<1)fail('demo_native_ack_invalid',502);if(record.revision!==result.revision)fail('demo_native_source_changed',409);
         const binding={id:record.id,revision:record.revision,record_hash:L.hash(record),module:node.module,entity:node.entity,input_hash:L.hash(nativeInput)};
         bindings[node.id]=binding;cursor++;applied.push({node_id:node.id,native_id:record.id,native_revision:record.revision});
+        if(node.contract==='commerce.action')checkpoint();
       }catch(error){
         // A native effect may already be durable when receipt persistence fails.
         // The next explicit attempt uses exactly the same native request key.
@@ -88,7 +109,7 @@ class DemoUniverseEngine{
         throw error;
       }
     }
-    if(applied.length)scopedMutation(this.adapter,ctx,[SCOPE,AUDIT],()=>{row.bindings=bindings;row.cursor=cursor;row.revision++;row.status=cursor===m.nodes.length?'SEEDED':'SEEDING';row.last_error=null;for(const item of applied)this.audit(ctx,actor,row,'APPLIED',item);});
+    checkpoint();
     return this.get(ctx,actor,id);
   }
 }

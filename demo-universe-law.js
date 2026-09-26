@@ -13,6 +13,7 @@ const CONTRACTS=Object.freeze({
   'document.create':{module:'data',entities:['documents']},
   'workflow.save':{module:'automation',entities:['workflows']},
   'finance.draft':{module:'finance',entities:['invoice_drafts']},
+  'commerce.action':{module:'sales',entities:['commerce_products','commerce_inventory','commerce_orders']},
   'memory.create':{module:'knowledge',entities:['memories']},
   'identity.invite':{module:'identity',entities:['members']}
 });
@@ -51,11 +52,11 @@ function provenance(scenarioId,nodeId){return {classification:'SYNTHETIC_DEMO',g
 function validateProvenance(value,scenarioId,nodeId){if(canonical(value)!==canonical(provenance(scenarioId,nodeId)))fail('demo_provenance_invalid');}
 function validate(manifest){
   keys(manifest,['schema_version','scenario_id','seed','as_of','history_start','industry_id','company','locations','personas','nodes','scenarios','derived','fingerprint']);
-  if(manifest.schema_version!==VERSION||!id(manifest.scenario_id)||!id(manifest.seed)||!date(manifest.as_of)||!date(manifest.history_start)||manifest.history_start>=manifest.as_of||!['GENERAL','AUTOMOTIVE'].includes(manifest.industry_id))fail('demo_manifest_invalid');
+  if(manifest.schema_version!==VERSION||!id(manifest.scenario_id)||!id(manifest.seed)||!date(manifest.as_of)||!date(manifest.history_start)||manifest.history_start>=manifest.as_of||!['GENERAL','AUTOMOTIVE','ECOMMERCE'].includes(manifest.industry_id))fail('demo_manifest_invalid');
   keys(manifest.company,['name','classification']);if(manifest.company.classification!=='SYNTHETIC_DEMO'||typeof manifest.company.name!=='string'||!manifest.company.name.startsWith(LABEL))fail('demo_company_invalid');
   if(!Array.isArray(manifest.locations)||!manifest.locations.length||manifest.locations.length>30||!Array.isArray(manifest.personas)||!manifest.personas.length||manifest.personas.length>100)fail('demo_organization_invalid');
   const locations=new Set();for(const row of manifest.locations){keys(row,['id','name','country','timezone','classification']);if(!id(row.id)||locations.has(row.id)||typeof row.name!=='string'||!row.name.startsWith(LABEL)||!/^[A-Z]{2}$/.test(row.country)||typeof row.timezone!=='string'||row.classification!=='SYNTHETIC_DEMO')fail('demo_location_invalid');try{new Intl.DateTimeFormat('en',{timeZone:row.timezone});}catch{fail('demo_location_invalid');}locations.add(row.id);}
-  const personas=new Set();for(const row of manifest.personas){keys(row,['id','name','role','location_id','classification']);if(!id(row.id)||personas.has(row.id)||typeof row.name!=='string'||!row.name.startsWith(LABEL)||!['ADMIN','MANAGER','SALES','MARKETING','VIEWER','FINANCE'].includes(row.role)||!locations.has(row.location_id)||row.classification!=='SYNTHETIC_DEMO')fail('demo_persona_invalid');personas.add(row.id);}
+  const personas=new Set();for(const row of manifest.personas){keys(row,['id','name','role','location_id','classification']);if(!id(row.id)||personas.has(row.id)||typeof row.name!=='string'||!row.name.startsWith(LABEL)||![...require('./module-role-policy').ROLE_IDS,'FINANCE'].includes(row.role)||!locations.has(row.location_id)||row.classification!=='SYNTHETIC_DEMO')fail('demo_persona_invalid');personas.add(row.id);}
   if(!Array.isArray(manifest.nodes)||!manifest.nodes.length||manifest.nodes.length>20000)fail('demo_node_capacity');
   const seen=new Map(),counts={};
   for(const n of manifest.nodes){
@@ -64,7 +65,12 @@ function validate(manifest){
     if(['id','tenant_id','dealer_id','revision','created_at','updated_at','created_by','updated_by','provenance'].some(k=>Object.hasOwn(n.input,k)))fail('demo_reserved_input');
     validateProvenance(n.provenance,manifest.scenario_id,n.id);
     for(const ref of [...n.depends_on,...references(n.input)])if(!seen.has(ref)||!n.depends_on.includes(ref)||seen.get(ref).occurred_at>n.occurred_at)fail('demo_dependency_invalid');
-    const labels=['name','display_name','title','content','description','text'].filter(k=>typeof n.input[k]==='string');if(!labels.some(k=>n.input[k].startsWith(LABEL)))fail('demo_visible_label_required');
+    const labels=['name','display_name','title','content','description','text','reason'].filter(k=>typeof n.input[k]==='string');if(!labels.some(k=>n.input[k].startsWith(LABEL)))fail('demo_visible_label_required');
+    if(n.contract==='commerce.action'){
+      keys(n.input,['operation','values','reason']);
+      const entities={PRODUCT_SAVE:'commerce_products',STOCK_RECEIVE:'commerce_inventory',ORDER_RESERVE:'commerce_orders',ORDER_CANCEL:'commerce_orders',ORDER_FULFILL:'commerce_orders',ORDER_RETURN:'commerce_orders'};
+      if(entities[n.input.operation]!==n.entity||!object(n.input.values)||['confirm','reason'].some(k=>Object.hasOwn(n.input.values,k))||typeof n.input.reason!=='string'||!n.input.reason.startsWith(LABEL))fail('demo_commerce_action_invalid');
+    }
     if(canonical(n.input).length>50000)fail('demo_input_capacity');
     if(n.contract==='workflow.save'&&(n.input.automatic!==false||n.input.approval_required!==true||n.input.trigger_type!=='custom_event'))fail('demo_workflow_must_require_explicit_execution');
     if(n.contract==='identity.invite'&&(n.input.confirm!==true||!n.input.username?.endsWith('.demo')))fail('demo_identity_invalid');

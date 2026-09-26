@@ -716,7 +716,7 @@
       if(current.profile===null?resolution.revision!==0||resolution.legacy_compatibility!==true:resolution.legacy_compatibility!==false||resolution.revision<1||current.profile.industry_id!==resolution.industry_id||!equal(current.profile.entitlements,resolution.entitlements)||!equal(current.profile.enabled_modules,resolution.enabled_modules)||Object.entries(current.profile.capability_flags).some(([key,value])=>!capabilities.includes(key)||typeof value!=='boolean'))throw invalid();
       const form=node('form','domain-record-form'),industryLabel=node('label','',copy('composer_industry')),industry=node('select'),bundleLabel=node('label','',copy('composer_bundle')),bundle=node('select'),groups=node('div','composition-modules');
       const present=()=>active()&&form.isConnected;
-      for(const [id,pack]of Object.entries(catalog.industries))if(pack?.production===true){if(pack.industry_id!==id)throw invalid();const option=node('option','',['GENERAL','AUTOMOTIVE'].includes(id)?copy('composer_industry_'+id.toLowerCase()):id);option.value=id;industry.append(option);}
+      for(const [id,pack]of Object.entries(catalog.industries))if(pack?.production===true){if(pack.industry_id!==id)throw invalid();const option=node('option','',['GENERAL','AUTOMOTIVE','ECOMMERCE'].includes(id)?copy('composer_industry_'+id.toLowerCase()):id);option.value=id;industry.append(option);}
       industry.value=resolution.industry_id;industryLabel.append(industry);
       const custom=node('option','',copy('composer_custom'));custom.value='';bundle.append(custom);
       for(const name of Object.keys(catalog.bundles)){const option=node('option','',ownedModules.has(name.toLowerCase())?moduleLabel(name.toLowerCase()):['COMPLETE','OPERATIONS'].includes(name)?copy('composer_bundle_'+name.toLowerCase()):name);option.value=name;bundle.append(option);}bundleLabel.append(bundle);
@@ -1645,7 +1645,7 @@
       }
       const industryInputs=new Map(),contract=schema.industry_fields||{fields:[]};
       if(contract.fields.length){
-        const group=node('fieldset'),legend=node('legend','',live(()=>copy('domain_industry',{industry:['GENERAL','AUTOMOTIVE'].includes(contract.industry_id)?String(copy('composer_industry_'+contract.industry_id.toLowerCase())):String(contract.industry_id)})));group.append(legend);
+        const group=node('fieldset'),legend=node('legend','',live(()=>copy('domain_industry',{industry:['GENERAL','AUTOMOTIVE','ECOMMERCE'].includes(contract.industry_id)?String(copy('composer_industry_'+contract.industry_id.toLowerCase())):String(contract.industry_id)})));group.append(legend);
         for(const field of contract.fields){const label=node('label'),input=node(field.type==='boolean'?'select':'input');label.append(node('span','',contract.industry_id==='AUTOMOTIVE'&&['vin','registration','mileage','vehicle_id'].includes(field.name)&&field.label===field.name?copy('domain_industry_field.'+field.name):field.label));
           if(field.type==='boolean'){for(const [value,title] of [['',copy('domain_unspecified')],['true',copy('yes')],['false',copy('no')]]){const option=node('option','',title);option.value=value;input.append(option);}}
           else {input.type=field.type==='number'?'number':'text';input.maxLength=1000;if(field.type==='number')input.step='any';}

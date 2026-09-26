@@ -108,6 +108,17 @@ const ALIASES = freeze({...Object.fromEntries(Object.entries(MODULES).flatMap(([
 const BUNDLES = freeze({ COMPLETE: Object.keys(MODULES), OPERATIONS: ['crm', 'calendar', 'communication', 'automation'], ...Object.fromEntries(Object.keys(MODULES).map(id => [id.toUpperCase(), [id]])) });
 const INDUSTRIES = freeze({
   GENERAL: { industry_id: 'GENERAL', production: true, extensions: {} },
+  ECOMMERCE: { industry_id: 'ECOMMERCE', production: true, route: '/sales', acceptance: 'PENDING', extensions: {
+    sales: { objects: ['commerce_products','commerce_inventory','commerce_orders','commerce_movements'], fields: ['sales_channel','merchant_reference'], field_schema: {sales_channel:{type:'string'},merchant_reference:{type:'string'}}, dashboard_presets: [{id:'commerce_operations',version:1,name:'Artikelen, voorraad en orders',required_capabilities:['sales:quotes'],metrics:['commerce_products','commerce_inventory','commerce_orders','commerce_movements']}] },
+    crm: {fields:['customer_segment','preferred_channel'],objects:['commerce_customer_relationship']},
+    procurement: {fields:['supplier_sku','purchase_channel'],field_schema:{supplier_sku:{type:'string'},purchase_channel:{type:'string'}},objects:['supplier','rfq','bid','order']},
+    marketing: {fields:['sales_channel','campaign_reference'],field_schema:{sales_channel:{type:'string'},campaign_reference:{type:'string'}}},
+    finance: {objects:['invoice','payment','commerce_invoice_link']},
+    analysis: {objects:['commerce_event_source'],kpis:[]},
+    calendar: {fields:['fulfilment_reference'],field_schema:{fulfilment_reference:{type:'string'}}},
+    communication: {fields:['commerce_order_reference'],field_schema:{commerce_order_reference:{type:'string'}}},
+    automation: {workflow_templates:[{id:'commerce_order_review',version:1,name:'Order en voorraad beoordelen',required_capabilities:['automation:workflows'],draft:{name:'Order en voorraad beoordelen',version:1,trigger_type:'custom_event',automatic:false,approval_required:true,steps:[{type:'create_task',values:{title:'Controleer de order, voorraad en financiële opvolging'},attempts:1}]}}]}
+  } },
   AUTOMOTIVE: { industry_id: 'AUTOMOTIVE', production: true, route: '/automotive', extensions: {
     procurement: { objects: ['vehicle', 'listing'], tools: Object.keys(TOOL_MODULES).filter(t => t.startsWith('automotive_')), connectors: ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc'], fields: ['vin', 'registration', 'mileage'], field_schema:{vin:{type:'string'},registration:{type:'string'},mileage:{type:'number'}}, kpis: ['buy_score', 'acquisition_economics'], dashboard_presets:[{id:'vehicle_sourcing_review',version:1,name:'Voertuiginkoop beoordelen',required_capabilities:['procurement:sourcing','procurement:approvals','procurement:suppliers'],metrics:['rfqs','bids','awards','suppliers']}] },
     crm: { fields: ['vehicle_interest'], objects: ['vehicle_customer_relationship'] },

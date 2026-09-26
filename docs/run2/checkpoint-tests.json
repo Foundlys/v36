@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-26T21:52:33.687914+00:00",
+  "recorded_at": "2026-09-26T22:31:14.047896+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -38341,7 +38341,27 @@
         "gzip_sha256": "0db9a6b38b7c0c88e3042589252065e988ca8bf668e887b0626989b717871c97"
       }
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "status": "PASS",
+      "run_number": 269,
+      "run_id": 36274527673,
+      "job_id": 108494575705,
+      "published_commit": "64a304c4df960ae06b3b8a7b0e7c190c4c1e8d19",
+      "tested_merge_commit": "e0f4355a0c9e1167e2ad4f452033feb9ba1192ad",
+      "tree": "1ac2452627a02b09f731ed98fbbe1600b262f45f",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T21:54:47Z",
+      "completed_at": "2026-09-26T22:10:47Z",
+      "workflow_elapsed_seconds": 960,
+      "zero_pass": 1833,
+      "corpus_pass": 14,
+      "log": {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ci269-job-108494575705.log.gz",
+        "raw_bytes": 865514,
+        "raw_sha256": "3eea3a414861fb421134492995bc1e0bf15ba72b3f6911b54545e7b88ee58553",
+        "gzip_sha256": "707f012e40c3bd9257626f8db4be85e4d1adb9d57e47a0aa6bd09d36cf91d4ad"
+      }
+    },
     "finished_demos": [],
     "complete_demo_acceptance": false,
     "new_features": [
@@ -38370,5 +38390,494 @@
       }
     ],
     "limits": "The tested native HTTP tenant is GENERAL. This checkpoint does not establish ECOMMERCE registration, complete demo UI/seed, natural/voice model quality or actual mobile delivery. Internal payment records do not move money."
+  },
+  "ecommerce_native_universe_20260926": {
+    "recorded_at": "2026-09-26T22:31:14.047896+00:00",
+    "status": "BOUNDED_NATIVE_CHECKPOINT_PASS_COMPLETE_DEMOS_OPEN",
+    "source_commit": "d5244c40d3a1b7e93b071b7d81d5eaa324b610a3",
+    "source_tree": "96be03cac3901ff30e3842311e7d4698e10ecd7a",
+    "zero_tests": {
+      "pass": 1840,
+      "fail": 0
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 13,
+    "frozen_proof": {
+      "source": {
+        "commit": "d5244c40d3a1b7e93b071b7d81d5eaa324b610a3",
+        "tree": "96be03cac3901ff30e3842311e7d4698e10ecd7a",
+        "status_before": "",
+        "status_after": "",
+        "commit_after": "d5244c40d3a1b7e93b071b7d81d5eaa324b610a3",
+        "tree_after": "96be03cac3901ff30e3842311e7d4698e10ecd7a"
+      },
+      "results": [
+        {
+          "name": "capability-resolver-test.js",
+          "command": [
+            "node",
+            "capability-resolver-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:23.623362+00:00",
+          "finished_at": "2026-09-26T22:20:23.730257+00:00",
+          "elapsed_seconds": 0.107,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-capability-resolver-test.js.log",
+          "sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+          "bytes": 135
+        },
+        {
+          "name": "module-access-contracts-test.js",
+          "command": [
+            "node",
+            "module-access-contracts-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:23.730713+00:00",
+          "finished_at": "2026-09-26T22:20:23.938341+00:00",
+          "elapsed_seconds": 0.208,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-module-access-contracts-test.js.log",
+          "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+          "bytes": 332
+        },
+        {
+          "name": "composition-api-test.js",
+          "command": [
+            "node",
+            "composition-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:23.938781+00:00",
+          "finished_at": "2026-09-26T22:20:25.803283+00:00",
+          "elapsed_seconds": 1.865,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-composition-api-test.js.log",
+          "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+          "bytes": 110
+        },
+        {
+          "name": "composition-matrix-test.js",
+          "command": [
+            "node",
+            "composition-matrix-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:25.803676+00:00",
+          "finished_at": "2026-09-26T22:20:49.196879+00:00",
+          "elapsed_seconds": 23.393,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-composition-matrix-test.js.log",
+          "sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+          "bytes": 4192
+        },
+        {
+          "name": "second-industry-proof-test.js",
+          "command": [
+            "node",
+            "second-industry-proof-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:49.197345+00:00",
+          "finished_at": "2026-09-26T22:20:49.367032+00:00",
+          "elapsed_seconds": 0.17,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-second-industry-proof-test.js.log",
+          "sha256": "0290abd92f26e6e78449733181bcfe9825482d7d745baf5b9f3a30a3f79c8b54",
+          "bytes": 122
+        },
+        {
+          "name": "second-industry-integration-test.js",
+          "command": [
+            "node",
+            "second-industry-integration-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:49.367546+00:00",
+          "finished_at": "2026-09-26T22:20:49.520164+00:00",
+          "elapsed_seconds": 0.153,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-second-industry-integration-test.js.log",
+          "sha256": "aac19473de4a8517b3506a74107006d4bbe0b04f9249c786441dba76d33a4c42",
+          "bytes": 192
+        },
+        {
+          "name": "industry-field-api-test.js",
+          "command": [
+            "node",
+            "industry-field-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:49.520561+00:00",
+          "finished_at": "2026-09-26T22:20:50.127567+00:00",
+          "elapsed_seconds": 0.607,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-industry-field-api-test.js.log",
+          "sha256": "c41d00b90013d8992a1771f8642350aaa7e345281a66bd9c40f2b817229ec7cb",
+          "bytes": 129
+        },
+        {
+          "name": "industry-presets-test.js",
+          "command": [
+            "node",
+            "industry-presets-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:50.127943+00:00",
+          "finished_at": "2026-09-26T22:20:50.276594+00:00",
+          "elapsed_seconds": 0.149,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-industry-presets-test.js.log",
+          "sha256": "d5f36948ce9b4c53d3fac2ddcb096d900a3c05f6f1e06977f9261071a896ef33",
+          "bytes": 223
+        },
+        {
+          "name": "industry-presets-api-test.js",
+          "command": [
+            "node",
+            "industry-presets-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:50.277025+00:00",
+          "finished_at": "2026-09-26T22:20:51.389349+00:00",
+          "elapsed_seconds": 1.112,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-industry-presets-api-test.js.log",
+          "sha256": "8fbe4599b8984e447e91080a726232fa4f4c13baa2bf93b19a3c8514c2df98af",
+          "bytes": 253
+        },
+        {
+          "name": "crm-core-regression-test.js",
+          "command": [
+            "node",
+            "crm-core-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:51.389767+00:00",
+          "finished_at": "2026-09-26T22:20:51.525032+00:00",
+          "elapsed_seconds": 0.135,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-crm-core-regression-test.js.log",
+          "sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+          "bytes": 506
+        },
+        {
+          "name": "business-domains-test.js",
+          "command": [
+            "node",
+            "business-domains-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:51.525471+00:00",
+          "finished_at": "2026-09-26T22:20:51.725402+00:00",
+          "elapsed_seconds": 0.2,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-business-domains-test.js.log",
+          "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+          "bytes": 212
+        },
+        {
+          "name": "business-workspaces-regression-test.js",
+          "command": [
+            "node",
+            "business-workspaces-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:51.726004+00:00",
+          "finished_at": "2026-09-26T22:20:52.259070+00:00",
+          "elapsed_seconds": 0.533,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-business-workspaces-regression-test.js.log",
+          "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+          "bytes": 254
+        },
+        {
+          "name": "production-security-test.js",
+          "command": [
+            "node",
+            "production-security-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:52.259614+00:00",
+          "finished_at": "2026-09-26T22:20:52.641438+00:00",
+          "elapsed_seconds": 0.382,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-production-security-test.js.log",
+          "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+          "bytes": 309
+        },
+        {
+          "name": "zero",
+          "command": [
+            "node",
+            "--test",
+            "--test-concurrency=2",
+            "zero/*.test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:20:52.641864+00:00",
+          "finished_at": "2026-09-26T22:28:09.727919+00:00",
+          "elapsed_seconds": 437.086,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-zero.log",
+          "sha256": "993a16d191fc28b57a1aec50c157d786828b8fe5f1b6b1996a9a606fe55c604a",
+          "bytes": 221229
+        },
+        {
+          "name": "corpus",
+          "command": [
+            "node",
+            "zero-evaluation/run.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T22:28:09.728809+00:00",
+          "finished_at": "2026-09-26T22:28:12.469315+00:00",
+          "elapsed_seconds": 2.741,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/ecommerce-universe-retry-corpus.log",
+          "sha256": "92654ff7b265db2fa6d99f6740104a645a6f5a0b9d61ac53062c71f6a7bb1ee2",
+          "bytes": 1066
+        }
+      ],
+      "all_pass": true
+    },
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ci269-job-108494575705.log.gz",
+        "raw_bytes": 865514,
+        "raw_sha256": "3eea3a414861fb421134492995bc1e0bf15ba72b3f6911b54545e7b88ee58553",
+        "gzip_sha256": "707f012e40c3bd9257626f8db4be85e4d1adb9d57e47a0aa6bd09d36cf91d4ad"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-business-domains-test.js.log.gz",
+        "raw_bytes": 212,
+        "raw_sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "gzip_sha256": "618229970a94ffe2f2a8c3d6379d930ab5ea3eb4580c9b2d6512f7803b5a5305"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-business-workspaces-regression-test.js.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "gzip_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-capability-resolver-test.js.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "gzip_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-composition-matrix-test.js.log.gz",
+        "raw_bytes": 4192,
+        "raw_sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+        "gzip_sha256": "a73e3fc80a908da7afc7e042ec3aadcbecf69ea734e0e085b227bcc1c66a5750"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-crm-core-regression-test.js.log.gz",
+        "raw_bytes": 506,
+        "raw_sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "gzip_sha256": "9bdacf2977e9a03931f16c77de406500f4293ac42483dbbf9ee2995f39ba32db"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-industry-field-api-test.js.log.gz",
+        "raw_bytes": 129,
+        "raw_sha256": "c41d00b90013d8992a1771f8642350aaa7e345281a66bd9c40f2b817229ec7cb",
+        "gzip_sha256": "1eb99b6a0fcc868fc2b949f18632b52c61f528762725baf0af9a832b3352e035"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-industry-presets-api-test.js.log.gz",
+        "raw_bytes": 253,
+        "raw_sha256": "8fbe4599b8984e447e91080a726232fa4f4c13baa2bf93b19a3c8514c2df98af",
+        "gzip_sha256": "366d8e2cb00324b245f08a41fd2593e8c5ae06de9e1aa9a0c996d90c75f20516"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-industry-presets-test.js.log.gz",
+        "raw_bytes": 223,
+        "raw_sha256": "d5f36948ce9b4c53d3fac2ddcb096d900a3c05f6f1e06977f9261071a896ef33",
+        "gzip_sha256": "72344f88077fbf418223da3088a713842c6297a0d42fd554bd08dc3b26cbc5aa"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-production-security-test.js.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "gzip_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-second-industry-integration-test.js.log.gz",
+        "raw_bytes": 192,
+        "raw_sha256": "aac19473de4a8517b3506a74107006d4bbe0b04f9249c786441dba76d33a4c42",
+        "gzip_sha256": "78698ad909fa88606c6b8e6d3bacd64ac1030859ea127a2d47fafaf20123e600"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-second-industry-proof-test.js.log.gz",
+        "raw_bytes": 122,
+        "raw_sha256": "0290abd92f26e6e78449733181bcfe9825482d7d745baf5b9f3a30a3f79c8b54",
+        "gzip_sha256": "4bf141d5c54bc653f3d09d4567a96fa127690a9aec5471bba520ebe20d96bdc4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-frozen-zero.log.gz",
+        "raw_bytes": 84896,
+        "raw_sha256": "eedc5ca4e4467578e19ab667e463fac2e13ac5ba336b5d9dd8fef8aaa750823c",
+        "gzip_sha256": "4b02ae5a1ea051d769aaa355b3fc00bcf60df7c80c7a244159bb51f622f70e77"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-http-initial.log.gz",
+        "raw_bytes": 288,
+        "raw_sha256": "c488f2732792a6c6b8895074cb94743bc4ae08bfb208734ad0471e0e6f40c209",
+        "gzip_sha256": "b39d70b6747ef1fc6f5315e6af4e7442ce9a43986414ac50cf17ac9f3999f859"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-initial.log.gz",
+        "raw_bytes": 2327,
+        "raw_sha256": "e7d968d819b64ac21014967332ded13e60583bfcdedfdbe4abff59672b10af05",
+        "gzip_sha256": "71c779b9e5698bfd352dc967cc40818b3652c372a0e3c1aa034b87b963608fcb"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-interrupted.json.gz",
+        "raw_bytes": 606,
+        "raw_sha256": "50fc809b460fcf4dc104b281d3bbe90766009234c20ba8c6475c727fc0e5f09f",
+        "gzip_sha256": "bb804ab0d1c05404fbd39d52f7670eef14f426ba8a17f2fbec922d9a0266419a"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-business-domains-test.js.log.gz",
+        "raw_bytes": 212,
+        "raw_sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "gzip_sha256": "618229970a94ffe2f2a8c3d6379d930ab5ea3eb4580c9b2d6512f7803b5a5305"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-business-workspaces-regression-test.js.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "gzip_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-capability-resolver-test.js.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "gzip_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-composition-matrix-test.js.log.gz",
+        "raw_bytes": 4192,
+        "raw_sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+        "gzip_sha256": "a73e3fc80a908da7afc7e042ec3aadcbecf69ea734e0e085b227bcc1c66a5750"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-corpus.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "92654ff7b265db2fa6d99f6740104a645a6f5a0b9d61ac53062c71f6a7bb1ee2",
+        "gzip_sha256": "dad5ef21c1c46b29ff756916738d15e4a1c6389deb7a245d6b2c673c3ab41d58"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-crm-core-regression-test.js.log.gz",
+        "raw_bytes": 506,
+        "raw_sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "gzip_sha256": "9bdacf2977e9a03931f16c77de406500f4293ac42483dbbf9ee2995f39ba32db"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-industry-field-api-test.js.log.gz",
+        "raw_bytes": 129,
+        "raw_sha256": "c41d00b90013d8992a1771f8642350aaa7e345281a66bd9c40f2b817229ec7cb",
+        "gzip_sha256": "1eb99b6a0fcc868fc2b949f18632b52c61f528762725baf0af9a832b3352e035"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-industry-presets-api-test.js.log.gz",
+        "raw_bytes": 253,
+        "raw_sha256": "8fbe4599b8984e447e91080a726232fa4f4c13baa2bf93b19a3c8514c2df98af",
+        "gzip_sha256": "366d8e2cb00324b245f08a41fd2593e8c5ae06de9e1aa9a0c996d90c75f20516"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-industry-presets-test.js.log.gz",
+        "raw_bytes": 223,
+        "raw_sha256": "d5f36948ce9b4c53d3fac2ddcb096d900a3c05f6f1e06977f9261071a896ef33",
+        "gzip_sha256": "72344f88077fbf418223da3088a713842c6297a0d42fd554bd08dc3b26cbc5aa"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-production-security-test.js.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "gzip_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-results.json.gz",
+        "raw_bytes": 8275,
+        "raw_sha256": "639b6884f443b353d3cdf2d69651ea31487b12773bc817370184b2654a6d1a0a",
+        "gzip_sha256": "724d42498e4787f7caa08eb809ec3ccf7958f223f23a50070f41d450f643ae93"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-second-industry-integration-test.js.log.gz",
+        "raw_bytes": 192,
+        "raw_sha256": "aac19473de4a8517b3506a74107006d4bbe0b04f9249c786441dba76d33a4c42",
+        "gzip_sha256": "78698ad909fa88606c6b8e6d3bacd64ac1030859ea127a2d47fafaf20123e600"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-second-industry-proof-test.js.log.gz",
+        "raw_bytes": 122,
+        "raw_sha256": "0290abd92f26e6e78449733181bcfe9825482d7d745baf5b9f3a30a3f79c8b54",
+        "gzip_sha256": "4bf141d5c54bc653f3d09d4567a96fa127690a9aec5471bba520ebe20d96bdc4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ecommerce-universe-retry-zero.log.gz",
+        "raw_bytes": 221229,
+        "raw_sha256": "993a16d191fc28b57a1aec50c157d786828b8fe5f1b6b1996a9a606fe55c604a",
+        "gzip_sha256": "9d86a2b3790b95aeb66ac82ea690723b7f6662f0fce63f891f9c6010540140a5"
+      }
+    ],
+    "prior_complete_ci": {
+      "status": "PASS",
+      "run_number": 269,
+      "run_id": 36274527673,
+      "job_id": 108494575705,
+      "published_commit": "64a304c4df960ae06b3b8a7b0e7c190c4c1e8d19",
+      "tested_merge_commit": "e0f4355a0c9e1167e2ad4f452033feb9ba1192ad",
+      "tree": "1ac2452627a02b09f731ed98fbbe1600b262f45f",
+      "tree_identity_verified": true,
+      "started_at": "2026-09-26T21:54:47Z",
+      "completed_at": "2026-09-26T22:10:47Z",
+      "workflow_elapsed_seconds": 960,
+      "zero_pass": 1833,
+      "corpus_pass": 14,
+      "log": {
+        "file": "docs/run2/evidence/20260927-ecommerce-universe/ci269-job-108494575705.log.gz",
+        "raw_bytes": 865514,
+        "raw_sha256": "3eea3a414861fb421134492995bc1e0bf15ba72b3f6911b54545e7b88ee58553",
+        "gzip_sha256": "707f012e40c3bd9257626f8db4be85e4d1adb9d57e47a0aa6bd09d36cf91d4ad"
+      }
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "finished_demos": [],
+    "complete_demo_acceptance": false,
+    "new_features": [
+      "ECOMMERCE production composition, native fields/presets and all nine shared modules without new permissions",
+      "Deterministic 3575-node native commerce graph with 120 articles, 360 orders, real CRM campaign attribution and fictional operational history",
+      "240 retained public product references with usable identity/GTIN and provenance; no claim of real merchant prices or current distribution",
+      "Durable commerce command checkpoints and source-bound native replay; actual encrypted HTTP restart and structured ZERO order billing",
+      "Automotive generator now connects CRM campaign identities to Marketing campaigns; retained graphs unchanged"
+    ],
+    "retained_attempts": [
+      {
+        "result": "INTERRUPTED_NO_FINAL_RESULT",
+        "log": "ecommerce-universe-frozen-zero.log",
+        "sha256": "eedc5ca4e4467578e19ab667e463fac2e13ac5ba336b5d9dd8fef8aaa750823c",
+        "cause": "Execution ended without a final exit/report; cause unknown. Thirteen native scripts passed first; incomplete ZERO log is not counted as PASS or FAIL. Retry used the identical immutable source with test concurrency 2 and durable per-command progress."
+      }
+    ],
+    "remaining": [
+      "Complete native Finance/Automation/Analytics histories and credit/refund/cancellation correction",
+      "Localized module action/recovery controls and full seed/persistence performance",
+      "Natural-language/voice ZERO with social intelligence, empathy, correction and tone quality per demo and language",
+      "Validated fresh valuation/revenue scenarios, desktop download/start, reachable HTTPS and physical iPhone/Android install"
+    ],
+    "limits": "1840 deterministic/native tests do not prove empathy, social intelligence, natural language quality, voice or finished demo acceptance. Full 3575-node fixture used memory; bounded actual HTTP fixture has 239 nodes. All default orders remain UNPOSTED until an explicit native billing action. Synthetic prices/history are not public observations."
   }
 }
