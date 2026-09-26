@@ -18,21 +18,8 @@ const DEFINITIONS = Object.freeze({
 });
 const INTERNAL_STATUSES = new Set(['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','DECLINED','COMPLETED','APPROVAL_REQUIRED','APPROVED_INTERNAL']);
 const OWNED_FIELDS = new Set(['bid_scope','model_definition','reader_ids','cohort_definition','title','name','content','description','status','value_cents','cost_cents','currency','probability','supplier_id','opportunity_id','pipeline_id','stage_id','stages','owner_id','start_at','end_at','timezone','participants','calendar_id','recurrence','thread_id','to','cc','subject_id','purpose','legal_basis','related_refs','industry_fields','due_at','direction','consent_status','filters','hypothesis','success_metric','budget_cents','rfq_id','rfq_revision','lines','evidence_reference','minimum_value_cents','approval_steps','allow_self_approval','expected_close_date','closed_date','forecast_category','period_start','period_end','target_cents']);
-const {timestamp,timezone,wallParts,wallNumber,fromWall}=require('./calendar-time');
-function occurrences(row) {
-  const start=timestamp(row.start_at),end=timestamp(row.end_at),rule=require('./calendar-recurrence').normalize(row.recurrence);
-  if(end<=start)fail('date_order_invalid','Einde moet na start liggen');
-  if(!rule)return [{start_at:new Date(start).toISOString(),end_at:new Date(end).toISOString()}];
-  const {count,interval,frequency}=rule;
-  const parts=wallParts(start,row.timezone),result=[];
-  for(let i=0;i<count;i++){
-    const date=new Date(wallNumber(parts)+(frequency==='WEEKLY'?7:1)*interval*i*86400000);
-    const wall={year:date.getUTCFullYear(),month:date.getUTCMonth()+1,day:date.getUTCDate(),hour:date.getUTCHours(),minute:date.getUTCMinutes(),second:date.getUTCSeconds(),millisecond:date.getUTCMilliseconds()};
-    const at=i===0?start:fromWall(wall,row.timezone);
-    result.push({start_at:new Date(at).toISOString(),end_at:new Date(at+end-start).toISOString()});
-  }
-  return result;
-}
+const {timestamp,timezone,occurrences}=require('./calendar-time');
+
 class BusinessDomain {
   constructor(id, adapter, resolver) {
     if(!DEFINITIONS[id])throw new TypeError('Unknown business domain');
