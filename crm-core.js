@@ -147,6 +147,9 @@ class FoundlyCrmCore{
   }
 
   context(context,principal){return {ctx:normalizeContext(context),principal:principalShape(principal)}}
+  publicProductReferences(context,principalInput,input={}){const {principal}=this.context(context,principalInput);this.assertRead(principal);return (this.adapter.publicProductCatalog||require('./public-product-reference').defaultCatalog()).search(input);}
+  publicProductPrices(context,principalInput,input={}){const {principal}=this.context(context,principalInput);this.assertRead(principal);return (this.adapter.publicProductCatalog||require('./public-product-reference').defaultCatalog()).prices(input);}
+  publicProductCoverage(context,principalInput){const {principal}=this.context(context,principalInput);this.assertRead(principal);return (this.adapter.publicProductCatalog||require('./public-product-reference').defaultCatalog()).coverage();}
   collection(ctx,entity){if(!ENTITY_DEFINITIONS[entity])throw crmError(404,'crm_entity_unknown','Onbekende CRM-collectie');return this.adapter.bucket(ctx,`crm:${entity}`)}
   commit(){this.adapter.persist()}
   assertEntity(entity){const value=String(entity||'').toLowerCase();if(!ENTITY_DEFINITIONS[value])throw crmError(404,'crm_entity_unknown','Onbekende CRM-collectie');return value}

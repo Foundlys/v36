@@ -1,4 +1,4 @@
-# Demo Universe and Automotive acceptance — active
+# Demo Universe, Automotive and E-commerce acceptance — active
 
 Status: **IN_PROGRESS_NOT_ACCEPTED**. User priority of 26 September 2026: complete this entire block before returning to other open Run-2 work. All previous work remains preserved. The authoritative contract is sections 25–27 plus the continuation's demo hard gates.
 
@@ -29,6 +29,18 @@ The immediate technical work remains durable native seed recovery, including the
 
 ## Native demo foundation checkpoint and expanded demo priority — 26 September 2026
 
-Source `5d4afca8fbb848b30868f44a804b5e2b675c625b`, tree `f842c312d595236cb41a527df0c308920292568b`: frozen 1779 ZERO / 14 corpus / 12 relevant native scripts PASS. Fourteen raw logs are hash-verified with unchanged source. Previous 46-script Communication evidence remains intact. Full prior CI 264 passes published `89f7ff54b4088a133141d0e72b7bff34d4488c42` and merge `4144bd89ebc4b73b9e4d0e0e0033d332b0da4b4e` on exact tree `97256260fe3bdbf8c2b50541591bb96ce74afc0f`, 17:40:58–17:54:00 UTC, 1750 ZERO/14 corpus. Demo full CI is pending.
+Source `5d4afca8fbb848b30868f44a804b5e2b675c625b`, tree `f842c312d595236cb41a527df0c308920292568b`: frozen 1779 ZERO / 14 corpus / 12 relevant native scripts PASS. Fourteen raw logs are hash-verified with unchanged source. Previous 46-script Communication evidence remains intact. Full prior CI 264 passes published `89f7ff54b4088a133141d0e72b7bff34d4488c42` and merge `4144bd89ebc4b73b9e4d0e0e0033d332b0da4b4e` on exact tree `97256260fe3bdbf8c2b50541591bb96ce74afc0f`, 17:40:58–17:54:00 UTC, 1750 ZERO/14 corpus. Demo foundation full CI 265 subsequently passed exact published/merge tree d7fb9e6; its full logs are retained.
 
 The native seed basis covers 5563 linked Automotive nodes and durable scoped recovery; old CRM request eviction demonstrably duplicated an effect and is corrected with retained, capacity-bounded receipts. Finance/workflows/approvals/all-module histories, General, public-source integration, full ZERO and desktop/iPhone/Android remain open. User explicitly expanded priority to every registered industry pack/module and the intended finished-product behavior. Preserve all work; do not simulate unbuilt features or provider truth. The matrix retains 125 gates and 20 open groups, with active and waiting time separate. The expanded demo estimate is conditional 64–160 active hours for currently registered scope, not a total end-date or percentage. Run 2 remains IN_PROGRESS_NOT_ACCEPTED.
+
+## Public data, installation and revised delivery checkpoint — 26 September 2026
+
+The user at 19:10 UTC explicitly prioritized complete Automotive and E-commerce, including ZERO and usable real data. At 19:12:38 UTC the user required direct download and use on phone, desktop and the web as soon as each demo is finished. [DEMO_DELIVERY.md](DEMO_DELIVERY.md) records that binding per-pack handoff. No finished demo is currently released.
+
+Source `4c5a1e89461c749104e059b7af6a1d03aa95955b`, tree `49a33588117e354b9ea349b87a5a237d1959f8fb`: 1800 ZERO tests, 14 corpus cases, ten native scripts and four Python extraction cases PASS on unchanged source. The failed intermediate standalone-CRM dependency test is retained; installation metadata is now enabled only by the full runtime. The main dashboard CSS is unchanged. These are contract/HTTP results, not browser installation or physical-device acceptance.
+
+Public data and exact limits are in [../../public-data/README.md](../../public-data/README.md). The Automotive catalog contains 214,175 records of five distinct kinds. Product sources retain 26,066 references (26,065 searchable numeric codes), 150,000 dated price observations and 7,369 store references under separate ODbL attribution. Native read APIs check current capability access, paginate and preserve source/time/price meaning. ZERO receives bounded external reference context for vehicle makes/models and explicit product barcode queries; this is not full ZERO cognitive/action acceptance. Public data is not customer truth or current live stock.
+
+ECOMMERCE remains a legacy starter profile pending actual production pack and catalog/variant/stock/order/fulfilment/return/finance integration. Remaining common histories, workflows, approvals, complete scenarios, interfaces and direct desktop package startup/recovery remain code-controlled. Every completed pack must have a usable download and matching reachable web app; a ZIP of source code or install manifest cannot close the gate.
+
+The revised demo scope is conditionally 90–224 active hours, with automated/CI waits and unknown access/device/review waits separate in the existing matrix. This replaces the narrower prior estimate prospectively, preserves historical estimates and is not an end-date promise. No gate closes from row counts or test totals.

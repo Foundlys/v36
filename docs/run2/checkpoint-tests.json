@@ -36170,7 +36170,7 @@
     }
   },
   "demo_universe_native_20260926": {
-    "status": "FROZEN_1779_ZERO_14_CORPUS_12_RELEVANT_NATIVE_PASS_COMPLETE_CI_PENDING",
+    "status": "FROZEN_1779_ZERO_14_CORPUS_12_RELEVANT_NATIVE_AND_COMPLETE_CI_265_PASS",
     "recorded_at": "2026-09-26T18:09:58.267592+00:00",
     "source_commit": "5d4afca8fbb848b30868f44a804b5e2b675c625b",
     "source_tree": "f842c312d595236cb41a527df0c308920292568b",
@@ -36608,6 +36608,550 @@
       ]
     },
     "exact_published_full_ci": "PENDING",
-    "remaining": "First complete all registered industry packs/modules, rich coherent data, actual public reference integration, ZERO and desktop/iPhone/Android. Then other Run-2 work. Preserve all previous work."
+    "remaining": "First complete all registered industry packs/modules, rich coherent data, actual public reference integration, ZERO and desktop/iPhone/Android. Then other Run-2 work. Preserve all previous work.",
+    "complete_ci_265": {
+      "run_id": 36261733272,
+      "run_number": 265,
+      "status": "completed",
+      "conclusion": "success",
+      "published_sha": "6e6c7990c3bc696f94c2321814035fbbeaab270a",
+      "published_tree": "d7fb9e663e644ed80a3061da26a75a9350719412",
+      "tested_sha": "8dd68b6df220d97d263f1e6c2b18386403383886",
+      "tested_tree": "d7fb9e663e644ed80a3061da26a75a9350719412",
+      "tree_match": true,
+      "created_at": "2026-09-26T18:12:43Z",
+      "updated_at": "2026-09-26T18:27:20Z",
+      "zero": {
+        "tests": 1779,
+        "passed": 1779,
+        "failed": 0
+      },
+      "job_id": 108458742898,
+      "full_log": "ci265-full-job.log"
+    }
+  },
+  "demo_public_data_delivery_20260926": {
+    "recorded_at": "2026-09-26T19:47:08.650347+00:00",
+    "status": "FROZEN_LOCAL_PASS_COMPLETE_CI_PENDING",
+    "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+    "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+    "zero_tests": 1800,
+    "corpus_pass": 14,
+    "native_script_pass": 10,
+    "python_extraction_tests_pass": 4,
+    "results": [
+      {
+        "command": [
+          "node",
+          "automotive-core-regression-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.09,
+        "log": "demo-delivery-native-frozen-00.log",
+        "bytes": 578,
+        "sha256": "186ac667d10093acadb862ab20591f8f2eb0749f60f58a95480ed512e835b2c1",
+        "finished_at": "2026-09-26T19:42:02.211153+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "automotive-api-regression-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.93,
+        "log": "demo-delivery-native-frozen-01.log",
+        "bytes": 556,
+        "sha256": "ec8567e179a7544b953bd057387bcd5d2234d375b197e0fbd52730118b5fc739",
+        "finished_at": "2026-09-26T19:42:03.142362+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "automotive-provider-contract-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.07,
+        "log": "demo-delivery-native-frozen-02.log",
+        "bytes": 475,
+        "sha256": "5a66aa897f42538d1c9d25f0398477bd7d56dd31cdfff60698013159a92a5fa2",
+        "finished_at": "2026-09-26T19:42:03.220453+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "crm-core-regression-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.14,
+        "log": "demo-delivery-native-frozen-03.log",
+        "bytes": 506,
+        "sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "finished_at": "2026-09-26T19:42:03.368295+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "crm-api-regression-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.81,
+        "log": "demo-delivery-native-frozen-04.log",
+        "bytes": 550,
+        "sha256": "3327f57e439a017631744e414308381f451c0d1a72b6abb7cbf458b5fa4f3a16",
+        "finished_at": "2026-09-26T19:42:04.182892+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "crm-standalone-regression-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 2.19,
+        "log": "demo-delivery-native-frozen-05.log",
+        "bytes": 774,
+        "sha256": "dd0abc69da76b75556dd5eba6275fd0adc98ab3572387cccc977d9fb1b9b5b58",
+        "finished_at": "2026-09-26T19:42:06.385055+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "module-access-contracts-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.28,
+        "log": "demo-delivery-native-frozen-06.log",
+        "bytes": 332,
+        "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "finished_at": "2026-09-26T19:42:06.668806+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "composition-api-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 2.88,
+        "log": "demo-delivery-native-frozen-07.log",
+        "bytes": 110,
+        "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "finished_at": "2026-09-26T19:42:09.554471+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "static-response-api-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.83,
+        "log": "demo-delivery-native-frozen-08.log",
+        "bytes": 168,
+        "sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+        "finished_at": "2026-09-26T19:42:10.391803+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "node",
+          "production-security-test.js"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.66,
+        "log": "demo-delivery-native-frozen-09.log",
+        "bytes": 309,
+        "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "finished_at": "2026-09-26T19:42:11.062575+00:00",
+        "clean_after": true
+      },
+      {
+        "command": [
+          "python",
+          "public-data/test-market-extraction.py"
+        ],
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 0.05,
+        "log": "demo-delivery-native-frozen-10.log",
+        "bytes": 102,
+        "sha256": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6",
+        "finished_at": "2026-09-26T19:42:11.119862+00:00",
+        "clean_after": true
+      },
+      {
+        "command": "node --test zero/*.test.js",
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 207.13,
+        "log": "demo-delivery-zero-frozen-00.log",
+        "bytes": 216225,
+        "sha256": "c1a6a194793f1e545678f85a8a42173ac6c4be55207c5b8b27b0bd73a2a29f54",
+        "finished_at": "2026-09-26T19:45:30.564087+00:00",
+        "clean_after": true
+      },
+      {
+        "command": "node zero-evaluation/run.js",
+        "source_commit": "4c5a1e89461c749104e059b7af6a1d03aa95955b",
+        "source_tree": "49a33588117e354b9ea349b87a5a237d1959f8fb",
+        "exit_code": 0,
+        "seconds": 2.78,
+        "log": "demo-delivery-zero-frozen-01.log",
+        "bytes": 1066,
+        "sha256": "aaa98b18b2fd47b768882154798a77afa9d20d83e73a97392be48f79cbda6576",
+        "finished_at": "2026-09-26T19:45:33.349060+00:00",
+        "clean_after": true
+      }
+    ],
+    "retained_failed_checkpoint": {
+      "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+      "native_results": [
+        {
+          "command": [
+            "node",
+            "automotive-core-regression-test.js"
+          ],
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 0,
+          "seconds": 0.1,
+          "log": "demo-public-native-frozen-00.log",
+          "bytes": 578,
+          "sha256": "186ac667d10093acadb862ab20591f8f2eb0749f60f58a95480ed512e835b2c1",
+          "finished_at": "2026-09-26T19:36:58.058464+00:00",
+          "clean_after": true
+        },
+        {
+          "command": [
+            "node",
+            "automotive-api-regression-test.js"
+          ],
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 0,
+          "seconds": 0.95,
+          "log": "demo-public-native-frozen-01.log",
+          "bytes": 556,
+          "sha256": "ec8567e179a7544b953bd057387bcd5d2234d375b197e0fbd52730118b5fc739",
+          "finished_at": "2026-09-26T19:36:59.012303+00:00",
+          "clean_after": true
+        },
+        {
+          "command": [
+            "node",
+            "automotive-provider-contract-test.js"
+          ],
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 0,
+          "seconds": 0.07,
+          "log": "demo-public-native-frozen-02.log",
+          "bytes": 475,
+          "sha256": "5a66aa897f42538d1c9d25f0398477bd7d56dd31cdfff60698013159a92a5fa2",
+          "finished_at": "2026-09-26T19:36:59.091150+00:00",
+          "clean_after": true
+        },
+        {
+          "command": [
+            "node",
+            "crm-core-regression-test.js"
+          ],
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 0,
+          "seconds": 0.16,
+          "log": "demo-public-native-frozen-03.log",
+          "bytes": 506,
+          "sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+          "finished_at": "2026-09-26T19:36:59.259733+00:00",
+          "clean_after": true
+        },
+        {
+          "command": [
+            "node",
+            "crm-api-regression-test.js"
+          ],
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 0,
+          "seconds": 0.95,
+          "log": "demo-public-native-frozen-04.log",
+          "bytes": 550,
+          "sha256": "3327f57e439a017631744e414308381f451c0d1a72b6abb7cbf458b5fa4f3a16",
+          "finished_at": "2026-09-26T19:37:00.210757+00:00",
+          "clean_after": true
+        },
+        {
+          "command": [
+            "node",
+            "crm-standalone-regression-test.js"
+          ],
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 1,
+          "seconds": 0.52,
+          "log": "demo-public-native-frozen-05.log",
+          "bytes": 403,
+          "sha256": "e9ac98361e594527c595086de26ba63bf7dfbf4182500401c60b6f6e2a75ca10",
+          "finished_at": "2026-09-26T19:37:00.735480+00:00",
+          "clean_after": true
+        }
+      ],
+      "zero_results": [
+        {
+          "command": "node --test zero/*.test.js",
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 0,
+          "seconds": 212.83,
+          "log": "demo-public-zero-frozen-00.log",
+          "bytes": 216093,
+          "sha256": "0ff412f1a6c6a7983030f08d156f29d31ab42f32356dabf7be67a15747555c3e",
+          "finished_at": "2026-09-26T19:40:32.122439+00:00",
+          "clean_after": true
+        },
+        {
+          "command": "node zero-evaluation/run.js",
+          "source_commit": "0aea93481bee8860fba2dba265c4d6dcad6edc9c",
+          "source_tree": "ca33b85e81bf415cc3e6ea5f25f40de2c617abad",
+          "exit_code": 0,
+          "seconds": 2.89,
+          "log": "demo-public-zero-frozen-01.log",
+          "bytes": 1066,
+          "sha256": "df7fa678b4de72c907796caa71833e3e64474a8b476d35f48d79f0df0522f5f5",
+          "finished_at": "2026-09-26T19:40:35.021116+00:00",
+          "clean_after": true
+        }
+      ],
+      "defect": "Shared CRM HTML referenced an installation script absent from the independent CRM package. Full-runtime opt-in streaming metadata fixes this without changing that package."
+    },
+    "main_dashboard_css_sha256": "02f3c0845e72128d7433d41e6bc5d2b5b70a8e9b5ad1ddcaaf3222e9d2a70eaf",
+    "automotive_reference_manifest": "public-data/snapshots/2026-09-26/catalog-manifest.json",
+    "product_reference_manifest": "public-data/ecommerce/2026-09-26/catalog-manifest.json",
+    "browser_physical_device_and_complete_zero_quality": "UNVERIFIED",
+    "demo_acceptance": "IN_PROGRESS_NOT_ACCEPTED",
+    "downloadable_finished_demos": [],
+    "delivery_contract": "docs/run2/DEMO_DELIVERY.md",
+    "retained_raw_logs": [
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/automotive-rdw-specifications-baseline.log.gz",
+        "raw_sha256": "c86924d27dc614a864db833f54cee288f69e7e1ca9b2d04f7427757328c545fc",
+        "raw_bytes": 4561,
+        "compressed_sha256": "69701e803d34d3cbec9f543e9559c542f62befcb10f30dbf32c73d82938efc9c"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/automotive-rdw-specifications-fixed.log.gz",
+        "raw_sha256": "7c500f98e543cb5179996eb482426af89ceb29a3e23bd427b4728185dd09420f",
+        "raw_bytes": 1378,
+        "compressed_sha256": "f588b92c5bca347f2ab5c4c249eb64d52c0848069570318afcba48f15db64db2"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/ci265-full-job.log.gz",
+        "raw_sha256": "871d955d09fd41eebc5f25c1c4f4e6bf45ffcc5193952e655a8ce580853e0d70",
+        "raw_bytes": 842476,
+        "compressed_sha256": "92fb3d5663b39eafe9185ec2acfd2585bc1bae77a925c49542471875dd365480"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-00.log.gz",
+        "raw_sha256": "186ac667d10093acadb862ab20591f8f2eb0749f60f58a95480ed512e835b2c1",
+        "raw_bytes": 578,
+        "compressed_sha256": "19bb5933649fd3cf6580d8b54fd761bb5f962661bb57759901c641569133fd7a"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-01.log.gz",
+        "raw_sha256": "ec8567e179a7544b953bd057387bcd5d2234d375b197e0fbd52730118b5fc739",
+        "raw_bytes": 556,
+        "compressed_sha256": "61d8b94d2a1696b3f880079f48d98c34decdd0677bac71e35b5cf8f2c49c8cf0"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-02.log.gz",
+        "raw_sha256": "5a66aa897f42538d1c9d25f0398477bd7d56dd31cdfff60698013159a92a5fa2",
+        "raw_bytes": 475,
+        "compressed_sha256": "32457d6ce1a5d9de0db536112bb2025831bb192d9adbeedbf800c39d4bea794a"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-03.log.gz",
+        "raw_sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "raw_bytes": 506,
+        "compressed_sha256": "9bdacf2977e9a03931f16c77de406500f4293ac42483dbbf9ee2995f39ba32db"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-04.log.gz",
+        "raw_sha256": "3327f57e439a017631744e414308381f451c0d1a72b6abb7cbf458b5fa4f3a16",
+        "raw_bytes": 550,
+        "compressed_sha256": "b7b188b4b9519c2c2ada756762e6b8c404e79d094adfed754b2506ecfcbf4691"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-05.log.gz",
+        "raw_sha256": "dd0abc69da76b75556dd5eba6275fd0adc98ab3572387cccc977d9fb1b9b5b58",
+        "raw_bytes": 774,
+        "compressed_sha256": "8b64a0972da5750f78acab892e8321029d7cdbff1b4fc9946a132037f357db70"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-06.log.gz",
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "raw_bytes": 332,
+        "compressed_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-07.log.gz",
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "raw_bytes": 110,
+        "compressed_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-08.log.gz",
+        "raw_sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+        "raw_bytes": 168,
+        "compressed_sha256": "f0a4aea6dc0047293e10020daa0435933cb24ec07970c5ffa1110b891420dc1b"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-09.log.gz",
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "raw_bytes": 309,
+        "compressed_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-native-frozen-10.log.gz",
+        "raw_sha256": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6",
+        "raw_bytes": 102,
+        "compressed_sha256": "afb0c18ce705a80d383e5722055824326e76e969998f728affd36806203c8011"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-zero-frozen-00.log.gz",
+        "raw_sha256": "c1a6a194793f1e545678f85a8a42173ac6c4be55207c5b8b27b0bd73a2a29f54",
+        "raw_bytes": 216225,
+        "compressed_sha256": "67fa5742230caabb520ea1db3973da356873081923b9be5ce8891279285564ad"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-delivery-zero-frozen-01.log.gz",
+        "raw_sha256": "aaa98b18b2fd47b768882154798a77afa9d20d83e73a97392be48f79cbda6576",
+        "raw_bytes": 1066,
+        "compressed_sha256": "157d383c6e9f035caf37882138b25c36012f1ed8615c32abe393f15b29f49f95"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-native-frozen-00.log.gz",
+        "raw_sha256": "186ac667d10093acadb862ab20591f8f2eb0749f60f58a95480ed512e835b2c1",
+        "raw_bytes": 578,
+        "compressed_sha256": "19bb5933649fd3cf6580d8b54fd761bb5f962661bb57759901c641569133fd7a"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-native-frozen-01.log.gz",
+        "raw_sha256": "ec8567e179a7544b953bd057387bcd5d2234d375b197e0fbd52730118b5fc739",
+        "raw_bytes": 556,
+        "compressed_sha256": "61d8b94d2a1696b3f880079f48d98c34decdd0677bac71e35b5cf8f2c49c8cf0"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-native-frozen-02.log.gz",
+        "raw_sha256": "5a66aa897f42538d1c9d25f0398477bd7d56dd31cdfff60698013159a92a5fa2",
+        "raw_bytes": 475,
+        "compressed_sha256": "32457d6ce1a5d9de0db536112bb2025831bb192d9adbeedbf800c39d4bea794a"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-native-frozen-03.log.gz",
+        "raw_sha256": "e0c1be8e2c9ba10ca5f5180a5e17fe95001f66ace40933283a57599dab74019c",
+        "raw_bytes": 506,
+        "compressed_sha256": "9bdacf2977e9a03931f16c77de406500f4293ac42483dbbf9ee2995f39ba32db"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-native-frozen-04.log.gz",
+        "raw_sha256": "3327f57e439a017631744e414308381f451c0d1a72b6abb7cbf458b5fa4f3a16",
+        "raw_bytes": 550,
+        "compressed_sha256": "b7b188b4b9519c2c2ada756762e6b8c404e79d094adfed754b2506ecfcbf4691"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-native-frozen-05.log.gz",
+        "raw_sha256": "e9ac98361e594527c595086de26ba63bf7dfbf4182500401c60b6f6e2a75ca10",
+        "raw_bytes": 403,
+        "compressed_sha256": "5839d2ddf22f36febdc1f2e2d0974fa5d465d23b0021db5e94dfdfa756667891"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-zero-frozen-00.log.gz",
+        "raw_sha256": "0ff412f1a6c6a7983030f08d156f29d31ab42f32356dabf7be67a15747555c3e",
+        "raw_bytes": 216093,
+        "compressed_sha256": "94532553fc748e909d5184808038971a6d1ef91ad6305074dd7fa8c2c2432977"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/demo-public-zero-frozen-01.log.gz",
+        "raw_sha256": "df7fa678b4de72c907796caa71833e3e64474a8b476d35f48d79f0df0522f5f5",
+        "raw_bytes": 1066,
+        "compressed_sha256": "d076fa0c9702d21b04c506fb9bb37aaa060cc33c2465aafea359134b92c74ed4"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/installable-app-standalone-fixed.log.gz",
+        "raw_sha256": "dd0abc69da76b75556dd5eba6275fd0adc98ab3572387cccc977d9fb1b9b5b58",
+        "raw_bytes": 774,
+        "compressed_sha256": "8b64a0972da5750f78acab892e8321029d7cdbff1b4fc9946a132037f357db70"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/installable-app-stream-fixed.log.gz",
+        "raw_sha256": "6d88e215cc760ac563bc01ebc7916967a07ff898ed27c1b49334440d8799bb9a",
+        "raw_bytes": 2810,
+        "compressed_sha256": "8e34878008b5e1051dab42e46bb51a62545ee239fa91458aa095690328846127"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/installable-app-targeted.log.gz",
+        "raw_sha256": "188ae4966ad30e6917134728ed3de1ee7b3e87ffda16fbc74e3ef5083779e475",
+        "raw_bytes": 502,
+        "compressed_sha256": "fc692568f70b79ebf1e36cc41ebc3497e160b6dbb017f25aa2567ec3e5a61773"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/public-catalog-benchmark.json.gz",
+        "raw_sha256": "0c69eb0cd3d46ecb454ecaf21625c674ad424fa28353bfa75024b2f086eb9be0",
+        "raw_bytes": 271,
+        "compressed_sha256": "ae77a7d76d6d8caada5e20429b04c8faaee6a670a6ceb4f2314f6841eb7b6fc8"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/public-products-targeted.log.gz",
+        "raw_sha256": "cefb4555c77ccb8c9803f6a261a3c61c5ae48eab68d207adb1a211b1a69bc92a",
+        "raw_bytes": 589,
+        "compressed_sha256": "bbc6432b34f71894eed74ea2fb5b82a92580efd2c42ea0960fa14e71766e2921"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/public-reference-targeted-fixed.log.gz",
+        "raw_sha256": "2e897e785d8e40029afb8473fbc30e31e79a9362da48cee50fae7baa23515170",
+        "raw_bytes": 2196,
+        "compressed_sha256": "ded726d792a5bc34cf6557d48198702874f939d157ee6718ebc251b381d08d8e"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/public-reference-targeted-v3.log.gz",
+        "raw_sha256": "39e2c5d82bef10cef4a4c5eb201c9a1f8cbe69b25acac4a688775b9775a7ce0c",
+        "raw_bytes": 1375,
+        "compressed_sha256": "e70495d1ab0ddd4e422f5393a07bda8eb7662941920c51b50ad859bdf7e41c29"
+      },
+      {
+        "file": "docs/run2/evidence/20260926-demo-delivery/public-reference-targeted.log.gz",
+        "raw_sha256": "86a098d7908fef4376f50c016417f28a5ccad79a91b8e06f93c70219ec8e6167",
+        "raw_bytes": 4903,
+        "compressed_sha256": "8e63cbfec648ac079075945f189a40c6dbbbc575688c38bd77a8bc9cc91912c8"
+      }
+    ]
   }
 }

@@ -96,6 +96,10 @@ const adapter = {
     const parsed = new URL(url);
     if (parsed.hostname === 'opendata.rdw.nl') {
       assert.equal(options.headers.accept, 'application/json');
+      if (parsed.pathname === '/resource/8ys7-d773.json') {
+        assert.equal(parsed.searchParams.get('$where'), "kenteken in('TEST01')");
+        return jsonResponse([{ kenteken: 'TEST01', brandstof_volgnummer: '1', brandstof_omschrijving: 'Benzine', nettomaximumvermogen: '210', klasse_hybride_elektrisch_voertuig: 'OVC-HEV' }]);
+      }
       assert(parsed.searchParams.get('$where').includes("upper(merk)='BMW'"));
       return jsonResponse(rdwFixtures);
     }

@@ -27,3 +27,14 @@ test('CRM receipt capacity refuses new effects while existing requests still rep
  assert.equal(f.crm.create(f.ctx,f.actor,'companies',input,{idempotencyKey:key}).id,first.id);
  assert.throws(()=>f.crm.create(f.ctx,{...f.actor,roles:['VIEWER']},'companies',input,{idempotencyKey:key}),{code:'crm_forbidden'});
 });
+test('a confirmed demo graph survives generator changes and restart without abandoning its applied records',()=>{
+ const f=fixture();let row=reserve(f);row=advance(f,row,1);const fingerprint=row.plan_fingerprint;
+ Object.assign(f,f.restart());f.engine.build=()=>{throw Error('New generator is incompatible with the original version');};
+ row=f.engine.get(f.ctx,f.actor,row.id);row=advance(f,row);
+ assert.equal(row.status,'SEEDED');assert.equal(row.plan_fingerprint,fingerprint);assert.equal(f.adapter.bucket(f.ctx,'crm:companies').length,2);
+});
+test('a modified retained graph is rejected before any native write',()=>{
+ const f=fixture(),row=reserve(f),{MANIFESTS}=require('../demo-universe-engine');
+ f.adapter.bucket(f.ctx,MANIFESTS)[0].nodes[0].input.name+=' altered';
+ assert.throws(()=>advance(f,row,1),{code:'demo_manifest_fingerprint_invalid'});assert.equal(f.adapter.bucket(f.ctx,'crm:companies').length,0);
+});

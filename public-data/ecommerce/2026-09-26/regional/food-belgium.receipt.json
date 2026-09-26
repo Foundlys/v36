@@ -1,0 +1,19 @@
+{
+  "id": "food-belgium",
+  "url": "https://world.openfoodfacts.org/api/v2/search?countries_tags=en%3Abelgium&page_size=100&page=1&sort_by=unique_scans_n&fields=code%2Cproduct_name%2Cbrands%2Cquantity%2Ccategories_tags%2Ccountries_tags%2Clabels_tags%2Cingredients_text%2Callergens_tags%2Cnutriments%2Cnutriscore_grade%2Clast_modified_t",
+  "format": "json",
+  "license": "ODbL-1.0",
+  "source": "Open Food Facts",
+  "scope": "One bounded public country-filtered sample; not stock or complete coverage",
+  "retrieved_at": "2026-09-26T19:28:30.917736+00:00",
+  "user_agent": "Foundly-Public-Reference/1.0",
+  "status": 200,
+  "resolved_url": "https://world.openfoodfacts.org/api/v2/search?countries_tags=en%3Abelgium&page_size=100&page=1&sort_by=unique_scans_n&fields=code%2Cproduct_name%2Cbrands%2Cquantity%2Ccategories_tags%2Ccountries_tags%2Clabels_tags%2Cingredients_text%2Callergens_tags%2Cnutriments%2Cnutriscore_grade%2Clast_modified_t",
+  "content_type": "application/json; charset=utf-8",
+  "etag": null,
+  "last_modified": null,
+  "bytes": 351172,
+  "sha256": "7baca8b3dfa4ca611d3f98e66a241717c13ed7bc4c658bc981b3bb0c13e960f3",
+  "path": "food-belgium.json",
+  "records_collected": null
+}

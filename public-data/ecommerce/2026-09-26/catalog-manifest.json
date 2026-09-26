@@ -1,0 +1,93 @@
+{
+  "schema_version": "foundly-public-product-catalog/1",
+  "snapshot_id": "ecommerce-public-2026-09-26-v1",
+  "recorded_at": "2026-09-26T19:31:14.965636+00:00",
+  "sources": [
+    {
+      "source_id": "food-products",
+      "file": "food-products.jsonl.gz",
+      "format": "jsonl.gz",
+      "kind": "PUBLIC_PRODUCT_REFERENCE",
+      "records": 17717,
+      "sha256": "9f4d00eb069d9c1757a5ae22606fa7bad33348dee01840281eae862ac0e323d9",
+      "source_url": "https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz",
+      "observed_at": "2026-09-26T19:22:48.879845+00:00",
+      "license": "ODbL-1.0",
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Open Food Facts",
+      "complete_export": false,
+      "stop_reason": "byte_or_duration_limit"
+    },
+    {
+      "source_id": "beauty-products",
+      "file": "beauty-products.jsonl.gz",
+      "format": "jsonl.gz",
+      "kind": "PUBLIC_PRODUCT_REFERENCE",
+      "records": 8249,
+      "sha256": "87bc9079b29980e4b8552d0d0e5f1c7003de8255b5b2d7e6938032adbbd069d1",
+      "source_url": "https://static.openbeautyfacts.org/data/en.openbeautyfacts.org.products.csv",
+      "observed_at": "2026-09-26T19:22:48.860555+00:00",
+      "license": "ODbL-1.0",
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Open Beauty Facts",
+      "complete_export": false,
+      "stop_reason": "byte_or_duration_limit"
+    },
+    {
+      "source_id": "price-observations",
+      "file": "price-observations.jsonl.gz",
+      "format": "jsonl.gz",
+      "kind": "PUBLIC_PRICE_OBSERVATION",
+      "records": 150000,
+      "sha256": "d6dbe05a45cd7108b0c73fa102b30a541c5edf1c91e4fa64ad7556423afc6da2",
+      "source_url": "https://prices.openfoodfacts.org/data/prices.jsonl.gz",
+      "observed_at": "2026-09-26T19:23:41.495599+00:00",
+      "license": "ODbL-1.0",
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Open Prices",
+      "complete_export": false,
+      "stop_reason": "selected_row_limit"
+    },
+    {
+      "source_id": "store-locations",
+      "file": "store-locations.jsonl.gz",
+      "format": "jsonl.gz",
+      "kind": "PUBLIC_STORE_REFERENCE",
+      "records": 7369,
+      "sha256": "6a9845904a2fbe1f78b5ab11dcc36b3d975f72ae3b6674c39b20a62202a5d03a",
+      "source_url": "https://prices.openfoodfacts.org/data/locations.jsonl.gz",
+      "observed_at": "2026-09-26T19:23:41.495599+00:00",
+      "license": "ODbL-1.0",
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Open Prices / OpenStreetMap contributors",
+      "complete_export": true,
+      "stop_reason": "source_eof"
+    },
+    {
+      "source_id": "food-belgium",
+      "file": "regional/food-belgium.json",
+      "format": "json",
+      "kind": "PUBLIC_PRODUCT_REFERENCE",
+      "records": 100,
+      "sha256": "7baca8b3dfa4ca611d3f98e66a241717c13ed7bc4c658bc981b3bb0c13e960f3",
+      "source_url": "https://world.openfoodfacts.org/api/v2/search?countries_tags=en%3Abelgium&page_size=100&page=1&sort_by=unique_scans_n&fields=code%2Cproduct_name%2Cbrands%2Cquantity%2Ccategories_tags%2Ccountries_tags%2Clabels_tags%2Cingredients_text%2Callergens_tags%2Cnutriments%2Cnutriscore_grade%2Clast_modified_t",
+      "observed_at": "2026-09-26T19:28:30.917736+00:00",
+      "license": "ODbL-1.0",
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Open Food Facts",
+      "complete_export": false,
+      "stop_reason": "one_bounded_100_product_country_sample"
+    }
+  ],
+  "coverage_complete": false,
+  "live_inventory_verified": false,
+  "contains_customer_data": false,
+  "all_records_verified_facts": false,
+  "sampling": "Bulk-export prefixes plus one 100-product Belgium-filtered sample. Not a representative European assortment. Netherlands/Germany API samples returned HTTP 503; no data invented.",
+  "counts": {
+    "product_references": 26066,
+    "price_observations": 150000,
+    "store_references": 7369
+  },
+  "meaning": "Product references, dated price observations and stores are different record kinds. Stock, supplier cost and actual Foundly customer sales are unknown."
+}

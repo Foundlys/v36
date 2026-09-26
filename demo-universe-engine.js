@@ -1,6 +1,6 @@
 'use strict';
 const L=require('./demo-universe-law'),Automotive=require('./automotive-demo-universe'),{scopedMutation}=require('./scoped-mutation'),{canManage}=require('./capability-resolver'),{ENTITY_CAPABILITIES}=require('./module-access-contracts');
-const SCOPE='demo:universes',AUDIT='demo:universe-audit';
+const SCOPE='demo:universes',AUDIT='demo:universe-audit',MANIFESTS='demo:manifests';
 const clone=value=>JSON.parse(JSON.stringify(value)),fail=(code,statusCode=422)=>{throw Object.assign(Error(code),{code,statusCode});};
 const keys=(v,names)=>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).some(k=>!names.includes(k)))fail('demo_request_invalid');};
 function hasBusinessData(ctx,stores){
@@ -23,6 +23,14 @@ class DemoUniverseEngine{
   }
   rows(ctx){return this.adapter.bucket(ctx,SCOPE);}
   manifest(options){const key=L.hash(options);if(!this.cache.has(key)){const m=this.build(options);L.validate(m);if(this.cache.size>=4)this.cache.delete(this.cache.keys().next().value);this.cache.set(key,m);}return this.cache.get(key);}
+  reservedManifest(ctx,row){
+    const retained=this.adapter.bucket(ctx,MANIFESTS).find(m=>m.fingerprint===row.plan_fingerprint);
+    // Legacy reservations can only recover with their exact original generator.
+    // New reservations retain the complete confirmed graph across upgrades.
+    const manifest=retained||this.manifest(row.options);L.validate(manifest);
+    if(manifest.fingerprint!==row.plan_fingerprint||manifest.nodes.length!==row.node_count)fail('demo_reserved_manifest_changed',409);
+    return manifest;
+  }
   options(input){const options={seed:input.seed,as_of:input.as_of,vehicle_count:input.vehicle_count??200,history_months:input.history_months??18};if(typeof options.as_of!=='string'||Date.parse(options.as_of)>(this.adapter.now?.()||new Date()).getTime())fail('demo_future_reference_time');return options;}
   preview(ctx,actor,input){keys(input,['seed','as_of','vehicle_count','history_months']);const profile=this.authorize(ctx,actor),options=this.options(input),m=this.manifest(options),proof=L.validate(m);return {schema_version:L.VERSION,request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},options,plan_fingerprint:m.fingerprint,profile_revision:profile.revision,industry_id:m.industry_id,counts:proof.counts,node_count:proof.node_count,classification:'SYNTHETIC_DEMO',native_permissions_required:true,external_effects:false,full_acceptance:false};}
   start(ctx,actor,input,requestId){
@@ -34,7 +42,7 @@ class DemoUniverseEngine{
     if(this.rows(ctx).length)fail('demo_universe_already_reserved',409);
     if(this.adapter.hasBusinessData?.(ctx)!==false)fail('demo_empty_tenant_required',409);
     const row={id:'demo-'+L.hash([ctx.tenant_id,ctx.dealer_id,actor.id,requestId]).slice(0,32),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:actor.id,request_id:requestId,request_hash:requestHash,options,plan_fingerprint:m.fingerprint,classification:'SYNTHETIC_DEMO',cursor:0,node_count:m.nodes.length,status:'READY',revision:1,bindings:{},created_at:(this.adapter.now?.()||new Date()).toISOString(),last_error:null};
-    scopedMutation(this.adapter,ctx,[SCOPE,AUDIT],()=>{this.rows(ctx).push(row);this.audit(ctx,actor,row,'START',{reason:input.reason.trim()});});return this.get(ctx,actor,row.id);
+    scopedMutation(this.adapter,ctx,[SCOPE,AUDIT,MANIFESTS],()=>{this.adapter.bucket(ctx,MANIFESTS).push(clone(m));this.rows(ctx).push(row);this.audit(ctx,actor,row,'START',{reason:input.reason.trim()});});return this.get(ctx,actor,row.id);
   }
   owned(ctx,actor,id){this.authorize(ctx,actor);const row=this.rows(ctx).find(r=>r.id===id&&r.tenant_id===ctx.tenant_id&&r.dealer_id===ctx.dealer_id&&r.owner_id===actor.id);if(!row)fail('demo_universe_missing',404);return row;}
   audit(ctx,actor,row,operation,details){this.adapter.bucket(ctx,AUDIT).push({universe_id:row.id,actor_id:actor.id,operation,revision:row.revision,at:(this.adapter.now?.()||new Date()).toISOString(),...details});}
@@ -60,7 +68,7 @@ class DemoUniverseEngine{
     fail('demo_contract_unavailable');
   }
   advance(ctx,actor,id,input){
-    keys(input,['expected_cursor','expected_profile_revision','limit','confirm','reason']);let row=this.owned(ctx,actor,id);const profile=this.authorize(ctx,actor),m=this.manifest(row.options);
+    keys(input,['expected_cursor','expected_profile_revision','limit','confirm','reason']);let row=this.owned(ctx,actor,id);const profile=this.authorize(ctx,actor),m=this.reservedManifest(ctx,row);
     if(input.confirm!==true||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>1000||!Number.isSafeInteger(input.limit)||input.limit<1||input.limit>100)fail('demo_confirmation_required');
     if(input.expected_cursor!==row.cursor||input.expected_profile_revision!==profile.revision||profile.industry_id!==m.industry_id||m.fingerprint!==row.plan_fingerprint)fail('demo_plan_changed',409);
     const nodeMap=new Map(m.nodes.map(n=>[n.id,n])),end=Math.min(row.cursor+input.limit,m.nodes.length),bindings=clone(row.bindings),applied=[];let cursor=row.cursor;
@@ -84,4 +92,4 @@ class DemoUniverseEngine{
     return this.get(ctx,actor,id);
   }
 }
-module.exports={DemoUniverseEngine,SCOPE,AUDIT,hasBusinessData};
+module.exports={DemoUniverseEngine,SCOPE,AUDIT,MANIFESTS,hasBusinessData};

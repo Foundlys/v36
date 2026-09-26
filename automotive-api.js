@@ -33,6 +33,15 @@ function createAutomotiveApi(options = {}) {
     if (!applies(url.pathname)) return false;
     const ctx = context(req), actor = principal(req);
     try {
+      if (url.pathname === `${AUTOMOTIVE_PREFIX}/reference/coverage` && req.method === 'GET') {
+        sendJson(res, 200, { ok: true, coverage: automotive.getPublicReferenceCoverage(ctx, actor) });
+        return true;
+      }
+      if (url.pathname === `${AUTOMOTIVE_PREFIX}/reference` && req.method === 'GET') {
+        const input = Object.fromEntries(['kind', 'make', 'model', 'q', 'country', 'limit', 'offset'].filter(key => url.searchParams.has(key)).map(key => [key, url.searchParams.get(key)]));
+        sendJson(res, 200, automotive.getPublicReferences(ctx, actor, input));
+        return true;
+      }
       if ((url.pathname === AUTOMOTIVE_PREFIX || url.pathname === `${AUTOMOTIVE_PREFIX}/status`) && req.method === 'GET') {
         const diagnostics = automotive.diagnostics(ctx, actor), profile = automotive.dealerProfile(ctx, actor);
         sendJson(res, 200, {

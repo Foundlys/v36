@@ -1,0 +1,922 @@
+{
+  "@xmlns:cat": "http://standards.iso.org/iso/19115/-3/cat/1.0",
+  "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+  "@xmlns:dqm": "http://standards.iso.org/iso/19157/-2/dqm/1.0",
+  "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+  "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+  "@xmlns:gex": "http://standards.iso.org/iso/19115/-3/gex/1.0",
+  "@xmlns:gfc": "http://standards.iso.org/iso/19110/gfc/1.1",
+  "@xmlns:gml": "http://www.opengis.net/gml/3.2",
+  "@xmlns:lan": "http://standards.iso.org/iso/19115/-3/lan/1.0",
+  "@xmlns:mac": "http://standards.iso.org/iso/19115/-3/mac/2.0",
+  "@xmlns:mas": "http://standards.iso.org/iso/19115/-3/mas/1.0",
+  "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+  "@xmlns:mco": "http://standards.iso.org/iso/19115/-3/mco/1.0",
+  "@xmlns:mda": "http://standards.iso.org/iso/19115/-3/mda/1.0",
+  "@xmlns:mdb": "http://standards.iso.org/iso/19115/-3/mdb/2.0",
+  "@xmlns:mdq": "http://standards.iso.org/iso/19157/-2/mdq/1.0",
+  "@xmlns:mds": "http://standards.iso.org/iso/19115/-3/mds/2.0",
+  "@xmlns:mdt": "http://standards.iso.org/iso/19115/-3/mdt/2.0",
+  "@xmlns:mex": "http://standards.iso.org/iso/19115/-3/mex/1.0",
+  "@xmlns:mmi": "http://standards.iso.org/iso/19115/-3/mmi/1.0",
+  "@xmlns:mpc": "http://standards.iso.org/iso/19115/-3/mpc/1.0",
+  "@xmlns:mrc": "http://standards.iso.org/iso/19115/-3/mrc/2.0",
+  "@xmlns:mrd": "http://standards.iso.org/iso/19115/-3/mrd/1.0",
+  "@xmlns:mri": "http://standards.iso.org/iso/19115/-3/mri/1.0",
+  "@xmlns:mrl": "http://standards.iso.org/iso/19115/-3/mrl/2.0",
+  "@xmlns:mrs": "http://standards.iso.org/iso/19115/-3/mrs/1.0",
+  "@xmlns:msr": "http://standards.iso.org/iso/19115/-3/msr/2.0",
+  "@xmlns:srv": "http://standards.iso.org/iso/19115/-3/srv/2.0",
+  "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+  "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+  "@xsi:schemaLocation": "http://standards.iso.org/iso/19115/-3/mdb/2.0 https://schemas.isotc211.org/19115/-3/mdb/2.0/mdb.xsd",
+  "mdb:metadataIdentifier": {"mcc:MD_Identifier":   {
+    "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+    "mcc:code": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd"
+    }}
+  }},
+  "mdb:defaultLocale": {"lan:PT_Locale":   {
+    "@xmlns:lan": "http://standards.iso.org/iso/19115/-3/lan/1.0",
+    "@id": "EN",
+    "lan:language": {"lan:LanguageCode":     {
+      "@codeList": "http://www.loc.gov/standards/iso639-2/",
+      "@codeListValue": "eng"
+    }},
+    "lan:characterEncoding": {"lan:MD_CharacterSetCode":     {
+      "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_CharacterSetCode",
+      "@codeListValue": "utf8"
+    }}
+  }},
+  "mdb:metadataScope": {"mdb:MD_MetadataScope":   {
+    "mdb:resourceScope": {"mcc:MD_ScopeCode":     {
+      "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+      "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode",
+      "@codeListValue": "nonGeographicDataset"
+    }},
+    "mdb:name": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "Tabular dataset"
+    }}
+  }},
+  "mdb:contact": {"cit:CI_Responsibility":   {
+    "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+    "cit:role": {"cit:CI_RoleCode":     {
+      "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode",
+      "@codeListValue": "pointOfContact"
+    }},
+    "cit:party": {"cit:CI_Organisation":     {
+      "cit:name": {"gco:CharacterString":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "#text": "European Environment Agency"
+      }},
+      "cit:contactInfo": {"cit:CI_Contact": {"cit:address": {"cit:CI_Address":       {
+        "cit:deliveryPoint": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "Kongens Nytorv 6"
+        }},
+        "cit:city": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "Copenhagen"
+        }},
+        "cit:administrativeArea": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "K"
+        }},
+        "cit:postalCode": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "1050"
+        }},
+        "cit:country": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "Denmark"
+        }},
+        "cit:electronicMailAddress": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "sdi@eea.europa.eu"
+        }}
+      }}}}
+    }}
+  }},
+  "mdb:dateInfo":   [
+    {"cit:CI_Date":     {
+      "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+      "cit:date": {"gco:DateTime":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "#text": "2026-06-19T06:21:28.050242Z"
+      }},
+      "cit:dateType": {"cit:CI_DateTypeCode":       {
+        "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+        "@codeListValue": "creation"
+      }}
+    }},
+    {"cit:CI_Date":     {
+      "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+      "cit:date": {"gco:DateTime":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "#text": "2026-08-19T14:33:37.70229Z"
+      }},
+      "cit:dateType": {"cit:CI_DateTypeCode":       {
+        "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+        "@codeListValue": "revision"
+      }}
+    }}
+  ],
+  "mdb:metadataStandard": {"cit:CI_Citation":   {
+    "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+    "cit:title": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "ISO 19115-3:2018"
+    }},
+    "cit:edition": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "1.0"
+    }}
+  }},
+  "mdb:metadataLinkage": {"cit:CI_OnlineResource":   {
+    "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+    "cit:linkage": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "https://doi.org/10.2909/b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd"
+    }},
+    "cit:function": {"cit:CI_OnLineFunctionCode":     {
+      "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_OnLineFunctionCode",
+      "@codeListValue": "completeMetadata"
+    }}
+  }},
+  "mdb:identificationInfo": {"mri:MD_DataIdentification":   {
+    "@xmlns:mri": "http://standards.iso.org/iso/19115/-3/mri/1.0",
+    "mri:citation": {"cit:CI_Citation":     {
+      "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+      "cit:title": {"gco:CharacterString":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "#text": "Monitoring of CO2 emissions from passenger cars, 2025 - Provisional version"
+      }},
+      "cit:date":       [
+        {"cit:CI_Date":         {
+          "cit:date": {"gco:DateTime":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "2026-06-19T10:10:15+00:00"
+          }},
+          "cit:dateType": {"cit:CI_DateTypeCode":           {
+            "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+            "@codeListValue": "creation"
+          }}
+        }},
+        {"cit:CI_Date":         {
+          "cit:date": {"gco:DateTime":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "2026-06-25T10:10:15+00:00"
+          }},
+          "cit:dateType": {"cit:CI_DateTypeCode":           {
+            "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+            "@codeListValue": "publication"
+          }}
+        }}
+      ],
+      "cit:edition": {"gco:CharacterString":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "#text": "01.00"
+      }},
+      "cit:identifier":       [
+        {"mcc:MD_Identifier":         {
+          "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+          "mcc:code": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "eea_t_co2-emissions-cars-prov-2025_p_2025_v01_r00"
+          }}
+        }},
+        {"mcc:MD_Identifier":         {
+          "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+          "mcc:code": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "co2-cars-emission-2022p"
+          }}
+        }},
+        {"mcc:MD_Identifier":         {
+          "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+          "mcc:code": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "DAT-116-en"
+          }}
+        }},
+        {"mcc:MD_Identifier":         {
+          "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+          "mcc:code": {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "https://doi.org/10.2909/b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd",
+            "#text": "10.2909/b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd"
+          }},
+          "mcc:codeSpace": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "doi.org"
+          }},
+          "mcc:description": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "Digital Object Identifier (DOI)"
+          }}
+        }}
+      ]
+    }},
+    "mri:abstract": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "The Regulation (EU) No 2019/631 requires Countries to record information for each new passenger car registered in its territory. Every year, each Member State shall submit to the Commission all the information related to their new registrations. In particular, the following details are required for each new passenger car registered: manufacturer name, type approval number, type, variant, version, make and commercial name, specific emissions of CO2 (WLTP protocol), masses of the vehicle, wheel base, track width, engine capacity and power, fuel type and mode, eco-innovations and electricity consumption. Data for EU-27 are reported in the main database. Since 2018 Iceland is also included in the database. Since 2019 Norway is also included in the database.\n\n\nFor downloading the data in the elastic data viewer please use Edge, Chrome, Firefox or Safari."
+    }},
+    "mri:purpose": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "CO2 emissions in g/km "
+    }},
+    "mri:pointOfContact":     [
+      {"cit:CI_Responsibility":       {
+        "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+        "cit:role": {"cit:CI_RoleCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode",
+          "@codeListValue": "pointOfContact"
+        }},
+        "cit:party": {"cit:CI_Organisation":         {
+          "cit:name": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "European Environment Agency"
+          }},
+          "cit:contactInfo": {"cit:CI_Contact": {"cit:address": {"cit:CI_Address":           {
+            "cit:deliveryPoint": {"gco:CharacterString":             {
+              "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+              "#text": "Kongens Nytorv 6"
+            }},
+            "cit:city": {"gco:CharacterString":             {
+              "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+              "#text": "Copenhagen"
+            }},
+            "cit:administrativeArea": {"gco:CharacterString":             {
+              "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+              "#text": "K"
+            }},
+            "cit:postalCode": {"gco:CharacterString":             {
+              "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+              "#text": "1050"
+            }},
+            "cit:country": {"gco:CharacterString":             {
+              "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+              "#text": "Denmark"
+            }}
+          }}}}
+        }}
+      }},
+      {"cit:CI_Responsibility":       {
+        "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+        "cit:role": {"cit:CI_RoleCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode",
+          "@codeListValue": "custodian"
+        }},
+        "cit:party": {"cit:CI_Organisation":         {
+          "cit:name": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "European Environment Agency"
+          }},
+          "cit:contactInfo": {"cit:CI_Contact": {"cit:onlineResource": {"cit:CI_OnlineResource": {"cit:linkage": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "http://www.eea.europa.eu#organization"
+          }}}}}}
+        }}
+      }},
+            {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "@gco:nilReason": "withheld"
+      }
+    ],
+    "mri:spatialResolution": {"mri:MD_Resolution": {"mri:distance": {"gco:Distance":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "@uom": "m"
+    }}}},
+    "mri:topicCategory": {"mri:MD_TopicCategoryCode": "environment"},
+    "mri:extent": {"gex:EX_Extent":     {
+      "@xmlns:gex": "http://standards.iso.org/iso/19115/-3/gex/1.0",
+      "gex:temporalElement": {"gex:EX_TemporalExtent": {"gex:extent": {"gml:TimePeriod":       {
+        "@xmlns:gml": "http://www.opengis.net/gml/3.2",
+        "@gml:id": "d132709e2007",
+        "gml:beginPosition": "2025-01-01",
+        "gml:endPosition": "2025-12-31"
+      }}}}
+    }},
+    "mri:resourceMaintenance": {"mmi:MD_MaintenanceInformation":     {
+      "@xmlns:mmi": "http://standards.iso.org/iso/19115/-3/mmi/1.0",
+      "mmi:maintenanceAndUpdateFrequency": {"mmi:MD_MaintenanceFrequencyCode":       {
+        "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_MaintenanceFrequencyCode",
+        "@codeListValue": "annually"
+      }}
+    }},
+    "mri:graphicOverview": {"mcc:MD_BrowseGraphic":     {
+      "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+      "mcc:fileName": {"gco:CharacterString":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "#text": "https://sdi.eea.europa.eu/catalogue/api/records/b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd/attachments/Cars.png"
+      }}
+    }},
+    "mri:descriptiveKeywords":     [
+      {"mri:MD_Keywords":       {
+        "mri:keyword": {"gcx:Anchor":         {
+          "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+          "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+          "@xlink:href": "http://rod.eionet.europa.eu/obligations/655",
+          "#text": "CO2 emissions from new passenger cars"
+        }},
+        "mri:type": {"mri:MD_KeywordTypeCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode",
+          "@codeListValue": "theme"
+        }},
+        "mri:thesaurusName": {"cit:CI_Citation":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:title": {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "https://rod.eionet.europa.eu/obligations",
+            "#text": "Reporting obligations"
+          }},
+          "cit:date": {"cit:CI_Date":           {
+            "cit:date": {"gco:Date":             {
+              "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+              "#text": "2023-02-06"
+            }},
+            "cit:dateType": {"cit:CI_DateTypeCode":             {
+              "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+              "@codeListValue": "publication"
+            }}
+          }},
+          "cit:identifier": {"mcc:MD_Identifier":           {
+            "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+            "mcc:code": {"gcx:Anchor":             {
+              "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+              "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+              "@xlink:href": "https://sdi.eea.europa.eu/catalogue/srv/api/registries/vocabularies/external.theme.rod-eionet-europa-eu",
+              "#text": "geonetwork.thesaurus.external.theme.rod-eionet-europa-eu"
+            }}
+          }}
+        }}
+      }},
+      {"mri:MD_Keywords":       {
+        "mri:keyword": {"gcx:Anchor":         {
+          "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+          "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+          "@xlink:href": "https://applications.eea.europa.eu/managementplan/Level3_Plan.aspx?Product_ID=22465",
+          "#text": "2026 EEA/DATA/2026/050"
+        }},
+        "mri:type": {"mri:MD_KeywordTypeCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode",
+          "@codeListValue": "theme"
+        }},
+        "mri:thesaurusName": {"cit:CI_Citation":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:title": {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "https://applications.eea.europa.eu/ManagementPlan/default.aspx#",
+            "#text": "EEA Management Plan"
+          }},
+          "cit:date":           [
+            {"cit:CI_Date":             {
+              "cit:date": {"gco:Date":               {
+                "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+                "#text": "2026-05-06"
+              }},
+              "cit:dateType": {"cit:CI_DateTypeCode":               {
+                "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+                "@codeListValue": "publication"
+              }}
+            }},
+            {"cit:CI_Date":             {
+              "cit:date": {"gco:Date":               {
+                "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+                "#text": "2021-08-25"
+              }},
+              "cit:dateType": {"cit:CI_DateTypeCode":               {
+                "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+                "@codeListValue": "publication"
+              }}
+            }}
+          ],
+          "cit:identifier": {"mcc:MD_Identifier":           {
+            "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+            "mcc:code": {"gcx:Anchor":             {
+              "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+              "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+              "@xlink:href": "https://sdi.eea.europa.eu/catalogue/srv/api/registries/vocabularies/local.theme.eea-mp",
+              "#text": "geonetwork.thesaurus.local.theme.eea-mp"
+            }}
+          }}
+        }}
+      }},
+      {"mri:MD_Keywords":       {
+        "mri:keyword":         [
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "https://www.eea.europa.eu/en/topics/in-depth/climate-change-mitigation-reducing-emissions",
+            "#text": "Climate change mitigation: reducing emissions"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "https://www.eea.europa.eu/en/topics/in-depth/transport-and-mobility",
+            "#text": "Transport and mobility"
+          }}
+        ],
+        "mri:type": {"mri:MD_KeywordTypeCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode",
+          "@codeListValue": "theme"
+        }},
+        "mri:thesaurusName": {"cit:CI_Citation":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:title": {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "https://www.eea.europa.eu/themes",
+            "#text": "EEA topics"
+          }},
+          "cit:date":           [
+            {"cit:CI_Date":             {
+              "cit:date": {"gco:Date":               {
+                "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+                "#text": "2022-10-18"
+              }},
+              "cit:dateType": {"cit:CI_DateTypeCode":               {
+                "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+                "@codeListValue": "publication"
+              }}
+            }},
+            {"cit:CI_Date":             {
+              "cit:date": {"gco:Date":               {
+                "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+                "#text": "2020-09-24"
+              }},
+              "cit:dateType": {"cit:CI_DateTypeCode":               {
+                "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+                "@codeListValue": "publication"
+              }}
+            }}
+          ],
+          "cit:identifier": {"mcc:MD_Identifier":           {
+            "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+            "mcc:code": {"gcx:Anchor":             {
+              "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+              "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+              "@xlink:href": "https://sdi.eea.europa.eu/catalogue/srv/api/registries/vocabularies/external.theme.eea-topics",
+              "#text": "geonetwork.thesaurus.external.theme.eea-topics"
+            }}
+          }}
+        }}
+      }},
+            {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "@gco:nilReason": "withheld"
+      },
+            {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "@gco:nilReason": "withheld"
+      },
+      {"mri:MD_Keywords":       {
+        "mri:keyword": {"gcx:Anchor":         {
+          "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+          "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+          "@xlink:href": "http://www.eionet.europa.eu/gemet/concept/263",
+          "#text": "air pollutant"
+        }},
+        "mri:type": {"mri:MD_KeywordTypeCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode",
+          "@codeListValue": "theme"
+        }},
+        "mri:thesaurusName": {"cit:CI_Citation":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:title": {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://geonetwork-opensource.org/gemet",
+            "#text": "GEMET"
+          }},
+          "cit:date": {"cit:CI_Date":           {
+            "cit:date": {"gco:Date":             {
+              "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+              "#text": "2021-11-30"
+            }},
+            "cit:dateType": {"cit:CI_DateTypeCode":             {
+              "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+              "@codeListValue": "publication"
+            }}
+          }},
+          "cit:identifier": {"mcc:MD_Identifier":           {
+            "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+            "mcc:code": {"gcx:Anchor":             {
+              "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+              "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+              "@xlink:href": "https://sdi.eea.europa.eu/catalogue/srv/api/registries/vocabularies/external.theme.gemet",
+              "#text": "geonetwork.thesaurus.external.theme.gemet"
+            }}
+          }}
+        }}
+      }},
+      {"mri:MD_Keywords":       {
+        "mri:keyword":         [
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/LVA",
+            "#text": "Latvia"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/AUT",
+            "#text": "Austria"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/ISL",
+            "#text": "Iceland"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/GRC",
+            "#text": "Greece"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/HRV",
+            "#text": "Croatia"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/IRL",
+            "#text": "Ireland"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/SVN",
+            "#text": "Slovenia"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/FRA",
+            "#text": "France"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/NOR",
+            "#text": "Norway"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/EST",
+            "#text": "Estonia"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/POL",
+            "#text": "Poland"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/MLT",
+            "#text": "Malta"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/ESP",
+            "#text": "Spain"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/SVK",
+            "#text": "Slovakia"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/LUX",
+            "#text": "Luxembourg"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/BGR",
+            "#text": "Bulgaria"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/HUN",
+            "#text": "Hungary"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/CZE",
+            "#text": "Czechia"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/DEU",
+            "#text": "Germany"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/ITA",
+            "#text": "Italy"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/CYP",
+            "#text": "Cyprus"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/LTU",
+            "#text": "Lithuania"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/NLD",
+            "#text": "Netherlands"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/SWE",
+            "#text": "Sweden"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/BEL",
+            "#text": "Belgium"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/DNK",
+            "#text": "Denmark"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/ROU",
+            "#text": "Romania"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/PRT",
+            "#text": "Portugal"
+          }},
+          {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://www.naturalearthdata.com/ne_admin#Country/FIN",
+            "#text": "Finland"
+          }}
+        ],
+        "mri:type": {"mri:MD_KeywordTypeCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode",
+          "@codeListValue": "place"
+        }},
+        "mri:thesaurusName": {"cit:CI_Citation":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:title": {"gcx:Anchor":           {
+            "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+            "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "@xlink:href": "http://geonetwork-opensource.org/thesaurus/naturalearth-and-seavox",
+            "#text": "Continents, countries, sea regions of the world."
+          }},
+          "cit:date":           [
+            {"cit:CI_Date":             {
+              "cit:date": {"gco:DateTime":               {
+                "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+                "#text": "2015-07-17T12:00:00"
+              }},
+              "cit:dateType": {"cit:CI_DateTypeCode":               {
+                "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+                "@codeListValue": "publication"
+              }}
+            }},
+            {"cit:CI_Date":             {
+              "cit:date": {"gco:Date":               {
+                "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+                "#text": "2015-07-17"
+              }},
+              "cit:dateType": {"cit:CI_DateTypeCode":               {
+                "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode",
+                "@codeListValue": "publication"
+              }}
+            }}
+          ],
+          "cit:identifier": {"mcc:MD_Identifier":           {
+            "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+            "mcc:code": {"gcx:Anchor":             {
+              "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+              "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+              "@xlink:href": "https://sdi.eea.europa.eu/catalogue/srv/api/registries/vocabularies/external.place.regions",
+              "#text": "geonetwork.thesaurus.external.place.regions"
+            }}
+          }}
+        }}
+      }}
+    ],
+    "mri:resourceConstraints":     [
+      {"mco:MD_Constraints":       {
+        "@xmlns:mco": "http://standards.iso.org/iso/19115/-3/mco/1.0",
+        "mco:useLimitation": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "License CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Copyright holder: Directorate-General for Climate Action (DG-CLIMA)."
+        }}
+      }},
+      {"mco:MD_LegalConstraints":       {
+        "@xmlns:mco": "http://standards.iso.org/iso/19115/-3/mco/1.0",
+        "mco:accessConstraints": {"mco:MD_RestrictionCode":         {
+          "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_RestrictionCode",
+          "@codeListValue": "otherRestrictions"
+        }},
+        "mco:otherConstraints": {"gcx:Anchor":         {
+          "@xmlns:gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
+          "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+          "@xlink:href": "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations",
+          "#text": "No limitations to public access"
+        }}
+      }}
+    ],
+    "mri:defaultLocale": {"lan:PT_Locale":     {
+      "@xmlns:lan": "http://standards.iso.org/iso/19115/-3/lan/1.0",
+      "lan:language": {"lan:LanguageCode":       {
+        "@codeList": "http://www.loc.gov/standards/iso639-2/",
+        "@codeListValue": "eng"
+      }},
+      "lan:characterEncoding":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "@gco:nilReason": "unknown"
+      }
+    }},
+    "mri:supplementalInformation": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "Data processing\nSince 2010 the EEA is collecting data from passenger cars registered in all EU Member States. The scheduling for the monitoring is the following:\n\n\n* Member States shall record information for each new passenger car and van registered in its territory and transmit this information to the Commission by 28 February of each year. Data are submitted to the Central Data Repository managed by the EEA (http://cdr.eionet.europa.eu/ (http://cdr.eionet.europa.eu/))\n\n* The EEA performs several quality checks in order to evaluate the accuracy and the quality of the dataset. On the basis of the checks and the feedbacks from Member States the EEA finalises and publishes the preliminary database. At the same time, notification letters are sent to manufacturers informing them of their provisional CO2 performances.\n\n* Manufacturers can, within three months of being notified of the provisional calculation, notify the Commission of any errors in the data.\n\n* The EEA and the European Commission assess the manufacturers’ corrections, and, where justified, take them into account for the calculation of the manufacturer final average CO2 emissions and specific emission targets The final data and targets are then published in the EEA website.\n\nThe data are required for the calculation by the Commission of the average specific emissions of CO2 from new passenger cars and for setting the specific emissions targets that shall be met by car manufacturers. The database provides the detailed data without taking into account other factors required for the calculation of specific emissions targets (such as phase-in percentages, credits for low emitting vehicles and E85 fuelled vehicles, or eco-innovation credits) that vary over the years . In order to calculate the average specific emissions and specific emission targets the Commission considers only those vehicles for which emission and mass are available. \n \nData visualization \nDiscodata is an SQL Server Rest Endpoint provided by EEA allowing for access to various datasets including CO2 emission for cars. The dataset available contains all years of available data including both provisional final data. Please pay attention to both the year and the status field. The status field can have two values P=Provisional and F=Final. When extracting data, you should always select either Provisional or Final to avoid redundancy. To access the provisional 2025 data use this SQL expression (only first 1000 records): Select top 1000 * from [CO2Emission].[latest].[co2cars] where year = 2025 and status = 'P'\n\n\nFor downloading the data in the elastic data viewer please use Edge, Chrome, Firefox or Safari."
+    }}
+  }},
+  "mdb:distributionInfo": {"mrd:MD_Distribution":   {
+    "@xmlns:mrd": "http://standards.iso.org/iso/19115/-3/mrd/1.0",
+    "mrd:distributionFormat": {"mrd:MD_Format": {"mrd:formatSpecificationCitation": {"cit:CI_Citation":     {
+      "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+      "cit:title": {"gco:CharacterString":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "#text": "ascii (.csv, .txt, .sql)"
+      }},
+      "cit:date":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "@gco:nilReason": "unknown"
+      },
+      "cit:edition":       {
+        "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+        "@gco:nilReason": "unknown",
+        "gco:CharacterString": null
+      }
+    }}}},
+    "mrd:transferOptions":     [
+      {"mrd:MD_DigitalTransferOptions": {"mrd:onLine":       [
+        {"cit:CI_OnlineResource":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:linkage": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "https://co2cars.apps.eea.europa.eu/"
+          }},
+          "cit:protocol": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "WWW:LINK-1.0-http--link"
+          }},
+          "cit:name": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "CO2 passenger cars (elastic data viewer)"
+          }}
+        }},
+        {"cit:CI_OnlineResource":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:linkage": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "https://discodata.eea.europa.eu/"
+          }},
+          "cit:protocol": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "WWW:LINK-1.0-http--link"
+          }},
+          "cit:name": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "SQL Rest Endpoint ([CO2Emission].[latest].[co2cars_2025Pv31])"
+          }},
+          "cit:description": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "SELECT TOP 100 * FROM [CO2Emission].[latest].[co2cars_2025Pv31]"
+          }}
+        }},
+                {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "@gco:nilReason": "withheld"
+        },
+        {"cit:CI_OnlineResource":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:linkage": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "https://www.eea.europa.eu/en/analysis/indicators/co2-performance-of-new-passenger"
+          }},
+          "cit:name": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "CO2 emissions performance of new passenger cars in Europe"
+          }},
+          "cit:description": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "EEA Indicator"
+          }}
+        }},
+        {"cit:CI_OnlineResource":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:linkage": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "https://sdi.eea.europa.eu/catalogue/api/records/b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd/attachments/CO2%20from%20cars%20and%20vans_Stastical%20metadata_2025P.pdf"
+          }},
+          "cit:protocol": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "WWW:LINK"
+          }},
+          "cit:name": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "CO2 from cars and vans - statistical metadata 2025P"
+          }},
+          "cit:function": {"cit:CI_OnLineFunctionCode":           {
+            "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_OnLineFunctionCode",
+            "@codeListValue": "information"
+          }}
+        }},
+        {"cit:CI_OnlineResource":         {
+          "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+          "cit:linkage": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "https://sdi.eea.europa.eu/catalogue/api/records/b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd/attachments/Table-definition-cars-2025-Provisional.xlsx"
+          }},
+          "cit:protocol": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "WWW:LINK"
+          }},
+          "cit:name": {"gco:CharacterString":           {
+            "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+            "#text": "Table definition"
+          }},
+          "cit:function": {"cit:CI_OnLineFunctionCode":           {
+            "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_OnLineFunctionCode",
+            "@codeListValue": "information"
+          }}
+        }}
+      ]}},
+      {"mrd:MD_DigitalTransferOptions": {"mrd:onLine": {"cit:CI_OnlineResource":       {
+        "@xmlns:cit": "http://standards.iso.org/iso/19115/-3/cit/2.0",
+        "cit:linkage": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "https://doi.org/10.2909/b4044b06-2e6b-4f8e-a6e6-66e0e98bb0dd"
+        }},
+        "cit:protocol": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "DOI"
+        }},
+        "cit:name": {"gco:CharacterString":         {
+          "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+          "#text": "Digital Object Identifier (DOI)"
+        }}
+      }}}}
+    ]
+  }},
+  "mdb:resourceLineage": {"mrl:LI_Lineage":   {
+    "@xmlns:mrl": "http://standards.iso.org/iso/19115/-3/mrl/2.0",
+    "mrl:statement": {"gco:CharacterString":     {
+      "@xmlns:gco": "http://standards.iso.org/iso/19115/-3/gco/1.0",
+      "#text": "Directorate-General for Climate Action.\nData are submitted by Member States at: http://cdr.eionet.europa.eu/"
+    }},
+    "mrl:scope": {"mcc:MD_Scope":     {
+      "@xmlns:mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
+      "mcc:level": {"mcc:MD_ScopeCode":       {
+        "@codeList": "http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode",
+        "@codeListValue": "dataset"
+      }}
+    }}
+  }}
+}

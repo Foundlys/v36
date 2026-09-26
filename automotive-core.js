@@ -3,7 +3,7 @@
 const crypto = require('crypto');
 
 const AUTOMOTIVE_SCHEMA_VERSION = '1.0.0';
-const AUTOMOTIVE_TRANSFORMATION_VERSION = 'foundly-automotive-normalizer/1.1.0';
+const AUTOMOTIVE_TRANSFORMATION_VERSION = 'foundly-automotive-normalizer/1.2.0';
 const AUTOMOTIVE_SEARCH_VERSION = 'foundly-automotive-search/1.1.0';
 const AUTOMOTIVE_COMPARABLE_VERSION = 'foundly-automotive-comparables/1.0.0';
 const AUTOMOTIVE_BUY_SCORE_VERSION = 'foundly-buy-score/1.0.0';
@@ -579,28 +579,66 @@ function normalizeRdwRecord(raw, options = {}) {
   const fetchedAt = new Date(options.fetchedAt || Date.now()).toISOString();
   const registration = text(raw.kenteken, 40).toUpperCase();
   if (!registration) return null;
+  // The vehicle register's vermogen_massarijklaar is a ratio, not engine kW.
+  // Fuel/engine measurements are published separately in RDW dataset 8ys7-d773.
+  const { rdw_fuel_records: joinedFuel, rdw_fuel_observation: fuelObservation, ...baseRaw } = raw;
+  const fuelRows = (Array.isArray(options.fuelRecords) ? options.fuelRecords : Array.isArray(joinedFuel) ? joinedFuel : [])
+    .filter(row => row && text(row.kenteken, 40).toUpperCase() === registration).slice(0, 8);
+  const rdwNumber = value => value === null || value === undefined || String(value).trim() === '' || !/^-?\d+(?:\.\d+)?$/.test(String(value).trim()) ? null : Number.isFinite(Number(value)) ? Number(value) : null;
+  const uniqueMeasurement = (field, positive = false) => {
+    const values = [...new Set(fuelRows.map(row => rdwNumber(row[field])).filter(value => value !== null && (positive ? value > 0 : value >= 0)))];
+    return values.length === 1 ? values[0] : null;
+  };
+  const classes = [...new Set(fuelRows.map(row => text(row.klasse_hybride_elektrisch_voertuig, 40)).filter(Boolean))];
+  const fuels = [...new Set(fuelRows.map(row => normalizeFuel(row.brandstof_omschrijving)).filter(Boolean))];
+  const hybrid = classes.some(value => /^(?:N?OVC)-(?:HEV|FCHV)$/.test(value));
+  const fuel = classes.includes('OVC-HEV') ? 'PLUGIN_HYBRID' : classes.includes('NOVC-HEV') ? 'HYBRID' : fuels.length === 1 ? fuels[0] : null;
+  const combustionPower = uniqueMeasurement('nettomaximumvermogen', true);
+  const continuousElectricPower = uniqueMeasurement('nominaal_continu_maximumvermogen', true);
+  const power = !hybrid && fuels.length === 1 && ['PETROL', 'DIESEL', 'LPG', 'CNG'].includes(fuel) ? combustionPower : null;
+  const co2Field = hybrid && uniqueMeasurement('emis_co2_gewogen_gecombineerd_wltp') !== null ? 'emis_co2_gewogen_gecombineerd_wltp' : uniqueMeasurement('emissie_co2_gecombineerd_wltp') !== null ? 'emissie_co2_gecombineerd_wltp' : 'co2_uitstoot_gecombineerd';
+  const manifests = [sourceManifest('rdw', registration, baseRaw, fetchedAt), ...fuelRows.map(row => ({
+    ...sourceManifest('rdw', `${registration}:fuel:${text(row.brandstof_volgnummer, 20)}`, row, fuelObservation?.observed_at || fetchedAt),
+    dataset_id: '8ys7-d773', source_url: `https://opendata.rdw.nl/resource/8ys7-d773.json?kenteken=${encodeURIComponent(registration)}`
+  }))];
+  manifests[0].dataset_id = 'm9d7-ebf2';
+  const fieldSources = {};
+  const fieldSource = (target, field, value, unit) => {
+    if (value === null) return;
+    const index = fuelRows.findIndex(row => rdwNumber(row[field]) === value);
+    fieldSources[target] = { dataset_id: '8ys7-d773', field, unit, registration, raw_source_reference: manifests[index + 1]?.id || null };
+  };
+  fieldSource('vehicle.power_kw', 'nettomaximumvermogen', power, 'kW');
+  fieldSource('vehicle.hybrid_ev.combustion_max_power_kw', 'nettomaximumvermogen', combustionPower, 'kW');
+  fieldSource('vehicle.hybrid_ev.electric_continuous_power_kw', 'nominaal_continu_maximumvermogen', continuousElectricPower, 'kW');
+  fieldSource('vehicle.co2_g_km', co2Field, uniqueMeasurement(co2Field), 'g/km');
   const vehicle = {
     make: normalizeMake(raw.merk), model: firstText(raw.handelsbenaming), variant: firstText(raw.type, raw.variant), trim: firstText(raw.uitvoering),
     generation: null, body_type: firstText(raw.inrichting, raw.voertuigsoort), build_year: yearOf(raw.datum_eerste_toelating),
-    first_registration: normalizedDate(raw.datum_eerste_toelating), mileage_km: null, fuel: normalizeFuel(raw.brandstof_omschrijving),
-    hybrid_ev: {}, transmission: null, drivetrain: null, power_kw: firstNumber(raw.vermogen_massarijklaar), power_hp: null,
-    engine_displacement_cc: firstNumber(raw.cilinderinhoud), doors: null, seats: firstNumber(raw.aantal_zitplaatsen),
+    first_registration: normalizedDate(raw.datum_eerste_toelating), mileage_km: null, fuel,
+    hybrid_ev: { rdw_classes: classes, fuel_components: fuels, combustion_max_power_kw: combustionPower, electric_continuous_power_kw: continuousElectricPower, system_power_kw: null },
+    transmission: null, drivetrain: null, power_kw: power, power_hp: power === null ? null : Math.round(power / 0.735499),
+    power_measurement: power === null ? null : 'COMBUSTION_MAXIMUM',
+    engine_displacement_cc: rdwNumber(raw.cilinderinhoud), doors: rdwNumber(raw.aantal_deuren), seats: rdwNumber(raw.aantal_zitplaatsen),
     exterior_color: firstText(raw.eerste_kleur), interior_color: null, features: [], images: [], vin: null, registration,
-    co2_g_km: firstNumber(raw.co2_uitstoot_gecombineerd), environmental: {
-      emission_class: firstText(raw.emissiecode_omschrijving), energy_label: firstText(raw.zuinigheidsclassificatie),
-      catalog_price_eur: firstNumber(raw.catalogusprijs), original_bpm_eur: firstNumber(raw.bruto_bpm),
+    co2_g_km: uniqueMeasurement(co2Field), environmental: {
+      co2_test_procedure: uniqueMeasurement(co2Field) === null ? null : co2Field.endsWith('wltp') ? 'WLTP' : 'RDW_LEGACY_COMBINED',
+      emission_classes: [...new Set(fuelRows.map(row => text(row.emissiecode_omschrijving, 80)).filter(Boolean))], energy_label: firstText(raw.zuinigheidsclassificatie),
+      catalog_price_eur: rdwNumber(raw.catalogusprijs), original_bpm_eur: rdwNumber(raw.bruto_bpm),
       registration_nl: normalizedDate(raw.datum_eerste_tenaamstelling_in_nederland)
-    }
+    },
+    registration_specifications: { type: firstText(raw.type), variant: firstText(raw.variant), version: firstText(raw.uitvoering), type_approval: firstText(raw.typegoedkeuringsnummer), cylinders: rdwNumber(raw.aantal_cilinders), kerb_mass_kg: rdwNumber(raw.massa_rijklaar), towing_braked_kg: rdwNumber(raw.maximum_trekken_massa_geremd), towing_unbraked_kg: rdwNumber(raw.maximum_massa_trekken_ongeremd) }
   };
-  const manifest = sourceManifest('rdw', registration, raw, fetchedAt);
+  const manifest = manifests[0];
   return {
     schema_version: AUTOMOTIVE_SCHEMA_VERSION,
     record_kind: 'AUTOMOTIVE_VEHICLE_TRUTH',
     canonical_vehicle_id: canonicalVehicleId('rdw', registration, vehicle),
     identity: { canonical_vehicle_id: canonicalVehicleId('rdw', registration, vehicle), provider: 'rdw', provider_record_id: registration, registration, source_url: `https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=${encodeURIComponent(registration)}` },
     vehicle,
-    provenance: { provider: 'rdw', provider_verified: true, raw_source_reference: manifest.id, ingestion_timestamp: fetchedAt, provider_modified_at: null, transformation_version: AUTOMOTIVE_TRANSFORMATION_VERSION },
-    raw_source_manifest: manifest
+    provenance: { provider: 'rdw', provider_verified: true, raw_source_reference: manifest.id, ingestion_timestamp: fetchedAt, provider_modified_at: null, transformation_version: AUTOMOTIVE_TRANSFORMATION_VERSION,
+      field_sources: fieldSources, fuel_enrichment: { state: fuelRows.length ? 'OBSERVED' : fuelObservation?.state || 'NOT_OBSERVED', matched_rows: fuelRows.length, source_complete: false }, specifications_complete: false },
+    raw_source_manifest: manifest, raw_source_manifests: manifests
   };
 }
 
@@ -887,16 +925,36 @@ class FoundlyAutomotiveCore {
 
   async searchRdw(criteria, ctx) {
     const config = this.providerConfiguration('rdw', ctx), params = new URLSearchParams();
-    params.set('$select', 'kenteken,voertuigsoort,inrichting,merk,handelsbenaming,datum_eerste_toelating,datum_eerste_tenaamstelling_in_nederland,bruto_bpm,catalogusprijs,zuinigheidsclassificatie,cilinderinhoud,aantal_zitplaatsen,eerste_kleur');
+    params.set('$select', 'kenteken,voertuigsoort,inrichting,merk,handelsbenaming,datum_eerste_toelating,datum_eerste_tenaamstelling_in_nederland,bruto_bpm,catalogusprijs,zuinigheidsclassificatie,cilinderinhoud,aantal_zitplaatsen,eerste_kleur,type,variant,uitvoering,typegoedkeuringsnummer,aantal_deuren,aantal_cilinders,massa_rijklaar,maximum_trekken_massa_geremd,maximum_massa_trekken_ongeremd');
     const where = [];
     if (criteria.make) where.push(`upper(merk)='${escapeSoql(criteria.make.toUpperCase())}'`);
     if (criteria.model) where.push(`upper(handelsbenaming) like '%${escapeSoql(criteria.model.toUpperCase())}%'`);
     if (criteria.year_min) where.push(`datum_eerste_toelating >= '${Math.round(criteria.year_min)}0101'`);
     if (criteria.year_max) where.push(`datum_eerste_toelating <= '${Math.round(criteria.year_max)}1231'`);
     if (where.length) params.set('$where', where.join(' AND '));
-    params.set('$limit', String(Math.min(100, Number(criteria.limit) || 50)));
+    const limit = Math.max(1, Math.min(100, Math.trunc(Number(criteria.limit) || 50)));
+    params.set('$limit', String(limit));
+    params.set('$order', 'kenteken');
     const data = await this.request(`${config.base_url.replace(/\/$/, '')}/resource/m9d7-ebf2.json?${params}`, { method: 'GET', headers: { accept: 'application/json' } }, 'rdw');
-    return Array.isArray(data) ? data : [];
+    if (!Array.isArray(data)) throw automotiveError(502, 'RDW_RESPONSE_INVALID', 'RDW voertuigrespons is geen lijst');
+    const rows = data.slice(0, limit), registrations = [...new Set(rows.map(row => text(row?.kenteken, 40).toUpperCase()).filter(value => /^[A-Z0-9]{1,12}$/.test(value)))];
+    let fuelRows = [], fuelObservation = { state: 'NOT_OBSERVED', dataset_id: '8ys7-d773', observed_at: null, source_complete: false };
+    if (registrations.length) {
+      const fuelParams = new URLSearchParams({ '$where': `kenteken in(${registrations.map(value => `'${value}'`).join(',')})`, '$limit': '800', '$order': 'kenteken,brandstof_volgnummer' });
+      try {
+        const response = await this.request(`${config.base_url.replace(/\/$/, '')}/resource/8ys7-d773.json?${fuelParams}`, { method: 'GET', headers: { accept: 'application/json' } }, 'rdw');
+        if (!Array.isArray(response)) throw automotiveError(502, 'RDW_FUEL_RESPONSE_INVALID', 'RDW brandstofrespons is geen lijst');
+        fuelRows = response.slice(0, 800);
+        fuelObservation = { ...fuelObservation, state: response.length >= 800 ? 'BOUNDED_PARTIAL' : 'OBSERVED', observed_at: this.now(), records_received: fuelRows.length };
+      } catch (error) { fuelObservation = { ...fuelObservation, state: 'UNAVAILABLE', error: providerSafeError(error) }; }
+    }
+    const byRegistration = new Map();
+    for (const row of fuelRows) {
+      const key = text(row?.kenteken, 40).toUpperCase();
+      if (!registrations.includes(key)) continue;
+      const list = byRegistration.get(key) || []; list.push(row); byRegistration.set(key, list);
+    }
+    return providerPageBatch(rows.map(row => ({ ...row, rdw_fuel_records: byRegistration.get(text(row.kenteken, 40).toUpperCase()) || [], rdw_fuel_observation: fuelObservation })), { limit, source_complete: false, fuel_enrichment: fuelObservation });
   }
 
   async searchMobileDe(criteria, ctx) {
@@ -980,6 +1038,16 @@ class FoundlyAutomotiveCore {
     if (provider === 'mobile_de') return normalizeMobileDeRecord(raw, { fetchedAt });
     if (provider === 'marktplaats') return normalizeMarktplaatsRecord(raw, { fetchedAt });
     return null;
+  }
+
+  getPublicReferences(context, principal, input = {}) {
+    this.scope(context, principal);
+    return (this.adapter.publicCatalog || require('./automotive-public-reference').defaultCatalog()).search(input);
+  }
+
+  getPublicReferenceCoverage(context, principal) {
+    this.scope(context, principal);
+    return (this.adapter.publicCatalog || require('./automotive-public-reference').defaultCatalog()).coverage();
   }
 
   recordTelemetry(ctx, input) {
