@@ -4,7 +4,7 @@ const L=require('./demo-universe-law'),{amounts}=require('./finance-invoice-amou
 const DAY=86400000,label=text=>L.LABEL+' '+text,ref=id=>({$ref:id});
 const day=(at,offset=0)=>new Date(Date.parse(at)+offset*DAY).toISOString().slice(0,10);
 function append(body){
-  const original=new Map(body.nodes.map(n=>[n.id,n])),entity=original.get('finance-entity').input,flows=[];
+  const original=new Map(body.nodes.map(n=>[n.id,n])),entity=original.get('finance-entity').input,flows=[],credits=[];
   function action(id,kind,operation,at,values,reason,source,extra=[]){
     const input={operation,values,reason:label(reason)},node={id,kind,contract:'finance.action',module:'finance',entity:operation==='PAYMENT_RECORD'?'payments':'invoices',occurred_at:new Date(at).toISOString(),location_id:source.location_id,persona_id:body.personas[0].id,input,depends_on:[...new Set([...L.references(input),...extra])],provenance:L.provenance(body.scenario_id,id)};
     body.nodes.push(node);return node;
@@ -33,6 +33,12 @@ function append(body){
     if(state>0){
       const year=day(at).slice(0,4);
       action(posted,'finance_posting','INVOICE_POST',at,{invoice_id:ref(created)},'Post this fictional invoice through the native balanced journal and open fiscal period.',source,['finance-period-'+year,'finance-account-1300','finance-account-8000','finance-account-1521']);flow.posting=posted;
+      if(index===1){
+        const credit='finance-credit-'+suffix,creditPost='finance-credit-post-'+suffix,creditDate=day(at,1);
+        action(credit,'finance_credit_note','CREDIT_NOTE_CREATE',creditDate,{invoice_id:ref(posted),invoice_number:number+'-C',invoice_date:creditDate,supply_date:day(at),due_date:creditDate},'Create a full fictional invoice correction. This draft performs no settlement, stock return or refund.',source);
+        action(creditPost,'finance_credit_posting','INVOICE_POST',creditDate,{invoice_id:ref(credit)},'Post the confirmed credit separately. Original invoice allocation, physical stock correction and refund remain explicit pending actions.',source,['finance-period-'+creditDate.slice(0,4),'finance-account-1300','finance-account-8000','finance-account-1521']);
+        credits.push({invoice:created,posting:posted,credit,creditPost,gross_cents:gross});
+      }
       if(state>1){
         const paymentDate=day(at,7),payment=state===2?Math.floor(gross/2):gross;
         action(paid,'finance_payment','PAYMENT_RECORD',paymentDate,{invoice_id:ref(posted),amount_cents:payment,currency:'EUR',date:paymentDate,reference:label('Fictional internal receipt '+number+'; no bank settlement')},'Record only the synthetic internal payment booking. No bank transfer, provider settlement or reconciliation is performed.',source,['finance-period-'+paymentDate.slice(0,4),'finance-account-1000','finance-account-1300']);flow.payment=paid;flow.paid_cents=payment;
@@ -42,7 +48,8 @@ function append(body){
   }
   const counts=Object.fromEntries(['DRAFT','POSTED','PARTIALLY_PAID','PAID'].map(status=>[status,flows.filter(f=>f.status===status).length]));
   const sources=flows.flatMap(f=>[f.invoice,...(f.posting?[f.posting]:[]),...(f.payment?[f.payment]:[])]);
-  body.scenarios.push({id:'native-financial-sales-history',kind:'NORMAL',description:label('Inspect native invoices, open balances and balanced journals across the fictional history. Internal payment bookings are not external bank evidence; unbilled orders and returns remain separate.'),source_ids:sources,expectations:{invoice_count:flows.length,status_counts:counts,payment_count:flows.filter(f=>f.payment).length,journal_count:flows.filter(f=>f.posting).length+flows.filter(f=>f.payment).length,external_payment_performed:false,bank_settlement_verified:false,complete_purchase_credit_refund_history:false}});
+  body.scenarios.push({id:'native-financial-sales-history',kind:'NORMAL',description:label('Inspect native invoices, open balances and balanced journals across the fictional history. Internal payment bookings are not external bank evidence; unbilled orders and returns remain separate.'),source_ids:[...sources,...credits.flatMap(c=>[c.credit,c.creditPost])],expectations:{invoice_count:flows.length+credits.length,sales_invoice_count:flows.length,credit_note_count:credits.length,sales_invoice_status_counts:counts,payment_count:flows.filter(f=>f.payment).length,journal_count:flows.filter(f=>f.posting).length+flows.filter(f=>f.payment).length+credits.length,external_payment_performed:false,bank_settlement_verified:false,complete_purchase_credit_refund_history:false}});
+  for(const credit of credits)body.scenarios.push({id:'native-finance-credit-awaits-settlement',kind:'ANOMALY',description:label('The posted full credit corrects the ledger; the original receivable and customer credit remain open until explicit allocation. No stock movement or refund is implied.'),source_ids:[credit.invoice,credit.posting,credit.credit,credit.creditPost],expectations:{credit_kind:'CREDIT_NOTE',credit_status:'POSTED',original_status:'POSTED',original_outstanding_cents:credit.gross_cents,credit_outstanding_cents:credit.gross_cents,allocation_performed:false,refund_performed:false,stock_return_performed:false}});
   for(const [status,kind]of [['POSTED','ANOMALY'],['PARTIALLY_PAID','ANOMALY'],['PAID','NORMAL']]){
     const flow=flows.find(f=>f.status===status);if(!flow)continue;
     body.scenarios.push({id:'native-finance-'+status.toLowerCase().replaceAll('_','-'),kind,description:label('Trace '+status+' from its native invoice and exact ledger balance; independently inspect current records.'),source_ids:[flow.source,flow.invoice,...(flow.posting?[flow.posting]:[]),...(flow.payment?[flow.payment]:[])],expectations:{status,gross_cents:flow.gross_cents,paid_cents:flow.paid_cents,outstanding_cents:flow.gross_cents-flow.paid_cents,external_payment_performed:false}});

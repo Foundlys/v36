@@ -32,7 +32,7 @@ test('full default E-commerce graph passes actual native contracts and conserves
   assert.ok(orders.every(r=>r.provenance.classification==='SYNTHETIC_DEMO'&&!r.payment_verified&&!r.external_dispatch));
   const linked=orders.filter(r=>r.invoice_id);assert.equal(linked.length,180);assert.ok(linked.every(r=>r.financial_status==='INVOICE_LINKED'));assert.ok(orders.filter(r=>!r.invoice_id).every(r=>r.financial_status==='UNPOSTED'));
   const invoices=f.adapter.bucket(f.ctx,'finance:invoices');for(const order of linked){const invoice=invoices.find(r=>r.id===order.invoice_id);assert.equal(invoice.gross_cents,order.totals.gross_minor);assert.equal(invoice.commerce_source.order_id,order.id);assert.equal(invoice.commerce_source.contact_id,order.crm_contact_id);}
-  assert.equal(f.adapter.bucket(f.ctx,'finance:invoices').length,180);assert.equal(f.adapter.bucket(f.ctx,'finance:payments').length,108);assert.equal(f.adapter.bucket(f.ctx,'finance:journal_entries').length,252);assert.equal(f.adapter.bucket(f.ctx,'communication:submissions').length,0);
+  assert.equal(f.adapter.bucket(f.ctx,'finance:invoices').length,181);assert.equal(f.adapter.bucket(f.ctx,'finance:payments').length,108);assert.equal(f.adapter.bucket(f.ctx,'finance:journal_entries').length,253);assert.equal(f.adapter.bucket(f.ctx,'communication:submissions').length,0);
   assert.equal(f.crm.list(f.ctx,f.actor,'contacts').total,300);assert.equal(f.identities.list(f.ctx,f.actor).items.length,9);assert.ok(f.identities.list(f.ctx,f.actor).items.every(p=>p.status==='INVITED'));
   const movements=f.domains.sales.bucket(f.ctx,'commerce_movements');assert.ok(movements.every(r=>r.physical_verification==='SYNTHETIC_DEMO'));
 });

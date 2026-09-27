@@ -41124,7 +41124,29 @@
         "archive": "docs/run2/evidence/20260927-demo-finance-transactions/ci274.raw.log.gz"
       }
     ],
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_number": 275,
+      "run_id": 36304239431,
+      "job_id": 108577589956,
+      "head": "87df5b8d246ef14755937a028f4172aea99662bf",
+      "merge": "ca36ab82e8aaa70f57bf5a0823150551e5f41768",
+      "tree": "11e8626c5015c99a04cb232514aca40a01e231c6",
+      "parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "87df5b8d246ef14755937a028f4172aea99662bf"
+      ],
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/Foundlys/v36/actions/runs/36304239431",
+      "started_at": "2026-09-27T07:48:30Z",
+      "updated_at": "2026-09-27T08:04:08Z",
+      "zero_tests": 1897,
+      "corpus_pass": 14,
+      "log": "ci275.raw.log",
+      "raw_bytes": 892254,
+      "raw_sha256": "58aac8eb69084340b1e1a92e4cee310dc02d7b76d90c38490c9002483b0b89de",
+      "archive": "docs/run2/evidence/20260927-demo-credit-corrections/ci275.raw.log.gz"
+    },
     "default_nodes": {
       "AUTOMOTIVE": 5929,
       "ECOMMERCE": 4019
@@ -41150,6 +41172,189 @@
       "http-journal-inspection.log": "Same paginated journal assertion with native source details retained.",
       "http-pagination-corrected.log": "Old global failure injection did not fail final commit; changed to request-bound final-core-commit injection, actual 507 rollback then passed."
     },
-    "priority": "Complete both priority demos and all hard gates before the preserved remainder of Run 2."
+    "priority": "Complete both priority demos and all hard gates before the preserved remainder of Run 2.",
+    "own_published_ci_at_checkpoint_preparation": "PENDING_PUBLICATION"
+  },
+  "demo_credit_corrections_20260927": {
+    "recorded_at": "2026-09-27T08:09:07.702802+00:00",
+    "status": "NATIVE_FULL_CREDIT_CORRECTION_NOT_SETTLEMENT_OR_COMPLETE_DEMO",
+    "source_commit": "58da9e3a071db44abdb3fe20a90268dc92309a83",
+    "source_tree": "b28d89a07fcc11c43141dfc4603bea4b1d203770",
+    "zero_tests": {
+      "tests": 146,
+      "pass": 146,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "FOCUSED_NATIVE_FINANCE_DEMO_ZERO_REGRESSION"
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 9,
+    "frozen_proof": "docs/run2/evidence/20260927-demo-credit-corrections/credit-frozen-results.json",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/capability-resolver-test-frozen.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "file_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/ci275.raw.log.gz",
+        "raw_bytes": 892254,
+        "raw_sha256": "58aac8eb69084340b1e1a92e4cee310dc02d7b76d90c38490c9002483b0b89de",
+        "file_sha256": "8ce0d23e5e2a19b210d0453a720ce0180596a911122771c6e03dfbcd582aedef"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/composition-api-frozen.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "file_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-and-zero-frozen.log.gz",
+        "raw_bytes": 41040,
+        "raw_sha256": "02f9744fa9354012778c2264983a8071e3d739c6f0c9ba9fd832596eff5d2d99",
+        "file_sha256": "cd29df62d54205cbe09448132a55fd823802b2e158d951e1a1cf6eb5953205c9"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-core-first.log.gz",
+        "raw_bytes": 2360,
+        "raw_sha256": "5c63d953ed86c67fe54e29e5cb92f38c6c2793148b520658abc1281273d2267c",
+        "file_sha256": "ba904af0bd01401d958351cdda8a19fc843fd27ba35aff0a99d1dc592ac7b257"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "19a8be96ad7933d690042fa6f08549c7b1b013d34a0a944abbb3c460b74a8e8a",
+        "file_sha256": "b14ec1cc4a4f297ae10369ff9b03fc76020ae93424ce779ecc8b9612e6a79005"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-current-source.log.gz",
+        "raw_bytes": 4561,
+        "raw_sha256": "6d7184ea502b2cbdc515b3ce6b512089138919060d51835863cbf86adf49aa6f",
+        "file_sha256": "923befb8e18a63a0ad83ffcf894ecf65e8d98007768ace142666c0e69270cbbb"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-final-native.log.gz",
+        "raw_bytes": 5953,
+        "raw_sha256": "cf007f28a2ea80276d25a09d5b119e0a3256bcbb606afded10bca1608247b31c",
+        "file_sha256": "bbb6a27cf54a591e596ca6f2466267d6a4714fb682bcdde8087b3f5659ed56a3"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-http-initial.log.gz",
+        "raw_bytes": 407,
+        "raw_sha256": "d5242fac178cce8fef6685c2179e58304959d988e7909a67c6f7f806f7634ea2",
+        "file_sha256": "69688ecee1e6852d48c7175fb80cf10db8f65970ec84d8d1fd4a1f94b892b75f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-initial.log.gz",
+        "raw_bytes": 4481,
+        "raw_sha256": "b737ec0a1bb9a4e1acd6c75435fc72a394e3a3e669cab17da8c44b0c2f1056e8",
+        "file_sha256": "2f9e7415249ad743d47d5cc44de263d00ab5141cf01f0f3a6453e7b4b2e0fc98"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/credit-integrated.log.gz",
+        "raw_bytes": 3552,
+        "raw_sha256": "c5c40fd51ec5d8420d6310a4b8fd586c60cfe57dca551fe0134d8eece3ea780c",
+        "file_sha256": "67c79581d6ac615bf488451221e0dde7858dd7161a222286359687a6eb121e8d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/demo-credit-initial.log.gz",
+        "raw_bytes": 1828,
+        "raw_sha256": "394a4268b55f1487aa38ba0303039940088a5bf35f61dfb85963df20377b78d0",
+        "file_sha256": "c26f928c4a073c68f008aa823406f2f55fc78e7064d0bb6a1148a40ed2001cac"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/finance-cash-scenarios-api-test-frozen.log.gz",
+        "raw_bytes": 221,
+        "raw_sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+        "file_sha256": "703912e957405749278dcd12958d10bc134fa19c553cdf2a481f7c3d14ca878e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/finance-cash-scenarios-test-frozen.log.gz",
+        "raw_bytes": 267,
+        "raw_sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+        "file_sha256": "df751f6e758d8e8c0ece7ca3626633e5543c860b26ddbb37c69e7a40756b22c7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/finance-period-closing-api-test-frozen.log.gz",
+        "raw_bytes": 220,
+        "raw_sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+        "file_sha256": "df4a6084a50bb2e93b7cd321e1e9f393ce1dfbccbc7ecc0132bcb65503326341"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/finance-period-closing-test-frozen.log.gz",
+        "raw_bytes": 297,
+        "raw_sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+        "file_sha256": "eeb6375590b9d5ef43a7dffa131e5436d21673b73640efe6a17e438e7f4b7390"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/module-access-contracts-test-frozen.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "file_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/platform-api-frozen.log.gz",
+        "raw_bytes": 941,
+        "raw_sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+        "file_sha256": "fecb7bbb8dfa9a3302feb7acad1c470f6ee90fd77f76b0f5f2db751d40e31749"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-corrections/platform-core-frozen.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "file_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      }
+    ],
+    "preceding_published_ci": {
+      "run_number": 275,
+      "run_id": 36304239431,
+      "job_id": 108577589956,
+      "head": "87df5b8d246ef14755937a028f4172aea99662bf",
+      "merge": "ca36ab82e8aaa70f57bf5a0823150551e5f41768",
+      "tree": "11e8626c5015c99a04cb232514aca40a01e231c6",
+      "parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "87df5b8d246ef14755937a028f4172aea99662bf"
+      ],
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/Foundlys/v36/actions/runs/36304239431",
+      "started_at": "2026-09-27T07:48:30Z",
+      "updated_at": "2026-09-27T08:04:08Z",
+      "zero_tests": 1897,
+      "corpus_pass": 14,
+      "log": "ci275.raw.log",
+      "raw_bytes": 892254,
+      "raw_sha256": "58aac8eb69084340b1e1a92e4cee310dc02d7b76d90c38490c9002483b0b89de",
+      "archive": "docs/run2/evidence/20260927-demo-credit-corrections/ci275.raw.log.gz"
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "default_nodes": {
+      "AUTOMOTIVE": 5931,
+      "ECOMMERCE": 4021
+    },
+    "native_financial_history": {
+      "AUTOMOTIVE": {
+        "sales_invoices": 140,
+        "full_credit_notes": 1,
+        "payments": 84,
+        "journals": 197
+      },
+      "ECOMMERCE": {
+        "sales_invoices": 180,
+        "full_credit_notes": 1,
+        "payments": 108,
+        "journals": 253
+      }
+    },
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "prior_failures_preserved": {
+      "credit-initial.log": "Four reproduced native gaps: credit draft inherited operational source fields; unposted source accepted; generic creation bypassed original source/amount/counterparty; explicit confirmed credit operation absent."
+    },
+    "remaining": "Explicit allocation/internal refund and partial-credit/return/cancellation chains; purchase/COGS/approval and Automation/Analytics histories; full module UI; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2."
   }
 }

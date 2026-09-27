@@ -66,7 +66,7 @@ function dashboard(report){return {id:'foundly-finance-command-center',name:'Fou
 function counterparties(core,ctx,entityId){
  const groups=new Map();
  for(const row of core.collection(ctx,'invoices').filter(row=>(!entityId||row.legal_entity_id===entityId)&&posted(row)&&row.outstanding_cents>0)){
-  const direction=row.kind==='PURCHASE'?'PAYABLE':'RECEIVABLE',name=String(row.kind==='PURCHASE'?row.supplier_name:row.customer_name),code=currency(row.currency),key=JSON.stringify([direction,name,code]),group=groups.get(key)||{counterparty:name,direction,currency:code,amount:0n,valid:Boolean(code),invoice_ids:[]};
+  const direction=['PURCHASE','CREDIT_NOTE'].includes(row.kind)?'PAYABLE':'RECEIVABLE',name=String(row.kind==='PURCHASE'?row.supplier_name:row.customer_name),code=currency(row.currency),key=JSON.stringify([direction,name,code]),group=groups.get(key)||{counterparty:name,direction,currency:code,amount:0n,valid:Boolean(code),invoice_ids:[]};
   group.valid=group.valid&&safe(row.outstanding_cents);if(safe(row.outstanding_cents))group.amount+=BigInt(row.outstanding_cents);group.invoice_ids.push(row.id);groups.set(key,group);
  }
  const items=[...groups.values()].map(({amount,valid,...group})=>({...group,outstanding_cents:valid&&amount<=BigInt(Number.MAX_SAFE_INTEGER)?Number(amount):null,available:valid&&amount<=BigInt(Number.MAX_SAFE_INTEGER),invoice_count:group.invoice_ids.length}));

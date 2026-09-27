@@ -7,6 +7,7 @@ const SCOPE = 'finance:action_requests';
 const CONTRACTS = Object.freeze({
   COMMERCE_INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger', 'sales:quotes', 'crm:contacts'], capability_modes: {'finance:ledger': 'read', 'crm:contacts': 'read'}, commerce: true, entity: 'invoice'},
   INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices'], entity: 'invoice'},
+  CREDIT_NOTE_CREATE: {method: 'createCreditNote', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger'], entity: 'invoice'},
   INVOICE_POST: {method: 'postInvoice', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger'], entity: 'invoice'},
   PAYMENT_RECORD: {method: 'recordPayment', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger', 'finance:payments'], entity: 'payment'}
 });
@@ -45,7 +46,12 @@ function selected(core, ctx, entity, id) {
 function source(core, ctx, action, actor) {
   const {operation, input} = action; let invoice, entity, summary, blockers = [];
   if (operation === 'COMMERCE_INVOICE_CREATE') return require('./commerce-finance-source').inspect(core, ctx, actor, input);
+  if (operation === 'CREDIT_NOTE_CREATE') {
+    const {invoice_id, ...credit} = input;
+    return require('./finance-credit-notes').inspect(core, ctx, invoice_id, credit, true);
+  }
   if (operation === 'INVOICE_CREATE') {
+    if (String(input.kind || '').toUpperCase() === 'CREDIT_NOTE') fail('finance_credit_action_required', 'Bereid een creditnota voor via de expliciete oorspronkelijke factuur', 422);
     const validated = core.validateInvoice(ctx, input);
     entity = selected(core, ctx, 'legal_entities', input.legal_entity_id);
     const currency = input.currency === undefined ? entity.currency : String(input.currency).trim().toUpperCase();
@@ -71,6 +77,7 @@ function source(core, ctx, action, actor) {
   const roles = operation === 'PAYMENT_RECORD' ? ['BANK', invoice.kind === 'PURCHASE' ? 'AP' : 'AR'] : invoice.kind === 'PURCHASE' ? ['EXPENSE', 'VAT_RECEIVABLE', 'AP'] : ['AR', 'REVENUE', 'VAT_PAYABLE'];
   if (roles.some(role => accounts.filter(row => row.system_role === role && row.active !== false && row.currency === invoice.currency).length !== 1)) blockers.push('ACCOUNT_MAPPING_INVALID');
   const basis = {entity, invoice, accounts, periods};
+  if (invoice.kind === 'CREDIT_NOTE') basis.credit_source = require('./finance-credit-notes').assertDraft(core, ctx, {...invoice, lines: core.collection(ctx, 'invoice_lines').filter(line => line.invoice_id === invoice.id)}, invoice.id).basis;
   if (operation === 'INVOICE_POST') {
     basis.lines = core.collection(ctx, 'invoice_lines').filter(row => row.invoice_id === invoice.id);
     if (!basis.lines.length || basis.lines.length > 500 || ['net_cents', 'vat_cents', 'gross_cents'].some(field => !Number.isSafeInteger(invoice[field]) || invoice[field] < 0 || basis.lines.some(row => !Number.isSafeInteger(row[field]) || row[field] < 0) || basis.lines.reduce((total, row) => total + BigInt(row[field]), 0n) !== BigInt(invoice[field]))) blockers.push('INVOICE_TOTALS_INVALID');
@@ -149,7 +156,10 @@ function execute(core, context, actor, value) {
   if (current.source_hash !== action.expected_source_hash) fail('finance_action_source_changed', 'De bron is gewijzigd; bereid de actie opnieuw voor');
   if (!current.ready) fail('finance_action_not_ready', 'De financiële bron bevat blokkades', 422);
   const committed = durability.transaction(core, ctx, principal, [...native[spec.method].entities, 'action_requests'], () => {
-    const result = action.operation === 'INVOICE_POST' ? core.postInvoice(ctx, actor, action.input.invoice_id) : core[spec.method](ctx, actor, current.prepared_invoice || action.input);
+    let result;
+    if (action.operation === 'INVOICE_POST') result = core.postInvoice(ctx, actor, action.input.invoice_id);
+    else if (action.operation === 'CREDIT_NOTE_CREATE') {const {invoice_id, ...input} = action.input;result = core.createCreditNote(ctx, actor, invoice_id, input);}
+    else result = core[spec.method](ctx, actor, current.prepared_invoice || action.input);
     if (spec.commerce) result.commerce_link = require('./commerce-finance-source').link(core, ctx, actor, action.input, result.invoice, action.reason);
     const row = save(core, ctx, principal, action, 'COMMITTED', result);
     return output(core, ctx, row, false, actor);
