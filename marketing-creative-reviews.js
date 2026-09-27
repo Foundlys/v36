@@ -4,12 +4,14 @@ const clone=value=>JSON.parse(JSON.stringify(value));
 const hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
 function sourceFingerprint(row){return hash({id:row.id,revision:row.revision,owner_id:row.owner_id,title:row.title,content:row.content,status:row.status,delivery_state:row.delivery_state});}
-function reviewReadable(domain,ctx,actor,row){if(domain.id!=='marketing'||row.owned_entity!=='creative_reviews')return true;const source=domain.bucket(ctx,'creatives').find(item=>item.id===row.creative_id);return Boolean(source&&domain.visible(source,actor));}
+function reviewReadable(domain,ctx,actor,row){if(domain.id!=='marketing'||row.owned_entity!=='creative_reviews')return true;const source=domain.bucket(ctx,'creatives').find(item=>item.id===row.creative_id);return Boolean(source&&domain.visible(source,actor)&&require('./marketing-creative-history').readable(domain,ctx,actor,source));}
 function command(domain,ctx,actor,operation,input,options,mutate){
-  const key=options?.idempotency_key;if(typeof key!=='string'||!key||key.length>200)fail('creative_review_key_required','Een unieke actie-ID is verplicht');
+  const recovery=require('./marketing-review-recovery'),key=options?.idempotency_key;if(!recovery.validKey(key)||!Number.isSafeInteger(input.expected_revision)||input.expected_revision<1)fail('creative_review_key_required','Een unieke actie-ID en actuele revisie zijn verplicht');
   const fingerprint=hash({operation,input}),keys=domain.adapter.bucket(ctx,'marketing:idempotency'),prior=keys.find(row=>row.actor_id===actor.id&&row.key===key);
-  if(prior){if(prior.fingerprint!==fingerprint)fail('idempotency_conflict','Actie-ID heeft andere inhoud',409);return {record:domain.get(ctx,actor,'creative_reviews',prior.record_id),deduplicated:true,publication_executed:false};}
-  const result=domain.mutate(ctx,()=>{const row=mutate();keys.push({key,actor_id:actor.id,fingerprint,record_id:row.id});return {record:clone(row),deduplicated:false,publication_executed:false};});
+  const split=operation.indexOf(':'),kind=operation.slice(0,split).toUpperCase(),id=operation.slice(split+1),meta={request_id:key,request_fingerprint:fingerprint,operation:kind,source_id:id,expected_revision:input.expected_revision},origin=recovery.inspect(domain,ctx,actor,kind,id);
+  if(prior){if(prior.state==='ABANDONED')fail('creative_review_abandoned','Deze beoordelingsactie is afgesloten zonder uitvoering',409);if(prior.fingerprint!==fingerprint)fail('idempotency_conflict','Actie-ID heeft andere inhoud',409);if(prior.request_kind==='CREATIVE_REVIEW'){const proof=recovery.recover(domain,ctx,actor,{...meta,confirm:true});if(!proof.result_is_current)fail('creative_review_result_changed','De beoordeling is inmiddels verder gewijzigd',409);return {record:proof.record,deduplicated:true,publication_executed:false,request_acknowledgement:recovery.acknowledgement(ctx,actor,prior)};}return {record:domain.get(ctx,actor,'creative_reviews',prior.record_id),deduplicated:true,publication_executed:false,legacy_result_unverified:true};}
+  recovery.capacity(keys);
+  const result=domain.mutate(ctx,()=>{const row=mutate(),entry=recovery.receipt(domain,ctx,actor,meta,origin,row);recovery.capacity(keys,entry);keys.push(entry);return {record:clone(row),deduplicated:false,publication_executed:false,request_acknowledgement:recovery.acknowledgement(ctx,actor,entry)};});
   try{domain.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
 function prepareCreativeReview(domain,ctx,actor,id,input,options={}){
@@ -47,4 +49,4 @@ function withdrawCreativeReview(domain,ctx,actor,id,input,options={}){
     row.status='WITHDRAWN';row.withdrawal_reason=input.reason.trim();row.revision++;row.updated_at=new Date().toISOString();domain.recordEvent(ctx,actor,'creative_reviews',row,'updated');return row;
   });
 }
-module.exports={sourceFingerprint,prepareCreativeReview,reviewCreative,withdrawCreativeReview,reviewReadable};
+module.exports={sourceFingerprint,prepareCreativeReview,reviewCreative,withdrawCreativeReview,reviewReadable,recover:require('./marketing-review-recovery').recover};

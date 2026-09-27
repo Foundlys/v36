@@ -1,5 +1,6 @@
 'use strict';
 const crypto=require('node:crypto');
+const recovery=require('./sales-forecast-recovery');
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
 const clone=value=>JSON.parse(JSON.stringify(value));
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -9,6 +10,11 @@ function validateForecast(entity,value){
   if(entity!=='opportunities')return;
   for(const field of ['expected_close_date','closed_date'])if(value[field]!==undefined&&value[field]!==null&&value[field]!=='')dateOnly(value[field]);
   if(value.forecast_category!==undefined&&(!/^[A-Za-z0-9 _-]{1,80}$/.test(value.forecast_category)))fail('forecast_category_invalid','Gebruik een korte prognosecategorie');
+}
+function forecastContext(domain,ctx,actor){
+  domain.scope(ctx,actor);domain.resolver.assertCapability(ctx,actor,'sales:forecast');domain.resolver.assertCapability(ctx,actor,'sales:opportunities');
+  let can_save=true;try{domain.scope(ctx,actor,'write');domain.resolver.assertCapability(ctx,actor,'sales:forecast','write');}catch(error){if(error.statusCode!==403)throw error;can_save=false;}
+  return {request_context:recovery.context(ctx,actor),can_save};
 }
 function forecast(domain,ctx,actor,query={}){
   domain.scope(ctx,actor);
@@ -28,29 +34,29 @@ function forecast(domain,ctx,actor,query={}){
     if(!row.currency||!Number.isSafeInteger(row.value_cents)||row.value_cents<0){excluded.push({id:row.id,revision:row.revision,owner_id:row.owner_id,currency:row.currency||null,reason:'MISSING_AMOUNT_OR_CURRENCY'});continue;}
     const group=groups[row.currency]||(groups[row.currency]={currency:row.currency,open_count:0,won_count:0,open_cents:0,won_cents:0,weighted_known_cents:0,probability_known_count:0,probability_missing_count:0,categories:Object.create(null)});
     const category=won?'CLOSED_WON':row.forecast_category||'UNCATEGORIZED',bucket=group.categories[category]||(group.categories[category]={count:0,value_cents:0});bucket.count++;add(bucket,'value_cents',row.value_cents);
-    const weight=!won&&Number.isFinite(row.probability)&&row.probability>=0&&row.probability<=1?Math.round(row.value_cents*row.probability):null;
+    const weight=!won&&Number.isFinite(row.probability)&&row.probability>=0&&row.probability<=1?require('./sales-forecast-client-state').weightedCents(row.value_cents,row.probability):null;
     if(won){group.won_count++;add(group,'won_cents',row.value_cents);}else{group.open_count++;add(group,'open_cents',row.value_cents);if(weight===null)group.probability_missing_count++;else{group.probability_known_count++;add(group,'weighted_known_cents',weight);}}
     included.push({id:row.id,revision:row.revision,title:row.title,status:row.status,date,currency:row.currency,value_cents:row.value_cents,probability:won?null:row.probability??null,weighted_cents:weight,forecast_category:category,owner_id:row.owner_id,pipeline_id:row.pipeline_id||null,provenance:row.provenance});
   }
   for(const group of Object.values(groups)){group.weighted_cents=group.probability_known_count?group.weighted_known_cents:null;group.probability_coverage=group.open_count?group.probability_known_count/group.open_count:null;group.weighted_scope=group.probability_missing_count?'PARTIAL_KNOWN_PROBABILITIES':'ALL_OPEN_RECORDS_WITH_PROBABILITY';}
-  const filters={from,to,currency:query.currency||null,owner_id:query.owner_id||null,pipeline_id:query.pipeline_id||null},quotas=require('./sales-quotas').quotaComparison(domain,ctx,actor,filters,included,excluded),basis={filters,quotas,records:included.map(row=>({id:row.id,revision:row.revision,value_cents:row.value_cents,probability:row.probability,date:row.date,status:row.status})),excluded};
+  const filters={from,to,currency:query.currency||null,owner_id:query.owner_id||null,pipeline_id:query.pipeline_id||null},quotas=require('./sales-quotas').quotaComparison(domain,ctx,actor,filters,included,excluded),basis={calculation_version:2,filters,quotas,records:included.map(row=>({id:row.id,revision:row.revision,value_cents:row.value_cents,probability:row.probability,date:row.date,status:row.status})),excluded};
   const candidates=all.filter(row=>!['WON','LOST','CANCELLED'].includes(row.status)&&(!query.currency||!row.currency||row.currency===query.currency)).sort((a,b)=>Number(Boolean(b.expected_close_date&&b.expected_close_date>=from&&b.expected_close_date<=to))-Number(Boolean(a.expected_close_date&&a.expected_close_date>=from&&a.expected_close_date<=to))||String(a.id).localeCompare(String(b.id)));
-  return {scenario_candidate_total:candidates.length,scenario_candidates:candidates.slice(0,200).map(row=>({id:row.id,revision:row.revision,title:row.title,status:row.status,currency:row.currency||null,value_cents:row.value_cents??null,probability:row.probability??null,date:row.expected_close_date||null})),module_id:'sales',available:included.length>0,filters,quotas,groups:Object.values(groups),items:included,excluded,source_record_count:all.length,basis_fingerprint:digest(basis),calculation:'SUM_OF_RECORDED_AMOUNT_TIMES_RECORDED_PROBABILITY',won_basis:'USER_RECORDED_CLOSED_DATE_AND_WON_STATUS',accounting_revenue:false,provider_verified:false,observed_at:new Date().toISOString()};
+  return {...forecastContext(domain,ctx,actor),scenario_candidate_total:candidates.length,scenario_candidates:candidates.slice(0,200).map(row=>({id:row.id,revision:row.revision,title:row.title,status:row.status,currency:row.currency||null,value_cents:row.value_cents??null,probability:row.probability??null,date:row.expected_close_date||null})),module_id:'sales',calculation_version:2,available:included.length>0,filters,quotas,groups:Object.values(groups),items:included,excluded,source_record_count:all.length,basis_fingerprint:digest(basis),calculation:'SUM_OF_RECORDED_AMOUNT_TIMES_RECORDED_PROBABILITY',won_basis:'USER_RECORDED_CLOSED_DATE_AND_WON_STATUS',accounting_revenue:false,provider_verified:false,observed_at:new Date().toISOString()};
 }
 function snapshotForecast(domain,ctx,actor,input,options={}){
   domain.scope(ctx,actor,'write');
   domain.resolver.assertCapability(ctx,actor,'sales:forecast','write');const key=options.idempotency_key;if(typeof key!=='string'||!key.length||key.length>200)fail('forecast_idempotency_required','Een unieke actie-ID is verplicht');
   if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(k=>!['title','filters','scenario','hierarchy','basis_fingerprint','confirm'].includes(k)))fail('forecast_snapshot_invalid','Gebruik een expliciete prognose met alleen ondersteunde velden');
-  const signature=digest(input),keys=domain.adapter.bucket(ctx,'sales:idempotency'),previous=keys.find(row=>row.key===key&&row.actor_id===actor.id);
-  if(previous){if(previous.fingerprint!==signature)fail('idempotency_conflict','Actie-ID heeft andere inhoud',409);return {record:domain.get(ctx,actor,'forecast_snapshots',previous.record_id),deduplicated:true};}
+  const meta=recovery.metadata(input,key),previous=recovery.existing(domain,ctx,actor,meta);
+  if(previous)return recovery.replay(domain,ctx,actor,meta,previous);
   if(input.confirm!==true||!String(input.title||'').trim()||String(input.title).length>240)fail('forecast_confirmation_required','Bevestig de prognose met een korte titel');
   if(Object.hasOwn(input,'hierarchy')&&(!input.hierarchy||typeof input.hierarchy!=='object'||Array.isArray(input.hierarchy)||typeof input.hierarchy.id!=='string'||!input.hierarchy.id||typeof input.hierarchy.node_id!=='string'||!input.hierarchy.node_id||Object.keys(input.hierarchy).some(k=>!['id','node_id'].includes(k))))fail('hierarchy_query_invalid','Kies een exacte hiërarchie en node');
   const computed=input.hierarchy?require('./sales-hierarchy').query(domain,ctx,actor,input.hierarchy.id,{node_id:input.hierarchy.node_id,filters:input.filters||{},...(Object.hasOwn(input,'scenario')?{scenario:input.scenario}:{})}):Object.hasOwn(input,'scenario')?require('./sales-scenarios').scenarioForecast(domain,ctx,actor,input.filters||{},input.scenario):forecast(domain,ctx,actor,input.filters||{});if(computed.basis_fingerprint!==input.basis_fingerprint)fail('forecast_basis_changed','De berekeningsbasis is gewijzigd; bekijk eerst de actuele prognose',409);
-  delete computed.scenario_candidates;delete computed.scenario_candidate_total;
+  delete computed.scenario_candidates;delete computed.scenario_candidate_total;delete computed.request_context;delete computed.can_save;
   const result=domain.mutate(ctx,()=>{
     const rows=domain.bucket(ctx,'forecast_snapshots');if(rows.length>=1000)fail('forecast_snapshot_capacity','Archiveer prognoses volgens het bewaarbeleid',507);
     const now=new Date().toISOString(),row={id:crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:actor.id,owned_entity:'forecast_snapshots',source_module:'sales',schema_version:1,revision:1,title:String(input.title).trim(),status:'SAVED_SNAPSHOT',created_at:now,updated_at:now,forecast:computed,provenance:{source_id:'owned_sales_records',actor_id:actor.id,classification:computed.scenario?'USER_ASSUMPTION_SCENARIO':'CALCULATED_FROM_RECORDED_INPUT',provider_verified:false},immutable:true};
-    rows.push(row);keys.push({key,actor_id:actor.id,fingerprint:signature,record_id:row.id});domain.recordEvent(ctx,actor,'forecast_snapshots',row,'created');return {record:clone(row),deduplicated:false};
+    rows.push(row);const request_acknowledgement=recovery.store(domain,ctx,actor,meta,row);domain.recordEvent(ctx,actor,'forecast_snapshots',row,'created');return {record:clone(row),request_acknowledgement,deduplicated:false};
   });try{domain.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
-module.exports={dateOnly,validateForecast,forecast,snapshotForecast};
+module.exports={dateOnly,validateForecast,forecast,forecastContext,snapshotForecast,recoverSnapshot:recovery.recover};

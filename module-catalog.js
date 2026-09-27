@@ -59,13 +59,14 @@ const TOOL_MODULES = Object.freeze({
   automotive_economics: 'procurement', automotive_candidate_analysis: 'procurement', automotive_today: 'procurement'
 });
 const WRITE_TOOLS=Object.freeze([...PROCUREMENT_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...MARKETING_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...FINANCE_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...CALENDAR_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...ANALYSIS_ACTION_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...SALES_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...AUTOMATION_DRAFT_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),...COMMUNICATION_OPERATIONS.filter(op=>op.mode==='write').map(op=>op.tool),'create_lead','create_task','create_appointment','create_report','draft_message','automation_run']);
+const TOOL_CAPABILITY_OPERATIONS=Object.freeze(Object.fromEntries(FINANCE_OPERATIONS.filter(op=>op.capability_operations).map(op=>[op.tool,op.capability_operations])));
 const TOOL_CAPABILITIES = Object.freeze({
   ...Object.fromEntries(PROCUREMENT_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   ...Object.fromEntries(MARKETING_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   ...Object.fromEntries(FINANCE_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   ...Object.fromEntries(CALENDAR_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   ...Object.fromEntries(ANALYSIS_ACTION_OPERATIONS.map(op=>[op.tool,'analysis:reports'])),
-  ...Object.fromEntries(SALES_OPERATIONS.map(op=>[op.tool,'sales:opportunities'])),
+  ...Object.fromEntries(SALES_OPERATIONS.map(op=>[op.tool,op.capability||'sales:opportunities'])),
   ...Object.fromEntries(AUTOMATION_DRAFT_OPERATIONS.map(op=>[op.tool,'automation:workflows'])),
   ...Object.fromEntries(COMMUNICATION_OPERATIONS.map(op=>[op.tool,op.capabilities[0]])),
   procurement_summary:'procurement:opportunities',sales_pipeline:'sales:pipeline',calendar_agenda:'calendar:events',communication_drafts:'communication:drafts',marketing_campaigns:'marketing:campaigns',
@@ -107,6 +108,17 @@ const ALIASES = freeze({...Object.fromEntries(Object.entries(MODULES).flatMap(([
 const BUNDLES = freeze({ COMPLETE: Object.keys(MODULES), OPERATIONS: ['crm', 'calendar', 'communication', 'automation'], ...Object.fromEntries(Object.keys(MODULES).map(id => [id.toUpperCase(), [id]])) });
 const INDUSTRIES = freeze({
   GENERAL: { industry_id: 'GENERAL', production: true, extensions: {} },
+  ECOMMERCE: { industry_id: 'ECOMMERCE', production: true, route: '/sales', acceptance: 'PENDING', extensions: {
+    sales: { objects: ['commerce_products','commerce_inventory','commerce_orders','commerce_movements'], fields: ['sales_channel','merchant_reference'], field_schema: {sales_channel:{type:'string'},merchant_reference:{type:'string'}}, dashboard_presets: [{id:'commerce_operations',version:1,name:'Artikelen, voorraad en orders',required_capabilities:['sales:quotes'],metrics:['commerce_products','commerce_inventory','commerce_orders','commerce_movements']}] },
+    crm: {fields:['customer_segment','preferred_channel'],objects:['commerce_customer_relationship']},
+    procurement: {fields:['supplier_sku','purchase_channel'],field_schema:{supplier_sku:{type:'string'},purchase_channel:{type:'string'}},objects:['supplier','rfq','bid','order']},
+    marketing: {fields:['sales_channel','campaign_reference'],field_schema:{sales_channel:{type:'string'},campaign_reference:{type:'string'}}},
+    finance: {objects:['invoice','payment','commerce_invoice_link']},
+    analysis: {objects:['commerce_event_source'],kpis:[]},
+    calendar: {fields:['fulfilment_reference'],field_schema:{fulfilment_reference:{type:'string'}}},
+    communication: {fields:['commerce_order_reference'],field_schema:{commerce_order_reference:{type:'string'}}},
+    automation: {workflow_templates:[{id:'commerce_order_review',version:1,name:'Order en voorraad beoordelen',required_capabilities:['automation:workflows'],draft:{name:'Order en voorraad beoordelen',version:1,trigger_type:'custom_event',automatic:false,approval_required:true,steps:[{type:'create_task',values:{title:'Controleer de order, voorraad en financiële opvolging'},attempts:1}]}}]}
+  } },
   AUTOMOTIVE: { industry_id: 'AUTOMOTIVE', production: true, route: '/automotive', extensions: {
     procurement: { objects: ['vehicle', 'listing'], tools: Object.keys(TOOL_MODULES).filter(t => t.startsWith('automotive_')), connectors: ['rdw', 'mobile_de', 'marktplaats', 'autoscout24', 'vwe', 'autotelex', 'rdc'], fields: ['vin', 'registration', 'mileage'], field_schema:{vin:{type:'string'},registration:{type:'string'},mileage:{type:'number'}}, kpis: ['buy_score', 'acquisition_economics'], dashboard_presets:[{id:'vehicle_sourcing_review',version:1,name:'Voertuiginkoop beoordelen',required_capabilities:['procurement:sourcing','procurement:approvals','procurement:suppliers'],metrics:['rfqs','bids','awards','suppliers']}] },
     crm: { fields: ['vehicle_interest'], objects: ['vehicle_customer_relationship'] },
@@ -125,4 +137,4 @@ function routeModule(pathname) {
   const part = pieces[0] === 'api' ? (['workspaces', 'module', 'engine'].includes(pieces[1]) ? pieces[2] : pieces[1]) : pieces[0];
   return moduleId(part);
 }
-module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, TOOL_OPERATIONS, TOOL_CORE_PERMISSIONS, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };
+module.exports = { VERSION, MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, TOOL_OPERATIONS, TOOL_CAPABILITY_OPERATIONS, TOOL_CORE_PERMISSIONS, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId, routeModule, freeze };

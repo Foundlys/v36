@@ -2,7 +2,7 @@
 
 const CONNECTOR_LIFECYCLE = Object.freeze([
   'UNCONFIGURED', 'AWAITING_ACCESS', 'CONFIGURED', 'AUTHORIZING', 'AUTHENTICATED',
-  'PROBING', 'SYNCING', 'CONNECTED', 'DEGRADED', 'ERROR', 'EXPIRED', 'DISCONNECTED'
+  'PROBING', 'SYNCING', 'CONNECTED', 'DEGRADED', 'ERROR', 'EXPIRED', 'DISCONNECTED', 'UNKNOWN'
 ]);
 
 const SOURCE_SCHEMA_FIELDS = Object.freeze([
@@ -285,19 +285,19 @@ function normalizeAuth(contract = {}, profile = {}) {
   return String(profile.auth_strategy || contract.auth || 'configurable').toUpperCase();
 }
 
-function normalizeState(connectorId, row = {}, contract = {}, recordCount = 0) {
+function normalizeState(connectorId, row = {}, contract = {}, authType = contract.auth) {
   const partner = PARTNER_ACCESS.has(connectorId) || contract.access_state === 'AWAITING_ACCESS' || /PARTNER|AUTHORIZED_FEED/.test(String(contract.auth || '').toUpperCase());
-  const publicAuth = /PUBLIC/.test(String(row.auth || contract.auth || '').toUpperCase());
-  const configured = publicAuth || Boolean(row.configured);
-  const authenticated = publicAuth || Boolean(row.connected || row.authenticated || row.token_stored || row.auth_state === 'CONNECTED');
-  const probePass = Boolean(row.connected && (row.probe_ok !== false));
-  const hasBootstrap = publicAuth || ['openai', 'voice', 'openai_realtime'].includes(connectorId) || recordCount > 0 || Boolean(row.initial_sync_ok);
+  const publicAuth = /PUBLIC/.test(String(authType||'').toUpperCase());
+  const configured=publicAuth||row.configured===true;
+  const probePass=configured&&row.connected===true&&row.probe_ok===true;
+  const authenticated=publicAuth||(configured&&(row.authenticated===true||probePass));
+  const hasBootstrap=publicAuth||['openai','voice','openai_realtime'].includes(connectorId)||row.initial_sync_ok===true;
   if (probePass && authenticated && hasBootstrap) return 'CONNECTED';
   if (row.error && configured) return probePass ? 'DEGRADED' : 'ERROR';
   if (authenticated) return 'AUTHENTICATED';
   if (configured) return 'CONFIGURED';
   if (partner) return 'AWAITING_ACCESS';
-  return 'UNCONFIGURED';
+  return row.configured===false?'UNCONFIGURED':'UNKNOWN';
 }
 
 function safeErrorCode(row = {}) {
@@ -314,7 +314,7 @@ function safeErrorCode(row = {}) {
 function credentialContract(contract = {}, profile = {}, variablePresent = () => false) {
   const fields = values((profile.credential_fields || []).map(field => field && field.key)).map(key => {
     const field = (profile.credential_fields || []).find(candidate => candidate && candidate.key === key) || {};
-    return { key, label: String(field.label || key), secret: Boolean(field.secret), required: field.required !== false, value_exposed: false };
+    return { key, label: String(field.label || key), secret: field.secret!==false, required: field.required !== false, value_exposed: false };
   });
   const environmentVariables = values(contract.env);
   return {
@@ -322,7 +322,7 @@ function credentialContract(contract = {}, profile = {}, variablePresent = () =>
     environment_variables: environmentVariables,
     environment_variable_status: environmentVariables.map(name => {
       let present = false;
-      try { present = Boolean(variablePresent(name)); } catch {}
+      try { present = variablePresent(name)===true; } catch {}
       return { name, present, runtime_visible: present, value_exposed: false };
     }),
     accepts_tenant_encrypted_configuration: (profile.capabilities || contract.capabilities || []).includes('tenant_credentials'),
@@ -341,16 +341,16 @@ function callbackContract(connectorId, authType) {
   return { required: true, route, derives_from_public_base_url: true };
 }
 
-function buildConnectorRegistry({ registry, profiles = {}, statuses = [], recordsBySource = {}, redact = value => value, variablePresent = () => false }) {
+function buildConnectorRegistry({ registry, profiles = {}, statuses = [], recordsBySource = {}, countsComplete = false, redact = value => value, variablePresent = () => false }) {
   const byId = new Map(statuses.map(row => [row.id || row.provider, row]));
   return Object.entries(registry).map(([connectorId, contract]) => {
     const profile = profiles[connectorId] || {}, row = byId.get(connectorId) || {}, authType = normalizeAuth(contract, profile);
-    const recordCount = Number(recordsBySource[connectorId] || 0), state = normalizeState(connectorId, row, contract, recordCount);
+    const recordCount=Object.hasOwn(recordsBySource,connectorId)?observedCount(recordsBySource[connectorId]):countsComplete===true?0:null,state=normalizeState(connectorId,row,contract,authType),publicAuth=/PUBLIC/.test(authType),configured=publicAuth||row.configured===true,probePass=configured&&row.connected===true&&row.probe_ok===true;
     const capabilities = values([...(contract.capabilities || []), ...(profile.capabilities || [])]);
     const categories = values(SOURCE_OVERRIDES[connectorId]?.categories || inferredCategories(contract.categorie || profile.categorie));
     const industries = values(SOURCE_OVERRIDES[connectorId]?.industries || (categories.some(category => category.startsWith('AUTOMOTIVE')) ? ['AUTOMOTIVE'] : ['ALL']));
-    const probeState = row.connected ? 'PASS' : row.error && row.configured ? 'FAIL' : 'NOT_RUN';
-    const syncState = recordCount > 0 || row.initial_sync_ok ? 'PASS' : 'NOT_RUN';
+    const probeState=probePass?'PASS':row.probe_ok===false&&row.connected===true||row.error&&configured?'FAIL':row.connected===undefined&&row.probe_ok===undefined?'UNKNOWN':'NOT_RUN';
+    const syncState=row.initial_sync_ok===true?'PASS':recordCount>0?'RECORDS_AVAILABLE':'NOT_RUN';
     const errorCode = safeErrorCode(row);
     return {
       connector_id: connectorId,
@@ -363,16 +363,17 @@ function buildConnectorRegistry({ registry, profiles = {}, statuses = [], record
       auth_type: authType,
       credential_contract: credentialContract(contract, profile, variablePresent),
       callback_contract: callbackContract(connectorId, authType),
-      configuration_state: row.configured || /PUBLIC/.test(authType) ? 'CONFIGURED' : 'UNCONFIGURED',
-      authentication_state: /PUBLIC/.test(authType) ? 'AUTHENTICATED_PUBLIC' : row.connected || row.authenticated || row.token_stored ? 'AUTHENTICATED' : row.configured ? 'NOT_VERIFIED' : 'NOT_CONFIGURED',
+      configuration_state:configured?'CONFIGURED':row.configured===false?'UNCONFIGURED':'UNKNOWN',
+      authentication_state:publicAuth?'AUTHENTICATED_PUBLIC':configured&&(row.authenticated===true||probePass)?'AUTHENTICATED':configured?'NOT_VERIFIED':row.configured===false?'NOT_CONFIGURED':'UNKNOWN',
       probe_state: probeState,
       sync_state: syncState,
       connection_state: state,
       last_probe: probeState === 'NOT_RUN' ? null : row.last_probe_at || row.last_attempt_at || null,
       last_sync: row.last_sync_at || null,
-      latency: Number.isFinite(Number(row.latency_ms)) ? Number(row.latency_ms) : null,
+      latency: typeof row.latency_ms==='number'&&Number.isFinite(row.latency_ms)&&row.latency_ms>=0?row.latency_ms:null,
       freshness: recordCount > 0 ? 'AVAILABLE' : state === 'CONNECTED' && /PUBLIC/.test(authType) ? 'LIVE_REFERENCE' : 'UNKNOWN',
       records: recordCount,
+      records_scope: 'CURRENT_AUTHORIZED_RETAINED_RECORDS',
       safe_error: errorCode ? redact(errorCode) : null,
       tenant_permissions: ['connectors:manage'],
       required_scopes: values(profile.oauth?.scope || profile.required_scopes),
@@ -406,11 +407,13 @@ function supportFlags(capabilities, categories) {
   };
 }
 
+function observedCount(value){return typeof value==='number'&&Number.isSafeInteger(value)&&value>=0?value:null;}
+
 function buildSourceRegistry({ connectors = [], recordsBySource = {}, internalCounts = {} }) {
   const sources = connectors.map(connector => {
     const override = SOURCE_OVERRIDES[connector.connector_id] || {}, sourceId = override.source_id || connector.connector_id;
     const categories = values(override.categories || connector.category), capabilities = values(override.capabilities || connector.capabilities);
-    const authType = connector.auth_type, flags = supportFlags(capabilities, categories), recordsAvailable = Number(recordsBySource[sourceId] || recordsBySource[connector.connector_id] || connector.records || 0);
+    const authType = connector.auth_type, flags = supportFlags(capabilities, categories), recordsAvailable = observedCount(Object.hasOwn(recordsBySource,sourceId)?recordsBySource[sourceId]:Object.hasOwn(recordsBySource,connector.connector_id)?recordsBySource[connector.connector_id]:connector.records);
     return {
       source_id: sourceId,
       provider_id: override.provider_id || connector.provider,
@@ -428,8 +431,8 @@ function buildSourceRegistry({ connectors = [], recordsBySource = {}, internalCo
       requires_credentials: !/PUBLIC/.test(authType),
       requires_oauth: /OAUTH|WIX_APP_INSTALL/.test(authType),
       requires_partner_access: connector.requires_partner_approval,
-      configured: connector.configuration_state === 'CONFIGURED',
-      authenticated: /^AUTHENTICATED/.test(connector.authentication_state),
+      configured: connector.configuration_state==='UNKNOWN'?null:connector.configuration_state==='CONFIGURED',
+      authenticated: connector.authentication_state==='UNKNOWN'?null:/^AUTHENTICATED/.test(connector.authentication_state),
       probe_status: connector.probe_state,
       sync_status: connector.sync_state,
       connection_status: connector.connection_state,
@@ -455,7 +458,8 @@ function buildSourceRegistry({ connectors = [], recordsBySource = {}, internalCo
     if (!existing || (existing.connection_status !== 'CONNECTED' && source.connection_status === 'CONNECTED')) deduplicated.set(source.source_id, source);
   }
   for (const internal of [...INTERNAL_SOURCES, ...DOMAIN_INTERNAL_SOURCES]) {
-    deduplicated.set(internal.source_id, { ...internal, records_available: Number(internalCounts[internal.source_id] || 0), freshness_status: Number(internalCounts[internal.source_id] || 0) > 0 ? 'AVAILABLE' : internal.freshness_status });
+    const count=observedCount(internalCounts[internal.source_id]);
+    deduplicated.set(internal.source_id, { ...internal, records_available:count, records_scope:'CURRENT_AUTHORIZED_RETAINED_RECORDS', freshness_status:count>0?'AVAILABLE':internal.freshness_status });
   }
   return [...deduplicated.values()].sort((a, b) => a.display_name.localeCompare(b.display_name, 'en'));
 }

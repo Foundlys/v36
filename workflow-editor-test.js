@@ -16,7 +16,7 @@ class Element{
  focus(){this.focused=true;}
 }
 const find=(root,tag,label)=>root.all().find(el=>el.tag===tag&&(label===undefined||el.textContent===label));
-const field=(root,label)=>find(root,'label',label).children[0];
+const field=(root,label)=>root.all().find(el=>el.tag==='label'&&(el.textContent===label||el.children.some(child=>child.tag==='span'&&child.textContent===label))).children.find(child=>['input','select','textarea'].includes(child.tag));
 const ctx={tenant_id:'editor-conditions',dealer_id:'default'},actor={id:'editor-owner',roles:['ADMIN','SUPER_ADMIN']};let state=new Map(),disk,core;
 const adapter={bucket(c,s){const key=JSON.stringify([c,s]);if(!state.has(key))state.set(key,[]);return state.get(key);},persist(){disk=JSON.stringify([...state]);},audit(){},executeAutomationAction(c,a,action,run){const record=core.createAutomationRecord(c,a,'tasks',{title:action.title},{idempotencyKey:run.idempotency_key});return {executed:true,record_id:record.id};}};
 const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,actor,{entitlements:['automation'],expected_revision:0});core=new FoundlyPlatformCore(adapter);let drafts=new WorkflowDrafts(adapter,resolver);

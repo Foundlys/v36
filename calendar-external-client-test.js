@@ -15,15 +15,15 @@ class Element{
  focus(){this.focused=true;}
 }
 const find=(root,tag,label)=>root.all().find(el=>el.tag===tag&&(label===undefined||el.textContent===label));
-const field=(root,label)=>find(root,'label',label).children[0];
+const field=(root,label)=>root.all().find(el=>el.tag==='label'&&el.children.some(n=>n.tag==='span'&&n.textContent===label)).children.find(n=>['input','select'].includes(n.tag));
 const {BusinessDomain}=require('./business-domains'),{CapabilityResolver}=require('./capability-resolver'),{CalendarExternal}=require('./calendar-external');
 const ctx={tenant_id:'external-screen',dealer_id:'default'},actor={id:'admin',roles:['ADMIN','SUPER_ADMIN']};let state=new Map(),reads=0,hold=null;
 const adapter={bucket(c,s){const k=JSON.stringify([c,s]);if(!state.has(k))state.set(k,[]);return state.get(k);},persist(){},audit(){},publish(){}};
 const resolver=new CapabilityResolver(adapter);resolver.configure(ctx,actor,{entitlements:['calendar'],expected_revision:0});const core=new BusinessDomain('calendar',adapter,resolver),cal=core.save(ctx,actor,'calendars',{name:'Local <img>',timezone:'Europe/Amsterdam'}).record;
 const service=new CalendarExternal(core,{accountBinding:()=> 'account',read:async()=>{reads++;if(hold)await hold;return {kind:'calendar#events',timeZone:'Europe/Amsterdam',accessRole:'owner',items:[]};}});core.external=service;
 let active=true;const request=async(url,options={})=>options.method==='POST'?service.reconcile(ctx,actor,JSON.parse(options.body)):service.status(ctx,actor,new URL(url,'https://fixture').searchParams.get('calendar_id'));
-const sandbox={document:{createElement:tag=>new Element(tag)}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('calendar-external-client.js','utf8'),sandbox);
-(async()=>{const box=sandbox.FoundlyCalendarExternal.create({document:sandbox.document,request,calendars:[cal],isActive:()=>active});
+const sandbox=require('./zero-evaluation/workspace-page-fixture').fixture({workspaceId:'calendar'}).context;Object.assign(sandbox,{crypto,TextEncoder});sandbox.document.createElement=tag=>new Element(tag);sandbox.FoundlyI18n.setLocale('nl-NL');for(const file of ['calendar-recurrence.js','calendar-time.js','calendar-event-client-state.js','calendar-external-client.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);
+(async()=>{const box=sandbox.FoundlyCalendarExternal.create({document:sandbox.document,request,calendars:[cal],requestContext:{...ctx,actor_id:actor.id},isActive:()=>active});
  const calendar=field(box,'Native agenda');calendar.value=cal.id;await calendar.fire('input');
  const submit=find(box,'button','Gekozen externe leesvenster verversen');await submit.fire('click');assert.equal(reads,0);
  await find(box,'button','Externe dekking bekijken').fire('click');assert.equal(reads,0,'Passive status does not request a provider');

@@ -11,28 +11,15 @@ const fail = (code, message, statusCode = 422) => { throw Object.assign(new Erro
 const DEFINITIONS = Object.freeze({
   analysis:{legacy:'rapportages',primary:'reports',entities:['reports','provider_reports','provider_events','cohort_definitions','definition_revisions','analytic_models','action_proposals'],required:{action_proposals:['title'],analytic_models:['title','model_definition'],definition_revisions:[],cohort_definitions:['title','cohort_definition'],reports:['title','content'],provider_reports:['title'],provider_events:['title']}},
   procurement: { legacy: 'inkoop', primary: 'opportunities', entities: ['opportunities','suppliers','rfqs','bids','approval_policies','awards','supplier_clarifications','outcome_observations','economics_snapshots','quotes','orders','documents','tasks'], required: {supplier_clarifications:[],economics_snapshots:[],outcome_observations:[],approval_policies:['name','currency','minimum_value_cents','approval_steps'],awards:['title'], rfqs:['title','currency','lines'],bids:['title','rfq_id','rfq_revision','supplier_id','currency','lines','evidence_reference'],suppliers: ['name'], opportunities: ['title'], quotes: ['title'], orders: ['title'], documents: ['name'], tasks: ['title'] } },
-  sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','quotas','sequences','sequence_runs','forecast_hierarchies','forecast_snapshots','quotes','orders','activities','tasks'], required: {sequences:['title'],sequence_runs:['title'],forecast_hierarchies:['title'],quotas:['name','owner_id','period_start','period_end','currency','target_cents'],forecast_snapshots:['title'], opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
+  sales: { legacy: 'verkoop', primary: 'opportunities', entities: ['opportunities','pipelines','quotas','sequences','sequence_runs','forecast_hierarchies','forecast_snapshots','quotes','orders','activities','tasks',...require('./sales-commerce').ENTITIES], required: {...Object.fromEntries(require('./sales-commerce').ENTITIES.map(e=>[e,[]])),sequences:['title'],sequence_runs:['title'],forecast_hierarchies:['title'],quotas:['name','owner_id','period_start','period_end','currency','target_cents'],forecast_snapshots:['title'], opportunities: ['title'], pipelines: ['name'], quotes: ['title'], orders: ['title'], activities: ['title'], tasks: ['title'] } },
   marketing: { legacy: 'social_media', primary: 'campaigns', entities: ['campaigns','audiences','audience_members','audience_activations','journey_definitions','journey_runs','tasks','creatives','creative_revisions','experiments','creative_reviews'], required: {tasks:['title'],audience_activations:[],journey_definitions:[],journey_runs:[],audience_members:[],creative_revisions:[],creative_reviews:['title'],campaigns:['title'],audiences:['name'],creatives:['title','content'],experiments:['title']} },
   calendar: { legacy: 'agenda', primary: 'events', entities: ['events','calendars','availability','reminders','notifications'], required: { events: ['title','start_at','end_at','timezone'], calendars: ['name','timezone'], availability: ['title','start_at','end_at','timezone'],reminders:['title','due_at'],notifications:['title'] } },
   communication: { legacy: 'communicatie', primary: 'drafts', entities: ['drafts','messages','threads','templates','preferences','draft_revisions'], required: {draft_revisions:['title'], drafts: ['title','content'], messages: ['title','content'], threads: ['title'], templates: ['title','content'], preferences: ['subject_id','purpose','status'] } }
 });
 const INTERNAL_STATUSES = new Set(['DRAFT','OPEN','QUALIFIED','WON','LOST','CANCELLED','ARCHIVED','SCHEDULED','CONFIRMED','DECLINED','COMPLETED','APPROVAL_REQUIRED','APPROVED_INTERNAL']);
 const OWNED_FIELDS = new Set(['bid_scope','model_definition','reader_ids','cohort_definition','title','name','content','description','status','value_cents','cost_cents','currency','probability','supplier_id','opportunity_id','pipeline_id','stage_id','stages','owner_id','start_at','end_at','timezone','participants','calendar_id','recurrence','thread_id','to','cc','subject_id','purpose','legal_basis','related_refs','industry_fields','due_at','direction','consent_status','filters','hypothesis','success_metric','budget_cents','rfq_id','rfq_revision','lines','evidence_reference','minimum_value_cents','approval_steps','allow_self_approval','expected_close_date','closed_date','forecast_category','period_start','period_end','target_cents']);
-const {timestamp,timezone,wallParts,wallNumber,fromWall}=require('./calendar-time');
-function occurrences(row) {
-  const start=timestamp(row.start_at),end=timestamp(row.end_at),rule=require('./calendar-recurrence').normalize(row.recurrence);
-  if(end<=start)fail('date_order_invalid','Einde moet na start liggen');
-  if(!rule)return [{start_at:new Date(start).toISOString(),end_at:new Date(end).toISOString()}];
-  const {count,interval,frequency}=rule;
-  const parts=wallParts(start,row.timezone),result=[];
-  for(let i=0;i<count;i++){
-    const date=new Date(wallNumber(parts)+(frequency==='WEEKLY'?7:1)*interval*i*86400000);
-    const wall={year:date.getUTCFullYear(),month:date.getUTCMonth()+1,day:date.getUTCDate(),hour:date.getUTCHours(),minute:date.getUTCMinutes(),second:date.getUTCSeconds(),millisecond:date.getUTCMilliseconds()};
-    const at=i===0?start:fromWall(wall,row.timezone);
-    result.push({start_at:new Date(at).toISOString(),end_at:new Date(at+end-start).toISOString()});
-  }
-  return result;
-}
+const {timestamp,timezone,occurrences}=require('./calendar-time');
+
 class BusinessDomain {
   constructor(id, adapter, resolver) {
     if(!DEFINITIONS[id])throw new TypeError('Unknown business domain');
@@ -43,6 +30,7 @@ class BusinessDomain {
   bucket(ctx,entity){if(!this.definition.entities.includes(entity))fail('entity_unknown','Onbekend onderdeel',404);return this.adapter.bucket(ctx,entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`);}
   visible(row,actor){if(this.id==='procurement'&&row.owned_entity==='supplier_clarifications'&&row.collaborator_ids?.includes(actor.id))return true;if(this.id==='calendar'&&row.creation_kind==='TYPED_CALENDAR_EVENT'&&row.participant_identity_ids?.includes(actor.id))return true;if(this.id==='analysis'&&row.owned_entity==='action_proposals'&&row.reviewer_id===actor.id)return true;if(this.id==='analysis'&&row.owned_entity==='definition_revisions')return true;if(this.id==='sales'&&['forecast_hierarchies','pipelines'].includes(row.owned_entity)&&row.reader_ids?.includes(actor.id))return true;if(this.id==='communication'&&(row.owned_entity==='draft_revisions'||row.owned_entity==='drafts'&&row.collaborator_ids?.includes(actor.id)))return true;if(this.id==='marketing'&&row.owned_entity==='creative_revisions')return true;if(this.id==='marketing'&&row.owned_entity==='creative_reviews'&&row.approval_steps?.includes(actor.id))return true;if(this.id==='procurement'&&(row.owned_entity==='approval_policies'||row.owned_entity==='awards'&&row.approval_steps?.includes(actor.id)))return true;return (actor.roles||[]).some(r=>['ADMIN','SUPER_ADMIN','FOUNDER','MANAGER'].includes(String(r).toUpperCase()))||row.owner_id===actor.id;}
   validate(entity,input,previous={}){
+    if(this.id==='sales'&&require('./sales-commerce').ENTITIES.includes(entity))fail('commerce_action_required','Gebruik de expliciete handelsactie');
     if(this.id==='procurement'&&['outcome_observations','economics_snapshots','supplier_clarifications'].includes(entity))fail('procurement_outcome_immutable','Gebruik de expliciete uitkomstregistratie; bewaarde waarnemingen zijn onveranderlijk');
     if(this.id==='analysis'&&entity==='action_proposals')fail('analysis_action_required','Gebruik de expliciete analyse-actie en beoordeling');
     if(this.id==='analysis'&&entity==='definition_revisions')fail('analysis_history_immutable','Definitiegeschiedenis wordt uitsluitend via versieacties vastgelegd');
@@ -90,7 +78,7 @@ class BusinessDomain {
     }
     return next;
   }
-  snapshotReadable(ctx,actor,row,options={}){return require('./marketing-journeys').readable(this,ctx,actor,row,options)&& require('./marketing-audiences').readable(this,ctx,actor,row,options)&& require('./procurement-clarifications').readable(this,ctx,actor,row,options)&& require('./procurement-economics').readable(this,ctx,actor,row,options)&& require('./procurement-outcomes').readable(this,ctx,actor,row,options)&& require('./marketing-creative-history').readable(this,ctx,actor,row)&& require('./analysis-action-access').readable(this,ctx,actor,row,options)&& require('./analysis-definition-history').readable(this,ctx,actor,row)&& require('./sales-sequence-access').readable(this,ctx,actor,row)&& require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row)&&require('./marketing-creative-reviews').reviewReadable(this,ctx,actor,row)&&require('./communication-drafts').readable(this,ctx,actor,row)&&require('./communication-replies').readable(this,ctx,actor,row)&&require('./communication-templates').readable(this,ctx,actor,row);}
+  snapshotReadable(ctx,actor,row,options={}){return (this.id!=='sales'||require('./sales-commerce').readable(this,ctx,actor,row))&& require('./marketing-journeys').readable(this,ctx,actor,row,options)&& require('./marketing-audiences').readable(this,ctx,actor,row,options)&& require('./procurement-clarifications').readable(this,ctx,actor,row,options)&& require('./procurement-economics').readable(this,ctx,actor,row,options)&& require('./procurement-outcomes').readable(this,ctx,actor,row,options)&& require('./marketing-creative-history').readable(this,ctx,actor,row)&& require('./analysis-action-access').readable(this,ctx,actor,row,options)&& require('./analysis-definition-history').readable(this,ctx,actor,row)&& require('./sales-sequence-access').readable(this,ctx,actor,row)&& require('./sales-snapshot-access').snapshotReadable(this,ctx,actor,row)&&require('./marketing-creative-reviews').reviewReadable(this,ctx,actor,row)&&require('./communication-drafts').readable(this,ctx,actor,row)&&require('./communication-replies').readable(this,ctx,actor,row)&&require('./communication-templates').readable(this,ctx,actor,row);}
   list(ctx,actor,entity,query={}){
     if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');
     this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const limit=Math.max(1,Math.min(250,Number(query.limit)||100)),offset=Math.max(0,Number(query.offset)||0),q=String(query.q||'').toLowerCase();
@@ -101,18 +89,48 @@ class BusinessDomain {
   get(ctx,actor,entity,id){if(this.id==='sales'&&entity==='forecast_snapshots')this.resolver.assertCapability(ctx,actor,'sales:opportunities');this.scope(ctx,actor);const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability);const row=this.bucket(ctx,entity).find(row=>row.id===id&&!(this.id==='communication'&&entity==='messages'&&row.provider_currently_draft===true)&&this.visible(row,actor)&&this.snapshotReadable(ctx,actor,row));if(!row)fail('record_not_found','Record niet gevonden',404);return clone(row);}
   conflicts(ctx,actor,input,exclude){
     this.scope(ctx,actor);const times=occurrences(input),people=new Set(input.participants||[]);
-    const candidates=this.bucket(ctx,'events').filter(row=>row.id!==exclude&&!['CANCELLED','ARCHIVED'].includes(row.status)&&row.start_at&&row.end_at&&((row.calendar_id||'default')===(input.calendar_id||'default')||(row.participants||[]).some(p=>people.has(p))));
+    const candidates=this.bucket(ctx,'events').filter(row=>!row.deleted_at&&row.id!==exclude&&!['CANCELLED','ARCHIVED'].includes(row.status)&&row.start_at&&row.end_at&&((row.calendar_id||'default')===(input.calendar_id||'default')||(row.participants||[]).some(p=>people.has(p))));
     let count=0;const visible=[];
     for(const row of candidates){if(occurrences(row).some(a=>times.some(b=>timestamp(a.start_at)<timestamp(b.end_at)&&timestamp(b.start_at)<timestamp(a.end_at)))){count++;if(this.visible(row,actor))visible.push(row.id);}}
     const external=this.id==='calendar'&&this.external?this.external.busy(ctx,input.calendar_id,times):{items:[]};
     for(const row of external.items)if(times.some(b=>timestamp(row.start_at)<timestamp(b.end_at)&&timestamp(b.start_at)<timestamp(row.end_at)))count++;
     return {count,visible_ids:visible,private_details_redacted:true,external_calendar_coverage:external.coverage||'NOT_CONFIGURED'};
   }
-  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='procurement'?[require('./procurement-outcomes').OPERATIONS,require('./procurement-clarifications').OPERATIONS]:[]),...(this.id==='marketing'?[require('./marketing-creative-history').OPERATIONS,require('./marketing-audiences').OPERATIONS,require('./marketing-journeys').OPERATIONS]:[]),...(this.id==='sales'?[require('./sales-pipeline').OPERATIONS]:[]),...(this.id==='analysis'?[require('./analysis-definition-versions').OPERATIONS,require('./analysis-actions').OPERATIONS]:[]),...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-send-reviews').SCOPE,require('./communication-submissions').SCOPE,require('./communication-submission-recovery').SCOPE,require('./communication-mailboxes').SCOPE,require('./communication-mailboxes').ITEMS,require('./communication-comments').SCOPE,require('./communication-edit-sessions').SCOPE,require('./communication-binary-attachments').SCOPE]:[])],callback);}
+  mutate(ctx,callback){return scopedMutation(this.adapter,ctx,[...this.definition.entities.map(entity=>entity===this.definition.primary?this.definition.legacy:`${this.id}:${entity}`),`${this.id}:idempotency`,`${this.id}:outbox`,'platform:audit',...(this.id==='procurement'?[require('./procurement-outcomes').OPERATIONS,require('./procurement-clarifications').OPERATIONS]:[]),...(this.id==='marketing'?[require('./marketing-creative-history').OPERATIONS,require('./marketing-audiences').OPERATIONS,require('./marketing-journeys').OPERATIONS]:[]),...(this.id==='sales'?[require('./sales-pipeline').OPERATIONS,require('./sales-hierarchy-recovery').SCOPE]:[]),...(this.id==='analysis'?[require('./analysis-definition-versions').OPERATIONS,require('./analysis-actions').OPERATIONS]:[]),...(this.id==='communication'?['communication:draft_operations',require('./communication-attachments').SCOPE,require('./communication-inbox').SCOPE,require('./communication-send-reviews').SCOPE,require('./communication-submissions').SCOPE,require('./communication-submission-recovery').SCOPE,require('./communication-mailboxes').SCOPE,require('./communication-mailboxes').ITEMS,require('./communication-comments').SCOPE,require('./communication-edit-sessions').SCOPE,require('./communication-binary-attachments').SCOPE]:[])],callback);}
   save(ctx,actor,entity,input,options={}){const result=this.mutate(ctx,()=>this.saveOwned(ctx,actor,entity,input,options));try{this.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;}
+  recoverRequest(ctx,actor,key,input){
+    this.scope(ctx,actor,'write');
+    if(typeof key!=='string'||!key||key.length>200||/[\u0000-\u001f\u007f]/.test(key)||!input||Object.keys(input).some(name=>!['entity','target_id','expected_revision','confirm'].includes(name))||input.confirm!==true||!this.definition.entities.includes(input.entity)||(input.target_id===null?input.expected_revision!==0:typeof input.target_id!=='string'||!input.target_id||input.target_id.length>200||!Number.isSafeInteger(input.expected_revision)||input.expected_revision<1))fail('record_recovery_invalid','Bevestig de eerdere recordaanvraag');
+    const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${input.entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');
+    const keys=this.adapter.bucket(ctx,`${this.id}:idempotency`),prior=keys.find(row=>row.key===key&&row.actor_id===actor.id),envelope={request_id:key,entity:input.entity,target_id:input.target_id,expected_revision:input.expected_revision,actor_id:actor.id,tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id};
+    if(prior){
+      if(prior.receipt_version!==1||typeof prior.receipt_entity!=='string'||!Object.hasOwn(prior,'target_id'))fail('record_request_unverifiable','De oude aanvraag heeft geen volledige herstelgegevens; controleer het huidige record',409);
+      if(prior.receipt_entity!==input.entity||prior.target_id!==input.target_id||prior.expected_revision!==input.expected_revision)fail('idempotency_conflict','De aanvraagsleutel hoort bij andere herstelgegevens',409);
+      if(prior.state==='ABANDONED')return {...envelope,state:'NOT_APPLIED'};
+      let record;try{record=this.get(ctx,actor,input.entity,prior.record_id);}catch(error){if(error.code==='record_not_found')fail('record_request_unavailable','De eerdere aanvraag is bewaard, maar het huidige record is niet meer toegankelijk',409);throw error;}
+      if(record.revision!==prior.result_revision)fail('record_request_superseded','Het record is na deze aanvraag gewijzigd; controleer de huidige revisie',409);
+      return {...envelope,record,deduplicated:true};
+    }
+    if(keys.length>=100000)fail('record_request_capacity','De bewaarlimiet voor recordaanvragen is bereikt',507);
+    return this.mutate(ctx,()=>{keys.push({key,actor_id:actor.id,receipt_version:1,receipt_entity:input.entity,target_id:input.target_id,expected_revision:input.expected_revision,state:'ABANDONED'});this.adapter.audit(ctx,actor,'REQUEST_ABANDONED',this.id,key,{entity:input.entity,target_id:input.target_id});return {...envelope,state:'NOT_APPLIED'};});
+  }
   saveOwned(ctx,actor,entity,input,options={}){
     this.scope(ctx,actor,'write');const capability=require('./composition-runtime').routeCapability(`/api/${this.id}/${entity}`,this.id);if(capability)this.resolver.assertCapability(ctx,actor,capability,'write');const rows=this.bucket(ctx,entity),prior=options.id?this.get(ctx,actor,entity,options.id):null;
     if(this.id==='communication'&&entity==='drafts'&&prior)require('./communication-edit-sessions').assertEdit(this,ctx,actor,prior.id,options.edit_token);
+    const fingerprint=crypto.createHash('sha256').update(JSON.stringify({entity,input,id:options.id||null})).digest('hex'),keys=this.adapter.bucket(ctx,`${this.id}:idempotency`),key=options.idempotency_key;
+    if(key){
+      if(typeof key!=='string'||key.length>200||/[\u0000-\u001f\u007f]/.test(key))fail('record_request_invalid','Gebruik een geldige aanvraagsleutel');
+      const seen=keys.find(row=>row.key===key&&row.actor_id===actor.id);
+      if(seen){
+        if(seen.state==='ABANDONED')fail('record_request_abandoned','Deze aanvraag is afgesloten zonder wijziging; controleer het record vóór een nieuwe aanvraag',409);
+        if(seen.fingerprint!==fingerprint||seen.receipt_version===1&&seen.expected_revision!==(options.expected_revision??(Object.hasOwn(seen,'target_id')?0:null)))fail('idempotency_conflict','Idempotency key heeft andere inhoud',409);
+        const record=this.get(ctx,actor,entity,seen.record_id);
+        if(seen.receipt_version!==1||!Number.isSafeInteger(seen.result_revision))fail('record_request_unverifiable','De oude aanvraag heeft geen verifieerbare resultaatrevisie; controleer het huidige record',409);
+        if(record.revision!==seen.result_revision)fail('record_request_superseded','Het record is na deze aanvraag gewijzigd; controleer de huidige revisie',409);
+        return {record,deduplicated:true,request_id:key};
+      }
+      if(keys.length>=100000)fail('record_request_capacity','De bewaarlimiet voor recordaanvragen is bereikt',507);
+    }
     if(prior&&options.expected_revision!==prior.revision)fail('record_revision_conflict','Record is intussen gewijzigd',409);
     if(prior?.status==='APPROVED_INTERNAL')fail('approved_record_immutable','Maak een nieuwe revisie buiten het goedgekeurde record');
     if(this.id==='communication'&&entity==='drafts'&&prior&&input.owner_id!==undefined&&input.owner_id!==prior.owner_id&&prior.owner_id!==actor.id&&!this.visible({owner_id:null},actor))fail('draft_owner_change_forbidden','Een medebewerker kan geen eigenaarschap wijzigen',403);
@@ -132,19 +150,16 @@ class BusinessDomain {
       if(input.probability===undefined&&(!prior||value.pipeline_id!==prior.pipeline_id||value.stage_id!==prior.stage_id))value.probability=stage.probability;
     }
     if(value.owner_id&&value.owner_id!==actor.id&&value.owner_id!==prior?.owner_id&&!this.visible({owner_id:null},actor))fail('owner_assignment_forbidden','Alleen een beheerder mag een andere eigenaar toewijzen',403);
-    const fingerprint=crypto.createHash('sha256').update(JSON.stringify({entity,input,id:options.id||null})).digest('hex');
-    const keys=this.adapter.bucket(ctx,`${this.id}:idempotency`),key=options.idempotency_key;
-    if(key){const seen=keys.find(row=>row.key===key&&row.actor_id===actor.id);if(seen){if(seen.fingerprint!==fingerprint)fail('idempotency_conflict','Idempotency key heeft andere inhoud',409);return {record:this.get(ctx,actor,entity,seen.record_id),deduplicated:true};}}
     if(this.id==='calendar'&&entity==='events'&&!['CANCELLED','ARCHIVED'].includes(value.status)){const conflict=this.conflicts(ctx,actor,value,options.id);if(conflict.count)fail('calendar_conflict',`Tijdstip overlapt met ${conflict.count} bestaande afspraak(en)`,409);}
     const now=new Date().toISOString(),row={...value,...(this.id==='calendar'&&entity==='reminders'?{execution_principal_id:actor.id}:{}),id:prior?.id||crypto.randomUUID(),tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:value.owner_id||prior?.owner_id||actor.id,status:value.status||'DRAFT',created_at:prior?.created_at||now,updated_at:now,revision:(prior?.revision||0)+1,source_module:this.id,owned_entity:entity,schema_version:1,provenance:{source_id:'authorized_user_input',actor_id:actor.id,observed_at:now,classification:options.provenance_classification||'USER_SUPPLIED',provider_verified:false}};
     if(rows.length>=25000&&!prior)fail('domain_capacity','Recordlimiet bereikt',507);
     if(prior)rows[rows.findIndex(r=>r.id===row.id)]=row;else rows.push(row);
-    if(key)keys.push({key,actor_id:actor.id,fingerprint,request_fingerprint:options.request_fingerprint||null,record_id:row.id});
+    if(key)keys.push({key,actor_id:actor.id,fingerprint,request_fingerprint:options.request_fingerprint||null,record_id:row.id,receipt_version:1,receipt_entity:entity,target_id:options.id||null,expected_revision:options.expected_revision??0,result_revision:row.revision});
     if(this.id==='communication'&&entity==='drafts')require('./communication-drafts').append(this,ctx,actor,row,prior);
     require('./marketing-creative-history').append(this,ctx,actor,row,prior);
     require('./analysis-definition-history').append(this,ctx,actor,row,prior);
     this.recordEvent(ctx,actor,entity,row,prior?'updated':'created',options);
-    return {record:clone(row),deduplicated:false};
+    return {record:clone(row),deduplicated:false,...(key?{request_id:key}:{})};
   }
   recordEvent(ctx,actor,entity,row,action,options={}){
     const event_id=crypto.randomUUID(),event={event_id,event_name:`${this.id}.record.${action}.v1`,event_version:1,tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id,source_module:this.id,source:`foundly_${this.id}`,occurred_at:row.updated_at,correlation_id:options.correlation_id||event_id,causation_id:options.causation_id||null,entity_type:entity,entity_id:row.id,properties:{revision:row.revision,status:row.status},permissions:row.owner_id?{user_ids:[row.owner_id]}:{},consent_context:{purpose:'business_operations',legal_basis:'contract'},privacy_classification:'INTERNAL',provenance:row.provenance,idempotency_key:`${this.id}:${row.id}:${row.revision}`};
@@ -189,9 +204,9 @@ class BusinessDomain {
   summary(ctx,actor){
     this.scope(ctx,actor);const by_entity={};
     for(const entity of this.definition.entities){try{by_entity[entity]={...this.list(ctx,actor,entity,{limit:100}),available:true};}catch(error){if(error.code!=='capability_disabled')throw error;by_entity[entity]={items:[],total:null,available:false,reason:error.code};}}
-    const opportunities=by_entity.opportunities?.available?this.bucket(ctx,'opportunities').filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&this.visible(row,actor)):[],currency_groups={};
-    for(const row of opportunities){if(!row.currency||!Number.isSafeInteger(row.value_cents))continue;const group=currency_groups[row.currency]||(currency_groups[row.currency]={open_cents:0,weighted_cents:0,won_cents:0});if(row.status==='WON')group.won_cents+=row.value_cents;else if(!['LOST','CANCELLED'].includes(row.status)){group.open_cents+=row.value_cents;if(Number.isFinite(row.probability))group.weighted_cents+=Math.round(row.value_cents*row.probability);}}
-    return {module_id:this.id,by_entity,currency_groups,...(this.id==='communication'?{submission_summary:require('./communication-submissions').summary(this,ctx,actor)}:{}),aggregate_scope:'ALL_PERMISSION_FILTERED_RECORDS',observed_at:new Date().toISOString(),no_fake_data:true};
+    const opportunities=by_entity.opportunities?.available?this.bucket(ctx,'opportunities').filter(row=>!row.deleted_at&&row.status!=='ARCHIVED'&&this.visible(row,actor)):[];
+    const totals=this.id==='sales'?require('./sales-summary').summarize(opportunities,{available:by_entity.opportunities?.available===true}):{currency_groups:{}};
+    return {module_id:this.id,by_entity,...totals,...(this.id==='communication'?{submission_summary:require('./communication-submissions').summary(this,ctx,actor)}:{}),aggregate_scope:'ALL_PERMISSION_FILTERED_RECORDS',observed_at:new Date().toISOString(),no_fake_data:true};
   }
 }
 module.exports={BusinessDomain,DEFINITIONS,occurrences};

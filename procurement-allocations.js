@@ -2,7 +2,7 @@
 const fail=(code,message,statusCode=422)=>{throw Object.assign(new Error(message),{code,statusCode});};
 function allocationProposal(domain,ctx,actor,rfqId,input,options={}){
   domain.resolver.assertCapability(ctx,actor,'procurement:sourcing');
-  const rfq=domain.get(ctx,actor,'rfqs',rfqId);return allocationFromRecords(rfq,id=>domain.get(ctx,actor,'bids',id),input,options);
+  const rfq=domain.get(ctx,actor,'rfqs',rfqId);if(rfq.deleted_at)fail('record_not_found','Record niet gevonden',404);return allocationFromRecords(rfq,id=>{const bid=domain.get(ctx,actor,'bids',id),supplier=domain.bucket(ctx,'suppliers').find(r=>r.id===bid.supplier_id);if(bid.deleted_at||!supplier||supplier.deleted_at)fail('record_not_found','Record niet gevonden',404);return bid;},input,options);
 }
 function allocationFromRecords(rfq,getBid,input,{partial=false}={}){
   if(['CANCELLED','ARCHIVED'].includes(rfq.status))fail('rfq_closed','De aanvraag is gesloten',409);

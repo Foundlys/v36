@@ -1,0 +1,24 @@
+{
+  "run_number": 280,
+  "run_id": 36311969304,
+  "job_id": 108599544418,
+  "conclusion": "success",
+  "run_started_at": "2026-09-27T10:15:47Z",
+  "updated_at": "2026-09-27T10:34:31Z",
+  "published_head": "7b33393506c53d910970a855e92f51871f64721c",
+  "published_tree": "a2b0dde590ea8ba8fd44ffcad51be095656c79d6",
+  "checkout_merge": "fa076ed0164e597f87f498a6cfd2f21054eead15",
+  "merge_tree": "a2b0dde590ea8ba8fd44ffcad51be095656c79d6",
+  "merge_parents": [
+    "e8142578eb2185a915c37d895c567937f20a9970",
+    "7b33393506c53d910970a855e92f51871f64721c"
+  ],
+  "published_parent": "db731bd5c03e2e7d593d943da8ea91244317a9b0",
+  "zero_pass": 1973,
+  "corpus_pass": 14,
+  "log": "ci280.raw.log",
+  "verified_via": "Completed workflow, complete log summaries, exact published and checkout merge Git trees and expected PR parent",
+  "raw_bytes": 924870,
+  "raw_sha256": "83660977bb5cc76a57734162942553c4937c11a36d52480ede743ca5b023ff9f",
+  "archive": "docs/run2/evidence/20260927-demo-commerce-invoicing/ci280.raw.log.gz"
+}

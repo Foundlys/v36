@@ -55,7 +55,11 @@ async function structure(ids){
       assert.equal(readiness.checks.persistent_mount,false,'Isolated production fixture must not claim a real /data volume');
     }
   }
-  for(const [tool,id] of Object.entries(TOOL_MODULES))if(!tool.startsWith('automotive_'))assert.equal(tools.some(row=>row.tool_id===tool),ids.includes(id),tool);
+  const commerceBillingTools=['finance_commerce_invoice_create_preview','finance_commerce_invoice_create_execute','finance_commerce_invoice_create_recover'];
+  for(const [tool,id] of Object.entries(TOOL_MODULES))if(!tool.startsWith('automotive_')){
+    const expected=ids.includes(id)&&(!commerceBillingTools.includes(tool)||['crm','sales'].every(owner=>ids.includes(owner)));
+    assert.equal(tools.some(row=>row.tool_id===tool),expected,tool);
+  }
   assert.equal((await request('/api/connector-registry')).status,200);
   assert.equal((await request('/api/source-registry')).status,200);
 }
@@ -131,7 +135,7 @@ async function workflow(id){
       await stop();await start();await verify();await structure([id]);
       results.push({configuration:`${id.toUpperCase()} ONLY`,contract:'PASS',workflow:'PASS',encrypted_restart:'PASS',full_product_acceptance:'PENDING'});
     }
-    const combinations=[['crm','analysis'],['crm','automation'],['crm','finance'],['crm','communication','calendar'],['sales','crm'],['marketing','crm','analysis'],['procurement','analysis'],['procurement','crm','analysis'],['finance'],['automation','communication'],Object.keys(MODULES),Object.keys(MODULES)];
+    const combinations=[['crm','analysis'],['crm','automation'],['crm','finance'],['crm','communication','calendar'],['sales','crm'],['marketing','crm','analysis'],['procurement','analysis'],['procurement','crm','analysis'],['finance'],['automation','communication'],Object.keys(MODULES),Object.keys(MODULES),['sales','finance'],['sales','crm','finance']];
     for(let i=0;i<combinations.length;i++){
       const ids=combinations[i],industry=i===7?'AUTOMOTIVE':'GENERAL';await configure(ids,industry);await structure(ids);await stop();await start();await structure(ids);
       results.push({configuration:i===7?'AUTOMOTIVE + PROCUREMENT + CRM + ANALYTICS':i===8?'FINANCE + DATA + KNOWLEDGE':i===11?'FOUNDLY COMPLETE':ids.join(' + '),contract:'PASS',encrypted_restart:'PASS',full_product_acceptance:'PENDING'});

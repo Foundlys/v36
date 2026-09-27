@@ -15,19 +15,21 @@ function setActivation(core,ctx,actor,workflowId,input){
   if(!workflow)fail('automation_missing','Workflow niet gevonden',404);
   if(workflow.created_by!==actor.id&&!actor.permissions.has('*'))fail('automation_activation_forbidden','Alleen de workfloweigenaar of platformbeheerder kan de actieve versie wijzigen',403);
   if(!workflow.created_by)fail('automation_owner_missing','Een historische workflow zonder eigenaar kan niet automatisch worden toegewezen');
-  if(input.confirm!==true||typeof input.active!=='boolean'||!Number.isSafeInteger(input.expected_revision)||input.expected_revision<0||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>500)fail('automation_activation_invalid','Bevestig de huidige activeringsrevisie met een reden',422);
+  if(Object.keys(input).some(key=>!['confirm','active','expected_revision','reason','request_id'].includes(key))||input.confirm!==true||typeof input.active!=='boolean'||!Number.isSafeInteger(input.expected_revision)||input.expected_revision<0||typeof input.reason!=='string'||!input.reason.trim()||input.reason.length>500)fail('automation_activation_invalid','Bevestig de huidige activeringsrevisie met een reden',422);
   if(input.active&&!workflow.enabled)fail('automation_definition_disabled','Deze definitie staat uit; maak eerst een nieuwe versie');
   const id=groupId(workflow),rows=core.bucket(ctx,'automation_activations'),previous=rows.find(row=>row?.id===id),signature=hash({workflow_id:workflowId,actor_id:actor.id,input});
-  if(previous?.request_signature===signature)return {...clone(previous),deduplicated:true};
+  const journal=require('./workflow-activation-requests'),request=journal.prepare(core,ctx,actor,workflow,input);
+  if(request?.record)return {...request.record,deduplicated:true,request_acknowledgement:request.envelope};
+  if(previous?.request_signature===signature){if(request)core.moduleMutation(ctx,[journal.NAME],()=>request.retain(previous));return {...clone(previous),deduplicated:true,...(request?{request_acknowledgement:request.envelope}:{})};}
   if((previous?.revision||0)!==input.expected_revision)fail('automation_activation_conflict','De actieve versie is gewijzigd; vernieuw en beoordeel opnieuw');
   if(!previous&&rows.length>=25000)fail('automation_activation_capacity','De limiet voor activeringsbeleid is bereikt',507);
-  const result=core.moduleMutation(ctx,['automation_activations'],()=>{
+  const result=core.moduleMutation(ctx,['automation_activations',...(request?[journal.NAME]:[])],()=>{
     const row={id,schema_version:1,tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,owner_id:workflow.created_by,workflow_name:workflow.name,active_workflow_id:input.active?workflow.id:null,status:input.active?'ACTIVE':'PAUSED',revision:(previous?.revision||0)+1,reason:input.reason.trim(),updated_by:actor.id,updated_at:core.now(),request_signature:signature};
-    if(previous)rows[rows.indexOf(previous)]=row;else rows.push(row);
+    if(previous)rows[rows.indexOf(previous)]=row;else rows.push(row);request?.retain(row);
     core.audit(ctx,actor,'ACTIVATION','automation',workflowId,{activation_id:id,revision:row.revision,active_workflow_id:row.active_workflow_id,reason:row.reason});
     queueOwnedEvent(core,ctx,actor,'automation','activation',row,'updated');return clone(row);
   });
   try{flushOwnedEvents(core,ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}
-  return result;
+  return {...result,...(request?{request_acknowledgement:request.envelope}:{})};
 }
-module.exports={activation,setActivation};
+module.exports={activation,setActivation,groupId};

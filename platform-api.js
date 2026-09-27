@@ -283,7 +283,20 @@ function createPlatformApi(options = {}) {
       if(url.pathname==='/api/automation/workflows'&&req.method==='GET')return sendJson(res,200,platform.automationDefinitions(ctx,actor));
       if(url.pathname==='/api/automation/runs'&&req.method==='GET')return sendJson(res,200,platform.queryAutomationRuns(ctx,actor,Object.fromEntries(url.searchParams)));
       if (url.pathname === '/api/automation/status' && req.method === 'GET') return sendJson(res, 200, platform.automationStatus(ctx, actor));
+      if(url.pathname==='/api/automation/publications/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationPublication(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/run-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationRunRequest(ctx,actor,await readBody(req)));
       if (url.pathname === '/api/automation/workflows' && req.method === 'POST') return sendJson(res, 201, platform.defineAutomation(ctx, actor, await readBody(req)));
+      if(url.pathname==='/api/automation/activation-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationActivationRequest(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/approval-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationApprovalRequest(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/resume-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationResumeRequest(ctx,actor,await readBody(req)));
+      if(url.pathname==='/api/automation/result-requests/recover'&&req.method==='POST')return sendJson(res,200,platform.recoverAutomationResultRequest(ctx,actor,await readBody(req)));
+      const resume=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/(resume-preview|resume-confirmation)$/);
+      if(resume&&req.method==='GET'&&resume[2]==='resume-preview')return sendJson(res,200,platform.previewAutomationResume(ctx,actor,resume[1]));
+      if(resume&&req.method==='POST'&&resume[2]==='resume-confirmation')return sendJson(res,202,platform.resumeAutomation(ctx,actor,resume[1],await readBody(req)));
+      const approvalPreview=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/approval-preview$/);
+      if(approvalPreview&&req.method==='GET')return sendJson(res,200,platform.previewAutomationApproval(ctx,actor,approvalPreview[1]));
+      const reviewedRun=url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/(run-preview|run-confirmation)$/);
+      if(reviewedRun&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,reviewedRun[2]==='run-preview'?platform.previewConfirmedAutomationRun(ctx,actor,reviewedRun[1],input):platform.submitConfirmedAutomationRun(ctx,actor,reviewedRun[1],input));}
       const inspection=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/inspection$/);
       if(inspection&&req.method==='GET')return sendJson(res,200,platform.inspectAutomationRun(ctx,actor,inspection[1],Object.fromEntries(url.searchParams)));
       const recovery=url.pathname.match(/^\/api\/automation\/runs\/([A-Za-z0-9_.:-]{1,200})\/recovery$/);
@@ -294,7 +307,7 @@ function createPlatformApi(options = {}) {
       const run = url.pathname.match(/^\/api\/automation\/workflows\/([A-Za-z0-9_.:-]{1,200})\/runs$/);
       if (run && req.method === 'POST') {
         const payload = await readBody(req);
-        return sendJson(res, 202, platform.runAutomation(ctx, actor, run[1], payload.event || {}, payload.options || {}));
+        return sendJson(res, 202, platform.submitNativeAutomationRun(ctx, actor, run[1], payload.event || {}, payload.options || {}));
       }
       if (url.pathname === '/api/provisioner/resolve' && req.method === 'POST') return sendJson(res, 201, platform.provision(ctx, actor, await readBody(req)));
 
@@ -307,13 +320,19 @@ function createPlatformApi(options = {}) {
         return sendJson(res, 200, { ok: true, product: 'Foundly Finance', version, schema: finance.schema(), persistence: persistenceStatus(), no_fake_data: true });
       }
       if (url.pathname === '/api/finance/dashboard' && req.method === 'GET') return sendJson(res, 200, finance.dashboard(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
+      if (url.pathname === '/api/finance/invoice-actions/confirmations' && req.method === 'GET') return sendJson(res, 200, finance.listInvoiceActionConfirmations(ctx, actor, {operation: url.searchParams.get('operation'), cursor: Number(url.searchParams.get('cursor') || 0), limit: Number(url.searchParams.get('limit') || 10)}));
+      if (url.pathname === '/api/finance/invoice-actions/confirmations' && req.method === 'POST') return sendJson(res, 200, finance.rememberInvoiceAction(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/invoice-actions/acknowledge' && req.method === 'POST') return sendJson(res, 200, finance.acknowledgeInvoiceAction(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/invoice-actions/preview' && req.method === 'POST') return sendJson(res, 200, finance.previewInvoiceAction(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/invoice-actions/execute' && req.method === 'POST') return sendJson(res, 200, finance.executeInvoiceAction(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/invoice-actions/recover' && req.method === 'POST') return sendJson(res, 200, finance.recoverInvoiceAction(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/forecast-scenarios' && req.method === 'POST') return sendJson(res, 200, finance.forecastScenario(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/reports' && req.method === 'GET') return sendJson(res, 200, finance.reports(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
       if (url.pathname === '/api/finance/legal-entities' && req.method === 'POST') return sendJson(res, 201, finance.createLegalEntity(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
-      if (url.pathname === '/api/finance/periods' && req.method === 'POST') return sendJson(res, 201, finance.createPeriod(ctx, actor, await readBody(req)));
-      if (url.pathname === '/api/finance/accounts' && req.method === 'POST') return sendJson(res, 201, finance.createAccount(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/periods' && req.method === 'POST') return sendJson(res, 201, finance.createPeriod(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
+      if (url.pathname === '/api/finance/accounts' && req.method === 'POST') return sendJson(res, 201, finance.createAccount(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const chart = url.pathname.match(/^\/api\/finance\/legal-entities\/([A-Za-z0-9_.:-]{1,200})\/bootstrap-chart$/);
-      if (chart && req.method === 'POST') return sendJson(res, 201, { ok: true, accounts: finance.bootstrapDutchChart(ctx, actor, chart[1]) });
+      if (chart && req.method === 'POST') return sendJson(res, 201, { ok: true, accounts: finance.bootstrapDutchChart(ctx, actor, chart[1], { idempotencyKey: req.headers['idempotency-key'] }) });
       if (url.pathname === '/api/finance/journals' && req.method === 'POST') return sendJson(res, 201, finance.postJournal(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const reverse = url.pathname.match(/^\/api\/finance\/journals\/([A-Za-z0-9_.:-]{1,200})\/reverse$/);
       if (reverse && req.method === 'POST') {
@@ -324,16 +343,16 @@ function createPlatformApi(options = {}) {
       const invoicePost = url.pathname.match(/^\/api\/finance\/invoices\/([A-Za-z0-9_.:-]{1,200})\/post$/);
       if (invoicePost && req.method === 'POST') return sendJson(res, 200, finance.postInvoice(ctx, actor, invoicePost[1], { idempotencyKey: req.headers['idempotency-key'] }));
       const invoiceApprove = url.pathname.match(/^\/api\/finance\/invoices\/([A-Za-z0-9_.:-]{1,200})\/approve$/);
-      if (invoiceApprove && req.method === 'POST') return sendJson(res, 200, finance.approveInvoice(ctx, actor, invoiceApprove[1], await readBody(req)));
+      if (invoiceApprove && req.method === 'POST') return sendJson(res, 200, finance.approveInvoice(ctx, actor, invoiceApprove[1], await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const credit = url.pathname.match(/^\/api\/finance\/invoices\/([A-Za-z0-9_.:-]{1,200})\/credit-notes$/);
-      if (credit && req.method === 'POST') return sendJson(res, 201, finance.createCreditNote(ctx, actor, credit[1], await readBody(req)));
+      if (credit && req.method === 'POST') return sendJson(res, 201, finance.createCreditNote(ctx, actor, credit[1], await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/payments' && req.method === 'POST') return sendJson(res, 201, finance.recordPayment(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/collection-actions' && req.method === 'POST') return sendJson(res, 201, finance.createCollectionAction(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/counterparty-balances' && req.method === 'GET') return sendJson(res, 200, finance.counterpartyBalances(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined }));
       if (url.pathname === '/api/finance/bank-transactions' && req.method === 'POST') return sendJson(res, 201, finance.importBankTransaction(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       const proposals = url.pathname.match(/^\/api\/finance\/bank-transactions\/([A-Za-z0-9_.:-]{1,200})\/reconciliation-proposals$/);
       if (proposals && req.method === 'GET') return sendJson(res, 200, finance.reconciliationProposals(ctx, actor, proposals[1]));
-      if (url.pathname === '/api/finance/reconciliations' && req.method === 'POST') return sendJson(res, 201, finance.confirmReconciliation(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/reconciliations' && req.method === 'POST') return sendJson(res, 201, finance.confirmReconciliation(ctx, actor, await readBody(req), { idempotencyKey: req.headers['idempotency-key'] }));
       if (url.pathname === '/api/finance/document-proposals' && req.method === 'POST') return sendJson(res, 201, finance.ingestDocumentProposal(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/assets' && req.method === 'POST') return sendJson(res, 201, finance.createAsset(ctx, actor, await readBody(req)));
       const schedule = url.pathname.match(/^\/api\/finance\/assets\/([A-Za-z0-9_.:-]{1,200})\/depreciation$/);

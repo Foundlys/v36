@@ -1,0 +1,15 @@
+{
+  "id": "/foundly-os",
+  "name": "Foundly OS",
+  "short_name": "Foundly",
+  "start_url": "/login",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#010207",
+  "theme_color": "#010207",
+  "icons": [
+    { "src": "/foundly-app-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/foundly-app-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "prefer_related_applications": false
+}

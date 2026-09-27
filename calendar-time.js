@@ -1,4 +1,5 @@
 'use strict';
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./calendar-recurrence'));else root.FoundlyCalendarTime=factory(root.FoundlyCalendarRecurrence);})(globalThis,recurrence=>{
 const fail=(code,message)=>{throw Object.assign(new Error(message),{code,statusCode:422});};
 const formatters=new Map();
 function timestamp(value){
@@ -28,4 +29,19 @@ function fromWall(parts,zone){
   if(matches.length>1)fail('recurrence_dst_ambiguous','Deze herhaling heeft een dubbel lokaal tijdstip; plan deze afzonderlijk met een expliciete offset');
   return matches[0];
 }
-module.exports={timestamp,timezone,wallParts,wallNumber,fromWall};
+function occurrences(row) {
+  const start=timestamp(row.start_at),end=timestamp(row.end_at),rule=recurrence.normalize(row.recurrence);
+  if(end<=start)fail('date_order_invalid','Einde moet na start liggen');
+  if(!rule)return [{start_at:new Date(start).toISOString(),end_at:new Date(end).toISOString()}];
+  const {count,interval,frequency}=rule;
+  const parts=wallParts(start,row.timezone),result=[];
+  for(let i=0;i<count;i++){
+    const date=new Date(wallNumber(parts)+(frequency==='WEEKLY'?7:1)*interval*i*86400000);
+    const wall={year:date.getUTCFullYear(),month:date.getUTCMonth()+1,day:date.getUTCDate(),hour:date.getUTCHours(),minute:date.getUTCMinutes(),second:date.getUTCSeconds(),millisecond:date.getUTCMilliseconds()};
+    const at=i===0?start:fromWall(wall,row.timezone);
+    result.push({start_at:new Date(at).toISOString(),end_at:new Date(at+end-start).toISOString()});
+  }
+  return result;
+}
+return {timestamp,timezone,wallParts,wallNumber,fromWall,occurrences};
+});

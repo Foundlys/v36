@@ -1,4 +1,5 @@
 'use strict';
+const {resume}=require('./zero-evaluation/workflow-resume-http');
 const assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),crypto=require('node:crypto');
 const {spawn}=require('node:child_process'),{once}=require('node:events');
 const dir=fs.mkdtempSync(path.join(os.tmpdir(),'foundly-workflow-recovery-'));
@@ -27,7 +28,7 @@ env.FOUNDLY_RECOVERY_FAULT_MARKER=path.join(dir,'crash-once');fs.writeFileSync(e
  await stop();env.FOUNDLY_PLATFORM_USER_ID='foreign-admin';await start();assert.equal((await call(recoveryRoute)).status,403);assert.equal((await call(recoveryRoute,'POST',command)).status,403);
  await stop();env.FOUNDLY_PLATFORM_USER_ID='recovery-owner';await start();
  const recovered=await call(recoveryRoute,'POST',command);assert.equal(recovered.status,200,JSON.stringify(recovered.body));assert.equal(recovered.body.status,'RECOVERY_READY');assert.equal((await call(recoveryRoute,'POST',command)).body.deduplicated,true);assert.equal((await call('/api/automation/documents')).body.total,0,'Recovery does not execute a following step');
- await stop();await start();run=(await call(route,'POST',{event})).body;assert.equal(run.status,'SUCCEEDED');assert.equal(run.recoveries.length,1);assert.equal(run.outputs[0].record_id,originalTask.id);assert.equal((await call('/api/automation/tasks')).body.total,1);assert.equal((await call('/api/automation/documents')).body.total,1);assert.equal((await call(route,'POST',{event})).body.replayed,true);
+ await stop();await start();assert.equal((await call(route,'POST',{event})).body.status,'RECOVERY_READY');run=(await resume(call,run)).body;assert.equal(run.status,'SUCCEEDED');assert.equal(run.recoveries.length,1);assert.equal(run.outputs[0].record_id,originalTask.id);assert.equal((await call('/api/automation/tasks')).body.total,1);assert.equal((await call('/api/automation/documents')).body.total,1);assert.equal((await call(route,'POST',{event})).body.replayed,true);
  assert.equal((await call('/api/composition','PUT',{entitlements:[],expected_revision:1})).status,200);const exported=(await call('/api/automation/export')).body;assert.equal(exported.collections.automation_runs[0].recoveries[0].evidence.record_id,originalTask.id);
  console.log('PASS real server-child crash after encrypted commit, verified stored outcome, forged/foreign recovery denial, explicit continuation without duplicate records, restart and retained recovery evidence');
 }finally{await stop();fs.rmSync(dir,{recursive:true,force:true});}})().catch(error=>{console.error(error);process.exitCode=1;});

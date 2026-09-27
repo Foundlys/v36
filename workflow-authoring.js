@@ -9,7 +9,7 @@
     delay:{label:'Wachten',fields:[{key:'seconds',label:'Wachttijd in seconden',type:'number',required:true,min:1,max:2592000}]}
   };
   const operators=['eq','ne','gt','gte','lt','lte','exists','in'];
-  const fail=message=>{throw Object.assign(new Error(message),{code:'workflow_draft_invalid'});};
+  const fail=(message,issue)=>{throw Object.assign(new Error(message),{code:'workflow_draft_invalid',statusCode:422,...(issue?{issue}:{})});};
   const integer=(value,min,max,label)=>{const n=Number(value);if(!Number.isInteger(n)||n<min||n>max)fail(`${label}: kies ${min} tot ${max}.`);return n;};
   function validateDraftCondition(condition,depth=0,budget={nodes:0}){
     if(!condition||typeof condition!=='object'||Array.isArray(condition)||depth>5||++budget.nodes>200)fail('Ongeldige conditiegroep.');
@@ -38,7 +38,7 @@
       if(!['text','number','boolean'].includes(c.value_type??'text'))fail('Kies een ondersteund waardetype.');
       if(c.operator==='in'){
         value=String(c.value??'').split('\n').map(item=>item.trim()).filter(Boolean);
-        if(!value.length||value.length>100)fail('Vul 1 tot 100 vergelijkingswaarden in.');
+        if(!value.length||value.length>100)fail('Vul 1 tot 100 vergelijkingswaarden in.','condition_values');
       }else if(c.value_type==='number'){if(String(value??'').trim()===''||!Number.isFinite(Number(value)))fail('Vul een geldig getal voor de conditie in.');value=Number(value);}
       else if(c.value_type==='boolean'){if(!['true','false'].includes(String(value)))fail('Kies true of false voor de conditie.');value=String(value)==='true';}
       else value=String(value??'');
@@ -78,7 +78,7 @@
   }
   function contract(automation){return {version:1,branching:{max_depth:3},condition_groups:{modes:['all','any'],max_depth:5,max_children:20,max_nodes:200},max_steps:100,triggers:automation.triggers,automatic_event_aliases:automation.event_aliases||{},actions:Object.entries(fields).filter(([type])=>automation.actions.includes(type)).map(([type,value])=>({type,...value,retryable:(automation.retryable_actions||[]).includes(type)})),operators};}
   function compile(draft,spec){
-    const name=String(draft.name||'').trim();if(!name||name.length>200)fail('Vul een workflownaam van maximaal 200 tekens in.');
+    const name=String(draft.name||'').replace(/[\u0000-\u001f\u007f]/g,' ').trim();if(!name||name.length>200)fail('Vul een workflownaam van maximaal 200 tekens in.');
     const version=integer(draft.version??1,1,2147483647,'Versie');
     if(!spec.triggers.includes(draft.trigger_type))fail('Kies een ondersteunde trigger.');
     const trigger={type:draft.trigger_type,automatic:draft.automatic===true};
@@ -101,7 +101,7 @@
       if(Object.hasOwn(step,'then_steps')||Object.hasOwn(step,'else_steps'))fail('Alleen een vertakking heeft afzonderlijke paden.');
       const definition=spec.actions.find(row=>row.type===step.type);if(!definition)fail('Deze stap wordt niet door de editor ondersteund.');
       const action={type:step.type};
-      for(const field of definition.fields){const value=step.values?.[field.key];if(field.type==='number')action[field.key]=integer(value,field.min,field.max,field.label);else {const text=String(value||'').trim();if(field.required&&!text||text.length>field.max)fail(`Controleer ${field.label.toLowerCase()}.`);if(text)action[field.key]=text;}}
+      for(const field of definition.fields){const value=step.values?.[field.key];if(field.type==='number')action[field.key]=integer(value,field.min,field.max,field.label);else {const text=String(value||'').replace(field.multiline?/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g:/[\u0000-\u001f\u007f]/g,' ').trim();if(field.required&&!text||text.length>field.max)fail(`Controleer ${field.label.toLowerCase()}.`);if(text)action[field.key]=text;}}
       if(Object.hasOwn(step,'condition')){
         validateDraftCondition(step.condition);
         if(step.condition.enabled)action.when=compileCondition(step.condition);

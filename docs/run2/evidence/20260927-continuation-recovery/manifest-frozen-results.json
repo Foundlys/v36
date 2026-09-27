@@ -1,0 +1,70 @@
+{
+  "source": "5dd3ea2b282b50da00958f45d9b084da896c5b59",
+  "tree": "460981524d17fa720db675ba77f6d90209257c88",
+  "before_status": "",
+  "started_at": "2026-09-27T06:57:56.235259+00:00",
+  "commands": [
+    {
+      "name": "manifest-and-zero",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=2",
+        "zero/native-evidence.test.js",
+        "zero/native-evidence-api.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js",
+        "zero/cross-module-api.test.js",
+        "zero/conversation-context.test.js",
+        "zero/conversation-context-api.test.js",
+        "zero/capability-resolution-authority.test.js",
+        "zero/native-followup.test.js",
+        "zero/native-followup-api.test.js",
+        "zero/social-routing-api.test.js",
+        "zero/demo-manifest-validation.test.js",
+        "zero/demo-atomic-batch-api.test.js",
+        "zero/demo-session-api.test.js",
+        "zero/demo-controls.test.js",
+        "zero/core-state-transaction.test.js",
+        "zero/demo-universe-engine.test.js",
+        "zero/ecommerce-demo-universe.test.js",
+        "zero/ecommerce-demo-api.test.js",
+        "zero/demo-universe-pacing.test.js",
+        "zero/demo-universe-law.test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 191.115,
+      "log": "manifest-and-zero-frozen.log",
+      "bytes": 21311,
+      "sha256": "ba5bbbba6099d1fa643598001b282b00a27b0648624e0a60b494d0477028d5bd",
+      "summary": {
+        "tests": 76,
+        "pass": 76,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "complete": true
+    },
+    {
+      "name": "manifest-corpus",
+      "command": [
+        "node",
+        "zero-evaluation/run.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.331,
+      "log": "manifest-corpus-frozen.log",
+      "bytes": 1066,
+      "sha256": "da2724e538038dfdcacdfffc5ec83082f478bc93b60852d483361c210eea2d5f",
+      "complete": true
+    }
+  ],
+  "full_zero_suite": "NOT_RUN_THIS_CHECKPOINT",
+  "provider_quality": "UNVERIFIED",
+  "after_status": "",
+  "completed_at": "2026-09-27T07:01:10.688259+00:00",
+  "all_pass": true
+}

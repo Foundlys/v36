@@ -1,0 +1,15 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto'),{fixture}=require('./workspace-domain-fixture'),service=require('../marketing-audiences');
+async function page(options={}){const f=await fixture({workspaceId:'marketing',entity:'audiences',start:false,...options});Object.assign(f.context,{crypto,TextEncoder});for(const name of ['marketing-audience-client.js','marketing-journeys-client.js','marketing-zero-client.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',name),'utf8'),f.context);const previous=f.context.fetch;let lost=false,denied=false;const writes=[];
+ f.context.fetch=async(route,options={})=>{const url=new URL(route,'http://fixture'),parts=url.pathname.split('/').filter(Boolean),method=options.method||'GET',input=options.body?JSON.parse(options.body):{};if(denied&&method==='GET'&&parts.length>=4&&parts[2]==='audiences')return {ok:false,status:403,json:async()=>({code:'capability_disabled',error:'PRIVATE current audience denial'})};let data;
+ try{if(parts[2]==='audience-requests'){writes.push({route,method,input});data=service.recover(f.core,f.ctx,f.actor,input);}
+ else if(parts[2]==='audiences'&&['members','filters','selection'].includes(parts[4])){if(method==='POST')writes.push({route,method,input});data=parts[4]==='selection'?service.selection(f.core,f.ctx,f.actor,parts[3]):method==='GET'?service.list(f.core,f.ctx,f.actor,parts[3],Object.fromEntries(url.searchParams)):service[parts[4]==='members'?'upsert':'filters'](f.core,f.ctx,f.actor,parts[3],input,{idempotency_key:options.headers['idempotency-key']});if(lost&&method==='POST'){lost=false;throw Object.assign(Error('PRIVATE lost committed member'),{transportLoss:true});}}
+ else return previous(route,options);return {ok:true,status:200,json:async()=>data};}catch(error){if(error.transportLoss)throw error;return {ok:false,status:error.statusCode||500,json:async()=>({code:error.code,error:error.message})};}};
+ const source=()=>f.core.save(f.ctx,f.actor,'audiences',{name:'Literal private audience title',filters:{tags_all:[],tags_none:[]}}).record;
+ const detail=()=>f.content.all().find(n=>n.tag==='details'&&n.getAttribute?.('data-audience-detail'));
+ const control=name=>detail()?.all().find(n=>n.getAttribute?.('data-audience-action')===name),field=name=>detail()?.all().find(n=>n.getAttribute?.('data-audience-field')===name);
+ async function open(){const d=detail();d.open=true;await d.fire('toggle');await f.ui.state.creativeHistoryViews?.at(-1)?.ready;return d;}
+ async function fill(){for(const [name,value]of Object.entries({subject:'literal-person',email:'literal@example.test',tags:'literal-tag',permission:'UNKNOWN',evidence:'Literal private permission reference',observed:'2026-09-01T00:00:00Z',reason:'Literal unsaved reason'}))field(name).value=value;await field('reason').fire('input');field('confirm').checked=true;}
+ return {...f,source,detail,field,control,open,fill,audienceWrites:writes,lose:()=>lost=true,denyAudience:()=>denied=true};
+}
+module.exports={page};

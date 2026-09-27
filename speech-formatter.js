@@ -11,7 +11,8 @@
   const LETTERS={A:'aa',B:'bee',C:'see',D:'dee',E:'ee',F:'ef',G:'gee',H:'haa',I:'ie',J:'jee',K:'kaa',L:'el',M:'em',N:'en',O:'oo',P:'pee',Q:'kuu',R:'er',S:'es',T:'tee',U:'uu',V:'vee',W:'wee',X:'iks',Y:'ij',Z:'zet'};
   const MONTHS=['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
   const clampText=(value,limit=12000)=>String(value??'').slice(0,Math.max(0,limit));
-  function decodePresentationEntities(value){const named={amp:'en',lt:' ',gt:' ',quot:'',apos:'',nbsp:' '};return String(value).replace(/&(#x?[0-9a-f]+|amp|lt|gt|quot|apos|nbsp);/gi,(_,entity)=>{if(entity[0]==='#'){const hex=entity[1]?.toLowerCase()==='x',code=parseInt(entity.slice(hex?2:1),hex?16:10);return Number.isFinite(code)?String.fromCodePoint(Math.min(code,0x10ffff)):' '}return named[entity.toLowerCase()]??' '})}
+  const SPEECH_WORDS={nl:{and:'en',web:'een webadres',email:'een e-mailadres',at:'apenstaartje',dot:'punt'},en:{and:'and',web:'a web address',email:'an email address',at:'at',dot:'dot'},de:{and:'und',web:'eine Webadresse',email:'eine E-Mail-Adresse',at:'at',dot:'Punkt'},fr:{and:'et',web:'une adresse web',email:'une adresse e-mail',at:'arobase',dot:'point'},es:{and:'y',web:'una dirección web',email:'una dirección de correo',at:'arroba',dot:'punto'},da:{and:'og',web:'en webadresse',email:'en e-mailadresse',at:'snabel-a',dot:'punktum'},nb:{and:'og',web:'en nettadresse',email:'en e-postadresse',at:'krøllalfa',dot:'punktum'},sv:{and:'och',web:'en webbadress',email:'en e-postadress',at:'snabel-a',dot:'punkt'}};
+  function decodePresentationEntities(value,words=SPEECH_WORDS.nl){const named={amp:words.and,lt:' ',gt:' ',quot:'',apos:'',nbsp:' '};return String(value).replace(/&(#x?[0-9a-f]+|amp|lt|gt|quot|apos|nbsp);/gi,(_,entity)=>{if(entity[0]==='#'){const hex=entity[1]?.toLowerCase()==='x',code=parseInt(entity.slice(hex?2:1),hex?16:10);return Number.isFinite(code)?String.fromCodePoint(Math.min(code,0x10ffff)):' '}return named[entity.toLowerCase()]??' '})}
 
   function integerToDutch(value){
     let n=Math.trunc(Math.abs(Number(value)||0));
@@ -33,7 +34,8 @@
   }
 
   function sanitizeForSpeech(value,{locale='nl-NL',limit=12000}={}){
-    let text=decodePresentationEntities(clampText(value,limit).normalize('NFKC'))
+    const words=SPEECH_WORDS[String(locale).slice(0,2)]||SPEECH_WORDS.nl;
+    let text=decodePresentationEntities(clampText(value,limit).normalize('NFKC'),words)
       .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,' ')
       .replace(/```[\s\S]*?```/g,block=>block.replace(/```[^\n]*\n?/g,'').replace(/```/g,''))
       .replace(/!\[([^\]]*)\]\([^)]*\)/g,'$1')
@@ -48,10 +50,10 @@
       .replace(/\|/g,', ')
       .replace(/~~([^~]+)~~/g,'$1')
       .replace(/[*_`]+/g,'')
-      .replace(/\b[a-z][a-z0-9+.-]*:\/\/[^\s)]+/gi,'een webadres')
-      .replace(/\bwww\.[^\s)]+/gi,'een webadres')
-      .replace(/\bmailto:[^\s)]+/gi,'een e-mailadres')
-      .replace(/\b([A-Z0-9._%+-]+)@([A-Z0-9.-]+)\.([A-Z]{2,})\b/gi,(_,user,host,tld)=>`${user.replace(/[._-]+/g,' ')} apenstaartje ${host.replace(/[.-]+/g,' punt ')} punt ${tld}`);
+      .replace(/\b[a-z][a-z0-9+.-]*:\/\/[^\s)]+/gi,words.web)
+      .replace(/\bwww\.[^\s)]+/gi,words.web)
+      .replace(/\bmailto:[^\s)]+/gi,words.email)
+      .replace(/\b([A-Z0-9._%+-]+)@([A-Z0-9.-]+)\.([A-Z]{2,})\b/gi,(_,user,host,tld)=>`${user.replace(/[._-]+/g,' ')} ${words.at} ${host.replace(/[.-]+/g,' '+words.dot+' ')} ${words.dot} ${tld}`);
 
     if(/^nl(?:-|$)/i.test(locale)){
       text=text

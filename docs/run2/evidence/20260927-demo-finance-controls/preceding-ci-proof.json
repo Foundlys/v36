@@ -1,0 +1,30 @@
+{
+  "run_number": 277,
+  "run_id": 36306873103,
+  "job_id": 108585142084,
+  "conclusion": "success",
+  "published_head": "c83a7da08e415b499e7062a66a42484e46e368e3",
+  "published_tree": "a23dbf4884e2db5f04668fde4c02ea378c9b8d03",
+  "checkout_merge": "3d5591a8cd7bc48ce71d0ce8049658de5b611db1",
+  "merge_tree": "a23dbf4884e2db5f04668fde4c02ea378c9b8d03",
+  "merge_parents": [
+    "e8142578eb2185a915c37d895c567937f20a9970",
+    "c83a7da08e415b499e7062a66a42484e46e368e3"
+  ],
+  "started_at": "2026-09-27T08:39:17Z",
+  "created_at": "2026-09-27T08:39:17Z",
+  "updated_at": "2026-09-27T08:52:39Z",
+  "zero": {
+    "tests": 1928,
+    "pass": 1928,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "corpus_pass": 14,
+  "log": "ci277.raw.log",
+  "raw_bytes": 905012,
+  "raw_sha256": "937d3163d227584301614a0110c2ef51f75604824037b976fc092196e1bb21fb",
+  "archive": "docs/run2/evidence/20260927-demo-finance-controls/ci277.raw.log.gz"
+}

@@ -1,0 +1,43 @@
+[
+  {
+    "name": "rdw-models-first-page",
+    "url": "https://opendata.rdw.nl/resource/m9d7-ebf2.json?%24select=merk%2Chandelsbenaming%2Ccount%28%2A%29+as+registered_count&voertuigsoort=Personenauto&%24group=merk%2Chandelsbenaming&%24order=merk%2Chandelsbenaming&%24limit=20000",
+    "retrieved_at": "2026-09-26T18:17:52.126058+00:00",
+    "status": 200,
+    "bytes": 1544699,
+    "sha256": "e75e721615f1cc0f3789fb1642bbd9b328175c714dcbdd3528ac8c49e7860306",
+    "content_type": "application/json;charset=utf-8",
+    "etag": "W/\"YnJhdm8uNTU4XzUwXzI0Nzk3bG9FeF9nMnJ5ckNJTzJieDItTkhuZ3BnOGZn---gzipZPWdA9YP0QK-OsPkExFgKcEqJpU--gzip--gzip\"",
+    "last_modified": "Sat, 26 Sep 2026 06:03:09 GMT",
+    "path": "rdw-models-first-page.json",
+    "records": 20000
+  },
+  {
+    "name": "cbs-sector-codes",
+    "url": "https://datasets.cbs.nl/odata/v1/CBS/85828NED/BedrijfstakkenBranchesSBI2008Codes",
+    "retrieved_at": "2026-09-26T18:17:52.128710+00:00",
+    "status": "UNAVAILABLE",
+    "error": "HTTP Error 502: Bad Gateway"
+  },
+  {
+    "name": "cbs-measure-codes",
+    "url": "https://datasets.cbs.nl/odata/v1/CBS/85828NED/MeasureCodes",
+    "retrieved_at": "2026-09-26T18:18:09.146489+00:00",
+    "status": "UNAVAILABLE",
+    "error": "HTTP Error 502: Bad Gateway"
+  },
+  {
+    "name": "cbs-period-codes",
+    "url": "https://datasets.cbs.nl/odata/v1/CBS/85828NED/PeriodenCodes",
+    "retrieved_at": "2026-09-26T18:18:26.147198+00:00",
+    "status": "UNAVAILABLE",
+    "error": "HTTP Error 502: Bad Gateway"
+  },
+  {
+    "name": "cbs-observations-2025-2026",
+    "url": "https://datasets.cbs.nl/odata/v1/CBS/85828NED/Observations?%24filter=Perioden+ge+%272025%27&%24top=20000",
+    "retrieved_at": "2026-09-26T18:18:43.101172+00:00",
+    "status": "UNAVAILABLE",
+    "error": "HTTP Error 502: Bad Gateway"
+  }
+]

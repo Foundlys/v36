@@ -42,6 +42,8 @@ function create(core,ctx,actor,id,input,options={},getAccount){
  core.scope(ctx,actor,'write');core.resolver.assertCapability(ctx,actor,'communication:drafts','write');
  const fields=['mode','source_revision','source_hash','title','content','to','cc','recipient_binding'];
  if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).some(key=>!fields.includes(key)))fail('message_draft_input_invalid','Ongeldige conceptaanvraag');
+ if(typeof options.idempotency_key!=='string'||!options.idempotency_key||options.idempotency_key.length>200)fail('draft_idempotency_required','Een unieke actie-ID is verplicht');
+ const recovery=require('./communication-reply-recovery'),meta=recovery.metadata(id,input,options.idempotency_key),key=hash(['MESSAGE_DRAFT',options.idempotency_key]),fingerprint=hash({id,input}),receipts=core.adapter.bucket(ctx,'communication:draft_operations'),seen=receipts.find(row=>row.key===key&&row.actor_id===actor.id);if(seen&&Object.hasOwn(seen,'receipt_version'))return recovery.replay(core,ctx,actor,meta,seen);
  const proposed=preview(core,ctx,actor,id,input.mode,getAccount);
  if(input.source_revision!==proposed.source_revision||input.source_hash!==proposed.source_hash)fail('message_source_changed','Het bronbericht is gewijzigd; bekijk het opnieuw',409);
  require('./communication-drafts').validateInput(input);
@@ -49,16 +51,14 @@ function create(core,ctx,actor,id,input,options={},getAccount){
  if(input.mode==='REPLY'&&(!proposed.recipient_available||JSON.stringify(input.to)!==JSON.stringify(proposed.suggested_to)))fail('message_reply_recipient_unavailable','De afzender is niet verifieerbaar of wijkt af; bekijk het bericht opnieuw');
  if(input.mode==='REPLY_ALL'&&(!proposed.recipient_available||input.recipient_binding!==proposed.recipient_binding||JSON.stringify(input.to)!==JSON.stringify(proposed.suggested_to)||JSON.stringify(input.cc)!==JSON.stringify(proposed.suggested_cc)))fail('message_reply_recipient_unavailable','De actuele ontvangers of afzender zijn gewijzigd of niet beschikbaar');
  if(input.mode==='REPLY'&&input.cc?.length)fail('message_reply_recipient_unavailable','Kies allen beantwoorden om kopieontvangers op te nemen');
- if(typeof options.idempotency_key!=='string'||!options.idempotency_key||options.idempotency_key.length>200)fail('draft_idempotency_required','Een unieke actie-ID is verplicht');
- const key=hash(['MESSAGE_DRAFT',options.idempotency_key]),fingerprint=hash({id,input}),receipts=core.adapter.bucket(ctx,'communication:draft_operations'),seen=receipts.find(row=>row.key===key&&row.actor_id===actor.id);
  if(seen){if(seen.fingerprint!==fingerprint)fail('draft_action_conflict','Deze actiesleutel hoort bij een andere aanvraag',409);return {record:core.get(ctx,actor,'drafts',seen.record_id),deduplicated:true,external_send:false};}
  if(receipts.length>=25000)fail('draft_operation_capacity','De limiet voor bewaarde conceptacties is bereikt',507);
  const result=core.mutate(ctx,()=>{
   const saved=core.saveOwned(ctx,actor,'drafts',{title:input.title,content:input.content,to:input.to,...(input.cc!==undefined?{cc:input.cc}:{}),status:'DRAFT'}).record;
   const row=core.bucket(ctx,'drafts').find(row=>row.id===saved.id);
   row.source_message_ref={id,revision:proposed.source_revision,hash:proposed.source_hash,mode:input.mode,...(input.mode==='REPLY_ALL'?{hash_version:2,reply_from:proposed.reply_from}:{})};
-  receipts.push({key,actor_id:actor.id,fingerprint,record_id:row.id});
-  return {record:clone(row),deduplicated:false,external_send:false,quoted_content_copied:false};
+  const ack=recovery.store(core,ctx,actor,meta,row);core.adapter.audit(ctx,actor,'MESSAGE_DRAFT_CREATED','communication:drafts',row.id,{source_message_id:id,source_revision:proposed.source_revision,mode:input.mode,external_send:false});
+  return {record:clone(row),deduplicated:false,action_executed:true,request_acknowledgement:ack,external_send:false,quoted_content_copied:false};
  });try{core.flush(ctx,actor);}catch{result.event_delivery='QUEUED_RETRY';}return result;
 }
 module.exports={preview,create,readable,accessPredicate,sourceHash};

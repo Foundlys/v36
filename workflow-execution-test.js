@@ -26,7 +26,8 @@ const done=core.runAutomation(ctx,admin,workflow.id,event,{approval});assert.equ
 core.runAutomation(ctx,admin,workflow.id,event,{approval});assert.equal(effects.length,3);
 const blocked=core.defineAutomation(ctx,admin,{name:'Blocked external action',trigger:'custom_event',actions:[{type:'webhook'},{type:'notify'}]});
 const blockedEvent={event_id:crypto.randomUUID()},wait=core.runAutomation(ctx,admin,blocked.id,blockedEvent);
-const result=core.runAutomation(ctx,admin,blocked.id,blockedEvent,{approval:{...approval,run_id:wait.run_id,request_signature:wait.request_signature}});
+assert.throws(()=>core.runAutomation(ctx,admin,blocked.id,blockedEvent,{approval:{...approval,run_id:wait.run_id,request_signature:wait.request_signature}}),{code:'automation_approval_request_conflict'},'An approval reference cannot be reused for another exact run');
+const result=core.runAutomation(ctx,admin,blocked.id,blockedEvent,{approval:{...approval,reference:'review-blocked-external',run_id:wait.run_id,request_signature:wait.request_signature}});
 assert.equal(result.status,'BLOCKED');assert.equal(result.steps.length,1);assert.equal(core.automationStatus(ctx,admin).blocked,1);
 const crash=core.defineAutomation(ctx,admin,{name:'Crash evidence',trigger:'custom_event',actions:[{type:'notify'}]}),crashEvent={event_id:crypto.randomUUID()},before=effects.length;
 interrupt=true;assert.throws(()=>core.runAutomation(ctx,admin,crash.id,crashEvent),/simulated/);interrupt=false;

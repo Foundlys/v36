@@ -1,0 +1,293 @@
+{
+  "source": "c24b2061588a0d88fa18061b883cf71eead1616a",
+  "tree": "2d1debe584fdeaedcea48a4b7fb5e68d13505bb1",
+  "before_status": "",
+  "started_at": "2026-09-27T11:55:12.869633+00:00",
+  "commands": [
+    {
+      "name": "commerce-controls-and-zero",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=2",
+        "zero/commerce-action-confirmations.test.js",
+        "zero/commerce-action-confirmations-api.test.js",
+        "zero/commerce-actions-client.test.js",
+        "zero/commerce-actions-client-api.test.js",
+        "zero/commerce-invoice-creation-client.test.js",
+        "zero/commerce-invoice-creation-api.test.js",
+        "zero/commerce-finance-link-api.test.js",
+        "zero/sales-commerce.test.js",
+        "zero/sales-commerce-api.test.js",
+        "zero/finance-invoice-creation-client.test.js",
+        "zero/finance-invoice-creation-api.test.js",
+        "zero/finance-purchase-approval.test.js",
+        "zero/finance-purchase-approval-api.test.js",
+        "zero/demo-purchase-history.test.js",
+        "zero/finance-action-confirmations.test.js",
+        "zero/finance-invoice-actions-client.test.js",
+        "zero/finance-invoice-actions-client-api.test.js",
+        "zero/finance-page-localization.test.js",
+        "zero/localization.test.js",
+        "zero/localization-authoring.test.js",
+        "zero/finance-credit-settlements.test.js",
+        "zero/finance-credit-settlements-api.test.js",
+        "zero/finance-credit-notes.test.js",
+        "zero/finance-credit-notes-api.test.js",
+        "zero/finance-request-durability.test.js",
+        "zero/finance-currency-integrity.test.js",
+        "zero/demo-finance-transactions.test.js",
+        "zero/finance-invoice-actions.test.js",
+        "zero/commerce-finance-link.test.js",
+        "zero/demo-finance-foundation.test.js",
+        "zero/native-evidence.test.js",
+        "zero/native-evidence-api.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js",
+        "zero/cross-module-api.test.js",
+        "zero/conversation-context.test.js",
+        "zero/conversation-context-api.test.js",
+        "zero/capability-resolution-authority.test.js",
+        "zero/native-followup.test.js",
+        "zero/native-followup-api.test.js",
+        "zero/social-routing-api.test.js",
+        "zero/demo-manifest-validation.test.js",
+        "zero/demo-atomic-batch-api.test.js",
+        "zero/demo-session-api.test.js",
+        "zero/demo-controls.test.js",
+        "zero/core-state-transaction.test.js",
+        "zero/ecommerce-demo-api.test.js",
+        "zero/demo-universe-pacing.test.js",
+        "zero/demo-universe-law.test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 94.263,
+      "log": "commerce-controls-and-zero-frozen.log",
+      "bytes": 75187,
+      "sha256": "4848a4ff7472b0ef0afe1b30d4dcbeba8b73edd8b99a01f09e9f56a6ccb487f4",
+      "summary": {
+        "tests": 261,
+        "pass": 261,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "complete": true
+    },
+    {
+      "name": "commerce-controls-corpus",
+      "command": [
+        "node",
+        "zero-evaluation/run.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.125,
+      "log": "commerce-controls-corpus-frozen.log",
+      "bytes": 1066,
+      "sha256": "6e6a4a2912fc333d41cb22645fb0a1a76f14fec3032c58c91c6ba84ac95407c2",
+      "complete": true
+    },
+    {
+      "name": "platform-core",
+      "command": [
+        "node",
+        "platform-core-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.165,
+      "log": "platform-core-frozen.log",
+      "bytes": 1118,
+      "sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+      "complete": true
+    },
+    {
+      "name": "platform-api",
+      "command": [
+        "node",
+        "platform-api-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.167,
+      "log": "platform-api-frozen.log",
+      "bytes": 941,
+      "sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+      "complete": true
+    },
+    {
+      "name": "composition-api",
+      "command": [
+        "node",
+        "composition-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.035,
+      "log": "composition-api-frozen.log",
+      "bytes": 110,
+      "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+      "complete": true
+    },
+    {
+      "name": "sales-zero-test",
+      "command": [
+        "node",
+        "sales-zero-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.265,
+      "log": "sales-zero-test-frozen.log",
+      "bytes": 374,
+      "sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f",
+      "complete": true
+    },
+    {
+      "name": "sales-zero-api-test",
+      "command": [
+        "node",
+        "sales-zero-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 5.795,
+      "log": "sales-zero-api-test-frozen.log",
+      "bytes": 345,
+      "sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4",
+      "complete": true
+    },
+    {
+      "name": "sales-zero-client-test",
+      "command": [
+        "node",
+        "sales-zero-client-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.565,
+      "log": "sales-zero-client-test-frozen.log",
+      "bytes": 354,
+      "sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60",
+      "complete": true
+    },
+    {
+      "name": "module-access-contracts-test",
+      "command": [
+        "node",
+        "module-access-contracts-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.265,
+      "log": "module-access-contracts-test-frozen.log",
+      "bytes": 332,
+      "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+      "complete": true
+    },
+    {
+      "name": "capability-resolver-test",
+      "command": [
+        "node",
+        "capability-resolver-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.165,
+      "log": "capability-resolver-test-frozen.log",
+      "bytes": 135,
+      "sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+      "complete": true
+    },
+    {
+      "name": "composition-matrix-test",
+      "command": [
+        "node",
+        "composition-matrix-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 23.261,
+      "log": "composition-matrix-test-frozen.log",
+      "bytes": 4192,
+      "sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+      "complete": true
+    },
+    {
+      "name": "business-domains-test",
+      "command": [
+        "node",
+        "business-domains-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.315,
+      "log": "business-domains-test-frozen.log",
+      "bytes": 212,
+      "sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+      "complete": true
+    },
+    {
+      "name": "finance-loading-test",
+      "command": [
+        "node",
+        "finance-loading-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.114,
+      "log": "finance-loading-test-frozen.log",
+      "bytes": 130,
+      "sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+      "complete": true
+    },
+    {
+      "name": "finance-loading-api-test",
+      "command": [
+        "node",
+        "finance-loading-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.867,
+      "log": "finance-loading-api-test-frozen.log",
+      "bytes": 165,
+      "sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+      "complete": true
+    },
+    {
+      "name": "business-workspaces-regression-test",
+      "command": [
+        "node",
+        "business-workspaces-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.616,
+      "log": "business-workspaces-regression-test-frozen.log",
+      "bytes": 254,
+      "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+      "complete": true
+    },
+    {
+      "name": "static-response-api-test",
+      "command": [
+        "node",
+        "static-response-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.866,
+      "log": "static-response-api-test-frozen.log",
+      "bytes": 168,
+      "sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+      "complete": true
+    },
+    {
+      "name": "production-security-test",
+      "command": [
+        "node",
+        "production-security-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.57,
+      "log": "production-security-test-frozen.log",
+      "bytes": 309,
+      "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+      "complete": true
+    }
+  ],
+  "full_zero_suite": "NOT_RUN_THIS_CHECKPOINT",
+  "provider_quality": "UNVERIFIED",
+  "after_status": "",
+  "completed_at": "2026-09-27T11:57:28.314039+00:00",
+  "all_pass": true
+}

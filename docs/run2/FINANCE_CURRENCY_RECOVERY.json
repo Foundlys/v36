@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-09-25T00:10:11.000674+00:00",
+  "status": "IN_PROGRESS_NOT_ACCEPTED",
+  "published_head": "f5b3ab334da71359b3aa265b8571badeca9e7dd5",
+  "source_sha256": {
+    "finance-core.js": "06346d7bde4a172f33d5c355b725aa75c4346f3d5b8231f902ef489e6ef96052",
+    "finance-reports.js": "3d36bb216d44b9566a69f8820e4a35bfab219fa484d86ec88baa9a9840d9bedf",
+    "finance-script.js": "4335791571680fe43711ae1ebf57a16379a3eb0435a108f68eaa94f20f448dbc",
+    "server.js": "521e37745570ba726d0e008a17e5e72db46758436234a6465bc4b6438499f62d",
+    "business-workspaces-regression-test.js": "1b00e67601f84739cf65dd28fe1d22fea513e7c254d6d9aa089f7f72f61da911",
+    "zero/finance-currency-integrity.test.js": "1bc43a3f9eb2bfea1ad7601943c378e313bfe3fba4f08fb238471a118146a74f"
+  },
+  "scope": "Finance currency preservation, separate report groups, exact signed amounts and invalid/unsafe input, historical conflict disclosure, native source grants unchanged. Native HTTP/ZERO/encrypted restart and actual eight-locale controller are verified.",
+  "targeted_tests": 31,
+  "targeted_exit": 0,
+  "broad_regression": "First attempt failed obsolete currencyless-zero expectation at business-workspaces-regression-test.js:122. Test now checks both absent-currency unknown and actual zero with configured EUR; targeted pass. Second attempt passed the prefix through node analysis-actions-zero-api-test.js before the execution session vanished; no active processes remain. This interruption is not counted as a test pass or code failure.",
+  "resume": "Run python /tmp/run2-finance-resume-regression.py. It continues remaining test:composition commands after node analysis-actions-zero-api-test.js, then test:spatial and test:zero. Per-command state is /tmp/run2-finance-regression-resume.json, log is /tmp/run2-finance-regression-resume.log. If those scratch files disappear, reconstruct the exact remaining command list from package.json; never claim the partial log alone proves a full pass.",
+  "next": "Publish the tested Finance tree on existing draft PR21; exact-head CI pending. Continue shared workspace connector-detail forms/races and localization; wider Run-2 gates remain unaccepted.",
+  "regression_recovery_status": "COMPLETE",
+  "regression_results": "docs/run2/finance-currency-regression.json"
+}

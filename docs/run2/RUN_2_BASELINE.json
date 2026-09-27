@@ -1,0 +1,187 @@
+{
+  "checkpoint": "RUN_2_BASELINE",
+  "recorded_at": "2026-09-24T10:15:13.135303+00:00",
+  "repository": "Foundlys/v36",
+  "worktree": "/workspace/scratch/foundly-run2",
+  "branch": "feature/run2-zero-intelligence",
+  "baseline_commit": "e8142578eb2185a915c37d895c567937f20a9970",
+  "baseline_tree": "f8933b48175a1ae0bea5ae102bfa251c401f3425",
+  "origin_main": "e8142578eb2185a915c37d895c567937f20a9970",
+  "authority_sha256": "370f8066897c20310c742c56dfb5fabd5aa5d934d4702884c31b152ced6263d9",
+  "recovery_worktrees": [
+    {
+      "path": "/workspace/scratch/3940532561c2",
+      "head": "30c516b147faf5643a89c6e6ce03ab75b64db0fc",
+      "branch": "feature/composable-os-execution",
+      "status": "M business-domain-api.js\n M business-domains.js\n M composition-matrix-test.js\n M foundly-workspace.js\n M package.json\n M procurement-reviews.js\n?? procurement-order-review-test.js\n?? upload/",
+      "stashes": "",
+      "unpublished_commit_count": 13,
+      "code_hashes": {
+        "business-domain-api.js": "916c33c4264a9a329b2f5d8c6960c6d573ea492ffcb89213eeb8ce4c4baad6c5",
+        "business-domains.js": "78b8a29ca0a78c7e34b431d35b0abec7525b97405c532961723ba335d17c3d88",
+        "composition-matrix-test.js": "8e8ab94fb67a328fcffa5245963bc034606a76f60b48f99a6e7964edd18fa3f4",
+        "foundly-workspace.js": "00f70c4e7abe693c2576a41d91ee16511fc2fabe64438df59e9ec50e691bb8d2",
+        "package.json": "3694efe826f69f4502daa622cf2c416367ac53b7259f430304a2783f058068cd",
+        "procurement-reviews.js": "ea58e97ca603b66ec50ebde540800a5923573ee60589b80586ef2483e958a48c",
+        "procurement-order-review-test.js": "a817e50447268ac4c28ff44049007c74340587c86cafa978f05cb16a2184fdda"
+      },
+      "preservation": {
+        "ref": "refs/heads/preserve/run2-baseline-20260924-0",
+        "commit": "9e1f9c693ed98baaf51a72bc6064d12c0525a681",
+        "tree": "62e3264ea680017a4514618fe7b150e344da2a0e",
+        "worktree_and_index_untouched": true
+      }
+    },
+    {
+      "path": "/workspace/scratch/f5fdbfd82296/foundly-v36-recovered",
+      "head": "9f8643b7c610d9564fb27d6baa94062ed49414de",
+      "branch": "recovery/composable-os-reconnected",
+      "status": "M communication-attachments-client-test.js\n M communication-attachments.js\n M communication-binary-attachments.js\n M communication-malware-scan-test.js\n M communication-malware-scan.js\n M communication-mime.js\n M foundly-workspace.js\n M package.json\n?? COMMUNICATION_OFFICE_ATTACHMENTS.md\n?? communication-attachment-limits.js\n?? communication-large-attachments-api-test.js\n?? communication-large-attachments-test.js\n?? communication-office-attachments-test.js\n?? communication-office-attachments.js\n?? test-office-package-fixtures.json",
+      "stashes": "",
+      "unpublished_commit_count": 53,
+      "code_hashes": {
+        "communication-attachments-client-test.js": "173a988eaa177a197f57cfbf56a81f29bf81cefaa3767a20f01f0493b5170b9d",
+        "communication-attachments.js": "96e795bd9ad772472b32c3f0ae89075818a8a29cb107d663b98d1f9c042ac900",
+        "communication-binary-attachments.js": "8c170875f7e5d07ed5ad2d230c09542d3653c6d4f4d759bddb4a3d26cb5aa163",
+        "communication-malware-scan-test.js": "c655099995f20574c47bb32d97fbc6a67569c1b45a14514d0e14e28289d0a3b0",
+        "communication-malware-scan.js": "3479e004c4045167e4912dfe1c2aeb03708639c1c6d59dc174fd165567b5fa48",
+        "communication-mime.js": "a04febe6e90279e87a48b82a5e714b644ce4e665e47e6ea25f57de0109ef505b",
+        "foundly-workspace.js": "83e440c0e820ba069b6c133f49da634a723a2a02f3886c09cd871c5d47f5675d",
+        "package.json": "78daae6f341bc1287871c7dd023890993a61c43ce3362155c89cccc0c5b31ee9",
+        "COMMUNICATION_OFFICE_ATTACHMENTS.md": "135f1747075fc6f5e92352fe4309b290f000506a7c6be3e7f2b2d44a89e30536",
+        "communication-attachment-limits.js": "42f45b9932c7fb7628b3014cb56da88869ad3f04845fb737bb30fce0cd506c76",
+        "communication-large-attachments-api-test.js": "fd13be8b1d35ce61565cb6a2081b8fcb5c9bea1bcac3a3318e5bf56e48a2685d",
+        "communication-large-attachments-test.js": "134348d3fbb6e8aa241e4d7461397dc49c98e5acf8c0b8417631abf23df1f78d",
+        "communication-office-attachments-test.js": "8389a9afe2a1219c9ad75e905c74d1e86e9b0d68ff6fe4e95db924ef4bac9ac4",
+        "communication-office-attachments.js": "afb8a1b6e1fd76f953cee28709c66f17ed897d796d83d867887a2b3669e097ca",
+        "test-office-package-fixtures.json": "40afd7fb49f90f4b44257c3815250ce0dc2bb95bb2837c78305f7c27cb9aaea5"
+      },
+      "preservation": {
+        "ref": "refs/heads/preserve/run2-baseline-20260924-1",
+        "commit": "ace5634d6f4de3511bd4ac4e09c628e0fdaeccc5",
+        "tree": "16470d8a433f3cf04bca063dc5a6b2e834ea01b5",
+        "worktree_and_index_untouched": true
+      }
+    },
+    {
+      "path": "/workspace/scratch/fe830cebdf83/foundlys-v36",
+      "head": "70d2e1ecbd1427f142c85b7e398f6653cd06204b",
+      "branch": "build/foundly-full-platform",
+      "status": "",
+      "stashes": "",
+      "unpublished_commit_count": 5,
+      "code_hashes": {}
+    },
+    {
+      "path": "/workspace/scratch/foundly-run1-calendar-resumed",
+      "head": "8a042ddc6f90161f9895d08cec9fce301aa20a73",
+      "branch": "feature/customer-spatial-dashboard",
+      "status": "?? .verification/",
+      "stashes": "",
+      "unpublished_commit_count": 12,
+      "code_hashes": {}
+    },
+    {
+      "path": "/workspace/scratch/foundly-run1-calendar-isolated",
+      "head": "9f6293ab4806e868bd93e71b8263162e90abc479",
+      "branch": "recovery/run1-calendar-isolated",
+      "status": "",
+      "stashes": "",
+      "unpublished_commit_count": 2,
+      "code_hashes": {}
+    },
+    {
+      "path": "/workspace/scratch/foundly-reference-scene",
+      "head": "313b76f832e14e017e1dd77417a28cb75a993656",
+      "branch": "fix/customer-reference-scene",
+      "status": "?? .verification/",
+      "stashes": "",
+      "unpublished_commit_count": 2,
+      "code_hashes": {}
+    },
+    {
+      "path": "/workspace/scratch/foundly-pr17-visual-fix",
+      "head": "e156cf9d92b4b67c74f92b4afe9ae95cd38d4d75",
+      "branch": "fix/customer-spatial-visual-density",
+      "status": "?? .verification/",
+      "stashes": "",
+      "unpublished_commit_count": 1,
+      "code_hashes": {}
+    },
+    {
+      "path": "/workspace/scratch/foundly-spatial-composition",
+      "head": "ad19e9279924c72a31bda3cbf9ff0ec15c1c94e2",
+      "branch": "fix/customer-spatial-composition",
+      "status": "?? .verification/",
+      "stashes": "",
+      "unpublished_commit_count": 2,
+      "code_hashes": {}
+    }
+  ],
+  "remote_refs": "origin/Foundlys-patch-1 eee90abfa3b26c6e065dad8e324ef08dcfedee43\norigin e8142578eb2185a915c37d895c567937f20a9970\norigin/docs/automotive-evidence-finalize 63d59505535922bb8e0324914ba08318472e4a1a\norigin/docs/automotive-production-evidence 8acce43be641f3248e5363052430351184158299\norigin/docs/automotive-run2-evidence d0c8f8acf68af108185a62d978d907d90af82f72\norigin/docs/correct-railway-inspection-evidence 692db01202968370cd53fe0d0f6dec17a895719d\norigin/docs/neural-visual-deployment-evidence ced3ff2f113ad1775ecd6cf4eef90cb7b831faa9\norigin/docs/run3-railway-readiness-evidence fdbdeb9e2426c8b688a9d08c51efc36c34d0eb86\norigin/feature/automotive-house-of-cars-pilot 618242dd8617c70afaa68ab67cfa00e9c2f03598\norigin/feature/automotive-live-marketplaces 10403793cde68945c691992dd3ee71db884b6a04\norigin/feature/composable-os-competitive-superiority 073f03041b72a1c35c7559e116c3e0cd4aa0db02\norigin/feature/composable-os-execution 85d6ee3ad18fe16bac6f9ee93617cf7c10e507be\norigin/feature/customer-spatial-dashboard dc141d47c74364a9c4170b1140a8c1fc5cb6ebb9\norigin/feature/foundly-final-masterbuild cc5f566a8296946768905b39f591cc6f41d9d309\norigin/fix/customer-reference-scene 87662f5c49cb3b874ce2e2f53007312056917414\norigin/fix/customer-spatial-composition 021f292daf429db2c6c892432dc4c19ac4f7ec46\norigin/fix/customer-spatial-visual-density d8c209fe0d846db791e4080441034348a90940fd\norigin/fix/neural-command-center-motion-v6 eab6b0faebcf886f59ce79d76d413241827c6b89\norigin/main e8142578eb2185a915c37d895c567937f20a9970\norigin/preserve/run1-calendar-isolated-20260911 7f4976a39db9d4f25e4ac56bf0cd3df6b6fc5235\norigin/release/foundly-v5.4.0 066ec8a5ac192db1118d466e1f6c5807fbb3b4e1\norigin/release/foundly-v6.0.0 18d496f5432712cebbeb7be8cc1772e55d8e5735",
+  "latest_merged_pr": {
+    "number": 20,
+    "head": "87662f5c49cb3b874ce2e2f53007312056917414",
+    "merge": "e8142578eb2185a915c37d895c567937f20a9970",
+    "state": "MERGED"
+  },
+  "open_prs": [
+    {
+      "number": 11,
+      "branch": "docs/run3-railway-readiness-evidence",
+      "note": "Historical docs PR; not the foundational Run 3 and not part of Run 2 implementation."
+    }
+  ],
+  "baseline_regression": {
+    "kind": "observed GitHub Actions",
+    "run_number": 145,
+    "run_id": 34688535774,
+    "sha": "e8142578eb2185a915c37d895c567937f20a9970",
+    "conclusion": "success",
+    "url": "https://github.com/Foundlys/v36/actions/runs/34688535774",
+    "local_run": "not rerun at baseline"
+  },
+  "runtime": {
+    "target": "dazzling-solace / production / v36",
+    "health": {
+      "checked_at": "2026-09-24T10:13:38.646808+00:00",
+      "http": 200,
+      "ok": true,
+      "version": "6.0.0"
+    },
+    "ready": {
+      "checked_at": "2026-09-24T10:13:46.971525+00:00",
+      "http": 200,
+      "ready": true,
+      "verdict": "PASS",
+      "checks": [
+        "authentication",
+        "encryption",
+        "public_base_url",
+        "oauth_callbacks",
+        "jarvis_openai",
+        "storage_path",
+        "storage_writable",
+        "persistent_mount"
+      ]
+    },
+    "live_commit": "UNVERIFIED by current public endpoints",
+    "authenticated_runtime": "UNVERIFIED",
+    "live_provider_voice_browser_acceptance": "UNVERIFIED"
+  },
+  "frozen_dashboard_sha256": {
+    "customer-spatial-api-test.js": "31adb3a07fe660916a533467c8af961b273ff7c61c6184d2d345860f36330441",
+    "customer-spatial-model.js": "aecebff33457f50b7d939d853141de6eb744a31deb95a612e1602da4f84707ed",
+    "customer-spatial-runtime-test.js": "8e8e44d68d24294e4cf057b73b11fc4a0a69af8b0054a64e2dbf291ff0cdb177",
+    "customer-spatial-runtime.js": "c10d70afe85d8de8eb883c728e27a98ae74f323f2f48cb6e98f585d77d1af00e",
+    "customer-spatial-scene-test.js": "f39b70aa0865e6e5df2e77ca3ead02ff7f796acdae7e5b18f805dac737f46041",
+    "customer-spatial-scene.js": "8fe0819ab7af2a209e42644e0778b761bce46b3a11368c8bc041ac4b0a0ac880",
+    "customer-spatial-test.js": "4eafc579aa8c3b0610196b4ae5b2939c0370ffb578a846c0572e68cafc597f4a",
+    "customer-spatial.css": "af296b6f212ae3812fea4e17d6e2e5fcece0e1fa53cc5f0c532ddbc4da51e3ea"
+  },
+  "external_blockers": [
+    "Real authenticated customer/provider/voice acceptance access has not been established.",
+    "No current rendered browser/visual acceptance; historical preview was blocked."
+  ],
+  "run_status": "RUN 2 PARTIAL / NOT ACCEPTED"
+}

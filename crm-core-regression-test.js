@@ -65,7 +65,7 @@ assert.equal(executions.length,1);assert.equal(executions[0].automation_id,autom
 assert(executions[0].actions.some(action=>action.status==='EXECUTED_INTERNAL'));
 assert(executions[0].actions.some(action=>action.status==='AWAITING_EXPLICIT_AUTHORIZATION'&&action.external_write===false),'external automation writes must remain gated');
 assert(core.list(tenant,admin,'tasks',{limit:50}).items.some(task=>task.automation_id===automation.id));
-const automationReplay=core.evaluateAutomations(tenant,admin,{id:'event-stage-change-0001',type:'stage_change',entity:'deals',record_id:deal.id,after:{stage_id:stageQualified.id}});
+const automationReplay=core.evaluateAutomations(tenant,admin,{id:'event-stage-change-0001',type:'stage_change',entity:'deals',record_id:deal.id,before:{stage_id:stageNew.id},after:{stage_id:stageQualified.id}});
 assert.equal(automationReplay.replayed,true);
 
 const board=core.pipelineBoard(tenant,admin,pipeline.id);

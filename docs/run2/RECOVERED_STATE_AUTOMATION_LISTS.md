@@ -1,0 +1,7 @@
+# Same Run 2: shared automation list checkpoint
+
+Run 2 remains IN_PROGRESS_NOT_ACCEPTED, Phase 8 active, matrix unchanged. Latest published PR 21 head `5a98d9a657168271ea4e6a2160f8a65cb7bd46df`, tree `2395a1eb54c90c435460a5c2235176d24728bb38`, passed CI 210 (run 36132872203, job 108063967115), full npm regression, 658 ZERO and 14 corpus. Local publication source d439fd0, evidence ee6fd57 and normal merge d3b0b68 are preserved. No main/production/deployment/Run 3 or credential action occurred. Unknown cache and secondary worktree remain intact.
+
+New local shared-list implementation has 22 owned rows across eight locales and protects responses/operations with the owning view. Fourteen new permanent controller cases plus retained source/section cases pass (29 total). Existing manual/native recovery/ZERO/workspace regressions pass. Nine initial failures, live-label input loss and late ZERO control release are retained in the evidence ledger. Source snapshots/minimal DOM are not browser or native-provider proof.
+
+Freeze source, complete full ZERO, publish to the same draft PR and observe exact-head CI. Then continue with shared draft chooser/manual-run/recovery/approval/activation copy and typed action confirmation/uncertain-result handling, including the ZERO run proposal component. Existing generator/editor/private draft/publication recovery must not be rebuilt. All broader hard gates and matrix verdicts remain unchanged.

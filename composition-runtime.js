@@ -4,7 +4,7 @@ const { MODULES, TOOL_MODULES, moduleId, routeModule } = require('./module-catal
 const {ENTITY_CAPABILITIES,METHOD_CAPABILITIES,methodOperation,providerRouteContract}=require('./module-access-contracts');
 const PLATFORM_METHODS = {
   calculateKpi: 'analysis', realtime: 'analysis', historical: 'analysis', attribution: 'analysis', commercialFunnel: 'analysis', campaignOutcome: 'analysis', dashboard: 'analysis',
-  previewAutomationRun:'automation',inspectAutomationRun:'automation',automationDefinitions:'automation',queryAutomationRuns:'automation',previewAutomationRecovery:'automation',recoverAutomation:'automation',verifyAutomationRecord:'automation',setAutomationActivation:'automation', defineAutomation: 'automation', runAutomation: 'automation', tickAutomations:'automation', automationStatus: 'automation', automationRecords: 'automation', createAutomationRecord: 'automation', exportAutomation:'automation',
+  previewAutomationResume:'automation',resumeAutomation:'automation',recoverAutomationResumeRequest:'automation',recoverAutomationResultRequest:'automation',submitNativeAutomationRun:'automation',recoverAutomationActivationRequest:'automation',previewAutomationApproval:'automation',recoverAutomationApprovalRequest:'automation',previewConfirmedAutomationRun:'automation',submitConfirmedAutomationRun:'automation',previewAutomationRun:'automation',inspectAutomationRun:'automation',automationDefinitions:'automation',queryAutomationRuns:'automation',previewAutomationRecovery:'automation',recoverAutomation:'automation',verifyAutomationRecord:'automation',setAutomationActivation:'automation', defineAutomation: 'automation', recoverAutomationPublication:'automation',recoverAutomationRunRequest:'automation', runAutomation: 'automation', tickAutomations:'automation', automationStatus: 'automation', automationRecords: 'automation', createAutomationRecord: 'automation', exportAutomation:'automation',
   taxRules:'finance',calculateVat:'finance',validateDutchInvoice:'finance',retentionPolicy:'finance',archiveLegalRecord:'finance',taxCapabilities:'finance',
   metaPlan: 'marketing', ga4Plan: 'marketing', enhancedConversionPlan: 'marketing', queueDelivery: 'marketing'
 };
@@ -22,13 +22,18 @@ function guardDomain(service, owner, resolverProvider) {
         const ctx = args[0], actor = args[1];
         const id = owner === 'platform' ? PLATFORM_METHODS[property] : owner;
         if (id && ctx?.tenant_id && ctx?.dealer_id && actor && resolverProvider().profile(ctx)) {
-          const operation = methodOperation(property);
+          const invoiceAction=owner==='finance'&&['previewInvoiceAction','executeInvoiceAction','recoverInvoiceAction','inspectInvoiceAction','rememberInvoiceAction','listInvoiceActionConfirmations','acknowledgeInvoiceAction'].includes(property);
+          const contract=invoiceAction?require('./finance-invoice-actions').contract(args[2]?.operation):null;
+          const operation = invoiceAction&&property!=='previewInvoiceAction' ? contract.operation_mode||'write' : methodOperation(property);
           resolverProvider().assertModule(ctx, actor, id, operation);
           const entity=typeof args[2]==='string'?args[2]:null;
           const entityCapability=entity?routeCapability(`/api/${id}/${entity}`,id):null;
           if(entityCapability&&operation!=='export')resolverProvider().assertCapability(ctx,actor,entityCapability,operation);
           for(const capability of METHOD_CAPABILITIES[id]?.[property]||[])resolverProvider().assertCapability(ctx,actor,capability,operation);
-          if(property==='runAutomation'&&args[4]?.approval)resolverProvider().assertCapability(ctx,actor,'automation:approvals','approve');
+          if(invoiceAction){
+            for(const capability of contract.capabilities)resolverProvider().assertCapability(ctx,actor,capability,contract.capability_modes?.[capability]||operation);
+          }
+          if(property==='runAutomation'&&args[4]?.approval||['previewAutomationApproval','recoverAutomationApprovalRequest'].includes(property))resolverProvider().assertCapability(ctx,actor,'automation:approvals','approve');
           if (owner === 'procurement' && resolverProvider().resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') {
             throw Object.assign(new Error('Automotive is niet actief voor deze tenant'), { statusCode: 403, code: 'industry_disabled' });
           }

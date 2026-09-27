@@ -1,0 +1,24 @@
+{
+  "run_number": 281,
+  "run_id": 36313180353,
+  "job_id": 108602887971,
+  "conclusion": "success",
+  "run_started_at": "2026-09-27T10:38:27Z",
+  "updated_at": "2026-09-27T10:56:15Z",
+  "published_head": "ee7c72f41d4d3a18176bbbc9075ee1c092bd3fc8",
+  "published_tree": "c7d2f0616510a58f70fa3fffa73c234d27beeeae",
+  "checkout_merge": "a6ed0dd1546b2b913c431fe31481db4b4ce1a873",
+  "merge_tree": "c7d2f0616510a58f70fa3fffa73c234d27beeeae",
+  "merge_parents": [
+    "e8142578eb2185a915c37d895c567937f20a9970",
+    "ee7c72f41d4d3a18176bbbc9075ee1c092bd3fc8"
+  ],
+  "published_parent": "7b33393506c53d910970a855e92f51871f64721c",
+  "zero_pass": 1985,
+  "corpus_pass": 14,
+  "log": "ci281.raw.log",
+  "verified_via": "Completed workflow, complete log summaries, exact published and checkout merge Git trees and expected PR parent",
+  "raw_bytes": 930347,
+  "raw_sha256": "b5686bb621db8594f9f0d2fccc1b19a554ad7ce80543cda8af2b2552c359ca0d",
+  "archive": "docs/run2/evidence/20260927-demo-commerce-controls/ci281.raw.log.gz"
+}

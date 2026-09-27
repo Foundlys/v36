@@ -3,23 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aanmelden · Foundly OS</title>
+  <title data-i18n="identity.title">Aanmelden · Foundly OS</title>
   <link rel="stylesheet" href="/identity-login.css">
+  <script src="/foundly-static-copy.js" defer></script>
+  <script src="/foundly-locales.js" defer></script>
+  <script src="/foundly-i18n.js" defer></script>
   <script src="/identity-login.js" defer></script>
 </head>
 <body>
   <main>
     <p class="brand">FOUNDLY OS</p>
-    <h1 id="identityTitle">Aanmelden</h1>
-    <p id="identityDescription">Gebruik je persoonlijke Foundly-account.</p>
+    <label><span data-i18n="common.language">Interfacetaal</span><select id="identityLocale"><option value="nl-NL">Nederlands</option><option value="en-GB">English (UK)</option><option value="de-DE">Deutsch</option><option value="fr-FR">Français</option><option value="es-ES">Español</option><option value="da-DK">Dansk</option><option value="nb-NO">Norsk bokmål</option><option value="sv-SE">Svenska</option></select></label>
+    <h1 id="identityTitle" data-i18n="identity.sign_in">Aanmelden</h1>
+    <p id="identityDescription" data-i18n="identity.description">Gebruik je persoonlijke Foundly-account.</p>
     <form id="identityForm">
-      <label id="usernameLabel">Gebruikersnaam<input id="identityUsername" autocomplete="username" required maxlength="200"></label>
-      <label>Wachtwoord<input id="identityPassword" type="password" autocomplete="current-password" required maxlength="128"></label>
-      <button id="identitySubmit" type="submit">Aanmelden</button>
+      <label id="usernameLabel"><span data-i18n="identity.username">Gebruikersnaam</span><input id="identityUsername" autocomplete="username" required maxlength="200"></label>
+      <label><span data-i18n="identity.password">Wachtwoord</span><input id="identityPassword" type="password" autocomplete="current-password" required maxlength="128"></label>
+      <button id="identitySubmit" type="submit" data-i18n="identity.sign_in">Aanmelden</button>
       <output id="identityNotice" role="status" aria-live="polite"></output>
     </form>
-    <p class="help">Nog geen account? Vraag je bevoegde Foundly-beheerder om een uitnodiging.</p>
-    <a href="/settings">Beheerderstoegang</a>
+    <p class="help" data-i18n="identity.help">Nog geen account? Vraag je bevoegde Foundly-beheerder om een uitnodiging.</p>
+    <a href="/settings" data-i18n="identity.admin">Beheerderstoegang</a>
   </main>
 </body>
 </html>

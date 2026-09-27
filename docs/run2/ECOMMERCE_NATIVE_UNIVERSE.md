@@ -1,0 +1,96 @@
+# E-commerce pack and native demo universe
+
+ECOMMERCE is now an available production composition in the shared module catalog. Production registration means that the normal resolver and module APIs accept the pack; it does not mean standalone product or complete demo acceptance. All nine existing modules retain their permissions and acceptance status. The pack adds declarative fields, a native Sales articles/stock/orders dashboard preset and an explicit, inactive order-review workflow template. It grants no provider connection or permission. Pack names use the existing eight-language UI dictionary.
+
+## Default native graph
+
+The explicit isolated demo engine selects its generator from the actual composition. Automotive options stay separate from E-commerce product/order/customer options. Existing confirmed graphs remain retained with their original fingerprints across generator changes.
+
+The current default E-commerce graph has **4,025 nodes**, 18 months of scenario time, three locations and nine invited personas using actual native role IDs. It includes 120 typed Sales articles, 120 opening stock receipts, 300 CRM contacts, 720 enquiries, 1,440 recorded interactions, 360 native orders, 252 fulfilments, 36 partial returns, 36 cancellations, 12 suppliers, 60 replenishment opportunities, 18 Marketing campaigns with 18 separate CRM attribution identities, calendars, support appointments, unsent drafts/templates and ZERO provenance memory. Native Finance configuration adds one entity, two calendar-year fiscal periods and nine ledger accounts for the default dates. Native financial sales history additionally creates 180 sales invoices, two separate full credit notes, 108 internal payment records, one allocation, one internal outgoing refund and 255 balanced journals. Purchase/correction/refund, automation-run/approval and full KPI histories remain incomplete. See DEMO_FINANCE_TRANSACTIONS.md for exact states, source semantics and recovery.
+
+Articles, stock, reservations, fulfilments, cancellations and returns go through the same Sales commerce contracts as normal user work. They retain exact integer amounts, expected revisions, native request receipts, audits and events. There is no direct insertion of fake order outcomes. Commands keep SYNTHETIC_DEMO provenance and fictional physical-evidence labels. Their request signatures bind that provenance; retry cannot relabel an existing command as ordinary user input or a live provider result. Native API callers cannot inject the engine-only option through the command body.
+
+The engine checkpoints the preceding prefix before each mutable commerce command and the acknowledged command before its successor. A lost cursor persist can replay that same native key before a later stock/order transition occurs. Changed dependencies, current access denial and changed command effects stop progress; previous work remains present. The generator uses exact caller-selected order IDs and native expected revisions for successive mutations; it does not reuse old mutable order snapshots as immutable dependencies.
+
+Orders start UNPOSTED, and user-attested fulfilment is distinct from accounting revenue. The confirmed CRM/order/Finance action can subsequently link an actual order and contact to a draft, post it and record an internal payment. Stock returns do not issue credits or refunds. Synthetic appointment/history time remains distinct from native creation/audit time; no old audit timestamps are fabricated.
+
+## Public data and attribution
+
+A retained selection of 240 existing public product references supports the graph: 99 references from the Belgian food query and 141 European-tagged beauty references. Selection requires a usable product name and a valid barcode check digit. These checks do not independently verify contributor content, current country distribution, specifications or real stock.
+
+The default 120 articles use the first 120 references. Each article retains its reference ID and GTIN; the selection file retains the source URL, snapshot checksum, observation time, attribution and ODbL licence. Existing native CRM product-reference lookup and ZERO GTIN context can resolve them. The larger underlying public catalog and dated prices remain available separately. No photographs or contributor personal profiles are included.
+
+Merchant SKU, selling price, supplied scenario tax rate, inventory, customers, transactions and histories are explicitly fictional. Public contributor product identity does not establish a merchant price or live offer. The selected snapshot is dated 26 September 2026, independently of the fictional scenario history. No public observation is promoted to historical accounting evidence or a marketplace/payment-provider connection.
+
+## Automotive correction
+
+Automotive enquiries now reference actual native CRM campaign records, each linked separately to its Marketing campaign. The previous generator pointed CRM campaign_id at a Marketing ID. Newly generated graphs include 18 CRM campaign nodes; existing confirmed graphs and applied records stay retained unchanged. Legacy FINANCE persona labels remain readable for old manifests; new E-commerce personas use the actual native ACCOUNTANT/FINANCE_ADMIN roles and normal invitation/enrollment policy. No legacy role is silently promoted.
+
+## Evidence and delivery limits
+
+The exact immutable source, full ZERO/corpus/native outcomes and retained logs are recorded under ecommerce_native_universe_20260926 in checkpoint-tests.json. Six permanent unit cases cover deterministic graphs/reference attribution, both packs’ actual campaign links, the complete default native graph, inventory conservation, lost command cursor/restart, current rights/source changes and provenance-bound replay.
+
+A real encrypted HTTP fixture seeds the bounded 239-node E-commerce graph, loses a committed batch response, restarts, rejects the stale original cursor and completes without duplicate articles or orders. It then uses structured ZERO to create, post and internally pay an invoice from an actually seeded order and CRM contact. It checks all nine module visibility, the pack presets, public product lookup, private disk encryption and module disable/re-enable retention. It sends no external message and moves no real money. This is structured native execution evidence, not a live-model natural-language or voice-quality review.
+
+The initial complete 3,575-node native fixture took approximately 71 seconds with persistence disabled. The bounded real HTTP fixture, including seed, restart and ZERO billing, took approximately 26 seconds. These are single local correctness timings. They are not a full encrypted default seed measurement, concurrency test, phone benchmark or end-user responsiveness guarantee. Native seeding/persistence efficiency remains work to measure and improve.
+
+Complete Finance/Automation/Analytics histories, credit/refund/cancellation corrections, complete localized commerce/Finance action controls, natural/voice ZERO, current valuation/forecast validation, real browsers/physical phones, runnable desktop downloads and reachable installable HTTPS delivery remain open. No complete demo is accepted or downloadable yet. Automotive and E-commerce remain the first full delivery block; the existing remainder of Run 2 is retained.
+
+
+## Social context and seed persistence continuation — d49a579
+
+The exact local source now passes 1854 ZERO cases, fourteen contract corpus cases and eleven involved native scripts. See [ZERO_SOCIAL_ACCEPTANCE.md](ZERO_SOCIAL_ACCEPTANCE.md) for owned multi-turn context, social/voice instruction changes, the Dutch assessment corpus and remaining independent quality review. See [DEMO_SEED_PERSISTENCE.md](DEMO_SEED_PERSISTENCE.md) for actual bounded cursors, encrypted atomic seed commits, native rollback/cache/SSE evidence and diagnostic measurements. CI 270 of the preceding E-commerce publication failed on one HTTP seed timeout; its complete log remains retained. New full CI is required; no complete demo, global progress percentage, installed app or perfect social/voice quality is claimed. Existing completed and ongoing Run-2 work stays retained; priority demo implementation continues immediately.
+
+
+## Demo controls and full-data context continuation — 7858bf9
+
+See [DEMO_CONTROLS.md](DEMO_CONTROLS.md) for the shared native preview, start, pause and server-owned recovery controls. Native specialist evidence is bounded to 7000 bytes per source; whole-row/field omissions are explicit and the complete authorized source response remains hash-bound and independently re-read. Exact amounts, currency, null/zero and native pagination remain distinct. Isolated demo catalogs/projections/receipts are SYNTHETIC_DEMO, never observed customer truth. One synchronous capability resolution now uses one fresh authority snapshot; no grants are retained across calls or awaits.
+
+The full encrypted 3575-node E-commerce rehearsal exposed two context-budget errors, and its first bounded follow-up still timed out. Both failed observations remain archived. The fresh-grants repeat completed all 42 Dutch turns without HTTP error, with no model provider and no automatic social-quality acceptance. Seed time was 8.7 minutes under overlapping local work; full snapshot I/O and end-user performance remain open. The older baseline continues separately. Collection now records pending request identity before transport and retains uncertain failures without retry.
+
+Latest immutable source 7858bf98a29a7ccc5768b884f0d0aa921f36af90/tree 410dcc5cec7c2f2d18b93e4b5632fddfdba2eb44: 1867 ZERO, 14 corpus, 12 involved native scripts PASS. Preceding published CI 271 passed on exact tree 5c6ae7a; this newer publication still needs its own full CI. The supported browser retry was blocked at local /data (ERR_BLOCKED_BY_CLIENT). No complete demo, independent empathy/voice review, browser/device installation or final downloadable app is accepted by this checkpoint.
+
+
+## Native Finance configuration continuation — aebdb91
+
+See [DEMO_FINANCE_FOUNDATION.md](DEMO_FINANCE_FOUNDATION.md). Both priority demos now seed the real guarded Finance entity, scenario-year periods and nine ledger mappings, with normal native request recovery and current authority. Source aebdb91/tree ceabbc0 passes 82 focused native/demo/ZERO checks, 14 corpus cases and three native suites. The encrypted E-commerce HTTP chain uses that seeded configuration after forced commit rollback and restart. Configuration creates no invoice, payment, bank connection or realized-revenue claim. Financial transaction/correction and Automation/Analytics histories, full module controls, model/social/empathy/voice and actual download/phone/HTTPS acceptance remain open. Existing confirmed graphs and all earlier evidence remain retained at their original source identities.
+
+
+## Native financial sales history continuation — 4204035
+
+See [DEMO_FINANCE_TRANSACTIONS.md](DEMO_FINANCE_TRANSACTIONS.md). Both default graphs now execute native sales invoices, posting and internal payments with current source/permission checks, exact ledger balances and original-request recovery. Source 4204035/tree 4daa6cb passes 104 focused native/demo/ZERO cases, 14 corpus cases and three native suites on unchanged source. Actual encrypted HTTP proves rollback, lost payment reply and subsequent structured ZERO billing. CI 273 and 274 pass their preceding exact published trees; this new source still needs its own full CI. Purchase/COGS and approval history, credit/allocation/refund/correction, Automation/Analytics, complete controls, real social/empathy/voice quality and actual download/desktop/iPhone/Android/HTTPS delivery remain open. No demo acceptance promotion. The user reconfirmed the demo-first sequence on 27 September; the remaining Run 2 resumes only after both complete demos.
+
+
+## Full credit correction continuation — 58da9e3
+
+See [DEMO_CREDIT_CORRECTIONS.md](DEMO_CREDIT_CORRECTIONS.md). Both new demo graphs include one source-bound posted full credit, explicitly awaiting allocation; no refund, stock movement or cancellation is implied. Native Finance and structured ZERO require the original posted invoice, exact amount/parties/lines, current authority and the original request for recovery. Frozen 58da9e3/tree b28d89a passes 146 focused Finance/demo/ZERO cases, fourteen corpus cases and nine native suites. The preceding complete CI 275 passes exact tree 11e8626 with 1897 ZERO/14 corpus; this newer source needs its own full CI. Allocation, internal refunds, partial credits/returns, other histories, full module controls and actual model/social/empathy/voice/device/download acceptance stay open. Both complete priority demos remain ahead of the preserved remainder of Run 2.
+
+
+## Explicit credit settlement continuation — cd7e91d
+
+See [DEMO_CREDIT_SETTLEMENTS.md](DEMO_CREDIT_SETTLEMENTS.md). Both new demo graphs contain a full allocation against an unpaid invoice and a separate internal outgoing refund against a paid invoice/credit, through current native Finance and ZERO contracts. Frozen cd7e91d/tree 2b4c228 passes 162 focused cases, fourteen corpus cases and nine native suites. Preceding CI 276 passes exact tree 135c861 with 1912 ZERO/14 corpus; this newer source needs its own full CI. No external transfer or bank settlement is implied. Next are full native/ZERO module action controls, remaining histories/corrections, independent model/social/empathy/voice evaluation and actual desktop/iPhone/Android/HTTPS/download acceptance. Both complete priority demos remain ahead of the preserved remainder of Run 2.
+
+
+## Native/ZERO Finance controls — b2cadbe
+
+See [DEMO_FINANCE_CONTROLS.md](DEMO_FINANCE_CONTROLS.md). Five current invoice/credit actions now have native and structured ZERO controls, separate source-bound confirmation, owner-bound encrypted retention and explicit recovery after reload. All eight locales preserve current inputs and confirmation. Frozen b2cadbe/tree 9588a9f passes 212 focused cases, fourteen corpus cases and fifteen native suites. Preceding CI 277 passes exact tree a23dbf4 with 1928 ZERO/14 corpus; this newer source needs its own CI. Native approval/purchase and remaining histories/UI, independent model/social/empathy/voice quality and actual browser/device/HTTPS/download acceptance remain open. Both complete priority demos remain first.
+
+
+## Purchase approval and operating-expense history — 9d98b8e
+
+See [DEMO_PURCHASE_HISTORY.md](DEMO_PURCHASE_HISTORY.md). Both priority packs now have separate native operating expenses, source-bound approval, payable postings and internal outgoing payments. Six Finance operations have native/structured ZERO controls. Exact source changes invalidate approval before posting; approve-only owners do not gain write/post authority. Frozen 9d98b8e/tree 39017aa passes 19 repeated full-graph cases, 14 corpus cases and 15 native scripts. CI 278 PASS: 1945 ZERO/14 corpus op exact tree a542020; publicatie en checkout-merge zijn gecontroleerd. Its own newer full CI follows publication. Vehicle acquisition/COGS, purchase credits, partial corrections, invoice creation and other module UI, independent model/social/voice and real browser/device/HTTPS/download acceptance remain open. Complete Automotive and E-commerce demos still precede the remaining Run 2.
+
+
+## Manual invoice creation interface — 6148808
+
+See [DEMO_INVOICE_CREATION.md](DEMO_INVOICE_CREATION.md). Native and structured ZERO now create reviewed manual sales/purchase drafts with multiple exact lines and separate confirmation. Lost creation replies recover through restart and later approval/posting; known nonexecution retains authored input. The source 6148808/tree 4496181 passes 221 focused cases, 14 corpus cases and 15 native scripts on a clean unchanged checkout. Preceding complete CI 279 passes exact d441349 with 1960 ZERO/14 corpus; newer own CI follows publication. Order/CRM-derived billing UI, other module work and histories, independent model/social/voice quality and actual browser/device/HTTPS/download acceptance remain open. Priority demos still precede the remaining Run 2.
+
+
+## Order and CRM invoice creation interface — a9c6148
+
+See [DEMO_COMMERCE_INVOICING.md](DEMO_COMMERCE_INVOICING.md). Native and structured ZERO now create a reviewed linked order invoice from actual CRM/customer/entity sources, with bounded source paging and locked order prices. Lost replies recover through encrypted restart and later payment; known nonexecution retains supported input. Source a9c6148/tree 3c6cd44 passes 240 focused cases, 14 corpus cases and 15 native scripts on a clean unchanged checkout. Preceding complete CI 280 passes exact a2b0dde with 1973 ZERO/14 corpus; newer own CI follows publication. Product/stock/order action UI, other modules/histories/corrections, independent model/social/voice quality and actual browser/device/HTTPS/download acceptance remain open. Priority demos still precede the remaining Run 2.
+
+
+## Commerce action controls — c24b206
+
+See [DEMO_COMMERCE_CONTROLS.md](DEMO_COMMERCE_CONTROLS.md). Six native/structured ZERO product, stock and order actions now have current-authority controls, explicit confirmation and encrypted pending recovery. Both actual HTTP page chains continue to native order billing/posting/internal payment. Frozen source c24b206/tree 2d1debe: 261 focused/14 corpus/15 native PASS. Prior full CI 281: 1985 ZERO/14 corpus on exact c7d2f06. Own publication/CI is next, followed by the financial partial-return/correction chain and remaining complete-demo requirements. No complete demo, live model/social/voice, browser/device or delivery acceptance is claimed.

@@ -1,0 +1,48 @@
+[
+  {
+    "run_number": 273,
+    "run_id": 36302006369,
+    "job_id": 108571256359,
+    "head": "d19cccf7bb6dfdbdac37dd4f24793fc7784b1e63",
+    "merge": "0ee71fab2e8eb0c10ae3ac4b5e3cb796fecf7cf1",
+    "tree": "7c11d2ccaa3de19abb64ba9892908139c526c5f9",
+    "parents": [
+      "e8142578eb2185a915c37d895c567937f20a9970",
+      "d19cccf7bb6dfdbdac37dd4f24793fc7784b1e63"
+    ],
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/Foundlys/v36/actions/runs/36302006369",
+    "started_at": "2026-09-27T07:04:54Z",
+    "updated_at": "2026-09-27T07:21:42Z",
+    "zero_tests": 1880,
+    "corpus_pass": 14,
+    "log": "ci273.raw.log",
+    "raw_bytes": 884988,
+    "raw_sha256": "731bf30ab3086978779cbec8983f0f197ac43325034a58289d8b314944151c8d",
+    "archive": "docs/run2/evidence/20260927-demo-finance-transactions/ci273.raw.log.gz"
+  },
+  {
+    "run_number": 274,
+    "run_id": 36302778165,
+    "job_id": 108573462267,
+    "head": "760f12f5d3a9094adaebd25fb64d4272549ba374",
+    "merge": "96c85f6addf8640274aeb34f7b9b12c25e548b44",
+    "tree": "053bbb9d11458eca26c5680a59a183011cf5f102",
+    "parents": [
+      "e8142578eb2185a915c37d895c567937f20a9970",
+      "760f12f5d3a9094adaebd25fb64d4272549ba374"
+    ],
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/Foundlys/v36/actions/runs/36302778165",
+    "started_at": "2026-09-27T07:20:09Z",
+    "updated_at": "2026-09-27T07:36:23Z",
+    "zero_tests": 1886,
+    "corpus_pass": 14,
+    "log": "ci274.raw.log",
+    "raw_bytes": 887670,
+    "raw_sha256": "0ff8550139783b60214be0a0cd6887c529d07f77a170e6217bdc8fe7939609fd",
+    "archive": "docs/run2/evidence/20260927-demo-finance-transactions/ci274.raw.log.gz"
+  }
+]

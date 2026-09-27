@@ -6,7 +6,7 @@ const port=32100+Math.floor(Math.random()*500),base=`http://127.0.0.1:${port}`,t
 const env={...process.env,NODE_ENV:'production',NODE_OPTIONS:'',PORT:String(port),FOUNDLY_ADMIN_TOKEN:token,FOUNDLY_ADMIN_PASSWORD:'',FOUNDLY_ENCRYPTION_KEY:crypto.randomBytes(32).toString('hex'),FOUNDLY_DATA_DIR:dir,FOUNDLY_TENANT_ID:'identity-fixture',FOUNDLY_DEALER_ID:'default',FOUNDLY_PLATFORM_USER_ID:'identity-bootstrap',FOUNDLY_PLATFORM_ROLES:'ADMIN,SUPER_ADMIN',FOUNDLY_PUBLIC_BASE_URL:'https://foundly.example.test',FOUNDLY_WORKER_INTERVAL_MS:'99999999',OPENAI_API_KEY:'',FOUNDLY_AI_API_KEY:'',SMTP_HOST:'',SMTP_PORT:'',SMTP_USER:'',SMTP_PASSWORD:''};
 let child,logs='';
 async function start(){
- child=spawn(process.execPath,['--require','./test-identity-body-barrier.js','server.js'],{cwd:__dirname,env,stdio:['ignore','pipe','pipe']});
+ child=spawn(process.execPath,['--require','./test-identity-body-barrier.js','--require','./zero-evaluation/workflow-provider-fixture.js','server.js'],{cwd:__dirname,env,stdio:['ignore','pipe','pipe']});
  for(const stream of [child.stdout,child.stderr])stream.on('data',b=>{logs=(logs+b).slice(-10000);});
  for(let n=0;n<80;n++){if(child.exitCode!==null)throw new Error('Fixture server exited: '+logs);try{if((await fetch(base+'/api/health')).ok)return;}catch{}await new Promise(r=>setTimeout(r,100));}
  throw new Error('Fixture server start timeout');
@@ -27,7 +27,7 @@ const action=(id=crypto.randomUUID())=>({operation:'GENERATE',draft_id:id,input:
 const make=(a=action(),extra={})=>({message:'Bereid de beschreven workflow voor',conversation_id:crypto.randomUUID(),turn_id:crypto.randomUUID(),preferred_module:'automation',client_context:{automation_action:a},...extra});
 const turn=(cookie,input)=>memberRequest(cookie,'/api/zero/turn','POST',input);
 (async()=>{try{
- await new Promise(resolve=>provider.listen(0,'127.0.0.1',resolve));env.FOUNDLY_AI_BASE_URL=`http://127.0.0.1:${provider.address().port}/v1`;env.FOUNDLY_AI_API_KEY='isolated-fixture-not-real-provider';await start();assert.equal((await call('/api/composition','PUT',{entitlements:['automation'],expected_revision:0})).status,200);
+ await new Promise(resolve=>provider.listen(0,'127.0.0.1',resolve));env.FOUNDLY_AI_BASE_URL='https://workflow-language.fixture.invalid/v1';env.FOUNDLY_WORKFLOW_PROVIDER_FIXTURE_URL=`http://127.0.0.1:${provider.address().port}`;env.FOUNDLY_AI_API_KEY='isolated-fixture-not-real-provider';await start();assert.equal((await call('/api/composition','PUT',{entitlements:['automation'],expected_revision:0})).status,200);
  const owner=await enroll('languageowner'),reader=await enroll('languagereader',['VIEWER']);let cookie=await login(owner),readCookie=await login(reader);
  assert.ok((await memberRequest(cookie,'/api/zero/status')).body.tools.some(t=>t.tool_id==='automation_draft_generate'));assert.ok(!(await memberRequest(readCookie,'/api/zero/status')).body.tools.some(t=>t.tool_id==='automation_draft_generate'));
  let requestBody=make(),r=await turn(cookie,requestBody);assert.equal(r.status,200,JSON.stringify(r.body));assert.equal(r.body.automation_data.inference,true);assert.equal(r.body.automation_data.executable,false);assert.equal(calls,1);assert.deepEqual(JSON.parse(requests[0].input),{request:requestBody.client_context.automation_action.input.prompt});assert.ok(!requests[0].instructions.includes('PRIVATE LANGUAGE DRAFT'));

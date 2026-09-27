@@ -1,0 +1,13 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),{fixture}=require('../zero-evaluation/fixture');
+test('native CRM automatic effects enforce current target capability and preserve their exact HTTP receipt through encrypted restart',async()=>{
+ const f=await fixture();try{
+  assert.equal((await f.request('/api/composition','PUT',{entitlements:['crm'],expected_revision:0})).status,200);const manager=await f.enroll('crm-effects-manager',['MANAGER']),cookie=manager.cookie;
+  const create=async(entity,input)=>{const result=await f.request('/api/crm/'+entity,'POST',input,cookie);assert.equal(result.status,201,JSON.stringify(result.body));return result.body.record;};
+  const lead=await create('leads',{name:'Literal native source',value:10,currency:'USD'});await create('automations',{name:'Literal verified effect',trigger:{type:'new_lead'},actions:[{type:'task',title:'Literal internal task'},{type:'field_update',execution_mode:'AUTOMATIC_INTERNAL',target_entity:'leads',field:'status',value:'QUALIFIED'}]});const event={id:'crm-effects-http-event',type:'new_lead',entity:'leads',record_id:lead.id,record:{value:9999,owner_id:'forged-private-target'}};
+  assert.equal((await f.request('/api/composition','PUT',{entitlements:['crm'],capability_flags:{'crm:leads':false},expected_revision:1})).status,200);const denied=await f.request('/api/crm/automation-events','POST',event,cookie);assert.equal(denied.status,403);assert.equal(denied.body.code,'capability_disabled');assert.equal((await f.request('/api/crm/tasks','GET',undefined,cookie)).body.total,0);
+  assert.equal((await f.request('/api/composition','PUT',{entitlements:['crm'],expected_revision:2})).status,200);const first=await f.request('/api/crm/automation-events','POST',event,cookie);assert.equal(first.status,202,JSON.stringify(first.body));assert.equal(first.body.executions[0].status,'COMPLETED');const saved=await f.request('/api/crm/leads/'+lead.id,'GET',undefined,cookie);assert.equal(saved.body.record.value,10);assert.equal(saved.body.record.status,'QUALIFIED');assert.equal(saved.body.record.revision,2);
+  await f.stop();await f.start();const replay=await f.request('/api/crm/automation-events','POST',event,cookie);assert.equal(replay.status,202);assert.equal(replay.body.replayed,true);assert.deepEqual(replay.body.executions,first.body.executions);assert.equal((await f.request('/api/crm/tasks','GET',undefined,cookie)).body.total,1);
+  assert.equal((await f.request('/api/composition','PUT',{entitlements:['crm'],capability_flags:{'crm:leads':false},expected_revision:3})).status,200);assert.equal((await f.request('/api/crm/automation-events','POST',event,cookie)).status,403);
+ }finally{await f.close();}
+});

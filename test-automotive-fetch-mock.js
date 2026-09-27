@@ -75,6 +75,7 @@ globalThis.fetch = async (input, init = {}) => {
   const url = new URL(String(typeof input === 'string' || input instanceof URL ? input : input.url));
   const fail = process.env.AUTOMOTIVE_TEST_FAIL_FILE && fs.existsSync(process.env.AUTOMOTIVE_TEST_FAIL_FILE);
   if (url.hostname === 'opendata.rdw.nl') {
+    if (url.pathname === '/resource/8ys7-d773.json') return json([{ fixture: FIXTURE, kenteken: 'TEST01', brandstof_volgnummer: '1', brandstof_omschrijving: 'Benzine', nettomaximumvermogen: '210', klasse_hybride_elektrisch_voertuig: 'OVC-HEV', emis_co2_gewogen_gecombineerd_wltp: '49' }]);
     return json([{ fixture: FIXTURE, kenteken: 'TEST01', voertuigsoort: 'Personenauto', inrichting: 'SUV', merk: 'BMW', handelsbenaming: 'X5 XDRIVE45E', datum_eerste_toelating: '20220329', datum_eerste_tenaamstelling_in_nederland: '20230321', bruto_bpm: '577', catalogusprijs: '106374', co2_uitstoot_gecombineerd: '49', zuinigheidsclassificatie: 'A', cilinderinhoud: '2998', aantal_zitplaatsen: '5', eerste_kleur: 'ZWART' }]);
   }
   if (url.hostname === 'services.mobile.de') {

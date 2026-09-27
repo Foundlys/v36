@@ -1,0 +1,30 @@
+{
+  "run_number": 276,
+  "run_id": 36305420712,
+  "job_id": 108580981734,
+  "conclusion": "success",
+  "published_head": "3b12b7f0c0fae1ee6f8b6567f987308fcd10b377",
+  "published_tree": "135c861f6a32ce03ec42843a51ac52e810f864f0",
+  "checkout_merge": "bc08826baabedcb03f7a6f832e1346c84858cd8a",
+  "merge_tree": "135c861f6a32ce03ec42843a51ac52e810f864f0",
+  "merge_parents": [
+    "e8142578eb2185a915c37d895c567937f20a9970",
+    "3b12b7f0c0fae1ee6f8b6567f987308fcd10b377"
+  ],
+  "started_at": "2026-09-27T08:11:31Z",
+  "created_at": "2026-09-27T08:11:31Z",
+  "updated_at": "2026-09-27T08:28:06Z",
+  "zero": {
+    "tests": 1912,
+    "pass": 1912,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "corpus_pass": 14,
+  "log": "ci276.raw.log",
+  "raw_bytes": 898753,
+  "raw_sha256": "5be4e227e9089bf360eb46492650fe1e31e2ff8fbd845906c9bb99c475658abe",
+  "archive": "docs/run2/evidence/20260927-demo-credit-settlements/ci276.raw.log.gz"
+}

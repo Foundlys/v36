@@ -1,4 +1,5 @@
 'use strict';
+require('./zero-evaluation/provider-network-fixture');
 // Explicitly loaded by the isolated composition fixture. No production import.
 if(process.env.FOUNDLY_CONTEXT_ACL_TEST!=='1')throw new Error('Context ACL fixture not enabled');
 const original=globalThis.fetch;

@@ -1,0 +1,23 @@
+{
+  "run_number": 275,
+  "run_id": 36304239431,
+  "job_id": 108577589956,
+  "head": "87df5b8d246ef14755937a028f4172aea99662bf",
+  "merge": "ca36ab82e8aaa70f57bf5a0823150551e5f41768",
+  "tree": "11e8626c5015c99a04cb232514aca40a01e231c6",
+  "parents": [
+    "e8142578eb2185a915c37d895c567937f20a9970",
+    "87df5b8d246ef14755937a028f4172aea99662bf"
+  ],
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/Foundlys/v36/actions/runs/36304239431",
+  "started_at": "2026-09-27T07:48:30Z",
+  "updated_at": "2026-09-27T08:04:08Z",
+  "zero_tests": 1897,
+  "corpus_pass": 14,
+  "log": "ci275.raw.log",
+  "raw_bytes": 892254,
+  "raw_sha256": "58aac8eb69084340b1e1a92e4cee310dc02d7b76d90c38490c9002483b0b89de",
+  "archive": "docs/run2/evidence/20260927-demo-credit-corrections/ci275.raw.log.gz"
+}

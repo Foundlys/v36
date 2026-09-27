@@ -49,7 +49,7 @@ class CalendarExternal {
   selection(ctx, actor, input) {
     this.authorize(ctx, actor, true);
     const calendar = this.core.get(ctx, actor, 'calendars', input.calendar_id);
-    if (calendar.revision !== input.expected_calendar_revision || ['ARCHIVED', 'CANCELLED'].includes(calendar.status)) fail('calendar_selection_changed', 'De gekozen agenda is gewijzigd', 409);
+    if (calendar.deleted_at || calendar.revision !== input.expected_calendar_revision || ['ARCHIVED', 'CANCELLED'].includes(calendar.status)) fail('calendar_selection_changed', 'De gekozen agenda is gewijzigd', 409);
     const previous = this.rows(ctx).find(row => row.calendar_id === calendar.id);
     if ((previous?.revision || 0) !== input.expected_revision) fail('calendar_external_revision_changed', 'De externe agendawaarneming is gewijzigd', 409);
     const account = this.accountBinding(ctx);
@@ -59,11 +59,15 @@ class CalendarExternal {
   status(ctx, actor, calendarId) {
     this.authorize(ctx, actor);
     const calendar = this.core.get(ctx, actor, 'calendars', calendarId);
+    if (calendar.deleted_at) fail('calendar_external_calendar_unavailable', 'De actuele agenda is niet beschikbaar', 404);
     const row = this.rows(ctx).find(item => item.calendar_id === calendar.id);
-    if (!row) return {calendar_id: calendar.id, revision: 0, coverage: 'NOT_CONFIGURED', live_provider_acceptance: 'UNVERIFIED'};
+    let can_reconcile = false;
+    try { this.authorize(ctx, actor, true); can_reconcile = !['ARCHIVED', 'CANCELLED'].includes(calendar.status); } catch (error) { if (![401,403].includes(error.statusCode)) throw error; }
+    const envelope = {schema_version: 1, request_context: {tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id, actor_id: actor.id}, calendar_id: calendar.id, calendar_revision: calendar.revision, can_reconcile, provider_write: false, external_invitation: false, live_provider_acceptance: 'UNVERIFIED'};
+    if (!row) return {...envelope, revision: 0, coverage: 'NOT_CONFIGURED', provider: null, provider_calendar_id: null, from: null, to: null, observed_at: null, busy_count: null};
     let current = true;
     try { this.busy(ctx, calendar.id, [{start_at: row.from, end_at: row.to}]); } catch { current = false; }
-    return {calendar_id: calendar.id, revision: row.revision, provider: 'google_calendar', provider_calendar_id: row.provider_calendar_id,
+    return {...envelope, revision: row.revision, provider: 'google_calendar', provider_calendar_id: row.provider_calendar_id,
       from: row.from, to: row.to, observed_at: row.observed_at, coverage: current ? 'RETAINED_COMPLETE_WINDOW' : 'UNAVAILABLE',
       busy_count: current ? row.busy.length : null, provider_write: false, live_provider_acceptance: 'UNVERIFIED'};
   }
@@ -72,7 +76,7 @@ class CalendarExternal {
     if (!row) return {items: [], revision: null, coverage: 'NOT_CONFIGURED'};
     const cal = this.core.bucket(ctx, 'calendars').find(item => item.id === calendarId);
     const age = this.now() - Date.parse(row.observed_at);
-    if (!cal || cal.revision !== row.calendar_revision || cal.owner_id !== row.owner_id || ['ARCHIVED', 'CANCELLED'].includes(cal.status) ||
+    if (!cal || cal.deleted_at || cal.revision !== row.calendar_revision || cal.owner_id !== row.owner_id || ['ARCHIVED', 'CANCELLED'].includes(cal.status) ||
       this.accountBinding(ctx) !== row.account_binding || !Number.isFinite(age) || age < 0 || age > MAX_AGE ||
       !Array.isArray(row.busy) || hash(row.busy) !== row.content_hash ||
       ranges.some(range => time.timestamp(range.start_at) < time.timestamp(row.from) || time.timestamp(range.end_at) > time.timestamp(row.to)))

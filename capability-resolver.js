@@ -1,6 +1,6 @@
 'use strict';
 
-const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, TOOL_OPERATIONS, TOOL_CORE_PERMISSIONS, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
+const { MODULES, CORE_SERVICES, TOOL_MODULES, TOOL_CAPABILITIES, TOOL_REQUIRED_CAPABILITIES, TOOL_OPERATIONS, TOOL_CAPABILITY_OPERATIONS, TOOL_CORE_PERMISSIONS, WRITE_TOOLS, BUNDLES, INDUSTRIES, moduleId } = require('./module-catalog');
 const crypto = require('crypto');
 const {scopedMutation}=require('./scoped-mutation');
 const {roleGrants}=require('./module-role-policy');
@@ -27,16 +27,22 @@ function resolve(ctx, actor, profile = null, options = {}) {
   const registry = options.industries || INDUSTRIES;
   const pack = Object.hasOwn(registry,industry)?registry[industry]:null;
   if (!pack || (!pack.production && !options.allowTestIndustries)) fail('industry_unavailable', 'Industrie is niet beschikbaar', 422);
+  // One synchronous resolution uses one freshly read authority snapshot. Never
+  // retain it across calls/awaits: later source reads and writes resolve again.
+  // Rebuilding grants for every catalog entry otherwise multiplies live session
+  // lookups for each row in a large native summary.
+  const authority={roles:[...(actor?.roles||[])],permissions:[...(actor?.permissions||[])]};
+  const grants=permissions(authority),may=permission=>grants.has('*')||grants.has(permission);
   const entitled = new Set(legacy ? Object.keys(MODULES) : profile.entitlements);
   const enabled = (legacy ? Object.keys(MODULES) : profile.enabled_modules).filter(id => entitled.has(id));
-  const visible = enabled.filter(id => allowed(actor, `${id}:read`));
+  const visible = enabled.filter(id => may(`${id}:read`));
   return {
     schema_version: 'foundly-capability-resolution/1.0.0', tenant_id: ctx.tenant_id, dealer_id: ctx.dealer_id,
     revision: profile?.revision || 0, legacy_compatibility: legacy, industry_id: industry,
     core_services: [...CORE_SERVICES], entitlements: [...entitled], enabled_modules: enabled, visible_modules: visible,
     capabilities: visible.flatMap(id => MODULES[id].provided_capabilities.filter(cap => profile?.capability_flags?.[cap] !== false)),
     routes: visible.map(id => MODULES[id].route),
-    tools: Object.entries(TOOL_MODULES).filter(([tool, id]) => visible.includes(id) && allowed(actor,`${id}:${TOOL_OPERATIONS[tool]||(WRITE_TOOLS.includes(tool)?'write':'read')}`) && (TOOL_CORE_PERMISSIONS[tool]||[]).every(permission=>require('./core-access-contracts').coreAllowed(actor,permission)) && TOOL_REQUIRED_CAPABILITIES[tool].every(cap=>profile?.capability_flags?.[cap] !== false) && (!tool.startsWith('automotive_') || industry === 'AUTOMOTIVE')).map(([tool]) => tool),
+    tools: Object.entries(TOOL_MODULES).filter(([tool, id]) => visible.includes(id) && may(`${id}:${TOOL_OPERATIONS[tool]||(WRITE_TOOLS.includes(tool)?'write':'read')}`) && (TOOL_CORE_PERMISSIONS[tool]||[]).every(permission=>require('./core-access-contracts').coreAllowed(authority,permission)) && TOOL_REQUIRED_CAPABILITIES[tool].every(cap=>profile?.capability_flags?.[cap] !== false) && Object.entries(TOOL_CAPABILITY_OPERATIONS[tool]||{}).every(([cap,mode])=>visible.includes(cap.split(':')[0])&&may(cap.split(':')[0]+':'+mode)) && (!tool.startsWith('automotive_') || industry === 'AUTOMOTIVE')).map(([tool]) => tool),
     industry_extensions: Object.fromEntries(Object.entries(pack.extensions).filter(([id]) => visible.includes(id))),
     data_policy: 'HIDDEN_RETAINED_EXPORTABLE', no_customer_fork: true
   };
@@ -97,6 +103,7 @@ class CapabilityResolver {
   assertTool(ctx, actor, tool) {
     const id = TOOL_MODULES[tool];
     if (id) this.assertModule(ctx, actor, id, TOOL_OPERATIONS[tool]||(WRITE_TOOLS.includes(tool) ? 'write' : 'read'));
+    for(const [capability,operation] of Object.entries(TOOL_CAPABILITY_OPERATIONS[tool]||{}))this.assertCapability(ctx,actor,capability,operation);
     for(const permission of TOOL_CORE_PERMISSIONS[tool]||[])require('./core-access-contracts').assertCorePermission(actor,permission);
     for(const capability of TOOL_REQUIRED_CAPABILITIES[tool]||[])if(this.profile(ctx)?.capability_flags?.[capability] === false) fail('capability_disabled', 'Deze capability is niet actief');
     if (tool.startsWith('automotive_') && this.resolve(ctx, actor).industry_id !== 'AUTOMOTIVE') fail('industry_tool_disabled', 'Automotive is niet actief');
