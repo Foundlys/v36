@@ -33,3 +33,8 @@ CI 276 passed the preceding full-credit publication `3b12b7f0c0fae1ee6f8b6567f98
 ## Remaining work and sequence
 
 Next: usable native/ZERO Finance action controls with exact confirmations and recovery, as part of complete module UI. Partial credit issuance, explicit return/cancellation financial chains, purchase/expenses/COGS, approval and Automation/Analytics histories remain open. Independent natural/social/empathy/voice review, broad source freshness and forecast/value validation, full encrypted performance measurement and usable desktop/phone/HTTPS/download delivery remain acceptance work. No finished demo or broad Run-2 gate is accepted. Complete Automotive and E-commerce first, then continue the preserved Run-2 remainder.
+
+
+## Native/ZERO Finance controls — b2cadbe
+
+See [DEMO_FINANCE_CONTROLS.md](DEMO_FINANCE_CONTROLS.md). Five current invoice/credit actions now have native and structured ZERO controls, separate source-bound confirmation, owner-bound encrypted retention and explicit recovery after reload. All eight locales preserve current inputs and confirmation. Frozen b2cadbe/tree 9588a9f passes 212 focused cases, fourteen corpus cases and fifteen native suites. Preceding CI 277 passes exact tree a23dbf4 with 1928 ZERO/14 corpus; this newer source needs its own CI. Native approval/purchase and remaining histories/UI, independent model/social/empathy/voice quality and actual browser/device/HTTPS/download acceptance remain open. Both complete priority demos remain first.

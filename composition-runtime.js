@@ -28,7 +28,7 @@ function guardDomain(service, owner, resolverProvider) {
           const entityCapability=entity?routeCapability(`/api/${id}/${entity}`,id):null;
           if(entityCapability&&operation!=='export')resolverProvider().assertCapability(ctx,actor,entityCapability,operation);
           for(const capability of METHOD_CAPABILITIES[id]?.[property]||[])resolverProvider().assertCapability(ctx,actor,capability,operation);
-          if(owner==='finance'&&['previewInvoiceAction','executeInvoiceAction','recoverInvoiceAction','inspectInvoiceAction'].includes(property)){
+          if(owner==='finance'&&['previewInvoiceAction','executeInvoiceAction','recoverInvoiceAction','inspectInvoiceAction','rememberInvoiceAction','listInvoiceActionConfirmations','acknowledgeInvoiceAction'].includes(property)){
             const contract=require('./finance-invoice-actions').contract(args[2]?.operation);
             for(const capability of contract.capabilities)resolverProvider().assertCapability(ctx,actor,capability,contract.capability_modes?.[capability]||operation);
           }

@@ -88,3 +88,8 @@ See [DEMO_CREDIT_CORRECTIONS.md](DEMO_CREDIT_CORRECTIONS.md). Both new demo grap
 ## Explicit credit settlement continuation — cd7e91d
 
 See [DEMO_CREDIT_SETTLEMENTS.md](DEMO_CREDIT_SETTLEMENTS.md). Both new demo graphs contain a full allocation against an unpaid invoice and a separate internal outgoing refund against a paid invoice/credit, through current native Finance and ZERO contracts. Frozen cd7e91d/tree 2b4c228 passes 162 focused cases, fourteen corpus cases and nine native suites. Preceding CI 276 passes exact tree 135c861 with 1912 ZERO/14 corpus; this newer source needs its own full CI. No external transfer or bank settlement is implied. Next are full native/ZERO module action controls, remaining histories/corrections, independent model/social/empathy/voice evaluation and actual desktop/iPhone/Android/HTTPS/download acceptance. Both complete priority demos remain ahead of the preserved remainder of Run 2.
+
+
+## Native/ZERO Finance controls — b2cadbe
+
+See [DEMO_FINANCE_CONTROLS.md](DEMO_FINANCE_CONTROLS.md). Five current invoice/credit actions now have native and structured ZERO controls, separate source-bound confirmation, owner-bound encrypted retention and explicit recovery after reload. All eight locales preserve current inputs and confirmation. Frozen b2cadbe/tree 9588a9f passes 212 focused cases, fourteen corpus cases and fifteen native suites. Preceding CI 277 passes exact tree a23dbf4 with 1928 ZERO/14 corpus; this newer source needs its own CI. Native approval/purchase and remaining histories/UI, independent model/social/empathy/voice quality and actual browser/device/HTTPS/download acceptance remain open. Both complete priority demos remain first.

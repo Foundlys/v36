@@ -4,6 +4,7 @@ const crypto = require('node:crypto');
 const durability = require('./finance-request-durability');
 const native = require('./finance-operation-transactions').operations;
 const SCOPE = 'finance:action_requests';
+const CONFIRMATIONS = 'finance:action_confirmations';
 const CONTRACTS = Object.freeze({
   COMMERCE_INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger', 'sales:quotes', 'crm:contacts'], capability_modes: {'finance:ledger': 'read', 'crm:contacts': 'read'}, commerce: true, entity: 'invoice'},
   INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices'], entity: 'invoice'},
@@ -193,4 +194,64 @@ function inspect(core, context, actor, value) {
   const prior = receipt(core, ctx, principal, action);
   return prior ? {...output(core, ctx, prior, true, actor), read_only: true} : {ok: true, state: 'UNKNOWN', operation: action.operation, request_id: action.request_id, read_only: true, financial_posting_performed: false, external_payment_performed: false};
 }
-module.exports = {SCOPE, CONTRACTS, contract, preview, execute, recover, inspect};
+function confirmation(core, ctx, principal, action) {
+  const key = identity(principal, action), row = core.adapter.bucket(ctx, CONFIRMATIONS).find(item => item.digest === key.digest);
+  if (!row) return null;
+  if (row.request_hash !== key.request_hash || row.actor_id !== principal.id || row.operation !== action.operation) fail('finance_action_request_conflict', 'Deze bevestiging hoort bij andere invoer');
+  verifyConfirmation(row);
+  return row;
+}
+function verifyConfirmation(row) {
+  if (row.version !== 1 || !row.command || row.operation !== row.command.operation || row.request_id !== row.command.request_id
+    || row.digest !== hash([row.actor_id, row.request_id]) || !['PENDING', 'ACKNOWLEDGED'].includes(row.status) || row.request_hash !== hash(row.command)
+    || row.proof_hash !== hash({command: row.command, actor_id: row.actor_id, created_at: row.created_at, status: row.status})) {
+    fail('finance_action_confirmation_invalid', 'De bewaarde bevestiging kan niet worden geverifieerd');
+  }
+}
+function confirmationOutput(row) {
+  return {operation: row.operation, request_id: row.request_id, status: row.status, created_at: row.created_at, command: clone(row.command), financial_posting_performed: false, external_payment_performed: false};
+}
+function remember(core, context, actor, value) {
+  const action = request(value, true), {ctx, principal} = authority(core, context, actor, action.operation, 'remember');
+  const existing = confirmation(core, ctx, principal, action);
+  if (existing) return {ok: true, ...confirmationOutput(existing), deduplicated: true};
+  // A recovered/retired request may reach retention late. It cannot reopen an
+  // acknowledged outcome or authorize a second attempt under the same identity.
+  const prior = receipt(core, ctx, principal, action);
+  if (prior) return {ok: true, operation: action.operation, request_id: action.request_id, status: 'ACKNOWLEDGED', command: clone(action), deduplicated: true, financial_posting_performed: false, external_payment_performed: false};
+  const current = preview(core, ctx, actor, {operation: action.operation, input: action.input});
+  if (current.source_hash !== action.expected_source_hash) fail('finance_action_source_changed', 'De bron is gewijzigd; bereid de actie opnieuw voor');
+  if (!current.ready) fail('finance_action_not_ready', 'De financiële bron bevat blokkades', 422);
+  const row = {...identity(principal, action), version: 1, operation: action.operation, request_id: action.request_id, actor_id: principal.id, command: action, status: 'PENDING', created_at: core.now()};
+  row.proof_hash = hash({command: row.command, actor_id: row.actor_id, created_at: row.created_at, status: row.status});
+  capacity(core.adapter.bucket(ctx, CONFIRMATIONS), row);
+  return durability.transaction(core, ctx, principal, ['action_confirmations'], () => {
+    core.adapter.bucket(ctx, CONFIRMATIONS).push(row);
+    core.audit(ctx, principal, 'RETAIN_CONFIRMATION', 'action_confirmation', row.digest, action.reason, {operation: action.operation});
+    return {ok: true, ...confirmationOutput(row), deduplicated: false};
+  });
+}
+function listConfirmations(core, context, actor, value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).some(key => !['operation', 'cursor', 'limit'].includes(key))) fail('finance_action_invalid', 'Kies één actietype en begrensde pagina', 422);
+  const {ctx, principal} = authority(core, context, actor, value.operation, 'listConfirmations');
+  const cursor = value.cursor ?? 0, limit = value.limit ?? 10;
+  if (!Number.isSafeInteger(cursor) || cursor < 0 || !Number.isSafeInteger(limit) || limit < 1 || limit > 50) fail('finance_action_invalid', 'Kies een geldige bevestigingspagina', 422);
+  const owned = core.adapter.bucket(ctx, CONFIRMATIONS).filter(row => row.actor_id === principal.id && row.operation === value.operation);
+  for (const row of owned) verifyConfirmation(row);
+  const rows = owned.filter(row => row.status === 'PENDING');
+  const items = rows.slice(cursor, cursor + limit).map(confirmationOutput);
+  return {ok: true, operation: value.operation, items, total: rows.length, cursor, next_cursor: cursor + items.length < rows.length ? cursor + items.length : null, read_only: true};
+}
+function acknowledge(core, context, actor, value) {
+  const action = request(value, true), {ctx, principal} = authority(core, context, actor, action.operation, 'acknowledge');
+  const row = confirmation(core, ctx, principal, action);
+  const result = inspect(core, ctx, actor, action);
+  if (!['COMMITTED', 'NOT_APPLIED'].includes(result.state)) fail('finance_action_confirmation_unresolved', 'Controleer eerst de oorspronkelijke aanvraag');
+  if (row && row.status !== 'ACKNOWLEDGED') durability.transaction(core, ctx, principal, ['action_confirmations'], () => {
+    row.status = 'ACKNOWLEDGED';
+    row.proof_hash = hash({command: row.command, actor_id: row.actor_id, created_at: row.created_at, status: row.status});
+    core.audit(ctx, principal, 'ACKNOWLEDGE_RESULT', 'action_confirmation', row.digest, action.reason, {operation: action.operation, state: result.state});
+  });
+  return {ok: true, operation: action.operation, request_id: action.request_id, status: 'ACKNOWLEDGED', state: result.state, financial_posting_performed: false, external_payment_performed: false};
+}
+module.exports = {SCOPE, CONFIRMATIONS, CONTRACTS, contract, preview, execute, recover, inspect, remember, listConfirmations, acknowledge};

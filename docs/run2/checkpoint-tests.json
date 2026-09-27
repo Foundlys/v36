@@ -41526,7 +41526,36 @@
       "raw_sha256": "5be4e227e9089bf360eb46492650fe1e31e2ff8fbd845906c9bb99c475658abe",
       "archive": "docs/run2/evidence/20260927-demo-credit-settlements/ci276.raw.log.gz"
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_number": 277,
+      "run_id": 36306873103,
+      "job_id": 108585142084,
+      "conclusion": "success",
+      "published_head": "c83a7da08e415b499e7062a66a42484e46e368e3",
+      "published_tree": "a23dbf4884e2db5f04668fde4c02ea378c9b8d03",
+      "checkout_merge": "3d5591a8cd7bc48ce71d0ce8049658de5b611db1",
+      "merge_tree": "a23dbf4884e2db5f04668fde4c02ea378c9b8d03",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "c83a7da08e415b499e7062a66a42484e46e368e3"
+      ],
+      "started_at": "2026-09-27T08:39:17Z",
+      "created_at": "2026-09-27T08:39:17Z",
+      "updated_at": "2026-09-27T08:52:39Z",
+      "zero": {
+        "tests": 1928,
+        "pass": 1928,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "corpus_pass": 14,
+      "log": "ci277.raw.log",
+      "raw_bytes": 905012,
+      "raw_sha256": "937d3163d227584301614a0110c2ef51f75604824037b976fc092196e1bb21fb",
+      "archive": "docs/run2/evidence/20260927-demo-finance-controls/ci277.raw.log.gz"
+    },
     "default_nodes": {
       "AUTOMOTIVE": 5935,
       "ECOMMERCE": 4025
@@ -41553,6 +41582,251 @@
     "finished_demos": [],
     "external_payment_performed": false,
     "bank_settlement_verified": false,
-    "remaining": "Full native/ZERO module action UI; partial credit/return/cancellation chains; purchase/COGS/approval and Automation/Analytics histories; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2."
+    "remaining": "Full native/ZERO module action UI; partial credit/return/cancellation chains; purchase/COGS/approval and Automation/Analytics histories; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2.",
+    "own_published_ci_at_checkpoint_preparation": "PENDING_PUBLICATION"
+  },
+  "demo_finance_controls_20260927": {
+    "recorded_at": "2026-09-27T09:09:55.868815+00:00",
+    "status": "LOCALIZED_NATIVE_ZERO_INVOICE_ACTION_UI_NOT_COMPLETE_DEMO_OR_DEVICE_ACCEPTANCE",
+    "source_commit": "b2cadbe485fa43cbc4f0ccb70315557edd6ddaf5",
+    "source_tree": "9588a9f6e4c2215422709220f630ec9fe63157cd",
+    "zero_tests": {
+      "tests": 212,
+      "pass": 212,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "FOCUSED_NATIVE_FINANCE_DEMO_ZERO_AND_LOCALIZATION_REGRESSION"
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 15,
+    "frozen_proof": "docs/run2/evidence/20260927-demo-finance-controls/controls-frozen-results.json",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/business-workspaces-regression-test-frozen.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "file_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/capability-resolver-test-frozen.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "file_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/ci277.raw.log.gz",
+        "raw_bytes": 905012,
+        "raw_sha256": "937d3163d227584301614a0110c2ef51f75604824037b976fc092196e1bb21fb",
+        "file_sha256": "107b3c81ffe89a7903c09131da2529e86bea02cc8ee0f11bdd68b24bd8c1631b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/composition-api-frozen.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "file_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/confirmations-initial.log.gz",
+        "raw_bytes": 1279,
+        "raw_sha256": "c58d15996c232a7927f45cc868e01eed29f9f01554da0a17aa991d2a845b56aa",
+        "file_sha256": "e0ef2840bac726e952ca70c0e24506f2d2bb4637a6f9109aa4da68e12586a7ca"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/controls-and-zero-frozen.log.gz",
+        "raw_bytes": 59644,
+        "raw_sha256": "a241f31543a6967bbae92b3deaba4c71a0609878eceb35317c7e2abf5b59dd7a",
+        "file_sha256": "f73b15d4072a25cf1b6d36faa2c826b07083e958041e0620f11ee5c74bed855f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/controls-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "2ea6d69c7a2ee35952b084c7d7f46b9c7e77048ba94d44679d70cd5c2d8106e2",
+        "file_sha256": "68cb038b90a43f173f55d14c2f4ce61dfd2d17fd5efd27ab941607f39c8378ae"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/controls-http-initial.log.gz",
+        "raw_bytes": 3994,
+        "raw_sha256": "11186e45a6d19741ce84b08a1c3c1eeeacda5f2e56d3c390121b3f7dff171c58",
+        "file_sha256": "942106513db0b915cdbb886857a19d3ab32718ba98218d2f60e5f2fca5117e68"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/controls-http-pagination-corrected.log.gz",
+        "raw_bytes": 2478,
+        "raw_sha256": "887db344af1e0843cdbc1cf4fcaa34a384fb5e940dd086df6a14c7d3ed3b9cea",
+        "file_sha256": "52cb0c36200c4b164094007d58d201152159342b08406742a2de880eb6e2cb45"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/controls-initial.log.gz",
+        "raw_bytes": 7401,
+        "raw_sha256": "917de9d50d3e47c369484967e2329be43d104764c09e527abea2f54f90fc182f",
+        "file_sha256": "cf47c0bc2822f0aac892625a42442cbde7d32c33111fc88258c896b82784a3e3"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/controls-integrated.log.gz",
+        "raw_bytes": 10269,
+        "raw_sha256": "99e100354ca0dab17ec9ebaf2844d50530e764890eaf406a8c117b532fb3f47a",
+        "file_sha256": "555801c44736ea924c7e8fc3a1a7528ec0a1b8708b40803fd157064a285d99b3"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/controls-static-route-corrected.log.gz",
+        "raw_bytes": 832,
+        "raw_sha256": "7913340215bb3f2c75e21519ed6afdfc073bc369eae96c346cd7fb47ccceca95",
+        "file_sha256": "b22073612a3d8fe858f5be5225179db97789202b5893d1b943b13175d86c1b69"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-cash-scenarios-api-test-frozen.log.gz",
+        "raw_bytes": 221,
+        "raw_sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+        "file_sha256": "703912e957405749278dcd12958d10bc134fa19c553cdf2a481f7c3d14ca878e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-cash-scenarios-client-test-frozen.log.gz",
+        "raw_bytes": 190,
+        "raw_sha256": "cf1b03d63112331bdea37af239bfa5e5f11dd029ce7dbcef4883f9581780aa7a",
+        "file_sha256": "4ad808c62fd8eaf8d238beb77b3f541e4f490457199462b628259e9df613a2b4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-cash-scenarios-test-frozen.log.gz",
+        "raw_bytes": 267,
+        "raw_sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+        "file_sha256": "df751f6e758d8e8c0ece7ca3626633e5543c860b26ddbb37c69e7a40756b22c7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-loading-api-test-frozen.log.gz",
+        "raw_bytes": 165,
+        "raw_sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+        "file_sha256": "97781cd134ad426dacffa28ffc71d1867c77e00f94f7abdb38d35238c33e5f18"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-loading-test-frozen.log.gz",
+        "raw_bytes": 130,
+        "raw_sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+        "file_sha256": "07737a290583150aa2d63383d0379f52da304da41d44cd65a05b3f44e4bcb36e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-period-closing-api-test-frozen-retry-1.log.gz",
+        "raw_bytes": 220,
+        "raw_sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+        "file_sha256": "df4a6084a50bb2e93b7cd321e1e9f393ce1dfbccbc7ecc0132bcb65503326341"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-period-closing-api-test-frozen.log.gz",
+        "raw_bytes": 890,
+        "raw_sha256": "2615a1ca77b13ca6815685949fa82ee4137501e256d8c9c27122e6cd9fb8ac64",
+        "file_sha256": "d0d3d604d5ccc7d77890aff28d3a9b0d24224b1dc523bde8e1257ff8212405b7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-period-closing-client-test-frozen.log.gz",
+        "raw_bytes": 192,
+        "raw_sha256": "560589e80b4f77d54ddfe1d71849ecb28b444af819770e612cc340e4e30b308f",
+        "file_sha256": "a4a1715c8a1450045d483abc97d46b92649da60eb241d73f51728d77f91ba504"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/finance-period-closing-test-frozen.log.gz",
+        "raw_bytes": 297,
+        "raw_sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+        "file_sha256": "eeb6375590b9d5ef43a7dffa131e5436d21673b73640efe6a17e438e7f4b7390"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/module-access-contracts-test-frozen.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "file_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/platform-api-frozen.log.gz",
+        "raw_bytes": 941,
+        "raw_sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+        "file_sha256": "fecb7bbb8dfa9a3302feb7acad1c470f6ee90fd77f76b0f5f2db751d40e31749"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/platform-core-frozen.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "file_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-controls/static-response-api-test-frozen.log.gz",
+        "raw_bytes": 168,
+        "raw_sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+        "file_sha256": "f0a4aea6dc0047293e10020daa0435933cb24ec07970c5ffa1110b891420dc1b"
+      }
+    ],
+    "preceding_published_ci": {
+      "run_number": 277,
+      "run_id": 36306873103,
+      "job_id": 108585142084,
+      "conclusion": "success",
+      "published_head": "c83a7da08e415b499e7062a66a42484e46e368e3",
+      "published_tree": "a23dbf4884e2db5f04668fde4c02ea378c9b8d03",
+      "checkout_merge": "3d5591a8cd7bc48ce71d0ce8049658de5b611db1",
+      "merge_tree": "a23dbf4884e2db5f04668fde4c02ea378c9b8d03",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "c83a7da08e415b499e7062a66a42484e46e368e3"
+      ],
+      "started_at": "2026-09-27T08:39:17Z",
+      "created_at": "2026-09-27T08:39:17Z",
+      "updated_at": "2026-09-27T08:52:39Z",
+      "zero": {
+        "tests": 1928,
+        "pass": 1928,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "corpus_pass": 14,
+      "log": "ci277.raw.log",
+      "raw_bytes": 905012,
+      "raw_sha256": "937d3163d227584301614a0110c2ef51f75604824037b976fc092196e1bb21fb",
+      "archive": "docs/run2/evidence/20260927-demo-finance-controls/ci277.raw.log.gz"
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "supported_controls": [
+      "INVOICE_POST",
+      "PAYMENT_RECORD",
+      "CREDIT_NOTE_CREATE",
+      "CREDIT_ALLOCATE",
+      "CREDIT_REFUND_RECORD"
+    ],
+    "ui_locales": [
+      "nl-NL",
+      "en-GB",
+      "de-DE",
+      "fr-FR",
+      "es-ES",
+      "da-DK",
+      "nb-NO",
+      "sv-SE"
+    ],
+    "new_locale_keys": 69,
+    "native_retry_evidence": [
+      {
+        "name": "finance-period-closing-api-test",
+        "command": [
+          "node",
+          "finance-period-closing-api-test.js"
+        ],
+        "exit_code": 1,
+        "elapsed_seconds": 0.415,
+        "log": "finance-period-closing-api-test-frozen.log",
+        "bytes": 890,
+        "sha256": "2615a1ca77b13ca6815685949fa82ee4137501e256d8c9c27122e6cd9fb8ac64",
+        "complete": false,
+        "classification": "EXISTING_RANDOM_PORT_BIND_COLLISION_BEFORE_TEST_EXECUTION",
+        "source": "b2cadbe485fa43cbc4f0ccb70315557edd6ddaf5"
+      }
+    ],
+    "browser_device_quality": "UNVERIFIED_SYNTHETIC_DOM_WITH_REAL_HTTP_CONTROLLERS",
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "prior_failures_preserved": {
+      "controls-http-initial.log": "Two fixture assertions fetched only the default first invoice page; explicit bounded pagination now retrieves the credit actually created by the UI.",
+      "controls-integrated.log": "Two actual served-page checks exposed an unregistered controller static route; the exact JavaScript asset was added to the existing server allowlist."
+    },
+    "remaining": "Purchase/expense/approval and partial-credit/return/cancellation histories and controls; broader CRM/order/module action UI; COGS and Automation/Analytics histories; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2."
   }
 }

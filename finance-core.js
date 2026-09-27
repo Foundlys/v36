@@ -147,7 +147,7 @@ class FoundlyFinanceCore{
 }
 
 require('./finance-operation-transactions').install(FoundlyFinanceCore);
-for(const [method,operation] of Object.entries({previewInvoiceAction:'preview',executeInvoiceAction:'execute',recoverInvoiceAction:'recover',inspectInvoiceAction:'inspect'})){
+for(const [method,operation] of Object.entries({previewInvoiceAction:'preview',executeInvoiceAction:'execute',recoverInvoiceAction:'recover',inspectInvoiceAction:'inspect',rememberInvoiceAction:'remember',listInvoiceActionConfirmations:'listConfirmations',acknowledgeInvoiceAction:'acknowledge'})){
   FoundlyFinanceCore.prototype[method]=function(context,actor,input){return require('./finance-invoice-actions')[operation](this,context,actor,input)};
 }
 module.exports={FoundlyFinanceCore,FINANCE_SCHEMA_VERSION,FINANCE_ENTITIES,ACCOUNT_TYPES,LEGAL_FORMS,ROLE_PERMISSIONS,DUTCH_INVOICE_FIELDS,financeError};

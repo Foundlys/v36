@@ -23,11 +23,12 @@ async function financeRequest(path,options={}){
  let action;const data=options.body?JSON.parse(options.body):{};
  if(path==='/api/finance/forecast-scenarios')action={operation:'SCENARIO',input:data};
  else {const match=path.match(/^\/api\/finance\/periods\/([^/]+)\/(close-preview|close)$/);if(match)action={operation:match[2]==='close'?'CLOSE':'PREVIEW_CLOSE',input:{period_id:decodeURIComponent(match[1]),...data}};}
+ const invoiceAction=path.match(/^\/api\/finance\/invoice-actions\/(preview|execute|recover)$/);if(invoiceAction){const {operation,...envelope}=data;action={operation:operation+'_'+invoiceAction[1].toUpperCase(),input:invoiceAction[1]==='preview'?data.input:envelope};}
  if(!action){const result=await api(path,options);if(generation!==state.accessGeneration)throw Object.assign(new Error('Finance access changed'),{status:403});return result;}
- const result=await api('/api/zero/turn',{method:'POST',body:JSON.stringify({message:'Gekozen Finance-actie',conversation_id:financeConversation,turn_id:action.operation==='CLOSE'?data.request_id:crypto.randomUUID(),client_context:{finance_action:action}})});if(generation!==state.accessGeneration)throw Object.assign(new Error('Finance access changed'),{status:403});return result.finance_data;
+ const result=await api('/api/zero/turn',{method:'POST',body:JSON.stringify({message:invoiceAction&&invoiceAction[1]!=='preview'?data.reason:'Gekozen Finance-actie',conversation_id:financeConversation,turn_id:action.operation==='CLOSE'||invoiceAction?.[1]==='execute'?data.request_id:crypto.randomUUID(),client_context:{finance_action:action}})});if(generation!==state.accessGeneration)throw Object.assign(new Error('Finance access changed'),{status:403});return result.finance_data;
  }catch(error){if(generation===state.accessGeneration&&[401,403].includes(error.status))invalidateFinanceAccess();throw error;}
 }
-$('#financeTransport').addEventListener('change',()=>{if([state.scenarioView,state.closeView].some(view=>view?.isConnected&&!view.canLeave())){$('#financeTransport').value=financeTransport;return;}financeTransport=$('#financeTransport').value;});
+$('#financeTransport').addEventListener('change',()=>{if([state.scenarioView,state.closeView,state.invoiceActionsView].some(view=>view?.isConnected&&!view.canLeave())){$('#financeTransport').value=financeTransport;return;}financeTransport=$('#financeTransport').value;});
 
 const financeCopy=(key,fallback,params={})=>globalThis.FoundlyI18n?FoundlyI18n.message('finance.page.'+key,params):String(fallback).replace(/\{([a-z_]+)\}/g,(_,name)=>String(params[name]??''));
 const financeLive=read=>Object.freeze({toString:read}),financeUnknown=()=>globalThis.FoundlyI18n?FoundlyI18n.message('common.unknown'):'Onbekend',financeNoData=()=>globalThis.FoundlyI18n?FoundlyI18n.message('common.no_data'):'Geen brondata';
@@ -54,11 +55,18 @@ function unavailable(name){const component=state.loading?.components?.[name];ret
 function financeControlState(){const unavailable=!state.accessAllowed||!state.reportsAllowed;$('#exportFinance').disabled=unavailable||state.exportBusy;$('#financeZeroInput').disabled=unavailable||state.zeroBusy;$('#financeZeroForm button').disabled=unavailable||state.zeroBusy;}
 function invalidateFinanceAccess(){
  state.accessGeneration++;state.reportGeneration++;state.accessAllowed=state.reportsAllowed=false;state.zeroBusy=state.exportBusy=false;state.loading=state.status=state.dashboard=state.reports=null;state.entities=[];
- for(const id of ['financeKpis','financePnl','financeJournal','financeAging','financeForecast','financeComplianceContent','financePeriodClosing','financeEntity','financeZeroOutput'])$('#'+id).replaceChildren();
- state.scenarioView=state.closeView=null;$('#financeEntity').disabled=true;$('#financePnlEmpty').classList.remove('hidden');$('#financeJournalEmpty').classList.remove('hidden');
+ for(const id of ['financeKpis','financePnl','financeJournal','financeAging','financeForecast','financeComplianceContent','financePeriodClosing','financeActions','financeEntity','financeZeroOutput'])$('#'+id).replaceChildren();
+ state.scenarioView=state.closeView=state.invoiceActionsView=null;$('#financeEntity').disabled=true;$('#financePnlEmpty').classList.remove('hidden');$('#financeJournalEmpty').classList.remove('hidden');
  for(const id of ['financePnlEmpty','financeJournalEmpty','journalCount','financeAgingBadge']){const node=$('#'+id);if(globalThis.FoundlyI18n)FoundlyI18n.renderText(node,FoundlyI18n.message('common.unknown'));else node.textContent='Onbekend';}
  financeControlState();$('#financeConnection').className='status-pill error';financeRender($('#financeConnection'),financeCopy('unavailable','Niet beschikbaar'));$('#financeNotice').className='notice error';financeRender($('#financeNotice'),financeErrorText({status:403}));
 }
+function mountInvoiceActions(){
+ if(!state.loading?.capabilities?.includes('finance:invoices')){$('#financeActions').replaceChildren();state.invoiceActionsView=null;return;}
+ const operations=state.loading.invoice_action_operations||[];
+ if(state.invoiceActionsView?.isConnected&&JSON.stringify(operations)!==state.invoiceActionsView.operationSignature){$('#financeActions').replaceChildren();state.invoiceActionsView=null;}
+ if(window.FoundlyFinanceInvoiceActions&&!state.invoiceActionsView?.isConnected){const generation=state.accessGeneration;state.invoiceActionsView=window.FoundlyFinanceInvoiceActions.create({document,request:financeRequest,isActive:()=>state.accessAllowed&&state.accessGeneration===generation,operations});state.invoiceActionsView.operationSignature=JSON.stringify(operations);$('#financeActions').append(state.invoiceActionsView);}
+}
+
 function mountPeriodClosing(){
  const required=['finance:ledger','finance:invoices','finance:payments'],enabled=required.every(cap=>state.loading?.capabilities?.includes(cap));
  if(!enabled){$('#financePeriodClosing').replaceChildren();state.closeView=null;return;}
@@ -108,7 +116,7 @@ function renderJournal(){
 
 async function load(refreshEntities = false) {
   await globalThis.FoundlyI18n?.ready;
-  if([state.scenarioView,state.closeView].some(view=>view?.isConnected&&!view.canLeave())){
+  if([state.scenarioView,state.closeView,state.invoiceActionsView].some(view=>view?.isConnected&&!view.canLeave())){
     $('#financeEntity').value=state.loading?.selected_entity_id||'';
     // Preserve a pending confirmation or authored draft when access is unchanged,
     // while still observing a current revocation on an explicit refresh.
@@ -133,7 +141,7 @@ async function load(refreshEntities = false) {
     notice.className=state.loading.loading_status==='PARTIAL'?'notice error':'notice';
     financeRender(notice,unavailable('reports')||financeCopy('loaded','Financiële rapportages geladen · {storage} · {observed} UTC{entities}',{storage:durable?financeCopy('durable','Duurzame opslag waargenomen'):financeCopy('durable_unknown','Duurzame productieopslag niet bewezen'),observed:financeObserved(state.reports?.observed_at),entities:unavailable('entities')?financeCopy('entities_unavailable',' · Entiteitenlijst niet beschikbaar; bestaand filter behouden.'):''}));
     $('#financeConnection').className='status-pill';financeRender($('#financeConnection'),state.loading.loading_status==='PARTIAL'?financeCopy('partial','DEELS BESCHIKBAAR'):financeCopy('reachable','API BEREIKBAAR'));
-    mountPeriodClosing();financeControlState();
+    mountPeriodClosing();mountInvoiceActions();financeControlState();
   } catch (error) {
     if(generation!==state.loadGeneration)return;
     invalidateFinanceAccess();

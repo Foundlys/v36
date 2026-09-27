@@ -1,0 +1,151 @@
+{
+  "source": "b2cadbe485fa43cbc4f0ccb70315557edd6ddaf5",
+  "tree": "9588a9f6e4c2215422709220f630ec9fe63157cd",
+  "before_status": "",
+  "started_at": "2026-09-27T09:04:12.397884+00:00",
+  "commands": [
+    {
+      "name": "controls-and-zero",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=2",
+        "zero/finance-action-confirmations.test.js",
+        "zero/finance-invoice-actions-client.test.js",
+        "zero/finance-invoice-actions-client-api.test.js",
+        "zero/finance-page-localization.test.js",
+        "zero/localization.test.js",
+        "zero/localization-authoring.test.js",
+        "zero/finance-credit-settlements.test.js",
+        "zero/finance-credit-settlements-api.test.js",
+        "zero/finance-credit-notes.test.js",
+        "zero/finance-credit-notes-api.test.js",
+        "zero/finance-request-durability.test.js",
+        "zero/finance-currency-integrity.test.js",
+        "zero/demo-finance-transactions.test.js",
+        "zero/finance-invoice-actions.test.js",
+        "zero/commerce-finance-link.test.js",
+        "zero/demo-finance-foundation.test.js",
+        "zero/native-evidence.test.js",
+        "zero/native-evidence-api.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js",
+        "zero/cross-module-api.test.js",
+        "zero/conversation-context.test.js",
+        "zero/conversation-context-api.test.js",
+        "zero/capability-resolution-authority.test.js",
+        "zero/native-followup.test.js",
+        "zero/native-followup-api.test.js",
+        "zero/social-routing-api.test.js",
+        "zero/demo-manifest-validation.test.js",
+        "zero/demo-atomic-batch-api.test.js",
+        "zero/demo-session-api.test.js",
+        "zero/demo-controls.test.js",
+        "zero/core-state-transaction.test.js",
+        "zero/demo-universe-engine.test.js",
+        "zero/ecommerce-demo-universe.test.js",
+        "zero/ecommerce-demo-api.test.js",
+        "zero/demo-universe-pacing.test.js",
+        "zero/demo-universe-law.test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 205.567,
+      "log": "controls-and-zero-frozen.log",
+      "bytes": 59644,
+      "sha256": "a241f31543a6967bbae92b3deaba4c71a0609878eceb35317c7e2abf5b59dd7a",
+      "summary": {
+        "tests": 212,
+        "pass": 212,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "complete": true
+    },
+    {
+      "name": "controls-corpus",
+      "command": [
+        "node",
+        "zero-evaluation/run.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.281,
+      "log": "controls-corpus-frozen.log",
+      "bytes": 1066,
+      "sha256": "2ea6d69c7a2ee35952b084c7d7f46b9c7e77048ba94d44679d70cd5c2d8106e2",
+      "complete": true
+    },
+    {
+      "name": "platform-core",
+      "command": [
+        "node",
+        "platform-core-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.165,
+      "log": "platform-core-frozen.log",
+      "bytes": 1118,
+      "sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+      "complete": true
+    },
+    {
+      "name": "platform-api",
+      "command": [
+        "node",
+        "platform-api-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.219,
+      "log": "platform-api-frozen.log",
+      "bytes": 941,
+      "sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+      "complete": true
+    },
+    {
+      "name": "composition-api",
+      "command": [
+        "node",
+        "composition-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.673,
+      "log": "composition-api-frozen.log",
+      "bytes": 110,
+      "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+      "complete": true
+    },
+    {
+      "name": "finance-period-closing-test",
+      "command": [
+        "node",
+        "finance-period-closing-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.165,
+      "log": "finance-period-closing-test-frozen.log",
+      "bytes": 297,
+      "sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+      "complete": true
+    },
+    {
+      "name": "finance-period-closing-api-test",
+      "command": [
+        "node",
+        "finance-period-closing-api-test.js"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.415,
+      "log": "finance-period-closing-api-test-frozen.log",
+      "bytes": 890,
+      "sha256": "2615a1ca77b13ca6815685949fa82ee4137501e256d8c9c27122e6cd9fb8ac64",
+      "complete": false
+    }
+  ],
+  "full_zero_suite": "NOT_RUN_THIS_CHECKPOINT",
+  "provider_quality": "UNVERIFIED",
+  "after_status": "",
+  "completed_at": "2026-09-27T09:07:45.899622+00:00",
+  "all_pass": false
+}

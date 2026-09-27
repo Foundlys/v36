@@ -320,6 +320,9 @@ function createPlatformApi(options = {}) {
         return sendJson(res, 200, { ok: true, product: 'Foundly Finance', version, schema: finance.schema(), persistence: persistenceStatus(), no_fake_data: true });
       }
       if (url.pathname === '/api/finance/dashboard' && req.method === 'GET') return sendJson(res, 200, finance.dashboard(ctx, actor, { legal_entity_id: url.searchParams.get('legal_entity_id') || undefined, from: url.searchParams.get('from') || undefined, to: url.searchParams.get('to') || undefined }));
+      if (url.pathname === '/api/finance/invoice-actions/confirmations' && req.method === 'GET') return sendJson(res, 200, finance.listInvoiceActionConfirmations(ctx, actor, {operation: url.searchParams.get('operation'), cursor: Number(url.searchParams.get('cursor') || 0), limit: Number(url.searchParams.get('limit') || 10)}));
+      if (url.pathname === '/api/finance/invoice-actions/confirmations' && req.method === 'POST') return sendJson(res, 200, finance.rememberInvoiceAction(ctx, actor, await readBody(req)));
+      if (url.pathname === '/api/finance/invoice-actions/acknowledge' && req.method === 'POST') return sendJson(res, 200, finance.acknowledgeInvoiceAction(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/invoice-actions/preview' && req.method === 'POST') return sendJson(res, 200, finance.previewInvoiceAction(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/invoice-actions/execute' && req.method === 'POST') return sendJson(res, 200, finance.executeInvoiceAction(ctx, actor, await readBody(req)));
       if (url.pathname === '/api/finance/invoice-actions/recover' && req.method === 'POST') return sendJson(res, 200, finance.recoverInvoiceAction(ctx, actor, await readBody(req)));
