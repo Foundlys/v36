@@ -62,7 +62,7 @@ function inspect(core, ctx, actor, input) {
   const duplicates = core.collection(ctx, 'invoices').filter(row => row.legal_entity_id === entity.id && row.series === invoice.series && row.invoice_number === invoice.invoice_number).map(row => row.id);
   if (duplicates.length) blockers.push('INVOICE_NUMBER_EXISTS');
   return {basis: {entity, order, customer, duplicates}, effective_input: invoice, blockers,
-    summary: {order_id: order.id, order_revision: order.revision, contact_id: customer.id, contact_revision: customer.revision, customer_name: customer.name, invoice_number: invoice.invoice_number, currency: invoice.currency, amount_cents: calculated.gross_cents, next_status: 'DRAFT'}};
+    summary: {order_id: order.id, order_revision: order.revision, contact_id: customer.id, contact_revision: customer.revision, customer_name: customer.name, invoice_number: invoice.invoice_number, currency: invoice.currency, amount_cents: calculated.gross_cents, next_status: 'DRAFT', lines: calculated.lines.map(({description, quantity, unit_price_cents, vat_rate, net_cents, vat_cents, gross_cents}) => ({description, quantity, unit_price_cents, vat_rate, net_cents, vat_cents, gross_cents}))}};
 }
 function link(core, ctx, actor, input, invoice, reason) {
   const {sales, crm} = scope(core, ctx, actor, 'write');

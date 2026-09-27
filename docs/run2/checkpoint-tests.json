@@ -42279,7 +42279,30 @@
       "raw_sha256": "5e8acf3688583543589829a00f0bbf3212467e09f067c65dc79fc1477f4027cc",
       "archive": "docs/run2/evidence/20260927-demo-invoice-creation/ci279.raw.log.gz"
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_number": 280,
+      "run_id": 36311969304,
+      "job_id": 108599544418,
+      "conclusion": "success",
+      "run_started_at": "2026-09-27T10:15:47Z",
+      "updated_at": "2026-09-27T10:34:31Z",
+      "published_head": "7b33393506c53d910970a855e92f51871f64721c",
+      "published_tree": "a2b0dde590ea8ba8fd44ffcad51be095656c79d6",
+      "checkout_merge": "fa076ed0164e597f87f498a6cfd2f21054eead15",
+      "merge_tree": "a2b0dde590ea8ba8fd44ffcad51be095656c79d6",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "7b33393506c53d910970a855e92f51871f64721c"
+      ],
+      "published_parent": "db731bd5c03e2e7d593d943da8ea91244317a9b0",
+      "zero_pass": 1973,
+      "corpus_pass": 14,
+      "log": "ci280.raw.log",
+      "verified_via": "Completed workflow, complete log summaries, exact published and checkout merge Git trees and expected PR parent",
+      "raw_bytes": 924870,
+      "raw_sha256": "83660977bb5cc76a57734162942553c4937c11a36d52480ede743ca5b023ff9f",
+      "archive": "docs/run2/evidence/20260927-demo-commerce-invoicing/ci280.raw.log.gz"
+    },
     "supported_creation_kinds": [
       "SALES",
       "PURCHASE"
@@ -42297,6 +42320,193 @@
     },
     "complete_demo_acceptance": false,
     "finished_demos": [],
-    "remaining": "Order/CRM-derived invoice creation interface; vehicle acquisition and stock/COGS; purchase credits and partial corrections; other module action UI and histories; independent natural/social/empathy/voice, fresh public data and forecasts; default encrypted load and actual browser/phone/HTTPS/download delivery. Complete priority demos first, preserved Run 2 afterwards."
+    "remaining": "Order/CRM-derived invoice creation interface; vehicle acquisition and stock/COGS; purchase credits and partial corrections; other module action UI and histories; independent natural/social/empathy/voice, fresh public data and forecasts; default encrypted load and actual browser/phone/HTTPS/download delivery. Complete priority demos first, preserved Run 2 afterwards.",
+    "own_published_ci_at_checkpoint_preparation": "PENDING_PUBLICATION"
+  },
+  "demo_commerce_invoicing_20260927": {
+    "recorded_at": "2026-09-27T10:36:11.347224+00:00",
+    "status": "REVIEWED_ORDER_CRM_NATIVE_ZERO_INVOICE_UI_NOT_COMPLETE_DEMO_ACCEPTANCE",
+    "source_commit": "a9c6148775110ee304eed78a2d6c7798a161ff7b",
+    "source_tree": "3c6cd4410e7a4c7568a5426cc00513c33005a230",
+    "zero_tests": {
+      "tests": 240,
+      "pass": 240,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "FOCUSED_FINANCE_COMMERCE_DEMO_ZERO_LOCALIZATION_REGRESSION_WITHOUT_UNCHANGED_DEFAULT_GRAPH_RERUN"
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 15,
+    "frozen_proof": "docs/run2/evidence/20260927-demo-commerce-invoicing/commerce-invoicing-frozen-results.json",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/business-workspaces-regression-test-frozen.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "file_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/capability-resolver-test-frozen.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "file_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/ci280.raw.log.gz",
+        "raw_bytes": 924870,
+        "raw_sha256": "83660977bb5cc76a57734162942553c4937c11a36d52480ede743ca5b023ff9f",
+        "file_sha256": "0ff93553e69286e19b458eeb11b13d7aa1ffd0d5a50be798dcd19b841fb77e57"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/commerce-http-initial.log.gz",
+        "raw_bytes": 2041,
+        "raw_sha256": "5a3d8b02cacfb84db81ec7eb0c59ea577148d342c960bbb8a02de802e7369409",
+        "file_sha256": "7ca0fad005ea21741822408b5d8b9ca27456185a378ae5b915666ec20b050071"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/commerce-invoicing-and-zero-frozen.log.gz",
+        "raw_bytes": 68747,
+        "raw_sha256": "4c2e9b7df88245dfc6666889a137510366cf8ce55cd507bb79c3f6dadb0789bd",
+        "file_sha256": "c950df66fc516ffb5e22b6d288cb54a2600a4b4687674b9675829b6fdc280f04"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/commerce-invoicing-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "36200ece2901c6af173b06b3a4b987f1a5b1875d94f4075c2299ae5bd1cd0ded",
+        "file_sha256": "e71486e36c01765e926fcaf84bb51c3ff0a7fc9a081c069820a491e93628b005"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/commerce-localization-initial.log.gz",
+        "raw_bytes": 9248,
+        "raw_sha256": "d7c936a1b808982464b37d4c1bce14340382522ef906859415c60b5525bc29e2",
+        "file_sha256": "e4e6e1722496e1c016ce747aaaf51a548b371521aca9afaedc596d10c7fc5349"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/commerce-ui-boundaries.log.gz",
+        "raw_bytes": 3138,
+        "raw_sha256": "17fec90a87a3d99e0d9edbcddf8ac9670604ddca2591441583b51f89eefa2d7f",
+        "file_sha256": "063b9c7b75958875d8d7fa9bac55d665964208ac8fe575b463a434c3a823e878"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/commerce-ui-initial.log.gz",
+        "raw_bytes": 10571,
+        "raw_sha256": "5759a03c3a8559b0595d277073d4a21ef3ba75b59b3911acb4dd3a116efe4a60",
+        "file_sha256": "a94aef38ba1694e40a5fe3b8f9ba08f371195028acb353ae8672a0c312c2f33a"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/composition-api-frozen.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "file_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-cash-scenarios-api-test-frozen.log.gz",
+        "raw_bytes": 221,
+        "raw_sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+        "file_sha256": "703912e957405749278dcd12958d10bc134fa19c553cdf2a481f7c3d14ca878e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-cash-scenarios-client-test-frozen.log.gz",
+        "raw_bytes": 190,
+        "raw_sha256": "cf1b03d63112331bdea37af239bfa5e5f11dd029ce7dbcef4883f9581780aa7a",
+        "file_sha256": "4ad808c62fd8eaf8d238beb77b3f541e4f490457199462b628259e9df613a2b4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-cash-scenarios-test-frozen.log.gz",
+        "raw_bytes": 267,
+        "raw_sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+        "file_sha256": "df751f6e758d8e8c0ece7ca3626633e5543c860b26ddbb37c69e7a40756b22c7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-loading-api-test-frozen.log.gz",
+        "raw_bytes": 165,
+        "raw_sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+        "file_sha256": "97781cd134ad426dacffa28ffc71d1867c77e00f94f7abdb38d35238c33e5f18"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-loading-test-frozen.log.gz",
+        "raw_bytes": 130,
+        "raw_sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+        "file_sha256": "07737a290583150aa2d63383d0379f52da304da41d44cd65a05b3f44e4bcb36e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-period-closing-api-test-frozen.log.gz",
+        "raw_bytes": 220,
+        "raw_sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+        "file_sha256": "df4a6084a50bb2e93b7cd321e1e9f393ce1dfbccbc7ecc0132bcb65503326341"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-period-closing-client-test-frozen.log.gz",
+        "raw_bytes": 192,
+        "raw_sha256": "560589e80b4f77d54ddfe1d71849ecb28b444af819770e612cc340e4e30b308f",
+        "file_sha256": "a4a1715c8a1450045d483abc97d46b92649da60eb241d73f51728d77f91ba504"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/finance-period-closing-test-frozen.log.gz",
+        "raw_bytes": 297,
+        "raw_sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+        "file_sha256": "eeb6375590b9d5ef43a7dffa131e5436d21673b73640efe6a17e438e7f4b7390"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/module-access-contracts-test-frozen.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "file_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/platform-api-frozen.log.gz",
+        "raw_bytes": 941,
+        "raw_sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+        "file_sha256": "fecb7bbb8dfa9a3302feb7acad1c470f6ee90fd77f76b0f5f2db751d40e31749"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/platform-core-frozen.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "file_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-invoicing/static-response-api-test-frozen.log.gz",
+        "raw_bytes": 168,
+        "raw_sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+        "file_sha256": "f0a4aea6dc0047293e10020daa0435933cb24ec07970c5ffa1110b891420dc1b"
+      }
+    ],
+    "preceding_published_ci": {
+      "run_number": 280,
+      "run_id": 36311969304,
+      "job_id": 108599544418,
+      "conclusion": "success",
+      "run_started_at": "2026-09-27T10:15:47Z",
+      "updated_at": "2026-09-27T10:34:31Z",
+      "published_head": "7b33393506c53d910970a855e92f51871f64721c",
+      "published_tree": "a2b0dde590ea8ba8fd44ffcad51be095656c79d6",
+      "checkout_merge": "fa076ed0164e597f87f498a6cfd2f21054eead15",
+      "merge_tree": "a2b0dde590ea8ba8fd44ffcad51be095656c79d6",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "7b33393506c53d910970a855e92f51871f64721c"
+      ],
+      "published_parent": "db731bd5c03e2e7d593d943da8ea91244317a9b0",
+      "zero_pass": 1973,
+      "corpus_pass": 14,
+      "log": "ci280.raw.log",
+      "verified_via": "Completed workflow, complete log summaries, exact published and checkout merge Git trees and expected PR parent",
+      "raw_bytes": 924870,
+      "raw_sha256": "83660977bb5cc76a57734162942553c4937c11a36d52480ede743ca5b023ff9f",
+      "archive": "docs/run2/evidence/20260927-demo-commerce-invoicing/ci280.raw.log.gz"
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "native_operation": "COMMERCE_INVOICE_CREATE",
+    "source_page_size": 50,
+    "explicit_crm_selection": true,
+    "source_prices_editable": false,
+    "ui_locales": 8,
+    "new_locale_keys": 24,
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "remaining": "Product/stock/order action UI and recovery; vehicle acquisition and stock/COGS; purchase credits and partial returns/corrections; other module action UI and Automation/Analytics histories; independent natural/social/empathy/voice quality, fresh public data and forecasts; default encrypted load and actual browser/phone/HTTPS/download delivery. Complete priority demos first, preserved Run 2 afterwards."
   }
 }

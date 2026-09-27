@@ -84,3 +84,8 @@ See [DEMO_PURCHASE_HISTORY.md](DEMO_PURCHASE_HISTORY.md). Both priority packs no
 ## Manual invoice creation interface — 6148808
 
 See [DEMO_INVOICE_CREATION.md](DEMO_INVOICE_CREATION.md). Native and structured ZERO now create reviewed manual sales/purchase drafts with multiple exact lines and separate confirmation. Lost creation replies recover through restart and later approval/posting; known nonexecution retains authored input. The source 6148808/tree 4496181 passes 221 focused cases, 14 corpus cases and 15 native scripts on a clean unchanged checkout. Preceding complete CI 279 passes exact d441349 with 1960 ZERO/14 corpus; newer own CI follows publication. Order/CRM-derived billing UI, other module work and histories, independent model/social/voice quality and actual browser/device/HTTPS/download acceptance remain open. Priority demos still precede the remaining Run 2.
+
+
+## Order and CRM invoice creation interface — a9c6148
+
+See [DEMO_COMMERCE_INVOICING.md](DEMO_COMMERCE_INVOICING.md). Native and structured ZERO now create a reviewed linked order invoice from actual CRM/customer/entity sources, with bounded source paging and locked order prices. Lost replies recover through encrypted restart and later payment; known nonexecution retains supported input. Source a9c6148/tree 3c6cd44 passes 240 focused cases, 14 corpus cases and 15 native scripts on a clean unchanged checkout. Preceding complete CI 280 passes exact a2b0dde with 1973 ZERO/14 corpus; newer own CI follows publication. Product/stock/order action UI, other modules/histories/corrections, independent model/social/voice quality and actual browser/device/HTTPS/download acceptance remain open. Priority demos still precede the remaining Run 2.
