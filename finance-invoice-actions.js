@@ -8,6 +8,7 @@ const CONFIRMATIONS = 'finance:action_confirmations';
 const CONTRACTS = Object.freeze({
   COMMERCE_INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger', 'sales:quotes', 'crm:contacts'], capability_modes: {'finance:ledger': 'read', 'crm:contacts': 'read'}, commerce: true, entity: 'invoice'},
   INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices'], entity: 'invoice'},
+  INVOICE_APPROVE: {method: 'approveInvoice', permission: 'finance:approve', operation_mode: 'approve', capabilities: ['finance:invoices'], entity: 'invoice'},
   CREDIT_NOTE_CREATE: {method: 'createCreditNote', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger'], entity: 'invoice'},
   CREDIT_ALLOCATE: {method: 'allocateCredit', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger', 'finance:payments'], entity: 'invoice'},
   CREDIT_REFUND_RECORD: {method: 'recordCreditRefund', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger', 'finance:payments'], entity: 'invoice'},
@@ -66,9 +67,25 @@ function source(core, ctx, action, actor) {
     summary = {invoice_number: number, amount_cents: validated.gross_cents, currency, next_status: 'DRAFT'};
     return {basis: {entity, duplicates}, summary, blockers};
   }
-  if (operation === 'INVOICE_POST' && Object.keys(input).some(key => key !== 'invoice_id')) fail('finance_action_invalid', 'Boek uitsluitend de gekozen factuur', 422);
+  if (['INVOICE_POST', 'INVOICE_APPROVE'].includes(operation) && Object.keys(input).some(key => key !== 'invoice_id')) fail('finance_action_invalid', 'Gebruik uitsluitend de gekozen factuur', 422);
   invoice = selected(core, ctx, 'invoices', input.invoice_id);
   entity = selected(core, ctx, 'legal_entities', invoice.legal_entity_id);
+  if (operation === 'INVOICE_APPROVE') {
+    const lines = core.collection(ctx, 'invoice_lines').filter(row => row.invoice_id === invoice.id);
+    if (invoice.kind !== 'PURCHASE') blockers.push('INVOICE_NOT_PURCHASE');
+    if (invoice.status !== 'DRAFT') blockers.push('INVOICE_NOT_DRAFT');
+    if (!['PENDING', 'APPROVED'].includes(invoice.approval_status) || require('./finance-purchase-approval').current(core, ctx, invoice)) blockers.push('PURCHASE_NOT_PENDING');
+    if (invoice.currency !== entity.currency) blockers.push('CURRENCY_MISMATCH');
+    let valid = lines.length > 0 && lines.length <= 500;
+    try {
+      valid = valid && lines.every(line => {
+        const calculated = require('./finance-invoice-amounts').amounts(line.quantity, line.unit_price_cents, line.vat_rate);
+        return ['net_cents', 'vat_cents', 'gross_cents'].every(key => Number.isSafeInteger(line[key]) && line[key] >= 0 && line[key] === calculated[key]);
+      }) && ['net_cents', 'vat_cents', 'gross_cents'].every(key => Number.isSafeInteger(invoice[key]) && invoice[key] >= 0 && lines.reduce((sum, line) => sum + BigInt(line[key]), 0n) === BigInt(invoice[key]));
+    } catch { valid = false; }
+    if (!valid || !(invoice.gross_cents > 0)) blockers.push('INVOICE_TOTALS_INVALID');
+    return {basis: {entity, invoice, lines}, blockers, summary: {invoice_id: invoice.id, invoice_number: invoice.invoice_number, current_status: invoice.status, current_approval_status: invoice.approval_status, next_approval_status: 'APPROVED', amount_cents: invoice.gross_cents, currency: invoice.currency, date: invoice.invoice_date, supplier_name: invoice.supplier_name, lines: lines.map(({description, quantity, unit_price_cents, vat_rate, net_cents, vat_cents, gross_cents}) => ({description, quantity, unit_price_cents, vat_rate, net_cents, vat_cents, gross_cents}))}};
+  }
   const accounts = core.collection(ctx, 'accounts').filter(row => row.legal_entity_id === entity.id);
   const periods = core.collection(ctx, 'fiscal_periods').filter(row => row.legal_entity_id === entity.id);
   if (accounts.length > 1000 || periods.length > 1000) fail('finance_action_capacity', 'De broncontrole overschrijdt de veilige limiet', 413);
@@ -87,7 +104,7 @@ function source(core, ctx, action, actor) {
     if (!basis.lines.length || basis.lines.length > 500 || ['net_cents', 'vat_cents', 'gross_cents'].some(field => !Number.isSafeInteger(invoice[field]) || invoice[field] < 0 || basis.lines.some(row => !Number.isSafeInteger(row[field]) || row[field] < 0) || basis.lines.reduce((total, row) => total + BigInt(row[field]), 0n) !== BigInt(invoice[field]))) blockers.push('INVOICE_TOTALS_INVALID');
     if (invoice.status !== 'DRAFT') blockers.push('INVOICE_NOT_DRAFT');
     if (!(invoice.gross_cents > 0)) blockers.push('INVOICE_AMOUNT_NOT_POSITIVE');
-    if (invoice.kind === 'PURCHASE' && invoice.approval_status !== 'APPROVED') blockers.push('PURCHASE_NOT_APPROVED');
+    if (invoice.kind === 'PURCHASE' && !require('./finance-purchase-approval').current(core, ctx, invoice)) blockers.push('PURCHASE_NOT_APPROVED');
   } else {
     if (!['POSTED', 'PARTIALLY_PAID', 'OVERDUE', 'PARTIALLY_SETTLED'].includes(invoice.status)) blockers.push('INVOICE_NOT_OPEN');
     if (invoice.kind === 'CREDIT_NOTE') blockers.push('CREDIT_NOTE_REQUIRES_REFUND');
@@ -170,6 +187,7 @@ function execute(core, context, actor, value) {
   const committed = durability.transaction(core, ctx, principal, [...native[spec.method].entities, 'action_requests'], () => {
     let result;
     if (action.operation === 'INVOICE_POST') result = core.postInvoice(ctx, actor, action.input.invoice_id);
+    else if (action.operation === 'INVOICE_APPROVE') result = {invoice: core.approveInvoice(ctx, actor, action.input.invoice_id, {reason: action.reason}), lines: clone(core.collection(ctx, 'invoice_lines').filter(line => line.invoice_id === action.input.invoice_id))};
     else if (action.operation === 'CREDIT_NOTE_CREATE') {const {invoice_id, ...input} = action.input;result = core.createCreditNote(ctx, actor, invoice_id, input);}
     else result = core[spec.method](ctx, actor, current.prepared_invoice || action.input);
     if (spec.commerce) result.commerce_link = require('./commerce-finance-source').link(core, ctx, actor, action.input, result.invoice, action.reason);

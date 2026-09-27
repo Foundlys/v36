@@ -41784,7 +41784,30 @@
       "raw_sha256": "937d3163d227584301614a0110c2ef51f75604824037b976fc092196e1bb21fb",
       "archive": "docs/run2/evidence/20260927-demo-finance-controls/ci277.raw.log.gz"
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_number": 278,
+      "run_id": 36308619875,
+      "job_id": 108590065606,
+      "conclusion": "success",
+      "run_started_at": "2026-09-27T09:12:17Z",
+      "updated_at": "2026-09-27T09:30:47Z",
+      "published_head": "cf280732a55c0d8f10c34c65f6298273055af68b",
+      "published_tree": "a54202075b048b718c988781db5314e8b5c562d7",
+      "checkout_merge": "ff05a1324e6fa1f52e3e4511ddb55a1e1f4e1129",
+      "merge_tree": "a54202075b048b718c988781db5314e8b5c562d7",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "cf280732a55c0d8f10c34c65f6298273055af68b"
+      ],
+      "published_parent": "c83a7da08e415b499e7062a66a42484e46e368e3",
+      "zero_pass": 1945,
+      "corpus_pass": 14,
+      "log": "ci278.raw.log",
+      "verified_via": "Actual completed workflow run, full job log, published Git commit and checkout merge Git commit; equal exact trees and expected PR parent",
+      "raw_bytes": 912543,
+      "raw_sha256": "e245c50a42793e53903fdcd4a382820ae5f9e9f77888917052de61a3597963d6",
+      "archive": "docs/run2/evidence/20260927-demo-purchase-history/ci278.raw.log.gz"
+    },
     "supported_controls": [
       "INVOICE_POST",
       "PAYMENT_RECORD",
@@ -41827,6 +41850,228 @@
       "controls-http-initial.log": "Two fixture assertions fetched only the default first invoice page; explicit bounded pagination now retrieves the credit actually created by the UI.",
       "controls-integrated.log": "Two actual served-page checks exposed an unregistered controller static route; the exact JavaScript asset was added to the existing server allowlist."
     },
-    "remaining": "Purchase/expense/approval and partial-credit/return/cancellation histories and controls; broader CRM/order/module action UI; COGS and Automation/Analytics histories; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2."
+    "remaining": "Purchase/expense/approval and partial-credit/return/cancellation histories and controls; broader CRM/order/module action UI; COGS and Automation/Analytics histories; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2.",
+    "own_published_ci_at_checkpoint_preparation": "PENDING_PUBLICATION"
+  },
+  "demo_purchase_history_20260927": {
+    "recorded_at": "2026-09-27T09:39:31.076492+00:00",
+    "status": "NATIVE_PURCHASE_APPROVAL_AND_OPERATING_EXPENSE_HISTORY_NOT_COMPLETE_DEMO_ACCEPTANCE",
+    "source_commit": "9d98b8ed1a9d75908e277ee328073627fe2ac79b",
+    "source_tree": "39017aa8a93b0fc5ab1710f9fe2940b399979772",
+    "zero_tests": {
+      "tests": 19,
+      "pass": 19,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "TARGETED_FULL_GRAPH_RERUN_SAME_PRODUCTION_CODE"
+    },
+    "prior_selection": {
+      "source": "ee6be132c559ea97620aaeb4e34b4ea389220a26",
+      "proof": "purchase-frozen-results.json",
+      "tests": 227,
+      "pass": 225,
+      "fail": 2,
+      "changed_files": [
+        "zero/demo-universe-engine.test.js",
+        "zero/ecommerce-demo-universe.test.js"
+      ],
+      "production_code_identical": true,
+      "rerun_scope": "BOTH_FAILED_FULL_GRAPH_FILES_PLUS_NOT_YET_EXECUTED_CORPUS_AND_NATIVE_SUITES"
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 15,
+    "frozen_proof": "docs/run2/evidence/20260927-demo-purchase-history/purchase-verified-results.json",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/business-workspaces-regression-test-frozen.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "file_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/capability-resolver-test-frozen.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "file_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/ci278.raw.log.gz",
+        "raw_bytes": 912543,
+        "raw_sha256": "e245c50a42793e53903fdcd4a382820ae5f9e9f77888917052de61a3597963d6",
+        "file_sha256": "8a9bd6d33e2146127b1f3c06c4bf343f81eb0c58ff966fb758d714bc56f2ab9a"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/composition-api-frozen.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "file_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-cash-scenarios-api-test-frozen.log.gz",
+        "raw_bytes": 221,
+        "raw_sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+        "file_sha256": "703912e957405749278dcd12958d10bc134fa19c553cdf2a481f7c3d14ca878e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-cash-scenarios-client-test-frozen.log.gz",
+        "raw_bytes": 190,
+        "raw_sha256": "cf1b03d63112331bdea37af239bfa5e5f11dd029ce7dbcef4883f9581780aa7a",
+        "file_sha256": "4ad808c62fd8eaf8d238beb77b3f541e4f490457199462b628259e9df613a2b4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-cash-scenarios-test-frozen.log.gz",
+        "raw_bytes": 267,
+        "raw_sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+        "file_sha256": "df751f6e758d8e8c0ece7ca3626633e5543c860b26ddbb37c69e7a40756b22c7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-loading-api-test-frozen.log.gz",
+        "raw_bytes": 165,
+        "raw_sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+        "file_sha256": "97781cd134ad426dacffa28ffc71d1867c77e00f94f7abdb38d35238c33e5f18"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-loading-test-frozen.log.gz",
+        "raw_bytes": 130,
+        "raw_sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+        "file_sha256": "07737a290583150aa2d63383d0379f52da304da41d44cd65a05b3f44e4bcb36e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-period-closing-api-test-frozen.log.gz",
+        "raw_bytes": 220,
+        "raw_sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+        "file_sha256": "df4a6084a50bb2e93b7cd321e1e9f393ce1dfbccbc7ecc0132bcb65503326341"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-period-closing-client-test-frozen.log.gz",
+        "raw_bytes": 192,
+        "raw_sha256": "560589e80b4f77d54ddfe1d71849ecb28b444af819770e612cc340e4e30b308f",
+        "file_sha256": "a4a1715c8a1450045d483abc97d46b92649da60eb241d73f51728d77f91ba504"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/finance-period-closing-test-frozen.log.gz",
+        "raw_bytes": 297,
+        "raw_sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+        "file_sha256": "eeb6375590b9d5ef43a7dffa131e5436d21673b73640efe6a17e438e7f4b7390"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/module-access-contracts-test-frozen.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "file_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/platform-api-frozen.log.gz",
+        "raw_bytes": 941,
+        "raw_sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+        "file_sha256": "fecb7bbb8dfa9a3302feb7acad1c470f6ee90fd77f76b0f5f2db751d40e31749"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/platform-core-frozen.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "file_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/purchase-and-zero-frozen.log.gz",
+        "raw_bytes": 65933,
+        "raw_sha256": "c9c57bf7b05608ea2f15431bfea0d6c4225277006afbf6150d0627517d8c62af",
+        "file_sha256": "a61ebe31e2ea44f38f4993271d379198db74f00fa0d334ca4c03f7da4c62e6d8"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/purchase-approval-seal-and-http.log.gz",
+        "raw_bytes": 4760,
+        "raw_sha256": "4ec6a8b1fd79b16d621628a6e7afca70b0490ed98edf7044269842b16a3717bd",
+        "file_sha256": "b63afe1a10a44d3559868a5e2262c8e67b9f8dea369dec3bd1d69b6768281b51"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/purchase-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "25da52227a09911f36a2978c883a7991a8edc42dd35050054ac9a802008fdc9a",
+        "file_sha256": "7cac80c870a52c6b5c042e1a9bfd16296ce187ab6a8d3893266ec3097aa3963c"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/purchase-corrected-and-http.log.gz",
+        "raw_bytes": 7680,
+        "raw_sha256": "39b4fa43f147e5cf5bdbeb5f97a204f4416be8a6eecdf47bbf183a02d87fbeb7",
+        "file_sha256": "7465750bfaa1dfb3d5639462ae34e5ae5002aeff7c4fa0601112c9c19274b168"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/purchase-graphs-retry-frozen.log.gz",
+        "raw_bytes": 5563,
+        "raw_sha256": "c80838053a2e70ca4703e3f38a1d1417c97e863dc66dbbb8c3757168052cb7ec",
+        "file_sha256": "87a57a97b86ab5c956cdaff9859244d7aff4faab654f096f20f33313fe4871be"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/purchase-initial.log.gz",
+        "raw_bytes": 8759,
+        "raw_sha256": "c127f5adaa07600b1a1718fe17905766a1389eea2490e387522b5115e87e0991",
+        "file_sha256": "3339b89e63b7a2a1fe3c81d0874813b4dc73771691ba2d190b29a4413594e6de"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/purchase-ui-review.log.gz",
+        "raw_bytes": 3664,
+        "raw_sha256": "7d598ded4e6b311dc0b083b83676384265e2192e112121fe6f7fe81aed76c9ba",
+        "file_sha256": "bf25e12678d3bf794bf0278da1718cab6a4c08468bcdabf458c4e44ff78e48d1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-purchase-history/static-response-api-test-frozen.log.gz",
+        "raw_bytes": 168,
+        "raw_sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+        "file_sha256": "f0a4aea6dc0047293e10020daa0435933cb24ec07970c5ffa1110b891420dc1b"
+      }
+    ],
+    "preceding_published_ci": {
+      "run_number": 278,
+      "run_id": 36308619875,
+      "job_id": 108590065606,
+      "conclusion": "success",
+      "run_started_at": "2026-09-27T09:12:17Z",
+      "updated_at": "2026-09-27T09:30:47Z",
+      "published_head": "cf280732a55c0d8f10c34c65f6298273055af68b",
+      "published_tree": "a54202075b048b718c988781db5314e8b5c562d7",
+      "checkout_merge": "ff05a1324e6fa1f52e3e4511ddb55a1e1f4e1129",
+      "merge_tree": "a54202075b048b718c988781db5314e8b5c562d7",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "cf280732a55c0d8f10c34c65f6298273055af68b"
+      ],
+      "published_parent": "c83a7da08e415b499e7062a66a42484e46e368e3",
+      "zero_pass": 1945,
+      "corpus_pass": 14,
+      "log": "ci278.raw.log",
+      "verified_via": "Actual completed workflow run, full job log, published Git commit and checkout merge Git commit; equal exact trees and expected PR parent",
+      "raw_bytes": 912543,
+      "raw_sha256": "e245c50a42793e53903fdcd4a382820ae5f9e9f77888917052de61a3597963d6",
+      "archive": "docs/run2/evidence/20260927-demo-purchase-history/ci278.raw.log.gz"
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "default_graphs": {
+      "AUTOMOTIVE": 5983,
+      "ECOMMERCE": 4073
+    },
+    "per_pack_operating_expenses": {
+      "purchase_invoices": 18,
+      "pending_approval": 4,
+      "approved_drafts": 4,
+      "posted_invoices": 10,
+      "internal_outgoing_payments": 6,
+      "journals": 16
+    },
+    "approval_authority": "CURRENT_FINANCE_APPROVE_WITHOUT_WRITE_OR_POST",
+    "current_source_required_before_purchase_posting": true,
+    "legacy_approved_drafts": "PRESERVED_REQUIRE_EXPLICIT_SOURCE_BOUND_REAPPROVAL_BEFORE_FUTURE_POSTING",
+    "ui_locales": 8,
+    "new_locale_keys": 8,
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "prior_failures_preserved": {
+      "purchase-and-zero-frozen.log": "The broad frozen selection on ee6be13 had 225 PASS and two failed full-graph assertions that still expected totals without the new purchase invoices. Only those two test files changed. Both complete graph suites were rerun on 9d98b8e; all other production and test files remain byte-identical.",
+      "purchase-initial.log": "Three fault-injection tests attempted to replace a cached guarded method; injecting at the engine boundary corrected the simulation. A calendar boundary showed that deriving requested history months from rolled-over dates lost a month; generators now pass the explicit validated history_months.",
+      "purchase-corrected-and-http.log": "Both HTTP fixtures expected 201 from the existing posting route, whose actual success contract is 200. Assertions corrected without changing the route."
+    },
+    "remaining": "Vehicle acquisition and inventory/COGS; purchase credits and partial returns/cancellations; invoice-creation and other module UI; Automation/Analytics histories; independent natural/social/empathy/voice acceptance; source freshness and forecasts; full encrypted default load and actual browser/phone/HTTPS/download delivery. Priority demos first; preserved Run 2 afterwards."
   }
 }

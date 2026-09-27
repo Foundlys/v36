@@ -22,14 +22,15 @@ function guardDomain(service, owner, resolverProvider) {
         const ctx = args[0], actor = args[1];
         const id = owner === 'platform' ? PLATFORM_METHODS[property] : owner;
         if (id && ctx?.tenant_id && ctx?.dealer_id && actor && resolverProvider().profile(ctx)) {
-          const operation = methodOperation(property);
+          const invoiceAction=owner==='finance'&&['previewInvoiceAction','executeInvoiceAction','recoverInvoiceAction','inspectInvoiceAction','rememberInvoiceAction','listInvoiceActionConfirmations','acknowledgeInvoiceAction'].includes(property);
+          const contract=invoiceAction?require('./finance-invoice-actions').contract(args[2]?.operation):null;
+          const operation = invoiceAction&&property!=='previewInvoiceAction' ? contract.operation_mode||'write' : methodOperation(property);
           resolverProvider().assertModule(ctx, actor, id, operation);
           const entity=typeof args[2]==='string'?args[2]:null;
           const entityCapability=entity?routeCapability(`/api/${id}/${entity}`,id):null;
           if(entityCapability&&operation!=='export')resolverProvider().assertCapability(ctx,actor,entityCapability,operation);
           for(const capability of METHOD_CAPABILITIES[id]?.[property]||[])resolverProvider().assertCapability(ctx,actor,capability,operation);
-          if(owner==='finance'&&['previewInvoiceAction','executeInvoiceAction','recoverInvoiceAction','inspectInvoiceAction','rememberInvoiceAction','listInvoiceActionConfirmations','acknowledgeInvoiceAction'].includes(property)){
-            const contract=require('./finance-invoice-actions').contract(args[2]?.operation);
+          if(invoiceAction){
             for(const capability of contract.capabilities)resolverProvider().assertCapability(ctx,actor,capability,contract.capability_modes?.[capability]||operation);
           }
           if(property==='runAutomation'&&args[4]?.approval||['previewAutomationApproval','recoverAutomationApprovalRequest'].includes(property))resolverProvider().assertCapability(ctx,actor,'automation:approvals','approve');

@@ -23,3 +23,8 @@ CI 277 passed preceding publication `c83a7da08e415b499e7062a66a42484e46e368e3` w
 ## Remaining sequence
 
 Next: native purchase/expense approval and history, keeping explicit current authority, source-bound confirmation and recovery. Partial credits and return/cancellation financial chains, COGS, other module controls and Automation/Analytics histories remain open. Independent natural/social/empathy/voice quality, source freshness and forecasts/valuation, full encrypted default-load performance and actual reachable HTTPS/install/download/device acceptance remain separate. Both complete priority demos stay ahead of the preserved remainder of Run 2. No finished demo or broad acceptance promotion is claimed.
+
+
+## Purchase approval and operating-expense history — 9d98b8e
+
+See [DEMO_PURCHASE_HISTORY.md](DEMO_PURCHASE_HISTORY.md). Both priority packs now have separate native operating expenses, source-bound approval, payable postings and internal outgoing payments. Six Finance operations have native/structured ZERO controls. Exact source changes invalidate approval before posting; approve-only owners do not gain write/post authority. Frozen 9d98b8e/tree 39017aa passes 19 repeated full-graph cases, 14 corpus cases and 15 native scripts. CI 278 PASS: 1945 ZERO/14 corpus op exact tree a542020; publicatie en checkout-merge zijn gecontroleerd. Its own newer full CI follows publication. Vehicle acquisition/COGS, purchase credits, partial corrections, invoice creation and other module UI, independent model/social/voice and real browser/device/HTTPS/download acceptance remain open. Complete Automotive and E-commerce demos still precede the remaining Run 2.

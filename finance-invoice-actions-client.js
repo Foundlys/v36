@@ -1,6 +1,6 @@
 'use strict';
 (function(root){
- const OPERATIONS=['INVOICE_POST','PAYMENT_RECORD','CREDIT_NOTE_CREATE','CREDIT_ALLOCATE','CREDIT_REFUND_RECORD'];
+ const OPERATIONS=['INVOICE_POST','INVOICE_APPROVE','PAYMENT_RECORD','CREDIT_NOTE_CREATE','CREDIT_ALLOCATE','CREDIT_REFUND_RECORD'];
  const clone=value=>JSON.parse(JSON.stringify(value));
  const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
  const same=(a,b)=>JSON.stringify(canonical(a))===JSON.stringify(canonical(b));
@@ -16,6 +16,7 @@
   const el=(tag,value)=>{const node=document.createElement(tag);if(value!==undefined)write(node,value);return node;};
   const live=read=>Object.freeze({toString:read}),money=(amount,currency)=>live(()=>Number.isSafeInteger(amount)&&/^[A-Z]{3}$/.test(currency)?i18n.currencyCents(amount,currency):i18n.t('common.unknown'));
   const statusText=status=>['DRAFT','POSTED','PARTIALLY_PAID','PAID','OVERDUE','SETTLED','PARTIALLY_SETTLED'].includes(status)?copy('status_'+status.toLowerCase()):i18n.message('common.unknown');
+  const documentStatus=row=>row.kind==='PURCHASE'?copy('purchase_status',{status:statusText(row.status),approval:copy(row.approval_status==='APPROVED'?'approval_approved':'approval_pending')}):statusText(row.status);
   const box=el('section'),fields=el('div'),buttons=el('div'),notice=el('output'),reviewBox=el('div'),resultBox=el('div'),pendingBox=el('div');
   box.className='finance-invoice-actions';fields.className='finance-action-fields';buttons.className='finance-action-buttons';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');
   let busy=false,initialized=false,serial=0,dirty=false,review=null,pending=null,records=[],cursor=0,next=null,retained=[];
@@ -56,7 +57,7 @@
   function ensureEditable(){if(!initialized)throw error('load_first');if(pending)throw error('recover_first');}
   function values(){
    const invoice=source();if(!invoice)throw error('choose_document');const op=operation.value;
-   if(op==='INVOICE_POST')return{invoice_id:invoice.id};
+   if(['INVOICE_APPROVE','INVOICE_POST'].includes(op))return{invoice_id:invoice.id};
    if(op==='CREDIT_NOTE_CREATE'){
     if(invoice.kind!=='SALES'||!number.value.trim()||!date.value||!supplyDate.value||!dueDate.value)throw error('credit_fields');
     return{invoice_id:invoice.id,invoice_number:number.value.trim(),invoice_date:date.value,supply_date:supplyDate.value,due_date:dueDate.value};
@@ -79,15 +80,15 @@
    resultBox.replaceChildren(el('h4',copy('result')));
    if(data.state==='NOT_APPLIED'){resultBox.append(el('p',copy('not_applied')));return;}
    const original=data.original_result.invoice,current=data.current_invoice;
-   for(const [label,row]of [['original',original],['current',current]])resultBox.append(el('p',copy('result_row',{label:copy(label),number:row.invoice_number,status:statusText(row.status),amount:money(row.gross_cents,row.currency),open:money(row.outstanding_cents,row.currency)})));
-   if(data.current_result.related_invoice){const row=data.current_result.related_invoice;resultBox.append(el('p',copy('result_row',{label:copy('related'),number:row.invoice_number,status:statusText(row.status),amount:money(row.gross_cents,row.currency),open:money(row.outstanding_cents,row.currency)})));}
+   for(const [label,row]of [['original',original],['current',current]])resultBox.append(el('p',copy('result_row',{label:copy(label),number:row.invoice_number,status:documentStatus(row),amount:money(row.gross_cents,row.currency),open:money(row.outstanding_cents,row.currency)})));
+   if(data.current_result.related_invoice){const row=data.current_result.related_invoice;resultBox.append(el('p',copy('result_row',{label:copy('related'),number:row.invoice_number,status:documentStatus(row),amount:money(row.gross_cents,row.currency),open:money(row.outstanding_cents,row.currency)})));}
    resultBox.append(el('p',copy('internal_only')));
   }
   async function listInvoices(at=0){
    const atSerial=serial,data=await request('/api/finance/records/invoices?limit=50&cursor='+at);if(!active()||atSerial!==serial)return;
    if(!data||!Array.isArray(data.items)||!Number.isSafeInteger(data.total)||data.items.length>50)throw error('invalid_result');
    records=data.items;cursor=at;next=data.next_cursor;documentSelect.replaceChildren(choose());documentSelect.value='';
-   for(const row of records){const option=el('option',copy('document_option',{number:row.invoice_number,entity:row.kind==='PURCHASE'?row.customer_name:row.supplier_name,party:row.kind==='PURCHASE'?row.supplier_name:row.customer_name,status:statusText(row.status),amount:money(row.gross_cents,row.currency)}));option.value=row.id;documentSelect.append(option);}
+   for(const row of records){const option=el('option',copy('document_option',{number:row.invoice_number,entity:row.kind==='PURCHASE'?row.customer_name:row.supplier_name,party:row.kind==='PURCHASE'?row.supplier_name:row.customer_name,status:documentStatus(row),amount:money(row.gross_cents,row.currency)}));option.value=row.id;documentSelect.append(option);}
    write(notice,copy('page',{start:i18n.number(data.items.length?cursor+1:0),end:i18n.number(cursor+data.items.length),total:i18n.number(data.total)}));
   }
   function renderPending(){
@@ -124,8 +125,13 @@
    const data=await request('/api/finance/invoice-actions/preview',{method:'POST',body:JSON.stringify({operation:op,input})});if(!active()||at!==serial)return;
    if(data?.operation!==op||typeof data.ready!=='boolean'||!Array.isArray(data.blockers)||!/^[a-f0-9]{64}$/.test(data.source_hash||'')||data.financial_posting_performed!==false||data.external_payment_performed!==false)throw error('invalid_result');
    review={...data,input:clone(input),operation:op};reviewBox.replaceChildren(el('h4',copy('review')),el('p',copy(data.ready?'ready':'blocked')));
-   const blockerKey=code=>/PERIOD/.test(code)?'block_period':/CURRENCY/.test(code)?'block_currency':/ACCOUNT_MAPPING/.test(code)?'block_account':/REFUND_EXCEEDS_RECORDED_RECEIPTS/.test(code)?'block_receipt':/NUMBER_EXISTS|FULL_CREDIT_EXCEEDS/.test(code)?'block_duplicate':/AMOUNT|BALANCE|TOTALS/.test(code)?'block_amount':'block_source';
+   const blockerKey=code=>/PURCHASE_NOT_APPROVED/.test(code)?'block_approval':/PERIOD/.test(code)?'block_period':/CURRENCY/.test(code)?'block_currency':/ACCOUNT_MAPPING/.test(code)?'block_account':/REFUND_EXCEEDS_RECORDED_RECEIPTS/.test(code)?'block_receipt':/NUMBER_EXISTS|FULL_CREDIT_EXCEEDS/.test(code)?'block_duplicate':/AMOUNT|BALANCE|TOTALS/.test(code)?'block_amount':'block_source';
    for(const key of new Set(data.blockers.map(blockerKey)))reviewBox.append(el('p',copy(key)));
+   if(op==='INVOICE_APPROVE'){
+    if(data.summary?.invoice_number)reviewBox.append(el('p',copy('review_document',{number:data.summary.invoice_number})));
+    if(data.summary?.supplier_name)reviewBox.append(el('p',copy('review_supplier',{supplier:data.summary.supplier_name})));
+    for(const line of data.summary?.lines||[])reviewBox.append(el('p',copy('review_line',{description:line.description,quantity:live(()=>i18n.number(line.quantity)),unit:money(line.unit_price_cents,data.summary.currency),net:money(line.net_cents,data.summary.currency),tax:live(()=>i18n.number(line.vat_rate)),gross:money(line.gross_cents,data.summary.currency)})));
+   }
    if(Number.isSafeInteger(data.summary?.amount_cents))reviewBox.append(el('p',copy('review_amount',{amount:money(data.summary.amount_cents,data.summary.currency)})));
    if(data.summary?.date)reviewBox.append(el('p',copy('review_date',{date:live(()=>i18n.date(data.summary.date,{dateStyle:'medium'}))})));
    write(notice,copy(data.ready?'ready':'blocked'));

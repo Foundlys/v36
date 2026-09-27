@@ -2,6 +2,14 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {create,act}=require('../zero-evaluation/finance-action-client-fixture'),{locales}=require('../foundly-locales');
 const row=(f,id)=>f.native.rows('invoices').find(r=>r.id===id),root='/api/finance/invoice-actions/';
+test('approve-only review exposes the exact supplier and every invoice line in all locales before separate confirmation',async()=>{
+ const {fixture,input}=require('../zero-evaluation/finance-mutation-fixture'),native=fixture(),draft=input(native);draft.kind='PURCHASE';draft.lines[0].description='Reviewed service <img>';
+ draft.lines.push({...draft.lines[0],description:'Second reviewed service',quantity:2,unit_price_cents:550});const id=native.core.createInvoice(native.ctx,native.actor,draft).invoice.id;native.actor.roles=['APPROVER'];
+ const f=create({native,operations:['INVOICE_APPROVE']});await f.box.ready;assert.ok(f.field('document').textContent.includes('approval required'));await f.set('document',id);await f.button('preview').fire('click');
+ assert.ok(f.box.textContent.includes(draft.supplier_name));assert.ok(f.box.textContent.includes('Reviewed service <img>'));assert.ok(f.box.textContent.includes('Second reviewed service'));assert.ok(!f.box.all().some(n=>n.tag==='img'));assert.equal(row(f,id).approval_status,'PENDING');
+ await f.confirm();const calls=f.calls.length;for(const locale of locales){f.context.FoundlyI18n.setLocale(locale);assert.equal(f.calls.length,calls);assert.equal(f.context.FoundlyI18n.missingKeys().length,0);assert.ok(f.box.textContent.includes(f.context.FoundlyI18n.currencyCents(1331,'EUR')));assert.equal(f.field('confirm').checked,true);}
+ await f.button('submit').fire('click');assert.equal(row(f,id).approval_status,'APPROVED');assert.equal(native.rows('journal_entries').length,0);assert.equal(native.rows('payments').length,0);assert.equal(f.box.canLeave(),true);
+});
 test('the actual Finance controller executes posting, receipts, full credit, allocation and refund through distinct reviewed confirmations',async()=>{
  const f=create();await f.box.ready;const id=f.native.rows('invoices')[0].id;
  await f.button('submit').fire('click');assert.equal(f.native.rows('journal_entries').length,0);

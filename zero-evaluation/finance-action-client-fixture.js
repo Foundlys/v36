@@ -16,7 +16,7 @@ function create(options={}){
   return clone(result);
  };
  if(!options.native)native.core.createInvoice(native.ctx,native.actor,{...input(native),invoice_number:'SOURCE <img> 001'});
- const box=f.context.FoundlyFinanceInvoiceActions.create({document:f.context.document,request,isActive:()=>active,operations:f.context.FoundlyFinanceInvoiceActions.OPERATIONS});f.nodes.actions=box;
+ const box=f.context.FoundlyFinanceInvoiceActions.create({document:f.context.document,request,isActive:()=>active,operations:options.operations||f.context.FoundlyFinanceInvoiceActions.OPERATIONS});f.nodes.actions=box;
  return{...f,native,box,calls,request,field:key=>box.all().find(n=>n.getAttribute('data-finance-field')===key),button:key=>box.all().find(n=>n.getAttribute('data-finance-action')===key),async set(key,value){const node=this.field(key);node.value=value;await node.fire(['operation','document'].includes(key)?'change':'input');},async confirm(){this.field('reason').value='Explicit reviewed source';await this.field('reason').fire('input');this.field('confirm').checked=true;await this.field('confirm').fire('change');},lose(route){loss=route;},detach(){active=false;box.isConnected=false;},hold(route){let release,start;const promise=new Promise(r=>release=r),started=new Promise(r=>start=r);hold={route,promise,started:start};release.started=started;return release;}};
 }
 async function act(f,operation,id,fields={}){

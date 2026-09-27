@@ -1,0 +1,24 @@
+{
+  "run_number": 278,
+  "run_id": 36308619875,
+  "job_id": 108590065606,
+  "conclusion": "success",
+  "run_started_at": "2026-09-27T09:12:17Z",
+  "updated_at": "2026-09-27T09:30:47Z",
+  "published_head": "cf280732a55c0d8f10c34c65f6298273055af68b",
+  "published_tree": "a54202075b048b718c988781db5314e8b5c562d7",
+  "checkout_merge": "ff05a1324e6fa1f52e3e4511ddb55a1e1f4e1129",
+  "merge_tree": "a54202075b048b718c988781db5314e8b5c562d7",
+  "merge_parents": [
+    "e8142578eb2185a915c37d895c567937f20a9970",
+    "cf280732a55c0d8f10c34c65f6298273055af68b"
+  ],
+  "published_parent": "c83a7da08e415b499e7062a66a42484e46e368e3",
+  "zero_pass": 1945,
+  "corpus_pass": 14,
+  "log": "ci278.raw.log",
+  "verified_via": "Actual completed workflow run, full job log, published Git commit and checkout merge Git commit; equal exact trees and expected PR parent",
+  "raw_bytes": 912543,
+  "raw_sha256": "e245c50a42793e53903fdcd4a382820ae5f9e9f77888917052de61a3597963d6",
+  "archive": "docs/run2/evidence/20260927-demo-purchase-history/ci278.raw.log.gz"
+}

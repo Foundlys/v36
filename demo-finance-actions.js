@@ -16,7 +16,7 @@ function mutableDependency(node,ref){
   // A committed native action can change precisely its invoice or order while
   // the demo cursor is still old. Its retained original Finance request proves
   // that effect; all other native dependencies still require their exact hash.
-  const operation=node.input.operation,fields=operation==='COMMERCE_INVOICE_CREATE'?['order_id']:['INVOICE_POST','PAYMENT_RECORD'].includes(operation)?['invoice_id']:operation==='CREDIT_ALLOCATE'?['credit_note_id','invoice_id']:operation==='CREDIT_REFUND_RECORD'?['credit_note_id']:[];
+  const operation=node.input.operation,fields=operation==='COMMERCE_INVOICE_CREATE'?['order_id']:['INVOICE_APPROVE','INVOICE_POST','PAYMENT_RECORD'].includes(operation)?['invoice_id']:operation==='CREDIT_ALLOCATE'?['credit_note_id','invoice_id']:operation==='CREDIT_REFUND_RECORD'?['credit_note_id']:[];
   return fields.some(field=>node.input.values[field]?.$ref===ref);
 }
 function execute(engine,ctx,actor,row,node,input,key,prior){

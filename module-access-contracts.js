@@ -25,8 +25,9 @@ function methodOperation(method){return String(method).startsWith('export')?'exp
 // Legacy provider routes must enforce the same capability as native workspaces.
 // Reporting POSTs are reads; an internal cache is not user mutation authority.
 const PROVIDER_ROUTES=[
-  [/^\/api\/finance\/invoice-actions\/preview$/, 'finance:invoices','read'],
-  [/^\/api\/finance\/invoice-actions\/(?:execute|recover)$/, 'finance:invoices','write'],
+  // Dispatch admits readers; the typed handler rechecks the current command's
+  // write or approve authority after reading the body and before every effect.
+  [/^\/api\/finance\/invoice-actions\/(?:preview|execute|recover|confirmations|acknowledge)$/, 'finance:invoices','read'],
   [/^\/api\/communication\/mailboxes\/recover$/, 'communication:inbox','write'],
   [/^\/api\/procurement\/clarification-requests\/recover$/, 'procurement:sourcing','write'],
   [/^\/api\/procurement\/economic-requests\/recover$/, 'procurement:opportunities','write'],
