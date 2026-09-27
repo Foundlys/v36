@@ -16,4 +16,6 @@ First frozen source `cab6ce9ef89f5d2ff5d9da4775cd75fe6bc9a28f`, tree `7802058f11
 
 ## Still open; no demo acceptance promotion
 
+Frozen repeat source **10d652e28b3f9feec32043cff2bd12e3ab861998**, tree **61c5d0478fb85c77dcf10309e7476837ae079afb**: **174/174 targeted**, **14/14 corpus**, and **13/13 native scripts PASS**. Tracked source diff remained empty throughout. Runtime: Windows, Node v24.19.0; CI independently uses Node 20/Linux. Full logs, checksums and command exits are retained in `evidence/20260927-desktop-partial-credit/portable-repeat/results.json`. This is not yet full current-head CI evidence.
+
 This is a bounded increment: quantities within one source line cannot yet be split, and a financial credit is not yet bound to an individual physical-return event. Purchase credits, cancellations and further correction chains remain open, alongside vehicle acquisition/inventory/COGS, remaining module interfaces/histories, natural/social/empathy/voice quality, source freshness/forecasts, full encrypted-load/performance, browser/accessibility/device acceptance and HTTPS/download/installable delivery. Both complete priority demos remain ahead of the preserved remainder of Run 2. All 125 acceptance verdicts remain unchanged.

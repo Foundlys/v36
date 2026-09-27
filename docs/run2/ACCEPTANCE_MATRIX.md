@@ -1,5 +1,7 @@
 # Run 2 acceptance matrix
 
+Current desktop implementation checkpoint: **10d652e28b3f9feec32043cff2bd12e3ab861998**, tree **61c5d0478fb85c77dcf10309e7476837ae079afb**. Source-bound selected-line partial credits now work through native Finance controls and structured ZERO. Frozen validation: **174 targeted / 14 corpus / 13 native scripts PASS**, with no tracked source changes during the run. The initial failed attempt is preserved. Both actual HTTP pack scenarios lose the committed response, restart encrypted state, recover one credit, post and record an internal refund separately, and deny recovery after authority revocation. See [DEMO_PARTIAL_CREDIT_LINES.md](DEMO_PARTIAL_CREDIT_LINES.md). Publication/full current-head CI still require verification. Next gap: quantities within a source line and explicit physical-return/financial-correction linkage; no complete partial-return chain or demo is accepted.
+
 ## Desktop continuation recovery — 27 September 2026
 
 Canonical draft PR #21 remains open on `Foundlys/v36`, `feature/run2-zero-intelligence`. Recovered local and remote HEAD: `06ed7c7f99d4f451df4a59c00780348699830d9c`, tree `b5d2f11d4a7e1d8f5e0976e2e942505790008415`. Full CI **282 PASS**, run `36317538665`, verified through GitHub after completion. This is publication evidence for the preceding Commerce-controls checkpoint, not demo acceptance.

@@ -1,0 +1,69 @@
+{
+  "recovered_head": "06ed7c7f99d4f451df4a59c00780348699830d9c",
+  "recovered_tree": "b5d2f11d4a7e1d8f5e0976e2e942505790008415",
+  "run_id": 36317538665,
+  "run_number": 282,
+  "result": {
+    "jobs": [
+      {
+        "id": 108614982135,
+        "name": "test",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 36317538665,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run npm install --ignore-scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run npm test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          }
+        ]
+      }
+    ]
+  },
+  "scope": "Preceding publication only; not partial-credit source acceptance"
+}
