@@ -11,6 +11,13 @@ function createBusinessDomainApi({domains,platform,context,principal,readBody,se
       if(['sales','procurement'].includes(id)&&parts.length===1&&parts[0]==='market-reference'&&req.method==='GET')return sendJson(res,200,{ok:true,...require('./market-reference').query(core,ctx,actor,Object.fromEntries(url.searchParams))});
       if(id==='sales'&&parts[0]==='commerce'){
         const commerce=require('./sales-commerce');
+        if(parts.length===2&&parts[1]==='confirmations'){
+          const confirmations=require('./commerce-action-confirmations');
+          if(req.method==='GET')return sendJson(res,200,confirmations.list(core,ctx,principal(),Object.fromEntries(url.searchParams)));
+          if(req.method==='POST'){const input=await readBody(req);return sendJson(res,200,confirmations.remember(core,ctx,principal(),input));}
+        }
+        if(req.method==='POST'&&parts.length===2&&parts[1]==='acknowledge'){const input=await readBody(req);return sendJson(res,200,require('./commerce-action-confirmations').acknowledge(core,ctx,principal(),input));}
+        if(req.method==='POST'&&parts.length===2&&parts[1]==='inspect'){const input=await readBody(req);return sendJson(res,200,{ok:true,...commerce.inspect(core,ctx,principal(),input)});}
         if(req.method==='GET'&&parts.length===2)return sendJson(res,200,{ok:true,...commerce.list(core,ctx,actor,parts[1],Object.fromEntries(url.searchParams))});
         if(req.method==='GET'&&parts.length===3)return sendJson(res,200,{ok:true,record:commerce.read(core,ctx,actor,parts[1],parts[2])});
         if(req.method==='POST'&&parts.length===2&&parts[1]==='recover'){const input=await readBody(req);return sendJson(res,200,{ok:true,...commerce.recover(core,ctx,principal(),input)});}

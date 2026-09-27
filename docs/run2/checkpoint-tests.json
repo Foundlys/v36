@@ -42498,7 +42498,30 @@
       "raw_sha256": "83660977bb5cc76a57734162942553c4937c11a36d52480ede743ca5b023ff9f",
       "archive": "docs/run2/evidence/20260927-demo-commerce-invoicing/ci280.raw.log.gz"
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_number": 281,
+      "run_id": 36313180353,
+      "job_id": 108602887971,
+      "conclusion": "success",
+      "run_started_at": "2026-09-27T10:38:27Z",
+      "updated_at": "2026-09-27T10:56:15Z",
+      "published_head": "ee7c72f41d4d3a18176bbbc9075ee1c092bd3fc8",
+      "published_tree": "c7d2f0616510a58f70fa3fffa73c234d27beeeae",
+      "checkout_merge": "a6ed0dd1546b2b913c431fe31481db4b4ce1a873",
+      "merge_tree": "c7d2f0616510a58f70fa3fffa73c234d27beeeae",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "ee7c72f41d4d3a18176bbbc9075ee1c092bd3fc8"
+      ],
+      "published_parent": "7b33393506c53d910970a855e92f51871f64721c",
+      "zero_pass": 1985,
+      "corpus_pass": 14,
+      "log": "ci281.raw.log",
+      "verified_via": "Completed workflow, complete log summaries, exact published and checkout merge Git trees and expected PR parent",
+      "raw_bytes": 930347,
+      "raw_sha256": "b5686bb621db8594f9f0d2fccc1b19a554ad7ce80543cda8af2b2552c359ca0d",
+      "archive": "docs/run2/evidence/20260927-demo-commerce-controls/ci281.raw.log.gz"
+    },
     "native_operation": "COMMERCE_INVOICE_CREATE",
     "source_page_size": 50,
     "explicit_crm_selection": true,
@@ -42507,6 +42530,217 @@
     "new_locale_keys": 24,
     "complete_demo_acceptance": false,
     "finished_demos": [],
-    "remaining": "Product/stock/order action UI and recovery; vehicle acquisition and stock/COGS; purchase credits and partial returns/corrections; other module action UI and Automation/Analytics histories; independent natural/social/empathy/voice quality, fresh public data and forecasts; default encrypted load and actual browser/phone/HTTPS/download delivery. Complete priority demos first, preserved Run 2 afterwards."
+    "remaining": "Product/stock/order action UI and recovery; vehicle acquisition and stock/COGS; purchase credits and partial returns/corrections; other module action UI and Automation/Analytics histories; independent natural/social/empathy/voice quality, fresh public data and forecasts; default encrypted load and actual browser/phone/HTTPS/download delivery. Complete priority demos first, preserved Run 2 afterwards.",
+    "own_published_ci_at_checkpoint_preparation": "PENDING_PUBLICATION"
+  },
+  "demo_commerce_controls_20260927": {
+    "recorded_at": "2026-09-27T11:58:31.931810+00:00",
+    "status": "NATIVE_ZERO_COMMERCE_CONTROLS_VERIFIED_NOT_COMPLETE_DEMO_ACCEPTANCE",
+    "source_commit": "c24b2061588a0d88fa18061b883cf71eead1616a",
+    "source_tree": "2d1debe584fdeaedcea48a4b7fb5e68d13505bb1",
+    "zero_tests": {
+      "tests": 261,
+      "pass": 261,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "FOCUSED_COMMERCE_FINANCE_DEMO_ZERO_LOCALIZATION_WITHOUT_UNCHANGED_DEFAULT_GRAPH_RERUN"
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 15,
+    "frozen_proof": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-frozen-results.json",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/business-domains-test-frozen.log.gz",
+        "raw_bytes": 212,
+        "raw_sha256": "8e7554f43cb11dae2b3e32cd02b434f17010b871273a55c01d1b096e6debe300",
+        "file_sha256": "618229970a94ffe2f2a8c3d6379d930ab5ea3eb4580c9b2d6512f7803b5a5305"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/business-workspaces-regression-test-frozen.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "file_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/capability-resolver-test-frozen.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "file_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/ci281.raw.log.gz",
+        "raw_bytes": 930347,
+        "raw_sha256": "b5686bb621db8594f9f0d2fccc1b19a554ad7ce80543cda8af2b2552c359ca0d",
+        "file_sha256": "ee9882f36c44114239fe9a5d79c7c9ea626838484838e4adac6d45070f028c5a"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-and-zero-frozen.log.gz",
+        "raw_bytes": 75187,
+        "raw_sha256": "4848a4ff7472b0ef0afe1b30d4dcbeba8b73edd8b99a01f09e9f56a6ccb487f4",
+        "file_sha256": "13795a7959c9e43ced8b13edf5913f163f9640ad326b591c7fd96cdf75100682"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-boundaries.log.gz",
+        "raw_bytes": 10872,
+        "raw_sha256": "fc17c1c39ed7310ae74777782f62d8888faff728bca35d8320cbccd679210430",
+        "file_sha256": "59da2751e2e16206dc622251a6364136172ecbca5cba395dcfecdfd791afbd55"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "6e6a4a2912fc333d41cb22645fb0a1a76f14fec3032c58c91c6ba84ac95407c2",
+        "file_sha256": "ad5b5741e6094aa09646104fc36415786fd3fda4f96a8fad314cd16ca545f4bf"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-http-asset-fix.log.gz",
+        "raw_bytes": 2186,
+        "raw_sha256": "c5cd831619cb216d33ea5f136e1ec0832da70923498d80bdf85f798040a4c9e4",
+        "file_sha256": "a4ccd5b02add2054f6321a99ccbece6d1514a9c82c1ffa008b759ea2be1a0851"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-http-corrected.log.gz",
+        "raw_bytes": 921,
+        "raw_sha256": "e55e659cd214f54ae21d68a29e072c567ead0023b73c04f9f9990f7403c078b2",
+        "file_sha256": "bb52aaecb0cf3b80ffa3eff091825786d20eda1c0429d73ae0484b1db76269cf"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-http-initial.log.gz",
+        "raw_bytes": 2320,
+        "raw_sha256": "f6fd7649fbc1c9a51bcf387c49bcc71a53c44ee6b715c3ffea3200421f209515",
+        "file_sha256": "1114ea6aa76dbf69182ac1644ffe5b1234d485f6c6a9f8f727df8226f35c9b69"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-controls-ui-initial.log.gz",
+        "raw_bytes": 2023,
+        "raw_sha256": "3b16952ca0b549899200a70239be4f97c3cc04707f48dbeabad6a97ce0736d43",
+        "file_sha256": "f079f54bbc108d4957115888563f7c2c1298750bcb5ecf2f047b1b15c2198822"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-retention-http-initial.log.gz",
+        "raw_bytes": 458,
+        "raw_sha256": "940f537209c9b9f89d6810b177a263430bd369e456b3184c4506d2b1d1130425",
+        "file_sha256": "c3b6fa724ec8f706f272b94ff6eaaeaf832ffec4a65cd6328e24c55038a2c577"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/commerce-retention-initial.log.gz",
+        "raw_bytes": 3252,
+        "raw_sha256": "9e962e9d34517500bcd2fe886ab4d51863657a8c860a6bcacec7fdbdb2786296",
+        "file_sha256": "05d15c43c052f89d1457b7e44b54a4a4c2226331a6e3beec7528ead142441e17"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/composition-api-frozen.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "file_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/composition-matrix-test-frozen.log.gz",
+        "raw_bytes": 4192,
+        "raw_sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+        "file_sha256": "a73e3fc80a908da7afc7e042ec3aadcbecf69ea734e0e085b227bcc1c66a5750"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/finance-loading-api-test-frozen.log.gz",
+        "raw_bytes": 165,
+        "raw_sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+        "file_sha256": "97781cd134ad426dacffa28ffc71d1867c77e00f94f7abdb38d35238c33e5f18"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/finance-loading-test-frozen.log.gz",
+        "raw_bytes": 130,
+        "raw_sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+        "file_sha256": "07737a290583150aa2d63383d0379f52da304da41d44cd65a05b3f44e4bcb36e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/module-access-contracts-test-frozen.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "file_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/platform-api-frozen.log.gz",
+        "raw_bytes": 941,
+        "raw_sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+        "file_sha256": "fecb7bbb8dfa9a3302feb7acad1c470f6ee90fd77f76b0f5f2db751d40e31749"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/platform-core-frozen.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "file_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/production-security-test-frozen.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "file_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/sales-zero-api-test-frozen.log.gz",
+        "raw_bytes": 345,
+        "raw_sha256": "d551c9b998aaa85dd12d5aa3782fb88fa1168978b7ea443e7a7f18c0898121c4",
+        "file_sha256": "29a4cf001812a516108b8bbee45df329eaeb1f3bf3b17e3f4fc2723c88c25940"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/sales-zero-client-test-frozen.log.gz",
+        "raw_bytes": 354,
+        "raw_sha256": "7c5139cf8be9ca4c7db14711dacf1c94cc0defdb0af11534575ac37e25b6ba60",
+        "file_sha256": "e9f72903ac72412fb4ff986668c5f59201a3c0829a81a5c8dddfe1a1c207bcda"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/sales-zero-test-frozen.log.gz",
+        "raw_bytes": 374,
+        "raw_sha256": "1abcf20c802f54cac9ebe5069b3b1013f5e73ddcfbab875bb24a1b4c1f8adc9f",
+        "file_sha256": "d8e7e3876de2c28178d0145b2fd6e0e72e914102cec791393b9f70680c3e62c8"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-commerce-controls/static-response-api-test-frozen.log.gz",
+        "raw_bytes": 168,
+        "raw_sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+        "file_sha256": "f0a4aea6dc0047293e10020daa0435933cb24ec07970c5ffa1110b891420dc1b"
+      }
+    ],
+    "preceding_published_ci": {
+      "run_number": 281,
+      "run_id": 36313180353,
+      "job_id": 108602887971,
+      "conclusion": "success",
+      "run_started_at": "2026-09-27T10:38:27Z",
+      "updated_at": "2026-09-27T10:56:15Z",
+      "published_head": "ee7c72f41d4d3a18176bbbc9075ee1c092bd3fc8",
+      "published_tree": "c7d2f0616510a58f70fa3fffa73c234d27beeeae",
+      "checkout_merge": "a6ed0dd1546b2b913c431fe31481db4b4ce1a873",
+      "merge_tree": "c7d2f0616510a58f70fa3fffa73c234d27beeeae",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "ee7c72f41d4d3a18176bbbc9075ee1c092bd3fc8"
+      ],
+      "published_parent": "7b33393506c53d910970a855e92f51871f64721c",
+      "zero_pass": 1985,
+      "corpus_pass": 14,
+      "log": "ci281.raw.log",
+      "verified_via": "Completed workflow, complete log summaries, exact published and checkout merge Git trees and expected PR parent",
+      "raw_bytes": 930347,
+      "raw_sha256": "b5686bb621db8594f9f0d2fccc1b19a554ad7ce80543cda8af2b2552c359ca0d",
+      "archive": "docs/run2/evidence/20260927-demo-commerce-controls/ci281.raw.log.gz"
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "native_operations": [
+      "PRODUCT_SAVE",
+      "STOCK_RECEIVE",
+      "ORDER_RESERVE",
+      "ORDER_CANCEL",
+      "ORDER_FULFILL",
+      "ORDER_RETURN"
+    ],
+    "source_page_size": 50,
+    "ui_locales": 8,
+    "new_locale_keys": 67,
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "remaining": "Vehicle acquisition and stock/COGS; purchase credits and financial partial-return/correction chains; other module action UI and Automation/Analytics histories; fresh public data, demand/value/revenue forecasts; independent natural/social/empathy/voice quality; full encrypted default-load measurements; real browser, accessibility, iPhone/Android/desktop installation, reachable HTTPS and runnable downloads. Complete priority demos before preserved remaining Run 2.",
+    "resume_at": "Publish exact tested checkpoint and obtain own CI; next native financial partial-return/correction chain, preserving completed commerce controls and invoice integration."
   }
 }

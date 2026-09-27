@@ -290,3 +290,16 @@ tbody tr:hover td { background: rgba(54, 169, 211, .03); }
 .workflow-editor [hidden] { display: none; }
 
 .sales-pipeline-board{display:flex;gap:1rem;max-width:100%;overflow-x:auto;align-items:flex-start}.sales-pipeline-stage{flex:1 0 240px;min-width:0;max-width:340px;overflow-wrap:anywhere}.sales-pipeline-stage select{max-width:100%}
+
+/* Native product, inventory and order controls. */
+.commerce-action-controls { min-width: 0; display: grid; gap: 1rem; }
+.commerce-action-controls .finance-action-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+.commerce-action-controls label { display: grid; align-content: start; gap: .45rem; min-width: 0; }
+.commerce-action-controls [hidden] { display: none !important; }
+.commerce-action-controls input, .commerce-action-controls select { width: 100%; max-width: 100%; min-width: 0; min-height: 44px; box-sizing: border-box; }
+.commerce-action-controls input[type="checkbox"] { width: 24px; min-height: 24px; margin: .6rem; }
+.commerce-action-controls .finance-action-buttons { display: flex; flex-wrap: wrap; gap: .65rem; }
+.commerce-action-controls button { min-height: 44px; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.commerce-action-controls p, .commerce-action-controls output { overflow-wrap: anywhere; }
+.commerce-line-list { grid-column: 1 / -1; min-width: 0; display: grid; gap: .75rem; }
+.commerce-line-list fieldset { min-width: 0; margin: 0; padding: 1rem; border: 1px solid currentColor; border-radius: .5rem; }

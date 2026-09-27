@@ -168,7 +168,7 @@ function capacity(rows, entry) {
 }
 function receipt(domain, ctx, actor, entry) {
   if (entry.tenant_id !== ctx.tenant_id || entry.dealer_id !== ctx.dealer_id || entry.actor_id !== actor.id || entry.version !== 1) fail('commerce_receipt_invalid', 'De eerdere aanvraag kan niet worden geverifieerd', 409);
-  if (entry.state === 'ABANDONED') return {state: 'NOT_APPLIED', request_id: entry.key, request_fingerprint: entry.fingerprint, result_snapshot: null, record: null};
+  if (entry.state === 'ABANDONED') return {state: 'NOT_APPLIED', request_id: entry.key, request_fingerprint: entry.fingerprint, result_snapshot: null, record: null, external_dispatch: false, payment_verified: false};
   if (entry.state !== 'APPLIED' || !Array.isArray(entry.effects) || !entry.effects.length || entry.effects.length > 102) fail('commerce_receipt_invalid', 'De eerdere aanvraag kan niet worden geverifieerd', 409);
   const effects = entry.effects.map(effect => {
     if (!ENTITIES.includes(effect.entity) || hash(effect.snapshot) !== effect.sha256 || effect.snapshot.id !== effect.id || effect.snapshot.revision !== effect.revision || effect.snapshot.owner_id !== effect.owner_id || effect.snapshot.owned_entity !== effect.entity) fail('commerce_receipt_invalid', 'Het eerdere resultaat kan niet worden geverifieerd', 409);
@@ -211,4 +211,13 @@ function recover(domain, ctx, actor, input) {
   capacity(rows, entry);
   return mutate(domain, ctx, () => { rows.push(entry); domain.adapter.audit(ctx, actor, 'COMMERCE_REQUEST_ABANDONED', 'sales', null, {request_id: input.request_id}); return receipt(domain, ctx, actor, entry); });
 }
-module.exports = {ENTITIES, OPERATIONS, ACTIONS, scope, read, list, readable, validate, execute, recover, hash};
+function inspect(domain, ctx, actor, input) {
+  scope(domain, ctx, actor, 'write');
+  if (!keys(input, ['operation', 'input', 'request_id', 'confirm']) || input.confirm !== true || !text(input.request_id, 200)) fail('commerce_recovery_invalid', 'Kies de exacte eerdere handelsaanvraag');
+  validate(input.operation, input.input);
+  const prior = domain.adapter.bucket(ctx, OPERATIONS).find(row => row.actor_id === actor.id && row.key === input.request_id);
+  if (!prior) return {state: 'UNKNOWN', request_id: input.request_id, source_records_modified: false, external_dispatch: false, payment_verified: false};
+  if (prior.fingerprint !== hash({operation: input.operation, input: input.input, ...(prior.demo_provenance ? {demo_provenance: prior.demo_provenance} : {})})) fail('commerce_request_conflict', 'Deze aanvraag-ID hoort bij andere invoer', 409);
+  return {...receipt(domain, ctx, actor, prior), source_records_modified: false};
+}
+module.exports = {ENTITIES, OPERATIONS, ACTIONS, scope, read, list, readable, validate, execute, recover, inspect, hash};

@@ -79,3 +79,8 @@ See [DEMO_INVOICE_CREATION.md](DEMO_INVOICE_CREATION.md). Native and structured 
 ## Order and CRM invoice creation interface — a9c6148
 
 See [DEMO_COMMERCE_INVOICING.md](DEMO_COMMERCE_INVOICING.md). Native and structured ZERO now create a reviewed linked order invoice from actual CRM/customer/entity sources, with bounded source paging and locked order prices. Lost replies recover through encrypted restart and later payment; known nonexecution retains supported input. Source a9c6148/tree 3c6cd44 passes 240 focused cases, 14 corpus cases and 15 native scripts on a clean unchanged checkout. Preceding complete CI 280 passes exact a2b0dde with 1973 ZERO/14 corpus; newer own CI follows publication. Product/stock/order action UI, other modules/histories/corrections, independent model/social/voice quality and actual browser/device/HTTPS/download acceptance remain open. Priority demos still precede the remaining Run 2.
+
+
+## Commerce action controls — c24b206
+
+See [DEMO_COMMERCE_CONTROLS.md](DEMO_COMMERCE_CONTROLS.md). Six native/structured ZERO product, stock and order actions now have current-authority controls, explicit confirmation and encrypted pending recovery. Both actual HTTP page chains continue to native order billing/posting/internal payment. Frozen source c24b206/tree 2d1debe: 261 focused/14 corpus/15 native PASS. Prior full CI 281: 1985 ZERO/14 corpus on exact c7d2f06. Own publication/CI is next, followed by the financial partial-return/correction chain and remaining complete-demo requirements. No complete demo, live model/social/voice, browser/device or delivery acceptance is claimed.
