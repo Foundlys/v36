@@ -1,0 +1,15 @@
+'use strict';
+// Reproducible local evidence, using native contracts and isolated test servers.
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),zlib=require('node:zlib'),{spawnSync}=require('node:child_process');
+const root=path.resolve(__dirname,'../../../..');process.chdir(root);
+const git=(...args)=>{const r=spawnSync('git',args,{encoding:'utf8'});if(r.status!==0)throw Error(r.stderr);return r.stdout.trim();};
+const files=['finance-partial-credit','finance-partial-credit-client','finance-partial-credit-api','finance-credit-notes','finance-credit-settlements','finance-invoice-actions','finance-invoice-actions-client','finance-invoice-creation-client','finance-action-confirmations','finance-purchase-approval','finance-request-durability','finance-currency-integrity','commerce-finance-link','commerce-invoice-creation-client','finance-page-localization','localization','localization-authoring','demo-finance-transactions','demo-finance-foundation','demo-purchase-history'].map(name=>'zero/'+name+'.test.js');
+const commands=[['targeted',['--test','--test-reporter=tap','--test-concurrency=2',...files]],['corpus',['zero-evaluation/run.js']],...['platform-core-regression-test','platform-api-regression-test','business-workspaces-regression-test','finance-period-closing-test','finance-period-closing-api-test','finance-period-closing-client-test','finance-cash-scenarios-test','finance-cash-scenarios-api-test','finance-cash-scenarios-client-test','finance-loading-test','finance-loading-api-test','static-response-api-test','production-security-test'].map(name=>[name,[name+'.js']])];
+const report={source:git('rev-parse','HEAD'),tree:git('rev-parse','HEAD^{tree}'),started_at:new Date().toISOString(),node:process.version,platform:process.platform,before_status:git('status','--porcelain'),commands:[],acceptance:{complete_demo:false,real_browser:false,live_model:false,live_voice:false,physical_devices:false,bank_transfer:false}};
+for(const[name,args]of commands){
+ console.log('START '+name);const start=Date.now(),r=spawnSync(process.execPath,args,{encoding:'utf8',timeout:240000,maxBuffer:20*1024*1024}),log=Buffer.from((r.stdout||'')+(r.stderr||'')+(r.error?'\nRUNNER_ERROR '+r.error.message:'')),file=name+'.log.gz';
+ fs.writeFileSync(path.join(__dirname,file),zlib.gzipSync(log));
+ report.commands.push({name,command:['node',...args],exit_code:r.status,signal:r.signal,elapsed_ms:Date.now()-start,log:file,raw_sha256:crypto.createHash('sha256').update(log).digest('hex'),summary:log.toString().split(/\r?\n/).filter(s=>/^# (tests|pass|fail|cancelled|skipped|duration_ms)|"(status|passed|failed)"/.test(s))});
+ fs.writeFileSync(path.join(__dirname,'results.json'),JSON.stringify(report,null,2)+'\n');console.log('END '+name+' exit='+r.status+' elapsed_ms='+(Date.now()-start));
+}
+report.completed_at=new Date().toISOString();report.after_head=git('rev-parse','HEAD');report.tracked_changes=git('diff','--name-only');report.all_pass=report.commands.every(r=>r.exit_code===0);fs.writeFileSync(path.join(__dirname,'results.json'),JSON.stringify(report,null,2)+'\n');process.exitCode=report.all_pass?0:1;

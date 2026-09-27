@@ -25,7 +25,7 @@ async function fixture(overrides = {}) {
     FOUNDLY_ZERO_MODEL_REGISTRY:'', ...overrides};
   let child, logs = '';
   async function start() {
-    if(child?.exitCode===null)throw Error('Fixture is already running');
+    if(child?.exitCode===null&&child.signalCode===null)throw Error('Fixture is already running');
     base=null;logs='';
     child = spawn(process.execPath, ['--require',path.join(__dirname,'fixture-listening.js'),'server.js'], {cwd:root, env, stdio:['ignore','pipe','pipe','ipc']});
     child.on('message', message=>{if(message?.type==='zero-fixture-listening'&&Number.isInteger(message.port)&&message.port>0&&message.port<=65535)base=`http://127.0.0.1:${message.port}`;});
@@ -38,7 +38,7 @@ async function fixture(overrides = {}) {
     throw Error('Fixture startup timeout: ' + logs);
   }
   async function stop() {
-    if (child?.exitCode === null) { const exit = once(child, 'exit'); child.kill('SIGTERM'); await exit; }
+    if (child?.exitCode === null && child.signalCode === null) { const exit = once(child, 'exit'); child.kill('SIGTERM'); await exit; }
   }
   async function request(route, method = 'GET', body, cookie = null, headers = {}) {
     const response = await fetch(base + route, {method, redirect:'manual',

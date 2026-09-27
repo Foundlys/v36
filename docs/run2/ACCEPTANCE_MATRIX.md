@@ -1,5 +1,13 @@
 # Run 2 acceptance matrix
 
+## Desktop continuation recovery — 27 September 2026
+
+Canonical draft PR #21 remains open on `Foundlys/v36`, `feature/run2-zero-intelligence`. Recovered local and remote HEAD: `06ed7c7f99d4f451df4a59c00780348699830d9c`, tree `b5d2f11d4a7e1d8f5e0976e2e942505790008415`. Full CI **282 PASS**, run `36317538665`, verified through GitHub after completion. This is publication evidence for the preceding Commerce-controls checkpoint, not demo acceptance.
+
+The supplied desktop folder was an older source snapshot without `.git` or `docs/run2`; it is preserved untouched. A separate `run2-continuation` checkout of the existing feature branch was recovered alongside it. At recovery it had no staged/modified/untracked files, stashes, or unpublished commits, and was zero commits ahead/behind the remote branch. A bounded search of the current Foundly Documents area, Downloads, and Codex worktrees found no prior Git checkout. The former ChatGPT Work checkout is unavailable; its unpublished state is not claimed verified. The user explicitly authorized continuing from remote history and recoverable current-environment evidence without waiting for that old checkout. The attached `ACCEPTANCE_MATRIX.pdf` is saved ChatGPT HTML, preserved as historical context, not repository authority.
+
+Exact next implementation: source-bound **partial financial credit/correction and return chains**, retaining completed product/inventory/order/invoice controls. Continue targeted/native regression, exact source/tree evidence, same draft PR publication and full CI after each meaningful gap. Automotive and E-commerce remain **NOT ACCEPTED**; all 125 existing verdicts and all browser/device/voice/provider/performance/delivery requirements remain unchanged. Neither Run 2 nor either demo is restarted.
+
 Authority SHA-256: `370f8066897c20310c742c56dfb5fabd5aa5d934d4702884c31b152ced6263d9`. All detailed obligations in AUTHORITATIVE_CONTRACT.md remain binding. **IN PROGRESS — NOT ACCEPTED.**
 
 Bijgewerkt op 27 september 2026 (Europe/Amsterdam). Bestaande 125 eisen en afgeronde bewijzen zijn behouden. Geen globale percentages of extrapolatie uit testaantallen.

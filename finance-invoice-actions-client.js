@@ -19,7 +19,8 @@
   const documentStatus=row=>row.kind==='PURCHASE'?copy('purchase_status',{status:statusText(row.status),approval:copy(row.approval_status==='APPROVED'?'approval_approved':'approval_pending')}):statusText(row.status);
   const box=el(creating?'details':'section'),fields=el('div'),buttons=el('div'),notice=el('output'),reviewBox=el('div'),resultBox=el('div'),pendingBox=el('div');
   box.className='finance-invoice-actions';fields.className='finance-action-fields';buttons.className='finance-action-buttons';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');
-  let busy=false,initialized=false,serial=0,dirty=false,review=null,pending=null,records=[],cursor=0,next=null,retained=[];
+  let busy=false,initialized=false,serial=0,dirty=false,review=null,pending=null,records=[],cursor=0,next=null,retained=[],creditSelection=null,creditInputs=[];
+  const creditChoices=el('fieldset');creditChoices.hidden=true;
   const active=()=>box.isConnected&&isActive();
   const error=key=>Object.assign(Error(key),{localKey:key});
   function showError(value){if(!active())return;write(notice,copy(value.localKey||(pending?'uncertain':'failed')));}
@@ -94,6 +95,8 @@
    for(const [key,visible]of Object.entries({amount:monetary,date:monetary||credit,reference:monetary,number:credit,supply_date:credit,due_date:credit}))labels[key].hidden=!visible;
   }
   function invalidate(){serial++;review=null;confirm.checked=false;reviewBox.replaceChildren();dirty=true;visibility();controls();}
+  function clearCreditChoices(){creditSelection=null;creditInputs=[];creditChoices.replaceChildren();creditChoices.hidden=true;}
+  for(const node of [operation,documentSelect])node.addEventListener('change',clearCreditChoices);
   for(const node of [operation,documentSelect,amount,date,reference,number,supplyDate,dueDate])node.addEventListener(node.tagName==='SELECT'||[operation,documentSelect].includes(node)?'change':'input',invalidate);
   reason.addEventListener('input',()=>{confirm.checked=false;dirty=true;controls();});confirm.addEventListener('change',controls);
   const actions={};
@@ -104,6 +107,7 @@
   function controls(){
    const locked=busy||Boolean(pending)||!initialized;box.setAttribute('aria-busy',String(busy));
    for(const node of inputs)node.disabled=locked||!allowed.length;
+   for(const node of creditInputs)node.disabled=locked||!allowed.length;
    draft?.lock(locked||!allowed.length);
    if(actions.preview)actions.preview.disabled=locked||!operation.value||!source();
    if(actions.submit)actions.submit.disabled=locked||!review?.ready||!confirm.checked||!reason.value.trim();
@@ -118,7 +122,7 @@
    if(['INVOICE_APPROVE','INVOICE_POST'].includes(op))return{invoice_id:invoice.id};
    if(op==='CREDIT_NOTE_CREATE'){
     if(invoice.kind!=='SALES'||!number.value.trim()||!date.value||!supplyDate.value||!dueDate.value)throw error('credit_fields');
-    return{invoice_id:invoice.id,invoice_number:number.value.trim(),invoice_date:date.value,supply_date:supplyDate.value,due_date:dueDate.value};
+    return{invoice_id:invoice.id,invoice_number:number.value.trim(),invoice_date:date.value,supply_date:supplyDate.value,due_date:dueDate.value,...(creditSelection?{line_ids:clone(creditSelection)}:{})};
    }
    if(!date.value||!reference.value.trim())throw error('payment_fields');
    const common={amount_cents:cents(amount.value),currency:invoice.currency,date:date.value,reference:reference.value.trim()};
@@ -147,7 +151,7 @@
   async function listInvoices(at=0){
    const atSerial=serial,data=await request('/api/finance/records/'+(draft?'legal_entities':'invoices')+'?limit=50&cursor='+at);if(!active()||atSerial!==serial)return;
    if(!data||!Array.isArray(data.items)||!Number.isSafeInteger(data.total)||data.items.length>50)throw error('invalid_result');
-   records=data.items;cursor=at;next=data.next_cursor;const select=draft?draft.entity:documentSelect,placeholder=draft?el('option',copy('choose_entity')):choose();placeholder.value='';select.replaceChildren(placeholder);select.value='';
+   records=data.items;cursor=at;next=data.next_cursor;clearCreditChoices();const select=draft?draft.entity:documentSelect,placeholder=draft?el('option',copy('choose_entity')):choose();placeholder.value='';select.replaceChildren(placeholder);select.value='';
    for(const row of records){const option=el('option',draft?copy('entity_option',{name:row.name,currency:row.currency}):copy('document_option',{number:row.invoice_number,entity:row.kind==='PURCHASE'?row.customer_name:row.supplier_name,party:row.kind==='PURCHASE'?row.supplier_name:row.customer_name,status:documentStatus(row),amount:money(row.gross_cents,row.currency)}));option.value=row.id;select.append(option);}
    write(notice,copy(draft?'entity_page':'page',{start:i18n.number(data.items.length?cursor+1:0),end:i18n.number(cursor+data.items.length),total:i18n.number(data.total)}));
   }
@@ -179,7 +183,7 @@
    if(data.state==='COMMITTED'&&onComplete){let refreshed=false;try{refreshed=await onComplete(data);}catch{}if(!active())return;if(refreshed===false){write(notice,copy('saved_refresh_needed'));return;}}
    write(notice,copy(data.state==='NOT_APPLIED'?'not_applied':data.deduplicated?'recovered':'saved'));
   }
-  box.append(el(creating?'summary':'h3',copy(commerceCreation?'commerce_title':invoiceCreation?'create_title':'title')),el('p',copy(commerceCreation?'commerce_scope':invoiceCreation?'create_scope':'scope')),pendingBox,fields,buttons,notice,reviewBox,resultBox);
+  box.append(el(creating?'summary':'h3',copy(commerceCreation?'commerce_title':invoiceCreation?'create_title':'title')),el('p',copy(commerceCreation?'commerce_scope':invoiceCreation?'create_scope':'scope')),pendingBox,fields,creditChoices,buttons,notice,reviewBox,resultBox);
   button('previous',async()=>{ensureEditable();if(dirty&&!draft)throw error('clear_first');if(cursor>0){if(draft)invalidate();await listInvoices(Math.max(0,cursor-50));}});
   button('next',async()=>{ensureEditable();if(dirty&&!draft)throw error('clear_first');if(next!==null){if(draft)invalidate();await listInvoices(next);}});
   button('clear',async()=>{if(pending)throw error('recover_first');for(const node of [amount,date,reference,number,supplyDate,dueDate,reason])node.value='';draft?.clear();confirm.checked=false;review=null;reviewBox.replaceChildren();dirty=false;await load();});
@@ -187,6 +191,17 @@
    ensureEditable();const input=values(),op=operation.value,at=++serial;review=null;confirm.checked=false;
    const data=await request('/api/finance/invoice-actions/preview',{method:'POST',body:JSON.stringify({operation:op,input})});if(!active()||at!==serial)return;
    if(data?.operation!==op||typeof data.ready!=='boolean'||!Array.isArray(data.blockers)||!/^[a-f0-9]{64}$/.test(data.source_hash||'')||data.financial_posting_performed!==false||data.external_payment_performed!==false)throw error('invalid_result');
+   if(op==='CREDIT_NOTE_CREATE'){
+    const lines=data.summary?.source_lines;
+    if(data.summary?.original_invoice_id!==input.invoice_id||!Array.isArray(lines)||!lines.length||lines.length>500||lines.some(line=>typeof line.id!=='string'||line.invoice_id!==input.invoice_id||typeof line.already_credited!=='boolean')||new Set(lines.map(line=>line.id)).size!==lines.length)throw error('invalid_result');
+    creditChoices.replaceChildren(el('legend',copy('credit_lines')),el('p',copy('credit_lines_help')));creditChoices.hidden=false;creditInputs=[];
+    for(const line of lines){
+     const label=el('label'),node=el('input');node.type='checkbox';node.checked=!creditSelection||creditSelection.includes(line.id);node.setAttribute('data-finance-credit-line',line.id);
+     label.append(node,el('span',copy('review_line',{description:line.description,quantity:live(()=>i18n.number(line.quantity)),unit:money(line.unit_price_cents,data.summary.currency),net:money(line.net_cents,data.summary.currency),tax:live(()=>i18n.number(line.vat_rate)),gross:money(line.gross_cents,data.summary.currency)})));creditChoices.append(label);creditInputs.push(node);
+     if(line.already_credited)label.append(el('span',copy('credit_line_reserved')));
+     node.addEventListener('change',()=>{if(busy||pending||!active())return;creditSelection=creditInputs.filter(n=>n.checked).map(n=>n.getAttribute('data-finance-credit-line'));invalidate();});
+    }
+   }
    const prepared=op==='COMMERCE_INVOICE_CREATE'?data.prepared_invoice:input;
    if(op==='COMMERCE_INVOICE_CREATE'&&(!prepared||prepared.legal_entity_id!==input.legal_entity_id||prepared.kind!=='SALES'||prepared.commerce_source?.order_id!==input.order_id||prepared.commerce_source?.contact_id!==input.contact_id||prepared.invoice_number!==input.invoice_number||!Array.isArray(data.summary?.lines)||data.summary.lines.length<1||data.summary.lines.length>50))throw error('invalid_result');
    review={...data,input:clone(input),operation:op};reviewBox.replaceChildren(el('h4',copy('review')),el('p',copy(data.ready?'ready':'blocked')));
@@ -198,7 +213,7 @@
     for(const [key,value]of [['date',prepared.invoice_date],['supply_date',prepared.supply_date],['due_date',prepared.due_date]])reviewBox.append(el('p',copy('review_value',{label:copy(key),value:live(()=>i18n.date(value,{dateStyle:'medium'}))})));
     if(op==='COMMERCE_INVOICE_CREATE')reviewBox.append(el('p',copy('commerce_review',{order:input.order_id,order_revision:live(()=>i18n.number(prepared.commerce_source.order_revision)),contact:input.contact_id,contact_revision:live(()=>i18n.number(prepared.commerce_source.contact_revision))})));
    }
-   if(['INVOICE_APPROVE','INVOICE_CREATE','COMMERCE_INVOICE_CREATE'].includes(op)){
+   if(['INVOICE_APPROVE','INVOICE_CREATE','COMMERCE_INVOICE_CREATE','CREDIT_NOTE_CREATE'].includes(op)){
     if(data.summary?.invoice_number)reviewBox.append(el('p',copy('review_document',{number:data.summary.invoice_number})));
     if(data.summary?.supplier_name)reviewBox.append(el('p',copy('review_supplier',{supplier:data.summary.supplier_name})));
     for(const line of data.summary?.lines||[])reviewBox.append(el('p',copy('review_line',{description:line.description,quantity:live(()=>i18n.number(line.quantity)),unit:money(line.unit_price_cents,data.summary.currency),net:money(line.net_cents,data.summary.currency),tax:live(()=>i18n.number(line.vat_rate)),gross:money(line.gross_cents,data.summary.currency)})));
