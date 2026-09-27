@@ -23,14 +23,16 @@ test('Automotive and E-commerce enquiries target real CRM campaign nodes with a 
   assert.equal(f.domains.marketing.get(f.ctx,f.actor,'campaigns',campaign.marketing_campaign_id).title,campaign.name);
 });
 
-test('full default E-commerce graph passes actual native contracts and conserves inventory without inventing financial postings',()=>{
+test('full default E-commerce graph passes actual native contracts and conserves inventory with native financial history and exact invoice links',()=>{
   const f=fixture({industry:'ECOMMERCE',durable:false,options}),row=finish(f),manifest=E.build(options),binding=f.adapter.bucket(f.ctx,SCOPE)[0].bindings;
   assert.equal(row.status,'SEEDED');assert.equal(row.full_acceptance,false);assert.equal(commerce.list(f.domains.sales,f.ctx,f.actor,'commerce_products').total,120);assert.equal(commerce.list(f.domains.sales,f.ctx,f.actor,'commerce_orders').total,360);
   const stock=commerce.read(f.domains.sales,f.ctx,f.actor,'commerce_inventory',binding['product-0'].id),expected=manifest.scenarios.find(s=>s.id==='native-stock-conservation').expectations;
   for(const field of ['on_hand','reserved','quarantined','available'])assert.equal(stock[field],expected[field],field);
   const orders=f.domains.sales.bucket(f.ctx,'commerce_orders');assert.ok(orders.some(r=>r.status==='PARTIALLY_RETURNED'));assert.ok(orders.some(r=>r.status==='CANCELLED'));assert.ok(orders.some(r=>r.status==='RESERVED'));
-  assert.ok(orders.every(r=>r.provenance.classification==='SYNTHETIC_DEMO'&&r.financial_status==='UNPOSTED'&&!r.invoice_id&&!r.payment_verified&&!r.external_dispatch));
-  assert.equal(f.adapter.bucket(f.ctx,'finance:invoices').length,0);assert.equal(f.adapter.bucket(f.ctx,'communication:submissions').length,0);
+  assert.ok(orders.every(r=>r.provenance.classification==='SYNTHETIC_DEMO'&&!r.payment_verified&&!r.external_dispatch));
+  const linked=orders.filter(r=>r.invoice_id);assert.equal(linked.length,180);assert.ok(linked.every(r=>r.financial_status==='INVOICE_LINKED'));assert.ok(orders.filter(r=>!r.invoice_id).every(r=>r.financial_status==='UNPOSTED'));
+  const invoices=f.adapter.bucket(f.ctx,'finance:invoices');for(const order of linked){const invoice=invoices.find(r=>r.id===order.invoice_id);assert.equal(invoice.gross_cents,order.totals.gross_minor);assert.equal(invoice.commerce_source.order_id,order.id);assert.equal(invoice.commerce_source.contact_id,order.crm_contact_id);}
+  assert.equal(f.adapter.bucket(f.ctx,'finance:invoices').length,180);assert.equal(f.adapter.bucket(f.ctx,'finance:payments').length,108);assert.equal(f.adapter.bucket(f.ctx,'finance:journal_entries').length,252);assert.equal(f.adapter.bucket(f.ctx,'communication:submissions').length,0);
   assert.equal(f.crm.list(f.ctx,f.actor,'contacts').total,300);assert.equal(f.identities.list(f.ctx,f.actor).items.length,9);assert.ok(f.identities.list(f.ctx,f.actor).items.every(p=>p.status==='INVITED'));
   const movements=f.domains.sales.bucket(f.ctx,'commerce_movements');assert.ok(movements.every(r=>r.physical_verification==='SYNTHETIC_DEMO'));
 });

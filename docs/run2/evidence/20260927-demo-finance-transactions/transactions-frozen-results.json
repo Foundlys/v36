@@ -1,0 +1,113 @@
+{
+  "source": "4204035645920374334fc9988bca05419b4fd711",
+  "tree": "4daa6cb5f169b767b2de20ebfe1c8e36329bde51",
+  "before_status": "",
+  "started_at": "2026-09-27T07:39:52.135095+00:00",
+  "commands": [
+    {
+      "name": "transactions-and-zero",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=2",
+        "zero/demo-finance-transactions.test.js",
+        "zero/finance-invoice-actions.test.js",
+        "zero/commerce-finance-link.test.js",
+        "zero/demo-finance-foundation.test.js",
+        "zero/native-evidence.test.js",
+        "zero/native-evidence-api.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js",
+        "zero/cross-module-api.test.js",
+        "zero/conversation-context.test.js",
+        "zero/conversation-context-api.test.js",
+        "zero/capability-resolution-authority.test.js",
+        "zero/native-followup.test.js",
+        "zero/native-followup-api.test.js",
+        "zero/social-routing-api.test.js",
+        "zero/demo-manifest-validation.test.js",
+        "zero/demo-atomic-batch-api.test.js",
+        "zero/demo-session-api.test.js",
+        "zero/demo-controls.test.js",
+        "zero/core-state-transaction.test.js",
+        "zero/demo-universe-engine.test.js",
+        "zero/ecommerce-demo-universe.test.js",
+        "zero/ecommerce-demo-api.test.js",
+        "zero/demo-universe-pacing.test.js",
+        "zero/demo-universe-law.test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 189.592,
+      "log": "transactions-and-zero-frozen.log",
+      "bytes": 29972,
+      "sha256": "8fc9ca5306c84a6cdf40ab5de74f07e911c6c733f33bd4bfab02c85a2f4d8112",
+      "summary": {
+        "tests": 104,
+        "pass": 104,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "complete": true
+    },
+    {
+      "name": "transactions-corpus",
+      "command": [
+        "node",
+        "zero-evaluation/run.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.027,
+      "log": "transactions-corpus-frozen.log",
+      "bytes": 1066,
+      "sha256": "e8c376924f7cd24d81abfbc98c574a0d5901a6d9cd50ff4b96266dcd87049fa5",
+      "complete": true
+    },
+    {
+      "name": "platform-core",
+      "command": [
+        "node",
+        "platform-core-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.165,
+      "log": "platform-core-frozen.log",
+      "bytes": 1118,
+      "sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+      "complete": true
+    },
+    {
+      "name": "platform-api",
+      "command": [
+        "node",
+        "platform-api-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.07,
+      "log": "platform-api-frozen.log",
+      "bytes": 941,
+      "sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+      "complete": true
+    },
+    {
+      "name": "composition-api",
+      "command": [
+        "node",
+        "composition-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.624,
+      "log": "composition-api-frozen.log",
+      "bytes": 110,
+      "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+      "complete": true
+    }
+  ],
+  "full_zero_suite": "NOT_RUN_THIS_CHECKPOINT",
+  "provider_quality": "UNVERIFIED",
+  "after_status": "",
+  "completed_at": "2026-09-27T07:43:08.621657+00:00",
+  "all_pass": true
+}

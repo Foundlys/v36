@@ -14,6 +14,7 @@ const CONTRACTS=Object.freeze({
   'workflow.save':{module:'automation',entities:['workflows']},
   'finance.draft':{module:'finance',entities:['invoice_drafts']},
   'finance.create':{module:'finance',entities:['legal_entities','fiscal_periods','accounts']},
+  'finance.action':{module:'finance',entities:['invoices','payments']},
   'commerce.action':{module:'sales',entities:['commerce_products','commerce_inventory','commerce_orders']},
   'memory.create':{module:'knowledge',entities:['memories']},
   'identity.invite':{module:'identity',entities:['members']}
@@ -71,6 +72,11 @@ function validate(manifest){
       keys(n.input,['operation','values','reason']);
       const entities={PRODUCT_SAVE:'commerce_products',STOCK_RECEIVE:'commerce_inventory',ORDER_RESERVE:'commerce_orders',ORDER_CANCEL:'commerce_orders',ORDER_FULFILL:'commerce_orders',ORDER_RETURN:'commerce_orders'};
       if(entities[n.input.operation]!==n.entity||!object(n.input.values)||['confirm','reason'].some(k=>Object.hasOwn(n.input.values,k))||typeof n.input.reason!=='string'||!n.input.reason.startsWith(LABEL))fail('demo_commerce_action_invalid');
+    }
+    if(n.contract==='finance.action'){
+      keys(n.input,['operation','values','reason']);
+      const entities={INVOICE_CREATE:'invoices',COMMERCE_INVOICE_CREATE:'invoices',INVOICE_POST:'invoices',PAYMENT_RECORD:'payments'};
+      if(entities[n.input.operation]!==n.entity||!object(n.input.values)||typeof n.input.reason!=='string'||!n.input.reason.startsWith(LABEL)||n.input.reason.length>500||['confirm','reason','request_id','expected_source_hash'].some(k=>Object.hasOwn(n.input.values,k)))fail('demo_finance_action_invalid');
     }
     if(canonical(n.input).length>50000)fail('demo_input_capacity');
     if(n.contract==='workflow.save'&&(n.input.automatic!==false||n.input.approval_required!==true||n.input.trigger_type!=='custom_event'))fail('demo_workflow_must_require_explicit_execution');

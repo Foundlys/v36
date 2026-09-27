@@ -1,6 +1,6 @@
 'use strict';
 const L=require('./demo-universe-law'),Automotive=require('./automotive-demo-universe'),{scopedMutation}=require('./scoped-mutation'),{canManage}=require('./capability-resolver'),{ENTITY_CAPABILITIES}=require('./module-access-contracts');
-const SCOPE='demo:universes',AUDIT='demo:universe-audit',MANIFESTS='demo:manifests';
+const SCOPE='demo:universes',AUDIT='demo:universe-audit',MANIFESTS='demo:manifests',FinanceActions=require('./demo-finance-actions');
 const ADVANCE_WORK_BUDGET_MS=1000;
 const clone=value=>JSON.parse(JSON.stringify(value)),fail=(code,statusCode=422)=>{throw Object.assign(Error(code),{code,statusCode});};
 const keys=(v,names)=>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).some(k=>!names.includes(k)))fail('demo_request_invalid');};
@@ -8,6 +8,7 @@ function nativeRevision(node,record){
   // These native Finance configuration rows have no revision field. Their
   // entire current record hash remains mandatory; do not invent revision 1.
   if(node.contract==='finance.create'&&['fiscal_periods','accounts'].includes(node.entity)&&record?.revision===undefined)return null;
+  if(node.contract==='finance.action'&&node.entity==='payments'&&record?.revision===undefined)return null;
   if(!Number.isSafeInteger(record?.revision)||record.revision<1)fail('demo_native_ack_invalid',502);
   return record.revision;
 }
@@ -89,7 +90,7 @@ class DemoUniverseEngine{
     if(node.contract==='crm.create')return this.crm.get(ctx,actor,node.entity,id);
     if(node.contract==='domain.create')return this.domains[node.module].get(ctx,actor,node.entity,id);
     if(node.contract==='commerce.action')return require('./sales-commerce').read(this.domains.sales,ctx,actor,node.entity,id);
-    if(node.contract==='finance.create'){
+    if(['finance.create','finance.action'].includes(node.contract)){
       let cursor=0;
       do{const page=this.finance.list(ctx,actor,node.entity,{limit:200,cursor}),record=page.items.find(r=>r.id===id);if(record)return record;if(page.next_cursor===null)break;if(!Number.isSafeInteger(page.next_cursor)||page.next_cursor<=cursor||page.next_cursor>20000)fail('demo_native_read_capacity',409);cursor=page.next_cursor;}while(true);
       fail('demo_native_record_missing',404);
@@ -139,14 +140,18 @@ class DemoUniverseEngine{
         // Inventory/order commands change existing native sources. Retain the
         // preceding cursor before them and their acknowledgement before the
         // next command, so later mutations cannot invalidate a batch replay.
-        if(node.contract==='commerce.action')checkpoint();
+        if(['commerce.action','finance.action'].includes(node.contract))checkpoint();
         this.authorize(ctx,actor);
-        for(const ref of node.depends_on){const binding=bindings[ref];if(!binding)fail('demo_dependency_not_applied',409);const dependency=nodeMap.get(ref),actual=this.read(ctx,actor,dependency,binding.id);if(nativeRevision(dependency,actual)!==binding.revision||L.hash(actual)!==binding.record_hash)fail('demo_dependency_changed',409);}
-        const nativeInput=L.resolveInput(node.input,bindings),key='demo:'+L.hash([row.id,node.id]).slice(0,48),result=this.write(ctx,actor,node,nativeInput,key),record=this.read(ctx,actor,node,result.id);
-        if(!record?.id)fail('demo_native_ack_invalid',502);const revision=nativeRevision(node,record);if(revision!==nativeRevision(node,result))fail('demo_native_source_changed',409);
+        const nativeInput=L.resolveInput(node.input,bindings),key='demo:'+L.hash([row.id,node.id]).slice(0,48),preparation=node.contract==='finance.action'?FinanceActions.retained(this,ctx,actor,row,node,nativeInput,key):null;
+        for(const ref of node.depends_on){const binding=bindings[ref];if(!binding)fail('demo_dependency_not_applied',409);const dependency=nodeMap.get(ref),actual=this.read(ctx,actor,dependency,binding.id);if(nativeRevision(dependency,actual)!==binding.revision||L.hash(actual)!==binding.record_hash){if(!preparation||!FinanceActions.mutableDependency(node,ref))fail('demo_dependency_changed',409);}}
+        let result;
+        if(node.contract==='finance.action'){this.access(ctx,actor,node,'write');result=FinanceActions.execute(this,ctx,actor,row,node,nativeInput,key,preparation);}
+        else result=this.write(ctx,actor,node,nativeInput,key);
+        const record=this.read(ctx,actor,node,result?.id);
+        if(!record?.id)fail('demo_native_ack_invalid',502);const revision=nativeRevision(node,record);if(revision!==nativeRevision(node,result)||node.contract==='finance.action'&&L.hash(record)!==L.hash(result))fail('demo_native_source_changed',409);
         const binding={id:record.id,revision,record_hash:L.hash(record),module:node.module,entity:node.entity,input_hash:L.hash(nativeInput)};
         bindings[node.id]=binding;cursor++;applied.push({node_id:node.id,native_id:record.id,native_revision:record.revision});
-        if(node.contract==='commerce.action')checkpoint();
+        if(['commerce.action','finance.action'].includes(node.contract))checkpoint();
         // limit is an upper bound, not a promised batch length. Finish one
         // native command, retain its actual cursor, then yield so slower disks
         // and busy hosts do not turn a large batch into a long blocked request.

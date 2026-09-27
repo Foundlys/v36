@@ -17,32 +17,43 @@ test('actual E-commerce pack seeds native commerce through lost HTTP acknowledge
     await assert.rejects(call(route+'/advance','POST',advance(0),{'x-demo-drop-reply':'isolated-demo-fixture'}));
     await s.stop();await s.start();member.cookie=await s.login(member);
     row=(await call(route)).body.universe;assert.ok(row.applied_nodes>0&&row.applied_nodes<=100,'Recover the actual acknowledged prefix, not the requested upper limit');assert.equal((await call(route+'/advance','POST',advance(0))).status,409);
-    const financeStart=require('../ecommerce-demo-universe').build(options).nodes.findIndex(n=>n.contract==='finance.create');let financeFaultChecked=false;
+    const manifest=require('../ecommerce-demo-universe').build(options),financeStart=manifest.nodes.findIndex(n=>n.contract==='finance.create'),postIndex=manifest.nodes.findIndex(n=>n.input.operation==='INVOICE_POST'),paymentIndex=manifest.nodes.findIndex(n=>n.input.operation==='PAYMENT_RECORD');let financeFaultChecked=false,postingFaultChecked=false,paymentReplyLost=false;
     while(row.status!=='SEEDED'){
-      const before=row.applied_nodes,input={...advance(before),limit:before<financeStart?Math.min(100,financeStart-before):100};
+      const before=row.applied_nodes,stop=[financeStart,postIndex,paymentIndex].find(n=>n>before),input={...advance(before),limit:stop===undefined?100:Math.min(100,stop-before)};
       if(before===financeStart&&!financeFaultChecked){
         const failed=await call(route+'/advance','POST',{...input,limit:1},{'x-demo-fail-persist':'isolated-demo-fixture'});assert.equal(failed.status,507,JSON.stringify(failed.body));
         assert.equal((await call(route)).body.universe.applied_nodes,financeStart);assert.equal((await call('/api/finance/records/legal_entities')).body.total,0);
         await s.stop();await s.start();member.cookie=await s.login(member);assert.equal((await call(route)).body.universe.applied_nodes,financeStart);financeFaultChecked=true;
       }
+      if(before===postIndex&&!postingFaultChecked){
+        const draftBefore=(await call('/api/finance/records/invoices?limit=100')).body.items;
+        const failed=await call(route+'/advance','POST',{...input,limit:1},{'x-demo-fail-persist':'isolated-demo-fixture'});assert.equal(failed.status,507,JSON.stringify(failed.body));
+        assert.equal((await call(route)).body.universe.applied_nodes,postIndex);assert.equal((await call('/api/finance/records/journal_entries?limit=100')).body.total,0);assert.deepEqual((await call('/api/finance/records/invoices?limit=100')).body.items,draftBefore);
+        await s.stop();await s.start();member.cookie=await s.login(member);assert.equal((await call(route)).body.universe.applied_nodes,postIndex);assert.equal((await call('/api/finance/records/journal_entries?limit=100')).body.total,0);postingFaultChecked=true;
+      }
+      if(before===paymentIndex&&!paymentReplyLost){
+        await assert.rejects(call(route+'/advance','POST',{...input,limit:1},{'x-demo-drop-reply':'isolated-demo-fixture'}));
+        await s.stop();await s.start();member.cookie=await s.login(member);row=(await call(route)).body.universe;assert.equal(row.applied_nodes,paymentIndex+1);assert.equal((await call('/api/finance/records/payments')).body.total,1);
+        assert.equal((await call(route+'/advance','POST',{...input,limit:1})).status,409);assert.equal((await call('/api/finance/records/payments')).body.total,1);paymentReplyLost=true;continue;
+      }
       const next=await call(route+'/advance','POST',input);assert.equal(next.status,200,JSON.stringify(next.body));row=next.body.universe;assert.equal(row.applied_nodes-before,row.batch.applied_nodes);assert.ok(row.batch.applied_nodes>0&&row.batch.applied_nodes<=100);assert.equal(row.batch.work_budget_ms,1000);
     }
-    assert.equal(financeFaultChecked,true);
-    assert.equal(row.full_acceptance,false);assert.equal(row.total_nodes,251);
+    assert.equal(financeFaultChecked,true);assert.equal(postingFaultChecked,true);assert.equal(paymentReplyLost,true);
+    assert.equal(row.full_acceptance,false);assert.equal(row.total_nodes,264);
     const products=(await call('/api/sales/commerce/commerce_products?limit=100')).body,orders=(await call('/api/sales/commerce/commerce_orders?limit=100')).body;
-    assert.equal(products.total,12);assert.equal(orders.total,12);assert.ok(products.items.every(r=>r.provenance.classification==='SYNTHETIC_DEMO'));assert.ok(orders.items.every(r=>r.financial_status==='UNPOSTED'));
+    assert.equal(products.total,12);assert.equal(orders.total,12);assert.ok(products.items.every(r=>r.provenance.classification==='SYNTHETIC_DEMO'));assert.equal(orders.items.filter(r=>r.financial_status==='INVOICE_LINKED').length,6);
     const productReference=await call('/api/crm/product-reference?code='+products.items[0].gtin+'&limit=2');assert.equal(productReference.status,200);assert.ok(productReference.body.results.some(r=>r.product.code===products.items[0].gtin));
-    const order=orders.items.find(r=>r.status==='FULFILLED'),contact=(await call('/api/crm/contacts/'+order.customer_reference)).body.record;assert.ok(contact.name.startsWith('[SYNTHETIC DEMO]'));
+    const order=orders.items.find(r=>r.status==='FULFILLED'&&!r.invoice_id),contact=(await call('/api/crm/contacts/'+order.customer_reference)).body.record;assert.ok(contact.name.startsWith('[SYNTHETIC DEMO]'));
     await s.stop();await s.start();member.cookie=await s.login(member);
     const entities=(await call('/api/finance/records/legal_entities')).body;assert.equal(entities.total,1);const entity=entities.items[0];assert.ok(entity.name.startsWith('[SYNTHETIC DEMO]'));assert.equal(entity.vat_id,'DEMO-NOT-REGISTERED');
-    assert.equal((await call('/api/finance/records/fiscal_periods')).body.total,2);assert.equal((await call('/api/finance/records/accounts')).body.total,9);assert.equal((await call('/api/finance/records/invoices')).body.total,0);assert.equal((await call('/api/finance/records/payments')).body.total,0);
+    assert.equal((await call('/api/finance/records/fiscal_periods')).body.total,2);assert.equal((await call('/api/finance/records/accounts')).body.total,9);assert.equal((await call('/api/finance/records/invoices?limit=100')).body.total,6);assert.equal((await call('/api/finance/records/payments')).body.total,3);
     const turn=(operation,input)=>({message:'Voer de expliciet bevestigde demohandeling uit',conversation_id:crypto.randomUUID(),turn_id:crypto.randomUUID(),client_context:{finance_action:{operation,input}}});
     async function action(operation,input){const preview=await call('/api/zero/turn','POST',turn(operation+'_PREVIEW',input));assert.equal(preview.status,200,JSON.stringify(preview.body));assert.equal(preview.body.finance_data.ready,true);const r=await call('/api/zero/turn','POST',turn(operation+'_EXECUTE',{input,expected_source_hash:preview.body.finance_data.source_hash,confirm:true,reason:'Explicit synthetic merchant booking',request_id:crypto.randomUUID()}));assert.equal(r.status,200,JSON.stringify(r.body));return r.body.finance_data;}
     const result=await action('COMMERCE_INVOICE_CREATE',{order_id:order.id,contact_id:contact.id,legal_entity_id:entity.id,invoice_number:'DEMO-COMMERCE-001',invoice_date:'2025-11-17',supply_date:'2025-11-17',due_date:'2025-12-17'}),invoice=result.current_invoice;
     assert.equal(invoice.gross_cents,order.totals.gross_minor);assert.equal(invoice.customer_name,contact.name);
     await action('INVOICE_POST',{invoice_id:invoice.id});const paid=await action('PAYMENT_RECORD',{invoice_id:invoice.id,amount_cents:invoice.gross_cents,date:'2025-11-20'});assert.equal(paid.current_invoice.status,'PAID');assert.equal(paid.external_payment_performed,false);
-    const journals=(await call('/api/finance/records/journal_entries')).body;assert.equal(journals.total,2);assert.ok(journals.items.every(j=>j.debit_cents===j.credit_cents&&j.date.startsWith('2025-11-')&&j.posted_at>j.date));
-    assert.equal((await call('/api/finance/records/invoices')).body.total,1);assert.equal((await call('/api/finance/records/payments')).body.total,1);assert.equal((await call('/api/communication/messages')).body.total,0);
+    const journals=(await call('/api/finance/records/journal_entries?limit=100')).body;assert.equal(journals.total,9);assert.ok(journals.items.every(j=>j.debit_cents===j.credit_cents&&j.posted_at>j.date));assert.equal(journals.items.filter(j=>j.source_id===invoice.id&&j.date.startsWith('2025-11-')).length,2,JSON.stringify({invoice:invoice.id,journals:journals.items}));
+    assert.equal((await call('/api/finance/records/invoices?limit=100')).body.total,7);assert.equal((await call('/api/finance/records/payments')).body.total,4);assert.equal((await call('/api/communication/messages')).body.total,0);
     assert.ok(!fs.readFileSync(path.join(s.dir,'foundly-core-state.json'),'utf8').includes('Fictional billing address'));
     assert.equal((await s.request('/api/composition','PUT',{...composition,expected_revision:1,enabled_modules:Object.keys(MODULES).filter(id=>id!=='sales')})).status,200);
     assert.equal((await call('/api/sales/commerce/commerce_orders')).status,403);assert.ok(!(await call('/api/zero/status')).body.tools.some(t=>t.tool_id==='finance_commerce_invoice_create_execute'));
