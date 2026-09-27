@@ -49,9 +49,9 @@ test('a lost commerce seed checkpoint recovers one native fulfilment after resta
 
 test('current Sales authority and changed native sources block seed recovery without overwriting existing native work',()=>{
   const f=setup(),m=E.build({...options,...small}),index=m.nodes.findIndex(n=>n.id==='product-0');let row=reserve(f);row=advance(f,row,index);row=advance(f,row,1);
-  f.resolver.configure(f.ctx,f.actor,{industry_id:'ECOMMERCE',entitlements:['crm','procurement','sales','marketing','communication','calendar'],capability_flags:{'sales:quotes':false},expected_revision:1});
+  f.resolver.configure(f.ctx,f.actor,{industry_id:'ECOMMERCE',entitlements:['crm','procurement','sales','marketing','communication','calendar','finance'],capability_flags:{'sales:quotes':false},expected_revision:1});
   assert.throws(()=>advance(f,row,1),{code:'capability_disabled'});assert.equal(f.domains.sales.bucket(f.ctx,'commerce_inventory')[0].on_hand,0);
-  f.resolver.configure(f.ctx,f.actor,{industry_id:'ECOMMERCE',entitlements:['crm','procurement','sales','marketing','communication','calendar'],expected_revision:2});
+  f.resolver.configure(f.ctx,f.actor,{industry_id:'ECOMMERCE',entitlements:['crm','procurement','sales','marketing','communication','calendar','finance'],expected_revision:2});
   const native=f.domains.sales.bucket(f.ctx,'commerce_products')[0];commerce.execute(f.domains.sales,f.ctx,f.actor,'PRODUCT_SAVE',{product_id:native.id,sku:native.sku,name:native.name,currency:'EUR',unit_price_minor:1,tax_rate_bps:2100,expected_revision:1,confirm:true,reason:'Explicit later user change'},{idempotency_key:'changed-demo-product'});
   assert.throws(()=>advance(f,row,1),{code:'demo_dependency_changed'});assert.equal(f.domains.sales.bucket(f.ctx,'commerce_inventory')[0].on_hand,0);
 });

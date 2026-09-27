@@ -13,6 +13,7 @@ const CONTRACTS=Object.freeze({
   'document.create':{module:'data',entities:['documents']},
   'workflow.save':{module:'automation',entities:['workflows']},
   'finance.draft':{module:'finance',entities:['invoice_drafts']},
+  'finance.create':{module:'finance',entities:['legal_entities','fiscal_periods','accounts']},
   'commerce.action':{module:'sales',entities:['commerce_products','commerce_inventory','commerce_orders']},
   'memory.create':{module:'knowledge',entities:['memories']},
   'identity.invite':{module:'identity',entities:['members']}

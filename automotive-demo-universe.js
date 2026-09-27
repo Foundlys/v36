@@ -70,7 +70,7 @@ function build({seed,as_of,vehicle_count=200,history_months=18}={}){
     {id:'lost-seed-response',kind:'OPERATIONAL_FAILURE',description:label('Recover retained seed receipts after a lost response without duplicate native objects.'),source_ids:['company','vehicle-0','lead-0'],expectations:{duplicates:0,requires_explicit_resume:true}}
   ];
   const body={schema_version:L.VERSION,scenario_id,seed,as_of,history_start:stamp(0),industry_id:'AUTOMOTIVE',company:{name:label('Foundly Automotive Group'),classification:'SYNTHETIC_DEMO'},locations,personas,nodes,scenarios,derived:[{id:'synthetic-sales-total',classification:'DERIVED_ESTIMATED',metric:'sale_value_cents',value:saleTotals.reduce((a,b)=>a+b,0),currency:'EUR',period_start:stamp(0),period_end:as_of,source_ids:sources,formula:'SUM(source sales opportunities.value_cents); not recognized revenue or received cash'}]};
-  return L.seal(body);
+  return L.seal(require('./demo-finance-foundation').append(body));
 }
 function assess(manifest){const proof=L.validate(manifest),c=proof.counts,days=(Date.parse(manifest.as_of)-Date.parse(manifest.history_start))/DAY;return {...proof,automotive_depth_met:manifest.industry_id==='AUTOMOTIVE'&&c.vehicle>=150&&c.vehicle<=300&&(c.customer||0)+(c.lead||0)+(c.interaction||0)>=2000&&days>=365&&days<=732&&manifest.locations.length>=2,full_acceptance:false,remaining:['Production seed execution and recovery','Financial/workflow/approval/event histories and failure execution','Structured verified Automotive knowledge','ZERO end-to-end scenario evidence','Desktop, iPhone and Android acceptance']};}
 module.exports={build,assess,FAMILIES};

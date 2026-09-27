@@ -4,6 +4,13 @@ const SCOPE='demo:universes',AUDIT='demo:universe-audit',MANIFESTS='demo:manifes
 const ADVANCE_WORK_BUDGET_MS=1000;
 const clone=value=>JSON.parse(JSON.stringify(value)),fail=(code,statusCode=422)=>{throw Object.assign(Error(code),{code,statusCode});};
 const keys=(v,names)=>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).some(k=>!names.includes(k)))fail('demo_request_invalid');};
+function nativeRevision(node,record){
+  // These native Finance configuration rows have no revision field. Their
+  // entire current record hash remains mandatory; do not invent revision 1.
+  if(node.contract==='finance.create'&&['fiscal_periods','accounts'].includes(node.entity)&&record?.revision===undefined)return null;
+  if(!Number.isSafeInteger(record?.revision)||record.revision<1)fail('demo_native_ack_invalid',502);
+  return record.revision;
+}
 function freezeGraph(root){
   const pending=[root],seen=new WeakSet();
   while(pending.length){const value=pending.pop();if(!value||typeof value!=='object'||seen.has(value))continue;seen.add(value);pending.push(...Object.values(value).filter(v=>v&&typeof v==='object'));Object.freeze(value);}
@@ -19,7 +26,7 @@ function hasBusinessData(ctx,stores){
   return false;
 }
 class DemoUniverseEngine{
-  constructor({adapter,resolver,crm,domains,identities,memory,build=null,clock=()=>performance.now()}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,build,clock});this.cache=new Map();this.validatedManifests=new WeakSet();}
+  constructor({adapter,resolver,crm,domains,identities,memory,finance,build=null,clock=()=>performance.now()}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,finance,build,clock});this.cache=new Map();this.validatedManifests=new WeakSet();}
   authorize(ctx,actor){
     if(!ctx||!actor?.id||!canManage(actor))fail('demo_manage_forbidden',403);
     // This flag selects an explicitly isolated synthetic tenant. It conveys no
@@ -82,6 +89,11 @@ class DemoUniverseEngine{
     if(node.contract==='crm.create')return this.crm.get(ctx,actor,node.entity,id);
     if(node.contract==='domain.create')return this.domains[node.module].get(ctx,actor,node.entity,id);
     if(node.contract==='commerce.action')return require('./sales-commerce').read(this.domains.sales,ctx,actor,node.entity,id);
+    if(node.contract==='finance.create'){
+      let cursor=0;
+      do{const page=this.finance.list(ctx,actor,node.entity,{limit:200,cursor}),record=page.items.find(r=>r.id===id);if(record)return record;if(page.next_cursor===null)break;if(!Number.isSafeInteger(page.next_cursor)||page.next_cursor<=cursor||page.next_cursor>20000)fail('demo_native_read_capacity',409);cursor=page.next_cursor;}while(true);
+      fail('demo_native_record_missing',404);
+    }
     if(node.contract==='identity.invite'){const row=this.identities.list(ctx,actor).items.find(r=>r.id===id);if(!row)fail('demo_native_record_missing',404);return row;}
     if(node.contract==='memory.create')return this.memory.get(ctx,actor,id);
     fail('demo_contract_unavailable');
@@ -90,6 +102,11 @@ class DemoUniverseEngine{
     this.access(ctx,actor,node,'write');
     if(node.contract==='crm.create')return this.crm.create(ctx,actor,node.entity,{...input,provenance:clone(node.provenance)},{idempotencyKey:key});
     if(node.contract==='domain.create')return this.domains[node.module].save(ctx,actor,node.entity,input,{idempotency_key:key,provenance_classification:'SYNTHETIC_DEMO'}).record;
+    if(node.contract==='finance.create'){
+      const method={legal_entities:'createLegalEntity',fiscal_periods:'createPeriod',accounts:'createAccount'}[node.entity];
+      if(!method||!this.finance)fail('demo_contract_unavailable');
+      return this.finance[method](ctx,actor,input,{idempotencyKey:key});
+    }
     if(node.contract==='commerce.action'){
       const result=require('./sales-commerce').execute(this.domains.sales,ctx,actor,input.operation,{...input.values,confirm:true,reason:input.reason},{idempotency_key:key,demo_provenance:{classification:'SYNTHETIC_DEMO',source_reference:node.provenance.source_reference}});
       if(!result.result_is_current)fail('demo_native_source_changed',409);
@@ -124,10 +141,10 @@ class DemoUniverseEngine{
         // next command, so later mutations cannot invalidate a batch replay.
         if(node.contract==='commerce.action')checkpoint();
         this.authorize(ctx,actor);
-        for(const ref of node.depends_on){const binding=bindings[ref];if(!binding)fail('demo_dependency_not_applied',409);const actual=this.read(ctx,actor,nodeMap.get(ref),binding.id);if(actual.revision!==binding.revision||L.hash(actual)!==binding.record_hash)fail('demo_dependency_changed',409);}
+        for(const ref of node.depends_on){const binding=bindings[ref];if(!binding)fail('demo_dependency_not_applied',409);const dependency=nodeMap.get(ref),actual=this.read(ctx,actor,dependency,binding.id);if(nativeRevision(dependency,actual)!==binding.revision||L.hash(actual)!==binding.record_hash)fail('demo_dependency_changed',409);}
         const nativeInput=L.resolveInput(node.input,bindings),key='demo:'+L.hash([row.id,node.id]).slice(0,48),result=this.write(ctx,actor,node,nativeInput,key),record=this.read(ctx,actor,node,result.id);
-        if(!record?.id||!Number.isSafeInteger(record.revision)||record.revision<1)fail('demo_native_ack_invalid',502);if(record.revision!==result.revision)fail('demo_native_source_changed',409);
-        const binding={id:record.id,revision:record.revision,record_hash:L.hash(record),module:node.module,entity:node.entity,input_hash:L.hash(nativeInput)};
+        if(!record?.id)fail('demo_native_ack_invalid',502);const revision=nativeRevision(node,record);if(revision!==nativeRevision(node,result))fail('demo_native_source_changed',409);
+        const binding={id:record.id,revision,record_hash:L.hash(record),module:node.module,entity:node.entity,input_hash:L.hash(nativeInput)};
         bindings[node.id]=binding;cursor++;applied.push({node_id:node.id,native_id:record.id,native_revision:record.revision});
         if(node.contract==='commerce.action')checkpoint();
         // limit is an upper bound, not a promised batch length. Finish one

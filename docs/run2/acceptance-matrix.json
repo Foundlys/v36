@@ -2684,11 +2684,11 @@
       "note": "Run 3–7 acceptance is not claimed. The user explicitly expanded Run-2 demo delivery to Automotive/E-commerce, desktop download and installable iPhone/Android web apps. No native App Store release, PostgreSQL migration, Digital Twin or autonomous future-run implementation is claimed."
     }
   ],
-  "updated_at": "2026-09-27T07:02:18.099798+00:00",
+  "updated_at": "2026-09-27T07:17:54.024274+00:00",
   "run_status": "IN_PROGRESS_NOT_ACCEPTED",
   "scope": "Statuses reflect only the stated implementation/evidence scope; full contract obligations remain binding. Missing code is never classified as a provider blocker.",
   "remaining_work_review": {
-    "reviewed_at": "2026-09-27T07:02:18.099798+00:00",
+    "reviewed_at": "2026-09-27T07:17:54.024274+00:00",
     "timezone": "Europe/Amsterdam",
     "basis": "Existing locked acceptance matrix and current repository/checkpoint evidence; bounded gap review, not a restarted global audit.",
     "time_estimate_policy": {
@@ -2733,7 +2733,7 @@
           "cross_module"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "semantic_memory",
@@ -2752,7 +2752,7 @@
         "estimate_basis": "Opslag/lifecycle bestaat al; ontbrekend werk is het ophalen en de veiligheids- en relevantieproef, geen herbouw van acht lagen.",
         "dependencies": [],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "retrieval_context",
@@ -2777,7 +2777,7 @@
           "performance"
         ],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "economics",
@@ -2797,7 +2797,7 @@
         "estimate_basis": "Router heeft reeds dagelijkse USD-controles en conservatieve reserveringen; de open grens is gecombineerde research/audio-afrekening, niet ontbreken van een router.",
         "dependencies": [],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "research",
@@ -2821,7 +2821,7 @@
           "cognition"
         ],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "stack",
@@ -2841,7 +2841,7 @@
         "estimate_basis": "Native configuratie, verklaringen en publieke schema-observaties bestaan; meerdere aanvullende adapter-/mappingfamilies en conflictcases blijven open.",
         "dependencies": [],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "localization",
@@ -2869,7 +2869,7 @@
           "ux"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "voice",
@@ -2906,7 +2906,7 @@
           "economics"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "demo",
@@ -2919,15 +2919,15 @@
           "R2-086",
           "R2-087"
         ],
-        "remaining_code": "Automotive en E-commerce gebruiken nu gedeelde preview/start/pauze/hervatbediening en herstel vanuit de serverreservering. ZERO-bronoverdracht is begrensd en blijft brongebonden; herhaalde rechtenresolutie is versneld zonder caching tussen controles. Resterend: volledige Finance/Automation/Analytics- en gebeurtenis-/approvalhistories, credit/verrekening/refund/annulering, volledige moduleactie-UI, vraaggerichte/natuurlijke/sociale/gesproken ZERO-kwaliteit, bronactualiteit en omzet-/waardescenario’s, downloadverpakking en bereikbare installeerbare webapp. Daarna overige packs/modules. Herhaalde Law-validatie gebruikt nu alleen eerder volledig gevalideerde, diep bevroren manifestobjecten. Herstart, rollback of vervanging vereist nieuwe validatie; native records en rechten blijven actueel.",
-        "missing_evidence": "7858bf9/tree 410dcc5: 1867 ZERO, 14 corpus en 12 betrokken native scripts PASS op vaste bron. Echte HTTP-verloren start/herstart/eigenaarsisolatie en controller-pauze/herstel zijn gecontroleerd. De volledige E-commerce-seed plus 42 beurten zonder live model is op cf6740b afgerond zonder HTTP-fout; bronidentiteit apart vastgelegd. Nog nodig: complete histories en module-UI, onafhankelijk beoordeelde model-/sociale/stemkwaliteit, forecastbacktests, browserlayout, desktopstart en echte iPhone/Android-installatie. Nieuwe vaste bron 5dd3ea2/tree 4609815: 76 gerichte native/demo/ZERO-proeven en 14 corpuscases; volledige native Automotive- en E-commerce-grafen en echte versleutelde API/rollback/billing in de selectie. Volledige CI 272 geldt voor voorafgaande 09681b5. Het eerder gemelde lokale ad53950-checkpoint en volledige Automotive-HTTP-ruwbestanden ontbreken in deze workspace en worden expliciet als eerdere melding bewaard, niet opnieuw geverifieerd.",
+        "remaining_code": "Automotive en E-commerce gebruiken nu gedeelde preview/start/pauze/hervatbediening en herstel vanuit de serverreservering. ZERO-bronoverdracht is begrensd en blijft brongebonden; herhaalde rechtenresolutie is versneld zonder caching tussen controles. Resterend: volledige Finance/Automation/Analytics- en gebeurtenis-/approvalhistories, credit/verrekening/refund/annulering, volledige moduleactie-UI, vraaggerichte/natuurlijke/sociale/gesproken ZERO-kwaliteit, bronactualiteit en omzet-/waardescenario’s, downloadverpakking en bereikbare installeerbare webapp. Daarna overige packs/modules. Herhaalde Law-validatie gebruikt nu alleen eerder volledig gevalideerde, diep bevroren manifestobjecten. Herstart, rollback of vervanging vereist nieuwe validatie; native records en rechten blijven actueel. Gedeelde native Finance-entiteit, kalenderboekjaren en negen grootboekrollen worden nu in beide nieuwe demo’s aangemaakt. Dit sluit inrichting; daadwerkelijke financiële historie en correcties blijven open.",
+        "missing_evidence": "7858bf9/tree 410dcc5: 1867 ZERO, 14 corpus en 12 betrokken native scripts PASS op vaste bron. Echte HTTP-verloren start/herstart/eigenaarsisolatie en controller-pauze/herstel zijn gecontroleerd. De volledige E-commerce-seed plus 42 beurten zonder live model is op cf6740b afgerond zonder HTTP-fout; bronidentiteit apart vastgelegd. Nog nodig: complete histories en module-UI, onafhankelijk beoordeelde model-/sociale/stemkwaliteit, forecastbacktests, browserlayout, desktopstart en echte iPhone/Android-installatie. Nieuwe vaste bron 5dd3ea2/tree 4609815: 76 gerichte native/demo/ZERO-proeven en 14 corpuscases; volledige native Automotive- en E-commerce-grafen en echte versleutelde API/rollback/billing in de selectie. Volledige CI 272 geldt voor voorafgaande 09681b5. Het eerder gemelde lokale ad53950-checkpoint en volledige Automotive-HTTP-ruwbestanden ontbreken in deze workspace en worden expliciet als eerdere melding bewaard, niet opnieuw geverifieerd. Nieuwe bron aebdb91/tree ceabbc0: 82 gerichte native/demo/ZERO-proeven, 14 corpuscases en 3 betrokken native suites geslaagd. Echte E-commerce-HTTP dwingt een mislukte Finance-commit af, herstart en herstelt exact; ZERO factureert/boekt/betaalt daarna met de daadwerkelijk gezaaide inrichting in het vorige boekjaar. Beide volledige native grafen zijn uitgevoerd; dit is geen volledige versleutelde default-laadmeting of echte modelkwaliteit.",
         "external_dependency": "Openbare snapshots zijn daadwerkelijk opgehaald en via native leesroutes beschikbaar. EEA vervolg gaf HTTP tunnel 403; AutoScout24 BE/DE robotsweigerden listingpaden; OFF NL/DE gaf HTTP 503. Dit blokkeert alleen die aanvullende waarnemingen, niet de native code. Complete live provider-, model-, hosting- en echte-apparaatacceptatie zijn nog niet aangetoond. Marktgegevens hebben nog geen vastgestelde herdistributielicentie voor het uiteindelijke pakket.",
         "active_hours": {
           "min": 88,
           "max": 224
         },
         "waiting_time": "Gerichte native/demo-regressie: zie gemeten duur in manifest-frozen-results.json; volledige CI circa 8–20 minuten plus wachtrij (272: 16 min 38 s PASS). Eerder gepubliceerde E-commerce-seed 8.7 minuten; eerdere volledige Automotive-melding 26.3 minuten heeft hier geen teruggevonden ruwe bijlagen. Baseline is onvolledig/onbeschikbaar, niet lopend. Provider-, reviewer-, hosting- en echte-apparaatwachttijd onbekend.",
-        "estimate_basis": "88–224 actieve uren blijft de conditionele brede band: eerste twee demo’s 76–192 uur (histories/correcties 18–48; bronkoppelingen en volledige moduleactie-UI 18–48; ZERO/scenario/mobiele integratie 24–56; actualiteit/prognosevalidatie 8–20; verpakking/installatie/herstel 8–20), overige varianten 12–32. De generieke seedbediening is nu aanwezig; dit vervangt de open moduleactie-UI en kwaliteits-/apparaatgates niet. De volledige dataproef vond extra integratie-/latencywerk. Geen kleinere totaalband uit testaantallen; rijen overlappen.",
+        "estimate_basis": "88–224 actieve uren blijft de conditionele brede band: eerste twee demo’s 76–192 uur (histories/correcties 18–48; bronkoppelingen en volledige moduleactie-UI 18–48; ZERO/scenario/mobiele integratie 24–56; actualiteit/prognosevalidatie 8–20; verpakking/installatie/herstel 8–20), overige varianten 12–32. De generieke seedbediening is nu aanwezig; dit vervangt de open moduleactie-UI en kwaliteits-/apparaatgates niet. De volledige dataproef vond extra integratie-/latencywerk. Geen kleinere totaalband uit testaantallen; rijen overlappen. Finance-inrichting is nu een gesloten voorwaarde binnen histories/correcties; de brede band blijft ongewijzigd omdat transactie- en correctiedekking nog ontbreekt.",
         "dependencies": [
           "industry",
           "cross_module",
@@ -2935,7 +2935,7 @@
           "performance"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "industry",
@@ -2961,7 +2961,7 @@
           "research"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "cross_module",
@@ -2970,8 +2970,8 @@
           "R2-093",
           "R2-096"
         ],
-        "remaining_code": "Native facturatieketen, gesprekshistorie en begrensde korte leesvervolgen bestaan. Elke vervolgbeurt maakt een nieuw native leesplan; actuele rechten en bronnen blijven leidend. Resterend: brede natuurlijke taakverwijzingen, retour/credit/refund/correctie, complete histories en bediening, en inhoudelijke meerstapskwaliteit.",
-        "missing_evidence": "De huidige echte HTTP/ZERO-keten gebruikt vergrendelde orderprijzen, de CRM-klant en Finance-entiteit, herstelt een verloren factuurantwoord na versleutelde herstart en boekt/betaalt één factuur met exacte rapportbedragen. Oorspronkelijk concept en huidige betaalde factuur blijven gescheiden; rechtenintrekking stopt herstel. Eerdere UNPOSTED-bewijzen blijven historisch bewaard; nieuw gekoppelde orders dragen INVOICE_LINKED zonder betaalclaim. Ontbrekend: retour/correctie/refund-ketens, complete seed/bediening en representatieve moeilijke natuurlijke meerstapstaken, conflicten en causale beoordeling. E-commerce HTTP-bewijs gebruikt nu een daadwerkelijk gegenereerde order en CRM-klant. Het meer-modulegesprek moet afzonderlijk eerdere uitleg en toon meenemen zonder private of inmiddels ingetrokken bronnen te herhalen; onafhankelijke modelkwaliteitsreview blijft nodig. Cross-module historie is nu daadwerkelijk in de modelinput bewezen voor beide packs, inclusief correctievolgorde, versleutelde herstart, gebruikersisolatie, geen terugkeer van private bronantwoorden en intrekking tijdens wachten. De gebruikte provider is expliciet een transportfixture; natuurlijke/sociale kwaliteit blijft onbewezen. De grote seeded Sales/Automation-vergelijking is opnieuw door het echte HTTP-pad gegaan. Begrensde projectie herverifieert ook weggelaten native details. Demo-afgeleide specialistbronnen dragen nu expliciet SYNTHETIC_DEMO; geen promotie naar klant- of marktwaarheid. Nieuw bewijs sluit bronselectieverlies bij de begrensde leesvervolgen; expliciete modulekeuze, nieuw onderwerp, verval van rechten en gespreksverwijdering zijn gecontroleerd. Geen algemene modelkwaliteitacceptatie.",
+        "remaining_code": "Native facturatieketen, gesprekshistorie en begrensde korte leesvervolgen bestaan. Elke vervolgbeurt maakt een nieuw native leesplan; actuele rechten en bronnen blijven leidend. Resterend: brede natuurlijke taakverwijzingen, retour/credit/refund/correctie, complete histories en bediening, en inhoudelijke meerstapskwaliteit. Gedeelde native Finance-entiteit, kalenderboekjaren en negen grootboekrollen worden nu in beide nieuwe demo’s aangemaakt. Dit sluit inrichting; daadwerkelijke financiële historie en correcties blijven open.",
+        "missing_evidence": "De huidige echte HTTP/ZERO-keten gebruikt vergrendelde orderprijzen, de CRM-klant en Finance-entiteit, herstelt een verloren factuurantwoord na versleutelde herstart en boekt/betaalt één factuur met exacte rapportbedragen. Oorspronkelijk concept en huidige betaalde factuur blijven gescheiden; rechtenintrekking stopt herstel. Eerdere UNPOSTED-bewijzen blijven historisch bewaard; nieuw gekoppelde orders dragen INVOICE_LINKED zonder betaalclaim. Ontbrekend: retour/correctie/refund-ketens, complete seed/bediening en representatieve moeilijke natuurlijke meerstapstaken, conflicten en causale beoordeling. E-commerce HTTP-bewijs gebruikt nu een daadwerkelijk gegenereerde order en CRM-klant. Het meer-modulegesprek moet afzonderlijk eerdere uitleg en toon meenemen zonder private of inmiddels ingetrokken bronnen te herhalen; onafhankelijke modelkwaliteitsreview blijft nodig. Cross-module historie is nu daadwerkelijk in de modelinput bewezen voor beide packs, inclusief correctievolgorde, versleutelde herstart, gebruikersisolatie, geen terugkeer van private bronantwoorden en intrekking tijdens wachten. De gebruikte provider is expliciet een transportfixture; natuurlijke/sociale kwaliteit blijft onbewezen. De grote seeded Sales/Automation-vergelijking is opnieuw door het echte HTTP-pad gegaan. Begrensde projectie herverifieert ook weggelaten native details. Demo-afgeleide specialistbronnen dragen nu expliciet SYNTHETIC_DEMO; geen promotie naar klant- of marktwaarheid. Nieuw bewijs sluit bronselectieverlies bij de begrensde leesvervolgen; expliciete modulekeuze, nieuw onderwerp, verval van rechten en gespreksverwijdering zijn gecontroleerd. Geen algemene modelkwaliteitacceptatie. Nieuwe bron aebdb91/tree ceabbc0: 82 gerichte native/demo/ZERO-proeven, 14 corpuscases en 3 betrokken native suites geslaagd. Echte E-commerce-HTTP dwingt een mislukte Finance-commit af, herstart en herstelt exact; ZERO factureert/boekt/betaalt daarna met de daadwerkelijk gezaaide inrichting in het vorige boekjaar. Beide volledige native grafen zijn uitgevoerd; dit is geen volledige versleutelde default-laadmeting of echte modelkwaliteit.",
         "external_dependency": "Live model en inhoudelijke beoordeling nodig voor antwoordkwaliteit; native scenario’s kunnen lokaal worden uitgevoerd.",
         "active_hours": {
           "min": 12,
@@ -2984,7 +2984,7 @@
           "industry"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "security",
@@ -3004,7 +3004,7 @@
         "estimate_basis": "De bron- en gespreksleesroutes zijn afgebakend bewezen. Beoordelings-/actiegrenzen en de bredere aanvalslijst blijven aparte werkpakketten; conditioneel 12–32 actieve uren.",
         "dependencies": [],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "ux",
@@ -3030,7 +3030,7 @@
           "localization"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "universal_search",
@@ -3052,7 +3052,7 @@
           "stack"
         ],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "attention",
@@ -3071,7 +3071,7 @@
         "estimate_basis": "Eenheid voor deze prioritering ontbreekt volgens de matrix; broncontracten, ranking en UI/evaluatie moeten samen worden bewezen.",
         "dependencies": [],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "data_quality",
@@ -3090,7 +3090,7 @@
         "estimate_basis": "Exacte centen voor hergebruik van grote gerapporteerde bedragen zijn nu via native/HTTP-bediening bewezen; actuele kostenscenario’s en waarnemingen weren verwijderde bronnen. Brede detectie, herkomstbewuste correctievoorstellen en rollback over andere bronfamilies blijven open; afzonderlijke geslaagde controles sluiten die gate niet.",
         "dependencies": [],
         "estimate_confidence": "LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "configuration",
@@ -3109,7 +3109,7 @@
         "estimate_basis": "Workflow-/referentieversies bestaan; resterende configuratiefamilies vragen begrensde harmonisatie en bewijzen.",
         "dependencies": [],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "business_personal",
@@ -3128,7 +3128,7 @@
         "estimate_basis": "Geen Personal-integratie geïntroduceerd. Werk is grensinventarisatie/negatieve tests en review, geen nieuw product.",
         "dependencies": [],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "performance",
@@ -3137,7 +3137,7 @@
           "R2-124"
         ],
         "remaining_code": "Herhaalde manifestvalidatie is teruggebracht tot gebruik van dezelfde diep onveranderbare, volledig gevalideerde grafiek. Alleen identieke objecten delen validatie; herstart, vervanging en rollback worden opnieuw gecontroleerd. Resterend: volledige snapshot-/event-/seedkosten verminderen, native bronselectie verbeteren en representatieve gelijktijdigheid en telefoonbelasting meten.",
-        "missing_evidence": "Herhaalbare lokale proef op dezelfde volledige grafen: Automotive 5581 nodes, herhaalde lees-p50 126.716 naar 0.001 ms; E-commerce 3575 nodes, 79.135 naar 0.001 ms. Eerste validatie blijft 144.784/109.100 ms; dit is alleen manifestlezen en geen totale laadtijdwinst. Gepubliceerde E-commerce-meetreeksen blijven behouden. Eerdere gemelde volledige Automotive-collectie heeft hier ontbrekende ruwe bijlagen; oude E-commerce-baseline is onvolledig/onbeschikbaar. Representatieve p50/p95/p99, volledige versleutelde herhaling, echte apparaten en live modelkosten blijven open.",
+        "missing_evidence": "Herhaalbare lokale proef op dezelfde volledige grafen: Automotive 5581 nodes, herhaalde lees-p50 126.716 naar 0.001 ms; E-commerce 3575 nodes, 79.135 naar 0.001 ms. Eerste validatie blijft 144.784/109.100 ms; dit is alleen manifestlezen en geen totale laadtijdwinst. Gepubliceerde E-commerce-meetreeksen blijven behouden. Eerdere gemelde volledige Automotive-collectie heeft hier ontbrekende ruwe bijlagen; oude E-commerce-baseline is onvolledig/onbeschikbaar. Representatieve p50/p95/p99, volledige versleutelde herhaling, echte apparaten en live modelkosten blijven open. De nu uitgebreidere grafen op aebdb91 hebben 12 extra Finance-configuratienodes; oudere manifest-/laadtijden blijven aan hun oorspronkelijke bron gekoppeld. Nieuwe volledige versleutelde laadtijd is nog niet bewezen.",
         "external_dependency": "Representatieve runtime en live kosten zijn niet geverifieerd; synthetische lokale meting blijft mogelijk.",
         "active_hours": {
           "min": 8,
@@ -3150,7 +3150,7 @@
           "retrieval_context"
         ],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       },
       {
         "id": "regression_release",
@@ -3160,7 +3160,7 @@
           "R2-115"
         ],
         "remaining_code": "Nieuwe defecten uit integratie oplossen en definitieve bewijzen vastleggen; geen bestaand geldend werk opnieuw bouwen.",
-        "missing_evidence": "CI 272: volledige npm test PASS, 1867 ZERO/14 corpus, gepubliceerde 09681b5 en merge e83dd81 exact tree 8fcd340. Bron 5dd3ea2/tree 4609815 heeft 76 gerichte proeven en 14 corpuscases. De herstelde voorafgaande bron cda2180 heeft 30 gerichte/14 corpus/6 betrokken native scripts. Eigen volledige CI volgt. De twee eerdere lokale brede processen met exit 0 en onvolledige logs blijven ONGEVERIFIEERD; geen volledige 1876-PASS-claim. Overige historische fouten blijven behouden.",
+        "missing_evidence": "CI 272: volledige npm test PASS, 1867 ZERO/14 corpus, gepubliceerde 09681b5 en merge e83dd81 exact tree 8fcd340. Bron 5dd3ea2/tree 4609815 heeft 76 gerichte proeven en 14 corpuscases. De herstelde voorafgaande bron cda2180 heeft 30 gerichte/14 corpus/6 betrokken native scripts. Eigen volledige CI volgt. De twee eerdere lokale brede processen met exit 0 en onvolledige logs blijven ONGEVERIFIEERD; geen volledige 1876-PASS-claim. Overige historische fouten blijven behouden. Nieuwste aebdb91/tree ceabbc0 heeft 82 gerichte/14 corpus/3 native PASS met volledige eindrapporten en schone bron voor/na. CI 273 loopt voor de voorafgaande d19cccf-publicatie; deze Finance-uitbreiding vereist eigen CI.",
         "external_dependency": "CI is bereikbaar. Merge/deployment/productie wijzigen is niet in deze voortzetting geautoriseerd; dit blokkeert code en PR-werk niet.",
         "active_hours": {
           "min": 2,
@@ -3172,22 +3172,16 @@
           "all_open_components"
         ],
         "estimate_confidence": "MEDIUM_LOW",
-        "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        "reviewed_at": "2026-09-27T07:17:54.024274+00:00"
       }
     ],
-    "next_action": "Eigen volledige CI opvolgen; daarna verder met ontbrekende Finance/Automation/Analytics-histories, financiële correcties en volledige modulebediening voor Automotive en E-commerce. Gemeten snapshot-/seedkosten blijven actief. Echte model-/sociale-/stemreview en bereikbare browser-/toestelomgeving blijven afzonderlijke open eisen.",
+    "next_action": "Volledige CI opvolgen; verder met echte native factuur-/boekings-/betalingshistories op de nu gedeelde Finance-inrichting, daarna retour/credit/refund/correcties, Automation/Analytics-histories en volledige modulebediening. Automotive en E-commerce met ZERO en desktop/iPhone/Android/webapp blijven het eerste volledige leverblok.",
     "latest_verified_checkpoint": {
-      "source_commit": "5dd3ea2b282b50da00958f45d9b084da896c5b59",
-      "source_tree": "460981524d17fa720db675ba77f6d90209257c88",
-      "targeted_zero_pass": 76,
+      "source_commit": "aebdb9196b4e415ad24d42178d0de13515671a34",
+      "source_tree": "ceabbc0e5a6de9ebc0abb2a9562ce6fa79bb7867",
+      "targeted_zero_pass": 82,
       "corpus_pass": 14,
-      "native_scripts_separate_source": {
-        "commit": "cda21804f2a2257c4a3024cb8826d440bd1f9da0",
-        "tree": "eb29df018aefefb7ea44833d1d603167d7be280b",
-        "targeted_pass": 30,
-        "corpus_pass": 14,
-        "native_script_pass": 6
-      },
+      "native_script_pass": 3,
       "complete_ci": {
         "id": 36281495117,
         "run_number": 272,
@@ -3211,6 +3205,12 @@
         "command": "npm test",
         "run_wall_seconds": 998
       },
+      "preceding_ci": {
+        "run_number": 273,
+        "run_id": 36302006369,
+        "head": "d19cccf7bb6dfdbdac37dd4f24793fc7784b1e63",
+        "status": "IN_PROGRESS_AT_CHECKPOINT_PREPARATION"
+      },
       "own_published_ci": "PENDING_PUBLICATION",
       "no_acceptance_promotion": true
     },
@@ -3221,7 +3221,7 @@
       "OTHER_REGISTERED_PACKS_AND_MODULES",
       "REMAINING_RUN2"
     ],
-    "checkpoint": "5dd3ea2b282b50da00958f45d9b084da896c5b59",
+    "checkpoint": "aebdb9196b4e415ad24d42178d0de13515671a34",
     "latest_user_order": "Per demo moet ZERO alle harde eisen halen, inclusief sociale intelligentie, empathie, context, toon en uitvoering. Automotive en E-commerce met alle modules blijven eerst; direct bruikbare downloads/webapp en echte mobiele installatie blijven aparte eisen. Geen volledige acceptatie uit contracttests afleiden."
   },
   "remaining_work_review_history": [
@@ -6816,6 +6816,543 @@
         "REMAINING_RUN2"
       ],
       "checkpoint": "7858bf98a29a7ccc5768b884f0d0aa921f36af90",
+      "latest_user_order": "Per demo moet ZERO alle harde eisen halen, inclusief sociale intelligentie, empathie, context, toon en uitvoering. Automotive en E-commerce met alle modules blijven eerst; direct bruikbare downloads/webapp en echte mobiele installatie blijven aparte eisen. Geen volledige acceptatie uit contracttests afleiden."
+    },
+    {
+      "reviewed_at": "2026-09-27T07:02:18.099798+00:00",
+      "timezone": "Europe/Amsterdam",
+      "basis": "Existing locked acceptance matrix and current repository/checkpoint evidence; bounded gap review, not a restarted global audit.",
+      "time_estimate_policy": {
+        "unit": "active hours of one executing engineer/agent, including active evaluation/review; waiting excluded",
+        "method": "Bottom-up work packages stated per component; lower bound assumes existing contracts reusable and no new major defect, upper bound includes an additional correction/evidence round. These are planning estimates, not measured completion forecasts.",
+        "no_percentage_or_test_count_extrapolation": true,
+        "do_not_sum": "Shared dependencies overlap (semantic/context/search, Automotive/demo/cross-module, economics/performance, localization/UX). Rows must not be added into a promised total date.",
+        "waiting": "Known automated run durations are separated from external scheduling. Unknown access/reviewer waits have no honest upper bound until availability is established.",
+        "scope": "No parallel agents assumed; no Run 3–7 expansion; no automatic authorization for credentials, paid provider use, merge or production changes."
+      },
+      "components": [
+        {
+          "id": "cognition",
+          "component": "ZERO-cognitie",
+          "requirement_ids": [
+            "R2-001",
+            "R2-002",
+            "R2-003",
+            "R2-004",
+            "R2-005",
+            "R2-006",
+            "R2-007",
+            "R2-008",
+            "R2-009",
+            "R2-010",
+            "R2-011",
+            "R2-012",
+            "R2-013",
+            "R2-014"
+          ],
+          "remaining_code": "Korte, begrensde leesvervolgvragen hergebruiken nu de laatste exact gekoppelde eigen analyseselectie en lezen actuele native bronnen opnieuw. Nieuwe onderwerpen en actieopdrachten krijgen daarmee geen eerdere bevoegdheid. Resterend: brede natuurlijke verwijzingen/correcties, langere context, ambiguïteit, causaal redeneren en sociale kwaliteit per demo/module en taal.",
+          "missing_evidence": "Veertien Nederlandse meerbeurtscenario’s en een rubric bestaan; Automotive en E-commerce hebben ieder 42 echte HTTP-beurten zonder live model als transportrepetitie. Retentie, andere gebruiker, herstart, bronintrekking en verloren gesprek zijn technisch bewezen met expliciet fictieve provideroutput. Nog nodig: onafhankelijke beoordeling van echte modelantwoorden op empathie, context, toon, timing, correcties, humor en nuttige uitvoering, plus oorspronkelijke gespreksscenario’s en taalreview voor de zeven overige talen. Nieuw: de volledige 3575-staps E-commerce-demo is met 42 Nederlandse HTTP-beurten herhaald. De oorspronkelijke twee bronbudgetfouten en de daaropvolgende time-out zijn bewaard; de laatste herhaling heeft geen HTTP-fout. Dit is zonder live model en aanvaardt dus geen empathie, sociale intelligentie of natuurlijke taalprestatie. Herstelde vervolgroute is voor beide prioriteitspacks via echte HTTP en versleutelde herstart gecontroleerd, inclusief bronwijziging, ander eigendom en verwijdering tijdens modelwachten. Expliciete transportfixture; geen empathiescore of natuurlijke modelkwaliteit.",
+          "external_dependency": "Modelkwaliteit en vergelijking vereisen een toegestane live modelconfiguratie; beschikbaarheid is hier niet bewezen.",
+          "active_hours": {
+            "min": 20,
+            "max": 48
+          },
+          "waiting_time": "Automatische evaluaties circa 10–30 min per ronde; toegang en beoordelaars: geen betrouwbare kalenderband zolang beschikbaarheid onbekend is.",
+          "estimate_basis": "20–48 actieve uren blijft conditioneel voor de brede kwaliteitsrest: de concrete context-/routinggaten zijn gesloten en de Nederlandse corpusbasis bestaat, maar er is nog geen onafhankelijke modelkwaliteitmeting waarop een kleinere brede band kan worden gebaseerd. Geen afleiding uit aantallen tests.",
+          "dependencies": [
+            "retrieval_context",
+            "cross_module"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "semantic_memory",
+          "component": "Semantisch geheugen",
+          "requirement_ids": [
+            "R2-020"
+          ],
+          "remaining_code": "Semantisch ophalen, herindexeren, verwijderen en herkomstcontrole toevoegen aan de bestaande geheugenlagen.",
+          "missing_evidence": "Relevantie, supersessie, verwijdering, veroudering en intrekking van rechten over index en huidige bron.",
+          "external_dependency": "Een eventuele embeddingdienst is een keuze/afhankelijkheid, geen nu bewezen externe blokkade.",
+          "active_hours": {
+            "min": 8,
+            "max": 20
+          },
+          "waiting_time": "Lokale index-/regressieruns circa 5–20 min per ronde; eventuele providerwachttijd onbekend.",
+          "estimate_basis": "Opslag/lifecycle bestaat al; ontbrekend werk is het ophalen en de veiligheids- en relevantieproef, geen herbouw van acht lagen.",
+          "dependencies": [],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "retrieval_context",
+          "component": "Contextselectie en relevantie",
+          "requirement_ids": [
+            "R2-029",
+            "R2-033",
+            "R2-034"
+          ],
+          "remaining_code": "Native specialisten leveren maximaal 7000 bytes per bron, met expliciet weggelaten volledige rijen/velden en hercontrole van de volledige geautoriseerde bronsnapshot. Valuta, bedragen, null/0 en paginering behouden hun betekenis. Resterend: vraaggerichte semantische relevantie, langere taakcontext, ambiguïteit en kwalitatieve taakbudgetkeuze. Geneste waarnemingsdatums, ook in weggelaten bronrijen, zijn nu bindend voor hercontrole; alleen de klok op het hoogste samenvattingsniveau wordt genegeerd.",
+          "missing_evidence": "Representatieve relevantiebeoordeling, bronintrekking tijdens ophalen, gemeten vertraging en taakniveau kosten/kwaliteit. Grote echte native HTTP-bronnen, verborgen gewijzigde details en alle geregistreerde specialisten binnen hun gedeelde budget zijn technisch gecontroleerd. De volledige E-commerce-herhaling sluit de gevonden 413-fout; representatieve modelkwaliteit blijft open.",
+          "external_dependency": "Live modelkosten en representatieve belasting zijn nog niet geverifieerd.",
+          "active_hours": {
+            "min": 6,
+            "max": 16
+          },
+          "waiting_time": "Meetseries circa 15–60 min per profiel; providerbeschikbaarheid onbekend.",
+          "estimate_basis": "zero/context.js scoort nu lexicaal en heeft byte-/tijdsgrenzen; rangschikking, budgetkeuze en meting vormen drie afgebakende werkpakketten.",
+          "dependencies": [
+            "semantic_memory",
+            "economics",
+            "performance"
+          ],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "economics",
+          "component": "Model-/agentkosten en operationele beheersing",
+          "requirement_ids": [
+            "R2-042",
+            "R2-110"
+          ],
+          "remaining_code": "Bestaande reserveringen en token/aanvraaglimieten doortrekken naar aantoonbare geldplafonds voor research en Realtime, inclusief onbekend verbruik en gelijktijdigheid.",
+          "missing_evidence": "Hard plafond bij parallelle taken, retries, provideruitval, onvolledige usage en audio/research-afrekening.",
+          "external_dependency": "Live prijzen/verbruiksrapporten zijn nog niet als kostenacceptatie bewezen; geen credentialwijziging verondersteld.",
+          "active_hours": {
+            "min": 8,
+            "max": 20
+          },
+          "waiting_time": "Gerichte regressie circa 5–20 min per ronde; live verbruiksrapportage/providerafrekening afhankelijk van provider, onbekend.",
+          "estimate_basis": "Router heeft reeds dagelijkse USD-controles en conservatieve reserveringen; de open grens is gecombineerde research/audio-afrekening, niet ontbreken van een router.",
+          "dependencies": [],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "research",
+          "component": "Research en kennisverificatie",
+          "requirement_ids": [
+            "R2-043",
+            "R2-044",
+            "R2-045",
+            "R2-046"
+          ],
+          "remaining_code": "Tegenstrijdige claims systematisch beoordelen en verificatie van bron, datum, jurisdictie en actualiteit versterken.",
+          "missing_evidence": "Echte primaire bronnen, foutieve citaties, conflicten, verlopen informatie en adversariële inhoud via productiepad; activatie/rollback blijft behouden.",
+          "external_dependency": "Primaire RDW/EEA/product-/prijsbronnen zijn daadwerkelijk opgehaald met tijd, bron, licentie en checksum. Specifieke markt-/EEA-verzoeken werden geweigerd en enkele productqueries gaven 503; dit is per bron vastgelegd. Native research-conflictverificatie en live antwoordkwaliteit blijven afzonderlijk onbewezen.",
+          "active_hours": {
+            "min": 8,
+            "max": 20
+          },
+          "waiting_time": "Bron-/modelruns circa 5–30 min per ronde; externe toegang of inhoudelijke beoordeling: onbekend.",
+          "estimate_basis": "Bronmetadata en quarantaine/activatie bestaan; claimconflicten en brongebonden acceptatie ontbreken.",
+          "dependencies": [
+            "cognition"
+          ],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "stack",
+          "component": "Stack Discovery en bronautoriteit",
+          "requirement_ids": [
+            "R2-049",
+            "R2-122"
+          ],
+          "remaining_code": "Ontbrekende heterogene systeem-, identiteit-, schema- en datamappingpaden plus expliciete klantbronautoriteit sluiten.",
+          "missing_evidence": "Meerdere systemen, dubbele autoriteiten, gewijzigde scopes, ongedocumenteerde schema’s/webhooks, storing en herstelde verbindingen.",
+          "external_dependency": "Representatieve toegestane sandbox/systemen en eventuele klantmapping zijn nodig; niet als reeds beschikbaar opgevoerd.",
+          "active_hours": {
+            "min": 16,
+            "max": 40
+          },
+          "waiting_time": "Lokale/contractruns circa 10–30 min per ronde; externe sandbox/klanttoegang: geen onderbouwde bovengrens.",
+          "estimate_basis": "Native configuratie, verklaringen en publieke schema-observaties bestaan; meerdere aanvullende adapter-/mappingfamilies en conflictcases blijven open.",
+          "dependencies": [],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "localization",
+          "component": "Lokalisatie van alle huidige oppervlakken",
+          "requirement_ids": [
+            "R2-056",
+            "R2-057",
+            "R2-058",
+            "R2-059",
+            "R2-060",
+            "R2-061",
+            "R2-062",
+            "R2-063"
+          ],
+          "remaining_code": "Resterende verzendbeoordelingsformulieren/-acties, Communication-schermen, gedeelde bediening en backend-/gegenereerde producttekst sluiten. Broncontext in beoordelingen is afgebakend bewezen. Werk blijft behouden; gebruiker geeft Automotive en E-commerce inclusief ZERO en levering nu voorrang. De nieuwe Finance-actiebediening en bijbehorende gegenereerde/antwoordtekst moeten nog in alle acht talen en echte browsers worden afgewerkt.",
+          "missing_evidence": "Broncontext heeft elf gerichte controller/native/HTTP-proeven en volledige lokale regressie; eigen publicatie/CI volgt. Overige beoordelingsbediening, echte browserfocus/layout/downloadgedrag, assistive technology, native taalkwaliteit en live-providerbewijs waar vereist blijven open. De vier nieuwe handelssecties hebben expliciete labels in acht talen; de bredere UI-/toestelbeoordeling blijft open. Demo-bediening en Data-tab hebben acht expliciete locales; gecontroleerd dat wisselen geen formuliertekst, bevestiging of schrijfactie verandert. Native taalreview blijft nodig.",
+          "external_dependency": "Taalbeoordeling en een toegankelijke browseromgeving zijn nog niet bewezen; lokale codewerkzaamheden zijn uitvoerbaar.",
+          "active_hours": {
+            "min": 24,
+            "max": 64
+          },
+          "waiting_time": "Per checkpoint CI circa 8–20 min; reviewer/browserbeschikbaarheid onbekend.",
+          "estimate_basis": "Mailbox-, bronbestands-, bezorgmeldings- en gespreksbediening zijn afgebakend bewezen. Broncontext en overige beoordelings-/Communication-schermen, gedeelde/backendtekst en brede toestands-/taalreview blijven. Conditioneel 24–64 actieve uren voor de brede restscope; geen extrapolatie uit testaantallen.",
+          "dependencies": [
+            "ux"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "voice",
+          "component": "Stemkwaliteit en realtime gedrag",
+          "requirement_ids": [
+            "R2-064",
+            "R2-065",
+            "R2-066",
+            "R2-067",
+            "R2-068",
+            "R2-069",
+            "R2-070",
+            "R2-071",
+            "R2-072",
+            "R2-073",
+            "R2-074",
+            "R2-075",
+            "R2-076",
+            "R2-077",
+            "R2-078",
+            "R2-079",
+            "R2-081"
+          ],
+          "remaining_code": "Alleen gemeten live tekorten in streaming, onderbreking, uitspraak en prosodie bijstellen; bestaande 48 instellingen en bevestigingsregels behouden. Sociale toon, empathie, natuurlijk beurtgedrag en passende stilte moeten ook hoorbaar werken in iedere demo, met behoud van de autoritatieve spoken_text en native actiebevestigingen.",
+          "missing_evidence": "Man/vrouw, drie modi, acht talen, luisterbeoordeling, eerste-audiolatentie, echte microfoon/barge-in, namen/merken/getallen en continuïteit. Per demo aparte luisterreview van empathie, urgentie, onderbreking en ernstige situaties; goede tekst alleen is geen stemkwaliteitsbewijs. De nieuwe sociale spreekaanwijzing blijft ondergeschikt aan spoken_text; dit is configuratie, geen luisterbewijs. Reële emotionele prosodie/timing en contextwissels blijven te beoordelen.",
+          "external_dependency": "Live voiceprovider, microfoon/audioomgeving en taalbeoordelaars zijn vereist. Er is geen actueel bewijs van hun beschikbaarheid.",
+          "active_hours": {
+            "min": 12,
+            "max": 32
+          },
+          "waiting_time": "Synthese-/luistersessies circa 15–60 min per batch; toegang/hardware/reviewplanning: onbekend, geen beloofde einddatum.",
+          "estimate_basis": "Configuratie- en transcriptcontracten zijn getest; productkwaliteit vergt een aparte audiomatrix en waarschijnlijk een afstelronde. Band bevat actieve uitvoering/review, geen wachten op mensen.",
+          "dependencies": [
+            "economics"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "demo",
+          "component": "Demo Universe Law/Engine, Automotive en E-commerce eerst, daarna alle packs/modules",
+          "requirement_ids": [
+            "R2-082",
+            "R2-083",
+            "R2-084",
+            "R2-085",
+            "R2-086",
+            "R2-087"
+          ],
+          "remaining_code": "Automotive en E-commerce gebruiken nu gedeelde preview/start/pauze/hervatbediening en herstel vanuit de serverreservering. ZERO-bronoverdracht is begrensd en blijft brongebonden; herhaalde rechtenresolutie is versneld zonder caching tussen controles. Resterend: volledige Finance/Automation/Analytics- en gebeurtenis-/approvalhistories, credit/verrekening/refund/annulering, volledige moduleactie-UI, vraaggerichte/natuurlijke/sociale/gesproken ZERO-kwaliteit, bronactualiteit en omzet-/waardescenario’s, downloadverpakking en bereikbare installeerbare webapp. Daarna overige packs/modules. Herhaalde Law-validatie gebruikt nu alleen eerder volledig gevalideerde, diep bevroren manifestobjecten. Herstart, rollback of vervanging vereist nieuwe validatie; native records en rechten blijven actueel.",
+          "missing_evidence": "7858bf9/tree 410dcc5: 1867 ZERO, 14 corpus en 12 betrokken native scripts PASS op vaste bron. Echte HTTP-verloren start/herstart/eigenaarsisolatie en controller-pauze/herstel zijn gecontroleerd. De volledige E-commerce-seed plus 42 beurten zonder live model is op cf6740b afgerond zonder HTTP-fout; bronidentiteit apart vastgelegd. Nog nodig: complete histories en module-UI, onafhankelijk beoordeelde model-/sociale/stemkwaliteit, forecastbacktests, browserlayout, desktopstart en echte iPhone/Android-installatie. Nieuwe vaste bron 5dd3ea2/tree 4609815: 76 gerichte native/demo/ZERO-proeven en 14 corpuscases; volledige native Automotive- en E-commerce-grafen en echte versleutelde API/rollback/billing in de selectie. Volledige CI 272 geldt voor voorafgaande 09681b5. Het eerder gemelde lokale ad53950-checkpoint en volledige Automotive-HTTP-ruwbestanden ontbreken in deze workspace en worden expliciet als eerdere melding bewaard, niet opnieuw geverifieerd.",
+          "external_dependency": "Openbare snapshots zijn daadwerkelijk opgehaald en via native leesroutes beschikbaar. EEA vervolg gaf HTTP tunnel 403; AutoScout24 BE/DE robotsweigerden listingpaden; OFF NL/DE gaf HTTP 503. Dit blokkeert alleen die aanvullende waarnemingen, niet de native code. Complete live provider-, model-, hosting- en echte-apparaatacceptatie zijn nog niet aangetoond. Marktgegevens hebben nog geen vastgestelde herdistributielicentie voor het uiteindelijke pakket.",
+          "active_hours": {
+            "min": 88,
+            "max": 224
+          },
+          "waiting_time": "Gerichte native/demo-regressie: zie gemeten duur in manifest-frozen-results.json; volledige CI circa 8–20 minuten plus wachtrij (272: 16 min 38 s PASS). Eerder gepubliceerde E-commerce-seed 8.7 minuten; eerdere volledige Automotive-melding 26.3 minuten heeft hier geen teruggevonden ruwe bijlagen. Baseline is onvolledig/onbeschikbaar, niet lopend. Provider-, reviewer-, hosting- en echte-apparaatwachttijd onbekend.",
+          "estimate_basis": "88–224 actieve uren blijft de conditionele brede band: eerste twee demo’s 76–192 uur (histories/correcties 18–48; bronkoppelingen en volledige moduleactie-UI 18–48; ZERO/scenario/mobiele integratie 24–56; actualiteit/prognosevalidatie 8–20; verpakking/installatie/herstel 8–20), overige varianten 12–32. De generieke seedbediening is nu aanwezig; dit vervangt de open moduleactie-UI en kwaliteits-/apparaatgates niet. De volledige dataproef vond extra integratie-/latencywerk. Geen kleinere totaalband uit testaantallen; rijen overlappen.",
+          "dependencies": [
+            "industry",
+            "cross_module",
+            "ux",
+            "performance"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "industry",
+          "component": "Automotive-kennis en gegevensbetekenis",
+          "requirement_ids": [
+            "R2-021",
+            "R2-088",
+            "R2-089",
+            "R2-090",
+            "R2-091",
+            "R2-092"
+          ],
+          "remaining_code": "De controleerbare Automotive-catalogus en native/ZERO-leesroutes bestaan. Nog sluiten: brede fabrikant-/variantdekking en bronconflicten, meer bruikbare Europese aanbiedingen, passende vergelijkingsselectie/waardering met onzekerheid, actuele voorraadkoppelingen, betekenis van verkoop-/registratiecijfers en optiesvraag, plus bediening in de volledige demo. De nieuwe ACEA/CBS/OEM-selectie is native beschikbaar; brede bronverversing, generatie-/variantconflicten en empirisch onderbouwde waardeontwikkeling blijven code- en validatiewerk.",
+          "missing_evidence": "214.175 gemengde referentierecords: 92.130 RDW-modelgroepen, 69.564 EEA-typegroepen, 50.000 technische vertegenwoordigers, 2.243 registratieaggregaten en 238 advertentiewaarnemingen. Dit zijn geen 214.175 afzonderlijke auto’s. RDW-vermogensratio is gecorrigeerd; apart gekoppeld brandstofvermogen en gewogen hybride CO2 zijn getest. Nog nodig: echte marktwaardering/actualiteit, conflictscenario’s, dekking en inhoudelijke domeinreview. Daarnaast twaalf bronfeiten van vijf primaire pagina’s met publicatie-/meet-/ophaaltijd en voorlopigheidslabel; dit is een beperkte selectie, geen uitputtende actualiteit of marktwaardemodel.",
+          "external_dependency": "RDW/EEA en meerdere NL/BE/DE-aanbodbronnen zijn daadwerkelijk gelezen. Afgewezen vervolgverzoeken en robotsweigeringen zijn behouden; geen omzeiling. Openbare waarnemingen zijn geen actieve dealer-API en bewijzen geen volledige voorraad of verkoop. Aanvullende gelicentieerde bronnen alleen waar de gevraagde dekking ze vereist.",
+          "active_hours": {
+            "min": 16,
+            "max": 40
+          },
+          "waiting_time": "Import-/validatieruns circa 10–30 min per ronde; datarechten en domeinreview: onbekend.",
+          "estimate_basis": "Bronopslag, index en API zijn gerealiseerd; de uitbreiding naar alle merken/specs, live voorraad, vraag en uitlegbare waardering houdt 16–40 actieve uren conditioneel open. Een grotere tabel vervangt geen markt-/domeinvalidatie.",
+          "dependencies": [
+            "research"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "cross_module",
+          "component": "Complexe cross-module ZERO-scenario’s",
+          "requirement_ids": [
+            "R2-093",
+            "R2-096"
+          ],
+          "remaining_code": "Native facturatieketen, gesprekshistorie en begrensde korte leesvervolgen bestaan. Elke vervolgbeurt maakt een nieuw native leesplan; actuele rechten en bronnen blijven leidend. Resterend: brede natuurlijke taakverwijzingen, retour/credit/refund/correctie, complete histories en bediening, en inhoudelijke meerstapskwaliteit.",
+          "missing_evidence": "De huidige echte HTTP/ZERO-keten gebruikt vergrendelde orderprijzen, de CRM-klant en Finance-entiteit, herstelt een verloren factuurantwoord na versleutelde herstart en boekt/betaalt één factuur met exacte rapportbedragen. Oorspronkelijk concept en huidige betaalde factuur blijven gescheiden; rechtenintrekking stopt herstel. Eerdere UNPOSTED-bewijzen blijven historisch bewaard; nieuw gekoppelde orders dragen INVOICE_LINKED zonder betaalclaim. Ontbrekend: retour/correctie/refund-ketens, complete seed/bediening en representatieve moeilijke natuurlijke meerstapstaken, conflicten en causale beoordeling. E-commerce HTTP-bewijs gebruikt nu een daadwerkelijk gegenereerde order en CRM-klant. Het meer-modulegesprek moet afzonderlijk eerdere uitleg en toon meenemen zonder private of inmiddels ingetrokken bronnen te herhalen; onafhankelijke modelkwaliteitsreview blijft nodig. Cross-module historie is nu daadwerkelijk in de modelinput bewezen voor beide packs, inclusief correctievolgorde, versleutelde herstart, gebruikersisolatie, geen terugkeer van private bronantwoorden en intrekking tijdens wachten. De gebruikte provider is expliciet een transportfixture; natuurlijke/sociale kwaliteit blijft onbewezen. De grote seeded Sales/Automation-vergelijking is opnieuw door het echte HTTP-pad gegaan. Begrensde projectie herverifieert ook weggelaten native details. Demo-afgeleide specialistbronnen dragen nu expliciet SYNTHETIC_DEMO; geen promotie naar klant- of marktwaarheid. Nieuw bewijs sluit bronselectieverlies bij de begrensde leesvervolgen; expliciete modulekeuze, nieuw onderwerp, verval van rechten en gespreksverwijdering zijn gecontroleerd. Geen algemene modelkwaliteitacceptatie.",
+          "external_dependency": "Live model en inhoudelijke beoordeling nodig voor antwoordkwaliteit; native scenario’s kunnen lokaal worden uitgevoerd.",
+          "active_hours": {
+            "min": 12,
+            "max": 28
+          },
+          "waiting_time": "Scenario-/modelbatches circa 10–45 min; externe model/reviewerwachttijd onbekend.",
+          "estimate_basis": "Eén echte ZERO-turn met meerdere bronnen bestaat; moeilijke taken en kwaliteitsscores zijn een apart corpus plus correctiewerk.",
+          "dependencies": [
+            "cognition",
+            "industry"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "security",
+          "component": "Adversariële en beveiligingsacceptatie",
+          "requirement_ids": [
+            "R2-100",
+            "R2-123"
+          ],
+          "remaining_code": "Resterende verzendbeoordelings-/actiegrenzen en contractbrede aanvalshiaten sluiten; bij de nieuwe demoscenario’s dezelfde tenant-, module- en objectrechten handhaven. Geen volledige actuele-bron-/gebruikersbinding van alle beoordelingsresponsen claimen op basis van contextvormvalidatie.",
+          "missing_evidence": "Broncontextvorm, stale-preview-verwijdering en historische context zijn lokaal bewezen; volledige beoordelingsresponse-/actie-/herstelgrenzen en contractbrede adversarial review blijven open. Demo-tenant-/herkomst-/rechtenbewijs wordt als eerste opgebouwd. Finance-native transacties en ZERO-acties controleren actuele rechten vóór herstel, hashgebonden oorspronkelijke resultaten, onbekende/gewijzigde aanvragen, versleutelde herstart en werkelijke vertraagde HTTP-bodies. Dit sluit de bredere aanvalslijst niet. De nieuwe drie-modulekoppeling bewijst actuele objectrechten, CRM-leesrechten zonder schrijfrechten, ontbrekende modulecomposities, geen private CRM-adreskopie naar Sales en atomaire rollback over beide outboxes. Brede adversariële acceptatie blijft open. De nieuwe demo-opslaggrens bewaart records/cursor/events atomair; foutinjectie bewijst geen voorafgaande SSE-publicatie en geen achtergebleven afgeleide feiten. Gesprekshistorie kan niet vanuit client_context of een andere eigenaar worden toegevoegd. Native demo-status geeft alleen de huidige eigenaar reserveringsdetails; andere beheerders/viewers blijven uitgesloten. De optimalisatie leest rechten per synchrone resolutie opnieuw; wijziging van rol, permission, module of lidmaatschap blijft onmiddellijk geldig bij volgende controle en na modelwachten.",
+          "external_dependency": "Lokale aanvalstests niet extern geblokkeerd; echte providerpaden alleen met toegestane toegang.",
+          "active_hours": {
+            "min": 12,
+            "max": 32
+          },
+          "waiting_time": "Regressie-/fuzzbatches circa 10–60 min; CI circa 8–20 min; providerwachttijd indien nodig onbekend.",
+          "estimate_basis": "De bron- en gespreksleesroutes zijn afgebakend bewezen. Beoordelings-/actiegrenzen en de bredere aanvalslijst blijven aparte werkpakketten; conditioneel 12–32 actieve uren.",
+          "dependencies": [],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "ux",
+          "component": "Browserkwaliteit, toegankelijkheid en responsive gedrag",
+          "requirement_ids": [
+            "R2-101",
+            "R2-102",
+            "R2-103",
+            "R2-104",
+            "R2-105",
+            "R2-106"
+          ],
+          "remaining_code": "Volledige Automotive/E-commerce en ZERO geschikt maken voor desktop, iPhone Safari en Android Chrome: touch/toetsenbord, smalle schermen, focus, scrollen, microfoonrechten, installatie/start/herstel en direct bruikbare download. Manifest/icons en een beperkte publieke offlinecache bestaan; de volledige productbediening en fysieke acceptatie blijven open. Daarna overige behouden UX-correcties.",
+          "missing_evidence": "Werkelijke HTTP-installatiebestanden, private-authgrenzen, geen cache van API/tenantpagina’s, geen achtergrondreplay, behoud van UTF-8/CSS en zelfstandig CRM-pakket zijn getest. Dit bewijst geen browserinstallatie, schermkwaliteit, assistive technology, fysieke telefoon of volledige ZERO-bediening. De hoofd-dashboard-CSS blijft exact gelijk. De nieuwe demo-controls hebben technisch bewezen pauze, onzeker antwoord, heropenen, stale view en localegedrag. Dit minimale DOM-bewijs vervangt geen echte browser-, toetsenbord-, schermlezer- of telefooncontrole.",
+          "external_dependency": "Opnieuw geprobeerd met de ondersteunde Chrome-browser: de lokale /data-testomgeving wordt geblokkeerd met net::ERR_BLOCKED_BY_CLIENT. Geen echte paginaweergave verkregen. Een bereikbare toegestane testomgeving en fysieke apparaten blijven nodig; native/controllerwerk is uitvoerbaar.",
+          "active_hours": {
+            "min": 16,
+            "max": 40
+          },
+          "waiting_time": "Browser-/reviewtoegang: onbekend. Zodra beschikbaar, 10–30 min automatische runs per viewport/flow; actieve handmatige review zit in urenband.",
+          "estimate_basis": "De nieuwe levereis voegt installatie/relaunch, download/start en herstel over desktop en twee telefoonplatforms toe. 12–32 uur bestaande brede UX-restscope plus 4–8 uur actieve installatie-/herstelreview; overlap met de demo-verpakking niet optellen.",
+          "dependencies": [
+            "localization"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "universal_search",
+          "component": "Permission-aware universeel zoeken",
+          "requirement_ids": [
+            "R2-116"
+          ],
+          "remaining_code": "Gedeelde retrieval-/zoekroute over bevoegde bronnen toevoegen, met actuele zichtbaarheid en bronverwijzing.",
+          "missing_evidence": "Gemengde bronnen, gedeeltelijke beschikbaarheid, actuele intrekking, ranking, paginering en afwezig versus onbekend.",
+          "external_dependency": "Geen bewezen externe blokkade voor native bronnen; extra externe bronnen volgen geautoriseerde adapters.",
+          "active_hours": {
+            "min": 12,
+            "max": 28
+          },
+          "waiting_time": "Zoek-/integratieruns circa 5–20 min; CI circa 8–20 min.",
+          "estimate_basis": "Domeinzoekfuncties bestaan, maar niet één complete permission-aware surface. Retrieval, presentatie en autorisatie-evaluatie vormen aparte pakketten.",
+          "dependencies": [
+            "semantic_memory",
+            "stack"
+          ],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "attention",
+          "component": "Aandachtsprioritering",
+          "requirement_ids": [
+            "R2-117"
+          ],
+          "remaining_code": "Gedeelde rangschikking naar rol, urgentie en risico plus niet-onderdrukbare kritieke signalen implementeren.",
+          "missing_evidence": "Conflicterende prioriteiten, vergeten/stale signalen, toestemming, verklaarbare volgorde en kritieke uitzonderingen.",
+          "external_dependency": "Geen aangetoonde externe blokkade voor native regels en scenario’s.",
+          "active_hours": {
+            "min": 12,
+            "max": 24
+          },
+          "waiting_time": "Scenarioruns circa 5–20 min; CI circa 8–20 min.",
+          "estimate_basis": "Eenheid voor deze prioritering ontbreekt volgens de matrix; broncontracten, ranking en UI/evaluatie moeten samen worden bewezen.",
+          "dependencies": [],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "data_quality",
+          "component": "Datakwaliteit en beheerste correctie",
+          "requirement_ids": [
+            "R2-118"
+          ],
+          "remaining_code": "Herkomstbewuste detectie van duplicaten, tegenspraak, veroudering en ongeldige waarden plus expliciete correctievoorstellen verbinden.",
+          "missing_evidence": "Vals-positieven, onvolledige bronnen, bewezen eigenaarschap, bevestigde correctie/rollback en ongewijzigde klantwaarheid. De native handelsketen rekent bedragen met gehele minor units en cumulatieve retourbelasting; directe referenties en prognoses tonen verschillende bronbetekenissen. Finance weigert onveilige sommen/precisieverlies en hergebruik van één bankbron; actuele journaal- en betaalrecords blijven gescheiden van het oorspronkelijke bewijs. Creditnota’s vereisen nog een apart verrekenings-/refundpad. Orderfacturatie gebruikt de vergrendelde orderregels, exacte Finance-centen en geselecteerde actuele CRM-/entiteitsbronnen; latere catalogusprijzen veranderen de order niet. Gekoppelde retouren blijven expliciet financieel te beoordelen. De 240 geselecteerde publieke productreferenties hebben bron/checksum/GTIN; bronclaims zijn niet onafhankelijk geverifieerd. Verkoopprijzen, belastingaanname, voorraad en transacties blijven expliciet fictief. Marketing- en CRM-campagne-identiteiten zijn in beide nieuwe grafen correct verbonden.",
+          "external_dependency": "Geen aangetoonde externe blokkade voor native implementatie; representatieve klantreview afzonderlijk.",
+          "active_hours": {
+            "min": 12,
+            "max": 28
+          },
+          "waiting_time": "Data-/integratiebatches circa 10–30 min; CI circa 8–20 min.",
+          "estimate_basis": "Exacte centen voor hergebruik van grote gerapporteerde bedragen zijn nu via native/HTTP-bediening bewezen; actuele kostenscenario’s en waarnemingen weren verwijderde bronnen. Brede detectie, herkomstbewuste correctievoorstellen en rollback over andere bronfamilies blijven open; afzonderlijke geslaagde controles sluiten die gate niet.",
+          "dependencies": [],
+          "estimate_confidence": "LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "configuration",
+          "component": "Configuratieversies en rollback",
+          "requirement_ids": [
+            "R2-119"
+          ],
+          "remaining_code": "Resterende Run-2-configuraties aan consistente revisie-, audit- en rollbacksemantiek toetsen en gevonden gaten sluiten.",
+          "missing_evidence": "Huidige rechten, stale revisies, verlies van antwoord, exact herstel en rollback over model/research/voice/stack-configuratie.",
+          "external_dependency": "Geen geverifieerde externe blokkade voor native configuratiepaden.",
+          "active_hours": {
+            "min": 6,
+            "max": 16
+          },
+          "waiting_time": "Gerichte hersteltests circa 5–20 min; CI circa 8–20 min.",
+          "estimate_basis": "Workflow-/referentieversies bestaan; resterende configuratiefamilies vragen begrensde harmonisatie en bewijzen.",
+          "dependencies": [],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "business_personal",
+          "component": "Business/Personal-scheiding",
+          "requirement_ids": [
+            "R2-120"
+          ],
+          "remaining_code": "Alleen aangetoonde grensdefecten repareren; geen Personal-integratie toevoegen om de test te vullen.",
+          "missing_evidence": "Data-, context-, autorisatie- en commerciële grenzen expliciet negatief testen en vastgelegde productafspraken controleren.",
+          "external_dependency": "Eventueel ontbrekende commerciële beleidskeuze kan alleen door producteigenaar worden ingevuld; nog niet als bewezen blokkade aangemerkt.",
+          "active_hours": {
+            "min": 4,
+            "max": 10
+          },
+          "waiting_time": "Lokale grenstests circa 5–20 min; eventuele beleidsreview: onbekend.",
+          "estimate_basis": "Geen Personal-integratie geïntroduceerd. Werk is grensinventarisatie/negatieve tests en review, geen nieuw product.",
+          "dependencies": [],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "performance",
+          "component": "Representatieve latency en kosten",
+          "requirement_ids": [
+            "R2-124"
+          ],
+          "remaining_code": "Herhaalde manifestvalidatie is teruggebracht tot gebruik van dezelfde diep onveranderbare, volledig gevalideerde grafiek. Alleen identieke objecten delen validatie; herstart, vervanging en rollback worden opnieuw gecontroleerd. Resterend: volledige snapshot-/event-/seedkosten verminderen, native bronselectie verbeteren en representatieve gelijktijdigheid en telefoonbelasting meten.",
+          "missing_evidence": "Herhaalbare lokale proef op dezelfde volledige grafen: Automotive 5581 nodes, herhaalde lees-p50 126.716 naar 0.001 ms; E-commerce 3575 nodes, 79.135 naar 0.001 ms. Eerste validatie blijft 144.784/109.100 ms; dit is alleen manifestlezen en geen totale laadtijdwinst. Gepubliceerde E-commerce-meetreeksen blijven behouden. Eerdere gemelde volledige Automotive-collectie heeft hier ontbrekende ruwe bijlagen; oude E-commerce-baseline is onvolledig/onbeschikbaar. Representatieve p50/p95/p99, volledige versleutelde herhaling, echte apparaten en live modelkosten blijven open.",
+          "external_dependency": "Representatieve runtime en live kosten zijn niet geverifieerd; synthetische lokale meting blijft mogelijk.",
+          "active_hours": {
+            "min": 8,
+            "max": 20
+          },
+          "waiting_time": "Circa 0,5–3 uur meettijd per workloadronde, grotendeels onbeheerd; externe runtime/providerbeschikbaarheid onbekend.",
+          "estimate_basis": "8–20 actieve uren blijft conditioneel voor snapshot-/eventtuning, representatieve workload en apparaatmeting. Het collector-/I/O-harnas bestond al; herhaalbare manifestprofielproef en één gemeten correctie zijn nu toegevoegd. Geen ontbrekend harnas of testaantallen als schijnbasis voor de band.",
+          "dependencies": [
+            "economics",
+            "retrieval_context"
+          ],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        },
+        {
+          "id": "regression_release",
+          "component": "Regressie, CI en resterende integratie",
+          "requirement_ids": [
+            "R2-114",
+            "R2-115"
+          ],
+          "remaining_code": "Nieuwe defecten uit integratie oplossen en definitieve bewijzen vastleggen; geen bestaand geldend werk opnieuw bouwen.",
+          "missing_evidence": "CI 272: volledige npm test PASS, 1867 ZERO/14 corpus, gepubliceerde 09681b5 en merge e83dd81 exact tree 8fcd340. Bron 5dd3ea2/tree 4609815 heeft 76 gerichte proeven en 14 corpuscases. De herstelde voorafgaande bron cda2180 heeft 30 gerichte/14 corpus/6 betrokken native scripts. Eigen volledige CI volgt. De twee eerdere lokale brede processen met exit 0 en onvolledige logs blijven ONGEVERIFIEERD; geen volledige 1876-PASS-claim. Overige historische fouten blijven behouden.",
+          "external_dependency": "CI is bereikbaar. Merge/deployment/productie wijzigen is niet in deze voortzetting geautoriseerd; dit blokkeert code en PR-werk niet.",
+          "active_hours": {
+            "min": 2,
+            "max": 6
+          },
+          "waiting_time": "Volledige CI circa 8–20 min plus wachtrij; 272 gemeten 16 min 38 s PASS. Gerichte checks lopen in seconden/minuten; volledige lokale ZERO/corpus doorgaans 6–10 min, maar eerdere ontbrekende eindrapporten bewijzen geen PASS. Onbeheerde uitvoering apart van actieve foutcorrectie; externe acceptatiewachttijd onbekend.",
+          "estimate_basis": "Band betreft laatste integratie/evidence-werk, niet de optelsom van alle open hoofdonderdelen. CI per tussentijds checkpoint kan met ander werk overlappen.",
+          "dependencies": [
+            "all_open_components"
+          ],
+          "estimate_confidence": "MEDIUM_LOW",
+          "reviewed_at": "2026-09-27T07:02:18.099798+00:00"
+        }
+      ],
+      "next_action": "Eigen volledige CI opvolgen; daarna verder met ontbrekende Finance/Automation/Analytics-histories, financiële correcties en volledige modulebediening voor Automotive en E-commerce. Gemeten snapshot-/seedkosten blijven actief. Echte model-/sociale-/stemreview en bereikbare browser-/toestelomgeving blijven afzonderlijke open eisen.",
+      "latest_verified_checkpoint": {
+        "source_commit": "5dd3ea2b282b50da00958f45d9b084da896c5b59",
+        "source_tree": "460981524d17fa720db675ba77f6d90209257c88",
+        "targeted_zero_pass": 76,
+        "corpus_pass": 14,
+        "native_scripts_separate_source": {
+          "commit": "cda21804f2a2257c4a3024cb8826d440bd1f9da0",
+          "tree": "eb29df018aefefb7ea44833d1d603167d7be280b",
+          "targeted_pass": 30,
+          "corpus_pass": 14,
+          "native_script_pass": 6
+        },
+        "complete_ci": {
+          "id": 36281495117,
+          "run_number": 272,
+          "head_sha": "09681b570223d1ab348ac4fc4a50d8ee467cc8cd",
+          "status": "PASS",
+          "conclusion": "success",
+          "created_at": "2026-09-27T00:06:36Z",
+          "updated_at": "2026-09-27T00:23:14Z",
+          "html_url": "https://github.com/Foundlys/v36/actions/runs/36281495117",
+          "job_id": 108514049504,
+          "tree": "8fcd340f9be8b6ec3ee7739efd2339684bc1a7df",
+          "merge_commit": "e83dd8143eef84730562a5be31e3eb6ad7044ddf",
+          "log_sha256": "259f252ebbd414481c39214c4b4fddf4e4a632406cd4183742e0c1e4264c4c20",
+          "log_bytes": 879974,
+          "published_commit": "09681b570223d1ab348ac4fc4a50d8ee467cc8cd",
+          "zero_tests": {
+            "pass": 1867,
+            "fail": 0
+          },
+          "corpus_pass": 14,
+          "command": "npm test",
+          "run_wall_seconds": 998
+        },
+        "own_published_ci": "PENDING_PUBLICATION",
+        "no_acceptance_promotion": true
+      },
+      "execution_priority": [
+        "AUTOMOTIVE_COMPLETE_DEMO",
+        "ECOMMERCE_COMPLETE_DEMO",
+        "PER_ACCEPTED_DEMO_DOWNLOAD_AND_WEBAPP",
+        "OTHER_REGISTERED_PACKS_AND_MODULES",
+        "REMAINING_RUN2"
+      ],
+      "checkpoint": "5dd3ea2b282b50da00958f45d9b084da896c5b59",
       "latest_user_order": "Per demo moet ZERO alle harde eisen halen, inclusief sociale intelligentie, empathie, context, toon en uitvoering. Automotive en E-commerce met alle modules blijven eerst; direct bruikbare downloads/webapp en echte mobiele installatie blijven aparte eisen. Geen volledige acceptatie uit contracttests afleiden."
     }
   ]

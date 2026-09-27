@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),crypto=requ
 const {fixture}=require('../zero-evaluation/fixture'),{MODULES}=require('../module-catalog');
 
 test('actual E-commerce pack seeds native commerce through lost HTTP acknowledgement and encrypted restart, then ZERO bills its actual order and CRM contact',async()=>{
-  const s=await fixture({FOUNDLY_TENANT_ID:'demo-commerce-http',FOUNDLY_DEMO_UNIVERSE_ENABLED:'true',FOUNDLY_DEMO_TENANT_ID:'demo-commerce-http',NODE_OPTIONS:'--require '+require.resolve('../zero-evaluation/demo-universe-ack-drop')});
+  const s=await fixture({FOUNDLY_TENANT_ID:'demo-commerce-http',FOUNDLY_DEMO_UNIVERSE_ENABLED:'true',FOUNDLY_DEMO_TENANT_ID:'demo-commerce-http',NODE_OPTIONS:'--require '+require.resolve('../zero-evaluation/demo-universe-ack-drop')+' --require '+require.resolve('../zero-evaluation/demo-persist-failure')});
   try{
     const composition={industry_id:'ECOMMERCE',entitlements:Object.keys(MODULES),expected_revision:0};assert.equal((await s.request('/api/composition','PUT',composition)).status,200);
     const member=await s.enroll('commerce.demo.owner',['SUPER_ADMIN']),call=(route,method='GET',body,headers={})=>s.request(route,method,body,member.cookie,headers);
@@ -17,20 +17,31 @@ test('actual E-commerce pack seeds native commerce through lost HTTP acknowledge
     await assert.rejects(call(route+'/advance','POST',advance(0),{'x-demo-drop-reply':'isolated-demo-fixture'}));
     await s.stop();await s.start();member.cookie=await s.login(member);
     row=(await call(route)).body.universe;assert.ok(row.applied_nodes>0&&row.applied_nodes<=100,'Recover the actual acknowledged prefix, not the requested upper limit');assert.equal((await call(route+'/advance','POST',advance(0))).status,409);
-    while(row.status!=='SEEDED'){const before=row.applied_nodes,next=await call(route+'/advance','POST',advance(before));assert.equal(next.status,200,JSON.stringify(next.body));row=next.body.universe;assert.equal(row.applied_nodes-before,row.batch.applied_nodes);assert.ok(row.batch.applied_nodes>0&&row.batch.applied_nodes<=100);assert.equal(row.batch.work_budget_ms,1000);}
-    assert.equal(row.full_acceptance,false);assert.equal(row.total_nodes,239);
+    const financeStart=require('../ecommerce-demo-universe').build(options).nodes.findIndex(n=>n.contract==='finance.create');let financeFaultChecked=false;
+    while(row.status!=='SEEDED'){
+      const before=row.applied_nodes,input={...advance(before),limit:before<financeStart?Math.min(100,financeStart-before):100};
+      if(before===financeStart&&!financeFaultChecked){
+        const failed=await call(route+'/advance','POST',{...input,limit:1},{'x-demo-fail-persist':'isolated-demo-fixture'});assert.equal(failed.status,507,JSON.stringify(failed.body));
+        assert.equal((await call(route)).body.universe.applied_nodes,financeStart);assert.equal((await call('/api/finance/records/legal_entities')).body.total,0);
+        await s.stop();await s.start();member.cookie=await s.login(member);assert.equal((await call(route)).body.universe.applied_nodes,financeStart);financeFaultChecked=true;
+      }
+      const next=await call(route+'/advance','POST',input);assert.equal(next.status,200,JSON.stringify(next.body));row=next.body.universe;assert.equal(row.applied_nodes-before,row.batch.applied_nodes);assert.ok(row.batch.applied_nodes>0&&row.batch.applied_nodes<=100);assert.equal(row.batch.work_budget_ms,1000);
+    }
+    assert.equal(financeFaultChecked,true);
+    assert.equal(row.full_acceptance,false);assert.equal(row.total_nodes,251);
     const products=(await call('/api/sales/commerce/commerce_products?limit=100')).body,orders=(await call('/api/sales/commerce/commerce_orders?limit=100')).body;
     assert.equal(products.total,12);assert.equal(orders.total,12);assert.ok(products.items.every(r=>r.provenance.classification==='SYNTHETIC_DEMO'));assert.ok(orders.items.every(r=>r.financial_status==='UNPOSTED'));
     const productReference=await call('/api/crm/product-reference?code='+products.items[0].gtin+'&limit=2');assert.equal(productReference.status,200);assert.ok(productReference.body.results.some(r=>r.product.code===products.items[0].gtin));
     const order=orders.items.find(r=>r.status==='FULFILLED'),contact=(await call('/api/crm/contacts/'+order.customer_reference)).body.record;assert.ok(contact.name.startsWith('[SYNTHETIC DEMO]'));
-    const entity=await call('/api/finance/legal-entities','POST',{name:'[SYNTHETIC DEMO] Commerce entity',legal_form:'BV',address:'[SYNTHETIC DEMO] Supplier address',vat_id:'DEMO-NOT-A-VAT-ID',kvk_number:'DEMO-KVK',currency:'EUR'});assert.equal(entity.status,201);
-    assert.equal((await call('/api/finance/periods','POST',{legal_entity_id:entity.body.id,start_date:'2026-01-01',end_date:'2026-12-31'})).status,201);
-    assert.equal((await call('/api/finance/legal-entities/'+entity.body.id+'/bootstrap-chart','POST',{})).status,201);
+    await s.stop();await s.start();member.cookie=await s.login(member);
+    const entities=(await call('/api/finance/records/legal_entities')).body;assert.equal(entities.total,1);const entity=entities.items[0];assert.ok(entity.name.startsWith('[SYNTHETIC DEMO]'));assert.equal(entity.vat_id,'DEMO-NOT-REGISTERED');
+    assert.equal((await call('/api/finance/records/fiscal_periods')).body.total,2);assert.equal((await call('/api/finance/records/accounts')).body.total,9);assert.equal((await call('/api/finance/records/invoices')).body.total,0);assert.equal((await call('/api/finance/records/payments')).body.total,0);
     const turn=(operation,input)=>({message:'Voer de expliciet bevestigde demohandeling uit',conversation_id:crypto.randomUUID(),turn_id:crypto.randomUUID(),client_context:{finance_action:{operation,input}}});
     async function action(operation,input){const preview=await call('/api/zero/turn','POST',turn(operation+'_PREVIEW',input));assert.equal(preview.status,200,JSON.stringify(preview.body));assert.equal(preview.body.finance_data.ready,true);const r=await call('/api/zero/turn','POST',turn(operation+'_EXECUTE',{input,expected_source_hash:preview.body.finance_data.source_hash,confirm:true,reason:'Explicit synthetic merchant booking',request_id:crypto.randomUUID()}));assert.equal(r.status,200,JSON.stringify(r.body));return r.body.finance_data;}
-    const result=await action('COMMERCE_INVOICE_CREATE',{order_id:order.id,contact_id:contact.id,legal_entity_id:entity.body.id,invoice_number:'DEMO-COMMERCE-001',invoice_date:'2026-09-26',supply_date:'2026-09-26',due_date:'2026-10-26'}),invoice=result.current_invoice;
+    const result=await action('COMMERCE_INVOICE_CREATE',{order_id:order.id,contact_id:contact.id,legal_entity_id:entity.id,invoice_number:'DEMO-COMMERCE-001',invoice_date:'2025-11-17',supply_date:'2025-11-17',due_date:'2025-12-17'}),invoice=result.current_invoice;
     assert.equal(invoice.gross_cents,order.totals.gross_minor);assert.equal(invoice.customer_name,contact.name);
-    await action('INVOICE_POST',{invoice_id:invoice.id});const paid=await action('PAYMENT_RECORD',{invoice_id:invoice.id,amount_cents:invoice.gross_cents,date:'2026-09-26'});assert.equal(paid.current_invoice.status,'PAID');assert.equal(paid.external_payment_performed,false);
+    await action('INVOICE_POST',{invoice_id:invoice.id});const paid=await action('PAYMENT_RECORD',{invoice_id:invoice.id,amount_cents:invoice.gross_cents,date:'2025-11-20'});assert.equal(paid.current_invoice.status,'PAID');assert.equal(paid.external_payment_performed,false);
+    const journals=(await call('/api/finance/records/journal_entries')).body;assert.equal(journals.total,2);assert.ok(journals.items.every(j=>j.debit_cents===j.credit_cents&&j.date.startsWith('2025-11-')&&j.posted_at>j.date));
     assert.equal((await call('/api/finance/records/invoices')).body.total,1);assert.equal((await call('/api/finance/records/payments')).body.total,1);assert.equal((await call('/api/communication/messages')).body.total,0);
     assert.ok(!fs.readFileSync(path.join(s.dir,'foundly-core-state.json'),'utf8').includes('Fictional billing address'));
     assert.equal((await s.request('/api/composition','PUT',{...composition,expected_revision:1,enabled_modules:Object.keys(MODULES).filter(id=>id!=='sales')})).status,200);

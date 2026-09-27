@@ -40531,7 +40531,12 @@
       "command": "npm test",
       "run_wall_seconds": 998
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_number": 273,
+      "run_id": 36302006369,
+      "head": "d19cccf7bb6dfdbdac37dd4f24793fc7784b1e63",
+      "status": "IN_PROGRESS_AT_CHECKPOINT_PREPARATION"
+    },
     "full_local_zero_suite": "NOT_RUN_THIS_CHECKPOINT; prior reported incomplete logs are not a full PASS",
     "durable_logs": [
       {
@@ -40833,5 +40838,87 @@
       "No complete downloadable demo or reachable installable HTTPS app accepted.",
       "Original unpublished ad53950 source/evidence unavailable in current older workspace; reconstruction and new verification are explicit."
     ]
+  },
+  "demo_finance_foundation_20260927": {
+    "recorded_at": "2026-09-27T07:17:54.024274+00:00",
+    "status": "NATIVE_FINANCE_CONFIGURATION_PREREQUISITE_NOT_COMPLETE_HISTORY",
+    "source_commit": "aebdb9196b4e415ad24d42178d0de13515671a34",
+    "source_tree": "ceabbc0e5a6de9ebc0abb2a9562ce6fa79bb7867",
+    "zero_tests": {
+      "tests": 82,
+      "pass": 82,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "FOCUSED_NATIVE_DEMO_ZERO_REGRESSION"
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 3,
+    "frozen_proof": "docs/run2/evidence/20260927-demo-finance-foundation/manifest-frozen-results.json",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/composition-api-frozen.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "file_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/http-initial.log.gz",
+        "raw_bytes": 823,
+        "raw_sha256": "67095eaa1f7aa788ea3450d7bc08ba54e53be26b40bda4f1deff78ce1e15ccf7",
+        "file_sha256": "39d4c4c3ba9dd8770c126d710519fb6a2c2fa7cb746360c1a2dfebc0334fc2ae"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/manifest-and-zero-frozen.log.gz",
+        "raw_bytes": 23100,
+        "raw_sha256": "2d67dc738a558dfb9fbee998c1ee6c97d2d0e480a016da7a4601a77e169ba4bd",
+        "file_sha256": "44fb6248f375ccc707eafeb1f56f8cd13eef34e8e86e65a4d4ef17fa0a07759c"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/manifest-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "00d1633100763945e6e6bccf30a4c84793fe59b327602e8d8e2f86b4a65a19ae",
+        "file_sha256": "a90ed61e642d7e031bdb75e34dc9e64dffc954db983f347f7913e83babee2e1e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/manifest-frozen-results.json",
+        "raw_bytes": 3300,
+        "raw_sha256": "cf3bed17cd38decc449a876dc363a39a063a390e2e8e2d543fb97f7af7da0460",
+        "file_sha256": "cf3bed17cd38decc449a876dc363a39a063a390e2e8e2d543fb97f7af7da0460"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/native-initial.log.gz",
+        "raw_bytes": 6258,
+        "raw_sha256": "d3031c567a9134d228b0310158cf17c7f7c9394d7fa613b31f25bb418736a03f",
+        "file_sha256": "2a26839b751a6ac1bc882548045eec234dde69bf961b5ff1a1a46b54fbad47e5"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/platform-api-frozen.log.gz",
+        "raw_bytes": 941,
+        "raw_sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+        "file_sha256": "fecb7bbb8dfa9a3302feb7acad1c470f6ee90fd77f76b0f5f2db751d40e31749"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-finance-foundation/platform-core-frozen.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "file_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      }
+    ],
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "default_nodes": {
+      "AUTOMOTIVE": 5593,
+      "ECOMMERCE": 3587
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "preceding_published_ci": {
+      "run_number": 273,
+      "run_id": 36302006369,
+      "head": "d19cccf7bb6dfdbdac37dd4f24793fc7784b1e63",
+      "status": "IN_PROGRESS_AT_CHECKPOINT_PREPARATION"
+    },
+    "remaining": "Actual financial transaction/correction and workflow/analytics histories; full module UI; natural/social/empathy/voice quality; full encrypted load and real desktop/phone/HTTPS delivery. No acceptance promotion."
   }
 }
