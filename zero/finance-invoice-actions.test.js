@@ -63,7 +63,7 @@ test('confirmed request hashes reject altered proof and readiness exposes missin
 });
 
 test('real HTTP and ZERO use the same confirmed invoice/payment contract through reply loss, restart, recovery and capability revocation', async () => {
-  const s = await server({NODE_OPTIONS: '--require ' + require.resolve('../zero-evaluation/finance-http-faults')});
+  const s = await server({NODE_OPTIONS: '--require ' + JSON.stringify(require.resolve('../zero-evaluation/finance-http-faults'))});
   try {
     assert.equal((await s.request('/api/composition', 'PUT', {entitlements: ['finance'], expected_revision: 0})).status, 200);
     const member = await s.enroll('finance.zero.actions', ['FINANCE_ADMIN']);

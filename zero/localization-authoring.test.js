@@ -26,5 +26,5 @@ assert '<textarea>B</textarea>' in result,result
 assert '<option value="B"' in result,result
 c=m.Binder(result);c.feed(result);assert c.result()==result
 `;
- execFileSync('python3',['-c',script],{cwd:path.resolve(__dirname,'..')});
+ execFileSync(process.env.PYTHON||'python3',['-c',script],{cwd:path.resolve(__dirname,'..')});
 });

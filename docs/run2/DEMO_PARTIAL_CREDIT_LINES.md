@@ -12,6 +12,8 @@ Focused checks before source freeze: 23 native credit/settlement checks passed; 
 
 The reproducible source-frozen run is recorded by `evidence/20260927-desktop-partial-credit/run.cjs`, with per-command compressed logs, hashes, actual exit status and exact Git source/tree in `results.json`. Full current-head CI is separate and must be verified after publication.
 
+First frozen source `cab6ce9ef89f5d2ff5d9da4775cd75fe6bc9a28f`, tree `7802058f11b225b409b89c3d65e531b4027a271d`: 172/174 focused checks passed; the two failures were an existing unquoted preload path and an unavailable `python3` alias. Corpus 14/14 passed. Ten native scripts passed; platform API, workspace and security scripts failed before assertions on Linux-only `/tmp` paths. All initial logs remain at the evidence directory root. The affected fixtures now use the OS temporary directory, quote the preload filename, and allow an explicit Python executable. No assertion or tested behavior was removed. The repeat uses a new source commit and separate evidence subdirectory; it does not overwrite the failed attempt.
+
 ## Still open; no demo acceptance promotion
 
 This is a bounded increment: quantities within one source line cannot yet be split, and a financial credit is not yet bound to an individual physical-return event. Purchase credits, cancellations and further correction chains remain open, alongside vehicle acquisition/inventory/COGS, remaining module interfaces/histories, natural/social/empathy/voice quality, source freshness/forecasts, full encrypted-load/performance, browser/accessibility/device acceptance and HTTPS/download/installable delivery. Both complete priority demos remain ahead of the preserved remainder of Run 2. All 125 acceptance verdicts remain unchanged.

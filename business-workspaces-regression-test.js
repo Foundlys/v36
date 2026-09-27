@@ -7,7 +7,7 @@ const { spawn } = require('child_process');
 
 const PORT = 21000 + Math.floor(Math.random() * 150);
 const base = `http://127.0.0.1:${PORT}`;
-const dataDir = fs.mkdtempSync('/tmp/foundly-business-workspaces-');
+const dataDir = fs.mkdtempSync(path.join(require('node:os').tmpdir(), 'foundly-business-workspaces-'));
 const password = 'foundly-business-workspaces-password-2026';
 const auth = `Basic ${Buffer.from(`foundly:${password}`).toString('base64')}`;
 const serverEnv = {

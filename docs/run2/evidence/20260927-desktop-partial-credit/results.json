@@ -1,0 +1,261 @@
+{
+  "source": "cab6ce9ef89f5d2ff5d9da4775cd75fe6bc9a28f",
+  "tree": "7802058f11b225b409b89c3d65e531b4027a271d",
+  "started_at": "2026-09-27T12:27:58.013Z",
+  "node": "v24.19.0",
+  "platform": "win32",
+  "before_status": "",
+  "commands": [
+    {
+      "name": "targeted",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=2",
+        "zero/finance-partial-credit.test.js",
+        "zero/finance-partial-credit-client.test.js",
+        "zero/finance-partial-credit-api.test.js",
+        "zero/finance-credit-notes.test.js",
+        "zero/finance-credit-settlements.test.js",
+        "zero/finance-invoice-actions.test.js",
+        "zero/finance-invoice-actions-client.test.js",
+        "zero/finance-invoice-creation-client.test.js",
+        "zero/finance-action-confirmations.test.js",
+        "zero/finance-purchase-approval.test.js",
+        "zero/finance-request-durability.test.js",
+        "zero/finance-currency-integrity.test.js",
+        "zero/commerce-finance-link.test.js",
+        "zero/commerce-invoice-creation-client.test.js",
+        "zero/finance-page-localization.test.js",
+        "zero/localization.test.js",
+        "zero/localization-authoring.test.js",
+        "zero/demo-finance-transactions.test.js",
+        "zero/demo-finance-foundation.test.js",
+        "zero/demo-purchase-history.test.js"
+      ],
+      "exit_code": 1,
+      "signal": null,
+      "elapsed_ms": 36666,
+      "log": "targeted.log.gz",
+      "raw_sha256": "e99627204f73cddd0aca0e8591ea813eb9e8bc05372336f330fe2d421d722876",
+      "summary": [
+        "# tests 174",
+        "# pass 172",
+        "# fail 2",
+        "# cancelled 0",
+        "# skipped 0",
+        "# duration_ms 36415.03"
+      ]
+    },
+    {
+      "name": "corpus",
+      "command": [
+        "node",
+        "zero-evaluation/run.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 5411,
+      "log": "corpus.log.gz",
+      "raw_sha256": "689c6dd0a9c0dfce45b6e041979cda99dfe5cd95ce660f841f096b69312dfa67",
+      "summary": [
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\"",
+        "      \"status\": \"PASS\""
+      ]
+    },
+    {
+      "name": "platform-core-regression-test",
+      "command": [
+        "node",
+        "platform-core-regression-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 275,
+      "log": "platform-core-regression-test.log.gz",
+      "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+      "summary": []
+    },
+    {
+      "name": "platform-api-regression-test",
+      "command": [
+        "node",
+        "platform-api-regression-test.js"
+      ],
+      "exit_code": 1,
+      "signal": null,
+      "elapsed_ms": 237,
+      "log": "platform-api-regression-test.log.gz",
+      "raw_sha256": "6a94125429fbae9a730bb326245cf59fdf4846e9115379638c9a17f23c274d27",
+      "summary": []
+    },
+    {
+      "name": "business-workspaces-regression-test",
+      "command": [
+        "node",
+        "business-workspaces-regression-test.js"
+      ],
+      "exit_code": 1,
+      "signal": null,
+      "elapsed_ms": 164,
+      "log": "business-workspaces-regression-test.log.gz",
+      "raw_sha256": "aded69fb341bba02bb8113653ad9bbca053351c361936752c10226ad7417daec",
+      "summary": []
+    },
+    {
+      "name": "finance-period-closing-test",
+      "command": [
+        "node",
+        "finance-period-closing-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 205,
+      "log": "finance-period-closing-test.log.gz",
+      "raw_sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+      "summary": []
+    },
+    {
+      "name": "finance-period-closing-api-test",
+      "command": [
+        "node",
+        "finance-period-closing-api-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 3784,
+      "log": "finance-period-closing-api-test.log.gz",
+      "raw_sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+      "summary": []
+    },
+    {
+      "name": "finance-period-closing-client-test",
+      "command": [
+        "node",
+        "finance-period-closing-client-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 198,
+      "log": "finance-period-closing-client-test.log.gz",
+      "raw_sha256": "560589e80b4f77d54ddfe1d71849ecb28b444af819770e612cc340e4e30b308f",
+      "summary": []
+    },
+    {
+      "name": "finance-cash-scenarios-test",
+      "command": [
+        "node",
+        "finance-cash-scenarios-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 262,
+      "log": "finance-cash-scenarios-test.log.gz",
+      "raw_sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+      "summary": []
+    },
+    {
+      "name": "finance-cash-scenarios-api-test",
+      "command": [
+        "node",
+        "finance-cash-scenarios-api-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 2827,
+      "log": "finance-cash-scenarios-api-test.log.gz",
+      "raw_sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+      "summary": []
+    },
+    {
+      "name": "finance-cash-scenarios-client-test",
+      "command": [
+        "node",
+        "finance-cash-scenarios-client-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 218,
+      "log": "finance-cash-scenarios-client-test.log.gz",
+      "raw_sha256": "cf1b03d63112331bdea37af239bfa5e5f11dd029ce7dbcef4883f9581780aa7a",
+      "summary": []
+    },
+    {
+      "name": "finance-loading-test",
+      "command": [
+        "node",
+        "finance-loading-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 191,
+      "log": "finance-loading-test.log.gz",
+      "raw_sha256": "d72766f00cf2ec52bc335f479f20d68afbd48b8ed68bddfe670ec8ec2940e8f9",
+      "summary": []
+    },
+    {
+      "name": "finance-loading-api-test",
+      "command": [
+        "node",
+        "finance-loading-api-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 1652,
+      "log": "finance-loading-api-test.log.gz",
+      "raw_sha256": "98dd66fdcfa6b39a9bff9c90e11e2d99fb0bfac77c02af186fa6d5d50c4ff59a",
+      "summary": []
+    },
+    {
+      "name": "static-response-api-test",
+      "command": [
+        "node",
+        "static-response-api-test.js"
+      ],
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_ms": 1554,
+      "log": "static-response-api-test.log.gz",
+      "raw_sha256": "5766289519fb1f8009baf3818805aca24efae91e966aa902b6e6685d59a139e3",
+      "summary": []
+    },
+    {
+      "name": "production-security-test",
+      "command": [
+        "node",
+        "production-security-test.js"
+      ],
+      "exit_code": 1,
+      "signal": null,
+      "elapsed_ms": 222,
+      "log": "production-security-test.log.gz",
+      "raw_sha256": "25dd2d122571c23ac5d725d22eac7b55e0712dc682917fcafca46af236ad8818",
+      "summary": []
+    }
+  ],
+  "acceptance": {
+    "complete_demo": false,
+    "real_browser": false,
+    "live_model": false,
+    "live_voice": false,
+    "physical_devices": false,
+    "bank_transfer": false
+  },
+  "completed_at": "2026-09-27T12:28:52.088Z",
+  "after_head": "cab6ce9ef89f5d2ff5d9da4775cd75fe6bc9a28f",
+  "tracked_changes": "",
+  "all_pass": false
+}
