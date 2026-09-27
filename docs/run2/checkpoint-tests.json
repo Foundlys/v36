@@ -41331,7 +41331,36 @@
       "raw_sha256": "58aac8eb69084340b1e1a92e4cee310dc02d7b76d90c38490c9002483b0b89de",
       "archive": "docs/run2/evidence/20260927-demo-credit-corrections/ci275.raw.log.gz"
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "run_number": 276,
+      "run_id": 36305420712,
+      "job_id": 108580981734,
+      "conclusion": "success",
+      "published_head": "3b12b7f0c0fae1ee6f8b6567f987308fcd10b377",
+      "published_tree": "135c861f6a32ce03ec42843a51ac52e810f864f0",
+      "checkout_merge": "bc08826baabedcb03f7a6f832e1346c84858cd8a",
+      "merge_tree": "135c861f6a32ce03ec42843a51ac52e810f864f0",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "3b12b7f0c0fae1ee6f8b6567f987308fcd10b377"
+      ],
+      "started_at": "2026-09-27T08:11:31Z",
+      "created_at": "2026-09-27T08:11:31Z",
+      "updated_at": "2026-09-27T08:28:06Z",
+      "zero": {
+        "tests": 1912,
+        "pass": 1912,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "corpus_pass": 14,
+      "log": "ci276.raw.log",
+      "raw_bytes": 898753,
+      "raw_sha256": "5be4e227e9089bf360eb46492650fe1e31e2ff8fbd845906c9bb99c475658abe",
+      "archive": "docs/run2/evidence/20260927-demo-credit-settlements/ci276.raw.log.gz"
+    },
     "default_nodes": {
       "AUTOMOTIVE": 5931,
       "ECOMMERCE": 4021
@@ -41355,6 +41384,175 @@
     "prior_failures_preserved": {
       "credit-initial.log": "Four reproduced native gaps: credit draft inherited operational source fields; unposted source accepted; generic creation bypassed original source/amount/counterparty; explicit confirmed credit operation absent."
     },
-    "remaining": "Explicit allocation/internal refund and partial-credit/return/cancellation chains; purchase/COGS/approval and Automation/Analytics histories; full module UI; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2."
+    "remaining": "Explicit allocation/internal refund and partial-credit/return/cancellation chains; purchase/COGS/approval and Automation/Analytics histories; full module UI; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2.",
+    "own_published_ci_at_checkpoint_preparation": "PENDING_PUBLICATION"
+  },
+  "demo_credit_settlements_20260927": {
+    "recorded_at": "2026-09-27T08:37:18.799863+00:00",
+    "status": "NATIVE_CREDIT_ALLOCATION_AND_INTERNAL_REFUND_NOT_COMPLETE_DEMO",
+    "source_commit": "cd7e91dbfb1401c3b81b42dcf40f1df61fa88ce7",
+    "source_tree": "2b4c22868003e15b9c4892d0aff36e6b3a2ce7e7",
+    "zero_tests": {
+      "tests": 162,
+      "pass": 162,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "FOCUSED_NATIVE_FINANCE_DEMO_ZERO_REGRESSION"
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 9,
+    "frozen_proof": "docs/run2/evidence/20260927-demo-credit-settlements/settlements-frozen-results.json",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/capability-resolver-test-frozen.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "file_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/ci276.raw.log.gz",
+        "raw_bytes": 898753,
+        "raw_sha256": "5be4e227e9089bf360eb46492650fe1e31e2ff8fbd845906c9bb99c475658abe",
+        "file_sha256": "38548ef0fb9b16755c5bcbd7329cec4407cff5375a6487f06a54bd78bd8bf9b3"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/composition-api-frozen.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "file_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/demo-settlements-initial.log.gz",
+        "raw_bytes": 6212,
+        "raw_sha256": "24d8f3f26bff8bc350e4568780973725ed7d2d8503ba09bcda58011480620610",
+        "file_sha256": "a88871224a5b7586f7d96d116f3a0433e62b820ef21538079d6fea0d8432432b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/finance-cash-scenarios-api-test-frozen.log.gz",
+        "raw_bytes": 221,
+        "raw_sha256": "ec64c5c9bfc87dcc80ddfb49c2b225b75b02b5e5b3c00e4cea3367cbfbc7bdb2",
+        "file_sha256": "703912e957405749278dcd12958d10bc134fa19c553cdf2a481f7c3d14ca878e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/finance-cash-scenarios-test-frozen.log.gz",
+        "raw_bytes": 267,
+        "raw_sha256": "c8cec4fe1cd68f1de294336eef864590cb5f8b17780d5150b2f600578578ecb4",
+        "file_sha256": "df751f6e758d8e8c0ece7ca3626633e5543c860b26ddbb37c69e7a40756b22c7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/finance-period-closing-api-test-frozen.log.gz",
+        "raw_bytes": 220,
+        "raw_sha256": "34e8e0120d112b1def3ca109f2dc14e994f3f97233e3b5ecc5855f27bfedc890",
+        "file_sha256": "df4a6084a50bb2e93b7cd321e1e9f393ce1dfbccbc7ecc0132bcb65503326341"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/finance-period-closing-test-frozen.log.gz",
+        "raw_bytes": 297,
+        "raw_sha256": "655a876ebd4c1e275898068aa7cf489ebce4ead8ff3ee65d1b60824be16910f1",
+        "file_sha256": "eeb6375590b9d5ef43a7dffa131e5436d21673b73640efe6a17e438e7f4b7390"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/module-access-contracts-test-frozen.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "file_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/platform-api-frozen.log.gz",
+        "raw_bytes": 941,
+        "raw_sha256": "afb3a093f17717db1cc849635a3e017c9a11a048412ef1e3d062b80ad521825e",
+        "file_sha256": "fecb7bbb8dfa9a3302feb7acad1c470f6ee90fd77f76b0f5f2db751d40e31749"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/platform-core-frozen.log.gz",
+        "raw_bytes": 1118,
+        "raw_sha256": "1baa77763c84c38c25f7d71577d78b45fb034b22b0cfc052ba5945bf67f6c3a8",
+        "file_sha256": "8d35a6ea23120c114069aa8c215431c8bf303f79892bf2adfef8cc7cea094ba1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/settlements-and-zero-frozen.log.gz",
+        "raw_bytes": 45584,
+        "raw_sha256": "eb01bea928af76c1cc6f7048fe880c661b4b4f0c839bbb811d6b236aa40dcf2f",
+        "file_sha256": "2294d9eef8a37ba19a262ca6ed979e0041b83db26a0668cec92deea07e6efc1d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/settlements-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "97572af414b67ec8ee3d2d129e3633a83063fcfee87d301efb2d07a8dbee2ee1",
+        "file_sha256": "e4b70775300be15feaa525cd6831fc3d67aa5c4888c276d48e57e90dc8819e44"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/settlements-http-initial.log.gz",
+        "raw_bytes": 694,
+        "raw_sha256": "6d5cd64b8a9cb34d1ab55408e2e3f0f705268c4fd832e374d6a3c2b539df827f",
+        "file_sha256": "9f5229d041ab68891927efd326ca3ddb0be1770a16d18fed64fc0d6381b2ba72"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-credit-settlements/settlements-initial.log.gz",
+        "raw_bytes": 4971,
+        "raw_sha256": "21e452cb9d45acb0a352f8bc663d8610cc5c63409f7dbcb665a08849a0321d42",
+        "file_sha256": "354e6a4f095a5df50a38193577b8b5ca3c83a816845bc951224eedc23fa2e0b9"
+      }
+    ],
+    "preceding_published_ci": {
+      "run_number": 276,
+      "run_id": 36305420712,
+      "job_id": 108580981734,
+      "conclusion": "success",
+      "published_head": "3b12b7f0c0fae1ee6f8b6567f987308fcd10b377",
+      "published_tree": "135c861f6a32ce03ec42843a51ac52e810f864f0",
+      "checkout_merge": "bc08826baabedcb03f7a6f832e1346c84858cd8a",
+      "merge_tree": "135c861f6a32ce03ec42843a51ac52e810f864f0",
+      "merge_parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "3b12b7f0c0fae1ee6f8b6567f987308fcd10b377"
+      ],
+      "started_at": "2026-09-27T08:11:31Z",
+      "created_at": "2026-09-27T08:11:31Z",
+      "updated_at": "2026-09-27T08:28:06Z",
+      "zero": {
+        "tests": 1912,
+        "pass": 1912,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "corpus_pass": 14,
+      "log": "ci276.raw.log",
+      "raw_bytes": 898753,
+      "raw_sha256": "5be4e227e9089bf360eb46492650fe1e31e2ff8fbd845906c9bb99c475658abe",
+      "archive": "docs/run2/evidence/20260927-demo-credit-settlements/ci276.raw.log.gz"
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "default_nodes": {
+      "AUTOMOTIVE": 5935,
+      "ECOMMERCE": 4025
+    },
+    "native_financial_history": {
+      "AUTOMOTIVE": {
+        "sales_invoices": 140,
+        "full_credit_notes": 2,
+        "payments": 84,
+        "journals": 199,
+        "allocations": 1,
+        "internal_refunds": 1
+      },
+      "ECOMMERCE": {
+        "sales_invoices": 180,
+        "full_credit_notes": 2,
+        "payments": 108,
+        "journals": 255,
+        "allocations": 1,
+        "internal_refunds": 1
+      }
+    },
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "external_payment_performed": false,
+    "bank_settlement_verified": false,
+    "remaining": "Full native/ZERO module action UI; partial credit/return/cancellation chains; purchase/COGS/approval and Automation/Analytics histories; independent natural/social/empathy/voice quality; source/forecast validation; full encrypted load and actual desktop/phone/HTTPS/download delivery. Both priority demos first, then preserved Run 2."
   }
 }

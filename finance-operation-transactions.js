@@ -19,6 +19,8 @@ const operations = Object.freeze({
   postInvoice: {permission: 'finance:post', entities: ['invoices', ...journal], options: 1,
     defaultKey: args => 'invoice-post:' + args[0]},
   createCreditNote: {permission: 'finance:write', entities: invoice, options: 2},
+  allocateCredit: {permission: 'finance:post', entities: ['credit_settlements', ...payment], options: 1},
+  recordCreditRefund: {permission: 'finance:post', entities: ['credit_settlements', ...payment], options: 1},
   recordPayment: {permission: 'finance:post', entities: payment, options: 1},
   confirmReconciliation: {permission: 'finance:approve', entities: ['bank_transactions', 'reconciliations', ...payment], options: 1,
     defaultKey: args => 'reconcile:' + args[0]?.bank_transaction_id}

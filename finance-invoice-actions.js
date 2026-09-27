@@ -8,6 +8,8 @@ const CONTRACTS = Object.freeze({
   COMMERCE_INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger', 'sales:quotes', 'crm:contacts'], capability_modes: {'finance:ledger': 'read', 'crm:contacts': 'read'}, commerce: true, entity: 'invoice'},
   INVOICE_CREATE: {method: 'createInvoice', permission: 'finance:write', capabilities: ['finance:invoices'], entity: 'invoice'},
   CREDIT_NOTE_CREATE: {method: 'createCreditNote', permission: 'finance:write', capabilities: ['finance:invoices', 'finance:ledger'], entity: 'invoice'},
+  CREDIT_ALLOCATE: {method: 'allocateCredit', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger', 'finance:payments'], entity: 'invoice'},
+  CREDIT_REFUND_RECORD: {method: 'recordCreditRefund', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger', 'finance:payments'], entity: 'invoice'},
   INVOICE_POST: {method: 'postInvoice', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger'], entity: 'invoice'},
   PAYMENT_RECORD: {method: 'recordPayment', permission: 'finance:post', capabilities: ['finance:invoices', 'finance:ledger', 'finance:payments'], entity: 'payment'}
 });
@@ -46,6 +48,7 @@ function selected(core, ctx, entity, id) {
 function source(core, ctx, action, actor) {
   const {operation, input} = action; let invoice, entity, summary, blockers = [];
   if (operation === 'COMMERCE_INVOICE_CREATE') return require('./commerce-finance-source').inspect(core, ctx, actor, input);
+  if (['CREDIT_ALLOCATE', 'CREDIT_REFUND_RECORD'].includes(operation)) return require('./finance-credit-settlements').inspect(core, ctx, operation, input);
   if (operation === 'CREDIT_NOTE_CREATE') {
     const {invoice_id, ...credit} = input;
     return require('./finance-credit-notes').inspect(core, ctx, invoice_id, credit, true);
@@ -85,7 +88,7 @@ function source(core, ctx, action, actor) {
     if (!(invoice.gross_cents > 0)) blockers.push('INVOICE_AMOUNT_NOT_POSITIVE');
     if (invoice.kind === 'PURCHASE' && invoice.approval_status !== 'APPROVED') blockers.push('PURCHASE_NOT_APPROVED');
   } else {
-    if (!['POSTED', 'PARTIALLY_PAID', 'OVERDUE'].includes(invoice.status)) blockers.push('INVOICE_NOT_OPEN');
+    if (!['POSTED', 'PARTIALLY_PAID', 'OVERDUE', 'PARTIALLY_SETTLED'].includes(invoice.status)) blockers.push('INVOICE_NOT_OPEN');
     if (invoice.kind === 'CREDIT_NOTE') blockers.push('CREDIT_NOTE_REQUIRES_REFUND');
     if (!Number.isSafeInteger(input.amount_cents) || input.amount_cents <= 0 || input.amount_cents > invoice.outstanding_cents) blockers.push('INVALID_PAYMENT_AMOUNT');
     if (input.currency !== undefined && String(input.currency).trim().toUpperCase() !== invoice.currency) blockers.push('CURRENCY_MISMATCH');
@@ -131,11 +134,19 @@ function output(core, ctx, row, deduplicated, actor) {
     originalEffects.payment = row.result.payment;
     current.payment = selected(core, ctx, 'payments', row.result.payment.id);
   }
+  if (row.result.related_invoice) {
+    originalEffects.related_invoice = row.result.related_invoice;
+    current.related_invoice = selected(core, ctx, 'invoices', row.result.related_invoice.id);
+  }
+  if (row.result.settlement) {
+    originalEffects.settlement = row.result.settlement;
+    current.settlement = selected(core, ctx, 'credit_settlements', row.result.settlement.id);
+  }
   if (row.result.commerce_link) {
     originalEffects.commerce_link = row.result.commerce_link;
     current.commerce_link = require('./commerce-finance-source').current(core, ctx, actor, row.result);
   }
-  return {ok: true, state: 'COMMITTED', operation: row.operation, request_id: row.request_id, deduplicated, original_result: clone(row.result), original_result_hash: hash(row.result), current_invoice: clone(invoice), current_result: clone(current), original_result_is_current: hash(originalEffects) === hash(current), financial_posting_performed: ['INVOICE_POST', 'PAYMENT_RECORD'].includes(row.operation), external_payment_performed: false, bank_settlement_verified: false, payment_evidence_kind: row.operation === 'PAYMENT_RECORD' ? 'USER_RECORDED_INTERNAL_BOOKING' : null};
+  return {ok: true, state: 'COMMITTED', operation: row.operation, request_id: row.request_id, deduplicated, original_result: clone(row.result), original_result_hash: hash(row.result), current_invoice: clone(invoice), current_result: clone(current), original_result_is_current: hash(originalEffects) === hash(current), financial_posting_performed: ['INVOICE_POST', 'PAYMENT_RECORD', 'CREDIT_REFUND_RECORD'].includes(row.operation), external_payment_performed: false, bank_settlement_verified: false, payment_evidence_kind: ['PAYMENT_RECORD', 'CREDIT_REFUND_RECORD'].includes(row.operation) ? 'USER_RECORDED_INTERNAL_BOOKING' : null};
 }
 function save(core, ctx, principal, action, status, result) {
   const row = {...identity(principal, action), operation: action.operation, request_id: action.request_id, actor_id: principal.id, status, result, receipt_version: 1, created_at: core.now()};
@@ -175,4 +186,11 @@ function recover(core, context, actor, value) {
   capacity(core.adapter.bucket(ctx, SCOPE));
   return durability.transaction(core, ctx, principal, ['action_requests'], () => output(core, ctx, save(core, ctx, principal, action, 'ABANDONED', null), false, actor));
 }
-module.exports = {SCOPE, CONTRACTS, contract, preview, execute, recover};
+// Inspect only durable evidence. Unlike recovery, an unknown request remains
+// unknown and no event delivery, retirement or financial mutation is attempted.
+function inspect(core, context, actor, value) {
+  const action = request(value, true), {ctx, principal} = authority(core, context, actor, action.operation, 'inspect');
+  const prior = receipt(core, ctx, principal, action);
+  return prior ? {...output(core, ctx, prior, true, actor), read_only: true} : {ok: true, state: 'UNKNOWN', operation: action.operation, request_id: action.request_id, read_only: true, financial_posting_performed: false, external_payment_performed: false};
+}
+module.exports = {SCOPE, CONTRACTS, contract, preview, execute, recover, inspect};

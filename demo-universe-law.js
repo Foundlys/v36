@@ -75,8 +75,8 @@ function validate(manifest){
     }
     if(n.contract==='finance.action'){
       keys(n.input,['operation','values','reason']);
-      const entities={INVOICE_CREATE:'invoices',COMMERCE_INVOICE_CREATE:'invoices',CREDIT_NOTE_CREATE:'invoices',INVOICE_POST:'invoices',PAYMENT_RECORD:'payments'};
-      if(entities[n.input.operation]!==n.entity||!object(n.input.values)||typeof n.input.reason!=='string'||!n.input.reason.startsWith(LABEL)||n.input.reason.length>500||['confirm','reason','request_id','expected_source_hash'].some(k=>Object.hasOwn(n.input.values,k)))fail('demo_finance_action_invalid');
+      const entities={INVOICE_CREATE:['invoices'],COMMERCE_INVOICE_CREATE:['invoices'],CREDIT_NOTE_CREATE:['invoices'],INVOICE_POST:['invoices'],PAYMENT_RECORD:['payments','invoices'],CREDIT_ALLOCATE:['invoices'],CREDIT_REFUND_RECORD:['invoices']};
+      if(!Object.hasOwn(entities,n.input.operation)||!entities[n.input.operation].includes(n.entity)||!object(n.input.values)||typeof n.input.reason!=='string'||!n.input.reason.startsWith(LABEL)||n.input.reason.length>500||['confirm','reason','request_id','expected_source_hash'].some(k=>Object.hasOwn(n.input.values,k)))fail('demo_finance_action_invalid');
     }
     if(canonical(n.input).length>50000)fail('demo_input_capacity');
     if(n.contract==='workflow.save'&&(n.input.automatic!==false||n.input.approval_required!==true||n.input.trigger_type!=='custom_event'))fail('demo_workflow_must_require_explicit_execution');

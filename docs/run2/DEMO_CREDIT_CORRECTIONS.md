@@ -29,3 +29,8 @@ Preceding CI 275 is complete and successful for published `87df5b8d246ef14755937
 ## Remaining demo work
 
 Next are explicit credit allocation and internal refund records with source-bound recovery, then partial credit/return/cancellation chains, purchase/expense/COGS and approval history, Automation/Analytics history and full module controls. Natural language, social/empathy and voice quality require their own independent evidence. Real source freshness, forecasts/valuation, full encrypted default-load measurement and actual desktop/iPhone/Android/HTTPS/download acceptance remain open. No complete demo or broad Run-2 gate is accepted here. The user's order remains: finish both priority demos against all hard requirements first, then resume the preserved remainder of Run 2.
+
+
+## Explicit credit settlement continuation — cd7e91d
+
+See [DEMO_CREDIT_SETTLEMENTS.md](DEMO_CREDIT_SETTLEMENTS.md). Both new demo graphs contain a full allocation against an unpaid invoice and a separate internal outgoing refund against a paid invoice/credit, through current native Finance and ZERO contracts. Frozen cd7e91d/tree 2b4c228 passes 162 focused cases, fourteen corpus cases and nine native suites. Preceding CI 276 passes exact tree 135c861 with 1912 ZERO/14 corpus; this newer source needs its own full CI. No external transfer or bank settlement is implied. Next are full native/ZERO module action controls, remaining histories/corrections, independent model/social/empathy/voice evaluation and actual desktop/iPhone/Android/HTTPS/download acceptance. Both complete priority demos remain ahead of the preserved remainder of Run 2.
