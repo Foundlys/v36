@@ -1,0 +1,24 @@
+{
+  "run_number": 279,
+  "run_id": 36310251176,
+  "job_id": 108594677019,
+  "conclusion": "success",
+  "run_started_at": "2026-09-27T09:43:00Z",
+  "updated_at": "2026-09-27T10:00:02Z",
+  "published_head": "db731bd5c03e2e7d593d943da8ea91244317a9b0",
+  "published_tree": "d4413491159aa1836af24403e51f3a6bf79e8073",
+  "checkout_merge": "90597eec2833e0d7165021f3120c45b1407fc493",
+  "merge_tree": "d4413491159aa1836af24403e51f3a6bf79e8073",
+  "merge_parents": [
+    "e8142578eb2185a915c37d895c567937f20a9970",
+    "db731bd5c03e2e7d593d943da8ea91244317a9b0"
+  ],
+  "published_parent": "cf280732a55c0d8f10c34c65f6298273055af68b",
+  "zero_pass": 1960,
+  "corpus_pass": 14,
+  "log": "ci279.raw.log",
+  "verified_via": "Completed workflow, complete log summaries, exact published and checkout merge Git trees and expected PR parent",
+  "raw_bytes": 919021,
+  "raw_sha256": "5e8acf3688583543589829a00f0bbf3212467e09f067c65dc79fc1477f4027cc",
+  "archive": "docs/run2/evidence/20260927-demo-invoice-creation/ci279.raw.log.gz"
+}

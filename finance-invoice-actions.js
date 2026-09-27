@@ -64,7 +64,7 @@ function source(core, ctx, action, actor) {
     const series = String(input.series || validated.kind).trim().slice(0, 20), number = String(input.invoice_number).trim().slice(0, 60);
     const duplicates = core.collection(ctx, 'invoices').filter(row => row.legal_entity_id === entity.id && row.series === series && row.invoice_number === number).map(row => row.id);
     if (duplicates.length) blockers.push('INVOICE_NUMBER_EXISTS');
-    summary = {invoice_number: number, amount_cents: validated.gross_cents, currency, next_status: 'DRAFT'};
+    summary = {invoice_number: number, amount_cents: validated.gross_cents, currency, next_status: 'DRAFT', lines: validated.lines.map(({description, quantity, unit_price_cents, vat_rate, net_cents, vat_cents, gross_cents}) => ({description, quantity, unit_price_cents, vat_rate, net_cents, vat_cents, gross_cents}))};
     return {basis: {entity, duplicates}, summary, blockers};
   }
   if (['INVOICE_POST', 'INVOICE_APPROVE'].includes(operation) && Object.keys(input).some(key => key !== 'invoice_id')) fail('finance_action_invalid', 'Gebruik uitsluitend de gekozen factuur', 422);
