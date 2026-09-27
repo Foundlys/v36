@@ -639,6 +639,7 @@
     writeText(byId('contextTitle'),sectionLabel(section));
     writeText(byId('contextDescription'),description);
     const content = byId('contextContent'), items = [];
+    if(state.workspaceId==='data'&&section==='DEMO'){const epoch=accessGeneration,active=()=>state.workspaceId==='data'&&state.activeSection==='DEMO'&&epoch===accessGeneration,view=window.FoundlyDemoControls.create({document,request:(path,options,current=()=>true)=>request(path,options,()=>active()&&current()),isActive:active});replaceChildren(content,[view]);state.creativeHistoryViews=[...(state.creativeHistoryViews||[]).filter(v=>v.isConnected),view];return;}
     if(state.workspaceId==='settings'&&['USERS','ROLES'].includes(section)){renderIdentityUsers(section,content);return;}
     if(state.workspaceId==='settings'&&section==='CAPABILITIES'){renderComposer(content);return;}
     if(state.workspaceId==='marketing'&&['MEASUREMENT','ATTRIBUTION'].includes(section)&&window.FoundlyMarketingMetrics){replaceChildren(content,[window.FoundlyMarketingTransport.create({document,request,build:call=>window.FoundlyMarketingMetrics.create({document,request:call,isActive:()=>content.isConnected&&state.workspaceId==='marketing'&&state.activeSection===section}),isActive:()=>content.isConnected&&state.workspaceId==='marketing'&&state.activeSection===section})]);return;}

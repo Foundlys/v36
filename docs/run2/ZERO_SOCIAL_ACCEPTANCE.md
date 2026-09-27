@@ -35,3 +35,12 @@ Actual HTTP checks cover both industry compositions, user correction/order prese
 Real model multi-turn review, long-context relevance, natural follow-up routing across every module, all eight languages, genuinely useful action planning/execution, full seeded-demo assessment and native-language review remain open. Source/memory withholding may require an explicit fresh read in a follow-up; context must never silently reconstruct a restricted answer.
 
 Voice still requires actual listening across two voice presentations, three modes and eight locales, including interruption, names, brands, numbers, calm urgency and no duplicate execution. Actual iPhone/Android/desktop installation, microphone and browser evidence remain separate. No complete demo or “perfect ZERO” acceptance is claimed from this checkpoint.
+
+
+## Demo controls and full-data context continuation — 7858bf9
+
+See [DEMO_CONTROLS.md](DEMO_CONTROLS.md) for the shared native preview, start, pause and server-owned recovery controls. Native specialist evidence is bounded to 7000 bytes per source; whole-row/field omissions are explicit and the complete authorized source response remains hash-bound and independently re-read. Exact amounts, currency, null/zero and native pagination remain distinct. Isolated demo catalogs/projections/receipts are SYNTHETIC_DEMO, never observed customer truth. One synchronous capability resolution now uses one fresh authority snapshot; no grants are retained across calls or awaits.
+
+The full encrypted 3575-node E-commerce rehearsal exposed two context-budget errors, and its first bounded follow-up still timed out. Both failed observations remain archived. The fresh-grants repeat completed all 42 Dutch turns without HTTP error, with no model provider and no automatic social-quality acceptance. Seed time was 8.7 minutes under overlapping local work; full snapshot I/O and end-user performance remain open. The older baseline continues separately. Collection now records pending request identity before transport and retains uncertain failures without retry.
+
+Latest immutable source 7858bf98a29a7ccc5768b884f0d0aa921f36af90/tree 410dcc5cec7c2f2d18b93e4b5632fddfdba2eb44: 1867 ZERO, 14 corpus, 12 involved native scripts PASS. Preceding published CI 271 passed on exact tree 5c6ae7a; this newer publication still needs its own full CI. The supported browser retry was blocked at local /data (ERR_BLOCKED_BY_CLIENT). No complete demo, independent empathy/voice review, browser/device installation or final downloadable app is accepted by this checkpoint.

@@ -52,7 +52,7 @@ const WORKSPACE_DEFINITIONS = Object.freeze({
   data: {
     id: 'data', route: '/data', label: 'Data Platform', short_label: 'Data', capability: 'data', module_id: 'data',
     eyebrow: 'CANONICAL DATA FABRIC', description: 'Lineage, ingestion, quality, storage and retention control plane.',
-    sections: ['OVERVIEW', 'DATASETS', 'SOURCES', 'INGESTION', 'SCHEMAS', 'LINEAGE', 'QUALITY', 'FRESHNESS', 'CONFLICTS', 'SYNC', 'RETENTION', 'OFFLINE', 'EXPORTS'],
+    sections: ['OVERVIEW', 'DEMO', 'DATASETS', 'SOURCES', 'INGESTION', 'SCHEMAS', 'LINEAGE', 'QUALITY', 'FRESHNESS', 'CONFLICTS', 'SYNC', 'RETENTION', 'OFFLINE', 'EXPORTS'],
     default_widgets: [widget('records', 'Records'), widget('ingestion_rate', 'Ingestion rate'), widget('sources', 'Sources'), widget('freshness', 'Freshness', 'SOURCE'), widget('stale_sources', 'Stale sources'), widget('rejected_records', 'Rejected records'), widget('duplicates', 'Duplicates'), widget('conflicts', 'Conflicts'), widget('schema_versions', 'Schema versions', 'STATUS'), widget('storage_health', 'Storage health', 'STATUS'), widget('event_throughput', 'Event throughput', 'TREND', 8, 4)]
   },
   knowledge: {

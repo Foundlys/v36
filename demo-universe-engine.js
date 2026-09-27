@@ -38,6 +38,17 @@ class DemoUniverseEngine{
     const options={seed:input.seed,as_of:input.as_of,history_months:input.history_months??18,...(industry==='ECOMMERCE'?{industry_id:industry,product_count:input.product_count??120,order_count:input.order_count??360,customer_count:input.customer_count??300}:{vehicle_count:input.vehicle_count??200})};
     if(typeof options.as_of!=='string'||Date.parse(options.as_of)>(this.adapter.now?.()||new Date()).getTime())fail('demo_future_reference_time');return options;
   }
+  session(ctx,actor){
+    if(!ctx?.tenant_id||!ctx?.dealer_id||!actor?.id)fail('demo_manage_forbidden',403);
+    const request_context={tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id};
+    // Ordinary workspaces can discover that demo controls are unavailable.
+    // They receive no reservation, profile or other owner's seed metadata.
+    if(!canManage(actor)||this.adapter.isDemoScope?.(ctx)!==true)return {available:false,request_context};
+    const profile=this.authorize(ctx,actor),supported=['AUTOMOTIVE','ECOMMERCE'].includes(profile.industry_id),rows=this.rows(ctx),owned=rows.find(r=>r.owner_id===actor.id&&r.tenant_id===ctx.tenant_id&&r.dealer_id===ctx.dealer_id);
+    const blocked_reason=!supported?'INDUSTRY_UNAVAILABLE':rows.length&&!owned?'RESERVATION_UNAVAILABLE':!rows.length&&this.adapter.hasBusinessData?.(ctx)!==false?'EXISTING_DATA':null;
+    const defaults={seed:'foundly-demo-'+profile.industry_id.toLowerCase()+'-v1',as_of:(this.adapter.now?.()||new Date()).toISOString(),history_months:18,...(profile.industry_id==='ECOMMERCE'?{product_count:120,order_count:360,customer_count:300}:{vehicle_count:200})};
+    return {available:true,request_context,industry_id:profile.industry_id,profile_revision:profile.revision,can_start:!blocked_reason&&!rows.length,blocked_reason,defaults,universe:owned?this.get(ctx,actor,owned.id):null,classification:'SYNTHETIC_DEMO',external_effects:false,full_acceptance:false};
+  }
   preview(ctx,actor,input){keys(input,['seed','as_of','vehicle_count','history_months','product_count','order_count','customer_count']);const profile=this.authorize(ctx,actor),options=this.options(input,profile.industry_id),m=this.manifest(options),proof=L.validate(m);return {schema_version:L.VERSION,request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},options,plan_fingerprint:m.fingerprint,profile_revision:profile.revision,industry_id:m.industry_id,counts:proof.counts,node_count:proof.node_count,classification:'SYNTHETIC_DEMO',native_permissions_required:true,external_effects:false,full_acceptance:false};}
   start(ctx,actor,input,requestId){
     keys(input,['seed','as_of','vehicle_count','history_months','product_count','order_count','customer_count','plan_fingerprint','expected_profile_revision','confirm','reason']);const profile=this.authorize(ctx,actor);
@@ -52,7 +63,7 @@ class DemoUniverseEngine{
   }
   owned(ctx,actor,id){this.authorize(ctx,actor);const row=this.rows(ctx).find(r=>r.id===id&&r.tenant_id===ctx.tenant_id&&r.dealer_id===ctx.dealer_id&&r.owner_id===actor.id);if(!row)fail('demo_universe_missing',404);return row;}
   audit(ctx,actor,row,operation,details){this.adapter.bucket(ctx,AUDIT).push({universe_id:row.id,actor_id:actor.id,operation,revision:row.revision,at:(this.adapter.now?.()||new Date()).toISOString(),...details});}
-  get(ctx,actor,id){const row=this.owned(ctx,actor,id);return {id:row.id,request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},plan_fingerprint:row.plan_fingerprint,options:clone(row.options),status:row.status,revision:row.revision,applied_nodes:row.cursor,total_nodes:row.node_count,last_error:row.last_error,classification:'SYNTHETIC_DEMO',native_data_currently_verified:false,full_acceptance:false,external_effects:false};}
+  get(ctx,actor,id){const row=this.owned(ctx,actor,id);return {id:row.id,request_id:row.request_id,request_context:{tenant_id:ctx.tenant_id,dealer_id:ctx.dealer_id,actor_id:actor.id},profile_revision:this.resolver.profile(ctx).revision,plan_fingerprint:row.plan_fingerprint,options:clone(row.options),status:row.status,revision:row.revision,applied_nodes:row.cursor,total_nodes:row.node_count,last_error:row.last_error,classification:'SYNTHETIC_DEMO',native_data_currently_verified:false,full_acceptance:false,external_effects:false};}
   access(ctx,actor,node,operation){
     if(['identity.invite','memory.create'].includes(node.contract))return;
     this.resolver.assertModule(ctx,actor,node.module,operation);const cap=ENTITY_CAPABILITIES[node.module]?.[node.entity];if(!cap)fail('demo_contract_unavailable');this.resolver.assertCapability(ctx,actor,cap,operation);

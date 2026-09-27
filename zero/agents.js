@@ -21,7 +21,7 @@ class AgentOrchestrator{
  key(ctx,row){return C.hash([ctx.tenant_id,ctx.dealer_id,row.owner_id,row.id]);}
  allowed(ctx,actor,tool){C.scope(ctx,actor);return tool.authorize(ctx,actor)===true;}
  catalog(ctx,actor){
-  C.scope(ctx,actor);return {schema_version:1,limits:LIMITS,tools:[...this.tools.values()].filter(t=>this.allowed(ctx,actor,t)).map(t=>({id:t.id,specialist:t.specialist,module:t.module,responsibility:t.responsibility,effect:'READ',approval_required:false,input_schema:{type:'object',additionalProperties:false},source_class:t.source_class})),
+  C.scope(ctx,actor);return {schema_version:1,limits:LIMITS,tools:[...this.tools.values()].filter(t=>this.allowed(ctx,actor,t)).map(t=>({id:t.id,specialist:t.specialist,module:t.module,responsibility:t.responsibility,effect:'READ',approval_required:false,input_schema:{type:'object',additionalProperties:false},source_class:t.sourceClass?.(ctx,actor)||t.source_class})),
    native_writes:'EXISTING_TYPED_ACTION_AND_APPROVAL_CONTRACTS',agent_can_expand_permissions:false};
  }
  create(ctx,actor,input){
@@ -85,7 +85,7 @@ class AgentOrchestrator{
     const result=await bounded(()=>tool.read(ctx,actor,{signal:controller.signal}));check();
     if(!this.allowed(ctx,actor,tool))C.fail('zero_agent_tool_denied',403);
     C.object(result);const size=Buffer.byteLength(JSON.stringify(result));if((bytes+=size)>LIMITS.context_bytes)C.fail('zero_agent_context_budget',413);
-    const receipt={step_id:step.id,tool_id:tool.id,state:'READ',result_hash:C.hash(result),source_class:tool.source_class,observed_at:this.now().toISOString()};
+    const receipt={step_id:step.id,tool_id:tool.id,state:'READ',result_hash:C.hash(result),source_class:tool.sourceClass?.(ctx,actor)||tool.source_class,observed_at:this.now().toISOString()};
     receipts.push(receipt);evidence.push({step_id:step.id,tool_id:tool.id,data:C.clone(result),provenance:receipt});
    }
    // Independent registered verifiers reread the authoritative source. The

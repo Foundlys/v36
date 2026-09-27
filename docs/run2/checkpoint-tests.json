@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-26T23:14:44.519154+00:00",
+  "recorded_at": "2026-09-27T00:01:53.376521+00:00",
   "foundation_source": {
     "head": "1dd199481943e0b9b0d6be4b3c168903774d109a",
     "modifications": [
@@ -39420,7 +39420,35 @@
       },
       "cause_and_response": "One encrypted HTTP E-commerce seed/billing request timed out in the full suite. No timeout was increased. The new source yields at real cursor boundaries and commits native batches with an encrypted atomic snapshot; current authority, receipts, rollback, warmed facts and postcommit notifications are tested. New own full CI is still required."
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "status": "PASS",
+      "run_number": 271,
+      "run_id": 36278986697,
+      "job_id": 108507083762,
+      "published_commit": "4ac4481742f258869cfcbb52c3dec0fd58968ee8",
+      "merge_commit": "2630af555042f2788dbd542e25efc9ad7d08f90d",
+      "tree": "5c6ae7a0e3569087e3116f10895a7fe970445707",
+      "parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "4ac4481742f258869cfcbb52c3dec0fd58968ee8"
+      ],
+      "run_started_at": "2026-09-26T23:17:42Z",
+      "run_updated_at": "2026-09-26T23:36:43Z",
+      "run_wall_seconds": 1141,
+      "zero_tests": {
+        "pass": 1854,
+        "fail": 0
+      },
+      "corpus_pass": 14,
+      "command": "npm test",
+      "log": {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ci271-job-108507083762.log.gz",
+        "raw_bytes": 874400,
+        "raw_sha256": "2d428dcc6a475bcb19f163db7d6d4fee6a42942e32cc211a5aa0fb7b6964daae",
+        "gzip_sha256": "e968a2834f6fb4c26e63891231313ba6c920423b059e14032d977f3dcdfbb7e9"
+      },
+      "limits": "This CI proves the preceding published tree, not later native context projection or demo controls."
+    },
     "finished_demos": [],
     "complete_demo_acceptance": false,
     "social_quality_acceptance": "UNVERIFIED_REQUIRES_INDEPENDENT_MODEL_REVIEW",
@@ -39625,5 +39653,814 @@
       "Market/source freshness and valuation validation, desktop downloads and reachable HTTPS installable delivery"
     ],
     "limits": "No global percentage, no social quality inference from deterministic test counts, no finished demo. Default conversation collection has no live model. Local diagnostic timings may overlap other work. The full passing CI 269 belongs to an older tree; CI 270 failed and is retained rather than replaced by local results."
+  },
+  "demo_controls_native_context_20260927": {
+    "recorded_at": "2026-09-27T00:01:53.376521+00:00",
+    "status": "BOUNDED_LOCAL_CHECKPOINT_PASS_FULL_DEMO_AND_OWN_CI_OPEN",
+    "source_commit": "7858bf98a29a7ccc5768b884f0d0aa921f36af90",
+    "source_tree": "410dcc5cec7c2f2d18b93e4b5632fddfdba2eb44",
+    "zero_tests": {
+      "pass": 1867,
+      "fail": 0
+    },
+    "corpus_pass": 14,
+    "native_script_pass": 12,
+    "frozen_proof": {
+      "source": {
+        "commit": "7858bf98a29a7ccc5768b884f0d0aa921f36af90",
+        "tree": "410dcc5cec7c2f2d18b93e4b5632fddfdba2eb44",
+        "status_before": "",
+        "status_after": "",
+        "commit_after": "7858bf98a29a7ccc5768b884f0d0aa921f36af90",
+        "tree_after": "410dcc5cec7c2f2d18b93e4b5632fddfdba2eb44"
+      },
+      "results": [
+        {
+          "name": "capability-resolver-test.js",
+          "command": [
+            "node",
+            "capability-resolver-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:26.874418+00:00",
+          "finished_at": "2026-09-26T23:53:26.986907+00:00",
+          "elapsed_seconds": 0.112,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-capability-resolver-test.js.log",
+          "sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+          "bytes": 135
+        },
+        {
+          "name": "crm-current-principal-api-test.js",
+          "command": [
+            "node",
+            "crm-current-principal-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:26.987367+00:00",
+          "finished_at": "2026-09-26T23:53:30.061575+00:00",
+          "elapsed_seconds": 3.074,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-crm-current-principal-api-test.js.log",
+          "sha256": "a202f651c8d7ee63741f4a71f5a54453e3ef37c47be109f73064a8f64980547d",
+          "bytes": 231
+        },
+        {
+          "name": "core-access-api-test.js",
+          "command": [
+            "node",
+            "core-access-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:30.061950+00:00",
+          "finished_at": "2026-09-26T23:53:31.175070+00:00",
+          "elapsed_seconds": 1.113,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-core-access-api-test.js.log",
+          "sha256": "055e041c483f06b12fcac3b88cd98abc52bbbf92925e3f684e0c6fde7e2af492",
+          "bytes": 160
+        },
+        {
+          "name": "provider-access-api-test.js",
+          "command": [
+            "node",
+            "provider-access-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:31.175474+00:00",
+          "finished_at": "2026-09-26T23:53:32.275314+00:00",
+          "elapsed_seconds": 1.1,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-provider-access-api-test.js.log",
+          "sha256": "dca93aeac28a5fa79c0b28fae065b0bd0c7079ed15ec05156d5e17e755b6d553",
+          "bytes": 167
+        },
+        {
+          "name": "business-workspaces-regression-test.js",
+          "command": [
+            "node",
+            "business-workspaces-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:32.275702+00:00",
+          "finished_at": "2026-09-26T23:53:32.839877+00:00",
+          "elapsed_seconds": 0.564,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-business-workspaces-regression-test.js.log",
+          "sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+          "bytes": 254
+        },
+        {
+          "name": "composition-api-test.js",
+          "command": [
+            "node",
+            "composition-api-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:32.840685+00:00",
+          "finished_at": "2026-09-26T23:53:34.855219+00:00",
+          "elapsed_seconds": 2.015,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-composition-api-test.js.log",
+          "sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+          "bytes": 110
+        },
+        {
+          "name": "composition-matrix-test.js",
+          "command": [
+            "node",
+            "composition-matrix-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:34.855632+00:00",
+          "finished_at": "2026-09-26T23:53:52.277829+00:00",
+          "elapsed_seconds": 17.422,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-composition-matrix-test.js.log",
+          "sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+          "bytes": 4192
+        },
+        {
+          "name": "module-access-contracts-test.js",
+          "command": [
+            "node",
+            "module-access-contracts-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:52.278271+00:00",
+          "finished_at": "2026-09-26T23:53:52.483972+00:00",
+          "elapsed_seconds": 0.206,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-module-access-contracts-test.js.log",
+          "sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+          "bytes": 332
+        },
+        {
+          "name": "production-security-test.js",
+          "command": [
+            "node",
+            "production-security-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:52.484423+00:00",
+          "finished_at": "2026-09-26T23:53:52.896052+00:00",
+          "elapsed_seconds": 0.412,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-production-security-test.js.log",
+          "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+          "bytes": 309
+        },
+        {
+          "name": "jarvis-production-regression-test.js",
+          "command": [
+            "node",
+            "jarvis-production-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:52.896469+00:00",
+          "finished_at": "2026-09-26T23:53:54.246202+00:00",
+          "elapsed_seconds": 1.35,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-jarvis-production-regression-test.js.log",
+          "sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+          "bytes": 813
+        },
+        {
+          "name": "jarvis-client-regression-test.js",
+          "command": [
+            "node",
+            "jarvis-client-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:54.246681+00:00",
+          "finished_at": "2026-09-26T23:53:54.343079+00:00",
+          "elapsed_seconds": 0.096,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-jarvis-client-regression-test.js.log",
+          "sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+          "bytes": 458
+        },
+        {
+          "name": "speech-audio-visual-regression-test.js",
+          "command": [
+            "node",
+            "speech-audio-visual-regression-test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:54.343616+00:00",
+          "finished_at": "2026-09-26T23:53:54.490121+00:00",
+          "elapsed_seconds": 0.147,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-speech-audio-visual-regression-test.js.log",
+          "sha256": "1964c11023e5cf3792c3b3a33d42552b3d8569d38a8b1d9f6e4c70f03300e67b",
+          "bytes": 471
+        },
+        {
+          "name": "zero",
+          "command": [
+            "node",
+            "--test",
+            "--test-concurrency=2",
+            "zero/*.test.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-26T23:53:54.490575+00:00",
+          "finished_at": "2026-09-27T00:01:32.732002+00:00",
+          "elapsed_seconds": 458.241,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-zero.log",
+          "sha256": "3fb9c86db699dd01a42bfd052a2f128b4a6cfc739ac72d23dbb4d203508035a6",
+          "bytes": 224821
+        },
+        {
+          "name": "corpus",
+          "command": [
+            "node",
+            "zero-evaluation/run.js"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-09-27T00:01:32.733331+00:00",
+          "finished_at": "2026-09-27T00:01:35.477392+00:00",
+          "elapsed_seconds": 2.744,
+          "log": "/workspace/scratch/be87522d6b82/run2-evidence/demo-controls-final-frozen-corpus.log",
+          "sha256": "d9cde6e05df99381e0ad8498ad12642033b57dabd0ecdf0c526d8da43896f90f",
+          "bytes": 1066
+        }
+      ],
+      "all_pass": true
+    },
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/browser-demo-probe-result.json.gz",
+        "raw_bytes": 758,
+        "raw_sha256": "70bbc86dccd5494b1690415b21ca5b8399608550b60ae95d849f722cbe2402eb",
+        "gzip_sha256": "84da7dc64aebf47b071df955185e8fe646526f665feedb558c5c928106cedc5f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ci271-job-108507083762.log.gz",
+        "raw_bytes": 874400,
+        "raw_sha256": "2d428dcc6a475bcb19f163db7d6d4fee6a42942e32cc211a5aa0fb7b6964daae",
+        "gzip_sha256": "e968a2834f6fb4c26e63891231313ba6c920423b059e14032d977f3dcdfbb7e9"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ci271-result.json.gz",
+        "raw_bytes": 762,
+        "raw_sha256": "a20fc6051a4ceec9fbf1ecb30f29984cd02eccedc85a09d6816f979c83a0ef38",
+        "gzip_sha256": "b53dc0e8d44c4ea20e1286436a29ee64424e668c51c474441e93b1f8811b100c"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-business-workspaces-regression-test.js.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "gzip_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-capability-resolver-test.js.log.gz",
+        "raw_bytes": 135,
+        "raw_sha256": "e8aaa1663036870eeafa31da4c2ffd440ef83d157c24eb2d6dfb1fbfeb372877",
+        "gzip_sha256": "dd07f0b938eed7e41380953f743af078c4f57c50dbbba5d97d088cf825262c0b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-composition-matrix-test.js.log.gz",
+        "raw_bytes": 4192,
+        "raw_sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+        "gzip_sha256": "a73e3fc80a908da7afc7e042ec3aadcbecf69ea734e0e085b227bcc1c66a5750"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-core-access-api-test.js.log.gz",
+        "raw_bytes": 160,
+        "raw_sha256": "055e041c483f06b12fcac3b88cd98abc52bbbf92925e3f684e0c6fde7e2af492",
+        "gzip_sha256": "be2138af791494d40a9d696eb29a8d23dc5e2fc1d23877e3c5a381170ac552f1"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-corpus.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "d9cde6e05df99381e0ad8498ad12642033b57dabd0ecdf0c526d8da43896f90f",
+        "gzip_sha256": "9aae7f9a1f067a7f4f68196dacabd4daa4b0385e8e964d4fc74a0f3e00bfcd19"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-crm-current-principal-api-test.js.log.gz",
+        "raw_bytes": 231,
+        "raw_sha256": "a202f651c8d7ee63741f4a71f5a54453e3ef37c47be109f73064a8f64980547d",
+        "gzip_sha256": "ba66cfa95b4a6c9ccdec2d64e458fccf72f4a2d626402c6a198d871cbf0a6495"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-jarvis-client-regression-test.js.log.gz",
+        "raw_bytes": 458,
+        "raw_sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+        "gzip_sha256": "2f4e06fbc235f38262ecd4833e0250889b93997928c3fbd21b1b5c45f3c7b42b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-jarvis-production-regression-test.js.log.gz",
+        "raw_bytes": 813,
+        "raw_sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+        "gzip_sha256": "8a4dafa497ff6aa0344c3c8cabd70cf8e1bff8fcbdf3427bfb4da195bb7bed5b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-production-security-test.js.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "gzip_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-provider-access-api-test.js.log.gz",
+        "raw_bytes": 167,
+        "raw_sha256": "dca93aeac28a5fa79c0b28fae065b0bd0c7079ed15ec05156d5e17e755b6d553",
+        "gzip_sha256": "a07f8a2629735a57a6979b1f0d0636ee486d930fbaec7221d3c56d032dd674d4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-results.json.gz",
+        "raw_bytes": 7843,
+        "raw_sha256": "1840f2180446fbb92523c8a6a3d445d71da7411ff1bb5e19b68e6c835e8e4814",
+        "gzip_sha256": "ede61b4bc4b6d818a6ec9a1a6677cf28d49cb093d4ae263f2a41cd07dba1f4d0"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-speech-audio-visual-regression-test.js.log.gz",
+        "raw_bytes": 471,
+        "raw_sha256": "1964c11023e5cf3792c3b3a33d42552b3d8569d38a8b1d9f6e4c70f03300e67b",
+        "gzip_sha256": "1bf33089138338a23b14b2c532e6fd44ce5061cbe694d62f523066dc1579f895"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-final-frozen-zero.log.gz",
+        "raw_bytes": 224821,
+        "raw_sha256": "3fb9c86db699dd01a42bfd052a2f128b4a6cfc739ac72d23dbb4d203508035a6",
+        "gzip_sha256": "c01be7c1c135c74db29605cf95951c22f6b09b2752957b0216f75959431124cf"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-business-workspaces-regression-test.js.log.gz",
+        "raw_bytes": 254,
+        "raw_sha256": "35c63bcbad075716413e135d67a9cb4450e1d2cee18696be8628f03e748f185a",
+        "gzip_sha256": "cd3a63d59895a8218d877e782abe64d96e905cd2af98b265b018adcf0f1c5c1f"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-composition-api-test.js.log.gz",
+        "raw_bytes": 110,
+        "raw_sha256": "aac6a9d81bad1d5445774cb1d6ae14c23771ee8015774c3dc63c751a5b6fd82a",
+        "gzip_sha256": "63be159ddd7bda7527267bf9577a397762c97ac9454a59809f4cd93519fcde5e"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-composition-matrix-test.js.log.gz",
+        "raw_bytes": 4192,
+        "raw_sha256": "b05571cd07c2ff48010f732f52044e4098a4df812d2a713fa04ba0e9b79418ac",
+        "gzip_sha256": "a73e3fc80a908da7afc7e042ec3aadcbecf69ea734e0e085b227bcc1c66a5750"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-jarvis-client-regression-test.js.log.gz",
+        "raw_bytes": 458,
+        "raw_sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+        "gzip_sha256": "2f4e06fbc235f38262ecd4833e0250889b93997928c3fbd21b1b5c45f3c7b42b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-jarvis-production-regression-test.js.log.gz",
+        "raw_bytes": 813,
+        "raw_sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+        "gzip_sha256": "8a4dafa497ff6aa0344c3c8cabd70cf8e1bff8fcbdf3427bfb4da195bb7bed5b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-module-access-contracts-test.js.log.gz",
+        "raw_bytes": 332,
+        "raw_sha256": "2e423c91b6e055cb473023499f710b827377b108f723abc3d638f5d4db05186e",
+        "gzip_sha256": "c4e94c7fb6eda688924d8ca9091bd5cbaa337421b9bc8e2adfa01ba91204860d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-production-security-test.js.log.gz",
+        "raw_bytes": 0,
+        "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-results.json.gz",
+        "raw_bytes": 5178,
+        "raw_sha256": "db6d6cb9d55851c0675e64d40e76da2f7fccc2835b821305dc1d97a752cb1c5f",
+        "gzip_sha256": "1b531befb3d1b6ab928489caa8b27da9bedf33709fcf16d45584001efb27fe97"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-speech-audio-visual-regression-test.js.log.gz",
+        "raw_bytes": 471,
+        "raw_sha256": "1964c11023e5cf3792c3b3a33d42552b3d8569d38a8b1d9f6e4c70f03300e67b",
+        "gzip_sha256": "1bf33089138338a23b14b2c532e6fd44ce5061cbe694d62f523066dc1579f895"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-frozen-zero.log.gz",
+        "raw_bytes": 225169,
+        "raw_sha256": "dd72f1d39ac368d3dc7546803b79719b676e3096126488593ab287d5717ee60e",
+        "gzip_sha256": "e01339951756e1b3191e3d2e62040f484db78e90f7f0e50373dd7af5ae879af4"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-targeted-v2.log.gz",
+        "raw_bytes": 927,
+        "raw_sha256": "de8b31ce5eff4e86e77ab8a22a95e45ab5055d22b60ef5b7d00ff37c393e187e",
+        "gzip_sha256": "23cc10ca8277ea7d43c4e1108fb2b78740e48688806ed842d59e2de4877cbbfb"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-targeted-v3.log.gz",
+        "raw_bytes": 1044,
+        "raw_sha256": "be93e812bde6282955b6aa9c6818914b3b96c69bf8cbebfc22de79e87ab3dfa2",
+        "gzip_sha256": "0c604d095da5fda96fcb096da948b4644a47ed5fad55fbf07a428c0b8a34ae78"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-targeted.log.gz",
+        "raw_bytes": 1387,
+        "raw_sha256": "6a3e5a83e3ac995945e6bdaa49fc401e81e57e116a18cc054dee1a191f801810",
+        "gzip_sha256": "558984098feb58cfb4d8a6de011f9ebfb5acd3fc2f0a968bb7840279d6c5c9ae"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-workspace-fixture-fix-v2.log.gz",
+        "raw_bytes": 1158,
+        "raw_sha256": "94a54670354444994cf92b46bf642ee04e01dcb1d13d1831827d05a25ab74af5",
+        "gzip_sha256": "77f14cb3cb10dcdc91784a94a25a919a3760f1dcf78730abb0b5a403da042453"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/demo-controls-workspace-fixture-fix.log.gz",
+        "raw_bytes": 1760,
+        "raw_sha256": "94adedf1eca00e45d664b1cb286c31df33dd322a3ad7dc3f3c97da8423412ff6",
+        "gzip_sha256": "3551b291dd887241b8a7e6dd8569b697aca19549d5bf272e1ef4341b524f7cd6"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-baseline-progress-7858bf9.json.gz",
+        "raw_bytes": 170846,
+        "raw_sha256": "992c22b393327f054bb4daa2a8be130288d5fb078d027c224ccc7f9d518d96e0",
+        "gzip_sha256": "4546204c6b4e694770f0b05f4085d124f9245281accefa8b7e9a5be38a6f5a0c"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-atomic-collection.json.gz",
+        "raw_bytes": 262072,
+        "raw_sha256": "79ba5a85d665891f27ca01a95b46f15fcaa255ca58312e68db23b48919914a86",
+        "gzip_sha256": "c96d9002206aedae5367364c9129b2bfdb5458d4dcaf85e2e4ee0a86d24ab0eb"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-atomic-io.json.gz",
+        "raw_bytes": 795,
+        "raw_sha256": "c163730887dc52e549ce11b95e1c15d4659efe585ecd9c1725341c004b5a5834",
+        "gzip_sha256": "4dd06e94027741f9537fd5451a2f5878c816488442780f378d5da2d7c0e1b8f3"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-atomic.log.gz",
+        "raw_bytes": 21701,
+        "raw_sha256": "4015879919a0ea6cabe728de15d8acde0c686dcd002fde8fe18a52cde3bcd0ca",
+        "gzip_sha256": "04f98afe39011bd7125774ec484f80b38431b48ce8b107909743346448d21ab5"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-bounded-collection.json.gz",
+        "raw_bytes": 206032,
+        "raw_sha256": "04653c3b1625974bbfd0e333fc7655e625690f93d3e78f469cfdf1def2fc443a",
+        "gzip_sha256": "1b3b11684d347906fc8ee993980c1710d7e7b587b11ca46b834b097353cccfe9"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-bounded-io.json.gz",
+        "raw_bytes": 795,
+        "raw_sha256": "9a3eff1f3a5fb6c10c913270ec54a69ac2c64d3e6dff141d3a93e57dfa4251dd",
+        "gzip_sha256": "48758674d4f9b5ae9559c6ec567994310d30c8851d49f7d7daf1b8272ea14565"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-bounded.log.gz",
+        "raw_bytes": 55,
+        "raw_sha256": "8fce8184c7414731b5ab98422c6d17c5ef445515aef952f19a79c96eb44b90e0",
+        "gzip_sha256": "908c1397cb09b4475f992a22ac025dda7a58bfc41252979cf2202e0aaf576048"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-fresh-scope-collection.json.gz",
+        "raw_bytes": 253503,
+        "raw_sha256": "8e57090281aef8fdef48915babbb8982b9566e0708bf9ad98efe3a36a486b503",
+        "gzip_sha256": "fcabc1cc96d8719e0bc08c7a7b9270bf931d0189ff5804042671ae13301f7aa2"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-fresh-scope-io.json.gz",
+        "raw_bytes": 788,
+        "raw_sha256": "b245a80f31573ffcb553fbfa030c9e2f11e63a148481787bac40aa6c180c8469",
+        "gzip_sha256": "62a064e69c022c1378c4e44df99bec111644e12ae16cf407992dcc028d9ca6fd"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ecommerce-full-encrypted-fresh-scope.log.gz",
+        "raw_bytes": 13233,
+        "raw_sha256": "d4c2524496fcfb9129afbb98852aabf7ce83c73b2f854540d3f5ee1234a39144",
+        "gzip_sha256": "81063adfb026293f39e79d78633ace811e7a8a23170cc523705dbab4b561ca94"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/full-demo-measurements-7858bf9.json.gz",
+        "raw_bytes": 6386,
+        "raw_sha256": "830085d4f907b02a70cc17201e08966e6fb9c21671022e3cfce5856bd26165c6",
+        "gzip_sha256": "2051c590a9bf84945de39cbfd8e6f5c6582ae2ba436ea3fa7d16b32e52b2dc52"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/measure-full-ecommerce-seed.cjs.gz",
+        "raw_bytes": 763,
+        "raw_sha256": "428ca916d3e203803713e369fa0287810d89c7226dae25e022a131e5c28397e2",
+        "gzip_sha256": "0aa3a8c19e0a899bc8cd34a82219cd5382007e04e1834318917f454315317b3a"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/seed-io-metrics.cjs.gz",
+        "raw_bytes": 2063,
+        "raw_sha256": "0e2c13cb94381fd587a9f018fde5a96f4a6eb807037d2edfb513ec28e5dbaa8c",
+        "gzip_sha256": "58ccb437228626adb7259a9432135e73110b492c0f06667d575fcaea07fefdb5"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/social-collection-failure-targeted.log.gz",
+        "raw_bytes": 253,
+        "raw_sha256": "3bc14ffd2e1328e4eb6e01e25e04471520c50f34d828322e1383bd0459421f03",
+        "gzip_sha256": "eaf780b9de3bb288cb0f0d6909b3d19514ba0802d6be32c686582a67690a0bf7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/zero-full-native-context-targeted-v2.log.gz",
+        "raw_bytes": 2973,
+        "raw_sha256": "8335c03a955394da11a3e9332be0390ef0b35497400ea6566ffcf4e3aa714bbc",
+        "gzip_sha256": "5cf34cd27ad379db50d98776a3629d57a5c4ce964727ee058df0edd261221ebf"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/zero-full-native-context-targeted.log.gz",
+        "raw_bytes": 13446,
+        "raw_sha256": "a445127c6d22040e4fe4c0493e5b1ff13d9ac7d613361aa40e4871390297136e",
+        "gzip_sha256": "3a1ca5a1def156e7ccd36dc49e651778055cc49803886a69ee2701ef233e42ae"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/zero-scope-performance-targeted.log.gz",
+        "raw_bytes": 1439,
+        "raw_sha256": "4b82b9987c7bfa8da116de9f03efe7aa5bd58487a7f87983711c77130b93139d",
+        "gzip_sha256": "a705d56dfddeddcf3b04956d7f85d494ee119d75cad51fe4c89a42437708025a"
+      }
+    ],
+    "latest_complete_passing_ci": {
+      "status": "PASS",
+      "run_number": 271,
+      "run_id": 36278986697,
+      "job_id": 108507083762,
+      "published_commit": "4ac4481742f258869cfcbb52c3dec0fd58968ee8",
+      "merge_commit": "2630af555042f2788dbd542e25efc9ad7d08f90d",
+      "tree": "5c6ae7a0e3569087e3116f10895a7fe970445707",
+      "parents": [
+        "e8142578eb2185a915c37d895c567937f20a9970",
+        "4ac4481742f258869cfcbb52c3dec0fd58968ee8"
+      ],
+      "run_started_at": "2026-09-26T23:17:42Z",
+      "run_updated_at": "2026-09-26T23:36:43Z",
+      "run_wall_seconds": 1141,
+      "zero_tests": {
+        "pass": 1854,
+        "fail": 0
+      },
+      "corpus_pass": 14,
+      "command": "npm test",
+      "log": {
+        "file": "docs/run2/evidence/20260927-demo-controls-context/ci271-job-108507083762.log.gz",
+        "raw_bytes": 874400,
+        "raw_sha256": "2d428dcc6a475bcb19f163db7d6d4fee6a42942e32cc211a5aa0fb7b6964daae",
+        "gzip_sha256": "e968a2834f6fb4c26e63891231313ba6c920423b059e14032d977f3dcdfbb7e9"
+      },
+      "limits": "This CI proves the preceding published tree, not later native context projection or demo controls."
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "full_ecommerce_measurements": [
+      {
+        "name": "baseline",
+        "source": {
+          "commit": "4c29ed80d57e9968439f024b85341a56c543f0d5",
+          "tree": "d6d2003081431e9f09b5199442bb452b7199760f",
+          "worktree_status": "",
+          "uncommitted_code_sha256": {}
+        },
+        "recorded_at": "2026-09-27T00:01:53.376521+00:00",
+        "collection_complete": false,
+        "seed_state": "RUNNING",
+        "applied_nodes": 3255,
+        "total_nodes": 3575,
+        "seed_elapsed_ms": null,
+        "batch_count": 2092,
+        "batch_p95_ms": 3592,
+        "batch_max_ms": 4378,
+        "recorded_turns": 0,
+        "http_errors": [],
+        "case_statuses": {},
+        "collection_error": null,
+        "quality_status": "UNVERIFIED_REQUIRES_INDEPENDENT_REVIEW",
+        "voice_status": "UNVERIFIED_NO_AUDIO",
+        "other_local_work_may_overlap": true
+      },
+      {
+        "name": "atomic",
+        "source": {
+          "commit": "d49a579e9a9694a5cfb776fc18ad8d47d4f67720",
+          "tree": "783a2e61f5cf9245fdd9a856c6976e5c3b361314",
+          "worktree_status": "",
+          "uncommitted_code_sha256": {}
+        },
+        "recorded_at": "2026-09-27T00:01:53.376521+00:00",
+        "collection_complete": true,
+        "seed_state": "SEEDED",
+        "applied_nodes": 3575,
+        "total_nodes": 3575,
+        "seed_elapsed_ms": 907548,
+        "batch_count": 520,
+        "batch_p95_ms": 2419,
+        "batch_max_ms": 3106,
+        "recorded_turns": 42,
+        "http_errors": [
+          {
+            "case": "cross-module-correction",
+            "status": 413,
+            "code": "zero_agent_context_budget"
+          },
+          {
+            "case": "cross-module-correction",
+            "status": 413,
+            "code": "zero_agent_context_budget"
+          }
+        ],
+        "case_statuses": {
+          "UNVERIFIED_REQUIRES_REVIEW": 13,
+          "TRANSPORT_OR_NATIVE_FAILURE": 1
+        },
+        "collection_error": null,
+        "quality_status": "UNVERIFIED_REQUIRES_INDEPENDENT_REVIEW",
+        "voice_status": "UNVERIFIED_NO_AUDIO",
+        "other_local_work_may_overlap": true,
+        "io": {
+          "atomic_writes": 1154,
+          "bytes_written": 32845380872,
+          "write_calls": 1154,
+          "fsync_calls": 1154,
+          "write_ms": 24349.710089999986,
+          "fsync_ms": 16.92697500000001,
+          "last_snapshot_bytes": 50940822,
+          "elapsed_ms": 980528.469123,
+          "cpu_usage": {
+            "user": 970197973,
+            "system": 130293100
+          },
+          "resource_usage": {
+            "userCPUTime": 970198053,
+            "systemCPUTime": 130293111,
+            "maxRSS": 876976,
+            "sharedMemorySize": 0,
+            "unsharedDataSize": 0,
+            "unsharedStackSize": 0,
+            "minorPageFault": 100266782,
+            "majorPageFault": 0,
+            "swappedOut": 0,
+            "fsRead": 0,
+            "fsWrite": 64156232,
+            "ipcSent": 0,
+            "ipcReceived": 0,
+            "signalsCount": 0,
+            "voluntaryContextSwitches": 157241,
+            "involuntaryContextSwitches": 24497
+          },
+          "node_version": "v24.19.0"
+        }
+      },
+      {
+        "name": "bounded",
+        "source": {
+          "commit": "698270a03bded2d5ad8924bb62834a646956e021",
+          "tree": "2d5e538ca3ec35cb8bebf75f3b72428b4c62202d",
+          "worktree_status": "",
+          "uncommitted_code_sha256": {}
+        },
+        "recorded_at": "2026-09-27T00:01:53.376521+00:00",
+        "collection_complete": false,
+        "seed_state": "SEEDED",
+        "applied_nodes": 3575,
+        "total_nodes": 3575,
+        "seed_elapsed_ms": 918883,
+        "batch_count": 525,
+        "batch_p95_ms": 2420,
+        "batch_max_ms": 2903,
+        "recorded_turns": 28,
+        "http_errors": [],
+        "case_statuses": {
+          "UNVERIFIED_REQUIRES_REVIEW": 10
+        },
+        "collection_error": {
+          "name": "TimeoutError",
+          "message": "The operation was aborted due to timeout"
+        },
+        "quality_status": "UNVERIFIED_REQUIRES_INDEPENDENT_REVIEW",
+        "voice_status": "UNVERIFIED_NO_AUDIO",
+        "other_local_work_may_overlap": true,
+        "io": {
+          "atomic_writes": 1137,
+          "bytes_written": 32014300478,
+          "write_calls": 1137,
+          "fsync_calls": 1137,
+          "write_ms": 23457.858619000017,
+          "fsync_ms": 16.738919999999982,
+          "last_snapshot_bytes": 50841690,
+          "elapsed_ms": 977286.980387,
+          "cpu_usage": {
+            "user": 970235007,
+            "system": 126491221
+          },
+          "resource_usage": {
+            "userCPUTime": 970235066,
+            "systemCPUTime": 126491229,
+            "maxRSS": 873936,
+            "sharedMemorySize": 0,
+            "unsharedDataSize": 0,
+            "unsharedStackSize": 0,
+            "minorPageFault": 98005359,
+            "majorPageFault": 0,
+            "swappedOut": 0,
+            "fsRead": 0,
+            "fsWrite": 62533280,
+            "ipcSent": 0,
+            "ipcReceived": 0,
+            "signalsCount": 0,
+            "voluntaryContextSwitches": 158604,
+            "involuntaryContextSwitches": 23606
+          },
+          "node_version": "v24.19.0"
+        }
+      },
+      {
+        "name": "fresh-scope",
+        "source": {
+          "commit": "cf6740b6c3ab88e19834de3175183af789b1bda4",
+          "tree": "70774cec3cce78a40f38fdc0bfc4cb1f43619a31",
+          "worktree_status": "",
+          "uncommitted_code_sha256": {}
+        },
+        "recorded_at": "2026-09-27T00:01:53.376521+00:00",
+        "collection_complete": true,
+        "seed_state": "SEEDED",
+        "applied_nodes": 3575,
+        "total_nodes": 3575,
+        "seed_elapsed_ms": 519906,
+        "batch_count": 313,
+        "batch_p95_ms": 2371,
+        "batch_max_ms": 2734,
+        "recorded_turns": 42,
+        "http_errors": [],
+        "case_statuses": {
+          "UNVERIFIED_REQUIRES_REVIEW": 14
+        },
+        "collection_error": null,
+        "quality_status": "UNVERIFIED_REQUIRES_INDEPENDENT_REVIEW",
+        "voice_status": "UNVERIFIED_NO_AUDIO",
+        "other_local_work_may_overlap": true,
+        "io": {
+          "atomic_writes": 739,
+          "bytes_written": 21740625150,
+          "write_calls": 739,
+          "fsync_calls": 739,
+          "write_ms": 16570.54532699999,
+          "fsync_ms": 12.431067999999993,
+          "last_snapshot_bytes": 50941210,
+          "elapsed_ms": 574310.612433,
+          "cpu_usage": {
+            "user": 556860657,
+            "system": 90504630
+          },
+          "resource_usage": {
+            "userCPUTime": 556860761,
+            "systemCPUTime": 90504647,
+            "maxRSS": 797964,
+            "sharedMemorySize": 0,
+            "unsharedDataSize": 0,
+            "unsharedStackSize": 0,
+            "minorPageFault": 68424949,
+            "majorPageFault": 0,
+            "swappedOut": 0,
+            "fsRead": 0,
+            "fsWrite": 42465544,
+            "ipcSent": 0,
+            "ipcReceived": 0,
+            "signalsCount": 0,
+            "voluntaryContextSwitches": 91378,
+            "involuntaryContextSwitches": 18642
+          },
+          "node_version": "v24.19.0"
+        }
+      }
+    ],
+    "prior_controls_verification": {
+      "source": {
+        "commit": "e96a0c545834d69a1e717730a5a57721b4ba2c41",
+        "tree": "aa5a7c8452458bd015e54e2580cfdc672228ec79",
+        "status_before": "",
+        "status_after": "",
+        "commit_after": "e96a0c545834d69a1e717730a5a57721b4ba2c41",
+        "tree_after": "aa5a7c8452458bd015e54e2580cfdc672228ec79"
+      },
+      "status": "FAIL",
+      "zero_pass": 1864,
+      "zero_fail": 1,
+      "corpus": "NOT_RUN",
+      "cause": "Shared workspace test fixture did not load the new demo component. Production HTML already loads it. The fixture now loads the same component; final immutable regression follows."
+    },
+    "changes": [
+      "Bounded native evidence with complete-field/row omissions, retained currency/amount/null semantics, full authorized snapshot hashes and independent rereads",
+      "SYNTHETIC_DEMO classification on native specialist catalogs, projections and receipts in isolated demo scope",
+      "One fresh authority snapshot per synchronous composition resolution; no rights retained across calls or awaits",
+      "Native shared Data demo preview/start/pause/resume/status controls for both priority industries in eight locales",
+      "Server-owned reservation discovery after lost start acknowledgement and encrypted restart, owner isolation and no writes on reload/status read",
+      "Social collector records the exact pending request before transport and preserves uncertainty without automatic retry"
+    ],
+    "limitations": [
+      "No live model or voice provider used; no empathy/social-quality acceptance from these contract runs",
+      "Earlier complete seed had two 413 context errors; the first bounded projection then hit the HTTP timeout; both failed observations retained",
+      "The full E-commerce repeat is a real encrypted no-model integration rehearsal, not a market accuracy, model, phone or load SLA proof",
+      "Supported cloud browser retried and blocked local /data with ERR_BLOCKED_BY_CLIENT; no browser/phone/install proof",
+      "Full financial and workflow histories, action UI, corrections/refunds, market validation and deliverable installation remain open"
+    ]
   }
 }

@@ -47,8 +47,10 @@ async function collect({industry='ECOMMERCE',caseIds,output,seed=true,allowLiveM
    const conversation_id=crypto.randomUUID(),item={id:scenario.id,modules:scenario.modules,conversation_id,turns:[],status:'UNVERIFIED_REQUIRES_REVIEW',must_observe:scenario.must_observe};report.cases.push(item);
    for(const message of scenario.turns){
     const request={message,conversation_id,turn_id:crypto.randomUUID()},started=performance.now();
-    const response=await call('/api/zero/turn','POST',request);
-    item.turns.push({request,response,latency_ms:Math.round(performance.now()-started)});
+    const turn={request,transport_state:'IN_FLIGHT'};item.turns.push(turn);save();
+    let response;
+    try{response=await call('/api/zero/turn','POST',request);Object.assign(turn,{response,transport_state:'RESPONSE_RECEIVED',latency_ms:Math.round(performance.now()-started)});}
+    catch(error){Object.assign(turn,{transport_state:'NO_RESPONSE',transport_error:{name:error.name,message:String(error.message).slice(0,1000)},latency_ms:Math.round(performance.now()-started)});item.status='TRANSPORT_OR_NATIVE_FAILURE';save();throw error;}
     if(response.status!==200)item.status='TRANSPORT_OR_NATIVE_FAILURE';
     else if((response.body.actions||[]).some(a=>a.status==='executed'))item.status='UNEXPECTED_EXECUTION_REQUIRES_INVESTIGATION';
     save();

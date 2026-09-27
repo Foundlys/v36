@@ -3,7 +3,9 @@ function createDemoUniverseApi({engine,context,principal,readBody,sendJson}){
   return async(req,res,url)=>{
     if(!/^\/api\/demo-universe(?:\/|$)/.test(url.pathname))return false;
     try{
-      const ctx=context();engine.authorize(ctx,principal());
+      const ctx=context();
+      if(url.pathname==='/api/demo-universe/session'&&req.method==='GET')return sendJson(res,200,{ok:true,...engine.session(ctx,principal())});
+      engine.authorize(ctx,principal());
       if(url.pathname==='/api/demo-universe/preview'&&req.method==='POST'){const input=await readBody(req);return sendJson(res,200,{ok:true,...engine.preview(ctx,principal(),input)});}
       if(url.pathname==='/api/demo-universe/runs'&&req.method==='POST'){const input=await readBody(req);return sendJson(res,201,{ok:true,universe:engine.start(ctx,principal(),input,req.headers['idempotency-key'])});}
       const match=url.pathname.match(/^\/api\/demo-universe\/runs\/(demo-[a-f0-9]{32})(\/advance)?$/);
