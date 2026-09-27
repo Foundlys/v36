@@ -4,6 +4,11 @@ const SCOPE='demo:universes',AUDIT='demo:universe-audit',MANIFESTS='demo:manifes
 const ADVANCE_WORK_BUDGET_MS=1000;
 const clone=value=>JSON.parse(JSON.stringify(value)),fail=(code,statusCode=422)=>{throw Object.assign(Error(code),{code,statusCode});};
 const keys=(v,names)=>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).some(k=>!names.includes(k)))fail('demo_request_invalid');};
+function freezeGraph(root){
+  const pending=[root],seen=new WeakSet();
+  while(pending.length){const value=pending.pop();if(!value||typeof value!=='object'||seen.has(value))continue;seen.add(value);pending.push(...Object.values(value).filter(v=>v&&typeof v==='object'));Object.freeze(value);}
+  return root;
+}
 function hasBusinessData(ctx,stores){
   const prefix=ctx.tenant_id+':'+ctx.dealer_id+':',metadata=/^(?:identity:|composition:|demo:|platform:audit$|platform:migrations$|finance:migrations$|finance:audit_events$)/;
   for(const [kind,store] of Object.entries(stores))for(const [name,value] of store){
@@ -14,7 +19,7 @@ function hasBusinessData(ctx,stores){
   return false;
 }
 class DemoUniverseEngine{
-  constructor({adapter,resolver,crm,domains,identities,memory,build=null,clock=()=>performance.now()}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,build,clock});this.cache=new Map();}
+  constructor({adapter,resolver,crm,domains,identities,memory,build=null,clock=()=>performance.now()}){Object.assign(this,{adapter,resolver,crm,domains,identities,memory,build,clock});this.cache=new Map();this.validatedManifests=new WeakSet();}
   authorize(ctx,actor){
     if(!ctx||!actor?.id||!canManage(actor))fail('demo_manage_forbidden',403);
     // This flag selects an explicitly isolated synthetic tenant. It conveys no
@@ -28,7 +33,11 @@ class DemoUniverseEngine{
     const retained=this.adapter.bucket(ctx,MANIFESTS).find(m=>m.fingerprint===row.plan_fingerprint);
     // Legacy reservations can only recover with their exact original generator.
     // New reservations retain the complete confirmed graph across upgrades.
-    const manifest=retained||this.manifest(row.options);L.validate(manifest);
+    const manifest=retained||this.manifest(row.options);
+    // Reuse validation only for this exact, deeply immutable graph. Restarts,
+    // replaced graphs and transaction rollbacks create new objects and must
+    // pass the complete Law again. Never cache current grants or native data.
+    if(!this.validatedManifests.has(manifest)){L.validate(manifest);freezeGraph(manifest);this.validatedManifests.add(manifest);}
     if(manifest.fingerprint!==row.plan_fingerprint||manifest.nodes.length!==row.node_count)fail('demo_reserved_manifest_changed',409);
     return manifest;
   }

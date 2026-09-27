@@ -30,3 +30,19 @@ test('native source revalidation includes omitted details, rejects altered proje
  assert.ok(result.plan.receipts.every(r=>r.source_class==='SYNTHETIC_DEMO'));assert.ok(engine.catalog(ctx,actor).tools.every(t=>t.source_class==='SYNTHETIC_DEMO'));
  const prior=tool.read(ctx,actor);demo=false;assert.equal(tool.verify(ctx,actor,prior),false);
 });
+test('only the root native read clock is excluded from source observation revalidation',()=>{
+ const source={observed_at:'2026-09-26T00:00:00Z',items:[{id:'one',observed_at:'2026-09-25T00:00:00Z',provenance:{observed_at:'2026-09-24T00:00:00Z'}}],freshness:{observed_at:'2026-09-23T00:00:00Z'}};
+ const tool=nativeTools({composition:()=>({assertTool(){}}),domain:()=>({summary:()=>source})}).find(t=>t.id==='sales_pipeline');
+ const snapshot=tool.read(ctx,actor);source.observed_at='2026-09-27T00:00:00Z';assert.equal(tool.verify(ctx,actor,snapshot),true);
+ for(const row of [source.items[0],source.items[0].provenance,source.freshness]){
+  const before=row.observed_at;row.observed_at='2026-09-27T01:00:00Z';assert.equal(tool.verify(ctx,actor,snapshot),false);
+  row.observed_at=before;assert.equal(tool.verify(ctx,actor,snapshot),true);
+ }
+ assert.equal(snapshot.items[0].observed_at,'2026-09-25T00:00:00Z');
+});
+test('an observation date changed in a fully withheld source row invalidates native evidence',()=>{
+ const source=large();source.by_entity.opportunities.items[99].observed_at='2026-09-24T00:00:00Z';
+ const tool=nativeTools({composition:()=>({assertTool(){}}),domain:()=>({summary:()=>source})}).find(t=>t.id==='sales_pipeline');
+ const snapshot=tool.read(ctx,actor);assert.equal(snapshot.by_entity.opportunities.items.length,0);assert.equal(tool.verify(ctx,actor,snapshot),true);
+ source.by_entity.opportunities.items[99].observed_at='2026-09-27T00:00:00Z';assert.equal(tool.verify(ctx,actor,snapshot),false);
+});

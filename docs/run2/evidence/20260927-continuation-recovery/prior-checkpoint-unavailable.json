@@ -1,0 +1,57 @@
+{
+  "recorded_at": "2026-09-27T07:02:18.099798+00:00",
+  "status": "REPORTED_PRIOR_CHECKPOINT_NOT_PRESENT_IN_CURRENT_WORKSPACE",
+  "old_workspace_head": "cfdca2a36cfeeb76ce2b9ca55e00ba766c03794e",
+  "restored_published_head": "09681b570223d1ab348ac4fc4a50d8ee467cc8cd",
+  "missing_local_commit": "ad53950ade47ffeaa232e7283c52839c19ee7f04",
+  "missing_tree": "6b33dc3c15e75d0adb28c351c6c9dd2563372f0a",
+  "missing_source_commit": "5886ad82256c05dfa9b246569b8aae092243fccf",
+  "missing_source_tree": "6990e2aa46c599cdd0927186593b6c9e900c6ea7",
+  "remote_checks": {
+    "local_commit_git_api": 404,
+    "local_tree_git_api": 422,
+    "pr_head_unchanged": true
+  },
+  "preservation": "Existing available worktrees, branches, untracked work and published evidence retained. Missing source changes reconstructed from the continuation record, separately committed and reverified; no assertion of byte identity to unavailable commits. Prior summary is retained below, not relabelled as newly retrieved evidence.",
+  "prior_reported_proofs": {
+    "targeted_zero": 30,
+    "corpus": 14,
+    "native_scripts": 6,
+    "source": "5886ad82256c05dfa9b246569b8aae092243fccf",
+    "full_local_zero": "UNVERIFIED_INCOMPLETE_REPORTS_DESPITE_EXIT_ZERO",
+    "incomplete_logs": [
+      {
+        "bytes": 86626,
+        "sha256": "395da0b90b9d37d648ffaf74e3d83851edfb0c6814b661277bc838c96020c11c",
+        "last_case": 720
+      },
+      {
+        "bytes": 282236,
+        "sha256": "e8c6b92018f18e3542bf9a6fef4289a3dd0f24328e6bf31155443c5eab8aebf1",
+        "last_case": 1021
+      }
+    ]
+  },
+  "prior_reported_full_automotive": {
+    "source": "b8c3f0c9ac83302ef83af7a0c5316dfbeedfe916",
+    "tree": "6d5f4ce5af554851cea3a7ff414b33a5cb017451",
+    "nodes": 5581,
+    "seed_ms": 1576564,
+    "http_200_turns": 42,
+    "turn_p50_ms": 1104,
+    "turn_p95_ms": 1262,
+    "turn_max_ms": 2835,
+    "writes": 1731,
+    "written_bytes": 62013279930,
+    "independent_social_quality": "UNVERIFIED_REQUIRES_REVIEW",
+    "raw_files_available_in_current_workspace": false
+  },
+  "prior_reported_ecommerce_baseline": {
+    "status": "EXECUTION_UNAVAILABLE_INCOMPLETE",
+    "cursor": 3364,
+    "total": 3575,
+    "completed_at": null,
+    "cases": 0,
+    "no_speed_ratio": true
+  }
+}

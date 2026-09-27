@@ -1,9 +1,9 @@
 'use strict';
 const C=require('./contracts');
 const MAX_BYTES=7000;
-// Keep business dates/revisions/amounts significant. Only the native read's
-// observation timestamps change between otherwise identical source reads.
-function stable(value){if(Array.isArray(value))return value.map(stable);if(!value||typeof value!=='object')return value;return Object.fromEntries(Object.entries(value).filter(([k])=>k!=='observed_at').map(([k,v])=>[k,stable(v)]));}
+// Only the root native summary's read clock changes between equivalent reads.
+// Nested record/provenance/freshness observation dates are business evidence.
+function stable(value){if(!value||typeof value!=='object'||Array.isArray(value))return value;const {observed_at,...source}=value;return source;}
 const ROWS=new Set(['items','workflows','runs','activity_feed','stalled_deals','campaigns','pipeline_stages','lead_trend','source_performance','owner_performance','excluded_sources','issues','trial_balance']);
 const pointer=parts=>'/'+parts.map(s=>String(s).replaceAll('~','~0').replaceAll('/','~1')).join('/');
 const bytes=value=>Buffer.byteLength(JSON.stringify(value));

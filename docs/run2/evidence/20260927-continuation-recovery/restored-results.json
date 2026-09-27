@@ -1,0 +1,138 @@
+{
+  "source": "cda21804f2a2257c4a3024cb8826d440bd1f9da0",
+  "tree": "eb29df018aefefb7ea44833d1d603167d7be280b",
+  "before_status": "",
+  "started_at": "2026-09-27T06:53:56.175382+00:00",
+  "commands": [
+    {
+      "name": "targeted",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=2",
+        "zero/native-evidence.test.js",
+        "zero/native-evidence-api.test.js",
+        "zero/agents.test.js",
+        "zero/agents-api.test.js",
+        "zero/cross-module-api.test.js",
+        "zero/conversation-context.test.js",
+        "zero/conversation-context-api.test.js",
+        "zero/capability-resolution-authority.test.js",
+        "zero/native-followup.test.js",
+        "zero/native-followup-api.test.js",
+        "zero/social-routing-api.test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 16.024,
+      "log": "targeted-frozen.log",
+      "bytes": 8165,
+      "sha256": "902b33a68ad9b46143974dc1177b5dd081fdffdde318d967e75e2c0ec0f1d200",
+      "summary": {
+        "tests": 30,
+        "pass": 30,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "complete": true
+    },
+    {
+      "name": "corpus",
+      "command": [
+        "node",
+        "zero-evaluation/run.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.98,
+      "log": "corpus-frozen.log",
+      "bytes": 1066,
+      "sha256": "68aa0cae9537520f82cab2c56e87b46265874d848dd102110fdb1fbaf84b238c",
+      "complete": true
+    },
+    {
+      "name": "jarvis-production-regression-test",
+      "command": [
+        "node",
+        "jarvis-production-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.467,
+      "log": "jarvis-production-regression-test-frozen.log",
+      "bytes": 813,
+      "sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+      "complete": true
+    },
+    {
+      "name": "jarvis-client-regression-test",
+      "command": [
+        "node",
+        "jarvis-client-regression-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.114,
+      "log": "jarvis-client-regression-test-frozen.log",
+      "bytes": 458,
+      "sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+      "complete": true
+    },
+    {
+      "name": "crm-zero-replay-api-test",
+      "command": [
+        "node",
+        "crm-zero-replay-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.673,
+      "log": "crm-zero-replay-api-test-frozen.log",
+      "bytes": 205,
+      "sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+      "complete": true
+    },
+    {
+      "name": "domain-zero-replay-api-test",
+      "command": [
+        "node",
+        "domain-zero-replay-api-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.175,
+      "log": "domain-zero-replay-api-test-frozen.log",
+      "bytes": 239,
+      "sha256": "ad1093d4c71e27227e36bfe99f09d1c0939aa11362becae49e92394d40acf0b3",
+      "complete": true
+    },
+    {
+      "name": "zero-crm-retention-test",
+      "command": [
+        "node",
+        "zero-crm-retention-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.064,
+      "log": "zero-crm-retention-test-frozen.log",
+      "bytes": 186,
+      "sha256": "db0f30133df43131b1d9ea993e0cd5e558cc0ae99341d6d23ad82813060e8a1b",
+      "complete": true
+    },
+    {
+      "name": "production-security-test",
+      "command": [
+        "node",
+        "production-security-test.js"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.521,
+      "log": "production-security-test-frozen.log",
+      "bytes": 309,
+      "sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+      "complete": true
+    }
+  ],
+  "full_zero_suite": "NOT_RUN_THIS_RECOVERY",
+  "provider_quality": "UNVERIFIED",
+  "after_status": "",
+  "completed_at": "2026-09-27T06:54:22.201312+00:00",
+  "all_pass": true
+}

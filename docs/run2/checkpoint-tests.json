@@ -40207,7 +40207,29 @@
       },
       "limits": "This CI proves the preceding published tree, not later native context projection or demo controls."
     },
-    "own_published_ci": "PENDING_PUBLICATION",
+    "own_published_ci": {
+      "id": 36281495117,
+      "run_number": 272,
+      "head_sha": "09681b570223d1ab348ac4fc4a50d8ee467cc8cd",
+      "status": "PASS",
+      "conclusion": "success",
+      "created_at": "2026-09-27T00:06:36Z",
+      "updated_at": "2026-09-27T00:23:14Z",
+      "html_url": "https://github.com/Foundlys/v36/actions/runs/36281495117",
+      "job_id": 108514049504,
+      "tree": "8fcd340f9be8b6ec3ee7739efd2339684bc1a7df",
+      "merge_commit": "e83dd8143eef84730562a5be31e3eb6ad7044ddf",
+      "log_sha256": "259f252ebbd414481c39214c4b4fddf4e4a632406cd4183742e0c1e4264c4c20",
+      "log_bytes": 879974,
+      "published_commit": "09681b570223d1ab348ac4fc4a50d8ee467cc8cd",
+      "zero_tests": {
+        "pass": 1867,
+        "fail": 0
+      },
+      "corpus_pass": 14,
+      "command": "npm test",
+      "run_wall_seconds": 998
+    },
     "complete_demo_acceptance": false,
     "finished_demos": [],
     "full_ecommerce_measurements": [
@@ -40461,6 +40483,355 @@
       "The full E-commerce repeat is a real encrypted no-model integration rehearsal, not a market accuracy, model, phone or load SLA proof",
       "Supported cloud browser retried and blocked local /data with ERR_BLOCKED_BY_CLIENT; no browser/phone/install proof",
       "Full financial and workflow histories, action UI, corrections/refunds, market validation and deliverable installation remain open"
+    ]
+  },
+  "demo_continuation_recovery_20260927": {
+    "recorded_at": "2026-09-27T07:02:18.099798+00:00",
+    "status": "BOUNDED_NATIVE_AND_PERFORMANCE_CHECKPOINT_NOT_FULL_ACCEPTANCE",
+    "source_commit": "5dd3ea2b282b50da00958f45d9b084da896c5b59",
+    "source_tree": "460981524d17fa720db675ba77f6d90209257c88",
+    "zero_tests": {
+      "tests": 76,
+      "pass": 76,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "scope": "TARGETED_NATIVE_DEMO_ZERO_REGRESSION"
+    },
+    "corpus_pass": 14,
+    "frozen_proof": "docs/run2/evidence/20260927-continuation-recovery/manifest-frozen-results.json",
+    "prior_restored_source": {
+      "commit": "cda21804f2a2257c4a3024cb8826d440bd1f9da0",
+      "tree": "eb29df018aefefb7ea44833d1d603167d7be280b",
+      "targeted_pass": 30,
+      "corpus_pass": 14,
+      "native_script_pass": 6
+    },
+    "latest_complete_passing_ci": {
+      "id": 36281495117,
+      "run_number": 272,
+      "head_sha": "09681b570223d1ab348ac4fc4a50d8ee467cc8cd",
+      "status": "PASS",
+      "conclusion": "success",
+      "created_at": "2026-09-27T00:06:36Z",
+      "updated_at": "2026-09-27T00:23:14Z",
+      "html_url": "https://github.com/Foundlys/v36/actions/runs/36281495117",
+      "job_id": 108514049504,
+      "tree": "8fcd340f9be8b6ec3ee7739efd2339684bc1a7df",
+      "merge_commit": "e83dd8143eef84730562a5be31e3eb6ad7044ddf",
+      "log_sha256": "259f252ebbd414481c39214c4b4fddf4e4a632406cd4183742e0c1e4264c4c20",
+      "log_bytes": 879974,
+      "published_commit": "09681b570223d1ab348ac4fc4a50d8ee467cc8cd",
+      "zero_tests": {
+        "pass": 1867,
+        "fail": 0
+      },
+      "corpus_pass": 14,
+      "command": "npm test",
+      "run_wall_seconds": 998
+    },
+    "own_published_ci": "PENDING_PUBLICATION",
+    "full_local_zero_suite": "NOT_RUN_THIS_CHECKPOINT; prior reported incomplete logs are not a full PASS",
+    "durable_logs": [
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/ci272-full.log.gz",
+        "raw_bytes": 879974,
+        "raw_sha256": "259f252ebbd414481c39214c4b4fddf4e4a632406cd4183742e0c1e4264c4c20",
+        "file_sha256": "467dd40c163f45ed22356bb0cc57c7086b489e6338e9e35cbe2a3e5be7fef954"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/ci272-result.json",
+        "raw_bytes": 558,
+        "raw_sha256": "1c6b78dbfb7126631ceb278136fc232334d25c8444abc8c3669f836323865c44",
+        "file_sha256": "1c6b78dbfb7126631ceb278136fc232334d25c8444abc8c3669f836323865c44"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "68aa0cae9537520f82cab2c56e87b46265874d848dd102110fdb1fbaf84b238c",
+        "file_sha256": "d74ab35502eb8e4ef8db93b0b1130c23eba468c496298ecea0bedc995f03dd03"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/crm-zero-replay-api-test-frozen.log.gz",
+        "raw_bytes": 205,
+        "raw_sha256": "e79f72d0e3cac7ceb7d7f982c5441e505d375ca1a2aff2004bdada917262044a",
+        "file_sha256": "0041b75b15077c2942d66c2d8df089e9c38c32949bb802bcdd73cdf1485a5cd2"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/domain-zero-replay-api-test-frozen.log.gz",
+        "raw_bytes": 239,
+        "raw_sha256": "ad1093d4c71e27227e36bfe99f09d1c0939aa11362becae49e92394d40acf0b3",
+        "file_sha256": "3ff16812888a4643d08461f2bc8f0691d0b6284026ee288819b0c36c9ddb4797"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/jarvis-client-regression-test-frozen.log.gz",
+        "raw_bytes": 458,
+        "raw_sha256": "35dac914958d23e2e7477b1a1937c03299ba841a6956900efe47e5fbe4d92129",
+        "file_sha256": "2f4e06fbc235f38262ecd4833e0250889b93997928c3fbd21b1b5c45f3c7b42b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/jarvis-production-regression-test-frozen.log.gz",
+        "raw_bytes": 813,
+        "raw_sha256": "8e511ba7c56af457db627f0a8bd3b5e898f638391ad48abd3a88930a84f0bc10",
+        "file_sha256": "8a4dafa497ff6aa0344c3c8cabd70cf8e1bff8fcbdf3427bfb4da195bb7bed5b"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-and-zero-frozen.log.gz",
+        "raw_bytes": 21311,
+        "raw_sha256": "ba5bbbba6099d1fa643598001b282b00a27b0648624e0a60b494d0477028d5bd",
+        "file_sha256": "cadf1d77643c956364220208baa5d93fce7d9b4089a843c6a4d5fc2301d23209"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-baseline-profile.json",
+        "raw_bytes": 1772,
+        "raw_sha256": "991ab36bcfe92e2afc74c896c3e642c82434544342924bfb56eda07afd235b36",
+        "file_sha256": "991ab36bcfe92e2afc74c896c3e642c82434544342924bfb56eda07afd235b36"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-before.log.gz",
+        "raw_bytes": 4794,
+        "raw_sha256": "cedfabc0cf06f59d503270729def1afb3c29e9329f951d53b13b17414ae92f52",
+        "file_sha256": "be813510b55acc2fdfa693e7e849e5fc1d4ca35e50045470395162c528521149"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-corpus-frozen.log.gz",
+        "raw_bytes": 1066,
+        "raw_sha256": "da2724e538038dfdcacdfffc5ec83082f478bc93b60852d483361c210eea2d5f",
+        "file_sha256": "376c703feabdfe83d52f2b2bf5c544720d134c3f234d8828be4a0b4387483442"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-frozen-results.json",
+        "raw_bytes": 2202,
+        "raw_sha256": "f387e647b108670328694efe169282ba110ccd6c532676c09c58010755ed92e3",
+        "file_sha256": "f387e647b108670328694efe169282ba110ccd6c532676c09c58010755ed92e3"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-optimized-profile.json",
+        "raw_bytes": 1700,
+        "raw_sha256": "5cb08102b2432cb337ae07d7deff3430862a8c0178befdd5a4bd55e98db805ac",
+        "file_sha256": "5cb08102b2432cb337ae07d7deff3430862a8c0178befdd5a4bd55e98db805ac"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-targeted-fixed.log.gz",
+        "raw_bytes": 4147,
+        "raw_sha256": "99cc65512cbc8cb6e96f8ead1dd3e21d40ab641cd16fcb1256d37b244d67a637",
+        "file_sha256": "59585a2ba58c343945655f261e194ed5418c2a198acc51a4c52c3f105fa60ee9"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/manifest-targeted.log.gz",
+        "raw_bytes": 6239,
+        "raw_sha256": "f50d93e9d0921296aafc5b6ad5a940b6e12c32226f676ae0ab9ba0f715801d42",
+        "file_sha256": "920cde80c1e4bfb735425a68a6c2eea73aef28033e6ccdb0727104ad38bf7bba"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/prior-checkpoint-unavailable.json",
+        "raw_bytes": 2254,
+        "raw_sha256": "19f7112a3d3b1f8f77332babb4a783a70db381bc0a14bbd249359281e841e430",
+        "file_sha256": "19f7112a3d3b1f8f77332babb4a783a70db381bc0a14bbd249359281e841e430"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/production-security-test-frozen.log.gz",
+        "raw_bytes": 309,
+        "raw_sha256": "d5b3725c263a7c2305a0af0a9ada6e4c7a6a268bc3644c1f68bb75d74572b993",
+        "file_sha256": "01976bd70023fca7d56ca54655cdc84e6aa8973256bc746d11f8976658859452"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/restored-defects-before.log.gz",
+        "raw_bytes": 7232,
+        "raw_sha256": "3ccf670abc931755b20c269e3d617528ab68963cc272925f9a5b2430a6b0e336",
+        "file_sha256": "d9097cfebdd351dc9eb5502a0e02f4d9a2fda78b0ea1ef19fb4c36604b1e2862"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/restored-results.json",
+        "raw_bytes": 3985,
+        "raw_sha256": "407932d9870c91e373e7ac3ae5f2f7e1bc7b24d547a7a5f05c9ea6fff65d3ef7",
+        "file_sha256": "407932d9870c91e373e7ac3ae5f2f7e1bc7b24d547a7a5f05c9ea6fff65d3ef7"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/targeted-frozen.log.gz",
+        "raw_bytes": 8165,
+        "raw_sha256": "902b33a68ad9b46143974dc1177b5dd081fdffdde318d967e75e2c0ec0f1d200",
+        "file_sha256": "0beafce9e658ccc57e03fdcb207a7083e83bda3818c9f7508538c0bd4081042d"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/zero-crm-retention-test-frozen.log.gz",
+        "raw_bytes": 186,
+        "raw_sha256": "db0f30133df43131b1d9ea993e0cd5e558cc0ae99341d6d23ad82813060e8a1b",
+        "file_sha256": "61fc21bbe0b81904a77791aa6293b9f032da5539a245658df232134d30aa8628"
+      },
+      {
+        "file": "docs/run2/evidence/20260927-continuation-recovery/zero-targeted-restored.log.gz",
+        "raw_bytes": 8167,
+        "raw_sha256": "e28bbe818498a39c66c64f0252d6fa8261ae064d863c764264a4b3c38e04170e",
+        "file_sha256": "b5b61934bcf8df63feaae019f60358a444fe7a9ac2ebd20a68da05f0c1156a99"
+      }
+    ],
+    "missing_prior_checkpoint": "docs/run2/evidence/20260927-continuation-recovery/prior-checkpoint-unavailable.json",
+    "complete_demo_acceptance": false,
+    "finished_demos": [],
+    "performance_measurement": {
+      "scope": "LOCAL_REPEATED_RESERVED_MANIFEST_READS_NOT_END_TO_END_SLA",
+      "baseline": {
+        "schema_version": 1,
+        "measured_at": "2026-09-27T06:55:14.186Z",
+        "source": "cda21804f2a2257c4a3024cb8826d440bd1f9da0",
+        "tree": "eb29df018aefefb7ea44833d1d603167d7be280b",
+        "source_status": "",
+        "node_version": "v24.19.0",
+        "scope": "LOCAL_REPEATED_RESERVED_MANIFEST_READS_NOT_END_TO_END_SLA",
+        "profiles": [
+          {
+            "industry": "AUTOMOTIVE",
+            "manifest_fingerprint": "f8385d1b3acedb93ba6d59bccd00af23d207df120afd684f6d7526bf641d4fd0",
+            "node_count": 5581,
+            "manifest_bytes": 4655726,
+            "first_reserved_read_ms": 136.955,
+            "repeat_count": 20,
+            "repeat_ms": [
+              118.973,
+              136.519,
+              126.716,
+              138.542,
+              144.605,
+              223.106,
+              117.815,
+              116.645,
+              122.921,
+              121.277,
+              117.078,
+              134.065,
+              135.483,
+              124.185,
+              132.397,
+              128.414,
+              145.058,
+              129.824,
+              126.443,
+              126.399
+            ],
+            "repeat_p50_ms": 126.716,
+            "repeat_p95_ms": 145.058,
+            "repeat_total_ms": 2666.463
+          },
+          {
+            "industry": "ECOMMERCE",
+            "manifest_fingerprint": "aab8cb96394a1f660a5d5e26bf124fb03a2eb9091dd2fe08fd7671d4fe199022",
+            "node_count": 3575,
+            "manifest_bytes": 3038782,
+            "first_reserved_read_ms": 85.982,
+            "repeat_count": 20,
+            "repeat_ms": [
+              82.308,
+              79.135,
+              93.609,
+              78.93,
+              77.044,
+              82.526,
+              80.66,
+              83.529,
+              79.134,
+              74.132,
+              73.614,
+              75.506,
+              76.492,
+              73.854,
+              79.171,
+              84.873,
+              74.959,
+              79.673,
+              85.062,
+              79.357
+            ],
+            "repeat_p50_ms": 79.135,
+            "repeat_p95_ms": 85.062,
+            "repeat_total_ms": 1593.569
+          }
+        ]
+      },
+      "optimized": {
+        "schema_version": 1,
+        "measured_at": "2026-09-27T06:57:13.870Z",
+        "source": "5dd3ea2b282b50da00958f45d9b084da896c5b59",
+        "tree": "460981524d17fa720db675ba77f6d90209257c88",
+        "source_status": "",
+        "node_version": "v24.19.0",
+        "scope": "LOCAL_REPEATED_RESERVED_MANIFEST_READS_NOT_END_TO_END_SLA",
+        "profiles": [
+          {
+            "industry": "AUTOMOTIVE",
+            "manifest_fingerprint": "f8385d1b3acedb93ba6d59bccd00af23d207df120afd684f6d7526bf641d4fd0",
+            "node_count": 5581,
+            "manifest_bytes": 4655726,
+            "first_reserved_read_ms": 144.784,
+            "repeat_count": 20,
+            "repeat_ms": [
+              0.013,
+              0.001,
+              0.004,
+              0.002,
+              0.001,
+              0.001,
+              0.001,
+              0.002,
+              0.008,
+              0.002,
+              0.001,
+              0.018,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001
+            ],
+            "repeat_p50_ms": 0.001,
+            "repeat_p95_ms": 0.013,
+            "repeat_total_ms": 0.062
+          },
+          {
+            "industry": "ECOMMERCE",
+            "manifest_fingerprint": "aab8cb96394a1f660a5d5e26bf124fb03a2eb9091dd2fe08fd7671d4fe199022",
+            "node_count": 3575,
+            "manifest_bytes": 3038782,
+            "first_reserved_read_ms": 109.1,
+            "repeat_count": 20,
+            "repeat_ms": [
+              0.01,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001,
+              0.001
+            ],
+            "repeat_p50_ms": 0.001,
+            "repeat_p95_ms": 0.001,
+            "repeat_total_ms": 0.027
+          }
+        ]
+      }
+    },
+    "limitations": [
+      "No live model/social/empathy/voice or actual device acceptance.",
+      "Repeated manifest-read timings are not full seed, mobile or simultaneous workload latency.",
+      "No complete downloadable demo or reachable installable HTTPS app accepted.",
+      "Original unpublished ad53950 source/evidence unavailable in current older workspace; reconstruction and new verification are explicit."
     ]
   }
 }

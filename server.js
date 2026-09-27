@@ -1149,6 +1149,7 @@ function deriveUiCommands(message,result={}){const q=String(message||'').toLower
 function assertConversationOwner(c,row){if(COMPOSITION.profile(c)&&!(row.owner_id?row.owner_id===platformPrincipal().id:privateRowVisible(row,platformPrincipal())))throw Object.assign(new Error('Dit gesprek behoort niet tot de actieve gebruiker'),{statusCode:403,code:'conversation_forbidden'});}
 function jarvisConversation(c,conversationId){const rows=arr(memory,key(c,`jarvis-conversation:${conversationId}`));for(const row of rows)assertConversationOwner(c,row);return rows}
 function safeJarvisConversation(c,conversationId){return require('./zero-crm-retention').conversation(jarvisConversation(c,conversationId),arr(decisions,key(c,'jarvis')),conversationId);}
+function lastNativeAnalysis(c,conversationId){const history=jarvisConversation(c,conversationId),audit=arr(decisions,key(c,'jarvis')).slice(-500).reverse().find(row=>row.conversation_id===conversationId);if(audit)assertConversationOwner(c,audit);return require('./zero/native-followup').reference(history,audit);}
 function jarvisFormatted(result,language=jarvisPreferences(trustedContext()).language){
   const formatted=formatZeroResponse(result?.display_text??result?.answer??'',{locale:language});
   return {...result,answer:formatted.display_text,...formatted};
@@ -1397,8 +1398,8 @@ async function runJarvisTurn(message,c,options={}){
   const communicationReadRequested=COMPOSITION.profile(c)&&/\b(overzicht|status)\b/i.test(effective)&&(commercialModuleId(options.preferred_module)==='communication'||/\bcommunicatie\b/i.test(effective));
   if(intent==='ui_navigation'&&!communicationReadRequested){const result={ok:true,status:'completed',answer:'Dashboardopdracht uitgevoerd.',risk,voice_mode:'COMMAND',modules:[],plan:{goal:redactJarvisText(effective,1000),steps:['dispatch_semantic_ui_command'],tools:[]},actions:[],syncs:[],web:{used:false,sources:[],error:null},verification:{semantic_ui_only:true}};result.ui_commands=deriveUiCommands(effective,result);if(result.ui_commands.length)return storeJarvisResult(c,conversationId,turnId,raw,intent,result,startedAt)}
   const preferredOwner=commercialModuleId(options.preferred_module);if(COMPOSITION.profile(c)&&preferredOwner)COMPOSITION.assertModule(c,platformPrincipal(),preferredOwner);
-  if(!detectRequestedActions(effective).length&&require('./zero/cross-module').mentionedModules(effective).length>1){
-    const cross=await require('./zero/cross-module').crossModule({ctx:c,actor:platformPrincipal(),query:effective,conversation_id:conversationId,preferences:jarvisPreferences(c),agents:ZERO_AGENTS,router:ZERO_ROUTER,historyProvider:()=>safeJarvisConversation(c,conversationId)});
+  if(!detectRequestedActions(effective).length){
+    const cross=await require('./zero/cross-module').crossModule({ctx:c,actor:platformPrincipal(),query:effective,conversation_id:conversationId,preferences:jarvisPreferences(c),agents:ZERO_AGENTS,router:ZERO_ROUTER,historyProvider:()=>safeJarvisConversation(c,conversationId),continuationProvider:()=>lastNativeAnalysis(c,conversationId)});
     if(cross){cross.risk=risk;return storeJarvisResult(c,conversationId,turnId,raw,intent,cross,startedAt);}
   }
   const domainResult=domainIntelligenceResult(effective,c,options.preferred_module);if(domainResult){domainResult.risk=risk;domainResult.ui_commands=deriveUiCommands(effective,domainResult);return storeJarvisResult(c,conversationId,turnId,raw,intent,domainResult,startedAt)}
