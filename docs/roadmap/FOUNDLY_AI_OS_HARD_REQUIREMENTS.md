@@ -2472,6 +2472,178 @@ Pricing must be validated in Run 7 against real willingness-to-pay, conversion, 
 
 ---
 
+# 10O. SELLABLE MODULE HYPER-PERFECT DEMO LAW
+
+Every Foundly module, standalone app, Industry Pack or commercially sellable capability must have a **complete, interactive, production-faithful hyper-perfect demo** before it may be marked SELLABLE, SALES_READY or READY_FOR_CUSTOMER_DEMONSTRATION.
+
+A demo is not:
+- a static mockup;
+- a screenshot deck;
+- a click-through prototype;
+- a prerecorded video presented as functionality;
+- a fake frontend disconnected from real contracts;
+- a reduced toy implementation that cannot perform the advertised actions.
+
+The demo must use the same production-grade contracts, permission model, ZERO behavior, validation, recovery, audit, localization and truthful-state rules as the real product. Synthetic/demo data is allowed only when clearly identified as demo data.
+
+## Required demo behavior
+
+For every sellable module, the demo must allow the prospect/customer to personally perform the module's material advertised workflows end-to-end.
+
+This includes, where relevant:
+- create;
+- read;
+- update;
+- delete/archive where safe;
+- search/filter/sort;
+- import/export;
+- approvals;
+- notifications;
+- automation;
+- ZERO natural-language operation;
+- voice where the product advertises voice;
+- cross-module actions;
+- permissions/roles;
+- errors and recovery;
+- undo/rollback where advertised;
+- mobile/desktop behavior where sold;
+- install/relaunch/offline behavior where sold;
+- localization where sold;
+- generated outputs/assets where sold;
+- audit/provenance;
+- real result verification.
+
+If an action would normally cause an external side effect such as sending a real email, spending money, publishing an ad, charging a card, contacting a real lead, deploying production code or changing a real customer record, the demo must provide a safe but production-faithful sandbox/simulation path that exercises the same internal contracts and makes the non-production nature explicit.
+
+No demo may falsely claim an external action occurred.
+
+## Demo completeness matrix
+
+Each sellable module must maintain a dedicated demo acceptance matrix containing at minimum:
+- advertised capability;
+- demo scenario;
+- user persona/role;
+- starting state;
+- action steps;
+- ZERO interaction where applicable;
+- expected visible result;
+- underlying authoritative state mutation;
+- audit/provenance evidence;
+- permission/tenant boundary;
+- failure/recovery scenario;
+- desktop acceptance;
+- mobile acceptance where relevant;
+- localization acceptance where relevant;
+- accessibility acceptance;
+- performance/latency expectation;
+- benchmark reference;
+- PASS/FAIL/UNVERIFIED;
+- evidence reference.
+
+A module may not be marked DEMO_COMPLETE while any material advertised capability remains FAIL or UNVERIFIED.
+
+## Demo universes
+
+Foundly must maintain rich, coherent demo universes rather than isolated fake records.
+
+Demo universes must contain realistic:
+- organizations;
+- users/roles;
+- customers;
+- suppliers;
+- products/assets;
+- finance;
+- CRM history;
+- communications;
+- calendars;
+- campaigns;
+- websites;
+- analytics;
+- workflows;
+- incidents;
+- approvals;
+- industry data;
+- historical outcomes.
+
+The data must be internally consistent across modules so that a user can move from CRM -> Sales -> Finance -> Calendar -> Automation -> Analytics -> ZERO without contradictions.
+
+## Module-specific hyper-perfect demos
+
+At minimum, separate complete demos are required for every sellable Foundly product, including where commercially launched:
+- CRM;
+- Sales;
+- Procurement;
+- Finance;
+- Analytics;
+- Marketing;
+- SEO Machine;
+- Advertising/Growth;
+- Lead Machine;
+- Communication;
+- Calendar;
+- Automation;
+- Website Builder;
+- Photo Studio;
+- Video Studio;
+- ZERO-driven workflows;
+- Foundly Maps;
+- Automotive Industry Pack;
+- E-commerce Industry Pack;
+- every future Industry Pack;
+- every future standalone module/app.
+
+If modules are sold as a bundle, the bundle must also have a complete cross-module demo proving the combined workflows. Standalone demo PASS does not imply bundle/composition demo PASS.
+
+## Sales demonstration mode
+
+Foundly must provide a deliberate sales-demonstration experience that is:
+- resettable to a known-good state;
+- reproducible;
+- fast to launch;
+- safe from production tenants;
+- visually production-faithful;
+- populated with realistic data;
+- able to demonstrate happy paths and selected failure/recovery paths;
+- able to switch between representative personas/roles;
+- able to show ZERO naturally;
+- able to show benchmark-relevant differentiators;
+- able to preserve evidence after a session when required.
+
+A sales demo must be capable of being handed to a prospect for guided or controlled self-service evaluation without corrupting another demo session.
+
+## Customer trial / evaluation mode
+
+Where commercially appropriate, the same demo architecture should support time-limited prospect evaluation with:
+- isolated tenant;
+- trial entitlements;
+- safe quotas;
+- reset/reseed;
+- no production secrets;
+- no cross-prospect visibility;
+- no hidden fake success;
+- optional upgrade into a real customer organization without data confusion.
+
+## Benchmark requirement
+
+Each module demo must be benchmarked against the strongest current relevant specialist/product/model for that module and its material sub-capabilities.
+
+The demo must visibly demonstrate Foundly's accepted parity and differentiators where evidence exists.
+
+No superiority claim may be embedded into the demo unless supported by current benchmark evidence.
+
+## Commercial gate
+
+The following states are prohibited until the dedicated demo passes:
+- SELLABLE;
+- SALES_READY;
+- DEMO_READY;
+- CUSTOMER_TRIAL_READY.
+
+Commercial launch therefore requires:
+BUILD -> TEST -> BENCHMARK -> DEMO ACCEPTANCE -> SALES READY.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
