@@ -419,6 +419,36 @@ Finance → inventory → CRM → Lead/Sales → Negotiation → Website → Pho
 ## D14. Industry Demo Factory
 The same engine must produce coherent industry-specific experiences without customer forks.
 
+## D15. Component-Level Benchmark Registry
+- every material sub-capability gets its own current best specialist/model benchmark;
+- benchmark source/date/version;
+- reproducible scenarios;
+- quality/latency/reliability/user-effort/cost/outcome metrics;
+- persistent gap ledger;
+- no module-wide PASS while material sub-capability gates remain open.
+
+## D16. Standalone Product / App Architecture
+- one shared Core, not duplicated backends;
+- independent app identity per independently useful module;
+- independent entitlement/onboarding/settings;
+- shared identity/Digital Twin/ZERO/events/provenance/audit;
+- deep-link contracts;
+- cross-app navigation;
+- update/version contracts;
+- desktop/web standalone product surfaces;
+- app shell/tooling reusable across modules;
+- no customer forks.
+
+## D17. Composition Matrix
+- every module standalone;
+- every direct module contract;
+- every high-risk pair;
+- representative high-risk three-way compositions;
+- canonical Industry Pack compositions;
+- complete suite journeys;
+- enable/disable/entitlement/permission/version/provider-loss transitions;
+- deterministic composition regression suite.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -432,10 +462,10 @@ Every capability requires:
 - Work audit.
 
 ## Planning active engineering
-**260–600 hours**
+**330–760 hours**
 
 ## OpenAI credit planning band
-**60,000–170,000 credits**
+**75,000–210,000 credits**
 
 ---
 
@@ -445,9 +475,15 @@ Every capability requires:
 Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squeezed onto a phone.
 
 ## Workstreams
-- iOS application/approved delivery architecture;
-- Android application/approved delivery architecture;
-- responsive web/PWA where appropriate;
+- reusable Foundly app platform/shell;
+- separate installable iOS/iPadOS apps for independently useful modules;
+- separate installable Android apps for independently useful modules;
+- separate Windows desktop apps for independently useful modules;
+- separate macOS desktop apps where technically/commercially supported;
+- responsive web/PWA surfaces where appropriate;
+- independent app-store/package identities and versioning;
+- shared sign-in, tenant switching, deep links and app-to-app handoff;
+- each standalone app benchmarked independently against its strongest specialist product category;
 - biometric/device authentication where supported;
 - push notifications;
 - deep links;
@@ -495,10 +531,10 @@ Professional workflows may use cloud execution with a mobile control surface whe
 - Work independent audit.
 
 ## Planning active engineering
-**140–340 hours**
+**190–440 hours**
 
 ## OpenAI credit planning band
-**30,000–90,000 credits**
+**40,000–115,000 credits**
 
 ---
 
@@ -609,6 +645,13 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 ## F9. Competitive benchmark closure
 Re-run current strongest competitor/model benchmarks shortly before release.
 
+Required closure levels:
+- each material sub-capability;
+- each standalone app;
+- each integrated module inside the full suite;
+- each high-risk supported composition;
+- representative complete-suite journeys.
+
 No stale competitor list is accepted.
 
 ## F10. Localization/accessibility
@@ -619,10 +662,10 @@ No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
 
 ## Planning active engineering
-**130–300 hours**
+**160–360 hours**
 
 ## OpenAI credit planning band
-**30,000–85,000 credits**
+**38,000–100,000 credits**
 
 ---
 
@@ -718,7 +761,20 @@ Prove:
 ### G11. Continuous learning
 Demonstrate that the outcome becomes governed reusable knowledge and changes future recommendations/benchmarks without bypassing release controls.
 
-### G12. Autonomous implementation
+### G12. Standalone App / Composition Acceptance
+- install representative standalone apps on real supported desktop and mobile devices;
+- launch/use each app independently;
+- verify entitlement isolation;
+- verify shared identity and ZERO;
+- verify cross-app deep links;
+- verify shared data consistency;
+- verify notifications;
+- verify update/relaunch/recovery;
+- verify representative two-app, three-app and full-suite workflows;
+- verify disabling one app does not corrupt another;
+- verify no hidden dependency on the full suite for advertised standalone core jobs.
+
+### G13. Autonomous implementation
 Prove the intended lifecycle:
 **SELL → AUTHORIZE → DISCOVER → UNDERSTAND → DESIGN → IMPLEMENT → TEST → VERIFY → DEPLOY → OPERATE → MONITOR → RECOVER → OPTIMIZE → PROVE OUTCOME**
 
@@ -732,10 +788,10 @@ Requires:
 - Work final audit.
 
 ## Planning active engineering
-**110–270 hours**
+**130–320 hours**
 
 ## OpenAI credit planning band
-**25,000–75,000 credits**
+**30,000–90,000 credits**
 
 ---
 
@@ -744,28 +800,28 @@ Requires:
 ## Active engineering
 Run 2: 25–60 h
 Run 3: 70–160 h
-Run 4: 260–600 h
-Run 5: 140–340 h
-Run 6: 130–300 h
-Run 7: 110–270 h
+Run 4: 330–760 h
+Run 5: 190–440 h
+Run 6: 160–360 h
+Run 7: 130–320 h
 
-**Total: approximately 735–1,730 active engineering hours.**
+**Total: approximately 905–2,100 active engineering hours.**
 
 This is not calendar time. Agentic parallel work, improved local hardware, reusable infrastructure and future model improvements can reduce active execution substantially. New defects, provider limitations, customer access and quality corrections can increase it.
 
 ## OpenAI credits
 Run 2: 6k–18k
 Run 3: 15k–40k
-Run 4: 60k–170k
-Run 5: 30k–90k
-Run 6: 30k–85k
-Run 7: 25k–75k
+Run 4: 75k–210k
+Run 5: 40k–115k
+Run 6: 38k–100k
+Run 7: 30k–90k
 
 Raw subtotal:
-**166,000–478,000 OpenAI credits.**
+**204,000–573,000 OpenAI credits.**
 
 Recommended planning envelope after allowing for audit/rework overlap:
-**approximately 165,000–500,000 OpenAI credits.**
+**approximately 200,000–600,000 OpenAI credits.**
 
 This includes intended Codex implementation and Work audit activity at planning level.
 
@@ -821,12 +877,12 @@ Enterprise data + PostgreSQL + Digital Twin + outcome/benchmark substrate + DR.
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + Continuous Learning + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM.
+Autonomous Control Plane + Continuous Learning + component-level benchmarking + standalone product architecture + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
 
 ↓ Work independent audit
 
 **RUN 5**
-Mobile/workforce/voice/device experience + Foundly Navigation AI/Driver Intelligence for the complete OS.
+Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + Foundly Navigation AI/Driver Intelligence for the complete OS.
 
 ↓ Work independent audit
 
