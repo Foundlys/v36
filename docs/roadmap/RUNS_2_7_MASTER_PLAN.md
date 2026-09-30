@@ -588,6 +588,23 @@ Build the self-controlled navigation backend/runtime, separate from the mobile s
 
 Benchmark sub-capabilities independently against current strongest Google Maps/Waze/TomTom/HERE/Mapbox/Flitsmeister-class references without making those products runtime dependencies.
 
+## D23. Foundly Maps Monetization & Growth
+- freemium commercial architecture;
+- genuinely useful Free navigation core;
+- Premium entitlement/feature layer;
+- initial Premium pricing experiments around EUR 7.99-12.99/month;
+- Business entitlement/feature layer;
+- initial Business pricing experiments around EUR 20-50+ per user/month;
+- annual/trial/promotion/regional-pricing capability;
+- store-fee/tax-aware margin model;
+- consumer-to-Premium conversion telemetry;
+- Maps-to-Business/Foundly-OS conversion attribution;
+- retention/churn/cohort/LTV/install measurement;
+- target network-effect flywheel: users -> authorized probe/report density -> better traffic/ETA -> retention/growth;
+- no sale or silent monetization of raw personal location history;
+- launch-time re-verification of Apple/Google billing/store economics and jurisdiction rules;
+- pricing/LTV targets remain hypotheses until measured in real cohorts.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -637,6 +654,7 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - mobile ZERO;
 - voice;
 - Foundly Maps as a separate native installable navigation app and integrated OS capability;
+- Free/Premium/Business entitlement surfaces and store-ready subscription UX;
 - own Foundly map/navigation UX and ZERO conversational layer;
 - use the native Foundly Maps road graph, search, routing, ETA, traffic, incident and Driver Alerts services from Run 4;
 - no Google Maps/Waze runtime, routing, ETA, traffic or navigation dependency;
@@ -959,6 +977,18 @@ Where commercially/operationally available, use the intended Automotive/dealer e
 - offline/low-connectivity behavior;
 - location privacy;
 - coverage/freshness/confidence evidence for the tested geography.
+
+### G8B. Real Foundly Maps Monetization Acceptance
+- real app-store or production-equivalent entitlement flow;
+- real Free -> Premium conversion measurement;
+- real Business lead/conversion path where available;
+- cohort retention/churn;
+- ARPU/gross-margin/LTV/install measurement;
+- validate or revise the EUR 7.99-12.99 Premium planning band;
+- validate or revise the EUR 20-50+ Business planning band;
+- validate whether the EUR 5-15+ LTV/install strategic ambition is supported;
+- confirm store fees/taxes/current billing rules at execution time;
+- prove monetization does not degrade safety-critical free navigation, privacy or truthful traffic state.
 
 ### G9. Real creative
 - image;
