@@ -739,6 +739,338 @@ Foundly may not claim global Google Maps/Waze parity where the data coverage doe
 
 ---
 
+
+# 10E. COMPONENT-LEVEL BEST-IN-CLASS BENCHMARK LAW
+
+The global benchmark law applies not only to complete Foundly modules, but also to every material sub-capability inside each module.
+
+Foundly may not satisfy a benchmark merely by comparing a whole product against one broad competitor.
+
+For every independently meaningful function, ZERO and the acceptance framework must identify the strongest current relevant competitor, specialist product or model for that exact function and benchmark Foundly against it.
+
+Examples include, but are not limited to:
+
+- Website Builder:
+  - site generation;
+  - visual editor;
+  - component system;
+  - responsive behavior;
+  - CMS;
+  - forms;
+  - e-commerce;
+  - publishing;
+  - performance;
+  - accessibility;
+  - SEO;
+  - AI editing.
+
+- Video Studio:
+  - timeline editing;
+  - transcript editing;
+  - captions;
+  - audio cleanup;
+  - color;
+  - effects;
+  - object/background editing;
+  - auto-reframe;
+  - AI generation;
+  - model quality;
+  - export/render speed;
+  - mobile editing.
+
+- Photo Studio:
+  - precision editing;
+  - generative fill;
+  - inpainting/outpainting;
+  - relighting;
+  - restoration;
+  - upscale;
+  - subject consistency;
+  - product fidelity;
+  - text rendering;
+  - batch automation.
+
+- CRM:
+  - visual UX;
+  - data model;
+  - pipeline;
+  - relationship graph;
+  - communication timeline;
+  - forecasting;
+  - agentic workflows;
+  - enrichment;
+  - reporting;
+  - mobile UX.
+
+- Finance:
+  - ledger/accounting correctness;
+  - invoicing;
+  - purchase;
+  - credits/refunds;
+  - payments;
+  - reconciliation;
+  - approvals;
+  - reporting;
+  - audit;
+  - close;
+  - forecasting;
+  - financial UX;
+  - AI assistance.
+
+- SEO:
+  - crawling;
+  - keyword intelligence;
+  - content intelligence;
+  - technical SEO;
+  - backlinks;
+  - competitor intelligence;
+  - programmatic SEO;
+  - AI-search visibility;
+  - publishing automation;
+  - reporting.
+
+- Analytics:
+  - dashboards;
+  - product analytics;
+  - funnel/cohort;
+  - attribution;
+  - anomaly detection;
+  - forecasting;
+  - natural-language analytics;
+  - recommendations;
+  - outcome measurement.
+
+- Advertising:
+  - media planning;
+  - creative intelligence;
+  - creative generation;
+  - campaign publishing;
+  - bidding/budget optimization;
+  - attribution;
+  - incrementality;
+  - margin-aware optimization.
+
+- Lead/Sales:
+  - prospect discovery;
+  - enrichment;
+  - data accuracy;
+  - intent;
+  - scoring;
+  - personalization;
+  - sequencing;
+  - reply handling;
+  - meeting booking;
+  - conversation intelligence;
+  - pipeline conversion.
+
+- Navigation:
+  - search;
+  - routing;
+  - ETA;
+  - traffic;
+  - incident freshness;
+  - rerouting;
+  - voice;
+  - alerts;
+  - map UX;
+  - business-route integration.
+
+The benchmark registry must therefore be **capability-granular**.
+
+For each benchmarked sub-capability record:
+- strongest current benchmark and why it is relevant;
+- source/date/version;
+- test scenario;
+- quality metrics;
+- speed/latency;
+- reliability;
+- user effort;
+- accessibility where applicable;
+- cost/compute;
+- privacy/security;
+- outcome quality;
+- Foundly result;
+- gap;
+- acceptance evidence.
+
+A Foundly module can only be called best-in-class when its material sub-capabilities satisfy their own acceptance gates.
+
+---
+
+# 10F. STANDALONE APP + HYPER-COMPOSABILITY LAW
+
+Every independently sellable or independently usable Foundly module/capability must be deployable and usable as its own complete product surface while remaining part of the same Foundly OS.
+
+This includes, where product scope makes the capability independently useful:
+- CRM;
+- Finance;
+- Sales / Lead Machine;
+- Procurement;
+- Calendar / Agenda;
+- Communication;
+- Automation;
+- Analytics;
+- Marketing;
+- Advertising / Growth;
+- SEO;
+- Website Builder;
+- Photo Studio;
+- Video Studio;
+- Navigation / Driver Intelligence;
+- and future independently sellable Foundly capabilities.
+
+Each standalone product must have:
+- its own branded app identity within the Foundly family;
+- its own installable/downloadable artifact;
+- independent launch;
+- independent onboarding;
+- independent entitlement;
+- independent permissions;
+- independent settings relevant to the module;
+- independent update/version information;
+- deep links;
+- notifications where relevant;
+- local cache/offline behavior where appropriate;
+- recovery after restart;
+- its own ZERO context specialized to that product;
+- access to shared Foundly identity, data and intelligence only where authorized.
+
+Target delivery surfaces:
+- web;
+- Windows desktop;
+- macOS desktop where technically and commercially supported;
+- iPhone/iPad where appropriate;
+- Android phone/tablet where appropriate.
+
+Where an operating-system store or platform contract prevents a specific packaging model, Foundly must use the closest truthful supported installable experience and document the limitation. No unsupported platform may be called complete.
+
+Standalone does **not** mean duplicated backends or customer forks.
+
+All apps must share the same:
+- Foundly Core;
+- identity and tenant model;
+- permission/entitlement system;
+- ZERO intelligence layer;
+- Digital Twin;
+- event contracts;
+- source authority;
+- provenance;
+- model registry;
+- audit;
+- policy;
+- recovery semantics;
+- integration contracts.
+
+A fix to shared business logic must propagate through the common Core rather than being reimplemented differently in each app.
+
+---
+
+# 10G. COMBINATION ACCEPTANCE / COMPOSITION MATRIX LAW
+
+All supported combinations of Foundly modules must work together without semantic, permission, UX, data or automation breakage.
+
+The architecture must support at minimum:
+- any one standalone module;
+- any supported pair of modules;
+- representative multi-module compositions;
+- complete Foundly suite;
+- Foundly modules combined with authorized external systems.
+
+Because exhaustive brute-force testing of every theoretical power-set combination becomes computationally wasteful, acceptance must use a risk-based combinatorial test matrix that still guarantees coverage of:
+- every module standalone;
+- every direct module-to-module contract;
+- every shared Core dependency;
+- every high-risk pair;
+- every high-risk three-way composition;
+- every Industry Pack canonical composition;
+- complete-suite journeys;
+- module enable/disable transitions;
+- entitlement changes;
+- permission changes;
+- external-provider loss;
+- upgrade/migration;
+- version skew;
+- offline/reconnect where applicable.
+
+High-risk combinations include:
+- Finance × Sales;
+- Finance × Procurement;
+- CRM × Lead/Sales;
+- CRM × Calendar;
+- CRM × Communication;
+- CRM × Navigation;
+- Website × SEO;
+- Website × Analytics;
+- Website × Ads;
+- Photo × Ads;
+- Video × Ads;
+- Analytics × Ads;
+- Analytics × Finance;
+- Lead/Sales × Negotiation;
+- Ads × Finance;
+- Automation × any state-changing module;
+- ZERO × every state-changing module.
+
+Every supported combination must preserve:
+- single source of truth;
+- no duplicate writes;
+- permissions;
+- entitlements;
+- provenance;
+- idempotency;
+- audit trail;
+- consistent localization;
+- coherent design language;
+- cross-app deep links;
+- shared notification state;
+- recovery;
+- no hidden dependency on unlicensed modules.
+
+A standalone app cannot require the complete Foundly suite merely to perform its advertised independent core job.
+
+---
+
+# 10H. STANDALONE APP BENCHMARK LAW
+
+Each standalone Foundly app must itself be benchmarked against the strongest current specialist product(s) for that product category.
+
+Examples:
+- Foundly CRM app → strongest CRM specialists;
+- Foundly Finance app → strongest accounting/finance specialists for the target segment plus best-in-class enterprise controls where relevant;
+- Foundly SEO app → strongest SEO specialists;
+- Foundly Website Builder app → strongest website builders;
+- Foundly Video Studio app → strongest professional/AI video editors;
+- Foundly Photo Studio app → strongest professional/AI photo editors;
+- Foundly Analytics app → strongest analytics specialists;
+- Foundly Ads app → strongest advertising automation specialists;
+- Foundly Sales app → strongest sales intelligence/engagement specialists;
+- Foundly Navigation app → strongest navigation/driver-intelligence products.
+
+For each app, benchmark:
+- functionality;
+- depth;
+- visual quality;
+- UX;
+- accessibility;
+- performance;
+- offline/recovery where applicable;
+- mobile experience;
+- desktop experience;
+- AI quality;
+- interoperability;
+- reliability;
+- security/privacy;
+- cost efficiency;
+- measurable user/business outcome.
+
+Passing inside the complete Foundly suite does not automatically qualify the standalone app as PASS.
+
+Passing standalone does not automatically qualify multi-module compositions as PASS.
+
+Both are required.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
@@ -814,14 +1146,21 @@ No external platform connection may be simulated when unavailable.
 
 # 14. DELIVERY AND PLATFORM REQUIREMENTS
 
-All new capabilities must ultimately be available through the same Foundly product family:
+All independently usable capabilities must ultimately be available both:
+1. inside the integrated Foundly OS; and
+2. as their own standalone installable/downloadable Foundly app where the capability is independently useful.
+
+Required delivery targets:
 - web;
-- supported desktop experience;
-- iPhone;
-- Android;
+- Windows desktop;
+- macOS desktop where technically/commercially supported;
+- iPhone/iPad where appropriate;
+- Android phone/tablet where appropriate;
 - ZERO conversational interface;
 - voice where useful;
 - normal visual UI for precision work.
+
+Every delivery surface must use the same production Core/contracts rather than a reduced fake demo backend.
 
 Mobile may simplify layout but not falsely claim functional parity when a required professional workflow remains desktop-only.
 
@@ -885,6 +1224,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 **Run 4**
 - autonomous self-implementation/control plane;
 - Continuous Competitive Learning Engine;
+- capability-granular benchmark registry;
+- standalone product/app architecture and shared app contracts;
 - Website Builder;
 - Photo Studio;
 - Video Studio;
@@ -895,22 +1236,28 @@ These requirements must be implemented inside the existing frozen seven-run road
 - AI Lead/Sales Machine;
 - ZERO Negotiation Intelligence;
 - best-in-class visual/agentic CRM;
+- standalone desktop/web product surfaces for independently useful modules;
 - cross-module generation/publishing/sales orchestration;
+- composability matrix and direct-contract tests;
 - industry/demo factory integration.
 
 **Run 5**
 - mobile/workforce experiences for all eligible capabilities;
-- iPhone/Android creation, approval, monitoring and publishing;
+- separate installable iOS/iPadOS and Android app surfaces for independently useful modules;
+- separate Windows/macOS installable app packaging where not already closed in Run 4;
+- shared authentication/deep links/notifications/app switching;
 - mobile ZERO and voice;
 - Foundly Navigation AI and Driver Intelligence;
 - route-aware CRM/calendar/workforce workflows;
 - jurisdiction-aware lawful driver alerts;
 - mobile creative/growth/sales workflows;
-- install/relaunch/offline/recovery requirements.
+- standalone-app and multi-app install/update/relaunch/offline/recovery requirements.
 
 **Run 6**
 - full red team;
-- benchmark parity/superiority closure;
+- per-sub-capability benchmark parity/superiority closure;
+- per-standalone-app benchmark closure;
+- cross-app composition-matrix closure;
 - security/privacy;
 - accessibility;
 - performance;
@@ -928,6 +1275,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 7**
 - authorized real customer/data/provider acceptance;
+- real standalone app installation/use for representative modules;
+- real cross-app combination journeys;
 - real website publication;
 - real SEO lifecycle;
 - real ad accounts and bounded spend;
