@@ -496,6 +496,249 @@ ZERO must not have unlimited ad-spend authority.
 
 ---
 
+
+# 10A. FOUNDLY AI LEAD / SALES MACHINE
+
+Foundly must contain a native AI Lead & Sales Machine that continuously finds, qualifies, prioritizes, approaches and converts the right prospects into real appointments and pipeline.
+
+Benchmarks must be dynamic and component-specific. Initial benchmark families include:
+- Clay-class lead research, enrichment and intent workflows;
+- Apollo/Cognism-class contact/company data and prospecting;
+- Outreach/Salesloft/Gong-class sales engagement, revenue intelligence and conversation learning;
+- Salesforce Agentforce/HubSpot-class agentic prospecting and sales execution;
+- Calendly-class qualification, routing and scheduling;
+- any stronger current specialist discovered at execution time.
+
+Hard requirements:
+- ICP and TAM modeling;
+- account and contact discovery;
+- multi-source enrichment;
+- contact validation;
+- intent and timing signals;
+- lead scoring;
+- deduplication;
+- territory/account-owner routing;
+- source provenance and freshness;
+- personalized account research;
+- individualized outreach;
+- multi-step follow-up;
+- reply classification;
+- objection handling;
+- qualification;
+- lead nurturing;
+- meeting booking;
+- calendar availability;
+- round-robin/skills/owner routing;
+- automatic reminders/rescheduling;
+- CRM synchronization;
+- pipeline creation/update;
+- attribution to campaign/source;
+- win/loss feedback;
+- measured learning from reply, meeting, opportunity and revenue outcomes.
+
+ZERO must optimize for meaningful commercial outcomes, not vanity activity:
+**qualified conversations → meetings → opportunities → revenue → margin → retention.**
+
+The engine must obey:
+- GDPR/ePrivacy and applicable local laws;
+- consent/lawful-basis requirements;
+- opt-out and suppression lists;
+- do-not-contact instructions;
+- channel/provider terms;
+- rate/frequency limits;
+- deliverability protection;
+- current identity/tenant/role authority;
+- brand/tone rules;
+- no fabricated personalization or invented facts;
+- no deceptive identity or impersonation.
+
+Autonomous outreach must be risk- and policy-bounded. High-risk or legally sensitive campaigns require human approval.
+
+---
+
+# 10B. ZERO NEGOTIATION INTELLIGENCE
+
+ZERO must become a governed, continuously learning negotiation intelligence for both sales and procurement.
+
+Initial specialist benchmark families include:
+- Pactum-class autonomous procurement negotiation;
+- Nibble-class AI negotiation;
+- Gong-class conversation/revenue intelligence;
+- current strongest sales negotiation/deal-intelligence specialists discovered at execution time.
+
+ZERO must learn from authorized historical and future negotiations while preserving tenant isolation, confidentiality, provenance and retention policy.
+
+Negotiation memory must capture where lawful and authorized:
+- parties and roles;
+- objectives;
+- opening position;
+- offers/counteroffers;
+- concessions;
+- objections;
+- commercial terms;
+- price;
+- discount;
+- payment terms;
+- delivery/lead time;
+- scope;
+- SLA;
+- renewal/term;
+- non-negotiables;
+- relationship context;
+- sentiment/tone signals;
+- competitive alternatives;
+- outcome;
+- realized value after the deal.
+
+Hard requirements:
+- negotiation planning;
+- BATNA/option analysis where data supports it;
+- concession strategy;
+- package/multi-variable trade-offs;
+- objection handling;
+- negotiation by email/chat/voice where authorized;
+- live assistance/coaching;
+- autonomous negotiation only within explicit guardrails;
+- hard floors/ceilings;
+- approval thresholds;
+- escalation rules;
+- audit trail;
+- replay;
+- lost-response recovery;
+- outcome measurement;
+- continuous learning from won/lost/renewed/renegotiated deals.
+
+ZERO may be persuasive, socially intelligent, empathic and context-aware, but must not:
+- lie about facts;
+- fabricate authority;
+- invent deadlines or competing offers;
+- conceal required disclosures;
+- exceed authorized commercial limits;
+- exploit protected/sensitive personal traits;
+- use another tenant's confidential negotiating information.
+
+---
+
+# 10C. BEST-IN-CLASS VISUAL / AGENTIC CRM
+
+Foundly CRM must be benchmarked both functionally and visually against the strongest current CRM specialists.
+
+Initial benchmark families:
+- Salesforce-class enterprise CRM depth and governance;
+- HubSpot-class unified sales/marketing/service usability;
+- Attio-class modern visual, flexible and agentic CRM experience;
+- strongest current pipeline/relationship UX specialist discovered at execution time.
+
+The CRM must become a living system of record **and** system of action.
+
+Hard visual/UX requirements:
+- premium coherent design language;
+- fast information-dense but calm screens;
+- customizable tables/cards/boards;
+- drag-and-drop pipelines;
+- relationship graph;
+- account/contact/deal timeline;
+- communication history;
+- call/meeting intelligence;
+- tasks and next actions;
+- calendar;
+- filters/search;
+- saved views;
+- dashboards;
+- inline edit;
+- bulk actions;
+- keyboard accessibility;
+- mobile responsiveness;
+- accessibility;
+- zero-state/onboarding quality;
+- low-latency interactions;
+- consistent behavior across all eight supported languages;
+- ZERO embedded contextually, not as a disconnected chatbot.
+
+Hard agentic CRM requirements:
+- automatic data capture from authorized emails/calls/meetings;
+- automatic enrichment;
+- pipeline hygiene;
+- next-best action;
+- deal risk;
+- forecast support;
+- lead/contact/account scoring;
+- duplicate/conflict handling;
+- provenance for AI updates;
+- suggestive and autonomous modes;
+- permission-aware writes;
+- recovery and audit history.
+
+Visual superiority may not be claimed from screenshots alone. It requires structured usability, task-efficiency, accessibility, responsiveness and performance evidence.
+
+---
+
+# 10D. FOUNDLY NAVIGATION AI & DRIVER INTELLIGENCE
+
+Foundly must contain an integrated navigation and driver-intelligence experience.
+
+The product must provide its own Foundly UI, ZERO conversational layer, routing orchestration and business integration. Underlying map, geocoding, traffic and road data may come from lawful open or licensed providers and must remain replaceable/provider-agnostic. Foundly is not required to recreate a global map database from scratch to claim ownership of the Foundly navigation experience.
+
+Initial benchmark families:
+- Google Maps-class map/search/navigation and AI assistance;
+- Waze-class community traffic, incident and rerouting intelligence;
+- Flitsmeister-class road/speed-camera/traffic alert experience;
+- strongest current EV/fleet/multi-stop specialists where relevant.
+
+Hard navigation requirements:
+- destination search;
+- geocoding;
+- turn-by-turn navigation;
+- reliable ETA;
+- live traffic;
+- incidents;
+- road closures;
+- roadworks;
+- alternative routes;
+- dynamic rerouting;
+- lane/turn guidance where data supports it;
+- voice guidance;
+- hands-free ZERO interaction;
+- route-aware business search;
+- parking/fuel/EV charging stops;
+- multi-stop route optimization;
+- appointment/calendar integration;
+- CRM/customer visit routing;
+- sales/workforce day planning;
+- route sharing;
+- arrival/late notifications;
+- low-connectivity resilience and offline capability where technically feasible;
+- location privacy controls;
+- battery/data efficiency;
+- accessibility.
+
+Foundly must include a Driver Alert layer benchmarked against Flitsmeister-class behavior for legally supported jurisdictions:
+- speed-limit awareness;
+- fixed speed-camera alerts where lawful;
+- average-speed/section-control alerts where lawful;
+- mobile camera/community reports only where lawful and contractually permitted;
+- accidents;
+- hazards;
+- roadworks;
+- stopped vehicles and other verified safety events where data supports them.
+
+The system must include a jurisdiction policy engine because camera/radar-alert rules differ by country. It must never encourage speeding or provide illegal evasion functionality.
+
+Navigation benchmark acceptance must be geography-specific and evidence-backed using real routes:
+- route quality;
+- ETA error;
+- rerouting speed;
+- traffic accuracy;
+- incident freshness;
+- alert precision/recall;
+- voice usability;
+- map/search relevance;
+- battery/data use.
+
+Foundly may not claim global Google Maps/Waze parity where the data coverage does not support it. Unsupported or lower-confidence regions must be truthfully labeled.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
@@ -600,10 +843,6 @@ From Run 3 onward, the default execution model is:
 
 **GitHub + acceptance matrices + CI = technical source of truth.**
 
-**Claude Opus 5.5 (or strongest approved independent model at execution time) = independent technical/red-team reviewer**
-- does not concurrently author the same branch by default;
-- reviews architecture, diffs, security, edge cases, financial correctness, recovery and missed acceptance gaps.
-
 **ChatGPT Work = full run-level independent audit**
 - product;
 - UX;
@@ -619,9 +858,9 @@ From Run 3 onward, the default execution model is:
 - remaining gaps;
 - run history.
 
-For critical areas — Finance, permissions, security, ZERO autonomy, migrations, billing, production/release — disagreement between independent reviewers must remain an open issue until resolved by evidence.
+For critical areas — Finance, permissions, security, ZERO autonomy, migrations, billing, navigation safety, negotiation limits, outreach compliance and production/release — Work audit findings and deterministic evidence must remain open until resolved by code/evidence.
 
-Run 2 is the explicit exception: complete it without introducing Claude mid-run. Codex builds; GitHub/CI prove; Work performs the independent end-of-run audit.
+Codex remains the primary implementation engineer. GitHub/CI remain technical truth. Work performs the independent run-level audit.
 
 ---
 
@@ -653,14 +892,20 @@ These requirements must be implemented inside the existing frozen seven-run road
 - AI Analytics;
 - SEO Machine;
 - Advertising/Growth Engine;
-- cross-module generation/publishing orchestration;
+- AI Lead/Sales Machine;
+- ZERO Negotiation Intelligence;
+- best-in-class visual/agentic CRM;
+- cross-module generation/publishing/sales orchestration;
 - industry/demo factory integration.
 
 **Run 5**
 - mobile/workforce experiences for all eligible capabilities;
 - iPhone/Android creation, approval, monitoring and publishing;
 - mobile ZERO and voice;
-- mobile creative/growth workflows;
+- Foundly Navigation AI and Driver Intelligence;
+- route-aware CRM/calendar/workforce workflows;
+- jurisdiction-aware lawful driver alerts;
+- mobile creative/growth/sales workflows;
 - install/relaunch/offline/recovery requirements.
 
 **Run 6**
@@ -676,13 +921,20 @@ These requirements must be implemented inside the existing frozen seven-run road
 - provider failure/fallback;
 - adversarial content;
 - publishing abuse;
-- financial/spend controls.
+- financial/spend controls;
+- outreach/privacy/anti-spam abuse testing;
+- negotiation-limit and manipulation testing;
+- navigation safety, location privacy and jurisdiction-policy testing.
 
 **Run 7**
 - authorized real customer/data/provider acceptance;
 - real website publication;
 - real SEO lifecycle;
 - real ad accounts and bounded spend;
+- real lead sourcing/outreach/meeting booking;
+- real sales and/or procurement negotiation within explicit guardrails;
+- real CRM workflows;
+- real navigation/driver acceptance on supported routes;
 - real analytics/outcomes;
 - real creative generation/publishing;
 - actual continuous learning from measured outcomes;
