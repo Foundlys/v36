@@ -836,7 +836,7 @@ It does **not** include:
 - licenses;
 - external data providers.
 
-There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **500k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
+There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **600k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
 
 Claude is intentionally excluded from the execution plan. Independent run-level review is performed by Work, backed by GitHub/CI, benchmark suites, deterministic security tooling and real acceptance evidence.
 
