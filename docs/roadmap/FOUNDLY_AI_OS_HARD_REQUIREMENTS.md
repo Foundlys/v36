@@ -2000,6 +2000,53 @@ The owner must be able to:
 
 ---
 
+
+## 10L.3 AUTHORITATIVE PRIVATE FOUNDER EXPERIENCE LOCK
+
+This information architecture is now a hard product requirement and may not be reinterpreted into separate owner dashboards without explicit founder approval.
+
+Authoritative hierarchy:
+
+**PRIVATE FOUNDER AGENCY HOME = MAIN DASHBOARD**
+- Email
+- Calendar
+- Control Panel
+- Marketing
+  - SEO
+  - SEA
+  - Website
+  - Ads
+- Media
+  - YouTube
+  - Netflix
+  - Videoland
+  - Prime Video
+  - Viaplay
+- Social Media
+  - Facebook
+  - Instagram
+  - TikTok
+- Finance
+- Foundly AI Models
+  - Website Builder
+  - Video Editor
+  - Video Converter / Generator
+  - Photo Converter / Editor
+  - Ads Converter / Creative Generator
+  - SEO Machine
+- Gaming
+  - founder-configurable owned/purchased games
+
+The Agency Home is private to the founder/owner. It is not the default customer or employee experience.
+
+The Control Panel is one module inside the Agency Home and is the single centralized technical/operational overview for all Foundly apps/modules/agents/environments.
+
+The Agency Home must preserve and materially improve the current Foundly dashboard direction: faster, more visual, more spatial, more premium, more useful and more innovative while remaining calm and easy to understand.
+
+The Control Panel may use high-end transparent/glass spheres, domes, capsules or equivalent premium spatial objects to represent apps/modules and live values. Continuous spinning/rotation is prohibited. Motion must be subtle, purposeful and status-driven.
+
+ZERO is omnipresent across the private Agency Home and acts as the founder's personal assistant and agency while preserving explicit personal/business context boundaries.
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
