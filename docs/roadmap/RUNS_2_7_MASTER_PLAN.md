@@ -46,8 +46,7 @@ Never reverse this order.
 ### Runs 3–7
 - Codex: primary implementation engineer.
 - GitHub/CI: source of truth.
-- Claude Opus 5.5 or strongest approved independent equivalent at execution time: technical/red-team reviewer.
-- Work: complete independent run-level audit.
+- Work: complete independent run-level audit and red-team review.
 - Chat: owner cockpit/status/decision log.
 
 No two agents should concurrently author the same active implementation branch by default.
@@ -80,16 +79,14 @@ When Codex believes a run is complete:
 1. freeze candidate release;
 2. full regression;
 3. all run-specific evals;
-4. Claude technical audit (Runs 3–7);
-5. Codex fixes;
+4. Work independent technical/product/red-team audit;
+5. Codex fixes accepted audit gaps;
 6. full CI;
-7. Work complete run audit;
-8. Codex fixes any accepted audit gaps;
-9. final CI;
-10. Work recheck;
-11. merge/release/deploy only with explicit authorization;
-12. mark the run complete;
-13. start next run from the verified release.
+7. Work recheck on the frozen candidate;
+8. final CI;
+9. merge/release/deploy only with explicit authorization;
+10. mark the run complete;
+11. start next run from the verified release.
 
 ---
 
@@ -223,6 +220,11 @@ Store:
 - SEO outcomes;
 - ad outcomes;
 - website outcomes;
+- lead/source/enrichment outcomes;
+- outreach/reply/meeting outcomes;
+- negotiation history and realized deal outcomes;
+- CRM interaction/outcome telemetry;
+- geospatial/navigation/route-quality observations where lawful;
 - latency;
 - cost;
 - failure;
@@ -261,10 +263,10 @@ No PASS without:
 - Claude technical audit.
 
 ## Planning active engineering
-**60–140 hours**
+**140–340 hours**
 
 ## OpenAI credit planning band
-**12,000–35,000 credits**
+**15,000–40,000 credits**
 
 ---
 
@@ -366,11 +368,56 @@ Build the complete native capability described in the hard-requirements contract
 - bounded budget autonomy;
 - profit/margin-aware decisions.
 
-## D10. Cross-module Growth Orchestration
-A single ZERO objective can safely coordinate:
-Finance → inventory → CRM → Website → Photo → Video → SEO → Ads → Analytics → Sales.
+## D10. AI Lead / Sales Machine
+- ICP/TAM modeling;
+- multi-source lead discovery/enrichment;
+- intent/timing signals;
+- scoring/prioritization;
+- personalized compliant outreach;
+- automated follow-up;
+- reply/objection classification;
+- qualification/nurture;
+- appointment booking;
+- calendar/routing;
+- CRM synchronization;
+- attribution and revenue learning;
+- lawful-basis/consent/opt-out/suppression/deliverability controls;
+- dynamic benchmarks against current best lead-data, enrichment, engagement, AI-SDR, conversation-intelligence and scheduling specialists.
 
-## D11. Industry Demo Factory
+## D11. ZERO Negotiation Intelligence
+- sales and procurement negotiation;
+- learn from authorized past/future negotiations;
+- structured offer/concession/outcome memory;
+- multi-variable trade-offs;
+- hard commercial floors/ceilings;
+- explicit authority and approval thresholds;
+- live copilot plus autonomous bounded negotiation;
+- email/chat/voice support where authorized;
+- outcome measurement and learning;
+- no fabricated leverage, deadlines, authority or cross-tenant leakage;
+- dynamic benchmark against current strongest autonomous negotiation and conversation-intelligence specialists.
+
+## D12. Best-in-Class Visual / Agentic CRM
+- premium modern visual system;
+- customizable table/card/board/pipeline views;
+- drag-and-drop;
+- relationship graph;
+- full interaction timeline;
+- call/meeting intelligence;
+- embedded ZERO;
+- automatic capture/enrichment;
+- pipeline hygiene;
+- next-best actions;
+- deal risk/forecast support;
+- suggestive/autonomous modes;
+- desktop/mobile/accessibility/performance evidence;
+- benchmark enterprise depth separately from visual/agentic UX.
+
+## D13. Cross-module Growth + Revenue Orchestration
+A single ZERO objective can safely coordinate:
+Finance → inventory → CRM → Lead/Sales → Negotiation → Website → Photo → Video → SEO → Ads → Analytics → Calendar.
+
+## D14. Industry Demo Factory
 The same engine must produce coherent industry-specific experiences without customer forks.
 
 ## Run-4 acceptance
@@ -383,14 +430,13 @@ Every capability requires:
 - recovery;
 - cost controls;
 - quality evals;
-- Claude audit;
 - Work audit.
 
 ## Planning active engineering
-**180–420 hours**
+**260–600 hours**
 
 ## OpenAI credit planning band
-**40,000–120,000 credits**
+**60,000–170,000 credits**
 
 ---
 
@@ -408,6 +454,18 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - deep links;
 - mobile ZERO;
 - voice;
+- Foundly Navigation AI and Driver Intelligence;
+- own Foundly map/navigation UX and ZERO conversational layer;
+- provider-agnostic lawful map/geocoding/routing/traffic backends;
+- turn-by-turn guidance, ETA, alternatives and rerouting;
+- realtime traffic/incidents/closures/roadworks;
+- CRM/calendar/customer-visit route planning;
+- multi-stop optimization;
+- parking/fuel/EV charging stops;
+- arrival/late notifications;
+- lawful jurisdiction-aware speed-camera/section-control and road-hazard alerts;
+- location privacy, battery/data budgets and low-connectivity behavior;
+- geography-specific benchmark evidence against Google Maps/Waze/Flitsmeister-class behavior;
 - camera/photo/video capture;
 - uploads;
 - approvals;
@@ -435,14 +493,13 @@ Professional workflows may use cloud execution with a mobile control surface whe
 - adverse connectivity;
 - permission revocation;
 - install/update/relaunch;
-- Claude audit;
 - Work audit.
 
 ## Planning active engineering
 **70–160 hours**
 
 ## OpenAI credit planning band
-**15,000–45,000 credits**
+**30,000–90,000 credits**
 
 ---
 
@@ -533,12 +590,29 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 - resource budgets;
 - measurable compute-efficiency proxies.
 
-## F8. Competitive benchmark closure
+## F8. Revenue/Navigation abuse and safety
+- unlawful/spam outreach;
+- consent/opt-out failures;
+- fabricated personalization;
+- contact-data provenance failures;
+- negotiation floor/ceiling bypass;
+- manipulative/deceptive negotiation behavior;
+- confidential negotiation leakage;
+- accidental calendar/customer communication;
+- navigation distraction;
+- location privacy leakage;
+- illegal camera/radar alert behavior by jurisdiction;
+- incorrect ETA/route confidence;
+- stale incident/camera alerts;
+- unsafe rerouting;
+- business-route permission leaks.
+
+## F9. Competitive benchmark closure
 Re-run current strongest competitor/model benchmarks shortly before release.
 
 No stale competitor list is accepted.
 
-## F9. Localization/accessibility
+## F10. Localization/accessibility
 Complete the production surfaces and native-speaker/assistive-technology evidence required by the product contract.
 
 ## Run-6 closure
@@ -546,10 +620,10 @@ No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
 
 ## Planning active engineering
-**100–240 hours**
+**130–300 hours**
 
 ## OpenAI credit planning band
-**20,000–65,000 credits**
+**30,000–85,000 credits**
 
 ---
 
@@ -600,14 +674,40 @@ Where commercially/operationally available, use the intended Automotive/dealer e
 - real leads/sales/margin;
 - optimization evidence.
 
-### G6. Real creative
+### G6. Real Lead / Sales Machine
+- real authorized target definition;
+- real lead discovery and source provenance;
+- compliant outreach;
+- real replies;
+- real qualification;
+- real meetings booked to connected calendars;
+- real opportunity/revenue attribution;
+- opt-out and suppression behavior verified.
+
+### G7. Real Negotiation / CRM
+- real authorized negotiation scenarios;
+- commercial guardrails;
+- negotiation audit/replay;
+- measurable deal outcome;
+- learning retained without tenant leakage;
+- real CRM capture, next actions, pipeline and visual workflows.
+
+### G8. Real Navigation / Driver Intelligence
+- actual supported routes;
+- route/ETA comparison against current benchmark products;
+- live rerouting/incident tests;
+- lawful driver alerts;
+- CRM/calendar visit routing;
+- location privacy and low-connectivity evidence.
+
+### G9. Real creative
 - image;
 - video;
 - product/brand fidelity;
 - publication;
 - rights/provenance.
 
-### G7. Real Analytics/outcomes
+### G10. Real Analytics/outcomes
 Prove:
 - source correctness;
 - actual business metric;
@@ -616,10 +716,10 @@ Prove:
 - measured result;
 - uncertainty.
 
-### G8. Continuous learning
+### G11. Continuous learning
 Demonstrate that the outcome becomes governed reusable knowledge and changes future recommendations/benchmarks without bypassing release controls.
 
-### G9. Autonomous implementation
+### G12. Autonomous implementation
 Prove the intended lifecycle:
 **SELL → AUTHORIZE → DISCOVER → UNDERSTAND → DESIGN → IMPLEMENT → TEST → VERIFY → DEPLOY → OPERATE → MONITOR → RECOVER → OPTIMIZE → PROVE OUTCOME**
 
@@ -630,14 +730,13 @@ Requires:
 - explicit human/customer approvals;
 - real rollback/recovery;
 - value/outcome evidence;
-- Claude audit;
 - Work final audit.
 
 ## Planning active engineering
-**90–220 hours**
+**110–270 hours**
 
 ## OpenAI credit planning band
-**18,000–60,000 credits**
+**25,000–75,000 credits**
 
 ---
 
@@ -645,34 +744,33 @@ Requires:
 
 ## Active engineering
 Run 2: 25–60 h
-Run 3: 60–140 h
-Run 4: 180–420 h
-Run 5: 70–160 h
-Run 6: 100–240 h
-Run 7: 90–220 h
+Run 3: 70–160 h
+Run 4: 260–600 h
+Run 5: 140–340 h
+Run 6: 130–300 h
+Run 7: 110–270 h
 
-**Total: approximately 525–1,240 active engineering hours.**
+**Total: approximately 735–1,730 active engineering hours.**
 
 This is not calendar time. Agentic parallel work, improved local hardware, reusable infrastructure and future model improvements can reduce active execution substantially. New defects, provider limitations, customer access and quality corrections can increase it.
 
 ## OpenAI credits
 Run 2: 6k–18k
-Run 3: 12k–35k
-Run 4: 40k–120k
-Run 5: 15k–45k
-Run 6: 20k–65k
-Run 7: 18k–60k
+Run 3: 15k–40k
+Run 4: 60k–170k
+Run 5: 30k–90k
+Run 6: 30k–85k
+Run 7: 25k–75k
 
 Raw subtotal:
-**111,000–343,000 OpenAI credits.**
+**166,000–478,000 OpenAI credits.**
 
-Recommended planning envelope after allowing for cross-run audit/rework overlap:
-**approximately 110,000–350,000 OpenAI credits.**
+Recommended planning envelope after allowing for audit/rework overlap:
+**approximately 165,000–500,000 OpenAI credits.**
 
 This includes intended Codex implementation and Work audit activity at planning level.
 
 It does **not** include:
-- Anthropic/Claude API cost;
 - Google/ByteDance/Adobe/other AI generation API cost;
 - cloud hosting;
 - databases;
@@ -683,16 +781,9 @@ It does **not** include:
 - licenses;
 - external data providers.
 
-There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements and customer acceptance cycles are unknown. **350k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
+There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **500k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
 
-## Claude reviewer budget
-From Run 3 onward, Claude is a separate external reviewer cost and is not paid with OpenAI credits.
-
-Keep it bounded:
-- review changed code/evidence;
-- use caching;
-- do not duplicate Codex implementation;
-- full-run red-team only at meaningful gates.
+Claude is intentionally excluded from the execution plan. Independent run-level review is performed by Work, backed by GitHub/CI, benchmark suites, deterministic security tooling and real acceptance evidence.
 
 ---
 
@@ -712,8 +803,8 @@ To stay nearer the lower end of the credit envelope:
 10. preserve evidence and failures;
 11. never restart runs after interruption;
 12. automate CI and review handoffs;
-13. let Claude review rather than co-author;
-14. let Work audit completed runs rather than build in parallel;
+13. let Work audit completed runs rather than build in parallel;
+14. preserve benchmark/eval suites so independent review does not repeat discovery;
 15. keep Chat as cockpit, not implementation duplicate.
 
 ---
@@ -728,27 +819,27 @@ Finish current ZERO + Automotive/E-commerce acceptance.
 **RUN 3**
 Enterprise data + PostgreSQL + Digital Twin + outcome/benchmark substrate + DR.
 
-↓ Claude audit → Work audit
+↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + Continuous Learning + Website + Photo + Video + Analytics + SEO + Ads/Growth.
+Autonomous Control Plane + Continuous Learning + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM.
 
-↓ Claude audit → Work audit
+↓ Work independent audit
 
 **RUN 5**
-Mobile/workforce/voice/device experience for the complete OS.
+Mobile/workforce/voice/device experience + Foundly Navigation AI/Driver Intelligence for the complete OS.
 
-↓ Claude audit → Work audit
+↓ Work independent audit
 
 **RUN 6**
 Full-stack red team + current competitor benchmarks + security + performance + reliability + cost/sustainability.
 
-↓ Claude audit → Work audit
+↓ Work independent audit
 
 **RUN 7**
-Real providers + real data + real customers + real publishing + real outcomes + autonomous implementation acceptance.
+Real providers + real data + real customers + real outreach/appointments + real bounded negotiation + real navigation + real publishing + real outcomes + autonomous implementation acceptance.
 
-↓ final Claude technical audit → final Work audit
+↓ final Work independent audit
 
 **THEN**
 Continuous industry-pack expansion and real-customer scale.
