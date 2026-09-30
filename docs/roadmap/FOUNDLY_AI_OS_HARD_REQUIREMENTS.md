@@ -1277,13 +1277,309 @@ No sustainability claim may be made without measurable evidence or a clearly lab
 
 # 10L. FOUNDLY OWNER COMMAND CENTER / PERSONAL AGENCY OS LAW
 
+## 10L.0 OWNER-ONLY SCOPE AND PRIVATE AGENCY HOME
+
+This entire Owner Agency experience is **private to the Foundly founder/owner instance**.
+
+It is not a standard customer dashboard.
+It is not an employee dashboard.
+It is not the default UI sold to every organization.
+It is an optional private system surface available only to the explicitly authorized founder/owner account(s).
+
+Customer-facing standalone apps and customer organization dashboards remain governed by their own product requirements.
+
+The private founder experience has a different information architecture:
+
+**PRIVATE FOUNDER AGENCY HOME = PRIMARY HOME / MAIN DASHBOARD**
+
+The Control Panel is only **one main module inside that private home**.
+
+Therefore the hierarchy is:
+
+**Private Founder Agency Home**
+→ Email
+→ Calendar
+→ Control Panel
+→ Marketing
+→ Media
+→ Social Media
+→ Finance
+→ Foundly AI Models
+→ Gaming
+
+ZERO is omnipresent across the private Agency Home and all of its modules.
+
+The private Agency Home should evolve the existing Foundly dashboard direction rather than replace it with a generic administration screen.
+
+Primary design target:
+- recognizably based on the current Foundly agency/dashboard concept;
+- materially faster;
+- more visual;
+- more polished;
+- more spatial;
+- more useful;
+- more personalized;
+- more alive with truthful live state;
+- still calm and directly understandable;
+- no gratuitous spinning/rotating 3D objects;
+- premium, high-tech, high-end and futuristic;
+- owner-specific personalization;
+- configurable layout/widgets without breaking the core information architecture.
+
+The private Agency Home must be a genuine daily operating environment, not merely an observability dashboard.
+
+## 10L.1 PRIVATE AGENCY HOME — REQUIRED MAIN MODULES
+
+### Email
+
+Private unified email workspace.
+
+Target capabilities where connected/authorized:
+- inbox;
+- sent/drafts;
+- account switching;
+- unified inbox;
+- intelligent prioritization;
+- thread summarization;
+- ZERO drafting/replies;
+- follow-up detection;
+- action extraction;
+- calendar conversion;
+- CRM/contact linking where relevant;
+- attachment/document handling;
+- search;
+- spam/safety controls;
+- owner-specific rules/automation.
+
+Email provider integrations must use authorized APIs/contracts and truthful provider states.
+
+### Calendar
+
+Private unified calendar/agenda.
+
+Target capabilities:
+- day/week/month/agenda;
+- multiple connected calendars;
+- ZERO scheduling;
+- conflict detection;
+- travel-time awareness;
+- route-aware preparation;
+- reminders;
+- meeting preparation;
+- meeting follow-up;
+- task/action extraction;
+- personal and Foundly business context;
+- owner-specific prioritization.
+
+### Control Panel
+
+This is the **single centralized technical/operational Control Panel** previously specified.
+
+There are no separate owner control panels per Foundly app.
+
+The single Control Panel provides the complete portfolio overview and drill-down for:
+- all Foundly apps;
+- modules;
+- agents;
+- environments;
+- deployments;
+- bugs;
+- self-healing;
+- users;
+- performance;
+- cost;
+- security;
+- acceptance;
+- benchmark state;
+- infrastructure;
+- incidents.
+
+Its visual language may use premium transparent/glass spheres, domes, capsules or similar spatial objects for app/module states.
+
+Rules:
+- no continuous rotation/spinning;
+- subtle glow/pulse/depth is allowed;
+- visual state must map to real data;
+- overview must remain readable;
+- click/focus/drill-down stays inside the same Control Panel experience;
+- glass/spatial effects may never obscure critical status or accessibility.
+
+### Marketing
+
+Main Marketing module with at minimum these submodules:
+- SEO;
+- SEA;
+- Website;
+- Ads.
+
+Marketing must orchestrate with Foundly Analytics, Finance, CRM, creative systems and ZERO where authorized.
+
+#### SEO
+Connects to the Foundly SEO Machine and authorized external search/analytics providers.
+
+#### SEA
+Search-engine advertising planning, publishing and optimization where connected/authorized.
+
+#### Website
+Website performance, editing, publishing and Foundly Website Builder entrypoint.
+
+#### Ads
+Cross-channel advertising/growth workspace, creatives, spend, outcomes and optimization.
+
+### Media
+
+Personal media hub with at minimum these submodules/launch surfaces:
+- YouTube;
+- Netflix;
+- Videoland;
+- Prime Video;
+- Viaplay.
+
+The Media module is for the private founder experience.
+
+Where providers expose suitable authorized APIs/deep links, Foundly may provide:
+- search;
+- watchlist/favorites;
+- continue-watching links where available;
+- recommendations based on authorized data/preferences;
+- launch/deep-link;
+- playback control only where the provider contract technically permits it.
+
+Foundly must not re-host, pirate, bypass DRM, scrape protected streams or falsely claim unsupported playback integration.
+
+### Social Media
+
+Personal/social command module with at minimum:
+- Facebook;
+- Instagram;
+- TikTok.
+
+Where connected/authorized:
+- feed/overview where provider APIs permit;
+- messages/notifications where permitted;
+- posting;
+- scheduling;
+- content creation;
+- analytics;
+- moderation;
+- cross-post planning;
+- ZERO assistance.
+
+Provider limitations must remain truthful.
+
+### Finance
+
+Private Finance module for the owner.
+
+It may combine:
+- personal owner-level financial overview where explicitly connected/authorized;
+- Foundly business financial information;
+- budgets;
+- cash;
+- spend;
+- invoices;
+- subscriptions;
+- AI/cloud costs;
+- forecasts;
+- alerts;
+- financial approvals.
+
+Personal and business financial domains must remain logically separated even when shown in one private owner interface.
+
+### Foundly AI Models
+
+A private AI-tools/model hub containing at minimum:
+- Website Builder;
+- Video Editor;
+- Video Converter / Generator;
+- Photo Converter / Editor;
+- Ads Converter / Creative Generator;
+- SEO Machine.
+
+Each tool remains independently benchmarked and may also exist as a standalone Foundly app under the broader product architecture.
+
+The private Agency Home gives the founder one convenient launch/command surface over all of them.
+
+ZERO/model routing may select different underlying frontier models/providers per task.
+
+### Gaming
+
+Private Gaming module.
+
+Requirements:
+- owner can add/remove games;
+- library is user-configurable;
+- games may be added after purchase/ownership;
+- launcher/deep-link integration where technically supported;
+- controller/input-friendly navigation where relevant;
+- install/play state where integrations expose it;
+- optional play-time/activity summaries;
+- no assumption that Foundly owns/distributes third-party game licenses.
+
+The Gaming module must be extensible rather than hard-coded to a fixed game catalog.
+
+## 10L.2 AGENCY HOME PERSONALIZATION / ZERO BEHAVIOR
+
+ZERO must treat this private environment as the founder's personal operating agency.
+
+It may combine authorized context across:
+- email;
+- calendar;
+- Foundly business;
+- marketing;
+- social;
+- media;
+- finance;
+- AI creation tools;
+- gaming;
+- navigation;
+- tasks;
+- documents;
+- connected services.
+
+ZERO must understand when the user is acting:
+- personally;
+- as Foundly owner;
+- as business operator;
+- as marketer;
+- as creator;
+- as administrator.
+
+It must never silently cross personal/business boundaries in external actions.
+
+ZERO should proactively surface:
+- important email;
+- upcoming meetings;
+- deadlines;
+- business risks;
+- opportunities;
+- app/system incidents;
+- marketing changes;
+- budget/cost anomalies;
+- pending approvals;
+- content/campaign performance;
+- self-healing activity.
+
+The founder can ask one natural-language request that spans several private modules, subject to permissions and provider availability.
+
+Examples:
+- summarize urgent email, prepare today's meetings and show routes;
+- check Foundly app health, campaign performance and cash impact;
+- create a campaign using Website Builder + Photo + Video + Ads;
+- inspect a production incident and show the automatic fix rollout;
+- plan evening media/gaming without mixing that activity into customer/business analytics unless explicitly requested.
+
+---
+
 Foundly must contain a private owner/founder-grade Command Center that combines:
 
 **PERSONAL AI ASSISTANT × AI AGENCY × EXECUTIVE COCKPIT × BUSINESS DIGITAL TWIN × APP PORTFOLIO COMMAND × AGENT MISSION CONTROL × PLATFORM CONTROL PLANE**
 
 This is not a generic admin dashboard and not merely a collection of charts.
 
-It is the highest-context Foundly experience for the authorized owner/founder/operator and must allow the owner to understand, decide, delegate, create, approve, intervene, simulate and operate the entire Foundly business/system from one coherent high-end interface.
+Within the private founder system, the Owner Command Center is implemented as the **Control Panel module inside the Private Founder Agency Home**. It is not the homepage itself and not a customer-facing product surface.
+
+It is the highest-context technical/operational Foundly experience for the authorized owner/founder and must allow the owner to understand, decide, delegate, approve, intervene, simulate and operate the entire Foundly business/system from one coherent high-end interface.
 
 ## Visual / interaction direction
 
@@ -1360,9 +1656,11 @@ research → strategy → website → photo → video → content → SEO → ad
 
 The owner must see plan, agents/capabilities involved, dependencies, approvals, expected cost, risk, live progress, evidence, failures and measured outcomes.
 
-## Per-app portfolio command
+## Unified portfolio command
 
-Every standalone Foundly app and every integrated module must have a dedicated owner control surface.
+Every standalone Foundly app and every integrated module must appear inside the **single centralized owner Control Panel**.
+
+Apps/modules do not receive separate top-level owner control panels. They receive drill-down views inside the one Control Panel.
 
 For each app/module show at minimum where relevant:
 - LIVE/DEGRADED/DOWN/MAINTENANCE/UNVERIFIED state;
@@ -1855,7 +2153,14 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 4**
 - autonomous self-implementation/control plane;
-- Owner Command Center / Personal Agency OS;
+- private founder-only Agency Home based on the existing Foundly dashboard direction;
+- main modules: Email, Calendar, Control Panel, Marketing, Media, Social Media, Finance, Foundly AI Models, Gaming;
+- Marketing submodules: SEO, SEA, Website, Ads;
+- Media submodules: YouTube, Netflix, Videoland, Prime Video, Viaplay;
+- Social submodules: Facebook, Instagram, TikTok;
+- Foundly AI Models submodules: Website Builder, Video Editor, Video Converter/Generator, Photo Converter/Editor, Ads Converter/Creative Generator, SEO Machine;
+- user-extensible Gaming library;
+- Owner Command Center / Personal Agency OS as the Control Panel module;
 - per-app portfolio command and Agent Mission Control;
 - continuous self-healing engineering pipeline;
 - guarded zero-downtime delivery control;
