@@ -1071,6 +1071,209 @@ Both are required.
 
 ---
 
+
+# 10I. ENTERPRISE SCALE, MULTI-USER & RADICAL USABILITY LAW
+
+Foundly must remain hyper-usable, fast and coherent for organizations ranging from a single user to teams of 50, 100, hundreds and thousands of employees, and the platform architecture must not contain an artificial product-level user ceiling.
+
+“Unlimited users” means:
+- no hard-coded product/user cap in the Foundly application architecture;
+- horizontal scale-out rather than a fixed single-machine ceiling;
+- capacity governed by provisioned infrastructure, provider limits, safety budgets and commercial plan;
+- truthful capacity reporting;
+- no claim of literal infinite capacity.
+
+Every independently usable Foundly app and every supported multi-app composition must be designed for concurrent multi-user work.
+
+Hard organization requirements:
+- fast tenant creation;
+- company/department/team structure;
+- role templates;
+- custom roles;
+- least-privilege permissions;
+- delegated administration;
+- user directory;
+- bulk invite/import;
+- SSO where applicable;
+- SCIM/user lifecycle provisioning where applicable;
+- MFA and device/session controls;
+- joiner/mover/leaver lifecycle;
+- teams/groups;
+- shared queues;
+- ownership and reassignment;
+- presence/locking/conflict handling where needed;
+- comments/mentions/collaboration;
+- approval chains;
+- audit history;
+- activity feeds;
+- notifications;
+- preferences;
+- localization;
+- timezone-aware operation;
+- clear personal versus team versus organization state.
+
+For companies with approximately 50–100 employees, core workflows must be usable with minimal training. Foundly must avoid requiring users to understand its internal architecture merely to do their job.
+
+Hard usability requirements:
+- role-specific home/workspace;
+- progressive disclosure;
+- low cognitive load;
+- fast global search;
+- clear navigation;
+- sensible defaults;
+- consistent interaction patterns across apps;
+- contextual ZERO assistance;
+- natural-language actions;
+- clear undo/recovery where possible;
+- bulk operations;
+- keyboard efficiency;
+- responsive touch interfaces;
+- accessibility;
+- contextual onboarding;
+- in-product guidance;
+- transparent state and progress;
+- no unexplained jargon;
+- no hidden destructive action;
+- no forced traversal through unrelated modules;
+- task completion with the minimum reasonable number of steps.
+
+ZERO must understand the user's role, team, active app, active business object, current permissions and current objective. It must reduce effort without hiding critical approvals or uncertainty.
+
+Enterprise UX acceptance must include representative personas such as:
+- owner/director;
+- department manager;
+- finance user;
+- sales representative;
+- sales manager;
+- marketer;
+- content/creative user;
+- operations user;
+- field/mobile worker;
+- administrator;
+- read-only/auditor.
+
+At minimum, usability scenarios must be tested for:
+- 1 user;
+- 10-user team;
+- 50-user organization;
+- 100-user organization;
+- larger enterprise organizations as the scale environment permits.
+
+The 50-user and 100-user scenarios are mandatory first-class acceptance environments, not afterthoughts.
+
+---
+
+# 10J. HORIZONTAL SCALABILITY, PERFORMANCE & EFFICIENCY LAW
+
+Foundly Core and all standalone apps must be built so that increasing user count can be handled primarily by scaling stateless compute, queues, workers, caches, databases, search/vector infrastructure, media pipelines and provider capacity rather than redesigning application logic.
+
+Required architectural properties where applicable:
+- stateless service tiers;
+- horizontal autoscaling;
+- bounded background jobs;
+- queues/backpressure;
+- rate limiting;
+- load shedding;
+- retry ceilings;
+- idempotency;
+- distributed locking where required;
+- efficient database indexes;
+- read/write separation where justified;
+- connection pooling;
+- caching;
+- CDN/media optimization;
+- asynchronous heavy work;
+- resumable jobs;
+- sharding/partitioning strategy where scale requires it;
+- tenant isolation under load;
+- noisy-neighbor controls;
+- per-tenant budgets;
+- graceful degradation;
+- provider fallback;
+- capacity telemetry;
+- saturation alerts;
+- cost telemetry;
+- performance regression budgets.
+
+All apps must remain responsive while many users work simultaneously.
+
+Performance must be measured at p50, p95 and p99 for representative critical workflows. Acceptance thresholds must be defined per workflow rather than using one misleading universal number.
+
+Load testing must distinguish:
+- registered users;
+- monthly active users;
+- daily active users;
+- simultaneously active users;
+- concurrent requests;
+- concurrent ZERO/tool executions;
+- concurrent media jobs;
+- concurrent database transactions.
+
+Run-6 scale acceptance must include progressively larger verified load tiers. Initial required tiers are:
+- a 50-user organization;
+- a 100-user organization;
+- a 500-user organization or equivalent synthetic tenant;
+- multi-tenant aggregate load beyond a single organization;
+- stress testing beyond expected production peak until a measured saturation point is found.
+
+Higher tiers such as thousands or tens of thousands of concurrent platform users must be exercised as infrastructure and commercial scale justify. The architecture must demonstrate a credible scale-out path instead of claiming untested unlimited concurrency.
+
+Scale tests must verify:
+- correctness under load;
+- no cross-tenant leakage;
+- no duplicate business actions;
+- no lost writes;
+- stable permission enforcement;
+- stable audit;
+- acceptable latency;
+- controlled queue depth;
+- controlled memory/CPU usage;
+- predictable cost;
+- safe recovery after overload.
+
+---
+
+# 10K. SUSTAINABLE COMPUTE & COST-EFFICIENCY LAW
+
+Foundly must scale efficiently rather than solving growth solely by consuming more compute.
+
+Every major service/app must have efficiency budgets and telemetry for:
+- CPU;
+- memory;
+- storage;
+- network transfer;
+- database work;
+- cache hit ratio;
+- model tokens/calls;
+- image/video generation;
+- search/vector work;
+- queue work;
+- cold starts;
+- retries;
+- unnecessary recomputation.
+
+Optimization priority:
+**CORRECTNESS → SAFETY → USER EXPERIENCE → LATENCY → COST/COMPUTE EFFICIENCY**
+
+Foundly must use:
+- deterministic execution where AI adds no value;
+- small/local models where quality is sufficient;
+- caching and reuse where safe;
+- batch processing where suitable;
+- incremental recomputation;
+- efficient media formats;
+- adaptive model routing;
+- workload scheduling;
+- infrastructure right-sizing.
+
+Cost per active user, per workflow, per ZERO task and per generated asset must be measurable where technically possible.
+
+Growth in users should aim for sub-linear infrastructure growth where architecture and workload permit.
+
+No sustainability claim may be made without measurable evidence or a clearly labeled proxy.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
@@ -1213,6 +1416,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 3**
 - enterprise data foundation required by Creative/Growth;
+- horizontally scalable multi-tenant data/service foundations;
 - PostgreSQL/digital twin;
 - asset/content graph;
 - benchmark observation storage;
@@ -1223,6 +1427,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 4**
 - autonomous self-implementation/control plane;
+- enterprise organization/team/role/admin UX for 50–100+ employee companies;
+- no hard-coded application-level user ceiling;
 - Continuous Competitive Learning Engine;
 - capability-granular benchmark registry;
 - standalone product/app architecture and shared app contracts;
@@ -1243,6 +1449,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 5**
 - mobile/workforce experiences for all eligible capabilities;
+- role-specific mobile/desktop workspaces for enterprise teams;
+- multi-user collaboration, notifications and handoff;
 - separate installable iOS/iPadOS and Android app surfaces for independently useful modules;
 - separate Windows/macOS installable app packaging where not already closed in Run 4;
 - shared authentication/deep links/notifications/app switching;
@@ -1255,6 +1463,9 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 6**
 - full red team;
+- mandatory 50-user and 100-user usability/load acceptance;
+- progressively larger multi-tenant load/stress tests to measured saturation;
+- p50/p95/p99 performance and cost-efficiency closure;
 - per-sub-capability benchmark parity/superiority closure;
 - per-standalone-app benchmark closure;
 - cross-app composition-matrix closure;
@@ -1275,6 +1486,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 7**
 - authorized real customer/data/provider acceptance;
+- real multi-user organizational acceptance where authorized;
+- prove team/admin/role usability and performance with real workflows;
 - real standalone app installation/use for representative modules;
 - real cross-app combination journeys;
 - real website publication;
