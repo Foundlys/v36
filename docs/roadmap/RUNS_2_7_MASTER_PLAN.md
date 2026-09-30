@@ -488,13 +488,28 @@ The same engine must produce coherent industry-specific experiences without cust
 - provider and tenant budgets;
 - telemetry for performance and unit economics.
 
-## D20. Owner Command Center / Personal Agency OS
-- premium spatial/cinematic owner cockpit aligned with Foundly's established high-end dashboard direction;
+## D20. Private Founder Agency Home + Single Control Panel
+- private founder-only system surface; not a customer/employee dashboard;
+- preserve and upgrade the existing Foundly agency/dashboard direction;
+- faster, more visual, more spatial, more personalized, high-end/high-tech;
+- main modules: Email, Calendar, Control Panel, Marketing, Media, Social Media, Finance, Foundly AI Models, Gaming;
+- Marketing submodules: SEO, SEA, Website, Ads;
+- Media submodules: YouTube, Netflix, Videoland, Prime Video, Viaplay;
+- Social submodules: Facebook, Instagram, TikTok;
+- Foundly AI Models: Website Builder, Video Editor, Video Converter/Generator, Photo Converter/Editor, Ads Converter/Creative Generator, SEO Machine;
+- user-extensible purchased/owned Gaming library;
+- ZERO omnipresent across all private modules while preserving personal/business context boundaries;
+- Email and Calendar act as owner productivity/agency surfaces;
+- Media/Social/Gaming integrations use authorized provider APIs/deep-links only; no DRM bypass or false provider capabilities;
+- the Control Panel is one module inside the Agency Home, not the homepage;
+- one centralized Control Panel for all Foundly apps/modules/agents/environments;
+- app/module drill-downs live inside that one Control Panel; no separate top-level owner control panels;
+- premium transparent/glass sphere/dome/capsule visual language for app states where useful;
+- no continuous spinning/rotation;
 - personal executive assistant;
 - AI agency orchestration;
 - executive business cockpit;
 - business Digital Twin/spatial operating graph;
-- per-app/module control surfaces;
 - agent mission control;
 - platform control plane;
 - decision room/simulation;
@@ -503,7 +518,7 @@ The same engine must produce coherent industry-specific experiences without cust
 - app-by-app usage, version, deployment, uptime, latency, error, cost, security, benchmark and acceptance state;
 - portfolio → app → service → workflow → trace/error → fix/deploy → outcome drill-down;
 - desktop power-user mode, mobile executive mode and voice mode;
-- dynamic component benchmarks against current strongest control-plane, agent-governance, observability, executive-BI and autonomous-work specialists.
+- dynamic component benchmarks against current strongest personal-assistant, productivity, control-plane, agent-governance, observability, executive-BI and autonomous-work specialists.
 
 ## D21. Continuous Self-Healing Engineering Pipeline
 - full-stack telemetry correlation across every app;
@@ -559,8 +574,9 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - independent app-store/package identities and versioning;
 - shared sign-in, tenant switching, deep links and app-to-app handoff;
 - role-specific mobile/desktop home screens;
-- owner mobile executive Command Center;
-- per-app health/deploy/incident/approval monitoring;
+- owner mobile Private Agency Home;
+- mobile modules for Email, Calendar, Control Panel, Marketing, Media, Social, Finance, Foundly AI Models and Gaming where provider/platform support allows;
+- mobile single-Control-Panel health/deploy/incident/approval monitoring;
 - emergency pause/rollback/quarantine controls appropriate for mobile;
 - team collaboration and work handoff;
 - bulk/manager workflows;
@@ -885,9 +901,19 @@ Prove:
 ### G11. Continuous learning
 Demonstrate that the outcome becomes governed reusable knowledge and changes future recommendations/benchmarks without bypassing release controls.
 
-### G12. Real Owner Command Center Acceptance
-- owner can track every representative app/module from one Command Center;
+### G12. Real Private Founder Agency Home / Control Panel Acceptance
+- private founder account enters the Agency Home as the primary dashboard;
+- Email, Calendar, Control Panel, Marketing, Media, Social Media, Finance, Foundly AI Models and Gaming main modules are present and usable according to provider availability;
+- Marketing exposes SEO, SEA, Website and Ads;
+- Media exposes YouTube, Netflix, Videoland, Prime Video and Viaplay through lawful supported integrations/deep-links;
+- Social exposes Facebook, Instagram and TikTok through lawful supported integrations;
+- Foundly AI Models exposes Website Builder, Video Editor, Video Converter/Generator, Photo Converter/Editor, Ads Converter/Creative Generator and SEO Machine;
+- Gaming supports owner-configurable owned/purchased titles;
+- ZERO can operate across authorized private modules without silently crossing personal/business action boundaries;
+- Control Panel remains one centralized module, not multiple separate app-control dashboards;
+- owner can track every representative Foundly app/module from that one Control Panel;
 - live app health/version/deployment/usage/cost/bug/benchmark/acceptance state;
+- premium glass/spatial overview with no continuous rotation;
 - executive business briefing and attention prioritization;
 - agent mission control;
 - platform control plane;
@@ -1040,7 +1066,7 @@ Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + Owner Command Center/Personal Agency OS + Continuous Self-Healing Engineering + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
+Autonomous Control Plane + private Founder Agency Home (Email/Calendar/Control Panel/Marketing/Media/Social/Finance/AI Models/Gaming) + single centralized Owner Control Panel + Continuous Self-Healing Engineering + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
 
 ↓ Work independent audit
 
