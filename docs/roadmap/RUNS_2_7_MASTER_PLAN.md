@@ -240,7 +240,19 @@ Store:
 - freshness;
 - source authority.
 
-### C7. Disaster recovery
+### C7. Enterprise Scale Foundation
+- stateless service boundaries where possible;
+- horizontal scale-out;
+- queues/backpressure;
+- connection pooling;
+- database indexing and query budgets;
+- cache strategy;
+- tenant isolation under load;
+- noisy-neighbor controls;
+- capacity/cost telemetry;
+- explicit distinction between registered users, active users, concurrent users and concurrent heavy jobs.
+
+### C8. Disaster recovery
 - backup;
 - restore;
 - point-in-time recovery;
@@ -262,10 +274,10 @@ No PASS without:
 - Work independent audit.
 
 ## Planning active engineering
-**70–160 hours**
+**85–190 hours**
 
 ## OpenAI credit planning band
-**15,000–40,000 credits**
+**18,000–48,000 credits**
 
 ---
 
@@ -449,6 +461,33 @@ The same engine must produce coherent industry-specific experiences without cust
 - enable/disable/entitlement/permission/version/provider-loss transitions;
 - deterministic composition regression suite.
 
+## D18. Enterprise Organization / Admin / Collaboration Layer
+- organization/department/team hierarchy;
+- role templates and custom roles;
+- delegated administration;
+- user directory;
+- bulk provisioning;
+- SSO/SCIM where applicable;
+- joiner/mover/leaver lifecycle;
+- shared work queues;
+- comments/mentions;
+- ownership/reassignment;
+- approval chains;
+- notifications;
+- role-specific workspaces;
+- contextual ZERO by role/team/app/object;
+- mandatory UX scenarios for 50-user and 100-user companies;
+- low-training, low-cognitive-load acceptance.
+
+## D19. Scale-Aware App Runtime
+- no hard-coded application user ceiling;
+- stateless/horizontally scalable app services;
+- background workers and queues;
+- idempotent writes;
+- overload protection;
+- provider and tenant budgets;
+- telemetry for performance and unit economics.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -462,10 +501,10 @@ Every capability requires:
 - Work audit.
 
 ## Planning active engineering
-**330–760 hours**
+**370–840 hours**
 
 ## OpenAI credit planning band
-**75,000–210,000 credits**
+**85,000–230,000 credits**
 
 ---
 
@@ -483,6 +522,10 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - responsive web/PWA surfaces where appropriate;
 - independent app-store/package identities and versioning;
 - shared sign-in, tenant switching, deep links and app-to-app handoff;
+- role-specific mobile/desktop home screens;
+- team collaboration and work handoff;
+- bulk/manager workflows;
+- low-training onboarding for 50–100 employee companies;
 - each standalone app benchmarked independently against its strongest specialist product category;
 - biometric/device authentication where supported;
 - push notifications;
@@ -531,10 +574,10 @@ Professional workflows may use cloud execution with a mobile control surface whe
 - Work independent audit.
 
 ## Planning active engineering
-**190–440 hours**
+**215–490 hours**
 
 ## OpenAI credit planning band
-**40,000–115,000 credits**
+**45,000–125,000 credits**
 
 ---
 
@@ -590,8 +633,20 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 - concurrency;
 - disaster recovery regression.
 
-## F5. Performance
-- p50/p95/p99;
+## F5. Performance and Enterprise Scale
+- p50/p95/p99 per critical workflow;
+- mandatory 50-user organization load/usability scenario;
+- mandatory 100-user organization load/usability scenario;
+- 500-user synthetic organization or equivalent scale tier;
+- larger multi-tenant aggregate load;
+- stress to measured saturation point;
+- registered vs active vs concurrent-user measurement;
+- concurrent ZERO/tool/media/database job measurement;
+- correctness/permissions/audit under load;
+- noisy-neighbor isolation;
+- queues/backpressure/load shedding;
+- recovery after overload;
+- cost per active user/workflow where measurable;
 - seed/load;
 - mobile;
 - web;
@@ -662,10 +717,10 @@ No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
 
 ## Planning active engineering
-**160–360 hours**
+**190–420 hours**
 
 ## OpenAI credit planning band
-**38,000–100,000 credits**
+**48,000–120,000 credits**
 
 ---
 
@@ -761,7 +816,23 @@ Prove:
 ### G11. Continuous learning
 Demonstrate that the outcome becomes governed reusable knowledge and changes future recommendations/benchmarks without bypassing release controls.
 
-### G12. Standalone App / Composition Acceptance
+### G12. Real Enterprise Multi-User Acceptance
+- representative real or authorized production-like 50-user workflow;
+- representative real or authorized production-like 100-user workflow;
+- owner/admin/manager/staff/auditor personas;
+- role and team provisioning;
+- permission changes;
+- reassignment/handoffs;
+- shared queues;
+- collaboration;
+- simultaneous edits/actions;
+- notifications;
+- manager oversight;
+- usability with minimal training;
+- latency and correctness under realistic concurrency;
+- unit-economics evidence where measurable.
+
+### G13. Standalone App / Composition Acceptance
 - install representative standalone apps on real supported desktop and mobile devices;
 - launch/use each app independently;
 - verify entitlement isolation;
@@ -774,7 +845,7 @@ Demonstrate that the outcome becomes governed reusable knowledge and changes fut
 - verify disabling one app does not corrupt another;
 - verify no hidden dependency on the full suite for advertised standalone core jobs.
 
-### G13. Autonomous implementation
+### G14. Autonomous implementation
 Prove the intended lifecycle:
 **SELL → AUTHORIZE → DISCOVER → UNDERSTAND → DESIGN → IMPLEMENT → TEST → VERIFY → DEPLOY → OPERATE → MONITOR → RECOVER → OPTIMIZE → PROVE OUTCOME**
 
@@ -788,10 +859,10 @@ Requires:
 - Work final audit.
 
 ## Planning active engineering
-**130–320 hours**
+**150–360 hours**
 
 ## OpenAI credit planning band
-**30,000–90,000 credits**
+**35,000–100,000 credits**
 
 ---
 
@@ -799,29 +870,29 @@ Requires:
 
 ## Active engineering
 Run 2: 25–60 h
-Run 3: 70–160 h
-Run 4: 330–760 h
-Run 5: 190–440 h
-Run 6: 160–360 h
-Run 7: 130–320 h
+Run 3: 85–190 h
+Run 4: 370–840 h
+Run 5: 215–490 h
+Run 6: 190–420 h
+Run 7: 150–360 h
 
-**Total: approximately 905–2,100 active engineering hours.**
+**Total: approximately 1,035–2,360 active engineering hours.**
 
 This is not calendar time. Agentic parallel work, improved local hardware, reusable infrastructure and future model improvements can reduce active execution substantially. New defects, provider limitations, customer access and quality corrections can increase it.
 
 ## OpenAI credits
 Run 2: 6k–18k
-Run 3: 15k–40k
-Run 4: 75k–210k
-Run 5: 40k–115k
-Run 6: 38k–100k
-Run 7: 30k–90k
+Run 3: 18k–48k
+Run 4: 85k–230k
+Run 5: 45k–125k
+Run 6: 48k–120k
+Run 7: 35k–100k
 
 Raw subtotal:
-**204,000–573,000 OpenAI credits.**
+**237,000–641,000 OpenAI credits.**
 
 Recommended planning envelope after allowing for audit/rework overlap:
-**approximately 200,000–600,000 OpenAI credits.**
+**approximately 235,000–675,000 OpenAI credits.**
 
 This includes intended Codex implementation and Work audit activity at planning level.
 
@@ -836,7 +907,7 @@ It does **not** include:
 - licenses;
 - external data providers.
 
-There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **600k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
+There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **675k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
 
 Claude is intentionally excluded from the execution plan. Independent run-level review is performed by Work, backed by GitHub/CI, benchmark suites, deterministic security tooling and real acceptance evidence.
 
@@ -872,12 +943,12 @@ Finish current ZERO + Automotive/E-commerce acceptance.
 ↓ Work audit
 
 **RUN 3**
-Enterprise data + PostgreSQL + Digital Twin + outcome/benchmark substrate + DR.
+Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + outcome/benchmark substrate + DR.
 
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + Continuous Learning + component-level benchmarking + standalone product architecture + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
+Autonomous Control Plane + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
 
 ↓ Work independent audit
 
@@ -887,7 +958,7 @@ Separate installable mobile/desktop apps + mobile/workforce/voice/device experie
 ↓ Work independent audit
 
 **RUN 6**
-Full-stack red team + current competitor benchmarks + security + performance + reliability + cost/sustainability.
+Full-stack red team + current competitor benchmarks + mandatory 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
 
 ↓ Work independent audit
 
