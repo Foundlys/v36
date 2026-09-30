@@ -605,6 +605,22 @@ Benchmark sub-capabilities independently against current strongest Google Maps/W
 - launch-time re-verification of Apple/Google billing/store economics and jurisdiction rules;
 - pricing/LTV targets remain hypotheses until measured in real cohorts.
 
+## D24. B2B Seat Billing & Commercial Platform
+- company/organization account as billing owner;
+- per-user/per-seat subscription model;
+- Launch/Growth/Business/Enterprise plan entitlements;
+- standalone app seat entitlements;
+- invite/activate/deactivate/reassign seat lifecycle;
+- monthly and annual billing;
+- volume tiers/enterprise contracts;
+- transparent variable compute/data usage on top of seat pricing where required;
+- proration/upgrade/downgrade/cancellation;
+- authoritative payment receipt before billing success;
+- no duplicate charge from Foundly retries or defects;
+- commercial analytics for seats, MRR, ARR, ARPU, expansion, churn, margin and usage.
+
+All B2B software prices are modeled per company per licensed user unless an explicit variable-cost component is documented.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -1074,6 +1090,19 @@ Demonstrate that the outcome becomes governed reusable knowledge and changes fut
 ### G16. Autonomous implementation
 Prove the intended lifecycle:
 **SELL → AUTHORIZE → DISCOVER → UNDERSTAND → DESIGN → IMPLEMENT → TEST → VERIFY → DEPLOY → OPERATE → MONITOR → RECOVER → OPTIMIZE → PROVE OUTCOME**
+
+### G17. Real B2B Pricing Acceptance
+- real company account and real licensed-user billing flow;
+- test Launch/Growth/Business/Enterprise willingness-to-pay;
+- test standalone per-user app pricing;
+- real seat activation/deactivation/reassignment;
+- real monthly/annual conversion where offered;
+- actual ARPU per user and ARR per company;
+- volume-discount and expansion behavior;
+- variable AI/data usage versus provider COGS;
+- gross/contribution margin;
+- retention/churn/expansion evidence available at that stage;
+- revise price bands from evidence rather than assumptions.
 
 ## Run-7 closure
 Requires:
