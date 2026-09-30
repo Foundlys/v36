@@ -445,8 +445,47 @@ Build the complete native capability described in the hard-requirements contract
 A single ZERO objective can safely coordinate:
 Finance → inventory → CRM → Lead/Sales → Negotiation → Website → Photo → Video → SEO → Ads → Analytics → Calendar.
 
-## D14. Industry Demo Factory
+## D14. Hyper-Perfect Demo Factory
 The same engine must produce coherent industry-specific experiences without customer forks.
+
+Every sellable standalone module/app and every sellable bundle/Industry Pack must receive its own complete interactive production-faithful demo.
+
+Required demo products include, where launched:
+- CRM;
+- Sales;
+- Procurement;
+- Finance;
+- Analytics;
+- Marketing;
+- SEO;
+- Advertising/Growth;
+- Lead Machine;
+- Communication;
+- Calendar;
+- Automation;
+- Website Builder;
+- Photo Studio;
+- Video Studio;
+- Foundly Maps;
+- Automotive Industry Pack;
+- E-commerce Industry Pack;
+- future standalone modules and Industry Packs.
+
+The Demo Factory must provide:
+- isolated resettable demo tenants;
+- coherent cross-module seeded data;
+- role/persona switching;
+- real production contracts and ZERO behavior;
+- safe simulation for external side effects;
+- guided demo flows;
+- prospect self-service evaluation mode;
+- deterministic reset/reseed;
+- concurrent prospect session isolation;
+- evidence capture;
+- dedicated demo acceptance matrix per sellable product;
+- no SELLABLE/SALES_READY state while a material demo capability remains FAIL or UNVERIFIED.
+
+Standalone demo PASS does not imply suite/bundle/composition demo PASS. Cross-module bundles require their own complete journey acceptance.
 
 ## D15. Component-Level Benchmark Registry
 - every material sub-capability gets its own current best specialist/model benchmark;
@@ -621,6 +660,20 @@ Benchmark sub-capabilities independently against current strongest Google Maps/W
 
 All B2B software prices are modeled per company per licensed user unless an explicit variable-cost component is documented.
 
+## D25. Demo Commercialization Infrastructure
+- demo tenant lifecycle;
+- safe seed/reset/reseed engine;
+- scenario/version registry;
+- representative persona/role packs;
+- external-side-effect sandbox contracts;
+- demo data provenance/labeling;
+- guided sales-demo orchestration;
+- self-service prospect trial mode;
+- per-module demo acceptance matrices;
+- demo analytics: launch, completion, feature usage, conversion intent;
+- demo-to-trial/customer handoff without tenant/data ambiguity;
+- no production credentials or secrets exposed to demo tenants.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -707,6 +760,7 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 Professional workflows may use cloud execution with a mobile control surface where full local editing is inappropriate, but parity claims must remain truthful.
 
 ## Run-5 closure
+- every mobile/desktop sellable standalone app has a hyper-perfect sellable-module demo on its advertised device class;
 - actual iPhone;
 - actual Android;
 - representative devices;
@@ -903,6 +957,21 @@ No stale competitor list is accepted.
 
 ## F12. Localization/accessibility
 Complete the production surfaces and native-speaker/assistive-technology evidence required by the product contract.
+
+## F13. Demo Red-Team & Sales Readiness
+- execute every sellable module's full demo matrix;
+- prospect-driven random action sequences;
+- role/permission switching;
+- reset/reseed under concurrent sessions;
+- failure/recovery paths;
+- truthful external-side-effect simulation;
+- mobile/desktop parity where sold;
+- accessibility/localization/performance;
+- ZERO natural-language and voice demo behavior where advertised;
+- cross-module bundle journeys;
+- benchmark claims versus current specialists;
+- prove no demo-only fake implementation can diverge from production contracts;
+- no SELLABLE/SALES_READY module with material FAIL or UNVERIFIED demo gates.
 
 ## Run-6 closure
 No material unresolved critical/high defect.
@@ -1103,6 +1172,17 @@ Prove the intended lifecycle:
 - gross/contribution margin;
 - retention/churn/expansion evidence available at that stage;
 - revise price bands from evidence rather than assumptions.
+
+### G18. Real Sales Demo / Prospect Evaluation Acceptance
+- real prospects/customers use representative module demos themselves;
+- observe completion of advertised core actions without developer intervention;
+- capture usability friction, errors, latency and failed assumptions;
+- verify demo-to-trial/customer conversion path;
+- verify reset/isolation between prospects;
+- verify ZERO remains useful under unscripted questions and corrections;
+- verify no false production/provider success;
+- use measured prospect behavior to update demo flows and product acceptance;
+- no final commercial readiness claim based only on internal scripted demonstrations.
 
 ## Run-7 closure
 Requires:
