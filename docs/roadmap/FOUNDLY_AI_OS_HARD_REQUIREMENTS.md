@@ -2418,6 +2418,60 @@ The Control Panel may use high-end transparent/glass spheres, domes, capsules or
 
 ZERO is omnipresent across the private Agency Home and acts as the founder's personal assistant and agency while preserving explicit personal/business context boundaries.
 
+# 10N. FOUNDLY B2B PER-USER PRICING LAW
+
+Foundly commercial pricing must be organization-based and seat-based.
+
+Hard rule:
+- each customer company has one Foundly organization/account;
+- software subscription pricing is expressed **per company, per active licensed user, per month** unless a product has an explicit non-seat cost component;
+- no core B2B Foundly software plan may be priced only as a flat company fee independent of user count;
+- annual billing may discount the equivalent monthly per-user price;
+- the company controls seats, roles, invitations, deactivation and reassignment;
+- deactivated users must stop generating recurring seat charges according to the billing contract;
+- audit, entitlement and permission state must match the billed seats.
+
+Initial bundle hypotheses, all per company/user/month:
+- Foundly Launch: EUR 39-59 per user/month;
+- Foundly Growth: EUR 79-119 per user/month;
+- Foundly Business: EUR 149-249 per user/month;
+- Foundly Enterprise: custom per-user contract, with volume pricing where justified.
+
+Standalone app hypotheses, also per company/user/month:
+- CRM: EUR 29-79 per user/month;
+- Sales: EUR 39-99 per user/month;
+- Procurement: EUR 39-99 per user/month;
+- Finance: EUR 39-99 per user/month;
+- Analytics: EUR 29-79 per user/month;
+- Marketing: EUR 39-99 per user/month;
+- SEO Machine: EUR 39-99 per user/month;
+- Advertising/Growth: EUR 39-99 per user/month;
+- Website Builder: EUR 19-59 per user/month plus site/hosting costs where applicable;
+- Photo Studio: EUR 19-49 per user/month plus variable generation usage;
+- Video Studio: EUR 29-79 per user/month plus variable generation/render usage;
+- Automation: EUR 29-79 per user/month plus high-volume execution usage;
+- Communication: EUR 15-39 per user/month;
+- Calendar: included in bundles or low-cost standalone;
+- Foundly Maps Business: EUR 20-50+ per user/month;
+- ZERO advanced autonomy: included by plan, with transparent variable compute usage where necessary.
+
+Industry Packs remain attached to the company organization but must also scale primarily by licensed users. Additional location/store/vehicle/data-provider fees may exist only when they reflect a real variable cost or separately delivered capability.
+
+Variable-cost items may be billed in addition to seats:
+- frontier-model compute;
+- image/video generation;
+- enrichment/contact data;
+- external research/data-provider calls;
+- heavy automation volume;
+- map/API usage;
+- storage/bandwidth above included allowance.
+
+These variable charges must be transparent and may never be used to disguise ordinary software seat pricing.
+
+Pricing must be validated in Run 7 against real willingness-to-pay, conversion, retention, expansion, gross margin and customer value. Price bands are hypotheses, not permanent fixed prices.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
