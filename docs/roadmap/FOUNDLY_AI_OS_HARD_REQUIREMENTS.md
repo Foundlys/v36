@@ -673,69 +673,305 @@ Visual superiority may not be claimed from screenshots alone. It requires struct
 
 ---
 
-# 10D. FOUNDLY NAVIGATION AI & DRIVER INTELLIGENCE
+# 10D. FOUNDLY MAPS — OWN NAVIGATION, TRAFFIC & DRIVER INTELLIGENCE PLATFORM
 
-Foundly must contain an integrated navigation and driver-intelligence experience.
+Foundly must contain a **native Foundly Maps platform**. It is not a wrapper around Google Maps, Waze or another consumer navigation product.
 
-The product must provide its own Foundly UI, ZERO conversational layer, routing orchestration and business integration. Underlying map, geocoding, traffic and road data may come from lawful open or licensed providers and must remain replaceable/provider-agnostic. Foundly is not required to recreate a global map database from scratch to claim ownership of the Foundly navigation experience.
+Google Maps, Waze, TomTom, HERE, Mapbox, Flitsmeister and future stronger products may be used as **benchmark references only** unless a later explicit founder decision authorizes a specific raw-data/provider input. Google Maps and Waze are explicitly prohibited as Foundly Navigation runtime, routing, map-rendering, traffic, ETA, incident or navigation dependencies.
+
+## Ownership boundary
+
+Foundly must own and control the product/runtime layers for:
+- Foundly map UI and visual language;
+- map tile/style pipeline used by Foundly clients;
+- geocoding/search orchestration;
+- road-network graph used for routing;
+- map matching;
+- route calculation;
+- alternative-route generation;
+- turn-by-turn instruction generation;
+- lane/turn guidance logic where source data supports it;
+- ETA prediction;
+- traffic fusion;
+- incident fusion;
+- road-closure handling;
+- rerouting;
+- route scoring;
+- multi-stop optimization;
+- parking/fuel/EV-stop intelligence;
+- offline-region packaging;
+- location-history/privacy policy;
+- Foundly community reports;
+- Foundly Driver Alerts;
+- ZERO navigation reasoning and voice interaction;
+- navigation telemetry/evaluation;
+- business/CRM/calendar/workforce integration.
+
+Foundly may ingest lawful open, public-sector, customer-owned or separately licensed **raw source data** such as:
+- OpenStreetMap or other legally compatible road/map datasets;
+- government road/traffic feeds;
+- public transport/parking/charging datasets;
+- customer/fleet telemetry with authorization;
+- Foundly first-party GPS/route/incident telemetry;
+- lawfully licensed traffic or road datasets where they do not make the Foundly product a branded/runtime dependency on a competing consumer navigation app.
+
+Using raw source data does not transfer product ownership to the source provider. All license/attribution/share-alike obligations must be honored.
+
+## Explicit Google/Waze prohibition
+
+Foundly Maps must not:
+- call Google Maps or Waze to calculate its production routes;
+- embed Google/Waze navigation as the Foundly navigation experience;
+- use Google/Waze ETA as the production answer;
+- use Google/Waze traffic/incident state as an undisclosed fallback;
+- deep-link to Google/Waze and present that as Foundly navigation;
+- require a Google/Waze account for Foundly route operation.
+
+Google Maps and Waze remain external benchmark products only.
+
+## Foundly geospatial data platform
+
+Foundly must maintain a versioned geospatial pipeline containing where supported:
+- road graph;
+- turn restrictions;
+- speed limits;
+- lane metadata;
+- road class;
+- access restrictions;
+- one-way state;
+- tolls;
+- ferries;
+- closures;
+- temporary restrictions;
+- POIs;
+- addresses;
+- parking;
+- fuel;
+- EV charging;
+- geography/administrative areas;
+- map-data provenance;
+- map-data freshness;
+- source conflicts;
+- confidence;
+- region coverage.
+
+Every material map observation requires source/provenance/freshness.
+
+Map updates must support:
+**INGEST → VALIDATE → CONFLATE → VERSION → TEST → PUBLISH → ROLLBACK**
+
+## Foundly routing engine
+
+The native routing engine must support where relevant:
+- car;
+- walking;
+- cycling;
+- commercial/fleet profiles where licensed data supports restrictions;
+- fastest/shortest/efficient route preferences;
+- avoid tolls/ferries/motorways/other supported constraints;
+- multi-stop routing;
+- time-dependent routing;
+- traffic-aware routing;
+- historical-traffic priors;
+- alternative routes;
+- arrival/departure-time planning;
+- route matrix;
+- isochrones where useful;
+- route matching;
+- dynamic rerouting;
+- deterministic route replay for acceptance testing.
+
+Routing must remain independently testable from the UI.
+
+## Foundly ETA / traffic intelligence
+
+Foundly must build a first-party ETA and traffic-intelligence layer that combines authorized inputs such as:
+- current Foundly probe speeds;
+- historical Foundly route observations;
+- road sensors/public feeds;
+- incidents/closures;
+- time-of-day/day-of-week seasonality;
+- weather/event context where lawful and useful;
+- road topology and maneuver cost;
+- historical congestion patterns.
+
+ZERO/model routing may use specialized statistical/ML models for:
+- ETA prediction;
+- congestion forecasting;
+- anomalous slowdown detection;
+- incident confidence;
+- route-choice ranking.
+
+Foundly must measure calibration against actual arrival times and improve models through governed releases.
+
+A lack of sufficient probe density must be represented as lower confidence, not fabricated live traffic.
+
+## Foundly community traffic network
+
+Foundly must support its own privacy-governed community/reporting network:
+- accident;
+- hazard;
+- roadworks;
+- closure;
+- stopped vehicle;
+- congestion;
+- object/debris;
+- weather/visibility hazard;
+- police/speed-enforcement report only where lawful;
+- incorrect map data;
+- changed speed limit.
+
+Reports require:
+- timestamp;
+- approximate geospatial scope;
+- reporter trust/confidence;
+- corroboration;
+- decay/expiry;
+- abuse/spam protection;
+- duplicate fusion;
+- conflict handling;
+- moderation/escalation;
+- privacy minimization.
+
+Foundly must distinguish:
+**UNVERIFIED REPORT → CORROBORATED → VERIFIED SOURCE → EXPIRED/REJECTED**
+
+## Foundly Driver Alerts — native Flitsmeister-class capability
+
+Foundly must contain a native driver-alert layer. Flitsmeister is a benchmark, not a dependency.
+
+Required where lawful and supported:
+- current speed limit;
+- speeding warning;
+- fixed speed-camera warning;
+- average-speed/section-control entry/progress/exit;
+- mobile speed-camera/community report;
+- red-light/safety camera where lawful/data-supported;
+- accident;
+- congestion;
+- roadworks;
+- closure;
+- hazard;
+- stopped vehicle;
+- emergency/safety warning;
+- school/sensitive-zone warning where data exists;
+- route-specific alert prioritization;
+- audio/voice/haptic/visual alert modes;
+- configurable alert distance and safety-oriented presentation;
+- false-positive/report feedback;
+- confidence/freshness display where appropriate.
+
+The system must never be designed to facilitate unlawful evasion. A jurisdiction policy engine must enable/disable alert types by country/region and applicable law.
+
+## Search / places
+
+Foundly Maps must provide its own place/address search experience using self-controlled indexes over lawful source data.
+
+Requirements:
+- address search;
+- POI/business search;
+- category search;
+- fuzzy/typo tolerance;
+- nearby search;
+- route-aware search;
+- business-hours/availability where licensed data exists;
+- multilingual/localized search;
+- CRM/customer location search;
+- personal favorites/history subject to owner privacy settings.
+
+No unsupported place attribute may be fabricated.
+
+## Offline navigation
+
+Where technically feasible, Foundly must support:
+- downloadable regions;
+- offline map rendering;
+- offline routing;
+- cached search;
+- route continuation;
+- local reroute;
+- later traffic refresh after reconnection;
+- resumable region updates.
+
+Offline limitations must remain explicit.
+
+## ZERO navigation intelligence
+
+ZERO must operate Foundly Maps conversationally without requiring Google/Waze.
+
+Examples:
+- "Plan mijn klantbezoeken vandaag met zo min mogelijk reistijd."
+- "Vermijd files en zorg dat ik tien minuten voor elke afspraak aankom."
+- "Zoek een snellader op mijn route zonder meer dan tien minuten om te rijden."
+- "Waarom stuur je me via deze route?"
+- "Welke afspraak moet ik verplaatsen als de A2 dichtloopt?"
+
+ZERO may combine authorized:
+Calendar × CRM × Sales × Navigation × Traffic × Weather × Parking/Charging × user preferences.
+
+ZERO must explain route-affecting evidence and uncertainty.
+
+## Dynamic component benchmarks
+
+Foundly Maps must benchmark each material sub-capability independently against the strongest current specialist/product/model for that exact capability.
 
 Initial benchmark families:
-- Google Maps-class map/search/navigation and AI assistance;
-- Waze-class community traffic, incident and rerouting intelligence;
-- Flitsmeister-class road/speed-camera/traffic alert experience;
-- strongest current EV/fleet/multi-stop specialists where relevant.
+- Google Maps-class destination search, route UX, lane guidance and live navigation;
+- Waze-class crowdsourced incidents, map-community freshness and rerouting;
+- TomTom-class routing, traffic and automotive map quality;
+- HERE-class routing, route matching, traffic and location intelligence;
+- Mapbox-class custom mapping, traffic datasets, navigation APIs and ETA/traffic models;
+- Flitsmeister-class speed/road-alert UX and alert relevance;
+- strongest current open/self-hosted routing stacks where useful as engineering baselines;
+- strongest current ETA/congestion/location models discovered at execution time.
 
-Hard navigation requirements:
-- destination search;
-- geocoding;
-- turn-by-turn navigation;
-- reliable ETA;
-- live traffic;
-- incidents;
-- road closures;
-- roadworks;
-- alternative routes;
-- dynamic rerouting;
-- lane/turn guidance where data supports it;
-- voice guidance;
-- hands-free ZERO interaction;
-- route-aware business search;
-- parking/fuel/EV charging stops;
-- multi-stop route optimization;
-- appointment/calendar integration;
-- CRM/customer visit routing;
-- sales/workforce day planning;
-- route sharing;
-- arrival/late notifications;
-- low-connectivity resilience and offline capability where technically feasible;
-- location privacy controls;
-- battery/data efficiency;
-- accessibility.
+Benchmarks are references only. Foundly does not need runtime coupling to a benchmark product.
 
-Foundly must include a Driver Alert layer benchmarked against Flitsmeister-class behavior for legally supported jurisdictions:
-- speed-limit awareness;
-- fixed speed-camera alerts where lawful;
-- average-speed/section-control alerts where lawful;
-- mobile camera/community reports only where lawful and contractually permitted;
-- accidents;
-- hazards;
-- roadworks;
-- stopped vehicles and other verified safety events where data supports them.
+## Per-capability acceptance
 
-The system must include a jurisdiction policy engine because camera/radar-alert rules differ by country. It must never encourage speeding or provide illegal evasion functionality.
-
-Navigation benchmark acceptance must be geography-specific and evidence-backed using real routes:
-- route quality;
-- ETA error;
-- rerouting speed;
-- traffic accuracy;
-- incident freshness;
-- alert precision/recall;
+Benchmark and record separately:
+- basemap/cartography quality;
+- address/POI search relevance;
+- geocoding precision;
+- route validity;
+- route optimality;
+- alternative-route usefulness;
+- ETA MAE/MAPE/calibration;
+- live-traffic freshness;
+- congestion accuracy;
+- incident precision/recall;
+- incident time-to-detection;
+- reroute latency;
+- route stability;
+- map-matching accuracy;
+- turn-instruction correctness;
+- lane guidance;
+- speed-limit accuracy;
+- camera/section-control alert precision/recall where lawful;
+- false-alert rate;
+- community-report abuse resistance;
+- offline behavior;
 - voice usability;
-- map/search relevance;
-- battery/data use.
+- battery consumption;
+- network consumption;
+- map render performance;
+- privacy;
+- accessibility;
+- multi-stop optimization quality;
+- CRM/calendar/workforce integration.
 
-Foundly may not claim global Google Maps/Waze parity where the data coverage does not support it. Unsupported or lower-confidence regions must be truthfully labeled.
+## Truthful coverage law
+
+Foundly may only claim parity/superiority for the geographies and scenarios actually benchmarked.
+
+Global product availability does not imply globally equal:
+- map freshness;
+- traffic probe density;
+- speed-camera coverage;
+- ETA accuracy;
+- incident freshness.
+
+Unsupported or lower-confidence regions must be truthfully labeled.
 
 ---
 
@@ -2191,6 +2427,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - enterprise data foundation required by Creative/Growth;
 - horizontally scalable multi-tenant data/service foundations;
 - PostgreSQL/digital twin;
+- Foundly Maps geospatial data substrate: versioned road graph, source/provenance/freshness model, probe/traffic/incident telemetry and region datasets;
 - asset/content graph;
 - benchmark observation storage;
 - outcome telemetry;
@@ -2200,6 +2437,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 4**
 - autonomous self-implementation/control plane;
+- native Foundly Maps backend/platform: self-controlled routing graph, routing engine, geocoding/search indexes, map-matching, ETA/traffic fusion, incident/community network and Driver Alerts services;
 - private founder-only Agency Home based on the existing Foundly dashboard direction;
 - main modules: Email, Calendar, Control Panel, Marketing, Media, Social Media, Finance, Foundly AI Models, Gaming;
 - Marketing submodules: SEO, SEA, Website, Ads;
@@ -2233,6 +2471,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 5**
 - mobile/workforce experiences for all eligible capabilities;
+- native Foundly Maps iOS/Android/desktop navigation client, offline regions, turn-by-turn/voice, own Driver Alerts and no Google/Waze runtime dependency;
 - role-specific mobile/desktop workspaces for enterprise teams;
 - multi-user collaboration, notifications and handoff;
 - separate installable iOS/iPadOS and Android app surfaces for independently useful modules;
@@ -2247,6 +2486,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 6**
 - full red team;
+- Foundly Maps independent benchmark closure against current strongest navigation/routing/traffic/search/driver-alert specialists;
+- real-route ETA/route/traffic/incident/alert/offline/battery/privacy stress acceptance with Google/Waze used only as external benchmarks;
 - self-healing/redelivery red team;
 - canary/blue-green/rollback/failover acceptance;
 - chaos/fault injection and recovery acceptance;
@@ -2274,6 +2515,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 7**
 - authorized real customer/data/provider acceptance;
+- real Foundly Maps driving acceptance using the native Foundly route/traffic/alert stack;
 - real owner-command-center operation;
 - real production-like autonomous bug detection/fix/canary/rollback scenarios with bounded risk;
 - prove routine release continuity without customer-visible downtime where technically controllable;
