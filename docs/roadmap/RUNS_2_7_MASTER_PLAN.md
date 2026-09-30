@@ -259,11 +259,10 @@ No PASS without:
 - disaster recovery drill;
 - data integrity;
 - failure injection;
-- Work audit;
-- Claude technical audit.
+- Work independent audit.
 
 ## Planning active engineering
-**140–340 hours**
+**70–160 hours**
 
 ## OpenAI credit planning band
 **15,000–40,000 credits**
@@ -493,10 +492,10 @@ Professional workflows may use cloud execution with a mobile control surface whe
 - adverse connectivity;
 - permission revocation;
 - install/update/relaunch;
-- Work audit.
+- Work independent audit.
 
 ## Planning active engineering
-**70–160 hours**
+**140–340 hours**
 
 ## OpenAI credit planning band
 **30,000–90,000 credits**
