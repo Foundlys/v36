@@ -488,6 +488,42 @@ The same engine must produce coherent industry-specific experiences without cust
 - provider and tenant budgets;
 - telemetry for performance and unit economics.
 
+## D20. Owner Command Center / Personal Agency OS
+- premium spatial/cinematic owner cockpit aligned with Foundly's established high-end dashboard direction;
+- personal executive assistant;
+- AI agency orchestration;
+- executive business cockpit;
+- business Digital Twin/spatial operating graph;
+- per-app/module control surfaces;
+- agent mission control;
+- platform control plane;
+- decision room/simulation;
+- owner attention inbox;
+- live approvals/risks/incidents/opportunities;
+- app-by-app usage, version, deployment, uptime, latency, error, cost, security, benchmark and acceptance state;
+- portfolio → app → service → workflow → trace/error → fix/deploy → outcome drill-down;
+- desktop power-user mode, mobile executive mode and voice mode;
+- dynamic component benchmarks against current strongest control-plane, agent-governance, observability, executive-BI and autonomous-work specialists.
+
+## D21. Continuous Self-Healing Engineering Pipeline
+- full-stack telemetry correlation across every app;
+- bug/incident object with customer-impact evidence;
+- automatic root-cause analysis;
+- reproduction generation;
+- isolated patch generation;
+- targeted/regression/security/performance validation;
+- shadow/replay validation where possible;
+- risk classification;
+- low-risk automated repair;
+- guarded canary/blue-green promotion;
+- automatic rollback on technical/business regression;
+- feature-flag containment;
+- provider/region failover;
+- immutable known-good artifacts;
+- engineering outcome memory;
+- owner-controlled autonomy thresholds;
+- no in-place live-source mutation.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -501,10 +537,10 @@ Every capability requires:
 - Work audit.
 
 ## Planning active engineering
-**370–840 hours**
+**430–960 hours**
 
 ## OpenAI credit planning band
-**85,000–230,000 credits**
+**100,000–260,000 credits**
 
 ---
 
@@ -523,6 +559,9 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - independent app-store/package identities and versioning;
 - shared sign-in, tenant switching, deep links and app-to-app handoff;
 - role-specific mobile/desktop home screens;
+- owner mobile executive Command Center;
+- per-app health/deploy/incident/approval monitoring;
+- emergency pause/rollback/quarantine controls appropriate for mobile;
 - team collaboration and work handoff;
 - bulk/manager workflows;
 - low-training onboarding for 50–100 employee companies;
@@ -574,10 +613,10 @@ Professional workflows may use cloud execution with a mobile control surface whe
 - Work independent audit.
 
 ## Planning active engineering
-**215–490 hours**
+**230–520 hours**
 
 ## OpenAI credit planning band
-**45,000–125,000 credits**
+**50,000–135,000 credits**
 
 ---
 
@@ -621,7 +660,20 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 - model/provider policy;
 - human approval.
 
-## F4. Reliability
+## F4. Reliability / Zero-Downtime Delivery
+- routine rolling/canary/blue-green release continuity;
+- readiness/health gates;
+- connection draining;
+- backward-compatible API/version behavior;
+- expand/contract migration acceptance;
+- feature-flag containment;
+- automatic rollback;
+- last-known-good recovery;
+- region/provider failover;
+- chaos/fault injection;
+- release health based on technical and business metrics;
+- MTTD/MTTR/change-failure-rate/SLO/error-budget measurement;
+- verify no customer-visible downtime during controlled routine release scenarios;
 - provider outage;
 - queue failure;
 - database failure;
@@ -680,7 +732,24 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 - resource budgets;
 - measurable compute-efficiency proxies.
 
-## F8. Revenue/Navigation abuse and safety
+## F8. Self-Healing Autonomy Red Team
+- false-positive bug diagnosis;
+- bad patch generation;
+- poisoned telemetry/context;
+- flaky-test promotion;
+- benchmark gaming;
+- hidden permission/security regression;
+- schema incompatibility;
+- cascading rollback;
+- retry/deploy storm;
+- conflicting simultaneous autonomous fixes;
+- customer-specific defect leaking into shared logic;
+- auto-fix under incomplete evidence;
+- unsafe production promotion;
+- emergency kill switch;
+- audit/replay of autonomous decisions.
+
+## F9. Revenue/Navigation abuse and safety
 - unlawful/spam outreach;
 - consent/opt-out failures;
 - fabricated personalization;
@@ -697,7 +766,7 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 - unsafe rerouting;
 - business-route permission leaks.
 
-## F9. Competitive benchmark closure
+## F10. Competitive benchmark closure
 Re-run current strongest competitor/model benchmarks shortly before release.
 
 Required closure levels:
@@ -709,7 +778,7 @@ Required closure levels:
 
 No stale competitor list is accepted.
 
-## F10. Localization/accessibility
+## F11. Localization/accessibility
 Complete the production surfaces and native-speaker/assistive-technology evidence required by the product contract.
 
 ## Run-6 closure
@@ -717,10 +786,10 @@ No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
 
 ## Planning active engineering
-**190–420 hours**
+**230–500 hours**
 
 ## OpenAI credit planning band
-**48,000–120,000 credits**
+**58,000–145,000 credits**
 
 ---
 
@@ -816,7 +885,30 @@ Prove:
 ### G11. Continuous learning
 Demonstrate that the outcome becomes governed reusable knowledge and changes future recommendations/benchmarks without bypassing release controls.
 
-### G12. Real Enterprise Multi-User Acceptance
+### G12. Real Owner Command Center Acceptance
+- owner can track every representative app/module from one Command Center;
+- live app health/version/deployment/usage/cost/bug/benchmark/acceptance state;
+- executive business briefing and attention prioritization;
+- agent mission control;
+- platform control plane;
+- decision/simulation workflow;
+- mobile executive view;
+- audit evidence for every owner-triggered production action.
+
+### G13. Real Self-Healing / Release Continuity Acceptance
+- inject representative production-like defects;
+- detect/correlate/root-cause;
+- create reproducible evidence;
+- generate isolated patch;
+- pass targeted and regression gates;
+- deploy low/medium-risk fixes through guarded canary/blue-green flow;
+- automatically roll back an intentionally bad candidate;
+- preserve customer continuity in controlled routine release scenarios;
+- validate emergency containment/failover;
+- prove owner pause/approval/rollback controls;
+- measure MTTD/MTTR/change-failure/recurrence.
+
+### G14. Real Enterprise Multi-User Acceptance
 - representative real or authorized production-like 50-user workflow;
 - representative real or authorized production-like 100-user workflow;
 - owner/admin/manager/staff/auditor personas;
@@ -832,7 +924,7 @@ Demonstrate that the outcome becomes governed reusable knowledge and changes fut
 - latency and correctness under realistic concurrency;
 - unit-economics evidence where measurable.
 
-### G13. Standalone App / Composition Acceptance
+### G15. Standalone App / Composition Acceptance
 - install representative standalone apps on real supported desktop and mobile devices;
 - launch/use each app independently;
 - verify entitlement isolation;
@@ -845,7 +937,7 @@ Demonstrate that the outcome becomes governed reusable knowledge and changes fut
 - verify disabling one app does not corrupt another;
 - verify no hidden dependency on the full suite for advertised standalone core jobs.
 
-### G14. Autonomous implementation
+### G16. Autonomous implementation
 Prove the intended lifecycle:
 **SELL → AUTHORIZE → DISCOVER → UNDERSTAND → DESIGN → IMPLEMENT → TEST → VERIFY → DEPLOY → OPERATE → MONITOR → RECOVER → OPTIMIZE → PROVE OUTCOME**
 
@@ -859,10 +951,10 @@ Requires:
 - Work final audit.
 
 ## Planning active engineering
-**150–360 hours**
+**170–400 hours**
 
 ## OpenAI credit planning band
-**35,000–100,000 credits**
+**40,000–115,000 credits**
 
 ---
 
@@ -871,28 +963,28 @@ Requires:
 ## Active engineering
 Run 2: 25–60 h
 Run 3: 85–190 h
-Run 4: 370–840 h
-Run 5: 215–490 h
-Run 6: 190–420 h
-Run 7: 150–360 h
+Run 4: 430–960 h
+Run 5: 230–520 h
+Run 6: 230–500 h
+Run 7: 170–400 h
 
-**Total: approximately 1,035–2,360 active engineering hours.**
+**Total: approximately 1,170–2,630 active engineering hours.**
 
 This is not calendar time. Agentic parallel work, improved local hardware, reusable infrastructure and future model improvements can reduce active execution substantially. New defects, provider limitations, customer access and quality corrections can increase it.
 
 ## OpenAI credits
 Run 2: 6k–18k
 Run 3: 18k–48k
-Run 4: 85k–230k
-Run 5: 45k–125k
-Run 6: 48k–120k
-Run 7: 35k–100k
+Run 4: 100k–260k
+Run 5: 50k–135k
+Run 6: 58k–145k
+Run 7: 40k–115k
 
 Raw subtotal:
-**237,000–641,000 OpenAI credits.**
+**272,000–721,000 OpenAI credits.**
 
 Recommended planning envelope after allowing for audit/rework overlap:
-**approximately 235,000–675,000 OpenAI credits.**
+**approximately 270,000–775,000 OpenAI credits.**
 
 This includes intended Codex implementation and Work audit activity at planning level.
 
@@ -907,7 +999,7 @@ It does **not** include:
 - licenses;
 - external data providers.
 
-There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **675k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
+There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **775k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
 
 Claude is intentionally excluded from the execution plan. Independent run-level review is performed by Work, backed by GitHub/CI, benchmark suites, deterministic security tooling and real acceptance evidence.
 
@@ -948,7 +1040,7 @@ Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
+Autonomous Control Plane + Owner Command Center/Personal Agency OS + Continuous Self-Healing Engineering + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
 
 ↓ Work independent audit
 
@@ -958,12 +1050,12 @@ Separate installable mobile/desktop apps + mobile/workforce/voice/device experie
 ↓ Work independent audit
 
 **RUN 6**
-Full-stack red team + current competitor benchmarks + mandatory 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
+Full-stack red team + self-healing/autonomous-release red team + zero-downtime/canary/rollback/failover acceptance + current competitor benchmarks + mandatory 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
 
 ↓ Work independent audit
 
 **RUN 7**
-Real providers + real data + real customers + real outreach/appointments + real bounded negotiation + real navigation + real publishing + real outcomes + autonomous implementation acceptance.
+Real Owner Command Center + real production-like self-healing/release-continuity proof + real providers + real data + real customers + real outreach/appointments + real bounded negotiation + real navigation + real publishing + real outcomes + autonomous implementation acceptance.
 
 ↓ final Work independent audit
 
