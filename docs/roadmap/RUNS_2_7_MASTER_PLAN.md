@@ -252,7 +252,24 @@ Store:
 - capacity/cost telemetry;
 - explicit distinction between registered users, active users, concurrent users and concurrent heavy jobs.
 
-### C8. Disaster recovery
+### C8. Foundly Maps Geospatial Foundation
+- versioned road/network graph;
+- geospatial tiling/region partitioning;
+- lawful raw-map/source ingestion;
+- source attribution/licensing metadata;
+- conflation/conflict handling;
+- address/POI index foundation;
+- turn restrictions/speed limits/access attributes;
+- GPS probe and trip telemetry schema;
+- privacy-minimized location telemetry;
+- historical speed/traffic observations;
+- incident/community-report schema;
+- camera/section-control/speed-limit source schema where lawful;
+- map-data publish/version/rollback;
+- region coverage/freshness/confidence metadata;
+- no Google Maps/Waze production dependency.
+
+### C9. Disaster recovery
 - backup;
 - restore;
 - point-in-time recovery;
@@ -274,10 +291,10 @@ No PASS without:
 - Work independent audit.
 
 ## Planning active engineering
-**85–190 hours**
+**120–280 hours**
 
 ## OpenAI credit planning band
-**18,000–48,000 credits**
+**25,000–70,000 credits**
 
 ---
 
@@ -539,6 +556,38 @@ The same engine must produce coherent industry-specific experiences without cust
 - owner-controlled autonomy thresholds;
 - no in-place live-source mutation.
 
+## D22. Native Foundly Maps Platform
+Build the self-controlled navigation backend/runtime, separate from the mobile shell:
+- own versioned road graph;
+- map tile/style pipeline;
+- address/POI search indexes;
+- geocoding/reverse geocoding;
+- map matching;
+- routing engine;
+- alternative routes;
+- route matrix and multi-stop optimization;
+- turn instruction generation;
+- route restrictions/preferences;
+- ETA model;
+- historical traffic model;
+- live Foundly probe-speed fusion;
+- public/government traffic/closure feed fusion where lawful;
+- incident confidence/decay;
+- own Foundly community reporting network;
+- dynamic rerouting;
+- route explanation/provenance;
+- own Foundly Driver Alerts;
+- speed-limit intelligence;
+- fixed/section/mobile enforcement-alert handling where lawful;
+- jurisdiction policy engine;
+- offline-region preparation;
+- telemetry/evaluation pipeline;
+- CRM/Calendar/Sales/workforce route APIs;
+- ZERO navigation tools;
+- explicit prohibition on Google Maps/Waze runtime, routing, ETA, traffic and navigation dependencies.
+
+Benchmark sub-capabilities independently against current strongest Google Maps/Waze/TomTom/HERE/Mapbox/Flitsmeister-class references without making those products runtime dependencies.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -552,10 +601,10 @@ Every capability requires:
 - Work audit.
 
 ## Planning active engineering
-**430–960 hours**
+**560–1,250 hours**
 
 ## OpenAI credit planning band
-**100,000–260,000 credits**
+**140,000–340,000 credits**
 
 ---
 
@@ -587,18 +636,23 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - deep links;
 - mobile ZERO;
 - voice;
-- Foundly Navigation AI and Driver Intelligence;
+- Foundly Maps as a separate native installable navigation app and integrated OS capability;
 - own Foundly map/navigation UX and ZERO conversational layer;
-- provider-agnostic lawful map/geocoding/routing/traffic backends;
+- use the native Foundly Maps road graph, search, routing, ETA, traffic, incident and Driver Alerts services from Run 4;
+- no Google Maps/Waze runtime, routing, ETA, traffic or navigation dependency;
 - turn-by-turn guidance, ETA, alternatives and rerouting;
-- realtime traffic/incidents/closures/roadworks;
+- realtime Foundly traffic/incidents/closures/roadworks;
+- Foundly community reporting;
+- Foundly map corrections/feedback;
 - CRM/calendar/customer-visit route planning;
 - multi-stop optimization;
 - parking/fuel/EV charging stops;
 - arrival/late notifications;
 - lawful jurisdiction-aware speed-camera/section-control and road-hazard alerts;
 - location privacy, battery/data budgets and low-connectivity behavior;
-- geography-specific benchmark evidence against Google Maps/Waze/Flitsmeister-class behavior;
+- downloadable offline regions with local routing where accepted;
+- CarPlay/Android Auto or equivalent in-vehicle surfaces only where platform contracts allow;
+- geography-specific benchmark evidence against Google Maps/Waze/TomTom/HERE/Mapbox/Flitsmeister-class behavior, used as benchmarks only;
 - camera/photo/video capture;
 - uploads;
 - approvals;
@@ -629,10 +683,10 @@ Professional workflows may use cloud execution with a mobile control surface whe
 - Work independent audit.
 
 ## Planning active engineering
-**230–520 hours**
+**300–700 hours**
 
 ## OpenAI credit planning band
-**50,000–135,000 credits**
+**70,000–180,000 credits**
 
 ---
 
@@ -782,7 +836,26 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 - unsafe rerouting;
 - business-route permission leaks.
 
-## F10. Competitive benchmark closure
+## F10. Foundly Maps Independent Acceptance
+- verify production navigation succeeds with Google/Waze blocked/unavailable;
+- route-validity and route-optimality benchmark;
+- ETA MAE/MAPE/calibration against actual arrival;
+- live-traffic freshness/accuracy;
+- incident precision/recall and time-to-detection;
+- reroute latency and route stability;
+- map-matching accuracy;
+- turn/lane/speed-limit correctness;
+- Driver Alert precision/recall/false-positive rate where lawful;
+- community-report spam/abuse/decay;
+- offline-region install/update/routing;
+- battery/network/resource budgets;
+- privacy/location-retention tests;
+- low-connectivity and reconnect;
+- geospatial-data rollback/version recovery;
+- multi-tenant load of routing/traffic services;
+- geography-specific parity/superiority claims only where evidence supports them.
+
+## F11. Competitive benchmark closure
 Re-run current strongest competitor/model benchmarks shortly before release.
 
 Required closure levels:
@@ -794,7 +867,7 @@ Required closure levels:
 
 No stale competitor list is accepted.
 
-## F11. Localization/accessibility
+## F12. Localization/accessibility
 Complete the production surfaces and native-speaker/assistive-technology evidence required by the product contract.
 
 ## Run-6 closure
@@ -802,10 +875,10 @@ No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
 
 ## Planning active engineering
-**230–500 hours**
+**320–700 hours**
 
 ## OpenAI credit planning band
-**58,000–145,000 credits**
+**80,000–200,000 credits**
 
 ---
 
@@ -874,13 +947,18 @@ Where commercially/operationally available, use the intended Automotive/dealer e
 - learning retained without tenant leakage;
 - real CRM capture, next actions, pipeline and visual workflows.
 
-### G8. Real Navigation / Driver Intelligence
-- actual supported routes;
-- route/ETA comparison against current benchmark products;
-- live rerouting/incident tests;
-- lawful driver alerts;
+### G8. Real Foundly Maps / Driver Intelligence
+- actual supported routes using only the native Foundly Maps production stack;
+- prove Google Maps/Waze are not required at runtime;
+- route/ETA comparison against current benchmark products as external measurement only;
+- actual-arrival ETA calibration;
+- live Foundly traffic/rerouting/incident tests;
+- Foundly community reports;
+- lawful Foundly Driver Alerts;
 - CRM/calendar visit routing;
-- location privacy and low-connectivity evidence.
+- offline/low-connectivity behavior;
+- location privacy;
+- coverage/freshness/confidence evidence for the tested geography.
 
 ### G9. Real creative
 - image;
@@ -977,10 +1055,10 @@ Requires:
 - Work final audit.
 
 ## Planning active engineering
-**170–400 hours**
+**220–500 hours**
 
 ## OpenAI credit planning band
-**40,000–115,000 credits**
+**55,000–140,000 credits**
 
 ---
 
@@ -988,29 +1066,29 @@ Requires:
 
 ## Active engineering
 Run 2: 25–60 h
-Run 3: 85–190 h
-Run 4: 430–960 h
-Run 5: 230–520 h
-Run 6: 230–500 h
-Run 7: 170–400 h
+Run 3: 120–280 h
+Run 4: 560–1,250 h
+Run 5: 300–700 h
+Run 6: 320–700 h
+Run 7: 220–500 h
 
-**Total: approximately 1,170–2,630 active engineering hours.**
+**Total: approximately 1,545–3,490 active engineering hours.**
 
 This is not calendar time. Agentic parallel work, improved local hardware, reusable infrastructure and future model improvements can reduce active execution substantially. New defects, provider limitations, customer access and quality corrections can increase it.
 
 ## OpenAI credits
 Run 2: 6k–18k
-Run 3: 18k–48k
-Run 4: 100k–260k
-Run 5: 50k–135k
-Run 6: 58k–145k
-Run 7: 40k–115k
+Run 3: 25k–70k
+Run 4: 140k–340k
+Run 5: 70k–180k
+Run 6: 80k–200k
+Run 7: 55k–140k
 
 Raw subtotal:
-**272,000–721,000 OpenAI credits.**
+**376,000–948,000 OpenAI credits.**
 
 Recommended planning envelope after allowing for audit/rework overlap:
-**approximately 270,000–775,000 OpenAI credits.**
+**approximately 375,000–1,050,000 OpenAI credits.**
 
 This includes intended Codex implementation and Work audit activity at planning level.
 
@@ -1023,9 +1101,12 @@ It does **not** include:
 - ad spend;
 - customer hardware;
 - licenses;
-- external data providers.
+- external data providers;
+- map/road/POI/traffic/speed-limit/camera data licensing where open/public data is insufficient;
+- global map-tile/CDN/storage/bandwidth infrastructure;
+- large-scale probe/fleet/community acquisition required to reach Waze/Google-class live-traffic density in every geography.
 
-There is no honest finite mathematical maximum because future failures, changed model prices, new provider requirements, map/traffic-data coverage and customer acceptance cycles are unknown. **775k is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
+There is no honest finite mathematical maximum because future failures, changed model prices, geospatial data licensing/coverage, traffic probe density, map freshness and customer acceptance cycles are unknown. **1.05M is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
 
 Claude is intentionally excluded from the execution plan. Independent run-level review is performed by Work, backed by GitHub/CI, benchmark suites, deterministic security tooling and real acceptance evidence.
 
@@ -1061,17 +1142,17 @@ Finish current ZERO + Automotive/E-commerce acceptance.
 ↓ Work audit
 
 **RUN 3**
-Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + outcome/benchmark substrate + DR.
+Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + Foundly Maps geospatial/telemetry substrate + outcome/benchmark substrate + DR.
 
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + private Founder Agency Home (Email/Calendar/Control Panel/Marketing/Media/Social/Finance/AI Models/Gaming) + single centralized Owner Control Panel + Continuous Self-Healing Engineering + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + composition matrix.
+Autonomous Control Plane + private Founder Agency Home (Email/Calendar/Control Panel/Marketing/Media/Social/Finance/AI Models/Gaming) + single centralized Owner Control Panel + Continuous Self-Healing Engineering + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + native Foundly Maps backend/routing/traffic/community/Driver-Alerts platform + composition matrix.
 
 ↓ Work independent audit
 
 **RUN 5**
-Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + Foundly Navigation AI/Driver Intelligence for the complete OS.
+Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps navigation app/clients + Foundly Driver Alerts, using no Google Maps/Waze runtime dependency.
 
 ↓ Work independent audit
 
