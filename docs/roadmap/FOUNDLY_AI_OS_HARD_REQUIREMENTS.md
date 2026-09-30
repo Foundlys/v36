@@ -911,6 +911,141 @@ Calendar × CRM × Sales × Navigation × Traffic × Weather × Parking/Charging
 
 ZERO must explain route-affecting evidence and uncertainty.
 
+
+## Foundly Maps monetization & growth model
+
+Foundly Maps must launch with a **freemium growth model**, not a paid-download-first model.
+
+The commercial objective is to maximize:
+- legitimate installs;
+- active navigation users;
+- first-party route/traffic probe density where the user has authorized collection;
+- community incident/report density;
+- retention;
+- premium conversion;
+- Business conversion;
+- cross-sell into the wider Foundly OS.
+
+A free app-store download produces **no direct revenue by itself**. Foundly must therefore optimize **lifetime value per install (LTV/install)**, not vanity download count.
+
+### Foundly Maps Free
+
+The free tier should provide a genuinely useful core product, including where accepted/supported:
+- turn-by-turn navigation;
+- route alternatives;
+- live traffic/confidence where available;
+- basic Foundly Driver Alerts;
+- community reports;
+- basic ZERO navigation assistance;
+- basic favorites/history subject to privacy settings;
+- limited or practical offline capability.
+
+The free tier must be strong enough to support adoption and the network-effect flywheel. It must not be intentionally crippled in a way that destroys route quality, safety, trust or community growth.
+
+### Foundly Maps Premium
+
+Initial commercial planning target:
+**approximately EUR 7.99-12.99 per month**, subject to launch-time pricing experiments, taxes, jurisdiction, store rules, market willingness-to-pay and competitor benchmarks.
+
+Premium may include:
+- advanced ZERO navigation;
+- deeper route reasoning/explanations;
+- premium Driver Alert controls/intelligence;
+- expanded offline regions;
+- advanced route intelligence;
+- predictive traffic/ETA features where evidence supports them;
+- advanced personalization;
+- richer Calendar integration;
+- advanced route planning;
+- premium convenience features that do not reduce safety for free users.
+
+Pricing is a planning band, not a permanent fixed price.
+
+### Foundly Maps Business
+
+Foundly Maps must also support a higher-value Business offering integrated with Foundly OS.
+
+Initial commercial planning target:
+**approximately EUR 20-50+ per user per month**, dependent on included capability and customer segment.
+
+Business functionality may include:
+- CRM/customer-visit routing;
+- field-sales routing;
+- workforce/field-service planning;
+- multi-stop optimization;
+- team/territory routing;
+- fleet/workday coordination;
+- manager/admin controls;
+- business analytics;
+- arrival/late workflows;
+- Calendar/CRM/Sales integration;
+- ZERO Business planning and orchestration;
+- enterprise identity, permissions, audit and policy.
+
+Foundly Maps may also act as an acquisition surface for wider Foundly OS subscriptions where commercially appropriate.
+
+### Network-effect flywheel
+
+Subject to explicit privacy/consent controls and lawful processing:
+
+**more active users
+-> more first-party probe/report evidence
+-> better traffic/incident confidence
+-> better ETA/routing
+-> better user experience
+-> stronger retention
+-> more users**
+
+This network effect is strategically important. Monetization must not sabotage it.
+
+### LTV/install objective
+
+Foundly should optimize measured:
+- install -> activation;
+- activation -> retained active user;
+- active user -> Premium conversion;
+- active user -> Business lead/conversion;
+- ARPU;
+- gross margin;
+- churn;
+- CAC;
+- payback period;
+- cohort LTV;
+- LTV/install.
+
+An initial strategic ambition may be **EUR 5-15+ lifetime value per install** when consumer subscription, business conversion and wider Foundly cross-sell are combined, but this is a **target to validate**, never a guaranteed forecast.
+
+### App-store economics
+
+Apple App Store / Google Play fees, billing rules, taxes and alternative-payment rules must be re-verified at launch time and by jurisdiction.
+
+Do not hard-code current store commission assumptions into permanent unit economics.
+
+The pricing engine/business model must support:
+- platform-specific fees;
+- taxes/VAT;
+- promotions/trials;
+- annual plans;
+- regional pricing;
+- direct Business sales where allowed;
+- margin reporting after payment/platform costs.
+
+### Location-data commercial boundary
+
+Foundly must not sell raw personal location history or silently monetize personal route history.
+
+Location/probe telemetry used to improve traffic/navigation must be:
+- lawful;
+- purpose-limited;
+- minimized;
+- consented/authorized where required;
+- protected by retention controls;
+- separated from advertising/personal-business contexts unless explicitly permitted;
+- auditable and deletable according to applicable rights.
+
+Commercial success may never override Foundly's truthful-state, privacy, safety or permission laws.
+
+
 ## Dynamic component benchmarks
 
 Foundly Maps must benchmark each material sub-capability independently against the strongest current specialist/product/model for that exact capability.
