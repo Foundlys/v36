@@ -2964,7 +2964,7 @@ Must include:
 - marketing/website/SEO/ads;
 - Photo/Video;
 - Finance/yield/cash-flow scenarios;
-- maps/location intelligence;
+- Google Maps/Waze-backed location intelligence;
 - supplier/vendor ecosystem for inspection, maintenance and services;
 - analytics.
 
@@ -3257,7 +3257,7 @@ With current authorization and approval, an accepted opportunity may hand off di
 - Calendar;
 - Communication;
 - Automation;
-- Maps;
+- Google Maps/Waze navigation integration;
 - the relevant Industry System.
 
 Examples:
@@ -3459,7 +3459,7 @@ For each material change Foundly must identify, where applicable:
 - affected HR/workforce workflows;
 - affected AI/automation behavior;
 - affected privacy/security/retention;
-- affected Maps/location processing;
+- affected navigation/location processing;
 - affected Supplier/Procurement;
 - affected sales/e-commerce/consumer obligations;
 - affected sector-specific workflows.
@@ -3772,7 +3772,7 @@ The engine must be able to generate and apply, under policy:
 - Opportunity Intelligence objectives;
 - Supplier Intelligence rules;
 - Regulatory/Legal profiles;
-- Maps/location policies;
+- navigation/location policies;
 - industry-specific workflows.
 
 Configuration changes must be versioned and rollbackable.
@@ -4207,9 +4207,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 - mobile/desktop/voice Foundly Opportunity Intelligence app and embedded Opportunity Inbox;
 - mobile/desktop/voice Regulatory & Legal Intelligence app with regulatory-change inbox, obligations, deadlines and remediation;
 - mobile/desktop experiences for all six enterprise Industry Systems;
-- Foundly Navigation AI and Driver Intelligence;
+- ZERO Navigation Orchestration over configured Google Maps/Waze providers;
 - route-aware CRM/calendar/workforce workflows;
-- jurisdiction-aware lawful driver alerts;
 - mobile creative/growth/sales workflows;
 - standalone-app and multi-app install/update/relaunch/offline/recovery requirements.
 
