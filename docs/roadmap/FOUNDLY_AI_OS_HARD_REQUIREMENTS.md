@@ -2291,6 +2291,73 @@ The founder-only Agency Home must be usable as the founder's real personal/busin
 
 Where provider integrations are unavailable or not yet authorized, the relevant module must remain usable at the highest truthful local/integrated level and show explicit provider state rather than block the entire Agency Home or simulate external connectivity.
 
+### Continuous Founder Dogfood & Showcase Law
+
+After the Private Founder Agency Home and CRM are completed, every later Foundly capability that reaches its applicable accepted release state must be continuously integrated into the founder environment.
+
+The founder environment must never become a stale early snapshot of Foundly.
+
+Required release channels:
+- LAB;
+- CANARY/PREVIEW;
+- STABLE.
+
+Only evidence-backed accepted artifacts may automatically reach STABLE. Experimental/incomplete work must remain explicitly LAB or CANARY/PREVIEW.
+
+The Single Control Panel must show per capability:
+- version/build;
+- commit/source;
+- release channel;
+- acceptance state;
+- benchmark state;
+- provider state;
+- CI/eval state;
+- known defects/limitations;
+- deployment status;
+- demo/teaser readiness;
+- latest known-good artifact;
+- rollback control.
+
+### Founder testing law
+
+The founder must be able to test newly proven or preview-ready features without destabilizing the daily stable environment.
+
+Required:
+- version/channel switching where safe;
+- isolated demo/test data;
+- deterministic reset/reseed;
+- safe external-side-effect simulation where required;
+- founder feedback capture;
+- regression evidence;
+- immediate return to STABLE;
+- no silent production mutation.
+
+### Founder Teaser / Preview Studio Law
+
+The founder must be able to create production-faithful teasers for online advertising/social promotion from accepted Foundly product surfaces.
+
+Supported outputs should include where technically appropriate:
+- screenshots;
+- screen recordings;
+- short feature videos;
+- guided product walkthroughs;
+- before/after comparisons;
+- branded device/product compositions;
+- ZERO interaction captures;
+- social/ad aspect-ratio exports;
+- integration with Foundly Photo, Video and Ads capabilities as they become accepted.
+
+All promotional capture must obey:
+- no secrets/credentials;
+- no unauthorized personal/customer data;
+- redact or use synthetic production-faithful demo data;
+- truthful LIVE/CONNECTED/READY state;
+- no fabricated provider outcomes;
+- no unsupported benchmark/superiority claims;
+- no visual edit that creates functionality that does not exist.
+
+The Teaser / Preview Studio may present an accepted feature attractively, but may never convert a roadmap aspiration into a product claim.
+
 ### CRM hard-requirement preservation
 
 CRM-first prioritization changes sequence only.
