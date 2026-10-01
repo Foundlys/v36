@@ -17,6 +17,117 @@ The planning estimates below are conditional engineering-budget ranges, not prom
 
 ---
 
+# EXECUTION PRIORITY OVERRIDE — FOUNDER AGENCY HOME FIRST, CRM SECOND
+
+This priority order is authoritative for execution sequencing. It does **not** create a new foundational run, waive existing acceptance gates, or change the final Runs 2–7 scope.
+
+## P0. Private Founder Agency Home + Single Control Panel — complete first
+
+Before continuing broad horizontal expansion, complete the founder-only Agency Home and its embedded Single Control Panel as a production-usable daily operating environment for the founder.
+
+The objective is that the founder can immediately use Foundly to:
+- operate personal and Foundly-business workflows;
+- track development/run progress;
+- inspect current repository/PR/CI/acceptance truth;
+- monitor apps/modules/agents/environments;
+- inspect cost/performance/security/benchmark/acceptance state;
+- review incidents/self-healing activity;
+- view approvals, risks, opportunities and blockers;
+- use ZERO as the omnipresent personal/business assistant;
+- use Email, Calendar, Marketing, Media, Social, Finance, Foundly AI Models and Gaming according to provider availability and authorized integrations;
+- drill from portfolio -> app/module -> service/workflow -> evidence/incident -> action/approval;
+- access the experience from the supported desktop/web/mobile surfaces promised for this founder-only product.
+
+### P0 dependency rule
+
+P0 may pull forward only the shared capabilities required to make the founder environment genuinely production-usable, such as:
+- secure founder identity/session;
+- personal/business context separation;
+- current permissions/authorization;
+- source/provenance;
+- current repository/CI/acceptance ingestion;
+- app/module registry;
+- telemetry/observability contracts;
+- approvals;
+- cost/usage telemetry;
+- ZERO context/action contracts;
+- provider integration contracts;
+- recovery/audit;
+- install/relaunch/mobile shell where required.
+
+P0 must **not** trigger a broad premature rebuild of all Run-3/Run-4/Run-5 foundations.
+
+Where a later-run subsystem is not yet production-complete, the Control Panel must show its truthful state (for example NOT_BUILT, PARTIAL, UNVERIFIED, DEGRADED, BLOCKED) rather than fabricating live capability.
+
+### P0 completion
+
+P0 is complete only when:
+- the Agency Home is a real daily-use environment, not a mockup/demo shell;
+- the Single Control Panel reads authoritative current state;
+- ZERO works across authorized founder modules with personal/business boundary protection;
+- desktop/web and agreed mobile access are usable;
+- critical owner actions are auditable/recoverable;
+- provider limitations remain truthful;
+- run/CI/acceptance progress can be followed from the Control Panel;
+- material P0 acceptance gates are PASS.
+
+After P0 closes, preserve it as the founder's permanent cockpit for all subsequent Foundly development.
+
+## P1. Foundly CRM — complete second
+
+After P0, complete Foundly CRM as the first fully finished standalone customer product.
+
+CRM must be built as a complete vertical slice on shared Foundly Core:
+- canonical account/contact/lead/opportunity/activity model;
+- relationship graph;
+- pipelines/stages;
+- tasks/next actions;
+- communication timeline;
+- calendar/meeting integration;
+- search/filter/sort/saved views;
+- table/card/board/pipeline experiences;
+- inline/bulk edit;
+- imports/exports;
+- duplicate/conflict handling;
+- source/provenance;
+- roles/permissions/entitlements;
+- approvals where applicable;
+- automation;
+- ZERO embedded contextually;
+- enrichment where authorized;
+- pipeline hygiene;
+- next-best action;
+- deal risk/forecast support;
+- interaction/call/meeting intelligence where provider support exists;
+- Data & Knowledge Intelligence hooks;
+- Market/Opportunity/Sales/Finance/Communication/Calendar integration contracts;
+- audit/recovery/idempotency;
+- localization/accessibility/performance;
+- web/desktop/mobile surfaces promised for CRM;
+- install/relaunch/recovery;
+- production-faithful hyper-perfect CRM demo;
+- standalone pricing/entitlement readiness;
+- current strongest CRM sub-capability benchmark matrix.
+
+### P1 benchmark rule
+
+CRM may only be labelled BEST_IN_CLASS / HYPER_PERFECT when all material CRM sub-capabilities meet the global provable-superiority law. Until then, use truthful states such as PARITY, PARTIAL, BELOW_PARITY or UNVERIFIED.
+
+### P1 completion
+
+P1 closes only when the standalone CRM is genuinely usable by a real authorized organization and its required production, demo, benchmark, security, recovery, device and ZERO gates are satisfied.
+
+## After P1
+
+Resume the existing authoritative Runs 2–7 masterplan from the next unresolved dependency/gate.
+
+Do not restart the program.
+Do not rebuild P0/P1.
+Do not change the remaining scope merely because these two products were completed early.
+Reuse their shared Core contracts as proven implementation patterns for subsequent apps and Industry Systems.
+
+---
+
 # A. EXECUTION OPERATING SYSTEM
 
 ## A1. Source of truth
