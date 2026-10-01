@@ -292,6 +292,21 @@ Store:
 - connector registry, credentials metadata, scopes, mappings, sync state, rate limits and readiness state;
 - no LIVE/CONNECTED state without runtime verification.
 
+### C11. Opportunity Intelligence Data Foundation
+- universal Opportunity Ledger;
+- opportunity type, objective, expected-value and risk schemas;
+- internal signal snapshots;
+- external market-signal snapshots with provenance/freshness/confidence;
+- inventory/price/cost/margin/demand/capacity/customer/supplier/market time series;
+- prediction and confidence intervals;
+- scenario assumptions;
+- counterfactual/base-case records;
+- recommended/accepted/rejected/executed opportunity lifecycle;
+- realized outcome tracking;
+- attribution and cannibalization fields;
+- model/version provenance;
+- industry-specific opportunity extensions for all six Industry Systems.
+
 ## Run-3 closure
 No PASS without:
 - migration/rollback evidence;
@@ -479,8 +494,15 @@ Required demo products include, where launched:
 - Photo Studio;
 - Video Studio;
 - Foundly Maps;
+- Supplier Intelligence;
+- Product / Asset / Offer Finder;
+- Opportunity Intelligence / Opportunity Finder;
 - Automotive Industry Pack;
 - E-commerce Industry Pack;
+- Retail Industry Pack;
+- Real Estate / Vastgoed Industry Pack;
+- Agency Industry Pack;
+- Manufacturing / Wholesale Industry Pack;
 - future standalone modules and Industry Packs.
 
 The Demo Factory must provide:
@@ -759,6 +781,23 @@ For each of the six Industry Systems:
 - documentation and guided onboarding;
 - truthful CONNECTOR_READY versus CONNECTED/LIVE state.
 
+## D30. Foundly Opportunity Intelligence / Opportunity Finder
+Build the universal Core engine and standalone app:
+- continuous Opportunity Ledger;
+- cross-module internal/external signal assembly;
+- revenue/profit/margin/ROI/cash/inventory-turn opportunity detection;
+- scenario and sensitivity engine;
+- expected-value/confidence/risk/time-to-value ranking;
+- evidence/provenance and why-now explanations;
+- objective-based ranking;
+- Opportunity Inbox;
+- on-demand ZERO natural-language/voice queries;
+- configurable proactive alerts;
+- action handoff to Supplier Intelligence, Product Finder, Procurement, Sales, CRM, Negotiation, Finance, Marketing, SEO, Ads, Website, Calendar, Communication, Automation, Maps and Industry Systems;
+- realized-outcome capture and recalibration;
+- standalone Foundly Opportunity Intelligence app identity, entitlement, demo and benchmark suite;
+- separate vertical models/evals for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -810,6 +849,9 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - six Industry Systems receive complete mobile/desktop role surfaces for all workflows advertised on those device classes;
 - Supplier Intelligence supports voice-driven search, compare, RFx, follow-up, negotiation and scheduling with current authority;
 - Product/Asset/Offer Finder supports industry-specific mobile search/compare/action workflows;
+- standalone Foundly Opportunity Intelligence app on supported mobile/desktop surfaces;
+- voice query examples such as best profit opportunities, margin leaks, stock actions, customer upsell and market-entry opportunities;
+- Opportunity Inbox with evidence, confidence, scenario and action controls;
 - Foundly Maps as a separate native installable navigation app and integrated OS capability;
 - Free/Premium/Business entitlement surfaces and store-ready subscription UX;
 - own Foundly map/navigation UX and ZERO conversational layer;
@@ -1079,6 +1121,25 @@ Complete the production surfaces and native-speaker/assistive-technology evidenc
 - enterprise load, tenant isolation, accessibility, localization and recovery;
 - no HYPER_PERFECT/SELLABLE/ENTERPRISE_READY claim with material FAIL or UNVERIFIED gates.
 
+## F15. Opportunity Intelligence Red Team
+- false opportunity and false-positive suppression;
+- stale/incomplete market data;
+- unknown values not treated as zero;
+- revenue versus profit/margin conflict;
+- cannibalization and double-counting;
+- unrealistic demand assumptions;
+- incorrect cost/COGS/tax/currency treatment;
+- confidence/calibration;
+- sensitivity/what-if correctness;
+- opportunity ranking under capital/capacity constraints;
+- adversarial market signals;
+- permission/tenant/source leakage;
+- unauthorized execution;
+- duplicate actions on retries;
+- realized outcome versus predicted interval;
+- separate benchmark suites for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
+- standalone app demo and benchmark acceptance.
+
 ## Run-6 closure
 No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
@@ -1317,6 +1378,19 @@ For Foundly Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturin
 
 The foundational program is not commercially complete until all six systems have resolved their required acceptance matrices or carry an explicit, truthful external-provider exception that does not masquerade as completed live integration.
 
+### G21. Real Opportunity Intelligence Acceptance
+For representative authorized businesses and verticals:
+- ingest real inventory/cost/margin/customer/supplier/market signals;
+- surface real ranked opportunities;
+- verify financial calculations and evidence;
+- let users query opportunities by text and voice;
+- execute selected opportunities through governed Foundly modules;
+- measure predicted versus realized revenue/profit/margin/time-to-value;
+- measure false positives and missed opportunities where observable;
+- prove learning/recalibration without tenant leakage;
+- validate Opportunity Intelligence independently for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
+- no commercial superiority claim without current benchmark/outcome evidence.
+
 ## Run-7 closure
 Requires:
 - real external evidence;
@@ -1426,22 +1500,22 @@ Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + six enterprise Industry Systems + connector packs + composition/demo factories.
+Autonomous Control Plane + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + Foundly Opportunity Intelligence standalone/embedded engine + six enterprise Industry Systems + connector packs + composition/demo factories.
 
 ↓ Work independent audit
 
 **RUN 5**
-Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps + voice-driven Supplier Intelligence + Product/Asset/Offer Finder + mobile/desktop experiences for all six Industry Systems.
+Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps + voice-driven Supplier Intelligence + Product/Asset/Offer Finder + standalone/embedded Opportunity Intelligence + mobile/desktop experiences for all six Industry Systems.
 
 ↓ Work independent audit
 
 **RUN 6**
-Full-stack red team + self-healing/autonomous-release red team + Supplier/Finder/connector red team + all six Industry Systems independently benchmarked and demo-accepted + zero-downtime/canary/rollback/failover + 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
+Full-stack red team + self-healing/autonomous-release red team + Supplier/Finder/Opportunity/connector red team + all standalone apps and all six Industry Systems independently benchmarked and demo-accepted + zero-downtime/canary/rollback/failover + 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
 
 ↓ Work independent audit
 
 **RUN 7**
-Real Owner Command Center + real self-healing/release proof + real providers/data/customers + real Supplier Intelligence/RFx/negotiation + real Product/Asset Finder + real connector acceptance + real-world acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale + real outcomes + autonomous implementation acceptance.
+Real Owner Command Center + real self-healing/release proof + real providers/data/customers + real Supplier Intelligence/RFx/negotiation + real Product/Asset Finder + real Opportunity Intelligence and outcome calibration + real connector acceptance + real-world acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale + real outcomes + autonomous implementation acceptance.
 
 ↓ final Work independent audit
 
