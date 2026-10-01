@@ -3825,6 +3825,375 @@ No Foundly system may be called HYPER_PERFECT, SELLABLE or ENTERPRISE_READY if a
 
 ---
 
+# 10U. FOUNDLY AUTONOMOUS IMPLEMENTATION & CONTINUOUS CUSTOMER EVOLUTION LAW
+
+Foundly Core must contain a universal **Autonomous Implementation Engine**, operated by ZERO and the Control Plane.
+
+Its purpose is to take an authorized new customer from current-state discovery to a production-ready Foundly environment with as little routine human implementation work as technically and legally safe, and then continuously keep that implementation aligned as the customer's organization, systems, data, processes, regulations and Foundly capabilities change.
+
+This is not a scripted onboarding wizard and not a consultancy checklist. It is a governed implementation system.
+
+## End-to-end implementation lifecycle
+
+The canonical lifecycle is:
+
+**AUTHORIZE -> DISCOVER -> INTERVIEW -> MODEL BUSINESS -> DISCOVER STACK -> MAP DATA/SOURCES -> ASSESS QUALITY -> SELECT INDUSTRY SYSTEM -> COMPOSE CAPABILITIES -> PLAN CONNECTORS -> MAP ROLES/PERMISSIONS -> MAP WORKFLOWS -> MIGRATION PLAN -> SIMULATE -> IMPLEMENT -> MIGRATE -> CONFIGURE -> CONNECT -> TEST -> USER ACCEPTANCE -> CUTOVER -> VERIFY -> OBSERVE -> OPTIMIZE -> CONTINUOUSLY EVOLVE**
+
+Every phase must preserve source/provenance, approvals, rollback and truthful state.
+
+## Autonomous business discovery
+
+ZERO must be able to conduct a structured natural-language and voice implementation interview with authorized customer stakeholders.
+
+It must discover and model:
+- organization/legal entities;
+- locations;
+- teams/departments;
+- users/roles;
+- business model;
+- products/services/assets;
+- customers/segments;
+- suppliers;
+- revenue processes;
+- procurement processes;
+- finance/accounting context;
+- inventory/operations;
+- marketing/sales channels;
+- websites/domains;
+- data sources;
+- systems/applications;
+- integrations;
+- reporting/KPIs;
+- approval chains;
+- policies;
+- regulatory profile;
+- automation needs;
+- device/mobile/workforce needs;
+- industry-specific workflows;
+- stated pain points/objectives;
+- migration/cutover constraints.
+
+ZERO must distinguish customer statements, observed system facts, inferred relationships and unknowns.
+
+## Autonomous Stack Discovery
+
+With explicit authorization, Foundly must discover the customer's current technology/data landscape through supported APIs, exports, schemas, documentation and governed observation.
+
+Discovery must capture:
+- systems and providers;
+- versions where available;
+- identities/accounts;
+- APIs;
+- webhooks;
+- schemas;
+- entities/fields;
+- data volumes;
+- permissions/scopes;
+- source-of-truth ownership;
+- duplicates/conflicts;
+- data quality;
+- retention constraints;
+- integration dependencies;
+- custom fields/workflows;
+- authentication patterns;
+- rate limits;
+- connector availability;
+- unsupported/legacy surfaces.
+
+No system may be called discovered/connected when only guessed from an interview.
+
+## Customer Digital Twin and Implementation Blueprint
+
+Foundly must create a versioned **Customer Implementation Digital Twin** and an executable **Implementation Blueprint** containing:
+- current-state architecture;
+- target-state Foundly architecture;
+- selected Industry System;
+- selected standalone apps/modules;
+- capability composition;
+- organizational/role model;
+- source-authority matrix;
+- data mappings;
+- workflow mappings;
+- connector plan;
+- migration plan;
+- automation plan;
+- permissions;
+- compliance obligations;
+- training/adoption needs;
+- cutover strategy;
+- rollback strategy;
+- risks/blockers;
+- expected implementation cost/time;
+- acceptance criteria;
+- evidence requirements.
+
+The blueprint must be reproducible, reviewable and versioned.
+
+## Automatic Industry System selection and composition
+
+Foundly must detect/recommend the correct base composition from:
+- Foundly Automotive;
+- Foundly E-commerce;
+- Foundly Retail;
+- Foundly Real Estate;
+- Foundly Agency;
+- Foundly Manufacturing/Wholesale;
+- or a governed cross-industry composition.
+
+Selection must never create a customer fork.
+
+ZERO may enable/disable and configure shared capabilities according to the customer's actual needs, entitlements, regulatory profile and role structure.
+
+## Autonomous configuration
+
+The engine must be able to generate and apply, under policy:
+- tenant configuration;
+- roles/permissions;
+- teams/departments;
+- fields/views/layouts;
+- pipelines/stages;
+- approval chains;
+- automation rules;
+- notifications;
+- dashboards;
+- reports;
+- Finance configuration;
+- Procurement configuration;
+- CRM structures;
+- product/inventory schemas;
+- calendars;
+- templates;
+- communication settings;
+- website/brand configuration;
+- SEO/Ads/Marketing configuration;
+- Opportunity Intelligence objectives;
+- Supplier Intelligence rules;
+- Regulatory/Legal profiles;
+- Maps/location policies;
+- industry-specific workflows.
+
+Configuration changes must be versioned and rollbackable.
+
+## Autonomous connector implementation and setup
+
+Where a reusable connector already exists, the engine must:
+- identify it;
+- configure authentication/setup;
+- request only required scopes;
+- map schemas;
+- test sandbox/readiness;
+- run initial sync;
+- verify counts/checksums/business invariants;
+- enable incremental sync/webhooks/polling;
+- verify provider-loss/reconnect behavior.
+
+Where no connector exists but a lawful documented interface is available, Foundly may generate a reusable connector/adapter through the governed Self-Implementation Engineering pipeline:
+- inspect authoritative provider documentation/schema;
+- create adapter in isolated workspace;
+- generate contract tests;
+- security/review checks;
+- sandbox verification;
+- publish as a versioned reusable Foundly connector;
+- then configure it for the customer.
+
+The engine must not bypass provider access controls, terms, authentication or licensing.
+
+A generated connector must never become a hidden one-customer fork.
+
+## Autonomous data migration
+
+The engine must support governed migration of authorized data:
+- extract;
+- normalize;
+- deduplicate;
+- resolve identities;
+- validate types/constraints;
+- preserve source identifiers/provenance;
+- map entities/relationships;
+- transform values;
+- reconcile financial/business totals;
+- stage;
+- dry-run;
+- compare;
+- import;
+- verify;
+- report exceptions;
+- rerun idempotently;
+- rollback where supported.
+
+Financial, identity, permission and regulatory records require stricter reconciliation gates.
+
+Foundly may not silently discard records that fail migration.
+
+## Autonomous workflow/process implementation
+
+ZERO must translate observed/current workflows and desired outcomes into Foundly workflows using shared capabilities.
+
+It may:
+- recreate justified workflows;
+- simplify redundant steps;
+- propose improved processes;
+- automate routine steps;
+- connect cross-module actions;
+- preserve required controls/approvals;
+- create tests from business examples.
+
+It must not blindly copy legacy complexity.
+
+The system must show:
+- current process;
+- proposed process;
+- rationale;
+- changed controls;
+- expected time/cost/value impact;
+- acceptance evidence.
+
+## Gap-to-capability engineering
+
+When implementation discovers a genuine reusable Foundly capability gap, the engine may initiate the governed engineering lifecycle:
+
+**GAP -> REQUIREMENT -> BENCHMARK -> DESIGN -> ISOLATED IMPLEMENTATION -> TEST -> SECURITY -> ACCEPTANCE -> RELEASE -> ENABLE**
+
+This may create:
+- reusable connector;
+- reusable mapping;
+- reusable workflow primitive;
+- reusable Industry Pack capability;
+- generic Core improvement.
+
+It may not create an undocumented customer-only fork.
+
+High-risk code changes remain subject to the normal approval tier.
+
+## Cutover and go-live
+
+The implementation engine must support:
+- rehearsal/dry run;
+- migration freeze window where required;
+- delta sync;
+- readiness gates;
+- user/role readiness;
+- connector health;
+- acceptance suite;
+- backup/restore point;
+- cutover;
+- post-cutover verification;
+- rollback trigger;
+- hypercare monitoring.
+
+Foundly must not declare GO_LIVE until all required authoritative gates pass.
+
+## Continuous implementation after go-live
+
+Autonomous implementation does not stop at initial onboarding.
+
+Foundly must continuously detect implementation drift such as:
+- new users/teams;
+- role changes;
+- new products/services;
+- new locations;
+- new systems/providers;
+- connector schema/API changes;
+- broken mappings;
+- new business processes;
+- changed customer objectives;
+- regulation changes;
+- data-quality degradation;
+- workflow bottlenecks;
+- new Foundly capabilities;
+- industry benchmark improvements.
+
+It must then propose or safely execute reconfiguration, migration, connector updates and workflow improvements through the same governed lifecycle.
+
+## Implementation autonomy tiers
+
+DISCOVER:
+- read/observe/model only.
+
+PLAN:
+- generate blueprint and proposed changes.
+
+PREPARE:
+- create configs/mappings/connectors/migrations in non-production environments.
+
+EXECUTE:
+- apply pre-authorized low/medium-risk implementation actions.
+
+CUTOVER:
+- production go-live only when required approvals and acceptance gates pass.
+
+CONTINUOUS:
+- monitor drift and maintain approved implementation state.
+
+High-risk actions involving finance, destructive migration, auth/permissions, legal/compliance, billing, irreversible data changes or material spend require explicit approval unless a bounded pre-approved runbook exists.
+
+## Autonomous implementation experience
+
+The customer must be able to start with a natural-language/voice goal such as:
+- "Implementeer Foundly voor ons autobedrijf met twee vestigingen en 14 medewerkers."
+- "Migreer onze CRM uit Salesforce en onze webshop uit Shopify zonder historische data kwijt te raken."
+- "Koppel onze ERP, boekhouding en voorraad en maak Foundly Manufacturing klaar voor productie."
+- "Neem onze bestaande processen over, maar verbeter wat onnodig handmatig is."
+
+ZERO must show:
+- discovery progress;
+- findings;
+- open questions;
+- target architecture;
+- implementation plan;
+- dependencies;
+- permissions required;
+- cost;
+- risk;
+- actions;
+- tests;
+- migration status;
+- blockers;
+- approvals;
+- cutover readiness;
+- evidence.
+
+## Dynamic benchmarks
+
+Autonomous Implementation must be benchmarked by sub-capability against the strongest current specialist/platform/model at execution time.
+
+Initial benchmark families include:
+- SAP agent-led transformation / migration-and-modernization tooling for system analysis, configuration, remediation and testing;
+- Microsoft Dynamics 365 Activate-class AI-powered environment analysis, configuration generation and migration execution;
+- Palantir AIP-class enterprise data migration/contextual operationalization;
+- ServiceNow/Accenture forward-deployed and AI-platform implementation patterns;
+- strongest current migration, integration, process-mining, enterprise-architecture and implementation automation specialists/models.
+
+Benchmarks are references only and may not become hidden runtime dependencies.
+
+## Autonomous implementation acceptance
+
+Acceptance must independently measure:
+- discovery completeness/precision;
+- source-of-truth mapping correctness;
+- schema mapping correctness;
+- migration completeness;
+- reconciliation accuracy;
+- duplicate prevention;
+- role/permission correctness;
+- connector readiness;
+- workflow correctness;
+- configuration correctness;
+- implementation time/user effort;
+- rollback/recovery;
+- data-loss rate;
+- unsupported-state truthfulness;
+- security/privacy;
+- regulatory applicability;
+- customer acceptance;
+- post-go-live drift detection;
+- successful autonomous maintenance;
+- reusable-gap implementation without customer forks.
+
+No Foundly Industry System or Enterprise offering may be called AUTONOMOUS_IMPLEMENTATION_READY while material required gates are FAIL or UNVERIFIED.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
