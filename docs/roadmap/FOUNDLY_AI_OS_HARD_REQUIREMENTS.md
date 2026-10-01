@@ -1281,6 +1281,7 @@ This includes, where product scope makes the capability independently useful:
 - Foundly Supplier Intelligence;
 - Foundly Product / Asset / Offer Finder;
 - Foundly Opportunity Intelligence / Opportunity Finder;
+- Foundly Regulatory & Legal Intelligence / Compliance Autopilot;
 - Foundly Calendar / Agenda;
 - Foundly Communication;
 - Foundly Automation;
@@ -2602,6 +2603,7 @@ At minimum, separate complete demos are required for every sellable Foundly prod
 - Supplier Intelligence / Autonomous Sourcing;
 - Product / Asset / Offer Finder;
 - Opportunity Intelligence / Opportunity Finder;
+- Regulatory & Legal Intelligence / Compliance Autopilot;
 - every future Industry Pack;
 - every future standalone module/app.
 
@@ -3539,6 +3541,290 @@ No Industry System may be HYPER_PERFECT, SELLABLE or ENTERPRISE_READY while its 
 
 ---
 
+# 10T. FOUNDLY REGULATORY & LEGAL INTELLIGENCE / COMPLIANCE AUTOPILOT LAW
+
+Foundly Core must contain a universal **Regulatory & Legal Intelligence engine**, exposed as the standalone **Foundly Regulatory & Legal Intelligence / Compliance Autopilot app** and embedded into every Foundly module and Industry System.
+
+The objective is to keep Foundly and each customer continuously aware of applicable legal/regulatory change, automatically map changes to affected business processes, controls, policies, data, workflows and product behavior, and apply safe, evidence-backed updates with minimal routine human maintenance.
+
+The system must never represent a legal interpretation as certain when the source, applicability or interpretation is ambiguous.
+
+## Official-source-first regulatory universe
+
+Foundly must maintain a versioned regulatory universe using authoritative sources wherever available, including:
+- legislation and official gazettes;
+- regulator publications;
+- official guidance;
+- enforcement notices;
+- consultations/proposals;
+- court or tribunal decisions where relevant and legally appropriate;
+- tax authority publications;
+- standards/regulatory technical standards where applicable;
+- sector-specific authorities;
+- official EU and national legal databases;
+- lawful licensed regulatory-intelligence feeds.
+
+Every regulatory object must retain:
+- jurisdiction;
+- authority;
+- source URL/reference;
+- publication date;
+- legal status;
+- proposal/draft/adopted/in-force/repealed/superseded state;
+- effective date;
+- transition period;
+- applicability criteria;
+- affected sectors;
+- affected processes/data/products;
+- version;
+- source provenance;
+- freshness;
+- confidence;
+- supersession chain.
+
+Foundly must distinguish horizon-scanning content from binding current law.
+
+## Continuous monitoring
+
+The engine must continuously:
+- monitor relevant official/legal sources;
+- detect new and amended rules;
+- redline/version regulatory text where technically possible;
+- detect effective-date and transition changes;
+- detect repeals/supersession;
+- identify changed regulator guidance;
+- identify relevant enforcement developments;
+- deduplicate related notices;
+- correlate EU/national/local/sector layers;
+- classify urgency and impact;
+- create auditable regulatory-change events.
+
+Monitoring frequency must be appropriate to the source/risk and must support near-real-time ingestion where feeds/webhooks/APIs allow.
+
+## Customer legal DNA / applicability graph
+
+Each customer organization must have a maintained **Legal & Regulatory Profile** describing, where authorized:
+- countries/jurisdictions of operation;
+- legal entities;
+- industry/activities;
+- products/services;
+- employee/workforce characteristics;
+- customers/consumer/B2B context;
+- data categories and processing;
+- AI systems/use cases;
+- payments/finance activities;
+- advertising/marketing channels;
+- locations;
+- vehicles/assets;
+- regulated licenses/permissions;
+- environmental/product/safety obligations;
+- tax/VAT context;
+- contractual/compliance commitments.
+
+The engine must map regulatory change against this profile and produce a customer-specific applicability assessment rather than broadcasting every legal change to every customer.
+
+## Obligation and control graph
+
+Foundly must translate applicable regulatory requirements into structured:
+- obligations;
+- prohibitions;
+- deadlines;
+- disclosures;
+- controls;
+- evidence requirements;
+- retention periods;
+- consent/permission requirements;
+- reporting duties;
+- policy changes;
+- workflow changes;
+- technical/product configuration changes;
+- training/awareness requirements.
+
+Every obligation/control must remain dynamically linked to its source rule and version.
+
+## Impact analysis
+
+For each material change Foundly must identify, where applicable:
+- affected Foundly apps/modules;
+- affected Industry Systems;
+- affected customer data/processes;
+- affected roles;
+- affected automated actions;
+- affected contracts/terms/notices;
+- affected Finance/tax behavior;
+- affected Marketing/Ads/SEO;
+- affected HR/workforce workflows;
+- affected AI/automation behavior;
+- affected privacy/security/retention;
+- affected Maps/location processing;
+- affected Supplier/Procurement;
+- affected sales/e-commerce/consumer obligations;
+- affected sector-specific workflows.
+
+The impact record must state:
+- what changed;
+- when it becomes effective;
+- who/what is affected;
+- required action;
+- evidence;
+- confidence;
+- deadline;
+- implementation status;
+- residual uncertainty.
+
+## Autonomous compliance-change lifecycle
+
+Foundly must support the lifecycle:
+
+**MONITOR -> VERIFY -> CLASSIFY -> DETERMINE APPLICABILITY -> MAP OBLIGATIONS -> IMPACT ANALYZE -> DESIGN CHANGE -> TEST -> APPROVE/AUTO-APPLY BY RISK -> DEPLOY -> VERIFY -> MONITOR -> AUDIT**
+
+Routine, deterministic, low-risk changes may be applied automatically when:
+- authoritative source evidence is sufficient;
+- applicability is high-confidence;
+- the implementation mapping is deterministic;
+- regression/security/privacy tests pass;
+- rollback exists.
+
+Examples may include:
+- updating retention configuration;
+- changing a required disclosure template;
+- adjusting a validation rule;
+- changing a tax/rate table where the authoritative value/date is machine-verifiable;
+- disabling a legally prohibited workflow in a jurisdiction;
+- updating a consent/control requirement.
+
+High-risk, ambiguous or interpretation-dependent changes must be escalated rather than silently auto-applied. Examples include:
+- uncertain legal interpretation;
+- conflicting authorities;
+- material contractual rights;
+- regulated licensing questions;
+- significant tax/legal classification;
+- employment/termination decisions;
+- criminal/sanctions ambiguity;
+- major financial/compliance exposure.
+
+The goal is **no routine manual regulatory maintenance**, not pretending that all legal ambiguity can be eliminated.
+
+## Foundly self-update
+
+When a legal/regulatory change affects Foundly itself, Compliance Autopilot must create and, where risk permits, execute governed engineering/configuration work through the Self-Healing/Control Plane pipeline.
+
+Examples:
+- privacy/consent flows;
+- AI disclosures;
+- audit/recordkeeping;
+- billing/tax logic;
+- marketing/consumer notices;
+- retention/deletion;
+- permissions;
+- autonomous-action constraints;
+- security controls;
+- Maps/location handling;
+- Driver Alert jurisdiction policy;
+- supplier/procurement controls;
+- website/e-commerce obligations.
+
+No production legal change may bypass tests, provenance, versioning, release controls or rollback.
+
+## Customer-facing experience
+
+Customers must be able to ask ZERO:
+- "Welke wetswijzigingen raken ons deze maand?"
+- "Wat moeten we voor 1 januari aanpassen?"
+- "Zijn onze marketingflows nog compliant?"
+- "Welke AI Act-verplichtingen gelden voor onze huidige AI-gebruiksscenario's?"
+- "Welke regels veranderen voor onze webshop in Duitsland?"
+- "Welke regels raken onze voertuighandel?"
+- "Zijn er nieuwe regels voor onze leveranciers, productlabels of advertenties?"
+
+ZERO must answer with:
+- source citations/references;
+- jurisdiction;
+- legal status;
+- effective date;
+- applicability;
+- confidence;
+- affected systems;
+- required actions;
+- current compliance/remediation status.
+
+## Industry-specific regulatory packs
+
+Each Industry System must maintain its own regulatory scope in addition to horizontal laws.
+
+### Automotive
+Examples include vehicle registration/import/export, consumer sales, advertising, finance/credit where relevant, emissions/environment, product/safety/recall, workshop/service obligations and jurisdiction-specific driver/location rules.
+
+### E-commerce / Retail
+Examples include consumer rights, distance selling, pricing/discount disclosure, returns, product safety, labeling, accessibility, privacy/cookies, marketing/ads, payments, VAT/tax and marketplace obligations.
+
+### Real Estate
+Examples include brokerage/property rules, disclosures, rental/sales requirements, AML/Wwft where applicable, energy/certification, advertising, privacy and finance-related obligations.
+
+### Agency
+Examples include advertising/consumer law, influencer disclosure, IP/copyright, privacy, direct marketing, platform rules, employment/freelancer context and AI/content disclosure where applicable.
+
+### Manufacturing / Wholesale
+Examples include product safety, CE/conformity, supply-chain due diligence, environmental/chemical rules, export/sanctions, labeling, workplace/safety, quality standards and sector-specific manufacturing obligations.
+
+Industry regulatory packs must be jurisdiction-specific and versioned.
+
+## Benchmark law
+
+Foundly Regulatory & Legal Intelligence must be dynamically benchmarked against the strongest current regulatory-intelligence/compliance specialists and models.
+
+Initial benchmark families include:
+- Thomson Reuters Regulatory Intelligence-class horizon scanning and global regulatory content;
+- Wolters Kluwer Compliance Intelligence-class regulatory monitoring, obligation and impact management;
+- Bloomberg Regology-class continuously updating legal universe, applicability and compliance agents;
+- Compliance.ai-class regulatory change/impact mapping;
+- strongest current legal research/regulatory change specialists and models discovered at execution time.
+
+Benchmark sub-capabilities separately:
+- source coverage;
+- freshness;
+- change detection;
+- legal-status correctness;
+- version/redline correctness;
+- applicability precision/recall;
+- obligation extraction;
+- impact mapping;
+- false positives;
+- missed material changes;
+- source citation/provenance;
+- effective-date handling;
+- multi-jurisdiction analysis;
+- policy/control mapping;
+- automation safety;
+- auditability;
+- user effort;
+- natural-language/voice quality.
+
+## Regulatory acceptance
+
+Run 6 must red-team:
+- stale law;
+- repealed/superseded law;
+- proposal mistaken for current law;
+- wrong jurisdiction;
+- wrong effective date;
+- conflicting rules;
+- missing transition period;
+- customer-profile misclassification;
+- false applicability;
+- missed material applicability;
+- incorrect tax/rate/config update;
+- unsafe autonomous legal change;
+- forged/untrusted source;
+- prompt injection from external legal content;
+- rollback/failure recovery.
+
+Run 7 must prove representative real-world regulatory-change handling using authoritative sources and real/authorized customer profiles.
+
+No Foundly system may be called HYPER_PERFECT, SELLABLE or ENTERPRISE_READY if a material required regulatory/compliance gate is FAIL or UNVERIFIED.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
@@ -3688,6 +3974,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - universal Product/Asset/Offer graph for vehicles, SKUs, properties, services, components, equipment and wholesale inventory;
 - six Industry System schema extensions and connector registry/readiness substrate;
 - Opportunity Ledger schema, time-series market/internal signal store, prediction/outcome and scenario data foundation;
+- versioned regulatory universe, Legal DNA/applicability graph, obligation/control graph and regulatory change-event model;
 - asset/content graph;
 - benchmark observation storage;
 - outcome telemetry;
@@ -3731,6 +4018,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - ZERO Supplier Intelligence / Autonomous Sourcing;
 - Universal AI Product / Asset / Offer Finder;
 - Foundly Opportunity Intelligence / Opportunity Finder as both shared Core engine and standalone app;
+- Foundly Regulatory & Legal Intelligence / Compliance Autopilot as shared Core engine and standalone app;
 - Foundly Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale enterprise Industry Systems;
 - six versioned Industry Connector Packs with sandbox/setup/readiness evidence.
 
@@ -3746,6 +4034,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - voice-driven Supplier Intelligence for discovery, comparison, RFx, negotiation, follow-up and scheduling;
 - mobile Product/Asset/Offer Finder;
 - mobile/desktop/voice Foundly Opportunity Intelligence app and embedded Opportunity Inbox;
+- mobile/desktop/voice Regulatory & Legal Intelligence app with regulatory-change inbox, obligations, deadlines and remediation;
 - mobile/desktop experiences for all six enterprise Industry Systems;
 - Foundly Navigation AI and Driver Intelligence;
 - route-aware CRM/calendar/workforce workflows;
@@ -3784,6 +4073,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - Supplier Intelligence adversarial sourcing/negotiation and permission testing;
 - Product/Asset/Offer Finder relevance/freshness/compatibility testing per vertical;
 - Opportunity Intelligence financial correctness, calibration, ranking, false-positive, scenario and realized-outcome testing per vertical;
+- Regulatory & Legal Intelligence source freshness, applicability, effective-date, obligation, impact, automation-safety and rollback testing;
 - all six Industry Systems independently benchmarked, demo-accepted and connector-pack-tested.
 
 **Run 7**
@@ -3791,6 +4081,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - real Supplier Intelligence discovery/RFx/quote/negotiation/meeting/cross-module acceptance;
 - real Product/Asset/Offer Finder acceptance in representative verticals;
 - real Opportunity Intelligence recommendations, simulations, actions and realized-outcome calibration across representative verticals;
+- real authoritative regulatory-change ingestion, applicability, customer impact/remediation and safe auto-update evidence;
 - real or authorized production-like acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
 - real connector credentials/runtime evidence where commercially/provider available;
 - real Foundly Maps driving acceptance using the native Foundly route/traffic/alert stack;
