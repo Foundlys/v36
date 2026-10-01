@@ -1478,6 +1478,80 @@ Requires:
 
 # H. TOTAL PLANNING ENVELOPE
 
+## 1 October 2026 expanded-scope re-baseline — CURRENT PLANNING BASELINE
+
+This re-baseline supersedes all earlier Run-2–7 hour/credit totals that predate:
+- universal Supplier Intelligence / Autonomous Sourcing;
+- Universal Product / Asset / Offer Finder;
+- Foundly Opportunity Intelligence;
+- Foundly Regulatory & Legal Intelligence / Compliance Autopilot;
+- six complete enterprise Industry Systems (Automotive, E-commerce, Retail, Real Estate, Agency, Manufacturing/Wholesale);
+- per-sellable-module hyper-perfect interactive demos;
+- expanded standalone app productization;
+- Industry Connector Packs;
+- per-company/per-user commercial infrastructure.
+
+These are active engineering/agent-execution planning ranges, not promised elapsed calendar dates. Waiting for providers, app stores, physical devices, customers, legal/data access or reviewers is excluded from active hours and can extend elapsed delivery.
+
+| Run | Current planning scope | Active engineering / agent hours | OpenAI credit planning |
+|---|---|---:|---:|
+| Run 2 | Finish current ZERO + Automotive/E-commerce demo-first acceptance, localization, voice, UX, regression and evidence | 100–240 h remaining | 25k–70k |
+| Run 3 | Enterprise data/PostgreSQL/Digital Twin/DR + Maps geospatial substrate + Supplier/Product/Opportunity/Regulatory data foundations + six industry schemas + connector registry | 220–520 h | 55k–145k |
+| Run 4 | Control Plane/self-healing + universal apps + Maps backend + Supplier AI + Product Finder + Opportunity Intelligence + Compliance Autopilot + six Industry Systems + connector packs + demos/commercial platform | 1,350–3,000 h | 330k–800k |
+| Run 5 | Native/installable mobile/desktop/web app surfaces, voice/device/workforce, Foundly Maps clients, all standalone apps and six Industry Systems | 600–1,350 h | 145k–360k |
+| Run 6 | Full-stack/security/reliability/performance red team + benchmark closure + demos + connectors + six industries + Supplier/Finder/Opportunity/Regulatory red-team | 650–1,450 h | 160k–400k |
+| Run 7 | Real providers/data/customers, real six-industry acceptance, real connectors, supplier/RFx/negotiation, opportunity outcomes, regulatory remediation and commercial acceptance | 500–1,250 h | 120k–360k |
+
+**Expanded-scope active-engineering total: approximately 3,420–7,810 hours.**
+
+**Expanded-scope raw OpenAI credit total: approximately 835,000–2,135,000 credits.**
+
+Recommended planning envelope including audit/rework/uncertainty reserve:
+**approximately 900,000–2,300,000 OpenAI credits.**
+
+Central working-budget expectation, assuming local-first execution, disciplined context reuse, targeted tests and risk-based model routing:
+**approximately 1.3M–1.6M OpenAI credits.**
+
+The lower half of the range assumes:
+- strong reuse of shared Core contracts;
+- no customer forks;
+- local-first execution on the high-end Foundly workstation;
+- targeted regression before broad regression;
+- cached datasets/models/builds;
+- Medium/High/XHigh model routing by task risk;
+- no repeated broad audits of closed work;
+- good provider/connector sandbox availability.
+
+The upper half includes:
+- additional security/quality correction rounds;
+- hard connector/provider defects;
+- extra benchmark closure;
+- additional mobile/browser/device fixes;
+- difficult cross-industry integration defects;
+- real-world Run-7 rework.
+
+These OpenAI-credit estimates exclude third-party AI/provider charges, external licensed data, map/traffic/POI data, hosting/cloud/CDN/storage, app-store fees, ad spend, customer implementation expenses and other non-OpenAI operating costs.
+
+## Calendar planning scenario
+
+With one primary Codex implementation owner, the high-end local workstation, unattended local tests/CI where possible, and prompt provider/device/customer access:
+
+| Run | Planning elapsed-time band |
+|---|---:|
+| Run 2 | ~1–3 weeks |
+| Run 3 | ~2–5 weeks |
+| Run 4 | ~10–20 weeks |
+| Run 5 | ~5–10 weeks |
+| Run 6 | ~5–12 weeks |
+| Run 7 | ~8–20+ weeks |
+
+**Program calendar planning band from current Run-2 state: roughly 31–70+ weeks (~7–16+ months).**
+A sensible central planning expectation is roughly **9–12 months**, but Run 7 can extend beyond this through external customer/provider/app-store/data dependencies even when active engineering is complete.
+
+Hardware primarily compresses local build/test/eval/render/data-processing time. It does not proportionally accelerate cloud reasoning, provider approvals, app-store review, customer availability, legal ambiguity or real-world acceptance.
+
+
+
 ## Scope expansion re-baseline notice
 The Supplier Intelligence, Universal Product/Asset/Offer Finder and six complete enterprise Industry Systems added on 1 October 2026 materially expand Runs 3-7.
 
