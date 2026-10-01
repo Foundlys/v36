@@ -280,6 +280,18 @@ Store:
 - restore drills;
 - regional/provider failure strategy.
 
+### C10. Supplier / Product / Industry Data Foundation
+- canonical supplier/vendor identity and relationship model;
+- supplier capability, certification, risk, quote, RFx and negotiation outcome models;
+- product/asset/offer graph supporting vehicles, SKUs, properties, services, components, equipment and wholesale inventory;
+- source/provenance/freshness/confidence for every externally derived field;
+- price/stock/availability/history structures;
+- compatibility/substitution structures;
+- search/vector/multimodal indexes;
+- six Industry System extension schemas: Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
+- connector registry, credentials metadata, scopes, mappings, sync state, rate limits and readiness state;
+- no LIVE/CONNECTED state without runtime verification.
+
 ## Run-3 closure
 No PASS without:
 - migration/rollback evidence;
@@ -674,6 +686,79 @@ All B2B software prices are modeled per company per licensed user unless an expl
 - demo-to-trial/customer handoff without tenant/data ambiguity;
 - no production credentials or secrets exposed to demo tenants.
 
+## D26. ZERO Supplier Intelligence / Autonomous Sourcing
+Build the universal supplier engine described in the hard requirements:
+- natural-language and voice sourcing intake;
+- supplier discovery and qualification;
+- provenance/freshness/confidence;
+- supplier comparison and total-cost reasoning;
+- RFI/RFQ/RFP;
+- quote/document extraction and normalization;
+- supplier communications;
+- autonomous bounded follow-up;
+- meeting scheduling;
+- ZERO Negotiation integration;
+- price/MOQ/lead-time/payment-term/SLA multi-variable negotiation;
+- approval thresholds;
+- supplier onboarding;
+- Procurement/CRM/Calendar/Communication/Finance/Analytics/Knowledge/Automation processing;
+- idempotency/recovery;
+- per-capability benchmark suite against current strongest sourcing/procurement/negotiation specialists.
+
+## D27. Universal AI Product / Asset / Offer Finder
+Build one Core finder with specialized vertical retrieval/ranking/action layers:
+- hybrid semantic/lexical/vector retrieval;
+- multimodal/reference search where applicable;
+- structured filters and entity resolution;
+- price/stock/availability/freshness;
+- compatibility/substitution;
+- compare/recommend/explain;
+- margin/value/TCO reasoning;
+- saved search/watchlists/alerts;
+- voice and conversational follow-up;
+- action handoff to CRM, Procurement, Supplier Intelligence, Negotiation, Calendar, Finance and Industry Systems;
+- separate benchmark suites for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale.
+
+## D28. Six Enterprise Industry Systems
+Build production-grade shared-Core compositions for:
+- Foundly Automotive;
+- Foundly E-commerce;
+- Foundly Retail;
+- Foundly Real Estate / Vastgoed;
+- Foundly Agency;
+- Foundly Manufacturing with Wholesale/Distribution profile.
+
+Each must include:
+- industry data model/ontology;
+- complete ZERO context and workflows;
+- relevant Foundly modules;
+- Supplier Intelligence specialization;
+- Product/Asset/Offer Finder specialization;
+- connector pack;
+- industry dashboards/analytics;
+- automation/events;
+- roles/permissions;
+- commercial entitlements;
+- realistic demo universe;
+- dedicated competitive ledger and acceptance matrix.
+
+No customer forks.
+
+## D29. Industry Connector Packs
+For each of the six Industry Systems:
+- connector manifest;
+- OAuth/API-key/credential setup where supported;
+- sandbox/test/live modes;
+- source mapping;
+- initial and incremental sync;
+- webhooks/polling;
+- retries/idempotency/backoff;
+- health/readiness;
+- provenance/source authority;
+- credential revocation/reconnect;
+- documentation and guided onboarding;
+- truthful CONNECTOR_READY versus CONNECTED/LIVE state.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -722,6 +807,9 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - deep links;
 - mobile ZERO;
 - voice;
+- six Industry Systems receive complete mobile/desktop role surfaces for all workflows advertised on those device classes;
+- Supplier Intelligence supports voice-driven search, compare, RFx, follow-up, negotiation and scheduling with current authority;
+- Product/Asset/Offer Finder supports industry-specific mobile search/compare/action workflows;
 - Foundly Maps as a separate native installable navigation app and integrated OS capability;
 - Free/Premium/Business entitlement surfaces and store-ready subscription UX;
 - own Foundly map/navigation UX and ZERO conversational layer;
@@ -973,6 +1061,24 @@ Complete the production surfaces and native-speaker/assistive-technology evidenc
 - prove no demo-only fake implementation can diverge from production contracts;
 - no SELLABLE/SALES_READY module with material FAIL or UNVERIFIED demo gates.
 
+## F14. Supplier / Finder / Six-Industry Red Team
+- full adversarial acceptance of Supplier Intelligence;
+- hallucinated supplier/price/certification detection;
+- stale quote/source data;
+- unauthorized RFQ/communication/award/purchase;
+- negotiation floor/ceiling bypass;
+- duplicate RFQ/PO/meeting/action on retries;
+- product/property/vehicle/component search relevance and freshness;
+- incompatible product/component recommendations;
+- false stock/price/availability;
+- all six Industry Systems independently benchmarked;
+- every required connector pack tested in sandbox/test mode where available;
+- connector revoke/reconnect/provider-loss;
+- complete dedicated hyper-perfect demo matrix per Industry System;
+- complete cross-module ZERO journeys;
+- enterprise load, tenant isolation, accessibility, localization and recovery;
+- no HYPER_PERFECT/SELLABLE/ENTERPRISE_READY claim with material FAIL or UNVERIFIED gates.
+
 ## Run-6 closure
 No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
@@ -1184,6 +1290,33 @@ Prove the intended lifecycle:
 - use measured prospect behavior to update demo flows and product acceptance;
 - no final commercial readiness claim based only on internal scripted demonstrations.
 
+### G19. Real Supplier Intelligence / Product Finder Acceptance
+- real authorized supplier-discovery scenarios;
+- real source provenance and supplier verification;
+- real RFQ/quote intake and comparison;
+- real bounded negotiation where authorized;
+- real supplier communications and meeting scheduling;
+- real cross-module processing;
+- real product/asset/offer searches in representative verticals;
+- real price/availability/freshness checks;
+- real action completion and user-effort evidence.
+
+### G20. Real Six-Industry Enterprise Acceptance
+For Foundly Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale:
+- real or authorized production-like organization;
+- real industry data;
+- representative real connectors with valid credentials where commercially/provider available;
+- connector setup/reconnect/revocation evidence;
+- real ZERO workflows across the relevant modules;
+- real Supplier Intelligence and Finder workflows;
+- real role/persona use;
+- real mobile/desktop usage where sold;
+- dedicated hyper-perfect demo used by prospects/customers;
+- actual business outcome/value evidence;
+- no false LIVE connector state for unavailable providers.
+
+The foundational program is not commercially complete until all six systems have resolved their required acceptance matrices or carry an explicit, truthful external-provider exception that does not masquerade as completed live integration.
+
 ## Run-7 closure
 Requires:
 - real external evidence;
@@ -1202,6 +1335,13 @@ Requires:
 ---
 
 # H. TOTAL PLANNING ENVELOPE
+
+## Scope expansion re-baseline notice
+The Supplier Intelligence, Universal Product/Asset/Offer Finder and six complete enterprise Industry Systems added on 1 October 2026 materially expand Runs 3-7.
+
+The older hour/credit bands below were calculated before this expansion and are therefore **SUPERSEDED / NOT CURRENT PLANNING TRUTH**. They must not be used as a current delivery or credit forecast until the expanded architecture/work breakdown is re-baselined against repository reality.
+
+
 
 ## Active engineering
 Run 2: 25–60 h
@@ -1281,27 +1421,27 @@ Finish current ZERO + Automotive/E-commerce acceptance.
 ↓ Work audit
 
 **RUN 3**
-Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + Foundly Maps geospatial/telemetry substrate + outcome/benchmark substrate + DR.
+Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + Foundly Maps geospatial/telemetry substrate + universal supplier/product/industry data foundation + connector registry + outcome/benchmark substrate + DR.
 
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + private Founder Agency Home (Email/Calendar/Control Panel/Marketing/Media/Social/Finance/AI Models/Gaming) + single centralized Owner Control Panel + Continuous Self-Healing Engineering + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise team/admin/collaboration layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + best-in-class CRM + native Foundly Maps backend/routing/traffic/community/Driver-Alerts platform + composition matrix.
+Autonomous Control Plane + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + six enterprise Industry Systems + connector packs + composition/demo factories.
 
 ↓ Work independent audit
 
 **RUN 5**
-Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps navigation app/clients + Foundly Driver Alerts, using no Google Maps/Waze runtime dependency.
+Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps + voice-driven Supplier Intelligence + Product/Asset/Offer Finder + mobile/desktop experiences for all six Industry Systems.
 
 ↓ Work independent audit
 
 **RUN 6**
-Full-stack red team + self-healing/autonomous-release red team + zero-downtime/canary/rollback/failover acceptance + current competitor benchmarks + mandatory 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
+Full-stack red team + self-healing/autonomous-release red team + Supplier/Finder/connector red team + all six Industry Systems independently benchmarked and demo-accepted + zero-downtime/canary/rollback/failover + 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
 
 ↓ Work independent audit
 
 **RUN 7**
-Real Owner Command Center + real production-like self-healing/release-continuity proof + real providers + real data + real customers + real outreach/appointments + real bounded negotiation + real navigation + real publishing + real outcomes + autonomous implementation acceptance.
+Real Owner Command Center + real self-healing/release proof + real providers/data/customers + real Supplier Intelligence/RFx/negotiation + real Product/Asset Finder + real connector acceptance + real-world acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale + real outcomes + autonomous implementation acceptance.
 
 ↓ final Work independent audit
 
