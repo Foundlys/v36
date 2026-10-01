@@ -2256,6 +2256,14 @@ Execution priority is:
 
 This sequencing does not waive any hard requirement and does not create a new foundational run.
 
+### Full ZERO in the founder environment
+
+The founder-first execution priority does not permit a lightweight or placeholder ZERO.
+
+Before P0 is accepted, ZERO inside the Private Founder Agency Home, Single Control Panel and founder modules must meet the full applicable ZERO hard requirements already defined for Foundly, including cognition, memory/context, social intelligence/empathy, multilingual behavior, voice, planning, uncertainty, contradiction handling, proactive assistance, cross-module orchestration, permissions, provenance, audit, recovery, cost control and truthful state.
+
+P0 ZERO must use the same production contracts and safety/authority model as the broader Foundly OS. No demo-only founder ZERO implementation is allowed.
+
 ### Founder cockpit must track Foundly development truth
 
 The Control Panel must expose authoritative project/development state from the real Foundly engineering sources, including where available:
@@ -2282,6 +2290,14 @@ Conversation summaries are not authoritative technical truth.
 The founder-only Agency Home must be usable as the founder's real personal/business operating environment as soon as P0 acceptance closes.
 
 Where provider integrations are unavailable or not yet authorized, the relevant module must remain usable at the highest truthful local/integrated level and show explicit provider state rather than block the entire Agency Home or simulate external connectivity.
+
+### CRM hard-requirement preservation
+
+CRM-first prioritization changes sequence only.
+
+It does not reduce or defer any material CRM requirement. The CRM must preserve the complete previously agreed CRM contract, including its data model, visual/agentic UX, ZERO integration, relationship graph, communication/call/meeting intelligence, automation, forecasting/risk/next-best-action, permissions, source/provenance, recovery, localization, accessibility, performance, device surfaces, standalone app contract, hyper-perfect demo, current strongest per-subcapability benchmark and provable-superiority gates.
+
+No CRM requirement may be reclassified as "later" merely because CRM is being completed before the rest of the roadmap.
 
 ### CRM-first productization
 
