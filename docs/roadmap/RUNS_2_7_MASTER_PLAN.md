@@ -1583,7 +1583,7 @@ The upper half includes:
 - difficult cross-industry integration defects;
 - real-world Run-7 rework.
 
-These OpenAI-credit estimates exclude third-party AI/provider charges, external licensed data, map/traffic/POI data, hosting/cloud/CDN/storage, app-store fees, ad spend, customer implementation expenses and other non-OpenAI operating costs.
+These OpenAI-credit estimates exclude third-party AI/provider charges, Google Maps Platform/Waze-partner usage or licensing charges, external licensed data, hosting/cloud/CDN/storage, app-store fees, ad spend, customer implementation expenses and other non-OpenAI operating costs.
 
 ## Calendar planning scenario
 
@@ -1605,58 +1605,8 @@ Hardware primarily compresses local build/test/eval/render/data-processing time.
 
 
 
-## Scope expansion re-baseline notice
-The Supplier Intelligence, Universal Product/Asset/Offer Finder and six complete enterprise Industry Systems added on 1 October 2026 materially expand Runs 3-7.
-
-The older hour/credit bands below were calculated before this expansion and are therefore **SUPERSEDED / NOT CURRENT PLANNING TRUTH**. They must not be used as a current delivery or credit forecast until the expanded architecture/work breakdown is re-baselined against repository reality.
-
-
-
-## Active engineering
-Run 2: 25–60 h
-Run 3: 120–280 h
-Run 4: 560–1,250 h
-Run 5: 300–700 h
-Run 6: 320–700 h
-Run 7: 220–500 h
-
-**Total: approximately 1,545–3,490 active engineering hours.**
-
-This is not calendar time. Agentic parallel work, improved local hardware, reusable infrastructure and future model improvements can reduce active execution substantially. New defects, provider limitations, customer access and quality corrections can increase it.
-
-## OpenAI credits
-Run 2: 6k–18k
-Run 3: 25k–70k
-Run 4: 140k–340k
-Run 5: 70k–180k
-Run 6: 80k–200k
-Run 7: 55k–140k
-
-Raw subtotal:
-**376,000–948,000 OpenAI credits.**
-
-Recommended planning envelope after allowing for audit/rework overlap:
-**approximately 375,000–1,050,000 OpenAI credits.**
-
-This includes intended Codex implementation and Work audit activity at planning level.
-
-It does **not** include:
-- Google/ByteDance/Adobe/other AI generation API cost;
-- cloud hosting;
-- databases;
-- Railway or other infrastructure;
-- domains;
-- ad spend;
-- customer hardware;
-- licenses;
-- external data providers;
-- map/road/POI/traffic/speed-limit/camera data licensing where open/public data is insufficient;
-- global map-tile/CDN/storage/bandwidth infrastructure;
-- large-scale probe/fleet/community acquisition required to reach Waze/Google-class live-traffic density in every geography.
-
-There is no honest finite mathematical maximum because future failures, changed model prices, geospatial data licensing/coverage, traffic probe density, map freshness and customer acceptance cycles are unknown. **1.05M is the conservative planning ceiling for the currently defined scope, not a guaranteed hard cap.**
-
-Claude is intentionally excluded from the execution plan. Independent run-level review is performed by Work, backed by GitHub/CI, benchmark suites, deterministic security tooling and real acceptance evidence.
+## Historical planning note
+All pre-1-October-2026 hour/credit totals are superseded and intentionally omitted here. The only current planning baseline is the expanded-scope, post-Foundly-Maps-deferral baseline above.
 
 ---
 
