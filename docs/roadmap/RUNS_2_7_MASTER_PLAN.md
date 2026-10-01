@@ -59,6 +59,45 @@ P0 must **not** trigger a broad premature rebuild of all Run-3/Run-4/Run-5 found
 
 Where a later-run subsystem is not yet production-complete, the Control Panel must show its truthful state (for example NOT_BUILT, PARTIAL, UNVERIFIED, DEGRADED, BLOCKED) rather than fabricating live capability.
 
+### P0 ZERO completion law
+
+P0 may not be considered complete with a reduced, mocked, scripted, narrow or placeholder ZERO.
+
+Inside the Private Founder Agency Home, Control Panel and all founder modules, ZERO must already satisfy the full applicable Foundly ZERO contract, including:
+- natural multi-turn conversation;
+- intent understanding;
+- ambiguity handling;
+- long-context continuity;
+- personalization within explicit personal/business boundaries;
+- permission-aware memory;
+- dynamic context assembly;
+- social intelligence;
+- empathy and tone adaptation;
+- humor/timing where contextually appropriate;
+- multilingual behavior;
+- voice interaction;
+- planning and multi-step execution;
+- causal reasoning;
+- uncertainty/confidence handling;
+- contradiction detection;
+- proactive but non-intrusive assistance;
+- recommendation quality;
+- tool/app/module orchestration;
+- cross-module reasoning;
+- owner attention prioritization;
+- approvals and authority boundaries;
+- truthful provider/system state;
+- source/provenance;
+- audit/replay;
+- idempotency/recovery;
+- safe failure and escalation;
+- cost-aware model/tool routing;
+- current benchmark/eval evidence for all P0 ZERO capabilities.
+
+ZERO must operate across Email, Calendar, Control Panel, Marketing, Media, Social, Finance, Foundly AI Models and Gaming only where authorized/provider-supported, while preserving strict personal/business context separation.
+
+No founder module may ship with a fake or simplified ZERO path that diverges from the production ZERO contracts intended for the wider Foundly OS.
+
 ### P0 completion
 
 P0 is complete only when:
@@ -108,6 +147,53 @@ CRM must be built as a complete vertical slice on shared Foundly Core:
 - production-faithful hyper-perfect CRM demo;
 - standalone pricing/entitlement readiness;
 - current strongest CRM sub-capability benchmark matrix.
+
+### P1 full CRM contract lock
+
+Completing CRM early does not permit scope reduction.
+
+Foundly CRM must satisfy every previously agreed CRM hard requirement and every globally applicable Foundly law that materially applies to CRM, including:
+- complete account/contact/lead/opportunity/activity data model;
+- custom fields and extensibility without customer forks;
+- relationship graph;
+- interaction timeline;
+- pipelines/stages;
+- table/card/board/pipeline views;
+- drag-and-drop where appropriate;
+- tasks, ownership and next actions;
+- communication/email/call/meeting context where authorized;
+- calendar;
+- search/filter/sort/saved views;
+- inline and bulk edit;
+- import/export;
+- duplicate/conflict/entity-resolution handling;
+- Data & Knowledge Intelligence integration;
+- enrichment with provenance;
+- pipeline hygiene;
+- lead/account/contact/opportunity scoring where evidence supports it;
+- next-best action;
+- deal risk;
+- forecast support;
+- agentic suggestive and bounded-autonomous modes;
+- ZERO embedded contextually across CRM, not as a detached chatbot;
+- Sales, Finance, Communication, Calendar, Automation, Analytics, Opportunity, Market and other shared integration contracts where relevant;
+- complete permission, entitlement, tenant and role behavior;
+- audit/history;
+- idempotency, lost-response and restart recovery;
+- source-of-truth routing;
+- localization across supported languages;
+- accessibility;
+- responsive/mobile/desktop experience;
+- install/relaunch/recovery on promised surfaces;
+- low-latency and enterprise-scale behavior;
+- complete production-faithful standalone CRM demo;
+- realistic demo data and cross-module journeys;
+- current strongest specialist/model benchmark per material CRM sub-capability;
+- security/privacy/adversarial acceptance;
+- commercial onboarding/entitlement readiness;
+- no material FAIL or UNVERIFIED gate hidden or waived.
+
+The CRM may only be called HYPER_PERFECT / BEST_IN_CLASS / SELLABLE when the global evidence and superiority laws permit those states.
 
 ### P1 benchmark rule
 
