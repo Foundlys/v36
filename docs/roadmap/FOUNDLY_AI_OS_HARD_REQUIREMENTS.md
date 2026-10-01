@@ -673,443 +673,248 @@ Visual superiority may not be claimed from screenshots alone. It requires struct
 
 ---
 
-# 10D. FOUNDLY MAPS — OWN NAVIGATION, TRAFFIC & DRIVER INTELLIGENCE PLATFORM
+# 10D. GOOGLE MAPS + WAZE ZERO-CONTROLLED NAVIGATION INTEGRATION LAW
 
-Foundly must contain a **native Foundly Maps platform**. It is not a wrapper around Google Maps, Waze or another consumer navigation product.
+Native **Foundly Navigation Integration** is explicitly deferred beyond the current Runs 2–7 program as a future product opportunity.
 
-Google Maps, Waze, TomTom, HERE, Mapbox, Flitsmeister and future stronger products may be used as **benchmark references only** unless a later explicit founder decision authorizes a specific raw-data/provider input. Google Maps and Waze are explicitly prohibited as Foundly Navigation runtime, routing, map-rendering, traffic, ETA, incident or navigation dependencies.
+For the current program, Foundly must instead provide a **hyper-perfect ZERO-controlled navigation and location integration layer** using the strongest officially supported Google Maps Platform and Waze integration paths available at execution time.
 
-## Ownership boundary
+Foundly must not pretend Google/Waze functionality is native Foundly map infrastructure. Provider identity, data provenance, terms, user consent and runtime state must remain explicit.
 
-Foundly must own and control the product/runtime layers for:
-- Foundly map UI and visual language;
-- map tile/style pipeline used by Foundly clients;
-- geocoding/search orchestration;
-- road-network graph used for routing;
-- map matching;
-- route calculation;
-- alternative-route generation;
-- turn-by-turn instruction generation;
-- lane/turn guidance logic where source data supports it;
-- ETA prediction;
-- traffic fusion;
-- incident fusion;
-- road-closure handling;
-- rerouting;
-- route scoring;
-- multi-stop optimization;
-- parking/fuel/EV-stop intelligence;
-- offline-region packaging;
-- location-history/privacy policy;
-- Foundly community reports;
-- Foundly Driver Alerts;
-- ZERO navigation reasoning and voice interaction;
-- navigation telemetry/evaluation;
-- business/CRM/calendar/workforce integration.
+## Current navigation architecture
 
-Foundly may ingest lawful open, public-sector, customer-owned or separately licensed **raw source data** such as:
-- OpenStreetMap or other legally compatible road/map datasets;
-- government road/traffic feeds;
-- public transport/parking/charging datasets;
-- customer/fleet telemetry with authorization;
-- Foundly first-party GPS/route/incident telemetry;
-- lawfully licensed traffic or road datasets where they do not make the Foundly product a branded/runtime dependency on a competing consumer navigation app.
+The current navigation stack is:
 
-Using raw source data does not transfer product ownership to the source provider. All license/attribution/share-alike obligations must be honored.
+**ZERO / Foundly business context
+-> Foundly Navigation Orchestration Layer
+-> Google Maps Platform APIs/SDKs and/or Waze supported integrations
+-> Google Maps or Waze navigation client where appropriate
+-> trip telemetry/events back into Foundly
+-> CRM / Calendar / Sales / Workforce / Analytics / Opportunity Intelligence / Automation**
 
-## Explicit Google/Waze prohibition
+ZERO is the user-facing orchestration layer. Google Maps and Waze remain the navigation/location providers.
 
-Foundly Maps must not:
-- call Google Maps or Waze to calculate its production routes;
-- embed Google/Waze navigation as the Foundly navigation experience;
-- use Google/Waze ETA as the production answer;
-- use Google/Waze traffic/incident state as an undisclosed fallback;
-- deep-link to Google/Waze and present that as Foundly navigation;
-- require a Google/Waze account for Foundly route operation.
+## Google Maps Platform integration
 
-Google Maps and Waze remain external benchmark products only.
+Foundly should use the strongest current official Google Maps Platform components applicable to the workflow, including where commercially/licensably available:
+- Routes API;
+- Route Matrix;
+- Route Optimization API;
+- Places API / Places SDK;
+- Geocoding;
+- Roads where required;
+- Maps SDKs / approved map UI components;
+- Navigation SDK where embedded navigation is justified;
+- Navigation Connect API where the standalone Google Maps or Waze app is the desired driver experience.
 
-## Foundly geospatial data platform
+Google Maps APIs must be isolated behind Foundly provider interfaces so provider evolution, cost controls and future replacement remain manageable.
 
-Foundly must maintain a versioned geospatial pipeline containing where supported:
-- road graph;
-- turn restrictions;
-- speed limits;
-- lane metadata;
-- road class;
-- access restrictions;
-- one-way state;
-- tolls;
-- ferries;
-- closures;
-- temporary restrictions;
-- POIs;
-- addresses;
-- parking;
-- fuel;
-- EV charging;
-- geography/administrative areas;
-- map-data provenance;
-- map-data freshness;
-- source conflicts;
-- confidence;
-- region coverage.
+## Waze integration
 
-Every material map observation requires source/provenance/freshness.
+Waze must be integrated only through officially supported mechanisms.
 
-Map updates must support:
-**INGEST → VALIDATE → CONFLATE → VERSION → TEST → PUBLISH → ROLLBACK**
+Current supported integration patterns may include:
+- Waze Deep Links for destination/search/navigation launch;
+- Google Navigation Connect API for authenticated trip linkage between Foundly and the Waze mobile app;
+- officially supported Waze partner/data interfaces if separately authorized.
 
-## Foundly routing engine
+Foundly may not scrape, reverse engineer or falsely claim unsupported control of Waze.
 
-The native routing engine must support where relevant:
-- car;
-- walking;
-- cycling;
-- commercial/fleet profiles where licensed data supports restrictions;
-- fastest/shortest/efficient route preferences;
-- avoid tolls/ferries/motorways/other supported constraints;
-- multi-stop routing;
-- time-dependent routing;
-- traffic-aware routing;
-- historical-traffic priors;
-- alternative routes;
-- arrival/departure-time planning;
-- route matrix;
-- isochrones where useful;
-- route matching;
-- dynamic rerouting;
-- deterministic route replay for acceptance testing.
+If Waze does not expose a control or data surface through an authorized interface, ZERO must state the limitation rather than simulate control.
 
-Routing must remain independently testable from the UI.
+## Navigation Connect
 
-## Foundly ETA / traffic intelligence
+Where available and commercially appropriate, Navigation Connect should be the preferred bridge between Foundly business workflows and standalone Google Maps/Waze navigation.
 
-Foundly must build a first-party ETA and traffic-intelligence layer that combines authorized inputs such as:
-- current Foundly probe speeds;
-- historical Foundly route observations;
-- road sensors/public feeds;
-- incidents/closures;
-- time-of-day/day-of-week seasonality;
-- weather/event context where lawful and useful;
-- road topology and maneuver cost;
-- historical congestion patterns.
+Foundly must support:
+- creating a governed trip;
+- obtaining and securing the provider trip token;
+- launching Google Maps or Waze with the authorized destination;
+- linking the active navigation session to the Foundly tenant/user/workflow;
+- receiving live trip state;
+- receiving location;
+- receiving ETA;
+- receiving remaining time and distance;
+- tracking ENROUTE / ARRIVED / SUSPENDED / FAILED / CLIENT_ERROR / CANCELED or equivalent provider states;
+- Pub/Sub/event ingestion where used;
+- provider consent/error handling;
+- return-to-Foundly app flows;
+- idempotent trip creation and recovery;
+- truthful degradation when telemetry permission is denied or unavailable.
 
-ZERO/model routing may use specialized statistical/ML models for:
-- ETA prediction;
-- congestion forecasting;
-- anomalous slowdown detection;
-- incident confidence;
-- route-choice ranking.
+Where officially exposed for Waze, Foundly may consume remaining-route/traffic or route-deviation information.
 
-Foundly must measure calibration against actual arrival times and improve models through governed releases.
+Provider/device/platform limitations must be reflected in capability state.
 
-A lack of sufficient probe density must be represented as lower confidence, not fabricated live traffic.
+## ZERO navigation control
 
-## Foundly community traffic network
-
-Foundly must support its own privacy-governed community/reporting network:
-- accident;
-- hazard;
-- roadworks;
-- closure;
-- stopped vehicle;
-- congestion;
-- object/debris;
-- weather/visibility hazard;
-- police/speed-enforcement report only where lawful;
-- incorrect map data;
-- changed speed limit.
-
-Reports require:
-- timestamp;
-- approximate geospatial scope;
-- reporter trust/confidence;
-- corroboration;
-- decay/expiry;
-- abuse/spam protection;
-- duplicate fusion;
-- conflict handling;
-- moderation/escalation;
-- privacy minimization.
-
-Foundly must distinguish:
-**UNVERIFIED REPORT → CORROBORATED → VERIFIED SOURCE → EXPIRED/REJECTED**
-
-## Foundly Driver Alerts — native Flitsmeister-class capability
-
-Foundly must contain a native driver-alert layer. Flitsmeister is a benchmark, not a dependency.
-
-Required where lawful and supported:
-- current speed limit;
-- speeding warning;
-- fixed speed-camera warning;
-- average-speed/section-control entry/progress/exit;
-- mobile speed-camera/community report;
-- red-light/safety camera where lawful/data-supported;
-- accident;
-- congestion;
-- roadworks;
-- closure;
-- hazard;
-- stopped vehicle;
-- emergency/safety warning;
-- school/sensitive-zone warning where data exists;
-- route-specific alert prioritization;
-- audio/voice/haptic/visual alert modes;
-- configurable alert distance and safety-oriented presentation;
-- false-positive/report feedback;
-- confidence/freshness display where appropriate.
-
-The system must never be designed to facilitate unlawful evasion. A jurisdiction policy engine must enable/disable alert types by country/region and applicable law.
-
-## Search / places
-
-Foundly Maps must provide its own place/address search experience using self-controlled indexes over lawful source data.
-
-Requirements:
-- address search;
-- POI/business search;
-- category search;
-- fuzzy/typo tolerance;
-- nearby search;
-- route-aware search;
-- business-hours/availability where licensed data exists;
-- multilingual/localized search;
-- CRM/customer location search;
-- personal favorites/history subject to owner privacy settings.
-
-No unsupported place attribute may be fabricated.
-
-## Offline navigation
-
-Where technically feasible, Foundly must support:
-- downloadable regions;
-- offline map rendering;
-- offline routing;
-- cached search;
-- route continuation;
-- local reroute;
-- later traffic refresh after reconnection;
-- resumable region updates.
-
-Offline limitations must remain explicit.
-
-## ZERO navigation intelligence
-
-ZERO must operate Foundly Maps conversationally without requiring Google/Waze.
+The user must be able to control the complete supported navigation workflow by natural language and voice.
 
 Examples:
-- "Plan mijn klantbezoeken vandaag met zo min mogelijk reistijd."
-- "Vermijd files en zorg dat ik tien minuten voor elke afspraak aankom."
-- "Zoek een snellader op mijn route zonder meer dan tien minuten om te rijden."
-- "Waarom stuur je me via deze route?"
-- "Welke afspraak moet ik verplaatsen als de A2 dichtloopt?"
+- "ZERO, navigeer naar mijn volgende afspraak met Waze."
+- "Gebruik Google Maps en zorg dat ik tien minuten te vroeg aankom."
+- "Plan vandaag al mijn klantbezoeken in de beste volgorde."
+- "Welke afspraak moet ik verschuiven als ik nu vertrek?"
+- "Zoek een laadpaal op de route en plan die stop."
+- "Stuur de klant automatisch een bericht als ik meer dan tien minuten later ben."
+- "Start Waze naar deze CRM-klant."
+- "Laat de ETA van deze rit in CRM en Calendar zien."
 
 ZERO may combine authorized:
-Calendar × CRM × Sales × Navigation × Traffic × Weather × Parking/Charging × user preferences.
+Calendar × CRM × Sales × Workforce × Places × Routes × Route Optimization × active trip telemetry × customer communication × Opportunity Intelligence × user preferences.
 
-ZERO must explain route-affecting evidence and uncertainty.
+ZERO must be able to:
+- choose the configured navigation provider;
+- request or compare route plans where APIs permit;
+- calculate departure/arrival planning;
+- optimize multiple business stops;
+- launch navigation;
+- monitor active trip progress where telemetry is available;
+- react to ETA changes;
+- update appointments/tasks/workflows;
+- trigger approved late-arrival/customer notifications;
+- capture trip completion;
+- write operational trip facts to the correct modules;
+- explain which provider/data produced a route, ETA or place result.
 
+ZERO may not claim to have altered Waze/Google Maps settings or navigation behavior that the official interface does not expose.
 
-## Foundly Maps monetization & growth model
+## Multi-stop and business routing
 
-Foundly Maps must launch with a **freemium growth model**, not a paid-download-first model.
+Foundly must support business-level multi-stop planning even where the consumer navigation launch interface supports only a single active destination.
 
-The commercial objective is to maximize:
-- legitimate installs;
-- active navigation users;
-- first-party route/traffic probe density where the user has authorized collection;
-- community incident/report density;
-- retention;
-- premium conversion;
-- Business conversion;
-- cross-sell into the wider Foundly OS.
+Foundly may:
+1. calculate/optimize the complete stop sequence using an authorized route/optimization provider;
+2. store the ordered itinerary inside Foundly;
+3. create one governed active navigation trip per destination where required by the provider;
+4. automatically offer/start the next stop after completion subject to user/device/platform policy.
 
-A free app-store download produces **no direct revenue by itself**. Foundly must therefore optimize **lifetime value per install (LTV/install)**, not vanity download count.
+The user experience should feel like one Foundly-managed route plan even when external navigation providers execute individual legs.
 
-### Foundly Maps Free
+## CRM / Calendar / Workforce integration
 
-The free tier should provide a genuinely useful core product, including where accepted/supported:
-- turn-by-turn navigation;
-- route alternatives;
-- live traffic/confidence where available;
-- basic Foundly Driver Alerts;
-- community reports;
-- basic ZERO navigation assistance;
-- basic favorites/history subject to privacy settings;
-- limited or practical offline capability.
+Navigation must be deeply integrated with Foundly business workflows.
 
-The free tier must be strong enough to support adoption and the network-effect flywheel. It must not be intentionally crippled in a way that destroys route quality, safety, trust or community growth.
+Examples:
+- CRM contact/account address -> navigate;
+- Calendar appointment -> route/departure recommendation;
+- Sales territory -> optimized visit plan;
+- field workforce -> daily route;
+- supplier meeting -> route and ETA;
+- real-estate viewing -> route sequence;
+- Automotive test drive/customer visit -> navigation;
+- late ETA -> controlled communication workflow;
+- arrival -> task/status update;
+- mileage/travel-time evidence where authorized.
 
-### Foundly Maps Premium
+## Provider abstraction and future Foundly Navigation Integration path
 
-Initial commercial planning target:
-**approximately EUR 7.99-12.99 per month**, subject to launch-time pricing experiments, taxes, jurisdiction, store rules, market willingness-to-pay and competitor benchmarks.
+Foundly must maintain an internal provider-neutral navigation contract covering at minimum:
+- geocode/search;
+- place;
+- route;
+- matrix;
+- optimization;
+- navigation launch;
+- active trip;
+- ETA;
+- location;
+- arrival;
+- provider status.
 
-Premium may include:
-- advanced ZERO navigation;
-- deeper route reasoning/explanations;
-- premium Driver Alert controls/intelligence;
-- expanded offline regions;
-- advanced route intelligence;
-- predictive traffic/ETA features where evidence supports them;
-- advanced personalization;
-- richer Calendar integration;
-- advanced route planning;
-- premium convenience features that do not reduce safety for free users.
+Business modules and ZERO should depend on this Foundly contract rather than hard-coding provider-specific behavior throughout the product.
 
-Pricing is a planning band, not a permanent fixed price.
+This abstraction is intentionally the migration path for a future native Foundly Navigation Integration product.
 
-### Foundly Maps Business
+Future Foundly Navigation Integration may later replace or complement provider implementations without requiring CRM, Calendar, Sales, Workforce or ZERO to be rebuilt.
 
-Foundly Maps must also support a higher-value Business offering integrated with Foundly OS.
+## Truthful provider state
 
-Initial commercial planning target:
-**approximately EUR 20-50+ per user per month**, dependent on included capability and customer segment.
+Foundly must maintain explicit states such as:
+- PROVIDER_NOT_CONFIGURED;
+- CREDENTIALS_REQUIRED;
+- READY;
+- CONSENT_REQUIRED;
+- NAVIGATION_LAUNCHED;
+- TELEMETRY_ACTIVE;
+- TELEMETRY_UNAVAILABLE;
+- PROVIDER_DEGRADED;
+- FAILED.
 
-Business functionality may include:
-- CRM/customer-visit routing;
-- field-sales routing;
-- workforce/field-service planning;
-- multi-stop optimization;
-- team/territory routing;
-- fleet/workday coordination;
-- manager/admin controls;
-- business analytics;
-- arrival/late workflows;
-- Calendar/CRM/Sales integration;
-- ZERO Business planning and orchestration;
-- enterprise identity, permissions, audit and policy.
+No trip may be represented as actively tracked merely because a deep link was opened.
 
-Foundly Maps may also act as an acquisition surface for wider Foundly OS subscriptions where commercially appropriate.
+A standard Waze/Google Maps deep link without active telemetry is distinct from a Navigation Connect-backed tracked trip.
 
-### Network-effect flywheel
+## Security and privacy
 
-Subject to explicit privacy/consent controls and lawful processing:
+Navigation/location integrations must enforce:
+- minimum necessary OAuth/API scopes;
+- API-key restrictions;
+- encrypted secrets;
+- tenant isolation;
+- per-user permission;
+- explicit location-sharing consent where required;
+- purpose limitation;
+- retention controls;
+- audit;
+- deletion rights where applicable;
+- safe handling of precise location;
+- no silent personal/business location mixing.
 
-**more active users
--> more first-party probe/report evidence
--> better traffic/incident confidence
--> better ETA/routing
--> better user experience
--> stronger retention
--> more users**
+## Cost and provider controls
 
-This network effect is strategically important. Monetization must not sabotage it.
+Foundly must track:
+- API call volume;
+- Routes/Places/Optimization usage;
+- Navigation Connect usage;
+- provider errors;
+- cost by tenant/workflow;
+- quotas/rate limits;
+- caching where provider terms permit;
+- retry/backoff;
+- field-mask/data-minimization optimization where supported.
 
-### LTV/install objective
+ZERO must not create uncontrolled routing or Places API spend.
 
-Foundly should optimize measured:
-- install -> activation;
-- activation -> retained active user;
-- active user -> Premium conversion;
-- active user -> Business lead/conversion;
-- ARPU;
-- gross margin;
-- churn;
-- CAC;
-- payback period;
-- cohort LTV;
-- LTV/install.
+## Dynamic benchmarks
 
-An initial strategic ambition may be **EUR 5-15+ lifetime value per install** when consumer subscription, business conversion and wider Foundly cross-sell are combined, but this is a **target to validate**, never a guaranteed forecast.
+The integration experience must be benchmarked dynamically against the strongest current business-navigation/location orchestration experiences.
 
-### App-store economics
+Acceptance focuses on Foundly's integration/orchestration quality rather than claiming that Foundly's route algorithm is superior to Google/Waze.
 
-Apple App Store / Google Play fees, billing rules, taxes and alternative-payment rules must be re-verified at launch time and by jurisdiction.
-
-Do not hard-code current store commission assumptions into permanent unit economics.
-
-The pricing engine/business model must support:
-- platform-specific fees;
-- taxes/VAT;
-- promotions/trials;
-- annual plans;
-- regional pricing;
-- direct Business sales where allowed;
-- margin reporting after payment/platform costs.
-
-### Location-data commercial boundary
-
-Foundly must not sell raw personal location history or silently monetize personal route history.
-
-Location/probe telemetry used to improve traffic/navigation must be:
-- lawful;
-- purpose-limited;
-- minimized;
-- consented/authorized where required;
-- protected by retention controls;
-- separated from advertising/personal-business contexts unless explicitly permitted;
-- auditable and deletable according to applicable rights.
-
-Commercial success may never override Foundly's truthful-state, privacy, safety or permission laws.
-
-
-## Dynamic component benchmarks
-
-Foundly Maps must benchmark each material sub-capability independently against the strongest current specialist/product/model for that exact capability.
-
-Initial benchmark families:
-- Google Maps-class destination search, route UX, lane guidance and live navigation;
-- Waze-class crowdsourced incidents, map-community freshness and rerouting;
-- TomTom-class routing, traffic and automotive map quality;
-- HERE-class routing, route matching, traffic and location intelligence;
-- Mapbox-class custom mapping, traffic datasets, navigation APIs and ETA/traffic models;
-- Flitsmeister-class speed/road-alert UX and alert relevance;
-- strongest current open/self-hosted routing stacks where useful as engineering baselines;
-- strongest current ETA/congestion/location models discovered at execution time.
-
-Benchmarks are references only. Foundly does not need runtime coupling to a benchmark product.
-
-## Per-capability acceptance
-
-Benchmark and record separately:
-- basemap/cartography quality;
-- address/POI search relevance;
-- geocoding precision;
-- route validity;
-- route optimality;
-- alternative-route usefulness;
-- ETA MAE/MAPE/calibration;
-- live-traffic freshness;
-- congestion accuracy;
-- incident precision/recall;
-- incident time-to-detection;
-- reroute latency;
-- route stability;
-- map-matching accuracy;
-- turn-instruction correctness;
-- lane guidance;
-- speed-limit accuracy;
-- camera/section-control alert precision/recall where lawful;
-- false-alert rate;
-- community-report abuse resistance;
-- offline behavior;
-- voice usability;
-- battery consumption;
-- network consumption;
-- map render performance;
+Benchmark:
+- route-plan correctness;
+- place/search usefulness;
+- multi-stop workflow;
+- time-to-start-navigation;
+- active trip linkage;
+- ETA/event ingestion;
+- CRM/Calendar/workforce integration;
+- voice operation;
+- failure recovery;
+- consent handling;
+- user effort;
+- latency;
+- cost efficiency;
 - privacy;
-- accessibility;
-- multi-stop optimization quality;
-- CRM/calendar/workforce integration.
+- mobile UX.
 
-## Truthful coverage law
+## Current-program acceptance
 
-Foundly may only claim parity/superiority for the geographies and scenarios actually benchmarked.
+Runs 2–7 do **not** require:
+- a native Foundly road graph;
+- Foundly-owned global map tiles;
+- a Foundly-owned ETA model;
+- Foundly-owned traffic probe network;
+- a native Flitsmeister-class Driver Alerts network;
+- a consumer Foundly Navigation Integration app;
+- independent global geocoding/search infrastructure.
 
-Global product availability does not imply globally equal:
-- map freshness;
-- traffic probe density;
-- speed-camera coverage;
-- ETA accuracy;
-- incident freshness.
+Those are deferred future Foundly Navigation Integration scope.
 
-Unsupported or lower-confidence regions must be truthfully labeled.
+Current acceptance instead requires a hyper-perfect provider-backed navigation experience and complete ZERO/business-module orchestration using officially supported Google Maps/Waze capabilities.
 
 ---
-
 
 # 10E. COMPONENT-LEVEL BEST-IN-CLASS BENCHMARK LAW
 
@@ -1292,7 +1097,7 @@ This includes, where product scope makes the capability independently useful:
 - Foundly AI Website Builder;
 - Foundly AI Photo Studio;
 - Foundly AI Video Studio;
-- Foundly Maps / Navigation / Driver Intelligence;
+- Foundly Navigation Integration (Google Maps / Waze orchestration);
 - every independently useful future Foundly capability.
 
 Each standalone product must have:
@@ -2459,7 +2264,7 @@ Standalone app hypotheses, also per company/user/month:
 - Automation: EUR 29-79 per user/month plus high-volume execution usage;
 - Communication: EUR 15-39 per user/month;
 - Calendar: included in bundles or low-cost standalone;
-- Foundly Maps Business: EUR 20-50+ per user/month;
+- Foundly Navigation Integration Business: EUR 20-50+ per user/month;
 - ZERO advanced autonomy: included by plan, with transparent variable compute usage where necessary.
 
 Industry Packs remain attached to the company organization but must also scale primarily by licensed users. Additional location/store/vehicle/data-provider fees may exist only when they reflect a real variable cost or separately delivered capability.
@@ -2593,7 +2398,7 @@ At minimum, separate complete demos are required for every sellable Foundly prod
 - Photo Studio;
 - Video Studio;
 - ZERO-driven workflows;
-- Foundly Maps;
+- Foundly Navigation Integration;
 - Automotive Industry Pack;
 - E-commerce Industry Pack;
 - Retail Industry Pack;
@@ -3068,7 +2873,7 @@ Must include the full Automotive Pack already defined plus:
 - appointments/test drives;
 - procurement;
 - aftersales/service relationships where in scope;
-- Foundly Maps/customer/vehicle logistics;
+- ZERO-controlled Google Maps/Waze customer/vehicle logistics;
 - analytics and forecasting.
 
 Connector Pack candidates include, subject to lawful/provider access:
@@ -4338,7 +4143,6 @@ These requirements must be implemented inside the existing frozen seven-run road
 - enterprise data foundation required by Creative/Growth;
 - horizontally scalable multi-tenant data/service foundations;
 - PostgreSQL/digital twin;
-- Foundly Maps geospatial data substrate: versioned road graph, source/provenance/freshness model, probe/traffic/incident telemetry and region datasets;
 - universal supplier/vendor data model, RFx/quote/negotiation outcome model and supplier provenance;
 - universal Product/Asset/Offer graph for vehicles, SKUs, properties, services, components, equipment and wholesale inventory;
 - six Industry System schema extensions and connector registry/readiness substrate;
@@ -4353,7 +4157,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 4**
 - autonomous self-implementation/control plane;
-- native Foundly Maps backend/platform: self-controlled routing graph, routing engine, geocoding/search indexes, map-matching, ETA/traffic fusion, incident/community network and Driver Alerts services;
+- ZERO-controlled Google Maps/Waze navigation integration layer using provider-neutral Foundly contracts, Routes/Places/Optimization/Navigation Connect where supported;
 - private founder-only Agency Home based on the existing Foundly dashboard direction;
 - main modules: Email, Calendar, Control Panel, Marketing, Media, Social Media, Finance, Foundly AI Models, Gaming;
 - Marketing submodules: SEO, SEA, Website, Ads;
@@ -4393,7 +4197,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 5**
 - mobile/workforce experiences for all eligible capabilities;
-- native Foundly Maps iOS/Android/desktop navigation client, offline regions, turn-by-turn/voice, own Driver Alerts and no Google/Waze runtime dependency;
+- mobile/desktop ZERO-controlled Google Maps/Waze navigation launch, trip-linkage, ETA/event handling and route-aware business workflows;
 - role-specific mobile/desktop workspaces for enterprise teams;
 - multi-user collaboration, notifications and handoff;
 - separate installable iOS/iPadOS and Android app surfaces for independently useful modules;
@@ -4413,8 +4217,8 @@ These requirements must be implemented inside the existing frozen seven-run road
 
 **Run 6**
 - full red team;
-- Foundly Maps independent benchmark closure against current strongest navigation/routing/traffic/search/driver-alert specialists;
-- real-route ETA/route/traffic/incident/alert/offline/battery/privacy stress acceptance with Google/Waze used only as external benchmarks;
+- Google Maps/Waze integration benchmark closure for route planning, navigation launch, trip telemetry, ETA, business orchestration and provider failure handling;
+- real Google Maps/Waze navigation integration acceptance including route planning, launch, telemetry/ETA where supported, consent, provider failure and privacy;
 - self-healing/redelivery red team;
 - canary/blue-green/rollback/failover acceptance;
 - chaos/fault injection and recovery acceptance;
@@ -4453,7 +4257,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - real authoritative regulatory-change ingestion, applicability, customer impact/remediation and safe auto-update evidence;
 - real or authorized production-like acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
 - real connector credentials/runtime evidence where commercially/provider available;
-- real Foundly Maps driving acceptance using the native Foundly route/traffic/alert stack;
+- real Google Maps/Waze driving/navigation integration acceptance through official provider interfaces;
 - real owner-command-center operation;
 - real production-like autonomous bug detection/fix/canary/rollback scenarios with bounded risk;
 - prove routine release continuity without customer-visible downtime where technically controllable;
