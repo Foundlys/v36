@@ -2247,6 +2247,50 @@ The Control Panel may use high-end transparent/glass spheres, domes, capsules or
 
 ZERO is omnipresent across the private Agency Home and acts as the founder's personal assistant and agency while preserving explicit personal/business context boundaries.
 
+## 10L.4 FOUNDER-USE-FIRST EXECUTION PRIORITY
+
+Execution priority is:
+1. fully complete the Private Founder Agency Home + Single Control Panel for real founder daily use;
+2. fully complete Foundly CRM as the first standalone customer product;
+3. resume the existing Runs 2–7 sequence from the next unresolved dependency/gate.
+
+This sequencing does not waive any hard requirement and does not create a new foundational run.
+
+### Founder cockpit must track Foundly development truth
+
+The Control Panel must expose authoritative project/development state from the real Foundly engineering sources, including where available:
+- repository/branch/commit;
+- open PRs;
+- CI/workflow status;
+- acceptance-matrix status;
+- current run/phase/gate;
+- open defects/blockers;
+- benchmark state;
+- deployment/environment state;
+- test/eval evidence;
+- cost/credit/usage telemetry;
+- app/module completion state;
+- self-healing incidents/fixes;
+- approvals/decisions required;
+- latest known-good version;
+- current risks and next execution focus.
+
+Conversation summaries are not authoritative technical truth.
+
+### Personal daily use
+
+The founder-only Agency Home must be usable as the founder's real personal/business operating environment as soon as P0 acceptance closes.
+
+Where provider integrations are unavailable or not yet authorized, the relevant module must remain usable at the highest truthful local/integrated level and show explicit provider state rather than block the entire Agency Home or simulate external connectivity.
+
+### CRM-first productization
+
+After P0, Foundly CRM becomes the first product to receive end-to-end standalone completion across its required Core, ZERO, UX, device, demo, benchmark, permission, recovery, audit and commercial surfaces.
+
+Completing CRM early must produce reusable shared contracts/patterns for later Foundly apps rather than one-off CRM-only architecture.
+
+---
+
 # 10N. FOUNDLY B2B PER-USER PRICING LAW
 
 Foundly commercial pricing must be organization-based and seat-based.
