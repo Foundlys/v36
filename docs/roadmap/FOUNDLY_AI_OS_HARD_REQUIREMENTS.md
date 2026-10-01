@@ -2374,6 +2374,52 @@ Completing CRM early must produce reusable shared contracts/patterns for later F
 
 ---
 
+## 10L.5 CONTINUOUS FOUNDER INTEGRATION & TEASER LAB LAW
+
+The Private Founder Agency Home and Single Control Panel are living production surfaces.
+
+After their initial P0 acceptance, they must continuously inherit every later Foundly capability that becomes sufficiently implemented and evidence-backed.
+
+For every later app, intelligence engine, module, connector and Industry System:
+- authoritative registry state must appear in the Control Panel;
+- current version/deployment/acceptance/benchmark/security/cost/performance state must be visible;
+- accepted capabilities must become directly testable/usable by the founder where technically applicable;
+- ZERO must gain the new authorized tools/context without a separate founder-only fork;
+- sandbox/dev capabilities may be testable only under explicit non-production state;
+- provider/runtime claims remain truthful;
+- later fixes/upgrades must propagate through shared Core into the founder environment.
+
+The founder environment may never become a stale parallel implementation.
+
+### Founder Teaser Lab
+
+A founder-only teaser/testing capability must allow creation of safe product demos and advertising teaser assets from the real current product state.
+
+Allowed:
+- resettable demo tenants;
+- synthetic clearly labeled data;
+- guided feature flows;
+- teaser scripts/storyboards;
+- screen-capture-ready scenarios;
+- product screenshots/video capture preparation;
+- ZERO-assisted ad/caption/copy drafting;
+- evidence-backed benchmark highlights;
+- approved outcome examples.
+
+Prohibited:
+- fabricated customer outcomes;
+- fake integrations;
+- fake LIVE states;
+- fabricated revenue/savings/ROI;
+- unsupported benchmark superiority;
+- customer/private data exposure;
+- production credentials/secrets in demo material.
+
+A capability becomes teaser-eligible only when the teaser accurately reflects its current proven state.
+
+
+---
+
 # 10N. FOUNDLY B2B PER-USER PRICING LAW
 
 Foundly commercial pricing must be organization-based and seat-based.
