@@ -4624,6 +4624,15 @@ These requirements must be implemented inside the existing frozen seven-run road
 - six Industry System schema extensions and connector registry/readiness substrate;
 - Opportunity Ledger schema, time-series market/internal signal store, prediction/outcome and scenario data foundation;
 - versioned regulatory universe, Legal DNA/applicability graph, obligation/control graph and regulatory change-event model;
+- Data & Knowledge foundation: canonical entity graph, golden-record/survivorship, entity resolution, source authority, quality/conflict/staleness and temporal knowledge;
+- Market & Competitive foundation: competitor universe, market-signal snapshots, price/assortment/positioning time series, validation and trend evidence;
+- CFO foundation: planning dimensions/drivers, budgets, forecasts, scenarios, assumptions, actual-versus-plan, cash/working-capital/unit-economics lineage;
+- Contract & Document foundation: document/version registry, clauses, terms, obligations, parties, deadlines, risk/playbook deviations and source-section provenance;
+- Customer Experience & Service foundation: cases/conversations, intent, resolution, SLA, handoff and outcome model;
+- Security / Risk / Fraud foundation: identity/session/agent/tool/transaction risk signals, incident timeline and containment evidence;
+- Workforce & Capacity foundation: people/role/skill/agent/automation graph, availability, workload, capacity and cost;
+- Pricing foundation: price/cost/margin history, elasticity observations, market price signals, promotion/discount experiments and guardrails;
+- Demand / Inventory / Capacity foundation: forecast series, realized demand, lead-time distributions, inventory positions, supply/capacity constraints and scenario versions;
 - asset/content graph;
 - benchmark observation storage;
 - outcome telemetry;
@@ -4668,6 +4677,16 @@ These requirements must be implemented inside the existing frozen seven-run road
 - Universal AI Product / Asset / Offer Finder;
 - Foundly Opportunity Intelligence / Opportunity Finder as both shared Core engine and standalone app;
 - Foundly Regulatory & Legal Intelligence / Compliance Autopilot as shared Core engine and standalone app;
+- Foundly Data & Knowledge Intelligence as shared Core engine and standalone app;
+- Foundly Market & Competitive Intelligence as shared Core engine and standalone app;
+- Foundly CFO / Financial Planning Intelligence as shared Core engine and standalone app;
+- Foundly Contract & Document Intelligence as shared Core engine and standalone app;
+- Foundly Customer Experience & Service Intelligence as shared Core engine and standalone app;
+- Foundly Security / Risk / Fraud Intelligence as shared Core engine and standalone app;
+- Foundly Workforce & Capacity Intelligence as shared Core engine and standalone app;
+- Foundly Pricing & Revenue Optimization as shared specialist decision engine and standalone app where sold;
+- Foundly Demand / Inventory / Capacity Planning as shared specialist decision engine and standalone app where sold;
+- ZERO cross-engine executive decision orchestration across all intelligence engines;
 - Foundly Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale enterprise Industry Systems;
 - six versioned Industry Connector Packs with sandbox/setup/readiness evidence.
 
@@ -4684,6 +4703,16 @@ These requirements must be implemented inside the existing frozen seven-run road
 - mobile Product/Asset/Offer Finder;
 - mobile/desktop/voice Foundly Opportunity Intelligence app and embedded Opportunity Inbox;
 - mobile/desktop/voice Regulatory & Legal Intelligence app with regulatory-change inbox, obligations, deadlines and remediation;
+- mobile/desktop Data & Knowledge Intelligence stewardship/quality surfaces;
+- mobile/desktop Market & Competitive Intelligence watchlists, alerts and decision briefs;
+- mobile/desktop CFO Intelligence forecasts, scenarios, approvals and executive briefs;
+- mobile/desktop Contract & Document Intelligence review, obligations and approval flows;
+- mobile/desktop Customer Experience & Service workspaces with multilingual text/voice;
+- mobile Security / Risk / Fraud incident, approval and containment controls;
+- mobile/desktop Workforce & Capacity planning, scheduling and human/agent workload surfaces;
+- mobile/desktop Pricing & Revenue Optimization scenarios and governed approvals;
+- mobile/desktop Demand / Inventory / Capacity Planning exceptions, forecasts and scenarios;
+- cross-engine ZERO executive decision workflows through mobile/voice where safe;
 - mobile/desktop experiences for all six enterprise Industry Systems;
 - ZERO Navigation Orchestration over configured Google Maps/Waze providers;
 - route-aware CRM/calendar/workforce workflows;
@@ -4722,6 +4751,16 @@ These requirements must be implemented inside the existing frozen seven-run road
 - Product/Asset/Offer Finder relevance/freshness/compatibility testing per vertical;
 - Opportunity Intelligence financial correctness, calibration, ranking, false-positive, scenario and realized-outcome testing per vertical;
 - Regulatory & Legal Intelligence source freshness, applicability, effective-date, obligation, impact, automation-safety and rollback testing;
+- Data & Knowledge false-merge/missed-duplicate/source-authority/quality/knowledge-contamination testing;
+- Market & Competitive stale/poisoned-source/entity-mismatch/weak-signal/market-sizing testing;
+- CFO accounting-source/scenario/cash/working-capital/false-precision/double-counting testing;
+- Contract & Document clause/version/party/obligation/deadline/redline/prompt-injection testing;
+- Customer Experience & Service resolution/refund/policy/empathy/handoff/multilingual/voice testing;
+- Security / Risk / Fraud false-positive/false-negative/agent-abuse/prompt-injection/transaction-fraud/containment testing;
+- Workforce & Capacity availability/skills/over-allocation/legal-decision/cost/human-agent-allocation testing;
+- Pricing & Revenue elasticity/cannibalization/margin/approval/oscillation/revenue-vs-profit testing;
+- Demand / Inventory / Capacity forecast/calibration/cold-start/lead-time/stock/capacity/working-capital testing;
+- current strongest benchmark reruns for every material sub-capability before any SUPERIOR/BEST_IN_CLASS state;
 - all six Industry Systems independently benchmarked, demo-accepted and connector-pack-tested.
 
 **Run 7**
@@ -4730,6 +4769,16 @@ These requirements must be implemented inside the existing frozen seven-run road
 - real Product/Asset/Offer Finder acceptance in representative verticals;
 - real Opportunity Intelligence recommendations, simulations, actions and realized-outcome calibration across representative verticals;
 - real authoritative regulatory-change ingestion, applicability, customer impact/remediation and safe auto-update evidence;
+- real Data & Knowledge entity-resolution/data-quality/correction/retrieval evidence;
+- real Market & Competitive current-source monitoring/change-detection/decision-activation evidence;
+- real CFO forecast/scenario/cash/working-capital decision and reconciliation evidence;
+- real Contract & Document extraction/obligation/review/action evidence;
+- real Customer Experience & Service resolution/handoff/outcome evidence;
+- real Security / Risk / Fraud controlled incident/fraud detection/containment/audit evidence;
+- real Workforce & Capacity planning/scheduling/human-agent trade-off evidence;
+- real Pricing recommendation/experiment with realized revenue/margin comparison where safe;
+- real Demand / Inventory / Capacity forecasting/planning and realized-outcome evidence;
+- real cross-engine ZERO executive decision under conflicting financial/legal/security/capacity constraints;
 - real or authorized production-like acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
 - real connector credentials/runtime evidence where commercially/provider available;
 - real Google Maps/Waze driving/navigation integration acceptance through official provider interfaces;
