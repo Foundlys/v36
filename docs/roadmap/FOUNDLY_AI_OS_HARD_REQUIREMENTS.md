@@ -1087,6 +1087,15 @@ This includes, where product scope makes the capability independently useful:
 - Foundly Product / Asset / Offer Finder;
 - Foundly Opportunity Intelligence / Opportunity Finder;
 - Foundly Regulatory & Legal Intelligence / Compliance Autopilot;
+- Foundly Data & Knowledge Intelligence;
+- Foundly Market & Competitive Intelligence;
+- Foundly CFO / Financial Planning Intelligence;
+- Foundly Contract & Document Intelligence;
+- Foundly Customer Experience & Service Intelligence;
+- Foundly Security / Risk / Fraud Intelligence;
+- Foundly Workforce & Capacity Intelligence;
+- Foundly Pricing & Revenue Optimization;
+- Foundly Demand / Inventory / Capacity Planning;
 - Foundly Calendar / Agenda;
 - Foundly Communication;
 - Foundly Automation;
@@ -1226,7 +1235,16 @@ Examples:
 - Foundly Analytics app → strongest analytics specialists;
 - Foundly Ads app → strongest advertising automation specialists;
 - Foundly Sales app → strongest sales intelligence/engagement specialists;
-- Foundly Navigation app → strongest navigation/driver-intelligence products.
+- Foundly Data & Knowledge Intelligence app → strongest MDM/entity-resolution/data-quality specialists;
+- Foundly Market & Competitive Intelligence app → strongest competitive/market-intelligence specialists;
+- Foundly CFO Intelligence app → strongest FP&A/enterprise-planning specialists;
+- Foundly Contract & Document Intelligence app → strongest CLM/contract-intelligence specialists;
+- Foundly Customer Experience & Service Intelligence app → strongest autonomous customer-service specialists;
+- Foundly Security / Risk / Fraud Intelligence app → strongest security-copilot/SOC/fraud specialists;
+- Foundly Workforce & Capacity Intelligence app → strongest workforce-intelligence/planning specialists;
+- Foundly Pricing & Revenue Optimization app → strongest pricing/revenue-optimization specialists;
+- Foundly Demand / Inventory / Capacity Planning app → strongest supply-chain/demand/inventory planning specialists;
+- navigation integration → strongest current Google Maps/Waze-supported business navigation orchestration patterns.
 
 For each app, benchmark:
 - functionality;
@@ -2407,6 +2425,15 @@ At minimum, separate complete demos are required for every sellable Foundly prod
 - Product / Asset / Offer Finder;
 - Opportunity Intelligence / Opportunity Finder;
 - Regulatory & Legal Intelligence / Compliance Autopilot;
+- Data & Knowledge Intelligence;
+- Market & Competitive Intelligence;
+- CFO / Financial Planning Intelligence;
+- Contract & Document Intelligence;
+- Customer Experience & Service Intelligence;
+- Security / Risk / Fraud Intelligence;
+- Workforce & Capacity Intelligence;
+- Pricing & Revenue Optimization;
+- Demand / Inventory / Capacity Planning;
 - every future Industry Pack;
 - every future standalone module/app.
 
@@ -2775,7 +2802,7 @@ By completion of the foundational Run 2-7 program, Foundly must contain the foll
 
 Foundly Manufacturing must include a first-class **Wholesale/Distribution** operating profile. Large/mega-enterprise scale is provided by the shared Foundly Enterprise organization/scale layer rather than a customer fork.
 
-These are not superficial themes or demo skins. Each Industry System must be a production-grade composition of Foundly Core capabilities with its own industry model, workflows, connector pack, analytics, Product/Asset Finder specialization, Supplier Intelligence specialization, ZERO knowledge/context and hyper-perfect demo/trial.
+These are not superficial themes or demo skins. Each Industry System must be a production-grade composition of Foundly Core capabilities with its own industry model, workflows, connector pack, analytics, Product/Asset Finder specialization, Supplier Intelligence specialization, Opportunity Intelligence specialization, Regulatory specialization, Data/Knowledge specialization, Market Intelligence specialization, CFO/Planning specialization, Contract/Document specialization, Customer Service specialization, Security/Risk specialization, Workforce/Capacity specialization, Pricing specialization, Demand/Inventory/Capacity specialization, ZERO knowledge/context and hyper-perfect demo/trial.
 
 ## Shared capability minimum
 
@@ -2786,6 +2813,17 @@ Every Industry System must integrate, where relevant to the industry:
 - Procurement;
 - Supplier Intelligence;
 - Product/Asset/Offer Finder;
+- Opportunity Intelligence;
+- Regulatory & Legal Intelligence / Compliance Autopilot;
+- Data & Knowledge Intelligence;
+- Market & Competitive Intelligence;
+- CFO / Financial Planning Intelligence;
+- Contract & Document Intelligence;
+- Customer Experience & Service Intelligence;
+- Security / Risk / Fraud Intelligence;
+- Workforce & Capacity Intelligence;
+- Pricing & Revenue Optimization;
+- Demand / Inventory / Capacity Planning;
 - Finance;
 - Analytics;
 - Marketing;
@@ -3994,6 +4032,446 @@ Acceptance must independently measure:
 - reusable-gap implementation without customer forks.
 
 No Foundly Industry System or Enterprise offering may be called AUTONOMOUS_IMPLEMENTATION_READY while material required gates are FAIL or UNVERIFIED.
+
+---
+
+# 10V. UNIVERSAL INTELLIGENCE EXPANSION & PROVABLE SUPERIORITY LAW
+
+Foundly Core must add the following universal intelligence engines, all orchestrated by ZERO and available to every Industry System where relevant:
+
+1. **Foundly Data & Knowledge Intelligence**
+2. **Foundly Market & Competitive Intelligence**
+3. **Foundly CFO / Financial Planning Intelligence**
+4. **Foundly Contract & Document Intelligence**
+5. **Foundly Customer Experience & Service Intelligence**
+6. **Foundly Security / Risk / Fraud Intelligence**
+7. **Foundly Workforce & Capacity Intelligence**
+8. **Foundly Pricing & Revenue Optimization**
+9. **Foundly Demand / Inventory / Capacity Planning**
+
+These engines are not disconnected chatbots. They are governed Core intelligence systems with their own data contracts, models, evaluation suites, actions and evidence, exposed through ZERO and, where independently useful, through standalone Foundly app surfaces.
+
+## Universal engine contract
+
+Every engine must have:
+- canonical domain schema;
+- source/provenance model;
+- freshness and confidence;
+- distinction between known / inferred / predicted / unknown;
+- permission-aware retrieval;
+- deterministic business rules where appropriate;
+- model registry and routing;
+- specialist-agent/tool registry where appropriate;
+- action contracts into Foundly modules;
+- audit/replay;
+- idempotency/recovery;
+- cost/latency budgets;
+- tenant isolation;
+- security/privacy;
+- localization;
+- voice support where useful;
+- desktop/mobile product surfaces where sold;
+- its own evaluation corpus;
+- vertical evaluation packs for each applicable Industry System;
+- a dedicated current competitor/model/specialist benchmark matrix.
+
+## Dynamic strongest-current benchmark law
+
+For **every material sub-capability** of every intelligence engine, Foundly must identify the strongest current relevant:
+- model;
+- competitor product;
+- specialist platform;
+- algorithm/optimization baseline;
+- or combination of specialists.
+
+There is no permanent benchmark winner and no assumption that one vendor is strongest across all sub-capabilities.
+
+At implementation time, major release time and before a superiority claim:
+1. discover current benchmark candidates;
+2. record source/date/version;
+3. define representative and adversarial test sets;
+4. run the benchmark using comparable inputs/constraints where lawful;
+5. measure quality, correctness, calibration, latency, user effort, cost, reliability, safety and business outcome;
+6. record Foundly gaps;
+7. improve Foundly;
+8. rerun the benchmark;
+9. preserve evidence.
+
+The product target is **measurable best-in-class superiority**, not merely parity.
+
+A material capability may only be labelled **BEST_IN_CLASS / SUPERIOR** when current evidence shows Foundly outperforms the strongest relevant benchmark(s) on the accepted decision metrics without materially losing correctness, safety, reliability, privacy, accessibility or economics.
+
+If Foundly does not yet beat the strongest benchmark, the truthful state remains:
+- BELOW_PARITY;
+- PARTIAL;
+- PARITY;
+- or UNVERIFIED.
+
+No roadmap text, demo, sales copy or ZERO answer may convert an aspiration to "be better" into an unsupported superiority claim.
+
+## 10V.1 Foundly Data & Knowledge Intelligence
+
+Purpose:
+create and continuously maintain the highest-quality authorized business truth layer for ZERO and every Foundly app.
+
+Required capabilities:
+- entity resolution/matching;
+- golden customer/supplier/product/asset/company records;
+- master-data survivorship;
+- source-authority ranking;
+- duplicate detection;
+- conflict detection;
+- stale-data detection;
+- invalid/outlier value detection;
+- unit/currency/identifier normalization;
+- schema/entity relationship inference with confidence;
+- hierarchy management;
+- record lineage;
+- data-quality scoring;
+- correction proposals;
+- governed merge/split;
+- rollback;
+- knowledge graph construction;
+- semantic retrieval;
+- temporal knowledge/versioning;
+- contradiction handling;
+- deletion/rights propagation;
+- continuous data-drift monitoring.
+
+Initial benchmark families, refreshed at execution time:
+- Informatica / CLAIRE-class enterprise MDM and data-quality intelligence;
+- Reltio-class real-time entity resolution and multidomain MDM;
+- Ataccama-class data quality/governance;
+- SAP Master Data Governance-class enterprise master-data controls;
+- Tamr/Precisely/Stibo/Profisee-class specialist capabilities;
+- strongest current entity-resolution, graph, retrieval and data-quality models.
+
+Acceptance metrics include:
+precision/recall of entity matching, false merges, missed duplicates, golden-record correctness, data-quality detection precision/recall, provenance correctness, freshness, conflict handling, correction safety and query/retrieval quality.
+
+## 10V.2 Foundly Market & Competitive Intelligence
+
+Purpose:
+continuously understand the customer's external market and competitors and activate that intelligence through ZERO, Opportunity Intelligence, Sales, Pricing, Marketing and strategy.
+
+Required capabilities:
+- public/paid/internal source aggregation where authorized;
+- competitor entity universe;
+- product/price/assortment changes;
+- positioning/messaging changes;
+- website/content/ad monitoring;
+- market/news/filing/research monitoring;
+- hiring/expansion signals;
+- supply/demand signals;
+- customer/review signals where lawful;
+- market sizing and segmentation with evidence;
+- trend detection;
+- weak-signal detection;
+- competitor battlecards;
+- win/loss intelligence;
+- strategic implications;
+- alerts;
+- source validation/fact checking;
+- contradiction handling;
+- time-series competitive snapshots;
+- activation into Opportunity, Pricing, Sales, Procurement and Marketing.
+
+Initial benchmark families:
+- AlphaSense-class premium market/research intelligence;
+- Crayon-class competitor monitoring;
+- Klue-class competitive enablement and win/loss;
+- Market Logic / Northern Light / Stravito / Contify / Valona-class knowledge and market-intelligence workflows;
+- strongest current research/search/market-intelligence models.
+
+Gartner's 2026 C&MI capability dimensions are useful benchmark categories: public/paywalled/internal aggregation, source validation, AI search/analysis, knowledge access, deliverable creation, enterprise integration and strategy/revenue enablement.
+
+## 10V.3 Foundly CFO / Financial Planning Intelligence
+
+Purpose:
+turn Foundly Finance plus operational data into a continuously updated, explainable CFO decision system.
+
+Required capabilities:
+- integrated P&L / balance sheet / cash-flow view;
+- budget;
+- forecast;
+- rolling forecast;
+- actual-versus-plan variance;
+- driver-based planning;
+- working-capital analysis;
+- AR/AP and payment-term impact;
+- inventory-capital analysis;
+- unit economics;
+- gross/contribution margin;
+- scenario planning;
+- sensitivity analysis;
+- headcount/capacity financial planning;
+- financing/capital-allocation analysis;
+- runway/liquidity;
+- covenant/threshold monitoring where configured;
+- investment/business-case analysis;
+- forecast intervals/confidence;
+- source-to-number traceability;
+- narrative explanation;
+- approval-aware recommended actions.
+
+It must explicitly arbitrate whether Opportunity/Supplier/Pricing recommendations are financially affordable and value-accretive.
+
+Initial benchmark families:
+- Pigment-class AI-native FP&A;
+- Anaplan-class connected planning;
+- Workday Adaptive Planning-class finance/workforce planning;
+- Oracle Cloud EPM-class enterprise planning/close/governance;
+- OneStream / Board / Planful / Vena-class specialist capabilities;
+- strongest current forecasting, causal and financial-planning models.
+
+No financial forecast may be presented as certain.
+
+## 10V.4 Foundly Contract & Document Intelligence
+
+Purpose:
+turn business documents and agreements into structured, actionable, governed intelligence.
+
+Required document families include where relevant:
+contracts, quotes, supplier agreements, customer agreements, SLAs, NDAs, purchase orders, invoices, employment/contractor documents, leases, property documents, technical specifications, certificates and other business records.
+
+Required capabilities:
+- document classification;
+- structured extraction;
+- clause recognition;
+- term normalization;
+- party/entity linking;
+- obligation extraction;
+- renewal/termination/deadline extraction;
+- price/indexation/payment-term extraction;
+- SLA/warranty extraction;
+- risk/playbook review;
+- deviation detection;
+- comparison;
+- redlining/drafting assistance;
+- version/diff;
+- signature/execution-state linkage;
+- contract-to-CRM/Procurement/Finance/Calendar/Compliance actions;
+- obligation monitoring;
+- source page/section provenance;
+- confidence and exception handling.
+
+Initial benchmark families:
+- Icertis Vera-class AI-native contract intelligence and agentic contracting;
+- Docusign IAM/Iris-class agreement intelligence and agents;
+- Ironclad-class AI CLM;
+- Sirion-class contract intelligence;
+- Luminance-class legal contract analysis;
+- strongest current legal/document extraction and reasoning models.
+
+No legal interpretation may bypass the Regulatory & Legal Intelligence escalation rules.
+
+## 10V.5 Foundly Customer Experience & Service Intelligence
+
+Purpose:
+resolve customer needs across channels while preserving full business context, empathy, authority and measurable outcomes.
+
+Required capabilities:
+- omnichannel case/contact intake where provider APIs permit;
+- identity/customer/order/product/contract context;
+- intent classification;
+- resolution planning;
+- knowledge retrieval;
+- grounded answer generation;
+- customer-specific next best action;
+- return/refund/warranty workflows;
+- appointment/service booking;
+- proactive status communication;
+- sentiment/urgency detection without unsupported psychological claims;
+- social intelligence/empathy/tone;
+- multilingual service;
+- voice service;
+- agent assist;
+- autonomous bounded resolution;
+- human handoff;
+- SLA/queue/priority;
+- resolution verification;
+- CSAT/outcome learning;
+- recurring issue/root-cause feedback into Product/Data/Self-Healing.
+
+Initial benchmark families:
+- Salesforce Agentforce Service-class autonomous/assisted service;
+- Zendesk AI-class resolution automation;
+- Intercom Fin-class AI customer service;
+- ServiceNow CSM-class enterprise service orchestration;
+- Ada-class governed autonomous service;
+- strongest current voice/customer-service agents and models.
+
+Primary acceptance includes resolution correctness, autonomous-resolution rate, recontact rate, handoff quality, user effort, latency, hallucination rate, empathy/tone quality and cost per resolved case.
+
+## 10V.6 Foundly Security / Risk / Fraud Intelligence
+
+Purpose:
+provide Foundly-native intelligence across tenant security, AI-agent activity, identities, business transactions and operational fraud.
+
+Required capabilities:
+- security signal ingestion;
+- identity/session anomalies;
+- permission abuse;
+- unusual data access/export;
+- connector/API abuse;
+- agent/tool abuse;
+- prompt/tool injection detection;
+- secrets/exfiltration indicators;
+- suspicious supplier/customer/payment behavior;
+- invoice/payment fraud patterns;
+- duplicate/refund abuse;
+- account takeover indicators;
+- risk scoring with evidence;
+- incident correlation;
+- investigation timeline;
+- blast-radius analysis;
+- recommended containment;
+- pre-authorized low-risk response;
+- quarantine/revoke/pause;
+- escalation for high-risk response;
+- post-incident learning.
+
+Initial benchmark families:
+- Microsoft Security Copilot / Defender / Entra agent-class investigation and remediation;
+- CrowdStrike Charlotte/agentic-SOC-class coordinated multi-domain investigation;
+- Palo Alto Cortex/Precision-AI-class security operations;
+- strongest current SIEM/XDR/identity/fraud specialists and security reasoning models.
+
+Foundly is not automatically a replacement for endpoint/XDR/SIEM products; it integrates authorized signals and specializes in Foundly/business/agent/transaction risk.
+
+## 10V.7 Foundly Workforce & Capacity Intelligence
+
+Purpose:
+plan and optimize the combined human + AI-agent + automation + external-capacity workforce.
+
+Required capabilities:
+- people/role/team/skill graph;
+- AI-agent/capability graph;
+- contractor/vendor capacity where authorized;
+- availability;
+- workload;
+- shift/project/work-order demand;
+- skills gaps;
+- hiring need;
+- succession/coverage risk where appropriate;
+- workforce cost;
+- productivity/capacity;
+- scenario planning;
+- human-versus-agent-versus-automation allocation;
+- workload balancing;
+- scheduling recommendations;
+- capacity constraints;
+- headcount planning with CFO Intelligence;
+- outcome/ROI measurement of agents and automation;
+- lifecycle/governance of digital workers.
+
+Initial benchmark families:
+- Workday Agent System of Record / workforce planning-class blended human-agent governance;
+- Visier Workforce AI-class people analytics and strategic workforce planning;
+- Eightfold-class talent/skills intelligence;
+- UKG/Dayforce-class workforce-management capability;
+- strongest current scheduling, workforce optimization and skills models.
+
+Employment decisions must respect applicable legal/compliance and human-approval rules.
+
+## 10V.8 Foundly Pricing & Revenue Optimization
+
+Purpose:
+optimize price and commercial terms against revenue, gross profit, margin, inventory, demand, customer value and risk.
+
+Required capabilities:
+- price elasticity;
+- competitor/market price intelligence;
+- willingness-to-pay proxies where lawful;
+- segmentation;
+- inventory/stock-age effects;
+- demand effects;
+- substitution/cannibalization;
+- promotions;
+- markdowns;
+- bundles;
+- B2B quote/discount guidance;
+- floor/ceiling/approval constraints;
+- margin and contribution optimization;
+- revenue/profit trade-offs;
+- what-if simulation;
+- price-change impact prediction;
+- controlled experimentation;
+- governed price recommendation/publication;
+- realized-versus-predicted learning.
+
+Initial benchmark families:
+- Competera-class contextual retail pricing and demand-aware optimization;
+- Pricefx-class enterprise pricing;
+- PROS-class B2B pricing/revenue optimization;
+- Buynomics-class virtual-customer / demand simulation;
+- strongest current elasticity, causal, optimization and pricing models.
+
+A higher revenue number is not automatically better if profit, cash, customer retention or risk deteriorates.
+
+## 10V.9 Foundly Demand / Inventory / Capacity Planning
+
+Purpose:
+forecast and coordinate demand, inventory, supply and operational capacity across industries.
+
+Required capabilities:
+- hierarchical demand forecasting;
+- multi-model/model-tournament forecasting;
+- forecast intervals/calibration;
+- new-product/cold-start forecasts;
+- promotions/events/seasonality/external drivers;
+- replenishment;
+- reorder points;
+- safety stock;
+- service-level optimization;
+- lead-time uncertainty;
+- stockout/overstock risk;
+- inventory placement;
+- supplier constraints;
+- production/service capacity;
+- S&OP/IBP scenarios;
+- constraint propagation;
+- working-capital impact;
+- demand/supply balancing;
+- scenario comparison;
+- exception management;
+- learning from realized demand.
+
+Initial benchmark families:
+- o9 Digital Brain / APEX-class integrated planning and AI/ML forecasting;
+- Kinaxis Maestro-class concurrent demand/supply planning;
+- Blue Yonder-class cognitive planning and inventory operations;
+- RELEX-class retail/manufacturing demand and inventory optimization;
+- strongest current forecasting, operations-research and optimization models.
+
+This engine must feed Supplier Intelligence, Procurement, Opportunity Intelligence, Pricing, CFO Intelligence and Workforce/Capacity Intelligence.
+
+## Cross-engine orchestration
+
+ZERO must be able to combine these engines in one governed plan.
+
+Example:
+"Generate EUR 250,000 additional gross profit next month without using more than EUR 500,000 additional working capital."
+
+ZERO may coordinate:
+Market Intelligence
+-> Opportunity Intelligence
+-> Demand Planning
+-> Pricing Optimization
+-> Product Finder
+-> Supplier Intelligence
+-> Negotiation
+-> CFO Intelligence
+-> Contract Intelligence
+-> Compliance
+-> Security/Risk
+-> Workforce/Capacity
+-> CRM/Sales/Marketing/Automation
+-> measurement and learning.
+
+The final recommendation must expose assumptions, evidence, confidence, capital need, risks, dependencies, approvals and expected outcomes.
+
+No single engine may silently override another engine's authoritative constraints.
 
 ---
 
