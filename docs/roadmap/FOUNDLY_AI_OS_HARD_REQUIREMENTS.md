@@ -2644,6 +2644,615 @@ BUILD -> TEST -> BENCHMARK -> DEMO ACCEPTANCE -> SALES READY.
 
 ---
 
+# 10P. ZERO SUPPLIER INTELLIGENCE & AUTONOMOUS SOURCING LAW
+
+Foundly Core must contain a universal **Supplier Intelligence / Autonomous Sourcing engine** operated by ZERO and reusable by every Industry System.
+
+It must not be a disconnected procurement chatbot. It must be able to discover, compare, contact, qualify, negotiate with and operationally process suppliers through Foundly's real Procurement, CRM, Calendar, Communication, Finance, Analytics, Knowledge and Automation contracts.
+
+Initial benchmark families must be refreshed at execution time and include the strongest current specialists for each sub-capability, including:
+- SAP Ariba / Coupa / GEP / Ivalua / JAGGAER-class source-to-pay depth;
+- Fairmarkit / Globality / Scoutbee/Veridion-class supplier discovery and autonomous sourcing;
+- Keelvar / Arkestro-class sourcing optimization;
+- Pactum-class autonomous negotiation;
+- Thomasnet/industrial supplier-network-class discovery for manufacturing/wholesale;
+- strongest current models/agents for supplier research, risk, negotiation and sourcing discovered at implementation time.
+
+No single competitor is permanently declared strongest. Component-level benchmark law applies.
+
+## Supplier AI user experience
+
+The user must be able to operate sourcing by text or voice.
+
+Examples:
+- "Zoek drie betrouwbare leveranciers voor dit onderdeel, levering binnen 14 dagen en maximaal EUR 18 per stuk."
+- "Vergelijk deze vijf leveranciers op totale kosten, levertijd, kwaliteit, risico en betalingsvoorwaarden."
+- "Vraag bij de beste drie een offerte op voor 5.000 stuks."
+- "Onderhandel tot maximaal EUR 16,50, maar geef geen concessie op de leverdatum."
+- "Plan morgen een Teams-afspraak met de beste twee leveranciers."
+- "Verwerk de gekozen leverancier en offerte in Procurement en zet de afspraak in Calendar."
+
+ZERO must convert natural-language/voice intent into governed typed operations.
+
+## Supplier discovery
+
+Supplier discovery must support where lawful and data-access permits:
+- internal approved supplier master;
+- previous supplier history;
+- public supplier/company sources;
+- authorized supplier networks/marketplaces;
+- customer-provided source lists;
+- connected procurement suites;
+- industry-specific data sources;
+- web/public research through governed research;
+- geographic/radius filters;
+- capacity;
+- MOQ;
+- certifications;
+- capability/process/material;
+- lead time;
+- quality evidence;
+- pricing;
+- payment terms;
+- delivery terms;
+- logistics;
+- financial/risk indicators;
+- ESG/compliance evidence where relevant;
+- language/country;
+- references/reputation;
+- data freshness/provenance/confidence.
+
+Unverified supplier claims must remain unverified.
+
+## Supplier comparison and recommendation
+
+Foundly must compare suppliers using configurable weighted objectives such as:
+- unit price;
+- landed/TCO cost;
+- MOQ;
+- lead time;
+- on-time delivery;
+- quality/defect history;
+- capacity;
+- payment terms;
+- warranty/SLA;
+- logistics;
+- currency;
+- switching cost;
+- supply-chain risk;
+- compliance;
+- geographic concentration;
+- sustainability where authorized/relevant;
+- relationship history;
+- expected margin/business impact.
+
+Missing data may never be treated as zero or as a favorable score.
+
+ZERO must explain why a supplier ranks well and expose uncertainty and source provenance.
+
+## Autonomous RFx and communications
+
+Within current authority, the engine must support:
+- supplier shortlist;
+- RFI;
+- RFQ;
+- RFP;
+- bid/quote normalization;
+- quote revision;
+- clarification questions;
+- email/chat communication;
+- voice/call assistance where lawful/provider-supported;
+- document/attachment intake;
+- meeting scheduling;
+- reminders/follow-up;
+- bid deadline management;
+- comparison matrix;
+- award recommendation;
+- supplier onboarding initiation.
+
+Any binding award, contract, purchase commitment or material spend requires the authority/approval gates defined by Foundly policy.
+
+## Autonomous negotiation
+
+ZERO Supplier Intelligence must integrate ZERO Negotiation Intelligence.
+
+It must support:
+- target, floor/ceiling and fallback strategy;
+- multi-variable negotiation;
+- price, MOQ, lead time, payment terms, warranty, SLA, logistics and volume commitments;
+- concessions;
+- package offers;
+- counteroffers;
+- escalation;
+- human approval thresholds;
+- email/chat/voice negotiation where authorized;
+- complete transcript/audit;
+- lost-response/retry recovery;
+- realized-savings measurement.
+
+ZERO must not invent competing offers, false deadlines, false authority or fabricated supplier facts.
+
+## Operational processing
+
+When a sourcing event progresses, Foundly must process the outcome into the correct modules automatically and idempotently:
+- Procurement: supplier, sourcing event, quotes, revisions, award, PO/requisition;
+- CRM: supplier/account/contact relationship where configured;
+- Calendar: meetings, deadlines, follow-ups;
+- Communication: messages and threads;
+- Finance: budgets, committed spend, invoice/payment linkage where authorized;
+- Analytics: sourcing KPIs, savings, supplier performance;
+- Knowledge: verified supplier/capability knowledge;
+- Automation: follow-ups, approvals and monitoring;
+- Industry System: product/asset/inventory/project linkage.
+
+No duplicate supplier, quote, order, meeting or financial action may be created from retry/lost-response behavior.
+
+## Supplier Intelligence acceptance
+
+Benchmark and test independently:
+- supplier-search recall/relevance;
+- supplier data accuracy/freshness;
+- qualification accuracy;
+- duplicate/entity resolution;
+- quote extraction;
+- quote normalization;
+- total-cost calculation;
+- comparison quality;
+- negotiation outcome;
+- cycle time;
+- user effort;
+- communication quality;
+- meeting scheduling;
+- permission/approval correctness;
+- cross-module processing;
+- idempotency/recovery;
+- multilingual/voice usability;
+- real supplier/provider acceptance in Run 7.
+
+---
+
+# 10Q. UNIVERSAL AI PRODUCT / ASSET / OFFER FINDER LAW
+
+Foundly Core must contain a universal **AI Product / Asset / Offer Finder** reusable by every Industry System.
+
+"Product" is intentionally broad:
+- vehicles and parts;
+- retail/e-commerce SKUs;
+- properties;
+- services/agencies/talent/software;
+- materials/components/MRO/machines;
+- wholesale inventory;
+- other industry assets/offers.
+
+The Finder must benchmark each market separately against the strongest current search/discovery specialist/model for that market.
+
+Initial benchmark families include:
+- Algolia / Constructor / Bloomreach / Coveo-class commerce search and product discovery;
+- Google-class general search/discovery where relevant;
+- AutoScout24/mobile.de/CarGurus/AutoTrader-class vehicle discovery;
+- Zillow/Redfin/Realtor-class property discovery and action-oriented real-estate search;
+- Clutch/Upwork-class service/talent/provider matching for Agency use cases;
+- Thomasnet/industrial marketplace/supplier-catalog-class component and industrial product discovery;
+- strongest current multimodal, retrieval, recommendation and agentic-commerce models discovered at execution time.
+
+## Finder interaction
+
+Users must be able to search by:
+- natural language;
+- voice;
+- structured filters;
+- image/reference where applicable;
+- barcode/SKU/GTIN/MPN;
+- VIN/vehicle attributes;
+- property/location requirements;
+- technical specification/document;
+- budget;
+- margin/value target;
+- availability;
+- distance/location;
+- delivery date;
+- compatibility;
+- quality/condition;
+- historical preferences and business context where authorized.
+
+ZERO must support follow-ups, corrections, comparisons and changing constraints without losing context.
+
+## Finder intelligence
+
+The engine must support:
+- semantic/lexical/hybrid retrieval;
+- multimodal retrieval where appropriate;
+- structured filtering;
+- entity resolution;
+- deduplication;
+- compatibility matching;
+- personalization where authorized;
+- explainable ranking;
+- current price/stock/availability where sources permit;
+- source freshness/provenance;
+- total cost;
+- expected margin;
+- expected value/revenue;
+- risk;
+- trend/demand signals where supported;
+- alternatives/substitutes;
+- recommendations;
+- comparison tables;
+- saved searches/watchlists;
+- alerts.
+
+The system must distinguish known, inferred, predicted and unknown values.
+
+## Finder actions
+
+The Finder must not stop at search results. Through ZERO it must be able, within current authority, to:
+- save/shortlist;
+- compare;
+- create Procurement request/RFx;
+- contact supplier/seller/provider;
+- request quote/information;
+- schedule appointment/viewing/test drive/meeting;
+- create CRM lead/account/opportunity;
+- create or enrich inventory/catalog/product/asset record;
+- create follow-up/task;
+- calculate finance/margin scenarios;
+- initiate negotiation;
+- hand off to Supplier Intelligence;
+- monitor price/availability;
+- process the accepted result into the correct Industry System.
+
+External purchases, binding commitments and communications remain governed by approval/authority policy.
+
+## Vertical Finder specializations
+
+### Automotive
+Vehicle sourcing, appraisal inputs, specification/condition, market price, margin, demand, days-to-sell, parts/accessories and acquisition opportunities.
+
+### E-commerce
+Catalog search, external sourcing, substitutions, bundles, recommendation, merchandising, price/stock/margin and agentic shopping.
+
+### Retail
+Store/warehouse availability, omnichannel product search, substitution, replenishment, local inventory and assortment intelligence.
+
+### Real Estate
+Property search by natural language, location, financial constraints, yield/value, characteristics and schedule/viewing actions.
+
+### Agency
+Service provider, freelancer/talent, creator/influencer, software/tool and media/vendor discovery and matching against project goals.
+
+### Manufacturing / Wholesale
+Materials, components, MRO, machines, tooling, contract manufacturers, distributors and wholesale offers, including technical compatibility and total landed cost.
+
+## Finder acceptance
+
+Each vertical requires its own benchmark/evaluation set for:
+- relevance;
+- recall;
+- ranking;
+- latency;
+- freshness;
+- price/stock accuracy;
+- compatibility;
+- recommendation quality;
+- comparison quality;
+- action completion;
+- voice/natural-language behavior;
+- mobile/desktop UX;
+- business outcome.
+
+A generic commerce-search PASS cannot close Automotive, Real Estate, Agency or Manufacturing Finder acceptance.
+
+---
+
+# 10R. SIX FOUNDLY ENTERPRISE INDUSTRY SYSTEMS LAW
+
+By completion of the foundational Run 2-7 program, Foundly must contain the following **six complete enterprise Industry Systems** under one shared Foundly Core Engine and ZERO:
+
+1. **Foundly Automotive**
+2. **Foundly E-commerce**
+3. **Foundly Retail**
+4. **Foundly Real Estate / Vastgoed**
+5. **Foundly Agency**
+6. **Foundly Manufacturing**
+
+Foundly Manufacturing must include a first-class **Wholesale/Distribution** operating profile. Large/mega-enterprise scale is provided by the shared Foundly Enterprise organization/scale layer rather than a customer fork.
+
+These are not superficial themes or demo skins. Each Industry System must be a production-grade composition of Foundly Core capabilities with its own industry model, workflows, connector pack, analytics, Product/Asset Finder specialization, Supplier Intelligence specialization, ZERO knowledge/context and hyper-perfect demo/trial.
+
+## Shared capability minimum
+
+Every Industry System must integrate, where relevant to the industry:
+- ZERO;
+- CRM;
+- Sales;
+- Procurement;
+- Supplier Intelligence;
+- Product/Asset/Offer Finder;
+- Finance;
+- Analytics;
+- Marketing;
+- SEO;
+- Advertising/Growth;
+- Lead Machine;
+- Negotiation;
+- Calendar;
+- Communication;
+- Automation;
+- Website;
+- Photo;
+- Video;
+- Knowledge;
+- search;
+- reporting;
+- roles/permissions;
+- audit;
+- mobile/desktop;
+- voice;
+- benchmarking;
+- self-healing/operability;
+- commercial seat/usage entitlements.
+
+A capability that is genuinely irrelevant to a specific workflow may remain hidden, but the Industry System may not silently omit a required business capability merely to simplify the build.
+
+## Industry data contract
+
+Each Industry System must have a rich canonical industry data model, including:
+- entities and relationships;
+- lifecycle/status models;
+- financial/value fields;
+- source/provenance;
+- history;
+- outcomes;
+- permissions;
+- search/vector representation;
+- analytics metrics;
+- automation events;
+- benchmark/evaluation fixtures;
+- realistic demo universe.
+
+Industry schemas extend Foundly Core. They may not create customer-specific forks.
+
+## Connector-ready law
+
+Each Industry System must ship with a versioned **Connector Pack** for the major systems/data sources required to make that market useful.
+
+Connector Pack acceptance requires:
+- connector registry/manifest;
+- authentication/OAuth/API-key setup flow where supported;
+- credential isolation;
+- permission scopes;
+- field/entity mapping;
+- initial sync;
+- incremental sync/webhooks/polling as appropriate;
+- rate-limit/backoff;
+- retries/idempotency;
+- source authority/provenance;
+- health/readiness;
+- reconnect/revocation;
+- sandbox/test mode;
+- monitoring/audit;
+- import/export fallback where a lawful API is unavailable;
+- documentation/onboarding.
+
+"Connector-ready" means the implementation and setup path are ready. Foundly may not display CONNECTED/LIVE until valid customer/provider credentials and successful runtime verification exist.
+
+## Foundly Automotive
+
+Must include the full Automotive Pack already defined plus:
+- vehicle acquisition/sourcing;
+- vehicle Product Finder;
+- Supplier Intelligence for vehicles, parts, service and logistics;
+- stock/inventory;
+- appraisal/value/margin;
+- leads/CRM;
+- sales;
+- finance;
+- website/listings;
+- photo/video merchandising;
+- marketing/ads/SEO;
+- appointments/test drives;
+- procurement;
+- aftersales/service relationships where in scope;
+- Foundly Maps/customer/vehicle logistics;
+- analytics and forecasting.
+
+Connector Pack candidates include, subject to lawful/provider access:
+- RDW;
+- VWE;
+- Autotelex;
+- RDC and equivalent automotive data providers;
+- mobile.de;
+- AutoScout24;
+- Marktplaats;
+- DMS systems;
+- accounting/payment providers;
+- ad/social/search platforms;
+- email/calendar/telephony;
+- website/listing feeds.
+
+## Foundly E-commerce
+
+Must include:
+- catalog/PIM-like product model;
+- Product Finder/search/recommendation;
+- Supplier Intelligence/sourcing;
+- inventory;
+- purchasing;
+- orders/returns/refunds;
+- customer CRM;
+- payments/finance;
+- fulfillment/shipping;
+- website/storefront;
+- merchandising;
+- Photo/Video;
+- SEO/Ads/Marketing;
+- Lead/Sales where B2B;
+- automation;
+- analytics/forecasting.
+
+Connector Pack candidates include:
+- Shopify;
+- WooCommerce;
+- Adobe Commerce/Magento;
+- major marketplaces where authorized;
+- payment providers such as Stripe/Adyen-class systems;
+- shipping/fulfillment carriers/aggregators;
+- ERP/accounting;
+- Google/Meta/TikTok and other authorized marketing channels;
+- email/customer-support platforms.
+
+## Foundly Retail
+
+Must include:
+- omnichannel catalog;
+- Product Finder;
+- store/warehouse inventory;
+- POS/order/customer flows;
+- purchasing/Supplier Intelligence;
+- replenishment;
+- pricing/promotions;
+- loyalty/CRM;
+- Finance;
+- workforce/calendar;
+- store/location analytics;
+- ecommerce bridge;
+- marketing/ads/SEO;
+- automation;
+- forecasting.
+
+Connector Pack candidates include:
+- major POS platforms;
+- ecommerce platforms;
+- ERP/WMS;
+- payments;
+- loyalty;
+- product/master-data sources;
+- shipping;
+- accounting;
+- marketing channels.
+
+## Foundly Real Estate / Vastgoed
+
+Must include:
+- property/asset model;
+- AI Property Finder;
+- buyer/renter/investor CRM;
+- seller/landlord pipeline;
+- listing management;
+- valuations/comparables where data permits;
+- viewing/appointment scheduling;
+- offers/negotiation;
+- document/workflow management;
+- marketing/website/SEO/ads;
+- Photo/Video;
+- Finance/yield/cash-flow scenarios;
+- maps/location intelligence;
+- supplier/vendor ecosystem for inspection, maintenance and services;
+- analytics.
+
+Connector Pack candidates include, subject to jurisdiction/provider access:
+- property portals/listing feeds;
+- cadastral/land/property registries;
+- valuation/property-data providers;
+- energy/certification sources;
+- maps/geospatial/open government data;
+- CRM/ERP/accounting;
+- mortgage/finance or document providers where authorized;
+- email/calendar/telephony;
+- marketing platforms.
+
+## Foundly Agency
+
+Must include:
+- client CRM;
+- pipeline/proposals;
+- project/campaign/work management;
+- AI service/vendor/talent finder;
+- Supplier Intelligence for freelancers, creators, media and vendors;
+- contracts/negotiation;
+- time/cost/margin;
+- Finance/invoicing;
+- websites/landing pages;
+- SEO;
+- Ads/Growth;
+- Lead Machine;
+- Photo/Video;
+- social;
+- analytics/attribution;
+- calendar/communication;
+- automation;
+- client reporting/portal where in scope.
+
+Connector Pack candidates include:
+- Google/Meta/TikTok/LinkedIn and other authorized ad/social channels;
+- analytics/search-console tooling;
+- CMS/ecommerce/web platforms;
+- email/calendar;
+- CRM/imports;
+- project/work-management tools;
+- accounting/payment;
+- freelancer/provider marketplaces where official integration is permitted.
+
+The private Founder Agency Home remains separate from the sellable Foundly Agency Industry System.
+
+## Foundly Manufacturing
+
+Must include:
+- product/material/BOM structures;
+- AI component/material/equipment Product Finder;
+- Supplier Intelligence;
+- sourcing/RFx;
+- purchasing;
+- supplier quality/performance;
+- inventory/WMS;
+- production planning/MRP integration;
+- orders/sales/CRM;
+- costing/margin/Finance;
+- quality;
+- maintenance/service where in scope;
+- logistics;
+- wholesale/distribution;
+- forecasting;
+- analytics;
+- automation;
+- enterprise approvals/governance.
+
+Connector Pack candidates include:
+- SAP-class ERP;
+- Microsoft Dynamics 365-class ERP;
+- Oracle/NetSuite-class ERP;
+- Odoo-class ERP;
+- MES/MRP/WMS;
+- EDI;
+- PIM/PLM/CAD/PDM interfaces where supported;
+- OPC UA/industrial/IoT gateways where appropriate;
+- supplier networks/catalogs;
+- logistics/carriers;
+- accounting/payments;
+- ecommerce/B2B ordering.
+
+## Hyper-perfect Industry System acceptance
+
+Each of the six Industry Systems must have:
+- dedicated acceptance matrix;
+- dedicated competitive ledger;
+- dedicated Product Finder benchmark;
+- dedicated Supplier Intelligence benchmark;
+- dedicated connector-readiness matrix;
+- dedicated hyper-perfect interactive demo;
+- dedicated standalone/mobile/desktop acceptance where sold;
+- complete cross-module ZERO journeys;
+- role/persona scenarios;
+- failure/recovery scenarios;
+- enterprise scale/load scenarios;
+- localization/accessibility;
+- current security/privacy/compliance controls;
+- real-world Run-7 evidence.
+
+No system may be called HYPER_PERFECT, SELLABLE or ENTERPRISE_READY while material required gates are FAIL or UNVERIFIED.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
