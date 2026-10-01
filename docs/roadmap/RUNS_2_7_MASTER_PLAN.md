@@ -307,6 +307,22 @@ Store:
 - model/version provenance;
 - industry-specific opportunity extensions for all six Industry Systems.
 
+### C12. Regulatory & Legal Intelligence Data Foundation
+- versioned regulatory/legal universe;
+- authority/source registry;
+- jurisdiction and legal-status model;
+- proposal/draft/adopted/in-force/repealed/superseded lifecycle;
+- publication/effective/transition dates;
+- legal-text versions/redlines where possible;
+- customer Legal DNA/applicability graph;
+- obligation/prohibition/deadline/control graph;
+- policy/process/system impact links;
+- regulatory-change events;
+- remediation/evidence/audit objects;
+- source freshness/confidence;
+- six Industry System regulatory-pack extensions;
+- secure ingestion boundary treating external legal content as untrusted until verified.
+
 ## Run-3 closure
 No PASS without:
 - migration/rollback evidence;
@@ -798,6 +814,24 @@ Build the universal Core engine and standalone app:
 - standalone Foundly Opportunity Intelligence app identity, entitlement, demo and benchmark suite;
 - separate vertical models/evals for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale.
 
+## D31. Foundly Regulatory & Legal Intelligence / Compliance Autopilot
+Build the shared Core engine and standalone app:
+- official-source-first regulatory monitoring;
+- continuous horizon scanning;
+- version/redline/change detection;
+- binding-law versus proposal/guidance classification;
+- jurisdiction/effective-date/transition handling;
+- customer Legal DNA and applicability assessment;
+- obligation/control extraction and source linkage;
+- impact mapping across every Foundly app and Industry System;
+- regulatory-change inbox;
+- deadline/remediation tracking;
+- ZERO natural-language/voice legal-change queries with citations/provenance;
+- low-risk deterministic auto-remediation through governed config/engineering pipelines;
+- high-risk/ambiguous escalation rather than fabricated certainty;
+- regulatory packs for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
+- standalone Foundly Regulatory & Legal Intelligence app identity, entitlement, benchmark and hyper-perfect demo.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -852,6 +886,9 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - standalone Foundly Opportunity Intelligence app on supported mobile/desktop surfaces;
 - voice query examples such as best profit opportunities, margin leaks, stock actions, customer upsell and market-entry opportunities;
 - Opportunity Inbox with evidence, confidence, scenario and action controls;
+- standalone Regulatory & Legal Intelligence app on supported mobile/desktop surfaces;
+- Regulatory Change Inbox with jurisdiction, source, status, effective date, impact, deadline and remediation;
+- voice questions about applicable legal changes and compliance status;
 - Foundly Maps as a separate native installable navigation app and integrated OS capability;
 - Free/Premium/Business entitlement surfaces and store-ready subscription UX;
 - own Foundly map/navigation UX and ZERO conversational layer;
@@ -1140,6 +1177,24 @@ Complete the production surfaces and native-speaker/assistive-technology evidenc
 - separate benchmark suites for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
 - standalone app demo and benchmark acceptance.
 
+## F16. Regulatory & Legal Intelligence Red Team
+- proposal/guidance misclassified as binding law;
+- stale/repealed/superseded rule;
+- wrong jurisdiction/entity/industry applicability;
+- incorrect effective or transition date;
+- missed high-impact regulatory change;
+- excessive false-positive alerts;
+- conflicting authority/source resolution;
+- untrusted/forged legal content and prompt injection;
+- incorrect obligation/control extraction;
+- unsafe automatic config/code/policy change;
+- tax/rate/table update errors;
+- rollback after bad regulatory remediation;
+- tenant/legal-profile leakage;
+- source/provenance/citation integrity;
+- separate regulatory-pack acceptance for all six Industry Systems;
+- benchmark against current strongest regulatory-intelligence specialists.
+
 ## Run-6 closure
 No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
@@ -1391,6 +1446,19 @@ For representative authorized businesses and verticals:
 - validate Opportunity Intelligence independently for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
 - no commercial superiority claim without current benchmark/outcome evidence.
 
+### G22. Real Regulatory & Legal Intelligence Acceptance
+- ingest representative real authoritative regulatory changes;
+- correctly identify proposal versus adopted/in-force law;
+- map real changes to authorized customer Legal DNA profiles;
+- produce source-backed applicability/impact assessments;
+- create real obligations, deadlines and remediation plans;
+- automatically apply representative deterministic low-risk changes through governed release/config paths;
+- escalate ambiguous/high-risk changes instead of auto-asserting certainty;
+- verify affected customer workflows after remediation;
+- verify regulatory packs for representative Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale scenarios;
+- measure freshness, false positives, missed changes, user effort and auditability;
+- no claim of autonomous compliance perfection without evidence.
+
 ## Run-7 closure
 Requires:
 - real external evidence;
@@ -1500,22 +1568,22 @@ Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + Foundly Opportunity Intelligence standalone/embedded engine + six enterprise Industry Systems + connector packs + composition/demo factories.
+Autonomous Control Plane + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + Foundly Opportunity Intelligence + Foundly Regulatory & Legal Intelligence / Compliance Autopilot + six enterprise Industry Systems + connector packs + composition/demo factories.
 
 ↓ Work independent audit
 
 **RUN 5**
-Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps + voice-driven Supplier Intelligence + Product/Asset/Offer Finder + standalone/embedded Opportunity Intelligence + mobile/desktop experiences for all six Industry Systems.
+Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps + voice-driven Supplier Intelligence + Product/Asset/Offer Finder + standalone/embedded Opportunity Intelligence + standalone/embedded Regulatory & Legal Intelligence + mobile/desktop experiences for all six Industry Systems.
 
 ↓ Work independent audit
 
 **RUN 6**
-Full-stack red team + self-healing/autonomous-release red team + Supplier/Finder/Opportunity/connector red team + all standalone apps and all six Industry Systems independently benchmarked and demo-accepted + zero-downtime/canary/rollback/failover + 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
+Full-stack red team + self-healing/autonomous-release red team + Supplier/Finder/Opportunity/Regulatory/connector red team + all standalone apps and all six Industry Systems independently benchmarked and demo-accepted + zero-downtime/canary/rollback/failover + 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
 
 ↓ Work independent audit
 
 **RUN 7**
-Real Owner Command Center + real self-healing/release proof + real providers/data/customers + real Supplier Intelligence/RFx/negotiation + real Product/Asset Finder + real Opportunity Intelligence and outcome calibration + real connector acceptance + real-world acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale + real outcomes + autonomous implementation acceptance.
+Real Owner Command Center + real self-healing/release proof + real providers/data/customers + real Supplier Intelligence/RFx/negotiation + real Product/Asset Finder + real Opportunity Intelligence and outcome calibration + real Regulatory & Legal Intelligence/applicability/remediation + real connector acceptance + real-world acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale + real outcomes + autonomous implementation acceptance.
 
 ↓ final Work independent audit
 
