@@ -4109,6 +4109,19 @@ If Foundly does not yet beat the strongest benchmark, the truthful state remains
 
 No roadmap text, demo, sales copy or ZERO answer may convert an aspiration to "be better" into an unsupported superiority claim.
 
+## Engine-level BEST_IN_CLASS gate
+
+For every launched Foundly intelligence engine:
+- every material required sub-capability must be benchmarked against the strongest current relevant specialist/model/product for that sub-capability;
+- no material required sub-capability may remain BELOW_PARITY, PARTIAL or UNVERIFIED at BEST_IN_CLASS / HYPER_PERFECT / SELLABLE acceptance;
+- all material required sub-capabilities must reach at least evidence-backed parity;
+- the engine must outperform the strongest relevant benchmark or benchmark-combination on its primary accepted business/outcome metrics;
+- superiority may not be bought by materially worse correctness, safety, legal compliance, privacy, reliability, accessibility, latency or economics;
+- benchmark inputs, constraints, data freshness, model/provider versions and scoring must be comparable and preserved;
+- if a competitor/model becomes materially stronger before release, the benchmark must be refreshed and the gate re-opened where necessary.
+
+Therefore "Foundly is better" means **provable composite superiority with no material weak link**, not a subjective product claim.
+
 ## 10V.1 Foundly Data & Knowledge Intelligence
 
 Purpose:
