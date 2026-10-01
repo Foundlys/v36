@@ -203,6 +203,157 @@ CRM may only be labelled BEST_IN_CLASS / HYPER_PERFECT when all material CRM sub
 
 P1 closes only when the standalone CRM is genuinely usable by a real authorized organization and its required production, demo, benchmark, security, recovery, device and ZERO gates are satisfied.
 
+## P2. Founder Continuous Dogfood, Showcase & Teaser Pipeline — permanent after P0/P1
+
+After P0 and P1, the Private Founder Agency Home + Single Control Panel becomes the permanent founder dogfood, showcase, testing and preview environment for all subsequent Foundly development.
+
+This is a **continuous obligation across the remaining Runs 2–7**.
+
+Whenever a capability, app, intelligence engine, connector, Industry System, workflow, visual, ZERO behavior or platform feature is:
+1. built;
+2. tested;
+3. benchmarked where required;
+4. accepted to the appropriate release gate;
+5. packaged as a versioned artifact;
+
+it must be integrated into the founder environment through the controlled release pipeline without waiting for the complete remaining roadmap to finish.
+
+### Founder release channels
+
+The founder environment must support at least three explicit channels:
+
+**LAB**
+- newest experimental founder-only builds;
+- may contain incomplete/unstable capabilities;
+- isolated from stable founder workflows where risk requires;
+- never represented as production-ready;
+- intended for early founder inspection and interaction.
+
+**CANARY / PREVIEW**
+- release candidate that has passed its required targeted tests and acceptance for founder preview;
+- production-faithful;
+- suitable for realistic testing and teaser preparation;
+- monitored for regressions;
+- rollback to last known good required.
+
+**STABLE**
+- accepted version for daily founder use;
+- only artifacts that satisfy the applicable stable release gates;
+- automatic or owner-approved promotion according to risk policy;
+- rollback/recovery required.
+
+A new feature may never silently replace the founder's stable environment merely because code exists.
+
+### Continuous implementation into the founder environment
+
+For every subsequently completed capability:
+- register version/build;
+- expose truthful completion/benchmark/acceptance state in Control Panel;
+- wire authorized ZERO tools/actions;
+- integrate relevant founder UI/modules;
+- enable deep links and navigation;
+- expose telemetry/cost/performance/security state;
+- preserve personal/business boundaries;
+- run compatibility/regression checks against the founder environment;
+- deploy to LAB or CANARY;
+- allow founder testing;
+- collect founder feedback as evidence/input;
+- fix accepted issues;
+- promote to STABLE only when the applicable gates pass.
+
+The founder environment must therefore stay continuously aligned with the latest **proven** Foundly capabilities, not merely the latest commit.
+
+### Founder test mode
+
+The founder must be able to:
+- switch between STABLE / CANARY / LAB where allowed;
+- inspect what changed between versions;
+- test a feature with realistic data;
+- reset/reseed test scenarios;
+- trigger representative ZERO workflows;
+- compare before/after behavior;
+- inspect source/provenance;
+- inspect benchmark state;
+- report a defect or request;
+- replay relevant actions where safe;
+- return to STABLE immediately;
+- see known limitations and open gates.
+
+Testing must not risk live customer data or irreversible external side effects unless explicitly authorized.
+
+### Teaser / Preview Studio
+
+The founder environment must include a governed **Teaser / Preview Studio** for creating online-advertising and social-preview material from real accepted Foundly product surfaces.
+
+It must support, where relevant:
+- clean screenshots;
+- screen recordings;
+- short product clips;
+- guided feature walkthroughs;
+- before/after comparisons;
+- device mockups;
+- product/UI highlight shots;
+- ZERO interaction captures;
+- feature captions/callouts;
+- branded teaser compositions;
+- vertical/social ad aspect ratios;
+- export through Foundly Photo/Video/Ads tooling when those capabilities are available.
+
+Teaser generation must use one of:
+1. accepted live founder functionality with private/sensitive data redacted; or
+2. production-faithful isolated demo data clearly separated from live data.
+
+No teaser may:
+- expose secrets, personal/customer data or credentials;
+- imply a capability is LIVE/CONNECTED/AVAILABLE when its authoritative state is not;
+- use fake external-provider success;
+- show benchmark/superiority claims that are not evidence-backed;
+- alter screenshots in a way that fabricates product functionality.
+
+### Preview-safe demo data
+
+Provide a reusable teaser/demo universe containing:
+- synthetic organizations;
+- customers;
+- contacts;
+- deals;
+- suppliers;
+- products/assets;
+- finance data;
+- workflows;
+- notifications;
+- opportunities;
+- AI outputs;
+- timelines;
+- dashboards.
+
+This data must be coherent across modules and explicitly isolated from production/personal data.
+
+### Control Panel product-progress integration
+
+For every product/capability, the founder must see:
+- current version;
+- current release channel;
+- build/commit;
+- benchmark state;
+- acceptance state;
+- latest CI/eval state;
+- demo/teaser readiness;
+- mobile/desktop readiness;
+- provider readiness;
+- known limitations;
+- open defects;
+- next milestone;
+- STABLE / CANARY / LAB deployment status.
+
+### P2 principle
+
+The private Founder Agency Home is both:
+- the founder's real daily operating system; and
+- the first continuous internal customer of every accepted Foundly capability.
+
+Dogfooding must improve quality and speed without weakening independent Run-6 red-team or Run-7 real-customer acceptance.
+
 ## After P1
 
 Resume the existing authoritative Runs 2–7 masterplan from the next unresolved dependency/gate.
