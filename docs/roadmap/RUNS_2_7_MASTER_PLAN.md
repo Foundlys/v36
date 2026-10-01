@@ -252,22 +252,20 @@ Store:
 - capacity/cost telemetry;
 - explicit distinction between registered users, active users, concurrent users and concurrent heavy jobs.
 
-### C8. Foundly Maps Geospatial Foundation
-- versioned road/network graph;
-- geospatial tiling/region partitioning;
-- lawful raw-map/source ingestion;
-- source attribution/licensing metadata;
-- conflation/conflict handling;
-- address/POI index foundation;
-- turn restrictions/speed limits/access attributes;
-- GPS probe and trip telemetry schema;
-- privacy-minimized location telemetry;
-- historical speed/traffic observations;
-- incident/community-report schema;
-- camera/section-control/speed-limit source schema where lawful;
-- map-data publish/version/rollback;
-- region coverage/freshness/confidence metadata;
-- no Google Maps/Waze production dependency.
+### C8. Navigation Integration Foundation
+- provider-neutral Foundly navigation contract;
+- provider registry/configuration for Google Maps Platform and Waze-supported flows;
+- place/geocode/route/matrix/optimization request models;
+- governed trip object and provider trip-token metadata;
+- active-trip status model;
+- ETA/location/remaining-distance telemetry model;
+- consent/telemetry-availability state;
+- CRM/Calendar/Sales/Workforce trip linkage;
+- source/provider provenance;
+- privacy/retention controls for precise location;
+- API usage/cost/quota telemetry;
+- idempotent trip creation and event ingestion;
+- future-native-Foundly-Maps compatibility boundary without building native maps in Runs 2–7.
 
 ### C9. Disaster recovery
 - backup;
@@ -526,7 +524,7 @@ Required demo products include, where launched:
 - Website Builder;
 - Photo Studio;
 - Video Studio;
-- Foundly Maps;
+- ZERO-controlled Google Maps / Waze navigation integration workflows;
 - Supplier Intelligence;
 - Product / Asset / Offer Finder;
 - Opportunity Intelligence / Opportunity Finder;
@@ -662,54 +660,36 @@ Standalone demo PASS does not imply suite/bundle/composition demo PASS. Cross-mo
 - owner-controlled autonomy thresholds;
 - no in-place live-source mutation.
 
-## D22. Native Foundly Maps Platform
-Build the self-controlled navigation backend/runtime, separate from the mobile shell:
-- own versioned road graph;
-- map tile/style pipeline;
-- address/POI search indexes;
-- geocoding/reverse geocoding;
-- map matching;
-- routing engine;
-- alternative routes;
-- route matrix and multi-stop optimization;
-- turn instruction generation;
-- route restrictions/preferences;
-- ETA model;
-- historical traffic model;
-- live Foundly probe-speed fusion;
-- public/government traffic/closure feed fusion where lawful;
-- incident confidence/decay;
-- own Foundly community reporting network;
-- dynamic rerouting;
-- route explanation/provenance;
-- own Foundly Driver Alerts;
-- speed-limit intelligence;
-- fixed/section/mobile enforcement-alert handling where lawful;
-- jurisdiction policy engine;
-- offline-region preparation;
-- telemetry/evaluation pipeline;
-- CRM/Calendar/Sales/workforce route APIs;
-- ZERO navigation tools;
-- explicit prohibition on Google Maps/Waze runtime, routing, ETA, traffic and navigation dependencies.
+## D22. Google Maps + Waze ZERO Navigation Integration
+Build the provider-backed navigation/location orchestration layer:
+- Foundly provider-neutral navigation contract;
+- Google Maps Platform Routes API integration;
+- Route Matrix and Route Optimization integration where appropriate;
+- Places/Geocoding integration;
+- Navigation Connect trip creation/token lifecycle;
+- Google Maps navigation launch;
+- Waze navigation launch/deep-link integration;
+- active-trip telemetry ingestion;
+- ETA/location/remaining-time/distance handling;
+- Waze remaining-route/traffic/deviation data where officially exposed;
+- Pub/Sub/event handling where used;
+- CRM/Calendar/Sales/Workforce/Industry-System linkage;
+- multi-stop Foundly itinerary orchestration across provider legs;
+- ZERO text/voice control;
+- provider/consent/failure states;
+- privacy/retention;
+- quotas/cost/rate-limit/backoff;
+- tests and sandbox/readiness evidence.
 
-Benchmark sub-capabilities independently against current strongest Google Maps/Waze/TomTom/HERE/Mapbox/Flitsmeister-class references without making those products runtime dependencies.
+Native Foundly Maps, a proprietary road graph, map tiles, first-party traffic network, Driver Alerts network and consumer Maps app are explicitly deferred beyond Runs 2–7.
 
-## D23. Foundly Maps Monetization & Growth
-- freemium commercial architecture;
-- genuinely useful Free navigation core;
-- Premium entitlement/feature layer;
-- initial Premium pricing experiments around EUR 7.99-12.99/month;
-- Business entitlement/feature layer;
-- initial Business pricing experiments around EUR 20-50+ per user/month;
-- annual/trial/promotion/regional-pricing capability;
-- store-fee/tax-aware margin model;
-- consumer-to-Premium conversion telemetry;
-- Maps-to-Business/Foundly-OS conversion attribution;
-- retention/churn/cohort/LTV/install measurement;
-- target network-effect flywheel: users -> authorized probe/report density -> better traffic/ETA -> retention/growth;
-- no sale or silent monetization of raw personal location history;
-- launch-time re-verification of Apple/Google billing/store economics and jurisdiction rules;
-- pricing/LTV targets remain hypotheses until measured in real cohorts.
+## D23. Navigation Integration Commercial Boundary
+- navigation integration is an embedded Foundly capability, not a current standalone Foundly Maps SKU;
+- Google/Waze/provider charges are treated as provider COGS/usage where applicable;
+- Business value is monetized through the relevant Foundly app, bundle or Industry System seat price;
+- no current Free/Premium consumer Maps subscription model;
+- future Foundly Maps monetization is deferred together with the native Foundly Maps product;
+- provider terms, pricing, consent and attribution must be reverified at implementation/release time.
 
 ## D24. B2B Seat Billing & Commercial Platform
 - company/organization account as billing owner;
@@ -936,24 +916,18 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - mobile/desktop Autonomous Implementation Control surface for discovery progress, blueprint, migrations, connector health, approvals, cutover and post-go-live drift;
 - Regulatory Change Inbox with jurisdiction, source, status, effective date, impact, deadline and remediation;
 - voice questions about applicable legal changes and compliance status;
-- Foundly Maps as a separate native installable navigation app and integrated OS capability;
-- Free/Premium/Business entitlement surfaces and store-ready subscription UX;
-- own Foundly map/navigation UX and ZERO conversational layer;
-- use the native Foundly Maps road graph, search, routing, ETA, traffic, incident and Driver Alerts services from Run 4;
-- no Google Maps/Waze runtime, routing, ETA, traffic or navigation dependency;
-- turn-by-turn guidance, ETA, alternatives and rerouting;
-- realtime Foundly traffic/incidents/closures/roadworks;
-- Foundly community reporting;
-- Foundly map corrections/feedback;
+- ZERO-controlled Google Maps/Waze navigation integration on supported mobile devices;
+- Google Maps/Waze launch with explicit provider identity;
+- Navigation Connect-backed trip linkage where available;
+- live ETA/location/trip-state ingestion where consented/supported;
+- Google Routes/Places/Optimization-backed route planning where configured;
+- multi-stop Foundly itinerary orchestration;
 - CRM/calendar/customer-visit route planning;
-- multi-stop optimization;
-- parking/fuel/EV charging stops;
-- arrival/late notifications;
-- lawful jurisdiction-aware speed-camera/section-control and road-hazard alerts;
-- location privacy, battery/data budgets and low-connectivity behavior;
-- downloadable offline regions with local routing where accepted;
-- CarPlay/Android Auto or equivalent in-vehicle surfaces only where platform contracts allow;
-- geography-specific benchmark evidence against Google Maps/Waze/TomTom/HERE/Mapbox/Flitsmeister-class behavior, used as benchmarks only;
+- route-aware supplier/customer/property/field-work workflows;
+- arrival/late notifications and approved customer communications;
+- provider consent/revocation/failure handling;
+- privacy, battery/network and API-cost controls;
+- truthful limitations for web, CarPlay/Android Auto or unsupported Waze/Google control surfaces;
 - camera/photo/video capture;
 - uploads;
 - approvals;
@@ -1131,31 +1105,35 @@ Attempt to break the complete Foundly stack and close all material quality gaps 
 - confidential negotiation leakage;
 - accidental calendar/customer communication;
 - navigation distraction;
-- location privacy leakage;
-- illegal camera/radar alert behavior by jurisdiction;
-- incorrect ETA/route confidence;
-- stale incident/camera alerts;
-- unsafe rerouting;
-- business-route permission leaks.
+- precise-location privacy leakage;
+- unauthorized trip tracking;
+- consent denied/revoked but Foundly still claims telemetry;
+- incorrect/stale provider ETA or route state presented as current;
+- provider outage/degradation;
+- duplicate trip creation/late-arrival actions;
+- business-route permission leaks;
+- unsupported Waze/Google control falsely represented as available.
 
-## F10. Foundly Maps Independent Acceptance
-- verify production navigation succeeds with Google/Waze blocked/unavailable;
-- route-validity and route-optimality benchmark;
-- ETA MAE/MAPE/calibration against actual arrival;
-- live-traffic freshness/accuracy;
-- incident precision/recall and time-to-detection;
-- reroute latency and route stability;
-- map-matching accuracy;
-- turn/lane/speed-limit correctness;
-- Driver Alert precision/recall/false-positive rate where lawful;
-- community-report spam/abuse/decay;
-- offline-region install/update/routing;
-- battery/network/resource budgets;
-- privacy/location-retention tests;
-- low-connectivity and reconnect;
-- geospatial-data rollback/version recovery;
-- multi-tenant load of routing/traffic services;
-- geography-specific parity/superiority claims only where evidence supports them.
+## F10. Google Maps / Waze Integration Acceptance
+- route/Places/optimization requests through configured official provider APIs;
+- correct provider attribution/provenance;
+- Google Maps launch;
+- Waze launch;
+- Navigation Connect trip token lifecycle;
+- live trip telemetry where supported and consented;
+- ETA/location/remaining-distance updates;
+- provider state changes and arrival handling;
+- Waze remaining-route/traffic/deviation handling where officially exposed;
+- multi-stop Foundly itinerary across one-destination provider trips;
+- CRM/Calendar/Sales/Workforce writeback;
+- ZERO voice/text control;
+- consent denial/revocation;
+- provider outage/degradation;
+- rate limit/quota/cost controls;
+- retry/idempotency;
+- precise-location privacy/retention;
+- unsupported platform/control limitations remain truthful;
+- no dependency on native Foundly Maps scope.
 
 ## F11. Competitive benchmark closure
 Re-run current strongest competitor/model benchmarks shortly before release.
@@ -1341,30 +1319,18 @@ Where commercially/operationally available, use the intended Automotive/dealer e
 - learning retained without tenant leakage;
 - real CRM capture, next actions, pipeline and visual workflows.
 
-### G8. Real Foundly Maps / Driver Intelligence
-- actual supported routes using only the native Foundly Maps production stack;
-- prove Google Maps/Waze are not required at runtime;
-- route/ETA comparison against current benchmark products as external measurement only;
-- actual-arrival ETA calibration;
-- live Foundly traffic/rerouting/incident tests;
-- Foundly community reports;
-- lawful Foundly Driver Alerts;
-- CRM/calendar visit routing;
-- offline/low-connectivity behavior;
-- location privacy;
-- coverage/freshness/confidence evidence for the tested geography.
-
-### G8B. Real Foundly Maps Monetization Acceptance
-- real app-store or production-equivalent entitlement flow;
-- real Free -> Premium conversion measurement;
-- real Business lead/conversion path where available;
-- cohort retention/churn;
-- ARPU/gross-margin/LTV/install measurement;
-- validate or revise the EUR 7.99-12.99 Premium planning band;
-- validate or revise the EUR 20-50+ Business planning band;
-- validate whether the EUR 5-15+ LTV/install strategic ambition is supported;
-- confirm store fees/taxes/current billing rules at execution time;
-- prove monetization does not degrade safety-critical free navigation, privacy or truthful traffic state.
+### G8. Real Google Maps / Waze Navigation Integration
+- real configured Google Maps Platform project/credentials where authorized;
+- real Routes/Places/Optimization calls;
+- real Google Maps and Waze navigation launches on supported mobile devices;
+- real Navigation Connect trip linkage where available;
+- actual location/ETA/trip-status ingestion with user consent;
+- real arrival/late-workflow integration with CRM/Calendar/Workforce;
+- real multi-stop business itinerary;
+- provider failure/revocation/consent-denial behavior;
+- actual provider usage/cost telemetry;
+- location privacy and retention verification;
+- no false claim of native Foundly routing/traffic/map ownership.
 
 ### G9. Real creative
 - image;
@@ -1583,21 +1549,21 @@ These are active engineering/agent-execution planning ranges, not promised elaps
 | Run | Current planning scope | Active engineering / agent hours | OpenAI credit planning |
 |---|---|---:|---:|
 | Run 2 | Finish current ZERO + Automotive/E-commerce demo-first acceptance, localization, voice, UX, regression and evidence | 100–240 h remaining | 25k–70k |
-| Run 3 | Enterprise data/PostgreSQL/Digital Twin/DR + Maps geospatial substrate + Supplier/Product/Opportunity/Regulatory data foundations + six industry schemas + connector registry | 220–520 h | 55k–145k |
-| Run 4 | Control Plane/self-healing + universal apps + Maps backend + Supplier AI + Product Finder + Opportunity Intelligence + Compliance Autopilot + six Industry Systems + connector packs + demos/commercial platform | 1,350–3,000 h | 330k–800k |
-| Run 5 | Native/installable mobile/desktop/web app surfaces, voice/device/workforce, Foundly Maps clients, all standalone apps and six Industry Systems | 600–1,350 h | 145k–360k |
-| Run 6 | Full-stack/security/reliability/performance red team + benchmark closure + demos + connectors + six industries + Supplier/Finder/Opportunity/Regulatory red-team | 650–1,450 h | 160k–400k |
-| Run 7 | Real providers/data/customers, real six-industry acceptance, real connectors, supplier/RFx/negotiation, opportunity outcomes, regulatory remediation and commercial acceptance | 500–1,250 h | 120k–360k |
+| Run 3 | Enterprise data/PostgreSQL/Digital Twin/DR + provider-neutral navigation/trip substrate + Supplier/Product/Opportunity/Regulatory data foundations + six industry schemas + connector registry | 180–420 h | 45k–120k |
+| Run 4 | Control Plane/self-healing + universal apps + Google/Waze integration + Supplier AI + Product Finder + Opportunity Intelligence + Compliance Autopilot + six Industry Systems + connector packs + demos/commercial platform | 1,150–2,600 h | 280k–690k |
+| Run 5 | Native/installable mobile/desktop/web app surfaces, voice/device/workforce, Google/Waze navigation integration, all standalone apps and six Industry Systems | 500–1,100 h | 120k–300k |
+| Run 6 | Full-stack/security/reliability/performance red team + benchmark closure + navigation integration + demos + connectors + six industries + Supplier/Finder/Opportunity/Regulatory red-team | 550–1,200 h | 135k–330k |
+| Run 7 | Real providers/data/customers, real six-industry acceptance, real connectors/navigation, supplier/RFx/negotiation, opportunity outcomes, regulatory remediation and commercial acceptance | 470–1,150 h | 110k–330k |
 
-**Expanded-scope active-engineering total: approximately 3,420–7,810 hours.**
+**Current active-engineering total after deferring native Foundly Maps: approximately 2,950–6,710 hours.**
 
-**Expanded-scope raw OpenAI credit total: approximately 835,000–2,135,000 credits.**
+**Current raw OpenAI credit total after deferring native Foundly Maps: approximately 715,000–1,840,000 credits.**
 
 Recommended planning envelope including audit/rework/uncertainty reserve:
-**approximately 900,000–2,300,000 OpenAI credits.**
+**approximately 800,000–2,000,000 OpenAI credits.**
 
 Central working-budget expectation, assuming local-first execution, disciplined context reuse, targeted tests and risk-based model routing:
-**approximately 1.3M–1.6M OpenAI credits.**
+**approximately 1.1M–1.4M OpenAI credits.**
 
 The lower half of the range assumes:
 - strong reuse of shared Core contracts;
@@ -1626,14 +1592,14 @@ With one primary Codex implementation owner, the high-end local workstation, una
 | Run | Planning elapsed-time band |
 |---|---:|
 | Run 2 | ~1–3 weeks |
-| Run 3 | ~2–5 weeks |
-| Run 4 | ~10–20 weeks |
-| Run 5 | ~5–10 weeks |
-| Run 6 | ~5–12 weeks |
-| Run 7 | ~8–20+ weeks |
+| Run 3 | ~2–4 weeks |
+| Run 4 | ~9–18 weeks |
+| Run 5 | ~4–8 weeks |
+| Run 6 | ~4–10 weeks |
+| Run 7 | ~8–18+ weeks |
 
-**Program calendar planning band from current Run-2 state: roughly 31–70+ weeks (~7–16+ months).**
-A sensible central planning expectation is roughly **9–12 months**, but Run 7 can extend beyond this through external customer/provider/app-store/data dependencies even when active engineering is complete.
+**Program calendar planning band from current Run-2 state: roughly 28–61+ weeks (~6.5–14+ months).**
+A sensible central planning expectation is roughly **8–11 months**, but Run 7 can extend beyond this through external customer/provider/app-store/data dependencies even when active engineering is complete.
 
 Hardware primarily compresses local build/test/eval/render/data-processing time. It does not proportionally accelerate cloud reasoning, provider approvals, app-store review, customer availability, legal ambiguity or real-world acceptance.
 
@@ -1694,6 +1660,25 @@ Claude is intentionally excluded from the execution plan. Independent run-level 
 
 ---
 
+## Deferred future product: Native Foundly Maps
+
+Native Foundly Maps is no longer part of Runs 2–7.
+
+Deferred scope includes:
+- proprietary road graph;
+- Foundly-owned global tiles/cartography;
+- proprietary geocoding/search;
+- first-party routing engine;
+- first-party ETA/traffic network;
+- Foundly community traffic network;
+- native Driver Alerts / Flitsmeister-class capability;
+- offline native map regions;
+- consumer Foundly Maps app and Free/Premium monetization.
+
+The current Google Maps/Waze provider-neutral contract must preserve a migration path so this can be introduced later without rebuilding ZERO, CRM, Calendar, Sales, Workforce or the Industry Systems.
+
+---
+
 # I. BUDGET-EFFICIENCY RULES
 
 To stay nearer the lower end of the credit envelope:
@@ -1724,17 +1709,17 @@ Finish current ZERO + Automotive/E-commerce acceptance.
 ↓ Work audit
 
 **RUN 3**
-Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + Foundly Maps geospatial/telemetry substrate + universal supplier/product/opportunity/regulatory/industry data foundations + Customer Implementation Digital Twin/Blueprint substrate + connector registry + outcome/benchmark substrate + DR.
+Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + provider-neutral navigation/trip telemetry substrate + universal supplier/product/opportunity/regulatory/industry data foundations + Customer Implementation Digital Twin/Blueprint substrate + connector registry + outcome/benchmark substrate + DR.
 
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + explicit Autonomous Implementation & Continuous Customer Evolution Engine + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + Foundly Opportunity Intelligence + Foundly Regulatory & Legal Intelligence / Compliance Autopilot + six enterprise Industry Systems + connector packs + composition/demo factories.
+Autonomous Control Plane + explicit Autonomous Implementation & Continuous Customer Evolution Engine + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + ZERO-controlled Google Maps/Waze navigation integration + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + Foundly Opportunity Intelligence + Foundly Regulatory & Legal Intelligence / Compliance Autopilot + six enterprise Industry Systems + connector packs + composition/demo factories.
 
 ↓ Work independent audit
 
 **RUN 5**
-Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + native Foundly Maps + voice-driven Supplier Intelligence + Product/Asset/Offer Finder + standalone/embedded Opportunity Intelligence + standalone/embedded Regulatory & Legal Intelligence + mobile/desktop experiences for all six Industry Systems.
+Separate installable mobile/desktop apps + mobile/workforce/voice/device experience + ZERO-controlled Google Maps/Waze navigation integration + voice-driven Supplier Intelligence + Product/Asset/Offer Finder + standalone/embedded Opportunity Intelligence + standalone/embedded Regulatory & Legal Intelligence + mobile/desktop experiences for all six Industry Systems.
 
 ↓ Work independent audit
 
