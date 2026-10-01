@@ -807,7 +807,7 @@ Examples:
 - arrival -> task/status update;
 - mileage/travel-time evidence where authorized.
 
-## Provider abstraction and future Foundly Navigation Integration path
+## Provider abstraction and future Foundly Maps path
 
 Foundly must maintain an internal provider-neutral navigation contract covering at minimum:
 - geocode/search;
@@ -824,9 +824,9 @@ Foundly must maintain an internal provider-neutral navigation contract covering 
 
 Business modules and ZERO should depend on this Foundly contract rather than hard-coding provider-specific behavior throughout the product.
 
-This abstraction is intentionally the migration path for a future native Foundly Navigation Integration product.
+This abstraction is intentionally the migration path for a future native Foundly Maps product.
 
-Future Foundly Navigation Integration may later replace or complement provider implementations without requiring CRM, Calendar, Sales, Workforce or ZERO to be rebuilt.
+Future Foundly Maps may later replace or complement provider implementations without requiring CRM, Calendar, Sales, Workforce or ZERO to be rebuilt.
 
 ## Truthful provider state
 
@@ -907,10 +907,10 @@ Runs 2–7 do **not** require:
 - a Foundly-owned ETA model;
 - Foundly-owned traffic probe network;
 - a native Flitsmeister-class Driver Alerts network;
-- a consumer Foundly Navigation Integration app;
+- a consumer Foundly Maps app;
 - independent global geocoding/search infrastructure.
 
-Those are deferred future Foundly Navigation Integration scope.
+Those are deferred future Foundly Maps scope.
 
 Current acceptance instead requires a hyper-perfect provider-backed navigation experience and complete ZERO/business-module orchestration using officially supported Google Maps/Waze capabilities.
 
@@ -1097,7 +1097,6 @@ This includes, where product scope makes the capability independently useful:
 - Foundly AI Website Builder;
 - Foundly AI Photo Studio;
 - Foundly AI Video Studio;
-- Foundly Navigation Integration (Google Maps / Waze orchestration);
 - every independently useful future Foundly capability.
 
 Each standalone product must have:
@@ -2264,7 +2263,6 @@ Standalone app hypotheses, also per company/user/month:
 - Automation: EUR 29-79 per user/month plus high-volume execution usage;
 - Communication: EUR 15-39 per user/month;
 - Calendar: included in bundles or low-cost standalone;
-- Foundly Navigation Integration Business: EUR 20-50+ per user/month;
 - ZERO advanced autonomy: included by plan, with transparent variable compute usage where necessary.
 
 Industry Packs remain attached to the company organization but must also scale primarily by licensed users. Additional location/store/vehicle/data-provider fees may exist only when they reflect a real variable cost or separately delivered capability.
@@ -2398,7 +2396,7 @@ At minimum, separate complete demos are required for every sellable Foundly prod
 - Photo Studio;
 - Video Studio;
 - ZERO-driven workflows;
-- Foundly Navigation Integration;
+- ZERO-controlled Google Maps / Waze navigation integration workflows;
 - Automotive Industry Pack;
 - E-commerce Industry Pack;
 - Retail Industry Pack;
