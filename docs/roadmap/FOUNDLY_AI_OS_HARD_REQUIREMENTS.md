@@ -1273,25 +1273,31 @@ A Foundly module can only be called best-in-class when its material sub-capabili
 Every independently sellable or independently usable Foundly module/capability must be deployable and usable as its own complete product surface while remaining part of the same Foundly OS.
 
 This includes, where product scope makes the capability independently useful:
-- CRM;
-- Finance;
-- Sales / Lead Machine;
-- Procurement;
-- Calendar / Agenda;
-- Communication;
-- Automation;
-- Analytics;
-- Marketing;
-- Advertising / Growth;
-- SEO;
-- Website Builder;
-- Photo Studio;
-- Video Studio;
-- Navigation / Driver Intelligence;
-- and future independently sellable Foundly capabilities.
+- Foundly CRM;
+- Foundly Finance;
+- Foundly Sales;
+- Foundly Lead Machine;
+- Foundly Procurement;
+- Foundly Supplier Intelligence;
+- Foundly Product / Asset / Offer Finder;
+- Foundly Opportunity Intelligence / Opportunity Finder;
+- Foundly Calendar / Agenda;
+- Foundly Communication;
+- Foundly Automation;
+- Foundly Analytics;
+- Foundly Marketing;
+- Foundly Advertising / Growth;
+- Foundly SEO;
+- Foundly AI Website Builder;
+- Foundly AI Photo Studio;
+- Foundly AI Video Studio;
+- Foundly Maps / Navigation / Driver Intelligence;
+- every independently useful future Foundly capability.
 
 Each standalone product must have:
 - its own branded app identity within the Foundly family;
+- its own dedicated strongest-current competitor/specialist/model benchmark and acceptance matrix;
+- its own hyper-perfect production-faithful interactive demo before SELLABLE/SALES_READY;
 - its own installable/downloadable artifact;
 - independent launch;
 - independent onboarding;
@@ -2595,6 +2601,7 @@ At minimum, separate complete demos are required for every sellable Foundly prod
 - Manufacturing / Wholesale Industry Pack;
 - Supplier Intelligence / Autonomous Sourcing;
 - Product / Asset / Offer Finder;
+- Opportunity Intelligence / Opportunity Finder;
 - every future Industry Pack;
 - every future standalone module/app.
 
@@ -3259,6 +3266,279 @@ No system may be called HYPER_PERFECT, SELLABLE or ENTERPRISE_READY while materi
 
 ---
 
+# 10S. FOUNDLY OPPORTUNITY INTELLIGENCE / AI OPPORTUNITY FINDER LAW
+
+Foundly Core must contain a universal **Opportunity Intelligence engine**, also exposed as the standalone **Foundly Opportunity Intelligence / Opportunity Finder app**, and embedded into every Foundly Industry System.
+
+Its purpose is to continuously discover, quantify, explain, prioritize and, when authorized, execute the best available business opportunities for:
+- revenue;
+- gross profit;
+- gross margin;
+- contribution margin;
+- ROI/ROIC;
+- cash generation;
+- inventory turn;
+- growth;
+- cost reduction where this creates measurable economic value;
+- capacity utilization;
+- customer expansion/retention.
+
+It must not be limited to CRM opportunities. It must reason across the complete authorized business and market context.
+
+## Continuous Opportunity Ledger
+
+The engine must continuously maintain a versioned, auditable **Opportunity Ledger** from authorized internal and external signals.
+
+Internal signals may include:
+- inventory and stock age;
+- purchase cost and landed cost;
+- selling price;
+- margin history;
+- sales velocity;
+- demand and conversion;
+- open CRM leads/deals;
+- customer history;
+- customer cohorts;
+- supplier quotes and lead times;
+- capacity/workload;
+- cash and working capital;
+- returns/refunds;
+- website/search behavior;
+- SEO;
+- campaigns/ads;
+- product/asset performance;
+- sales pipeline;
+- procurement;
+- finance;
+- calendar/seasonality;
+- historical outcomes;
+- location/geography;
+- service/project profitability.
+
+External signals may include, where lawful/authorized and sufficiently current:
+- market prices;
+- competitor prices/availability;
+- listings;
+- market supply/demand;
+- search/demand trends;
+- category/industry trends;
+- property/vehicle/product comparables;
+- supplier markets;
+- macro/seasonal/weather/event signals where materially relevant;
+- logistics/lead-time conditions;
+- public/paid market datasets;
+- current research.
+
+Every external or derived signal must retain provenance, freshness and confidence.
+
+## Opportunity discovery types
+
+The engine must be capable of finding opportunities such as:
+- acquire/buy inventory or assets below expected value;
+- avoid or liquidate aging/low-return inventory;
+- reprice products/assets;
+- restock high-demand/high-margin items;
+- discontinue or reduce low-performing assortment;
+- bundle/cross-sell/upsell;
+- reactivate customer/deal opportunities;
+- expansion/renewal opportunities;
+- geographic/segment expansion;
+- new product/category introduction;
+- supplier switch or renegotiation;
+- better payment/logistics terms;
+- make/buy decisions;
+- capacity allocation;
+- campaign/SEO/content opportunities;
+- ad-budget reallocation;
+- conversion-rate opportunities;
+- real-estate acquisition/listing/investment opportunities;
+- vehicle acquisition/pricing/turn opportunities;
+- manufacturing/material/component sourcing opportunities;
+- wholesale assortment and distribution opportunities;
+- agency client, service, campaign and capacity opportunities.
+
+## Opportunity evidence card
+
+Every surfaced material opportunity must include, where calculable:
+- opportunity title/type;
+- affected product/asset/customer/market;
+- expected incremental revenue range;
+- expected gross-profit range;
+- expected gross-margin impact;
+- expected contribution/profit impact;
+- required capital/cash;
+- expected ROI/ROIC;
+- time-to-value;
+- probability/confidence;
+- downside/risk;
+- inventory/capacity impact;
+- assumptions;
+- source evidence and freshness;
+- why now;
+- counterfactual/base case;
+- alternative actions;
+- sensitivity/what-if scenarios;
+- recommended next action;
+- required approval/authority;
+- model/version used for predictions.
+
+Unknown inputs must remain unknown. Foundly may never manufacture a revenue, profit or margin estimate simply to complete the card.
+
+## Ranking
+
+Opportunity ranking must be configurable by business objective.
+
+Supported objectives must include:
+- maximize absolute profit;
+- maximize margin;
+- maximize revenue;
+- maximize ROI/ROIC;
+- maximize cash generation;
+- maximize inventory turn;
+- minimize working capital;
+- balanced growth/risk;
+- custom weighted objective.
+
+Ranking should account for expected value, confidence, capital requirement, time-to-value, operational capacity, cannibalization, dependencies, downside and risk.
+
+A large speculative revenue number may not outrank a smaller high-confidence profit opportunity merely because its top-line value is higher.
+
+## Scenario simulation
+
+Opportunity Intelligence must support governed what-if analysis:
+- change selling price;
+- change purchase cost;
+- change demand/conversion;
+- change ad spend;
+- change supplier;
+- change inventory quantity;
+- change lead time;
+- change margin target;
+- change financing/capital constraint;
+- change capacity;
+- change geographic/market assumptions.
+
+Predictions must be expressed as ranges/confidence where appropriate, not false deterministic promises.
+
+## Natural language and voice
+
+Users must be able to ask ZERO by text or voice, for example:
+- "Waar liggen vandaag mijn vijf beste winstkansen?"
+- "Welke auto's moet ik deze week inkopen voor de beste verwachte marge en omloopsnelheid?"
+- "Welke producten moet ik bijbestellen en welke juist afbouwen?"
+- "Welke klanten kan ik nu het beste upsellen?"
+- "Waar verlies ik marge en wat kan ik eraan doen?"
+- "Welke panden zijn volgens onze criteria ondergewaardeerd?"
+- "Welke machine of grondstof moet ik nu anders inkopen?"
+- "Waar kan ik EUR 100.000 extra omzet pakken zonder mijn marge te verlagen?"
+
+ZERO must preserve follow-up context and be able to explain every recommendation.
+
+## Actionability
+
+With current authorization and approval, an accepted opportunity may hand off directly to:
+- Product/Asset/Offer Finder;
+- Supplier Intelligence;
+- Procurement;
+- Sales/Lead Machine;
+- CRM;
+- Negotiation;
+- Finance;
+- Marketing;
+- SEO;
+- Advertising/Growth;
+- Website;
+- Analytics;
+- Calendar;
+- Communication;
+- Automation;
+- Maps;
+- the relevant Industry System.
+
+Examples:
+- create sourcing event;
+- request quotes;
+- negotiate supplier terms;
+- acquire inventory;
+- reprice;
+- launch campaign;
+- create landing page;
+- contact/sequence a customer or lead;
+- schedule meeting/viewing/test drive;
+- create sales opportunity;
+- rebalance stock;
+- create approval;
+- monitor outcome.
+
+No binding spend, purchase, price publication, customer contact or other governed action may bypass current permissions and approval policy.
+
+## Proactivity and attention
+
+Opportunity Intelligence may continuously calculate opportunities in the background.
+
+It must support:
+- on-demand ranked opportunities;
+- dashboard/Opportunity Inbox;
+- saved objectives;
+- scheduled refresh;
+- configurable proactive alerts for material changes.
+
+Proactive alerts must respect owner/user attention settings and must not create noisy or manipulative engagement loops.
+
+## Dynamic benchmark families
+
+Opportunity Intelligence must benchmark each material sub-capability against the strongest current specialist/product/model at execution time.
+
+Initial benchmark families include:
+- Clari / Gong / Salesforce-class revenue intelligence, deal scoring, forecasting and next-best-action;
+- o9 / Kinaxis-class enterprise planning, scenario and opportunity/risk decision intelligence;
+- vAuto / Cox Automotive-class inventory, market-days-supply, acquisition, pricing and profitability intelligence for Automotive;
+- Competera-class price/revenue/margin optimization and RELEX/Blue Yonder-class demand/inventory optimization for Retail and E-commerce;
+- HouseCanary / CoStar-class property valuation, market analytics and opportunity discovery for Real Estate;
+- strongest current agency/revenue/pipeline, marketing attribution and capacity/profitability specialists for Agency;
+- strongest current manufacturing/supply-chain planning, demand/supply, inventory, pricing and margin specialists for Manufacturing/Wholesale;
+- strongest current forecasting, causal inference, optimization and decision-support models discovered at execution time.
+
+These are benchmark references, not mandatory runtime dependencies.
+
+## Vertical acceptance
+
+Opportunity Intelligence must have separate benchmark/evaluation suites for:
+- Automotive;
+- E-commerce;
+- Retail;
+- Real Estate / Vastgoed;
+- Agency;
+- Manufacturing / Wholesale.
+
+Per-vertical acceptance must test:
+- opportunity recall;
+- false-positive rate;
+- ranking quality;
+- financial calculation correctness;
+- margin/profit accuracy;
+- prediction calibration;
+- freshness;
+- evidence/provenance;
+- scenario quality;
+- actionability;
+- realized outcome versus predicted range;
+- user effort;
+- natural-language/voice quality;
+- cross-module execution;
+- permission/approval correctness;
+- learning from outcomes without tenant leakage.
+
+A generic revenue-opportunity PASS cannot close any vertical's dedicated opportunity acceptance.
+
+## Industry System requirement
+
+Foundly Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale must each ship with Opportunity Intelligence enabled against their own canonical data, market sources, connector pack, metrics, workflows and benchmark suite.
+
+No Industry System may be HYPER_PERFECT, SELLABLE or ENTERPRISE_READY while its material Opportunity Intelligence gates remain FAIL or UNVERIFIED.
+
+---
+
 # 11. CREATIVE + GROWTH CROSS-MODULE ORCHESTRATION
 
 The new capabilities must not become isolated apps.
@@ -3407,6 +3687,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - universal supplier/vendor data model, RFx/quote/negotiation outcome model and supplier provenance;
 - universal Product/Asset/Offer graph for vehicles, SKUs, properties, services, components, equipment and wholesale inventory;
 - six Industry System schema extensions and connector registry/readiness substrate;
+- Opportunity Ledger schema, time-series market/internal signal store, prediction/outcome and scenario data foundation;
 - asset/content graph;
 - benchmark observation storage;
 - outcome telemetry;
@@ -3449,6 +3730,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - industry/demo factory integration;
 - ZERO Supplier Intelligence / Autonomous Sourcing;
 - Universal AI Product / Asset / Offer Finder;
+- Foundly Opportunity Intelligence / Opportunity Finder as both shared Core engine and standalone app;
 - Foundly Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale enterprise Industry Systems;
 - six versioned Industry Connector Packs with sandbox/setup/readiness evidence.
 
@@ -3463,6 +3745,7 @@ These requirements must be implemented inside the existing frozen seven-run road
 - mobile ZERO and voice;
 - voice-driven Supplier Intelligence for discovery, comparison, RFx, negotiation, follow-up and scheduling;
 - mobile Product/Asset/Offer Finder;
+- mobile/desktop/voice Foundly Opportunity Intelligence app and embedded Opportunity Inbox;
 - mobile/desktop experiences for all six enterprise Industry Systems;
 - Foundly Navigation AI and Driver Intelligence;
 - route-aware CRM/calendar/workforce workflows;
@@ -3500,12 +3783,14 @@ These requirements must be implemented inside the existing frozen seven-run road
 - navigation safety, location privacy and jurisdiction-policy testing;
 - Supplier Intelligence adversarial sourcing/negotiation and permission testing;
 - Product/Asset/Offer Finder relevance/freshness/compatibility testing per vertical;
+- Opportunity Intelligence financial correctness, calibration, ranking, false-positive, scenario and realized-outcome testing per vertical;
 - all six Industry Systems independently benchmarked, demo-accepted and connector-pack-tested.
 
 **Run 7**
 - authorized real customer/data/provider acceptance;
 - real Supplier Intelligence discovery/RFx/quote/negotiation/meeting/cross-module acceptance;
 - real Product/Asset/Offer Finder acceptance in representative verticals;
+- real Opportunity Intelligence recommendations, simulations, actions and realized-outcome calibration across representative verticals;
 - real or authorized production-like acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
 - real connector credentials/runtime evidence where commercially/provider available;
 - real Foundly Maps driving acceptance using the native Foundly route/traffic/alert stack;
