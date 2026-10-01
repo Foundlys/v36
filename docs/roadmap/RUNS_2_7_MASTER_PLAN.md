@@ -323,6 +323,23 @@ Store:
 - six Industry System regulatory-pack extensions;
 - secure ingestion boundary treating external legal content as untrusted until verified.
 
+### C13. Autonomous Implementation Data Foundation
+- Customer Implementation Digital Twin;
+- current-state and target-state architecture models;
+- source-authority matrix;
+- system/schema/connector discovery records;
+- organization/team/role mapping;
+- process/workflow graph;
+- implementation blueprint and version history;
+- migration mapping/transformation/reconciliation plans;
+- configuration desired-state versus actual-state;
+- cutover/rollback plan and checkpoints;
+- implementation risk/blocker/dependency objects;
+- implementation acceptance/evidence records;
+- post-go-live drift/change events;
+- reusable gap/capability registry;
+- no customer-specific fork as an implementation artifact.
+
 ## Run-3 closure
 No PASS without:
 - migration/rollback evidence;
@@ -832,6 +849,35 @@ Build the shared Core engine and standalone app:
 - regulatory packs for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
 - standalone Foundly Regulatory & Legal Intelligence app identity, entitlement, benchmark and hyper-perfect demo.
 
+## D32. Autonomous Implementation & Continuous Customer Evolution
+Build the explicit end-to-end customer implementation engine described in the hard requirements:
+- voice/text customer discovery interview;
+- business/organization/process modeling;
+- authorized Stack Discovery;
+- Customer Implementation Digital Twin;
+- executable Implementation Blueprint;
+- Industry System selection/composition;
+- organization/role/permission setup;
+- configuration generation;
+- connector discovery/setup;
+- reusable connector generation through governed engineering when missing;
+- schema/entity mapping;
+- data migration and reconciliation;
+- workflow/process implementation and improvement;
+- test generation from customer scenarios;
+- sandbox/staging rehearsal;
+- cutover/readiness/rollback;
+- post-go-live verification;
+- continuous drift detection;
+- continuous configuration/connector/workflow evolution;
+- gap-to-reusable-capability engineering;
+- no customer forks;
+- truthful implementation/connector/go-live state;
+- customer-visible implementation progress, blockers, approvals, cost, risk and evidence.
+
+Autonomy tiers:
+DISCOVER -> PLAN -> PREPARE -> EXECUTE -> CUTOVER -> CONTINUOUS.
+
 ## Run-4 acceptance
 Every capability requires:
 - dynamic current competitor benchmark;
@@ -887,6 +933,7 @@ Make Foundly genuinely usable as a mobile/workforce OS, not a desktop site squee
 - voice query examples such as best profit opportunities, margin leaks, stock actions, customer upsell and market-entry opportunities;
 - Opportunity Inbox with evidence, confidence, scenario and action controls;
 - standalone Regulatory & Legal Intelligence app on supported mobile/desktop surfaces;
+- mobile/desktop Autonomous Implementation Control surface for discovery progress, blueprint, migrations, connector health, approvals, cutover and post-go-live drift;
 - Regulatory Change Inbox with jurisdiction, source, status, effective date, impact, deadline and remediation;
 - voice questions about applicable legal changes and compliance status;
 - Foundly Maps as a separate native installable navigation app and integrated OS capability;
@@ -1195,6 +1242,28 @@ Complete the production surfaces and native-speaker/assistive-technology evidenc
 - separate regulatory-pack acceptance for all six Industry Systems;
 - benchmark against current strongest regulatory-intelligence specialists.
 
+## F17. Autonomous Implementation Red Team
+- incomplete/incorrect stack discovery;
+- wrong source-of-truth selection;
+- schema mapping errors;
+- duplicate/lost migrated records;
+- finance/identity/permission reconciliation failures;
+- stale customer data during cutover;
+- partial connector failure;
+- revoked credentials during migration;
+- API/schema drift;
+- migration retry/idempotency;
+- rollback after failed cutover;
+- customer-role/tenant leakage;
+- unsupported system truthfulness;
+- unsafe generated connector;
+- hidden one-customer fork;
+- destructive workflow/config change;
+- compliance-impacting implementation change;
+- post-go-live drift detection and recovery;
+- large multi-system/large-data migration scenarios;
+- prove implementation evidence and rollback before AUTONOMOUS_IMPLEMENTATION_READY.
+
 ## Run-6 closure
 No material unresolved critical/high defect.
 All accepted exceptions documented with explicit owner/risk/decision.
@@ -1459,6 +1528,24 @@ For representative authorized businesses and verticals:
 - measure freshness, false positives, missed changes, user effort and auditability;
 - no claim of autonomous compliance perfection without evidence.
 
+### G23. Real Autonomous Customer Implementation Acceptance
+For representative authorized customers:
+- begin with business objective/intake rather than a prebuilt manual implementation;
+- discover real organization/process/system/data landscape;
+- generate Customer Implementation Digital Twin and target blueprint;
+- select and configure the correct Foundly Industry System/apps;
+- connect representative real providers with valid credentials;
+- migrate representative real business data;
+- reconcile counts, relationships and financial/business invariants;
+- configure roles, workflows, automations and policies;
+- run real user acceptance;
+- perform controlled cutover with rollback readiness;
+- verify production-like behavior after go-live;
+- detect and resolve representative post-go-live drift;
+- measure implementation effort, elapsed time, errors, human intervention, migration accuracy and customer acceptance;
+- demonstrate reusable capability/connector improvement without customer forks;
+- no claim of autonomous implementation superiority without current benchmark evidence.
+
 ## Run-7 closure
 Requires:
 - real external evidence;
@@ -1637,12 +1724,12 @@ Finish current ZERO + Automotive/E-commerce acceptance.
 ↓ Work audit
 
 **RUN 3**
-Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + Foundly Maps geospatial/telemetry substrate + universal supplier/product/industry data foundation + connector registry + outcome/benchmark substrate + DR.
+Enterprise data + PostgreSQL + Digital Twin + horizontally scalable multi-tenant foundation + Foundly Maps geospatial/telemetry substrate + universal supplier/product/opportunity/regulatory/industry data foundations + Customer Implementation Digital Twin/Blueprint substrate + connector registry + outcome/benchmark substrate + DR.
 
 ↓ Work independent audit
 
 **RUN 4**
-Autonomous Control Plane + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + Foundly Opportunity Intelligence + Foundly Regulatory & Legal Intelligence / Compliance Autopilot + six enterprise Industry Systems + connector packs + composition/demo factories.
+Autonomous Control Plane + explicit Autonomous Implementation & Continuous Customer Evolution Engine + private Founder Agency Home + Control Panel + Continuous Self-Healing + Continuous Learning + component-level benchmarking + standalone product architecture + enterprise layer + Website + Photo + Video + Analytics + SEO + Ads/Growth + Lead/Sales + Negotiation + CRM + native Foundly Maps + ZERO Supplier Intelligence + Universal Product/Asset/Offer Finder + Foundly Opportunity Intelligence + Foundly Regulatory & Legal Intelligence / Compliance Autopilot + six enterprise Industry Systems + connector packs + composition/demo factories.
 
 ↓ Work independent audit
 
@@ -1652,12 +1739,12 @@ Separate installable mobile/desktop apps + mobile/workforce/voice/device experie
 ↓ Work independent audit
 
 **RUN 6**
-Full-stack red team + self-healing/autonomous-release red team + Supplier/Finder/Opportunity/Regulatory/connector red team + all standalone apps and all six Industry Systems independently benchmarked and demo-accepted + zero-downtime/canary/rollback/failover + 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
+Full-stack red team + self-healing/autonomous-release red team + Autonomous Implementation migration/cutover/drift red team + Supplier/Finder/Opportunity/Regulatory/connector red team + all standalone apps and all six Industry Systems independently benchmarked and demo-accepted + zero-downtime/canary/rollback/failover + 50/100-user acceptance + large-scale load/stress + security + performance + reliability + cost/sustainability.
 
 ↓ Work independent audit
 
 **RUN 7**
-Real Owner Command Center + real self-healing/release proof + real providers/data/customers + real Supplier Intelligence/RFx/negotiation + real Product/Asset Finder + real Opportunity Intelligence and outcome calibration + real Regulatory & Legal Intelligence/applicability/remediation + real connector acceptance + real-world acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale + real outcomes + autonomous implementation acceptance.
+Real Owner Command Center + real self-healing/release proof + real end-to-end autonomous customer implementations + real providers/data/customers + real Supplier Intelligence/RFx/negotiation + real Product/Asset Finder + real Opportunity Intelligence and outcome calibration + real Regulatory & Legal Intelligence/applicability/remediation + real connector acceptance + real-world acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale + real outcomes.
 
 ↓ final Work independent audit
 
