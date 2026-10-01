@@ -365,6 +365,75 @@ Reuse their shared Core contracts as proven implementation patterns for subseque
 
 ---
 
+## P2. Continuous Founder Integration, Testing & Teaser Surface
+
+After P0 and P1, every later Foundly capability that is implemented and has passed its required evidence/acceptance gates must be integrated into the Private Founder Agency Home and Single Control Panel as part of the normal delivery lifecycle.
+
+The founder environment must therefore stay continuously current with the real Foundly platform rather than becoming a frozen early dashboard.
+
+For every later capability/app/engine/Industry System:
+- register it in the founder app/module registry;
+- expose its truthful build/benchmark/acceptance state;
+- expose live or sandbox/demo access appropriate to its state;
+- make it directly testable by the founder where permissions/provider availability allow;
+- surface relevant ZERO tools/actions;
+- expose version, deployment, cost, performance, security and acceptance evidence;
+- preserve personal/business context boundaries;
+- preserve rollback/recovery;
+- keep all founder views tied to authoritative platform state.
+
+### Proven capability promotion
+
+A capability may move into the founder's normal daily-use surface only according to truthful state:
+- EXPERIMENTAL / DEV;
+- SANDBOX / DEMO;
+- ACCEPTANCE_PENDING;
+- ACCEPTED;
+- PRODUCTION_READY;
+- LIVE where real provider/runtime evidence exists.
+
+The founder may deliberately test pre-production capabilities in clearly isolated sandbox/dev mode, but those states may never be confused with production.
+
+### Founder teaser / advertising lab
+
+The Private Founder Agency Home must include a safe Founder Teaser Lab for creating product teasers, demo captures and advertising assets from current Foundly capabilities.
+
+It must support, where appropriate:
+- guided demo journeys;
+- resettable demo tenants;
+- synthetic/demo data clearly labeled as such;
+- screenshots and screen-recording-ready flows;
+- product teaser scripts;
+- feature highlight sequences;
+- before/after demonstrations;
+- short-form social/ad creative preparation;
+- current capability/version labels;
+- approved benchmark/evidence highlights;
+- founder-selected branding;
+- ZERO-assisted teaser/storyboard/copy generation.
+
+Hard rules:
+- no fake LIVE provider state;
+- no fabricated customer result;
+- no unproven savings/revenue/performance claim;
+- no benchmark-superiority claim without current evidence;
+- no exposure of secrets, private customer data or production credentials;
+- demo/sandbox side effects remain isolated;
+- marketing claims must reflect the currently proven capability state.
+
+This Founder Teaser Lab is for founder-controlled testing and marketing preparation. It does not replace the product-specific Hyper-Perfect Demo Factory or Run-6/Run-7 acceptance.
+
+### Delivery rule
+
+For later Foundly development, the default lifecycle becomes:
+
+**BUILD -> TEST -> BENCHMARK -> ACCEPT -> REGISTER IN CONTROL PANEL -> INTEGRATE INTO FOUNDER AGENCY HOME -> FOUNDER TEST -> DEMO/TEASER ELIGIBILITY -> CONTINUE ROADMAP**
+
+A later capability is not considered fully integrated from the founder's perspective until its accepted state is visible and usable in the founder environment.
+
+
+---
+
 # A. EXECUTION OPERATING SYSTEM
 
 ## A1. Source of truth
