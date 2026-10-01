@@ -2589,6 +2589,12 @@ At minimum, separate complete demos are required for every sellable Foundly prod
 - Foundly Maps;
 - Automotive Industry Pack;
 - E-commerce Industry Pack;
+- Retail Industry Pack;
+- Real Estate / Vastgoed Industry Pack;
+- Agency Industry Pack;
+- Manufacturing / Wholesale Industry Pack;
+- Supplier Intelligence / Autonomous Sourcing;
+- Product / Asset / Offer Finder;
 - every future Industry Pack;
 - every future standalone module/app.
 
@@ -3398,6 +3404,9 @@ These requirements must be implemented inside the existing frozen seven-run road
 - horizontally scalable multi-tenant data/service foundations;
 - PostgreSQL/digital twin;
 - Foundly Maps geospatial data substrate: versioned road graph, source/provenance/freshness model, probe/traffic/incident telemetry and region datasets;
+- universal supplier/vendor data model, RFx/quote/negotiation outcome model and supplier provenance;
+- universal Product/Asset/Offer graph for vehicles, SKUs, properties, services, components, equipment and wholesale inventory;
+- six Industry System schema extensions and connector registry/readiness substrate;
 - asset/content graph;
 - benchmark observation storage;
 - outcome telemetry;
@@ -3437,7 +3446,11 @@ These requirements must be implemented inside the existing frozen seven-run road
 - standalone desktop/web product surfaces for independently useful modules;
 - cross-module generation/publishing/sales orchestration;
 - composability matrix and direct-contract tests;
-- industry/demo factory integration.
+- industry/demo factory integration;
+- ZERO Supplier Intelligence / Autonomous Sourcing;
+- Universal AI Product / Asset / Offer Finder;
+- Foundly Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale enterprise Industry Systems;
+- six versioned Industry Connector Packs with sandbox/setup/readiness evidence.
 
 **Run 5**
 - mobile/workforce experiences for all eligible capabilities;
@@ -3448,6 +3461,9 @@ These requirements must be implemented inside the existing frozen seven-run road
 - separate Windows/macOS installable app packaging where not already closed in Run 4;
 - shared authentication/deep links/notifications/app switching;
 - mobile ZERO and voice;
+- voice-driven Supplier Intelligence for discovery, comparison, RFx, negotiation, follow-up and scheduling;
+- mobile Product/Asset/Offer Finder;
+- mobile/desktop experiences for all six enterprise Industry Systems;
 - Foundly Navigation AI and Driver Intelligence;
 - route-aware CRM/calendar/workforce workflows;
 - jurisdiction-aware lawful driver alerts;
@@ -3481,10 +3497,17 @@ These requirements must be implemented inside the existing frozen seven-run road
 - financial/spend controls;
 - outreach/privacy/anti-spam abuse testing;
 - negotiation-limit and manipulation testing;
-- navigation safety, location privacy and jurisdiction-policy testing.
+- navigation safety, location privacy and jurisdiction-policy testing;
+- Supplier Intelligence adversarial sourcing/negotiation and permission testing;
+- Product/Asset/Offer Finder relevance/freshness/compatibility testing per vertical;
+- all six Industry Systems independently benchmarked, demo-accepted and connector-pack-tested.
 
 **Run 7**
 - authorized real customer/data/provider acceptance;
+- real Supplier Intelligence discovery/RFx/quote/negotiation/meeting/cross-module acceptance;
+- real Product/Asset/Offer Finder acceptance in representative verticals;
+- real or authorized production-like acceptance for Automotive, E-commerce, Retail, Real Estate, Agency and Manufacturing/Wholesale;
+- real connector credentials/runtime evidence where commercially/provider available;
 - real Foundly Maps driving acceptance using the native Foundly route/traffic/alert stack;
 - real owner-command-center operation;
 - real production-like autonomous bug detection/fix/canary/rollback scenarios with bounded risk;
