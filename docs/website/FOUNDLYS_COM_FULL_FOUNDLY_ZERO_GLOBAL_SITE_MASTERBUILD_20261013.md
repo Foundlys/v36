@@ -57,6 +57,43 @@ Every product/feature page must share a typed reusable schema with:
 
 **Not every module is production-ready today.** The product catalog records `PLANNED`, `IN_DEVELOPMENT`, `VERIFIED_BETA`, `LIVE_ACCEPTED`, or `RETIRED`, with evidence/source SHA/date and public copy constraints. Only `LIVE_ACCEPTED` can be marketed as generally available/performing an action. Existing unreleased modules may have substantive explanation, truthful preview and an interest list. Never fake benchmarks, screenshots, live integrations, revenue, testimonials, industry results or actual autonomous actions.
 
+
+## 2A. MODULE-LEVEL SEO, CONTENT, KNOWLEDGE AND VISUAL UNIVERSE — HARD FOUNDER ADDENDUM (2026-10-13)
+
+**Every Foundly module AND every meaningful separately understandable submodule/capability gets its own fully polished, first-class, detailed SEO/content ecosystem**, not only a global Foundly Knowledge Base. The authoritative coverage universe is the complete Foundly 2026-09-30 roadmap + latest approved capability manifests, including BUSINESS OS, CREATIVE OS, GROWTH OS, ZERO, industry systems, all Intelligence engines, standalone apps, and future extensions. Design and CMS schemas once; scale by adding content/capabilities without rebuilding. No material module/submodule may be omitted silently.
+
+### Mandatory per-module/submodule deliverable matrix — all 8 actual locales
+
+| Asset | Non-negotiable content quality |
+|---|---|
+| Dedicated premium product/feature hub | Full clear value proposition, target users, problems solved, real applications, workflows, complete scope and limitations; original hero visual and action-relevant CTA. |
+| Detailed functional and technical specifications | Precisely described actions, input/output, dependencies, integration/provider compatibility, security, permissions, data and pricing assumptions, device support, actual production feature status; beginner and expert depth. |
+| **Own Knowledge Base** | Original trustworthy articles, guided tutorials, workflows, examples, setup guides, troubleshooting and well-researched FAQs; editorial ownership, cited sources and versioned review. |
+| **Own Blog / Insights** | Targeted expert-written original posts, trends, comparisons, application ideas, industry-specific developments, practical case walkthroughs where evidence exists; editorial quality review and freshness schedule. |
+| **Own keyword / search-intent universe** | Primary/secondary/long-tail keywords, entities, related problems, exact use cases, user types and search stages per locale, dated current SERP research and topic-gap map; volume/competition estimates only if sourced. Localized *intent*, not literal translated keyword dumping. |
+| **Own deep internal-link graph** | Parent product -> submodule -> relevant KB -> blog -> glossary -> use case -> industry -> integration -> interactive demo -> related product and commercial page; topical meaningful anchors, breadcrumbs, link-score health and 0 material orphan pages. |
+| **Own visual explanations** | Original relevant diagrams, infographics, process maps, approved real screenshots, interactive visualizations, intentional motion/3D where useful, accessibility text and performance budget. |
+| **Own video and demonstrations** | Relevant product explainers, walkthroughs, feature demonstrations and video tutorials, original/licensed assets, timestamps, captions, transcripts and accurate approved production-vs-concept evidence. |
+| **Own SEO technical acceptance** | SSR/crawlable content, unique canonical URLs, page title/meta/heading, appropriate structured data and honest availability, locale hreflang, sitemaps, image/video SEO, real CWV, accessibility and mobile QA. |
+| **Own ZERO answer sources** | Universal full ZERO retrieves the correct authoritative submodule knowledge/spec, answers simply and correctly in eight languages, explains actions step by step, offers visual evidence, and states unverified features accurately. |
+| **Own decision/competitive content** | Current independently sourced specialist comparison, strengths, limitations, integration compatibility and measurable task benchmarks; no invented live integrations, outcomes, social proof or ROI. |
+| **Own measurement and continuous improvement** | Organic reach, real search queries, indexed URLs, engaged traffic, internal-link paths, ZERO unanswered questions, conversion/helpfulness and content-decay triggers, editorial and approval before updates. |
+
+### Canonical hierarchical example — Foundly CRM (same law for all Foundly modules)
+
+`/nl/crm/` is an independent product hub; `/nl/crm/sales-pipeline/`, `/nl/crm/customer-360/` and `/nl/crm/automatiseringen/` have equally professional submodule content, own rich specifications, relevant editorial FAQ/knowledge/blog topics, diagrams and real scenarios. Contextual knowledge/blog/academy URLs link bidirectionally where useful. The same structured pattern applies to each other Foundly Business/Creative/Growth/Industry capability and to all seven other localized site trees. The content graph must be generated from the **real canonical registry**, never a selectively hand-picked list.
+
+A minor button, field, switch or redundant phrase does not justify spam/thin stand-alone URLs: its explanation can live within a rich parent submodule page. Each meaningful submodule still needs an explicit coverage record and complete helpful information. Never fill blank hubs with mechanically scaled AI filler; unique substance matters more than page count.
+
+### Professional 'already finished' APPEARANCE, not false availability
+
+**Founder design direction:** Every module/submodule must look and read like a high-end mature, polished Foundly product ecosystem. Avoid unfinished page shells, ugly 'under construction' placeholders, empty galleries, thin 'in development' banner pages or low-effort teaser sites. Elaborate useful specifications, conceptual architectures, valid workflow examples and original visualizations now, preserving a finished-feeling site design even before an individual software module has shipped.
+
+**Non-negotiable factual boundary:** Do **not** present unreleased/untested software as actually working, purchasable, deployed or outperforming rivals. Clear and accurate module availability, demonstration type and CTA must be available to users and ZERO (e.g. verified live functionality, concept/demo, preview, roadmap or interest registration); unreleased modules do not get fake production screenshots, real execution promises, false SaaS prices/Offers, fake testimonials, or 'Available/InStock' markup. No false 'market leader' claims without repeatable evidence. Visual/commercial polish and truthful release state are compatible; both are mandatory.
+
+Our website PLATFORM may be complete while future software modules have not independently passed all their release gates. A future module activates via shared registry/CMS after acceptance, without website redesign.
+
+
 ## 3. Cinematic premium frontend design — extraordinary but fast
 
 - Original world-class, cohesive Foundly visual identity. Rich sophisticated typography, intentional motion, spatial/3D microinteractions, high-fidelity animated ZERO/OS universe, original industry digital twin illustrations and interactive module/data-flow visualization. Responsive usable layouts for 320px mobile through ultra-wide desktops and real tablets.
@@ -127,6 +164,17 @@ Match Run-2 and 2026-09-30 authoritative governed learning and benchmark contrac
 - Commercial measurement: organic/impressions/queries/CTR/rankings/traffic, Core Web Vitals real users, visitor intent, ZERO assist resolution, knowledge deflection, demo/trial/signup/purchase funnel, opt-in/consent status, CAC where measurable, per-page/business conversion and content revision outcomes.
 - Future Foundly SEO Machine + Native Pagebuilder will attach through **stable adapter/contracts** to the Foundlys.com content and publishing pipeline; it must not demand rebuilding site/CMS from scratch nor duplicating a competing SEO engine.
 
+
+## 6A. Detailed module/submodule SEO operations and acceptance
+
+- Treat **every meaningfully independent module/submodule as a topical authority cluster**, with a locale-specific search-intent map, actual research-backed target terms, genuinely helpful article and blog topics, expert FAQs, useful interactive examples, videos/visuals, internal parent/sibling/cross-module links and relevant real conversion.
+- Build a single central `module -> submodule -> feature -> authoritative product status -> 8-locale intent -> pillar/cluster articles -> visuals/media -> link graph -> ZERO answer source -> CRM/analytics outcomes` content and SEO graph; SEO metadata and canonical references follow the same versioned registry.
+- Strong cross-functional topical clusters: CRM <> Calendar <> Communication <> Automation <> ZERO; Finance <> Sales <> Procurement <> Analytics; SEO Machine <> Website Builder <> Ads <> Lead Machine <> reporting; Creator <> brand deals <> social <> Calendar and other valid relationships.
+- Test each localized URL's schema, canonical, alt-lang reciprocal hreflang, indexability, useful query intent, keyword cannibalization, breadcrumbs, alt text, transcript, old-url redirects, real page load/CWV, accessibility, broken/orphan links, privacy and actual supported status.
+- Use Google Search Console and real provider analytics where authorized to measure impressions, organic conversion and relevance. ZERO may propose content fixes from visitor questions, but source, review, evaluation, policy and approval are required before any public publication.
+- No misleading structured data, fake `Offer`/`InStock`, ranking guarantees, generic keyword stuffing or low-value scaled AI page generation. Google's public Search spam policy explicitly warns against mass low-value content and misleading functionality.
+- **Per-module and per-submodule competitive evidence** (not just global site Lighthouse) is mandatory: current strongest relevant SEO/content/UX specialist, usability of the actual workflow explanation, original content quality, visual accessibility, latency/SEO and real user intent satisfaction.
+
 ## 7. Maintainable single-build technical architecture
 
 Separate compatible layers without codebase forks:
@@ -177,11 +225,19 @@ foundlys.com public CDN + cached crawlable web frontend
 | SITE-023 | Real production SEO / GA / Search Console and billing/CRM/identity integrations where authorized, exact provenance and current policy; never treat mocks as a real live integration. | UNVERIFIED |
 | SITE-024 | Local workstation first where quality-equivalent, versioned Codex credit/model/API/hosting cost telemetry and independent QA, no performance/security regressions for cost cuts. | UNVERIFIED |
 
+
+| SITE-025 | Complete catalog-wide roadmap traceability: every canonical Foundly module and meaningful submodule has its own rich premium content ecosystem, with no material omitted feature. | UNVERIFIED |
+| SITE-026 | Individually verified original Knowledge Base, Blogs, FAQs, in-depth specs, practical examples, demos and source/approval lifecycle for each meaningful module/submodule. | UNVERIFIED |
+| SITE-027 | Per-module/submodule eight-locale keyword/topic/SERP maps, high-value unique international SEO, valid hreflang, complete contextual link graph, no material orphan/thin/duplicate pages and real tracking. | UNVERIFIED |
+| SITE-028 | Per-module/submodule original high-quality diagrams, visual workflows, optimized interactive motion where relevant, accurate video explainers, captions, transcripts, provenance, accessible high-performance delivery. | UNVERIFIED |
+| SITE-029 | Every module site **visually/commercially complete** without hollow 'under construction' page treatment, while availability, real functionality, demos, offers and ZERO claims always accurately match approved release registry. | UNVERIFIED |
+| SITE-030 | Continuous per-module KB/blog/SEO/visual quality audits and controlled ZERO visitor-question improvement, editorial approval, 8-locale integrity, independent specialist comparison and measured outcomes. | UNVERIFIED |
+
 ## 9. Execution sequence / no premature claims
 
 **WP0 — Discovery & source authority:** actual domain/host, repo, site URLs, content/IP, existing branding and SEO baseline; crosswalk entire approved Foundly product roadmap, in 8 locales; current-state risk register.
 **WP1 — Design system & reusable architecture:** premium original creative direction, component/pattern library, CMS, canonical product registry and future plugin/industry adapters; user-testing and motion/SEO/performance budgets.
-**WP2 — Comprehensive structured site:** platform + all product families + enterprise + industry + integrations + sales + SEO/KB/blog/video/academy/docs; content status truth enforced by API/CMS; no random autogenerated page spam.
+**WP2 — Comprehensive structured site:** **EVERY** module and meaningful submodule with separate rich professional feature content, knowledge bank, blog/FAQ, keyword/entity clusters, contextual internal links, process visualizations, accurate videos, product/status truth and 8-locale SEO; full enterprise/industry/integrations/sales/academy/docs coverage, no thin auto-generated spam.
 **WP3 — ZERO REAL integration:** staging guest+authenticated policies, grounded current knowledge/benefit demos, full 8 languages, voice if accepted, factual-answer evaluation, secure action boundaries; cannot call Run-2 unfinished ZERO accepted.
 **WP4 — Continuous learning:** governed feedback/outcome/KB gap detection, privacy/permission/review/evaluation/canary/rollback; no live self-retraining or unapproved direct user-to-production edits.
 **WP5 — Enterprise-level validation:** live devices/locale QA, current competitor task parity, real performance, SEO checks, security, voice, dynamic product states, end-to-end consent/sign-up/checkout.
