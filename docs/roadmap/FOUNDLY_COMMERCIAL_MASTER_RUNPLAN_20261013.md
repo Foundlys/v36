@@ -1,5 +1,37 @@
 # FOUNDLY OS — COMMERCIEEL MASTER-RUNPLAN (13 oktober 2026)
 
+## BELANGRIJKE CAPACITEITSCORRECTIE — FOUNDER + WORKSTATION 24/7, TOT 8 Gbit/s INTERNET (13 oktober 2026, avond)
+
+**Nieuw expliciet operationeel uitgangspunt op aanwijzing van founder:** de founder zelf is continu beschikbaar voor sturing, snelle keuzes en controles; het persoonlijke workstation is **24 uur per dag, 7 dagen per week actief** en de internetverbinding heeft een door founder opgegeven **maximale snelheid van 8 Gbit/s**. Reken dus NIET stilzwijgend met vijf werkdagen van acht uur of stilgelegde lokale uitvoering tijdens avond/nacht/weekend.
+
+**Laatst besproken workstationhardware (configuratie/levering en daadwerkelijke actieve specificaties nog via telemetry bevestigen):** AMD Ryzen 9 9950X3D2, NVIDIA RTX 5080 met 16 GB VRAM (eventuele latere RTX 5090 met 32 GB), 64 GB DDR5 uit eerder aanschafvoorstel met 128 GB DDR5 als actuele gewenste/genoemde uitbreiding, 8 TB NVMe en zware waterkoeling. De daadwerkelijke huidige RAM-capaciteit en GPU moeten bij G0 worden uitgelezen, niet worden verondersteld. Geen overklok als stabiliteitsvoorwaarde voor 24/7 Foundly-work.
+
+**Beoogde continue lokale uitvoering:** binnen veilig geautoriseerde Codex-runs en afgesloten sandbox/worktrees kunnen deterministische builds, parallelle onafhankelijke lokale testshards, Playwright-/toegankelijkheids- en 3D-browserbenchmarks, vertaal- en SEO-kwaliteitsanalyses, evaluatiecijfers, source security scans, metrics en asset-productie 's nachts/weekend doorgaan. Externe provideraccounts, reviewwachtrijen, beleidsgoedkeuringen en gewone menselijke kwaliteitsbeoordeling behouden aparte doorlooptijd. GitHub checks en bewijsmatrix publiceren per exacte SHA. Dit **herstelt NIET automatisch** de eerder beëindigde ongeautoriseerde zelfstandige ZERO-supervisor; iedere autonome uitvoering/actie volgt expliciet founderbeleid en kostenlimieten.
+
+**8 Gbit/s is theoretische maximale WAN-bandbreedte, NIET bewezen gegarandeerde symmetrische doorvoer, laagste cloud-LMM latency of onbeperkte provider/API-quota.** De RTX 5080 bespaart alleen ontwikkel- of modelcredits wanneer daadwerkelijk minder betaalde modeltokens/calls voor dezelfde geaccepteerde kwaliteit worden gebruikt; lokale tests hebben vaak al geen Codex-credits nodig. GPU-VRAM blijft de belangrijkste beperking voor grote lokale modellen. Houd productiepubliek buiten onbeschermde founder-gaming-PC; benut waar nodig professioneel gescheiden hosting, betrouwbare power/UPS en offsite backups.
+
+### Capaciteitsgevoelige herziene doorlooptijd — UITSLUITEND operationeel streefscenario, niet de garantie
+De oorspronkelijke conservatieve tijdvakken hieronder waren begroot voor een enkele begeleide Codex-uitvoeringslijn met beperkte effectieve paralleliteit. Als de founder, het workstation, meerdere geïsoleerde veilige worktrees, provideraccounts en daadwerkelijk toegelaten Codex-budget/delegation elkaar **continu** ondersteunen, kan de kritieke padduur korter worden.
+
+| Planningstype | Eerste werkelijk betaalde ZERO Website Agent | Beide ZERO + commerciële Personal Agency echt betaald | Voorwaarden |
+|---|---|---|---|
+| **Stretch (niet toegezegd)** | **4–7 maanden** | **6–10 maanden** | Grote overlap, snelle R2 acceptatie, 4 connector sandboxes, 3D/content pipeline, direct Meta/provider review, nauwelijks herwerk |
+| **24/7 versneld streefscenario (lage zekerheid)** | **6–11 maanden** | **8–15 maanden** | Eén continue lokale bron/testpijplijn met gerichte parallelle gescheiden Codex-worktrees, dagelijkse echte acceptatie, goedgekeurde provideraccounts |
+| **Oorspronkelijke conservatieve baseline** | **13–19 maanden** | **16–24 maanden** | Een primair begeleid uitvoeringstraject, handmatige review/meer terugkoppeling en mogelijk providerwachttijd |
+| **Bij zwaar provider-/kwaliteitstekort** | **20–32+ maanden** | **24–38+ maanden** | Er is geen harde bovengrens voor externe providerreview of onbegrensde benchmarkverbetering |
+
+De **6–11 en 8–15 maanden zijn nieuwe rekendoelen, geen uit repo, daadwerkelijke Codex-creditdata of hardwarethroughput gemeten verwachting**. Het oudere conservatieve scenario blijft in de rest van dit document zichtbaar en bruikbaar als terugval, niet als huidige 24/7 operationele aanname. Stuur pas op een kalenderdeadline na **G0: 7 aaneengesloten dagen gemeten lokale capaciteit + 20–30 echte Codex-taken** en de afsluitende kritieke-padberekening; maak providerwachttijd een afzonderlijke tijdserie. Noem geen functioneel niet-gecertificeerd product LIVE om het versnelde streefdoel te halen.
+
+### Operationeel dag-/nachtritme zonder stop van lokale compute
+- **Doorlopend 24/7, indien veilig geconfigureerd:** exacte brongebonden lokale CI/regressie/shards, type-checks/builds, dependency/security-scans, testartifact archivering, monitoring, uitvalherstart met limieten, asset-rendering, projectkostendashboard. Volledige kostenreservaties/hard stop bij quota, geen stille cloudtoegang/agentautonomie.
+- **Tijdens founder/Work/Codex actieve uitvoering:** geselecteerde implementaties op geïsoleerde branch/worktrees, echte lokale model- en provider proeven, review van diff, redteam, commit/revert en gateverificatie. Onafhankelijke modellen/onderdelen mogen parallel waar dezelfde auth-, build- en datastorebestanden niet worden overschreven.
+- **Vroeg parallel zonder Run-2-code af te leiden:** Meta Business eligibility/Cloud API/partnerreviews, Wix/Shopify officiële app-developer accounts en sandboxrechten, doeldomein/SEO-migratieinventaris, externe 8-locale kwaliteitsreview voorbereiding.
+- **Wekelijkse voortgangsbewijs:** SHA, geldige PASS/FAIL/UNVERIFIED, werkelijk geaccepteerd werk, active Codex tijd, onbeheerde computer/testtijd, externe wachttijd, Codex credits/tokens, ZERO-runtime API-euro's, defecten, risico op budgetoverschrijding, nieuw ETA-band.
+
+**CREDITIMPACT:** het bestaande centrale creditscenario van **530.400 incl reserve blijft onveranderd totdat reëel gemeten tokengebruik en werkstroombesparing een nieuwe forecast dragen**. 24/7 vergroot capaciteit, niet automatisch gratis cloudmodels of 30% minder tokens. Eerst G0-check, daarna daadwerkelijke P50/P90 burn-rate en kosten-per-PASS herberekenen.
+
+---
+
 > **Status:** FOUNDER-APPROVED SCOPE / PLAN **VASTGELEGD ALS DOCS-ONLY VOORSTEL**. Nog geen productcode, deployment, externe autorisatie, aankoop of release uitgevoerd op basis van dit document. PR voor opname in main vereist review/mergebesluit. Alle genoemde niet-bewezen acceptatiegates blijven FAIL/UNVERIFIED, niet stilzwijgend PASS.
 >
 > **Nieuwste bron voor bouw- en verkoopvolgorde:** dit document en GitHub issue #42, met verplichte CRM/WhatsApp-aanvulling #43, gaan bij tegenstrijdigheid vóór oudere commerciële volgorde in #39/#41. De oorspronkelijke canonieke masterruns 2–7 en contractuele kwaliteitseisen worden niet geschrapt. Commerciële **WAVE/CW-nummers zijn geen nieuwe master-Run 3–7**.
