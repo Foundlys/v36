@@ -70,6 +70,13 @@ ollama ps
 ```
 For a supported local agent session with CLI version and compatible Ollama model/context, the official integration supports `ollama launch codex` or `codex --oss` with correct installed model. **Always separately benchmark** real task completion/quality/correctness/security relative to normal Codex with Sol before routing any canonical work. Local drafts are NEVER auto-accepted Run-2 cognition, human voice, global design benchmark, Meta/Wix/Shopify security/legal approval.
 
+### Important concrete ZERO router incompatibility identified from actual Run-2 code
+
+The existing `feature/run2-zero-intelligence/zero/router.js` does NOT simply accept local Ollama through an environment override. Current `registry` validation explicitly **requires HTTPS** and rejects `localhost`, `127.*`, `10.*`, `192.168.*`, `169.254.*` hosts (as part of SSRF-sensitive provider URL controls). Therefore:
+- **Codex CLI in WSL** can separately run a supported Ollama local `--oss` session, as an external DEVELOPMENT TOOL independent from FOUNDLY ZERO Core.
+- **FOUNDLY ZERO itself** must NOT be pointed to `http://localhost:11434/v1` and must NOT loosen the existing global URL/SSRF filter to force it. Doing so would make unaudited proxying and target-injection possible.
+- If a local model is proven worthwhile inside ZERO R&D, Codex must author a **separate explicitly dev-only loopback inference adapter** bound to a fixed preconfigured loopback socket with no user-settable arbitrary endpoint, no incoming public network access, explicit no-secret/fixture-only inputs, disabled entirely in production by default, tests for SSRF/IP tricks, role/tenant and model quality. Production usage, if later approved, requires a distinct audited local inference architecture and measured availability/tenant security. Do not assume local model routing is a configuration-only change.
+
 ## C. Explicit local-first execution router (founder quality and human approvals)
 
 | Job class | First attempt | Fallback and release restrictions |
