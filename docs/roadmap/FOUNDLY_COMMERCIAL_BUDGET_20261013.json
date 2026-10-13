@@ -1,0 +1,446 @@
+{
+  "schema": "foundly/commercial-master-runplan/2026-10-13/v1",
+  "as_of": "2026-10-13",
+  "repository": "Foundlys/v36",
+  "scope": "Documentation only; shared ZERO and shared real CRM and official WhatsApp Business. Do not implement or deploy from this JSON alone.",
+  "authoritative_md": "docs/roadmap/FOUNDLY_COMMERCIAL_MASTER_RUNPLAN_20261013.md",
+  "approval": "FOUNDER_SCOPE_APPROVED_IMPLEMENTATION_NOT_ACCEPTED",
+  "run2": {
+    "pr": 21,
+    "branch": "feature/run2-zero-intelligence",
+    "head_sha": "543b490692c41c7ffb1a6cf37bf23eec6101172c",
+    "gates": {
+      "total": 125,
+      "pass": 44,
+      "fail": 46,
+      "unverified": 35
+    },
+    "accepted": false
+  },
+  "website": {
+    "issue": 37,
+    "pr": 38,
+    "site_gates": 30,
+    "status": "UNVERIFIED"
+  },
+  "official_crm": {
+    "issue": 33,
+    "docs_pr": 36,
+    "independent_commercial_acceptance": "NOT_ACCEPTED"
+  },
+  "official_whatsapp": {
+    "issue": 35,
+    "docs_pr": 36,
+    "production_cloud_messaging": "UNVERIFIED"
+  },
+  "zero_agent": {
+    "issue": 40,
+    "gates": 24,
+    "platforms": [
+      "Wix",
+      "Shopify",
+      "WooCommerce",
+      "custom/selfhosted/onprem/local via signed connector"
+    ],
+    "certified": false
+  },
+  "personal_agency": {
+    "issue": 41,
+    "gates": 20,
+    "crm_whatsapp_issue": 43,
+    "extra_gates": 16,
+    "commercially_accepted": false
+  },
+  "commercial_order": [
+    {
+      "ordinal": 1,
+      "id": "MASTER_RUN_2",
+      "release_kind": "internal_core",
+      "blocked_by": []
+    },
+    {
+      "ordinal": 2,
+      "id": "PUBLIC_3D_SITE",
+      "release_kind": "public_marketing_after_acceptance",
+      "blocked_by": [
+        "MASTER_RUN_2"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "id": "PRIVATE_FOUNDER_AGENCY",
+      "modules": [
+        "ZERO",
+        "Email",
+        "Calendar",
+        "Foundly CRM",
+        "official WhatsApp Business",
+        "Social Media",
+        "Finance",
+        "ONE Control Panel"
+      ],
+      "release_kind": "founder_only",
+      "blocked_by": [
+        "MASTER_RUN_2"
+      ],
+      "may_overlap_with": [
+        "PUBLIC_3D_SITE"
+      ]
+    },
+    {
+      "ordinal": 4,
+      "id": "ZERO_AGENT_BASIS_PREMIUM",
+      "release_kind": "FIRST_PAID_SAAS",
+      "blocked_by": [
+        "MASTER_RUN_2",
+        "PUBLIC_3D_SITE",
+        "PRIVATE_FOUNDER_AGENCY",
+        "ZERO_UA_001..024",
+        "WORK_AND_FOUNDER"
+      ]
+    },
+    {
+      "ordinal": 5,
+      "id": "COMMERCIAL_PERSONAL_AGENCY",
+      "release_kind": "SECOND_PAID_SAAS",
+      "blocked_by": [
+        "ZERO_AGENT_BASIS_PREMIUM",
+        "FPA_COM_001..020",
+        "FPA_CRM_WAB_001..016",
+        "WORK_AND_FOUNDER"
+      ]
+    }
+  ],
+  "deferred_private_modules": [
+    "Marketing (SEO/SEA/Website/Ads)",
+    "Media streaming services",
+    "native Foundly AI Models creation suite",
+    "Gaming"
+  ],
+  "budget": {
+    "basis": "ADDITIONAL remaining Codex/Work developer CREDIT CAPACITY, not historical spent or empirical invoice forecast",
+    "sunk_existing_code_double_counted": false,
+    "contingency_fraction": 0.3,
+    "package_costs": [
+      {
+        "id": "R2",
+        "label": "Bestaande ZERO Run 2 afronden",
+        "low_credits": 25000,
+        "central_credits": 45000,
+        "high_credits": 70000,
+        "first_zero_release_allocated_credits": 45000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "SITE",
+        "label": "3D website 8 talen SEO/kennisbanken",
+        "low_credits": 40000,
+        "central_credits": 80000,
+        "high_credits": 150000,
+        "first_zero_release_allocated_credits": 80000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "FOUNDER_HOME",
+        "label": "Private Founder Agency basis",
+        "low_credits": 15000,
+        "central_credits": 35000,
+        "high_credits": 75000,
+        "first_zero_release_allocated_credits": 35000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "FOUNDER_CRM",
+        "label": "Founder CRM UI en Control Panel",
+        "low_credits": 5000,
+        "central_credits": 12000,
+        "high_credits": 30000,
+        "first_zero_release_allocated_credits": 12000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "WHATSAPP_BIZ",
+        "label": "Officiele WhatsApp Business adapter en onboarding",
+        "low_credits": 8000,
+        "central_credits": 20000,
+        "high_credits": 55000,
+        "first_zero_release_allocated_credits": 20000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "CRM_WA_ZERO",
+        "label": "CRM WhatsApp ZERO workflows",
+        "low_credits": 4000,
+        "central_credits": 7000,
+        "high_credits": 22000,
+        "first_zero_release_allocated_credits": 7000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "ZERO_AGENT",
+        "label": "ZERO Website Agent met 4 platformfamilies",
+        "low_credits": 35000,
+        "central_credits": 90000,
+        "high_credits": 175000,
+        "first_zero_release_allocated_credits": 90000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "ZERO_PREMIUM",
+        "label": "ZERO Intelligence Premium",
+        "low_credits": 7000,
+        "central_credits": 18000,
+        "high_credits": 45000,
+        "first_zero_release_allocated_credits": 18000,
+        "second_agency_release_allocated_credits": 0
+      },
+      {
+        "id": "AGENCY_SAAS",
+        "label": "Commerciele Personal Agency productisering",
+        "low_credits": 12000,
+        "central_credits": 30000,
+        "high_credits": 70000,
+        "first_zero_release_allocated_credits": 0,
+        "second_agency_release_allocated_credits": 30000
+      },
+      {
+        "id": "AGENCY_CRM_SAAS",
+        "label": "Commerciele CRM tenant hardening",
+        "low_credits": 10000,
+        "central_credits": 22000,
+        "high_credits": 60000,
+        "first_zero_release_allocated_credits": 0,
+        "second_agency_release_allocated_credits": 22000
+      },
+      {
+        "id": "SHARED_QA",
+        "label": "Gedeelde security benchmark Work QA",
+        "low_credits": 10000,
+        "central_credits": 35000,
+        "high_credits": 85000,
+        "first_zero_release_allocated_credits": 27000,
+        "second_agency_release_allocated_credits": 8000
+      },
+      {
+        "id": "WA_QA",
+        "label": "Aanvullende CRM WhatsApp onafhankelijke QA",
+        "low_credits": 3000,
+        "central_credits": 4000,
+        "high_credits": 18000,
+        "first_zero_release_allocated_credits": 2000,
+        "second_agency_release_allocated_credits": 2000
+      },
+      {
+        "id": "DEVOPS",
+        "label": "Deploy DevOps migratie observability",
+        "low_credits": 5000,
+        "central_credits": 10000,
+        "high_credits": 25000,
+        "first_zero_release_allocated_credits": 8000,
+        "second_agency_release_allocated_credits": 2000
+      }
+    ],
+    "scenarios": [
+      {
+        "scenario": "low",
+        "work_credits": 179000,
+        "reserve_credits": 53700,
+        "credits_including_reserve": 232700,
+        "illustrative_eur_at_0028": 6515.6,
+        "illustrative_eur_at_00357": 8307.39
+      },
+      {
+        "scenario": "central",
+        "work_credits": 408000,
+        "reserve_credits": 122400,
+        "credits_including_reserve": 530400,
+        "illustrative_eur_at_0028": 14851.2,
+        "illustrative_eur_at_00357": 18935.28
+      },
+      {
+        "scenario": "high",
+        "work_credits": 880000,
+        "reserve_credits": 264000,
+        "credits_including_reserve": 1144000,
+        "illustrative_eur_at_0028": 32032,
+        "illustrative_eur_at_00357": 40840.8
+      }
+    ],
+    "central_remaining_work_credits": 408000,
+    "central_risk_reserve_credits": 122400,
+    "central_total_capacity_credits": 530400,
+    "model_unit_eur_assumptions": [
+      {
+        "rate": 0.028,
+        "kind": "historic founder planning assumption not verified buying price"
+      },
+      {
+        "rate": 0.0357,
+        "kind": "earlier token/API equivalence not verified buying price"
+      }
+    ],
+    "first_zero_paid_launch": {
+      "work_credits": 344000,
+      "reserve_credits": 103200,
+      "budget_capacity_credits": 447200,
+      "eur_examples": {
+        "at_0028": 12521.6,
+        "at_00357": 15965.04
+      }
+    },
+    "second_agency_paid_launch_incremental": {
+      "work_credits": 64000,
+      "reserve_credits": 19200,
+      "budget_capacity_credits": 83200,
+      "eur_examples": {
+        "at_0028": 2329.6,
+        "at_00357": 2970.24
+      }
+    },
+    "actual_workspace_credit_balance": null,
+    "actual_historical_spend": null,
+    "pending_factual_data": [
+      "20 to 30 measured representative Codex jobs",
+      "Workspace Billing credits and included allowance",
+      "actual current purchase price and taxes",
+      "3D and eight locale content scope count",
+      "Meta business provider rights/app review",
+      "real platform sandboxes and production telemetry"
+    ],
+    "spend_control": "Do not purchase full envelope; use workspace budget limits, stop/replan for budget overrun, measure cost per accepted result.",
+    "runtime_costs_are_separate": true
+  },
+  "timeline": {
+    "start": "2026-10-13",
+    "time_not_guaranteed": true,
+    "first_zero_paid_launch_months": {
+      "accelerated": [
+        9,
+        13
+      ],
+      "central": [
+        13,
+        19
+      ],
+      "risk": [
+        20,
+        32
+      ],
+      "risk_is_open_ended": true
+    },
+    "both_products_paid_launch_months": {
+      "accelerated": [
+        11,
+        17
+      ],
+      "central": [
+        16,
+        24
+      ],
+      "risk": [
+        24,
+        38
+      ],
+      "risk_is_open_ended": true
+    },
+    "waves": [
+      {
+        "id": "CW-0",
+        "name": "Repo/credit/provider baseline",
+        "min_weeks": 1,
+        "max_weeks": 2,
+        "notes": "in parallel with Run2"
+      },
+      {
+        "id": "RUN2",
+        "name": "Original ZERO MASTER RUN 2 only",
+        "min_weeks": 8,
+        "max_weeks": 18,
+        "notes": "P0 cannot skip"
+      },
+      {
+        "id": "CW-1",
+        "name": "3D public site+8 locales+SEO+ZERO demo",
+        "min_weeks": 10,
+        "max_weeks": 22,
+        "notes": "after Run2 capability stabilized"
+      },
+      {
+        "id": "CW-2",
+        "name": "Private founder home+CRM+WhatsApp Business",
+        "min_weeks": 8,
+        "max_weeks": 20,
+        "notes": "may overlap public site; Meta review external"
+      },
+      {
+        "id": "CW-3",
+        "name": "Universal agent tenant/widget/KB/action engine",
+        "min_weeks": 5,
+        "max_weeks": 10,
+        "notes": "after shared permissions stable"
+      },
+      {
+        "id": "CW-4",
+        "name": "Four genuine platform integrations",
+        "min_weeks": 9,
+        "max_weeks": 18,
+        "notes": "may overlap CW-3 and connector families"
+      },
+      {
+        "id": "CW-5",
+        "name": "Premium intelligence reports and entitlements",
+        "min_weeks": 4,
+        "max_weeks": 8,
+        "notes": "overlap CW-4"
+      },
+      {
+        "id": "CW-6",
+        "name": "ZERO independent commercial audit/release",
+        "min_weeks": 3,
+        "max_weeks": 8,
+        "notes": "external provider review separate"
+      },
+      {
+        "id": "CW-7",
+        "name": "Commercial Agency multi-tenant+CRM/WA business",
+        "min_weeks": 8,
+        "max_weeks": 18,
+        "notes": "may prepare earlier but first sale after ZERO"
+      },
+      {
+        "id": "CW-8",
+        "name": "Agency independent commercial audit/release",
+        "min_weeks": 2,
+        "max_weeks": 6,
+        "notes": "work overlaps CW-7"
+      }
+    ]
+  },
+  "special_vendor_external_fees": [
+    "hosting/databases/CDN",
+    "public AI/voice inference/API tokens",
+    "Meta WhatsApp per-message and provider/BSP fees",
+    "human localizations/creative assets",
+    "third-party security audit/legal/GDPR",
+    "payments and customer support"
+  ],
+  "referenced_issues": [
+    21,
+    33,
+    35,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+  ],
+  "source_links": [
+    "https://help.openai.com/en/articles/11481834-chatgpt-rate-card-business-enterpriseedu-credit-based-pricing",
+    "https://help.openai.com/en/articles/20001155",
+    "https://github.com/Foundlys/v36/pull/21",
+    "https://github.com/Foundlys/v36/issues/42",
+    "https://github.com/Foundlys/v36/issues/43"
+  ]
+}
