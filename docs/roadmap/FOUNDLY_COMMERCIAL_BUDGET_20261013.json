@@ -442,5 +442,88 @@
     "https://github.com/Foundlys/v36/pull/21",
     "https://github.com/Foundlys/v36/issues/42",
     "https://github.com/Foundlys/v36/issues/43"
-  ]
+  ],
+  "capacity_override_2026_10_13": {
+    "recorded_at": "2026-10-13 evening Europe/Amsterdam",
+    "source": "Founder explicitly reports their workstation and personal direction/availability 24/7 plus an internet connection up to 8 Gbps.",
+    "assumptions": {
+      "founder_available_to_drive_and_review": "continuous availability reported; actual approvals and attention measured separately from machine uptime",
+      "local_workstation_on_247": true,
+      "internet_peak_gbps": 8,
+      "peak_is_not_guaranteed_symmetric_sustained_speed": true,
+      "last_discussed_hardware": {
+        "cpu": "AMD Ryzen 9 9950X3D2 (last-discussed config, actual observed CPU not verified)",
+        "gpu_current_assumption": "NVIDIA RTX 5080 16GB; actual installed GPU to measure",
+        "gpu_future_option": "NVIDIA RTX 5090 32GB",
+        "ram": "64GB prior quote, 128GB considered/mentioned; actual RAM not verified",
+        "ssd": "8TB NVMe last discussed, actual installed storage unverified"
+      },
+      "local_execution": [
+        "source-bound tests",
+        "parallel isolated reproducible regression shards",
+        "build and frontend/3D rendering",
+        "Playwright browser accessibility/performance",
+        "static scans and offline evaluator runs",
+        "selected verified quality-equivalent local AI workloads"
+      ],
+      "limits": [
+        "cloud Codex/token cost not reduced merely by peak bandwidth",
+        "GPU VRAM constrains large local AI",
+        "external provider approvals and humans may dominate elapsed time",
+        "no unsupervised unauthorized agents/deployment",
+        "local machine not default public production host"
+      ]
+    },
+    "timeline_mode": "low-confidence conditional accelerated target, NOT evidence-based forecast nor guaranteed service date",
+    "accelerated": {
+      "first_zero_paid_launch_months": {
+        "stretch": [
+          4,
+          7
+        ],
+        "target": [
+          6,
+          11
+        ],
+        "external_slow": [
+          13,
+          19
+        ],
+        "blocked": [
+          20,
+          32
+        ],
+        "blocked_no_guaranteed_max": true
+      },
+      "both_products_paid_launch_months": {
+        "stretch": [
+          6,
+          10
+        ],
+        "target": [
+          8,
+          15
+        ],
+        "external_slow": [
+          16,
+          24
+        ],
+        "blocked": [
+          24,
+          38
+        ],
+        "blocked_no_guaranteed_max": true
+      }
+    },
+    "credit_assumption": "No change from 530400-credit central total including reserve; actual purchased credits, throughput and local saving cannot be inferred without measured workload.",
+    "required_calibration": [
+      "seven consecutive days of local CI/test/CPU/GPU/RAM and network metrics",
+      "twenty to thirty real model/Codex tasks with token/cache/credit logs",
+      "isolated worktree parallel conflict/quality proof",
+      "verified access and review times for Meta Business/Wix/Shopify/WooCommerce",
+      "frozen Run2 gate evidence on latest PR HEAD/worktree"
+    ],
+    "future_commercial_order_unchanged": true,
+    "auth": "Only previously founder-authorized tools/actions; no autonomous ZERO development supervisor reinstated."
+  }
 }
